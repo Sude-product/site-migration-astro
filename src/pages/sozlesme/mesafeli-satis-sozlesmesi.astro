@@ -1,0 +1,14 @@
+---
+// NOT: TR'de bu sözleşmenin `-kobi`/`-mikro` (fiyat paketi bazlı)
+// varyantları da var (bkz. CLAUDE.md) — bu turda yalnızca TEMEL varyant
+// migrate edildi (footer/nav'daki tek link buna gidiyor), kobi/mikro
+// ayrı bir turda ele alınacak (kaynak Elementor HTML'i homepage gibi
+// karmaşık, ACF `content_block` alanı yok).
+import LegalPage from '../../components/LegalPage.astro';
+import { getLegalContent, getLegalLocaleUrls, DISTANCE_SALES_TR_SLUG } from '../../data/miscPagesContent';
+
+const content = getLegalContent(DISTANCE_SALES_TR_SLUG, 'tr')!;
+const localeUrls = getLegalLocaleUrls(DISTANCE_SALES_TR_SLUG);
+---
+
+<LegalPage content={content} localeUrls={localeUrls} />

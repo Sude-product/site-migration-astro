@@ -1,0 +1,26 @@
+---
+// Basit hukuki/metin sayfaları (Tüketici Hakları Sözleşmesi, Mesafeli
+// Satış Sözleşmesi) — tek başlık + tam bir `content_block` HTML alanı.
+// ProductPage.astro'ya zorla uydurulmadı (hero/section/FAQ şeması yok,
+// gerçekten düz bir metin sayfası).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { LegalContent } from '../data/miscPagesContent';
+
+interface Props {
+  content: LegalContent;
+  localeUrls: Record<string, string | undefined>;
+}
+
+const { content, localeUrls } = Astro.props;
+const description = content.contentHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+---
+
+<BaseLayout title={`idenfit — ${content.title}`} description={description} localeUrls={localeUrls}>
+  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <h1 class="text-3xl font-bold text-heading sm:text-4xl">{content.title}</h1>
+    <div
+      class="prose-legal mt-8 text-sm leading-relaxed text-body [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-heading [&_li]:mb-1 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:mb-3 [&_strong]:font-semibold [&_strong]:text-heading [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
+      set:html={content.contentHtml}
+    />
+  </section>
+</BaseLayout>

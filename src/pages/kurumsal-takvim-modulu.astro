@@ -1,0 +1,13 @@
+---
+// Aşama 2.5 — şema çeşitliliği testi (Şirket Takvimi — gürültülü ekstra ACF
+// alan grupları içeren sayfa). Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+
+const trSlug = 'kurumsal-takvim-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

@@ -1,0 +1,18 @@
+---
+import SecurityPage from '../../components/SecurityPage.astro';
+import { getSecurityItems, getSecurityLocaleUrls, getSecurityMeta } from '../../data/miscPagesContent';
+import { getTranslations } from '../../i18n';
+
+const t = getTranslations('it');
+const items = getSecurityItems('it');
+const localeUrls = getSecurityLocaleUrls();
+const meta = getSecurityMeta('it');
+---
+
+<SecurityPage
+  title={t.footer.links.about.security}
+  pageTitle={meta.pageTitle}
+  description={meta.description}
+  items={items}
+  localeUrls={localeUrls}
+/>

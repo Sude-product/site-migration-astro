@@ -1,0 +1,9 @@
+---
+import ContactPage from '../../components/ContactPage.astro';
+import { getContactContent, getContactLocaleUrls } from '../../data/miscPagesContent';
+
+const content = getContactContent('en')!;
+const localeUrls = getContactLocaleUrls();
+---
+
+<ContactPage content={content} localeUrls={localeUrls} />

@@ -1,0 +1,171 @@
+---
+import HeroForm from './HeroForm.tsx';
+import { getTranslations } from '../i18n';
+import { HOME_HERO_IMAGE } from '../data/homeContent';
+import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
+import { getSupportRequestLocaleUrls } from '../data/supportRequestContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const heroImage = HOME_HERO_IMAGE[locale];
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+// "Destek Talebi İçin Tıklayın" — kaynakta (idenfit.com'un anasayfası/
+// footer'ı) BULUNAMADI (2026-07-27'de canlı HTML'de arandı, hiç yok) —
+// kullanıcı isteğiyle yeni eklenen bir giriş noktası, kırık bir linki
+// düzeltme DEĞİL (bkz. CLAUDE.md).
+const supportRequestHref = getSupportRequestLocaleUrls()[locale];
+
+// ⚠️ DÜZELTME (2026-07-28, BEŞİNCİ tur): dördüncü turda "gereksiz tekrar"
+// gerekçesiyle bu ikonlar buradan KALDIRILIP yalnızca site-geneli
+// `FloatingContactButtons.astro`'ya bırakılmıştı — bu KASITLI bir
+// konsolidasyon kararıydı (CSS regresyonu/üzerine yazılma DEĞİL), ama
+// kullanıcı Destek Talebi linkinin altında da AYRICA görünmesini istediği
+// için geri eklendi. Artık HEM site-geneli sabit widget (sağ-alt, her
+// sayfada) HEM bu satır-içi çift (yalnızca ana sayfanın hero'sunda) aynı
+// anda var — kasıtlı, kod tekrarı değil (ikisi farklı boyut/bağlamda).
+// Stil `FloatingContactButtons.astro` ile TUTARLI: WhatsApp beyaz zemin +
+// kırmızı ikon/kenarlık, Ara dolu kırmızı zemin + beyaz ikon — yeşil YOK.
+const WHATSAPP_URL = 'https://wa.me/905375265307';
+const CALL_URL = 'tel:02162950927';
+---
+
+<!-- 2026-07-28 (ALTINCI tur) — %50/%50 hizalama düzeltmesi. Önceki turda
+     satır `mx-auto max-w-7xl` (1280px'e sınırlı) içindeydi AMA kırmızı
+     panel AYRICA `lg:mr-[calc(50%-50vw)]` ile viewport kenarına kadar
+     taşıyordu — bu ikisi ÇAKIŞIYORDU: grid'in kendisi %50/%50'yi 1280px'lik
+     dar genişliğe göre hesaplarken, kırmızı panel bunun ÖTESİNE taşıp
+     gerçek bölünme noktasını viewport'un GERÇEK ortasından kaydırıyordu
+     (kullanıcının "hizalama bozuk" bulgusunun kök nedeni). Kaynağın
+     kendisi zaten `e-con-full` (sınırsız) olduğu için (bkz. önceki tur
+     notu), çözüm satırı BAŞTAN sınırsız yapmak — artık `lg:mr-[calc(50%-50vw)]`
+     hilesine hiç gerek yok, `grid-cols-2` viewport'un GERÇEK yarısını
+     hesaplıyor. Bu aynı zamanda `overflow-hidden`'ı da gereksiz kıldı
+     (kaldırıldı) — eskiden full-bleed hilesinin olası yatay scrollbar
+     riskine karşı eklenmişti, artık hiçbir çocuk taşmıyor. -->
+<section class="bg-[#F8F8F8] py-12 lg:py-20">
+	<div class="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-0">
+		<!-- Sol kolon: başlık + açıklama + form. İç içerik `max-w-xl`'e
+		     sarmalanmış — kolon artık tam yarım viewport genişliğinde
+		     olduğundan (geniş ekranlarda 700px+), metnin/formun aşırı
+		     yayılmaması için. -->
+		<div class="flex flex-col justify-center px-4 py-8 sm:px-6 lg:px-12 xl:px-20">
+			<div class="mx-auto w-full max-w-xl lg:mx-0">
+			<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
+			     (`post-25148.css`, `.elementor-element-0c8eb2b`/`4ec6dae`) —
+			     H1 mobilde 20px, `lg:` 35px/`font-weight:600`/`line-height:45px`
+			     (kaynağın kendi custom CSS'i, `!important`); paragraf mobilde
+			     16px, `lg:` 20px, renk TAM OLARAK `#808080` = bizim `--color-muted`
+			     token'ımızla birebir aynı (önceden `text-body`/#333333
+			     kullanılıyordu, yanlıştı — düzeltildi).
+			     ⚠️ DÜZELTME (2026-08-03): H1→paragraf ve paragraf→form arası
+			     boşluk (`mt-5`=20px / `mt-8`=32px) TAHMİNDİ — element `4ec6dae`nin
+			     (paragraf) gerçek `padding:15px 0px 15px 0px` kuralı (tüm
+			     breakpoint'lerde sabit) her iki boşluğun da GERÇEKTE 15px
+			     olduğunu gösterdi, `mt-[15px]`e düzeltildi. -->
+			<h1 class="whitespace-pre-line text-xl font-semibold leading-tight tracking-tight text-heading lg:text-[35px] lg:leading-[45px]">
+				{t.hero.title}
+			</h1>
+			<p class="mt-[15px] max-w-xl text-base text-muted lg:text-xl">
+				{t.hero.description}
+			</p>
+
+			<div class="mt-[15px] max-w-md">
+				<HeroForm
+					client:load
+					labels={{
+						name: t.hero.formName,
+						phone: t.hero.formPhone,
+						phoneError: t.hero.formPhoneError,
+						phoneCountryLabel: t.hero.formPhoneCountryLabel,
+						phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+						phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+						company: t.hero.formCompany,
+						email: t.hero.formEmail,
+						submit: t.hero.formSubmit,
+						kvkkNotice: t.hero.kvkkNotice,
+					}}
+					locale={locale}
+					kvkkHref={kvkkHref}
+					termsHref={termsHref}
+				/>
+				{
+					supportRequestHref && (
+						<a
+							href={supportRequestHref}
+							class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline"
+						>
+							{t.hero.supportRequestLink}
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+								<path d="M5 12h14M13 6l6 6-6 6" />
+							</svg>
+						</a>
+					)
+				}
+				<div class="mt-2 flex items-center gap-2">
+					<a
+						href={CALL_URL}
+						aria-label={t.hero.callLabel}
+						class="flex h-12 w-12 items-center justify-center rounded-full bg-brand text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg motion-reduce:hover:translate-y-0"
+					>
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+							<path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+						</svg>
+					</a>
+					<a
+						href={WHATSAPP_URL}
+						target="_blank"
+						rel="noopener noreferrer"
+						aria-label={t.hero.whatsappLabel}
+						class="flex h-12 w-12 items-center justify-center rounded-full border-2 border-brand bg-white text-brand shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-brand hover:text-white hover:shadow-lg motion-reduce:hover:translate-y-0"
+					>
+						<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+							<path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.29.173-1.414-.074-.124-.272-.198-.57-.347z" />
+							<path d="M12.001 2c-5.522 0-10 4.477-10 10 0 1.75.457 3.443 1.325 4.938L2 22l5.213-1.31A9.933 9.933 0 0 0 12.001 22c5.522 0 10-4.477 10-10s-4.478-10-10-10zm0 18.153a8.14 8.14 0 0 1-4.146-1.137l-.297-.177-3.096.777.827-3.02-.194-.31a8.129 8.129 0 0 1-1.245-4.336c0-4.495 3.657-8.153 8.154-8.153 4.495 0 8.152 3.658 8.152 8.153 0 4.496-3.657 8.153-8.152 8.153h-.003z" />
+						</svg>
+					</a>
+				</div>
+			</div>
+			</div>
+		</div>
+
+		<!-- Sağ kolon: kırmızı zemin, TAM blok (köşesiz), artık `grid-cols-2`'nin
+		     GERÇEK yarısı (KONU 1, altıncı tur). 2026-07-28 (YEDİNCİ tur, KONU 2)
+		     — kullanıcı "görsel panelin ÜST kısmına yakın, üstte az boşluk var,
+		     panelin çoğunu kaplıyor" dedi; element-ID ile `post-25148.css`
+		     yeniden okundu ve GERÇEK kök neden bulundu: kaynağın kırmızı paneli
+		     (`efc5a57`) `--padding-top:0px;--padding-bottom:0px` — yani DIŞ
+		     PADDING SIFIR, tüm boşluk yalnızca flex `justify-content:center`den
+		     geliyor. Bizim önceki `px-8 py-12 lg:py-16` bu boşluğu YAPAY olarak
+		     büyütüp görseli küçük/ortada gösteriyordu — kaldırıldı (yalnızca
+		     dar ekranlarda görsel kenara yapışmasın diye hafif responsive
+		     padding bırakıldı, kaynağın kendi `<1023px` kuralı da
+		     `padding-top:20px;padding-bottom:20px` ile benzer bir küçük boşluk
+		     tanımlıyor). İç sarmalayıcı `max-w-xl`(576px)'den kaynağın GERÇEK
+		     `content-width:615px` değerine (`max-w-[615px]`) düzeltildi, görsel
+		     `max-w-md/lg` (sabit px) yerine kaynağın GERÇEK `max-width:90%`
+		     (nispi) kuralına (`max-w-[90%]`) geçirildi — artık sarmalayıcı
+		     büyüdükçe görsel de orantılı büyüyor, kaynakla birebir. Başlığın
+		     `margin-top` (`mt-8`/32px → `mt-5`/20px, kaynak: `f10512a{margin-top:
+		     20px !important}`) ve boyutu (`text-[32px]` sabit → `text-2xl
+		     lg:text-[32px]`, kaynak: 24px `<1024px` / 32px masaüstü) ve alt
+		     yazının rengi/boyutu/ağırlığı (`text-white/90` → tam `#F8F8F8`,
+		     `text-sm lg:text-base`/14→16px, `font-medium`, kaynak: `68737fd{
+		     font-size:16px;font-weight:500}` + mobil override `font-size:14px`)
+		     kaynaktan BİREBİR ölçüldü. -->
+		<div class="flex items-center justify-center bg-brand px-6 py-5 text-center text-white lg:px-0 lg:py-0">
+			<div class="mx-auto flex w-full max-w-[615px] flex-col items-center">
+				<img
+					src={heroImage.url}
+					width={heroImage.width}
+					height={heroImage.height}
+					alt={t.hero.sideTitle}
+					class="max-w-[90%] object-contain"
+					loading="eager"
+				/>
+				<h2 class="mt-5 text-2xl font-bold leading-[1.2] lg:text-[32px]">{t.hero.sideTitle}</h2>
+				<p class="mt-2 text-sm font-medium leading-[1.4] text-[#F8F8F8] lg:text-base">{t.hero.sideSubtitle}</p>
+			</div>
+		</div>
+	</div>
+</section>

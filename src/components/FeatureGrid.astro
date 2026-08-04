@@ -1,0 +1,121 @@
+---
+// 4'lü özellik kartı grid'i — idenfit.com ana sayfasından (bkz.
+// docs/homepage-sections-report.md §5). İkonlar idenfit.com'un gerçek
+// inline SVG'leri (birebir kopyalandı, `IdenfitIcons.tsx`'teki mega-menü
+// ikonlarıyla aynı marka ailesinden ama bu 4'ü farklı/kendine özgü —
+// ayrı bir dosyaya çıkarılmadı çünkü yalnızca burada, tek component
+// içinde kullanılıyor).
+//
+// DÜZELTME (2026-07-22): kartların stili kaynağın gerçek CSS'ine
+// (post-9.css) göre hizalandı — görünür `border` YERİNE yumuşak gölge
+// (`0 4px 34px rgba(0,0,0,.07)`) + `6px` radius (önceki `rounded-2xl` +
+// `border-gray-100` kaynakta hiç yoktu).
+//
+// EKLENDİ (2026-07-28): kartlar arasındaki dekoratif "+"/"=" bağlayıcı
+// ikonlar. Kaynakta (`post-9.css`) 3 kart'a (`elementor-element-7a111a4`/
+// `ccfc630`: `.plus-box`, `elementor-element-7afe023`: `.equals-box`)
+// eklenen bir `::after{content:url(.../plus.svg | equals.svg)}` — gerçek
+// SVG'ler (24×24, siyah, `stroke-width:2.5`) indirilip birebir taşındı.
+// Kaynağın kendi konumlandırması (`position:absolute; top:50%; right:-16%`,
+// `transform` YOK — dikey ortalama yaklaşık/kesin değil, mobilde
+// `bottom:-16%;right:47%` ile ayrı bir kural) kırılgan bir yüzde-tabanlı
+// hack — BİLİNÇLİ OLARAK taklit edilmedi. Bunun yerine grid'in kendisine
+// (yalnızca `lg:`, 4 kart tek satırdayken) kart aralarına gerçek, dar bir
+// grid kolonu eklenip ikon oraya ortalanarak yerleştirildi — aynı görsel
+// sonuç, kırılgan mutlak-konumlama olmadan. `sm`/mobil'de (kartlar 1-2
+// kolona düşüyor) bağlayıcılar `hidden` — kaynağın mobil kuralı farklı bir
+// konum öneriyordu ama satır/kolon sayısı bizim breakpoint'lerimizde
+// kaynaktan farklı olduğu için birebir uygulanamazdı, bilinçli sadeleştirme.
+import { getTranslations } from '../i18n';
+
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+const { featureGrid } = t.home;
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="mx-auto max-w-3xl text-center">
+    <h2 class="h2-section text-heading">{featureGrid.title}</h2>
+    <p class="mt-4 text-body">{featureGrid.intro}</p>
+  </div>
+
+  <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] lg:items-center lg:gap-4">
+    <div class="reveal flex flex-col items-center rounded-md bg-surface px-4 py-10 text-center shadow-[0_4px_34px_rgba(0,0,0,0.07)]">
+      <svg width="64" height="64" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+        <path d="M0 40C0 11.848 11.848 0 40 0C68.152 0 80 11.848 80 40C80 68.152 68.152 80 40 80C11.848 80 0 68.152 0 40Z" fill="#FFE5E5"></path>
+        <path d="M25.2942 60.5334H33.6468C37.8439 60.5334 38.5956 58.9225 38.8149 56.9614L39.5979 48.9569C39.8798 46.5155 39.149 44.5244 34.6908 44.5244H24.2502C19.792 44.5244 19.0612 46.5155 19.3431 48.9569L20.1261 56.9614C20.3454 58.9225 21.0971 60.5334 25.2942 60.5334Z" stroke="#FF0000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M25.2939 44.5241V43.6889C25.2939 41.8409 25.2939 40.3479 28.6349 40.3479H30.3055C33.6465 40.3479 33.6465 41.8409 33.6465 43.6889V44.5241" stroke="#FF0000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M31.5576 51.8326V52.8767C31.5576 52.8871 31.5576 52.8871 31.5576 52.8976C31.5576 54.0356 31.5472 54.9648 29.4695 54.9648C27.4022 54.9648 27.3813 54.046 27.3813 52.908V51.8326C27.3813 50.7886 27.3813 50.7886 28.4254 50.7886H30.5135C31.5576 50.7886 31.5576 50.7886 31.5576 51.8326Z" stroke="#FF0000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M39.5457 49.7444C37.1339 51.4984 34.3776 52.5425 31.5586 52.8974" stroke="#FF0000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M19.6772 50.0266C22.0264 51.6345 24.6783 52.6054 27.3824 52.9082" stroke="#FF0000" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M42.883 54.2687C52.4884 54.2687 60.284 46.473 60.284 36.8676C60.284 27.2622 52.4884 19.4666 42.883 19.4666C33.2776 19.4666 25.4819 27.2622 25.4819 36.8676" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M49.3394 42.4011L43.945 39.1819C43.0054 38.625 42.2397 37.2851 42.2397 36.1889V29.0544" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.timeLeave.title}</h3>
+      <p class="mt-2 text-sm text-body">{featureGrid.timeLeave.text}</p>
+    </div>
+
+    <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-heading">
+        <path d="M4 12H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M12 20L12 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="reveal flex flex-col items-center rounded-md bg-surface px-4 py-10 text-center shadow-[0_4px_34px_rgba(0,0,0,0.07)]">
+      <svg width="64" height="64" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+        <path d="M0 40C0 11.848 11.848 0 40 0C68.152 0 80 11.848 80 40C80 68.152 68.152 80 40 80C11.848 80 0 68.152 0 40Z" fill="#E2EEDA"></path>
+        <path d="M40.0007 39.9993C45.0633 39.9993 49.1673 35.8953 49.1673 30.8327C49.1673 25.7701 45.0633 21.666 40.0007 21.666C34.938 21.666 30.834 25.7701 30.834 30.8327C30.834 35.8953 34.938 39.9993 40.0007 39.9993Z" stroke="#8BB956" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M55.7486 58.3333C55.7486 51.2383 48.6903 45.5 40.0003 45.5C31.3103 45.5 24.252 51.2383 24.252 58.3333" stroke="#8BB956" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.performance.title}</h3>
+      <p class="mt-2 text-sm text-body">{featureGrid.performance.text}</p>
+    </div>
+
+    <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-heading">
+        <path d="M4 12H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M12 20L12 4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="reveal flex flex-col items-center rounded-md bg-surface px-4 py-10 text-center shadow-[0_4px_34px_rgba(0,0,0,0.07)]">
+      <svg width="64" height="64" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+        <path d="M0 40C0 11.848 11.848 0 40 0C68.152 0 80 11.848 80 40C80 68.152 68.152 80 40 80C11.848 80 0 68.152 0 40Z" fill="#FDEBC7"></path>
+        <path d="M45.5578 34.343C45.5989 33.9295 45.6199 33.5101 45.6199 33.0858C45.6199 26.1428 39.9915 20.5144 33.0485 20.5144C26.1055 20.5144 20.4771 26.1428 20.4771 33.0858C20.4771 40.0288 26.1055 45.6573 33.0485 45.6573C33.4857 45.6573 33.9177 45.6349 34.3434 45.5914" stroke="#F5AD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M27.064 40C28.384 38.1017 30.5965 36.8571 33.0857 36.8571C34.7355 36.8571 36.2583 37.4039 37.4857 38.3254" stroke="#F5AD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M26.7998 29C28.0569 27.7428 30.1061 27.7428 31.3758 29" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M34.7954 29C36.0526 27.7428 38.1017 27.7428 39.3714 29" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M46.8766 59.4856C53.8196 59.4856 59.448 53.8572 59.448 46.9142C59.448 39.9712 53.8196 34.3428 46.8766 34.3428C39.9336 34.3428 34.3052 39.9712 34.3052 46.9142C34.3052 53.8572 39.9336 59.4856 46.8766 59.4856Z" stroke="#F5AD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M40.8926 51.9429C42.2126 53.8412 44.4251 55.0857 46.9143 55.0857C49.4034 55.0857 51.6034 53.8412 52.936 51.9429" stroke="#F5AD1F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M40.6284 43.457C41.8856 44.7142 43.9347 44.7142 45.2044 43.457" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+        <path d="M48.624 43.457C49.8812 44.7142 51.9303 44.7142 53.2 43.457" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
+      </svg>
+      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.employeeExperience.title}</h3>
+      <p class="mt-2 text-sm text-body">{featureGrid.employeeExperience.text}</p>
+    </div>
+
+    <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" class="text-heading">
+        <path d="M4 9H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+        <path d="M4 15H20" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"></path>
+      </svg>
+    </div>
+
+    <div class="reveal flex flex-col items-center rounded-md bg-surface px-4 py-10 text-center shadow-[0_4px_34px_rgba(0,0,0,0.07)]">
+      <svg width="64" height="64" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+        <path d="M0 40C0 11.848 11.848 0 40 0C68.152 0 80 11.848 80 40C80 68.152 68.152 80 40 80C11.848 80 0 68.152 0 40Z" fill="#E4D5EF"></path>
+        <path d="M45.1422 41.3414C44.6802 41.7586 44.4469 42.4068 44.586 43.0102L45.9295 48.752L40.9278 45.6501C40.6496 45.4663 40.3715 45.4191 40.0486 45.4191C39.7257 45.4191 39.4452 45.511 39.1694 45.6501L34.1229 48.7072L35.4664 42.9654C35.6055 42.362 35.4193 41.7162 34.9101 41.2966L30.4176 37.4522L36.2985 36.9902C36.9467 36.9431 37.4558 36.5282 37.7339 35.9719L40.0014 30.5059L42.3161 35.9719C42.5471 36.5754 43.1033 36.9454 43.7515 36.9902L49.6325 37.4522L45.1399 41.3414H45.1422ZM46.4363 42.6849L51.1622 38.6095C51.6713 38.1475 51.8575 37.4522 51.6713 36.804C51.4403 36.1558 50.8841 35.6938 50.1887 35.6467L44.0273 35.1375L41.6184 29.3957C41.3403 28.7475 40.7392 28.3774 40.0439 28.3774C39.3485 28.3774 38.7475 28.7946 38.4693 29.3957L36.0604 35.1375L29.899 35.6467C29.2037 35.6938 28.6497 36.1558 28.4164 36.804C28.1854 37.4522 28.4164 38.1475 28.9255 38.6095L33.6491 42.6378L32.2136 48.6577C32.0746 49.3059 32.3056 50.0013 32.8618 50.4185C33.4181 50.8357 34.1582 50.8357 34.7145 50.5104L39.9944 47.2694L45.2742 50.5104C45.5524 50.6943 45.8305 50.7414 46.1534 50.7414C46.5235 50.7414 46.8487 50.6495 47.1269 50.4185C47.6832 50.0013 47.9141 49.3083 47.7751 48.6577L46.4315 42.6849H46.4363Z" fill="#772BAE"></path>
+        <path d="M40.0484 24.1614C40.5575 24.1614 40.9747 23.7442 40.9747 23.2351V18.9263C40.9747 18.4172 40.5575 18 40.0484 18C39.5393 18 39.1221 18.4172 39.1221 18.9263V23.2351C39.1221 23.7442 39.5393 24.1614 40.0484 24.1614Z" fill="#772BAE"></path>
+        <path d="M27.4941 28.7433C27.6779 28.9272 27.9113 29.0215 28.1423 29.0215C28.3733 29.0215 28.6043 28.9296 28.7905 28.7433C29.1605 28.3733 29.1605 27.7699 28.7905 27.447L25.7805 24.437C25.4104 24.0669 24.807 24.0669 24.4841 24.437C24.114 24.807 24.114 25.4104 24.4841 25.7334L27.4964 28.7433H27.4941Z" fill="#772BAE"></path>
+        <path d="M23.2351 39.0251H18.9263C18.4172 39.0251 18 39.4423 18 39.9515C18 40.4606 18.4172 40.8778 18.9263 40.8778H23.2351C23.7442 40.8778 24.1614 40.4606 24.1614 39.9515C24.1614 39.4423 23.7442 39.0251 23.2351 39.0251Z" fill="#772BAE"></path>
+        <path d="M27.4467 51.1616L24.4367 54.1716C24.0667 54.5416 24.0667 55.145 24.4367 55.468C24.6206 55.6518 24.8539 55.7461 25.0849 55.7461C25.3159 55.7461 25.5469 55.6542 25.7331 55.468L28.7431 52.458C29.1132 52.0879 29.1132 51.4845 28.7431 51.1616C28.373 50.7915 27.7743 50.7915 27.4467 51.1616Z" fill="#772BAE"></path>
+        <path d="M39.9542 55.8381C39.445 55.8381 39.0278 56.2553 39.0278 56.7645V61.0732C39.0278 61.5823 39.445 61.9995 39.9542 61.9995C40.4633 61.9995 40.8805 61.5823 40.8805 61.0732V56.7645C40.8805 56.2553 40.4633 55.8381 39.9542 55.8381Z" fill="#772BAE"></path>
+        <path d="M52.5056 51.2534C52.1355 50.8833 51.5321 50.8833 51.2092 51.2534C50.8391 51.6234 50.8391 52.2268 51.2092 52.5498L54.2192 55.5598C54.403 55.7436 54.6364 55.8379 54.8674 55.8379C55.0984 55.8379 55.3294 55.746 55.5156 55.5598C55.8856 55.1897 55.8856 54.5863 55.5156 54.2634L52.5079 51.2534H52.5056Z" fill="#772BAE"></path>
+        <path d="M61.0739 39.1196H56.7652C56.2561 39.1196 55.8389 39.5368 55.8389 40.046C55.8389 40.5551 56.2561 40.9723 56.7652 40.9723H61.0739C61.5831 40.9723 62.0003 40.5551 62.0003 40.046C62.0003 39.5368 61.5831 39.1196 61.0739 39.1196Z" fill="#772BAE"></path>
+        <path d="M51.9029 29.116C52.1339 29.116 52.3649 29.024 52.5511 28.8378L55.5611 25.8278C55.9311 25.4578 55.9311 24.8544 55.5611 24.5315C55.191 24.1614 54.5876 24.1614 54.2647 24.5315L51.257 27.4967C50.887 27.8667 50.887 28.4701 51.257 28.7931C51.4409 29.024 51.6742 29.116 51.9052 29.116H51.9029Z" fill="#772BAE"></path>
+      </svg>
+      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.analytics.title}</h3>
+      <p class="mt-2 text-sm text-body">{featureGrid.analytics.text}</p>
+    </div>
+  </div>
+</section>

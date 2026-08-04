@@ -1,0 +1,311 @@
+---
+// Fiyatlar sayfası — Mikro/KOBİ/Pro 3 katmanlı fiyat kartları + özellik/eklenti
+// karşılaştırma bölümleri. Kaynak `template-pricing.php` şablonundan (bkz.
+// `pricingContent.ts`) — standart bir Elementor widget'ı DEĞİL, kendi ayrı
+// `<body>`'si + `pricing.css` + `pricing-{locale}.js`'i olan özel bir PHP
+// template. Pro planının "Tüm Modülleri Gör" aç/kapa davranışı JS
+// gerektirmeyen yerel `<details>/<summary>` ile kuruldu (projenin
+// "gereksiz JS gönderme" ilkesine uygun) — kaynağın kendi JS'i aynı işi
+// `toggleMoreFeatures()` ile yapıyor, biz native HTML'i tercih ettik.
+//
+// ⚠️ DÜZELTME (2026-08-04, 2. tur — büyük revizyon): kullanıcı canlı siteyle
+// kart ALTINDAKİ bölümleri karşılaştırdı, element-ID doğrulamalı keşif 3
+// büyük yapısal fark ortaya çıkardı (bkz. CLAUDE.md 2026-08-04 günlüğü,
+// "Fiyatlar sayfası — büyük revizyon" için tam liste):
+// 1. Özellikler/Eklentiler `<table>` DEĞİL — kartlarla AYNI görsel dili
+//    paylaşan (border/radius/renk) "kutulu sütun" düzeni, sol tarafta sabit
+//    220px'lik bir isim sütunu. Eklentiler'in ALTINDA her sütunun kendi CTA
+//    butonu var (kartlardakiyle birebir aynı).
+// 2. `.btn-start`/`.btn-buy`/`.btn-pro` TEK bir paylaşılan buton ailesi
+//    (açık pembe `#fed9d9` varsayılan, kartın/sütunun "seçili" (`.active`)
+//    durumunda düz kırmızı `#e60000`+beyaz metne dönüşüyor) — kart bazlı
+//    kasıtlı bir fark YOK.
+// 3. Dinamik davranış: bir kartı (veya tablo sütununu) tıklamak HEM o
+//    kartı/sütunu kırmızı kenarlıklı yapıyor HEM diğer iki bölümdeki
+//    KARŞILIK GELEN sütunu senkronize ediyor (`activateColumn()`), + sayfa
+//    kaydırılıp kartlar ekrandan çıkınca üstte "Mikro/KOBİ/Pro" başlıklı
+//    sticky bir şerit beliriyor. Kullanıcı onayıyla vanilla JS'e taşındı
+//    (`src/scripts/pricing-interactivity.js`, `marquee-scroll.js`
+//    pattern'iyle tutarlı — React/hydration gerekmez).
+//
+// BİLİNÇLİ KAPSAM DIŞI (kullanıcı onayıyla): (a) mobilde kaynağın ayrı
+// akordeon HTML'i (`.mobile-only`, "Daha Fazla/Daha Az" aç-kapa, ~28KB ayrı
+// markup) — bizim tek, responsive Tailwind yapımız korundu (aynı veri,
+// CSS breakpoint'le küçük ekranda yatay kaydırmalı sütunlara uyarlanmış,
+// isim sütunu sabit/pinned kalıyor). (b) Pro/KOBİ'nin çalışan-sayısına göre
+// dinamik fiyat hesaplayan "fake-select" dropdown'ı (`pricing-tr.js`'in
+// `proOptions`/`smeOptions` mantığı) — ayrı, büyük bir özellik, bu turda
+// istenmedi. (c) satır hover'da vurgulama (`highlightRow()`) — ayrı,
+// küçük bir polish özelliği, bu turda istenmedi.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { PricingContent, PricingPlan } from '../data/pricingContent';
+
+interface Props {
+  content: PricingContent;
+  localeUrls: Record<string, string | undefined>;
+}
+
+const { content, localeUrls } = Astro.props;
+const description = content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+
+const plans: { plan: PricingPlan; isPro?: boolean }[] = [
+  { plan: content.micro },
+  { plan: content.sme },
+  { plan: content.pro, isPro: true },
+];
+
+const FEATURE_KEYS = ['akademi', 'chatbot', 'ozelGelistirme', 'raporlama', 'destek', 'odeme', 'egitim', 'topluAktarim'] as const;
+const ADDON_KEYS = ['dijitalImza', 'okrPerformans', 'aiIseAlim', 'bordro', 'lms', 'yanHaklar'] as const;
+
+// Paylaşılan buton sınıfı — kaynağın `.btn-start`/`.btn-buy`/`.btn-pro`
+// TEK ailesi (bkz. dosya başı yorumu). Renk (`is-active` durumu) aşağıdaki
+// scoped <style>'da yönetiliyor, burada yalnızca boyut/şekil.
+const PLAN_BTN_CLASS =
+  'pricing-btn mt-3 flex h-[54px] w-full items-center justify-center rounded-[10px] px-4 text-center text-base font-semibold transition-colors';
+---
+
+<BaseLayout title={`idenfit — ${content.packagesTitle}`} description={description} localeUrls={localeUrls}>
+  <section class="bg-[#f8f8f8] py-12 lg:py-16">
+    <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
+      {/* ⚠️ DÜZELTME (2026-08-04): tüm başlık `font-bold` (700) uygulanmıştı —
+          ama `content.pageTitle` zaten ikinci cümleyi (`<b>verimli ve
+          bütüncül yönetin!</b>`) kaynaktan gelen GERÇEK bir `<b>` etiketiyle
+          sarıyor (TR/EN/IT/NL'nin hepsinde aynı desen). H1'in TAMAMI 700
+          olunca `<b>`'in görsel bir farkı kalmıyordu (Quicksand'in üst
+          sınırı zaten 700). Temel ağırlık `font-medium`(500)'e düşürüldü,
+          `<b>` artık gerçekten daha koyu görünüyor — kullanıcının
+          "verimli ve bütüncül yönetin! diğer cümleden biraz daha koyu
+          olmalı" isteğiyle birebir. */}
+      <h1
+        class="whitespace-pre-line text-center text-3xl font-medium leading-tight tracking-tight text-heading sm:text-4xl lg:text-[40px] lg:leading-[48px] [&_b]:font-bold"
+        set:html={content.pageTitle}
+      />
+
+      <!-- Sticky plan başlıkları — kartlar ekrandan çıkınca beliriyor
+           (`pricing-interactivity.js`). Yalnızca masaüstünde (kaynakta da
+           `@media (max-width:992px){.sticky-plan-titles{display:none}}`). -->
+      <div
+        id="pricing-sticky-titles"
+        class="sticky-plan-titles fixed left-1/2 top-[82px] z-[2000] w-full max-w-[920px] -translate-x-1/2"
+      >
+        <div class="w-[220px] shrink-0"></div>
+        <div class="flex flex-1 gap-5">
+          {
+            plans.map(({ plan }) => (
+              <div
+                data-plan-title
+                class="pricing-plan-title flex-1 rounded-md border-b border-gray-200 bg-white py-2 text-center text-base font-medium shadow-[0_2px_4px_rgba(0,0,0,0.05)] transition-colors"
+              >
+                {plan.planTitle}
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Fiyat kartları -->
+      <div class="mt-12 lg:flex lg:items-start lg:gap-3">
+        <div class="mb-4 whitespace-nowrap text-2xl font-medium text-heading lg:mb-0 lg:w-[220px] lg:pt-6 lg:text-[34px]">
+          {content.packagesTitle}
+        </div>
+        <div id="pricing-cards" class="grid gap-5 sm:grid-cols-2 lg:flex-1 lg:grid-cols-3">
+          {
+            plans.map(({ plan, isPro }) => (
+              <div
+                data-plan-card
+                class="pricing-card relative flex flex-col rounded-[10px] border-[1.5px] bg-white p-6 transition-colors lg:min-h-[460px]"
+              >
+                {/* Suprema donanım rozeti — yalnızca Pro kartında, kaynağın
+                    `.pro-logo`/`.suprema-text` kuralları kadar
+                    (top:-50px/+13px, ortalanmış) kartın ÜSTÜNE taşan bir
+                    rozet. */}
+                {isPro && (
+                  <div class="pointer-events-none absolute inset-x-0 -top-[50px] flex flex-col items-center">
+                    <img
+                      src="https://idenfit.com/wp-content/uploads/2025/08/suprema-logo.png"
+                      alt="Suprema Logo"
+                      width="177"
+                      height="25"
+                      class="h-[25px] w-auto"
+                    />
+                    <p class="mt-[13px] whitespace-nowrap text-[9px] font-medium tracking-wide text-[#973045]">
+                      {content.supremaBadgeText}
+                    </p>
+                  </div>
+                )}
+                <h2 class="flex h-[46px] items-center text-[28px] font-bold text-heading lg:text-[38px]">{plan.planTitle}</h2>
+                {plan.employeeRange && (
+                  <p
+                    class="mb-2 flex h-10 items-center rounded border border-black/10 bg-white px-4 text-[18px] text-heading"
+                    set:html={plan.employeeRange}
+                  />
+                )}
+
+                <ul class="mt-4 flex-1 space-y-1 pl-2 text-[18px] text-body">
+                  {plan.modules.map((m) => (
+                    <li class="relative pl-5">
+                      <span class="absolute left-0 text-brand" aria-hidden="true">•</span>
+                      {m}
+                    </li>
+                  ))}
+                </ul>
+
+                {plan.modulesMore && plan.modulesMore.length > 0 && (
+                  <details class="mt-3 text-sm">
+                    <summary class="cursor-pointer text-[#e60000] underline transition-colors hover:text-[#b50000] hover:no-underline">
+                      {plan.showMoreText}
+                    </summary>
+                    <ul class="mt-2 space-y-1 pl-2 text-body">
+                      {plan.modulesMore.map((m) => (
+                        <li class="relative pl-5">
+                          <span class="absolute left-0 text-brand" aria-hidden="true">•</span>
+                          {m}
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
+                )}
+
+                <p class="mt-3 flex items-end gap-1 pl-[10px]">
+                  <span class="text-[38px] font-medium leading-none text-heading">{plan.price}</span>
+                  {plan.priceSuffix && <span class="pb-0.5 text-base font-normal text-muted">{plan.priceSuffix}</span>}
+                </p>
+
+                <a
+                  data-plan-btn
+                  href={plan.ctaUrl}
+                  target={plan.ctaExternal ? '_blank' : undefined}
+                  rel={plan.ctaExternal ? 'noopener noreferrer' : undefined}
+                  class={PLAN_BTN_CLASS}
+                >
+                  {plan.ctaText}
+                </a>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+
+      <!-- Özellik karşılaştırma bölümü — ⚠️ DÜZELTME (2026-08-04): `<table>`
+           DEĞİL, kartlarla aynı görsel dili paylaşan kutulu sütunlar (bkz.
+           dosya başı yorumu). Sol isim sütunu masaüstünde 220px sabit;
+           mobilde/tablette isimler SOL'da sabit kalıp yalnızca değer
+           sütunları yatay kaydırılıyor (kaynağın ayrı akordeon HTML'inin
+           BİLİNÇLİ, onaylanmış bir alternatifi). -->
+      <div class="mt-16">
+        <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.featuresTitle}</h2>
+        <div class="mt-4 flex gap-3">
+          <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
+            {FEATURE_KEYS.map((_, i) => (
+              <div class="flex h-[42px] items-center text-sm text-heading sm:text-base lg:text-[18px]">{content.featureNames[i]}</div>
+            ))}
+          </div>
+          <div class="flex-1 overflow-x-auto">
+            <div class="flex gap-3 lg:gap-5">
+              {
+                plans.map(({ plan }) => (
+                  <div
+                    data-plan-col="feature"
+                    class="pricing-col min-w-[110px] flex-1 rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
+                  >
+                    {FEATURE_KEYS.map((key) => (
+                      <div class="flex h-[42px] items-center justify-center text-center text-sm text-body sm:text-base lg:text-[18px]">
+                        {plan.features[key]}
+                      </div>
+                    ))}
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eklenti karşılaştırma bölümü — aynı düzen + (kaynakta olduğu
+           gibi) altta her sütunun kendi CTA butonu. -->
+      <div class="mt-12">
+        <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.addonsTitle}</h2>
+        <div class="mt-4 flex gap-3">
+          <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
+            {ADDON_KEYS.map((_, i) => (
+              <div class="flex h-[42px] items-center text-sm text-heading sm:text-base lg:text-[18px]">{content.addonNames[i]}</div>
+            ))}
+          </div>
+          <div class="flex-1 overflow-x-auto">
+            <div class="flex gap-3 lg:gap-5">
+              {
+                plans.map(({ plan }) => (
+                  <div
+                    data-plan-col="addon"
+                    class="pricing-col flex min-w-[110px] flex-1 flex-col rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
+                  >
+                    {ADDON_KEYS.map((key) => (
+                      <div class="flex h-[42px] items-center justify-center text-center text-sm text-body sm:text-base lg:text-[18px]">
+                        {plan.addons[key]}
+                      </div>
+                    ))}
+                    <a
+                      data-plan-btn
+                      href={plan.ctaUrl}
+                      target={plan.ctaExternal ? '_blank' : undefined}
+                      rel={plan.ctaExternal ? 'noopener noreferrer' : undefined}
+                      class={PLAN_BTN_CLASS}
+                    >
+                      {plan.ctaText}
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <script src="../scripts/pricing-interactivity.js"></script>
+</BaseLayout>
+
+<style>
+  /* Kaynağın `.card`/`.feature-column`/`.addon-column` kenarlığı + `.active`
+     durumu (bkz. `pricing.css` — `#FFCCCC` pasif, `#e60000` seçili) +
+     `.btn-start`/`.btn-buy`/`.btn-pro` paylaşılan buton ailesi (açık pembe
+     `#fed9d9` → seçiliyken düz kırmızı). Bu renkler proje genelindeki
+     `--color-brand`(#FF0000) token'ından BİLİNÇLİ olarak farklı — bu
+     sayfanın kendi ölçülen gerçek paletidir (`#e60000`/`#fed9d9`/`#FFCCCC`),
+     genel marka rengine yuvarlanmadı. `is-active` class'ı
+     `pricing-interactivity.js` tarafından toggle ediliyor. */
+  .pricing-card,
+  .pricing-col {
+    border-color: #ffcccc;
+  }
+  .pricing-card.is-active,
+  .pricing-col.is-active {
+    border-color: #e60000;
+  }
+  .pricing-btn {
+    background-color: #fed9d9;
+    color: #000;
+  }
+  .pricing-btn.is-active {
+    background-color: #e60000;
+    color: #fff;
+  }
+  .pricing-plan-title.is-active {
+    border-color: #e60000;
+    box-shadow: 0 2px 4px rgba(230, 0, 0, 0.15);
+  }
+  .sticky-plan-titles {
+    display: none;
+  }
+  .sticky-plan-titles.is-visible {
+    display: flex;
+  }
+  /* Kaynak: `@media (max-width:992px){.sticky-plan-titles{display:none}}` —
+     mobilde/tablette scroll durumundan bağımsız her zaman gizli. */
+  @media (max-width: 991px) {
+    .sticky-plan-titles.is-visible {
+      display: none;
+    }
+  }
+</style>

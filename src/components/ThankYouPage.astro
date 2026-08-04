@@ -1,0 +1,82 @@
+---
+// Teşekkürler / "Demo – Thank You" sayfası — Online Sunum Talebi formu
+// gönderildikten sonra gösterilen sayfa (bkz. `thankYouContent.ts`).
+// ⚠️ Form gönderiminden buraya OTOMATİK yönlendirme YOK — `HeroForm.tsx`
+// şimdilik backend'siz (`console.log`), bu bağlantı Faz 2'de (Cloudflare
+// Pages Functions) kurulacak. Şu an bu sayfaya yalnızca doğrudan URL ile
+// ulaşılabiliyor — bkz. CLAUDE.md "Yapılacaklar (TODO)".
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { toYoutubeEmbedUrl } from '../data/customerStories';
+import { THANK_YOU_HERO_IMAGE, THANK_YOU_BRAND_ICON_URL, type ThankYouContent } from '../data/thankYouContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: ThankYouContent;
+  localeUrls: Record<string, string | undefined>;
+}
+
+const { content, localeUrls } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const homeHref = getRelativeLocaleUrl(locale, '');
+---
+
+<BaseLayout title={`idenfit — ${content.title}`} description={content.text} localeUrls={localeUrls}>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <h1 class="text-3xl font-bold text-heading sm:text-4xl">{content.title}</h1>
+        <p class="mt-4 text-lg text-body">{content.text}</p>
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={homeHref} class="text-sm font-semibold text-brand hover:underline">{content.homeCtaText}</a>
+          <a href={content.whyIdenfitHref} class="text-sm font-semibold text-brand hover:underline">
+            {content.whyIdenfitCtaText}
+          </a>
+        </div>
+      </div>
+      <img
+        src={THANK_YOU_HERO_IMAGE.url}
+        alt=""
+        loading="lazy"
+        width={THANK_YOU_HERO_IMAGE.width}
+        height={THANK_YOU_HERO_IMAGE.height}
+        class="mx-auto w-full max-w-md"
+      />
+    </div>
+
+    <p class="mt-12 text-center text-body">
+      {content.youtubePromptPrefix}<a href={content.youtubeChannelUrl} target="_blank" rel="noopener noreferrer" class="font-semibold text-brand hover:underline">{content.youtubePromptLinkText}</a>{content.youtubePromptSuffix}
+    </p>
+
+    <!-- Marka şeridi -->
+    <div class="mt-10 flex flex-col items-center gap-3 rounded-2xl bg-heading px-6 py-8 text-center text-white">
+      <img src={THANK_YOU_BRAND_ICON_URL} alt="idenfit" loading="lazy" width="48" height="48" />
+      <span class="text-lg font-bold tracking-tight">idenfit</span>
+      <p class="max-w-md text-sm text-white/70">{content.brandTagline}</p>
+    </div>
+
+    <!-- Müşteri video kartları -->
+    <div class="mt-10 grid gap-6 sm:grid-cols-2">
+      {
+        content.testimonials.map((t) => (
+          <div class="flex flex-col overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
+            <div class="aspect-video w-full bg-brand-light">
+              <iframe
+                src={toYoutubeEmbedUrl(t.videoUrl)}
+                title={t.name}
+                loading="lazy"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen
+                class="h-full w-full"
+              />
+            </div>
+            <div class="flex flex-1 flex-col gap-3 p-5">
+              <img src={t.logoUrl} alt={t.logoAlt} loading="lazy" class="h-8 w-auto object-contain" />
+              <p class="text-sm italic leading-relaxed text-body">“{t.quote}”</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

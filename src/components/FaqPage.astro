@@ -1,0 +1,121 @@
+---
+// SSS sayfası — idenfit.com'un GERÇEK canlı `/sss/` sayfasının yapısı
+// birebir yeniden üretildi (önceki implementasyon yanlışlıkla accordion
+// kullanmıştı — kaynakta accordion YOK). Canlı sayfanın kendi HTML/CSS/JS'i
+// incelenip (`.faq-tabs`/`.faq-tab-btn`/`.faq-tab-content` sınıfları,
+// gömülü `<style>`/`<script>` blokları) birebir doğrulandı:
+// - Sol: 6 kategori sekmesi (ikon + isim), tıklanınca sağdaki panel değişir
+//   (kaynaktaki "aktif sekmeye active class ekleme" mantığı
+//   `src/scripts/faq-tabs.js`'te AYNEN uygulandı).
+// - Sağ: aktif kategorinin soru+cevapları DOĞRUDAN AÇIK (accordion yok,
+//   kaynakta da `.faq-question`/`.faq-answer` her zaman görünür).
+// - Üstte "PDF İNDİR" butonu — kaynakta gerçek bir PDF linki var (bkz.
+//   `faqContent.ts`), placeholder değil.
+// İkonlar idenfit.com'dan birebir kopyalanan 6 gerçek inline SVG (`class=
+// "cls-1"` yerine `fill="currentColor"` kullanıldı ki Tailwind'in
+// `group-[.is-active]:text-brand` deseniyle renk değişimi CSS ile
+// yönetilebilsin — kaynakta bu ayrı bir `<style>` bloğuyla yapılıyordu,
+// burada Tailwind utility'leriyle eşdeğeri kuruldu).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getTranslations } from '../i18n';
+import { getFaqCategories, getFaqLocaleUrls, getFaqPdfUrl } from '../data/faqContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const categories = getFaqCategories(locale);
+const localeUrls = getFaqLocaleUrls();
+const title = t.footer.links.general.faq;
+const pdfUrl = getFaqPdfUrl(locale);
+
+// idenfit.com'dan birebir çıkarılan 6 kategori ikonu — kategori SAYISI ve
+// SIRASI 3 dilde de aynı (Genel/General Info/Informazioni Generali her
+// zaman ilk, vb. — bkz. fetch-faq.mjs'teki doğrulama notu), bu yüzden
+// index'e göre eşleniyor.
+const CATEGORY_ICONS = [
+  { viewBox: '0 0 30.37 30.37', path: 'M11.13,14.17H3a3,3,0,0,1-3-3V3A3,3,0,0,1,3,0h8.09a3,3,0,0,1,3,3v8.09A3,3,0,0,1,11.13,14.17ZM3,2A1,1,0,0,0,2,3v8.09a1,1,0,0,0,1,1h8.09a1,1,0,0,0,1-1V3a1,1,0,0,0-1-1Z M23.28,14.17a7.07,7.07,0,1,1,5-2.07A7.12,7.12,0,0,1,23.28,14.17ZM23.28,2a5.07,5.07,0,1,0,3.58,1.49A5.07,5.07,0,0,0,23.28,2Z M13.16,30.36H1a1,1,0,0,1-.9-1.46L6.18,16.75a1,1,0,0,1,1.81,0L14.06,28.9a1,1,0,0,1-.9,1.46Zm-10.51-2h8.87L7.08,19.47Z M24.71,23.28l5.36-5.35a1,1,0,0,0-1.44-1.44l-5.35,5.36-5.35-5.36a1,1,0,0,0-1.44,1.44l5.36,5.35-5.36,5.35a1,1,0,1,0,1.44,1.44l5.35-5.36,5.35,5.36a1,1,0,1,0,1.44-1.44Z' },
+  { viewBox: '0 0 39.04 37.82', path: 'M6.1,7.51H11V9.56H6.1Z M12.2,7.51h4.88V9.56H12.2Z M18.3,7.51h4.88V9.56H18.3Z M24.4,7.51h4.88V9.56H24.4Z M37.82,19.52A1.15,1.15,0,0,0,39,18.3V4.88A4.9,4.9,0,0,0,34.16,0H4.88A4.9,4.9,0,0,0,0,4.88v18.3a4.89,4.89,0,0,0,4.88,4.88H19.52a10,10,0,1,0,.37-2.44h-15a2.45,2.45,0,0,1-2.44-2.44V4.88A2.45,2.45,0,0,1,4.88,2.44H34.16A2.45,2.45,0,0,1,36.6,4.88V18.3a1.15,1.15,0,0,0,1.22,1.22Zm-8.54,1.22A7.32,7.32,0,1,1,22,28.06,7.34,7.34,0,0,1,29.28,20.74Z M4.27,19.64a3.8,3.8,0,0,0,3.78,3.79,4.07,4.07,0,0,0,1.83-.49,4.55,4.55,0,0,1-1.34-3.3,4.71,4.71,0,0,1,1.34-3.29,3.15,3.15,0,0,0-1.83-.49,3.88,3.88,0,0,0-3.78,3.78Z M17,19.64a3.79,3.79,0,1,1-3.78-3.78A3.79,3.79,0,0,1,17,19.64 M32.44,29.63a.35.35,0,0,1,.05.28A2.41,2.41,0,0,1,31.65,31a5.23,5.23,0,0,1-1.5.85,4.69,4.69,0,0,1-1.61.32.63.63,0,0,1-.39-.1.37.37,0,0,1-.13-.28V29.16l-.57.44-.11.1-.09.07a.17.17,0,0,1-.1,0,.37.37,0,0,1-.27-.11.35.35,0,0,1-.1-.25.26.26,0,0,1,.15-.24L28,28.36V27.17l-.95.72L27,28l-.08.06a.17.17,0,0,1-.1,0,.35.35,0,0,1-.26-.11.42.42,0,0,1-.11-.22.3.3,0,0,1,.15-.28L28,26.36v-2.5a.36.36,0,0,1,.38-.38.37.37,0,0,1,.28.1.39.39,0,0,1,.11.28v1.92l1.42-1.08.11-.1.15-.09.14,0a.27.27,0,0,1,.22.1.26.26,0,0,1,.1.2.38.38,0,0,1-.2.31l-1.94,1.48v1.19l2.15-1.65.13-.1a.38.38,0,0,1,.13-.09.27.27,0,0,1,.12,0,.32.32,0,0,1,.23.09.31.31,0,0,1,.09.22.38.38,0,0,1-.19.32l-2.66,2v2.89A4.77,4.77,0,0,0,30,31.18a4.34,4.34,0,0,0,1.14-.63,2.15,2.15,0,0,0,.69-.87A.36.36,0,0,1,32,29.5a.28.28,0,0,1,.22,0A.33.33,0,0,1,32.44,29.63Z' },
+  { viewBox: '0 0 32.97 37.44', path: 'M30.87,25.84l-.58-1.41c.17-.47.5-1.78.56-2a.62.62,0,0,0-.17-.58l-.92-.91a.6.6,0,0,0-.58-.17c-.18,0-1.51.37-2,.56l-1.41-.58c-.21-.45-.9-1.61-1-1.81a.63.63,0,0,0-.53-.3H22.92a.62.62,0,0,0-.53.29c-.1.16-.81,1.34-1,1.81L20,21.32c-.46-.18-1.77-.51-2-.57a.62.62,0,0,0-.58.17l-.91.92a.6.6,0,0,0-.17.58c0,.18.37,1.51.56,2l-.58,1.41c-.45.2-1.61.89-1.81,1a.6.6,0,0,0-.3.53v1.29a.62.62,0,0,0,.29.53c.15.1,1.34.81,1.81,1l.58,1.41c-.17.46-.5,1.77-.56,2h0a.62.62,0,0,0,.17.58l.91.91a.62.62,0,0,0,.59.17c.17,0,1.5-.37,2-.56l1.41.58c.2.45.89,1.61,1,1.81h0a.62.62,0,0,0,.54.3h1.29a.62.62,0,0,0,.53-.29c.1-.15.81-1.34,1-1.81l1.42-.58c.46.17,1.77.5,2,.56h0a.62.62,0,0,0,.58-.17l.91-.91a.6.6,0,0,0,.17-.58c0-.18-.37-1.51-.56-2l.58-1.41c.45-.2,1.61-.89,1.81-1h0a.62.62,0,0,0,.3-.54V27.39a.62.62,0,0,0-.29-.53h0c-.15-.1-1.34-.81-1.81-1m-7.3,6.29a4.1,4.1,0,1,1,0-8.2,4.15,4.15,0,0,1,2.9,1.21,4.1,4.1,0,0,1-2.9,7Z M27.17,4.18A4.2,4.2,0,0,0,22.91,0H9.11a2.27,2.27,0,0,0-.72.12,2.05,2.05,0,0,0-.59.4L.6,7.36A2.29,2.29,0,0,0,.16,8,1.66,1.66,0,0,0,0,8.75V29.84a4.19,4.19,0,0,0,4.22,4.21H14.27v-2h-10A2.23,2.23,0,0,1,2,29.84V9.39H5.53A4.25,4.25,0,0,0,9.75,5.17V2H23a2.23,2.23,0,0,1,2.23,2.23V17.27h2V4.18Z' },
+  { viewBox: '0 0 32.03 37', path: 'M3.15,27.64H7.32a.93.93,0,0,0,.93-.89V15.09a.9.9,0,0,0-.93-.87H4v-.65A12,12,0,0,1,15.83,1.8c6.31,0,12.23,5.28,12.23,11.77v.65H24.72a.9.9,0,0,0-.93.87V26.75a.92.92,0,0,0,.93.89h.87v3A2.57,2.57,0,0,1,23,33.18H17.33a2.87,2.87,0,0,0-5.62.83v.1A2.88,2.88,0,0,0,14.58,37a2.94,2.94,0,0,0,2.75-2H23a4.38,4.38,0,0,0,4.35-4.37v-3h1.5A3.14,3.14,0,0,0,32,24.5V17.34a3.13,3.13,0,0,0-2.17-3v-.77C29.86,6.09,23.13,0,15.83,0A13.78,13.78,0,0,0,2.17,13.57v.77a3.13,3.13,0,0,0-2.17,3V24.5a3.15,3.15,0,0,0,3.15,3.14Zm12.54,6.47a1.09,1.09,0,0,1-2.17,0V34a1.09,1.09,0,0,1,2.17,0ZM30.24,17.34V24.5a1.35,1.35,0,0,1-1.35,1.34h-3.3V16h3.3a1.33,1.33,0,0,1,1.35,1.32Zm-28.44,0A1.33,1.33,0,0,1,3.15,16h3.3v9.82H3.15A1.35,1.35,0,0,1,1.8,24.5Z' },
+  { viewBox: '0 0 31.25 38.18', path: 'M26.44,31a22,22,0,0,0,4.8-13.79V12.74c0-1.87,0-3.75,0-5.62V7.06a.22.22,0,0,0-.14-.23Q23.43,3.44,15.87.05a.64.64,0,0,0-.23,0,.45.45,0,0,0-.19.05Q7.8,3.47.17,6.83C0,6.87,0,6.94,0,7c0,1.72,0,3.41,0,5.09s0,3.57,0,5.35A23.15,23.15,0,0,0,.31,20.8,22,22,0,0,0,4.4,30.48,20.25,20.25,0,0,0,15,38.08a2,2,0,0,0,1.26,0A19.79,19.79,0,0,0,26.44,31Zm-11.55,4.5A17.55,17.55,0,0,1,5.74,29a19,19,0,0,1-3.52-8.34A19.73,19.73,0,0,1,2,17.74C2,15.83,2,13.9,2,12V9.11a.8.8,0,0,1,.59-.84L15.18,2.66a1,1,0,0,1,.93,0l12.61,5.6a.85.85,0,0,1,.56.94c0,1.13,0,2.31,0,3.49v1.49h0v3.36a19,19,0,0,1-4.12,11.87,17.07,17.07,0,0,1-8.8,6.1,2.27,2.27,0,0,1-.72.12A2.34,2.34,0,0,1,14.89,35.52Z M20.23,15.8V13.64a4.42,4.42,0,0,0-4.41-4.42h-.39A4.42,4.42,0,0,0,11,13.64V15.8a2,2,0,0,0-2,2V23.9a3.76,3.76,0,0,0,3.75,3.76h5.67a3.76,3.76,0,0,0,3.75-3.76V17.78a2,2,0,0,0-2-2Zm-7.9-2.16a3.13,3.13,0,0,1,.91-2.2,3.09,3.09,0,0,1,2.19-.9h.39a3.09,3.09,0,0,1,2.19.9,3.13,3.13,0,0,1,.91,2.2V15.8H12.33ZM20.89,23.9a2.43,2.43,0,0,1-2.43,2.44H12.79a2.43,2.43,0,0,1-2.43-2.44V17.78a.66.66,0,0,1,.66-.66h9.21a.67.67,0,0,1,.47.19.68.68,0,0,1,.19.47Z M16.28,21.55v2.16a.66.66,0,0,1-1.31,0V21.55a1.32,1.32,0,1,1,1.31,0Z' },
+  { viewBox: '0 0 49.55 45.6', path: 'M15.34,28.23a8,8,0,1,0-8-8A7.94,7.94,0,0,0,15.34,28.23Zm0-14a6.1,6.1,0,0,1,6,6,6,6,0,0,1-6,6,6,6,0,0,1-6-6A6,6,0,0,1,15.34,14.19Z M15.34,28.56C6.88,28.56,0,35,0,42.93V45.6H2V42.93c0-6.82,6-12.37,13.34-12.37s13.21,5.55,13.21,12.37V45.6h2V42.93C30.55,35,23.73,28.56,15.34,28.56Z M36.81,7H33.56V3.79h0a.54.54,0,0,0-1.08,0h0V7H29.22a.55.55,0,0,0-.54.55.54.54,0,0,0,.54.54h3.26v3.24h0a.54.54,0,1,0,1.08,0h0V8.12h3.25a.55.55,0,0,0,0-1.09Z M33,0a7.58,7.58,0,1,0,7.57,7.57A7.59,7.59,0,0,0,33,0Zm0,14.07a6.5,6.5,0,1,1,6.49-6.49A6.48,6.48,0,0,1,33,14.07Z M46.78,20.2H41.22a.4.4,0,0,0-.4.4.39.39,0,0,0,.4.39h5.56a.4.4,0,1,0,0-.79Z M44,15a5.56,5.56,0,1,0,5.55,5.56A5.57,5.57,0,0,0,44,15Zm0,10.32a4.77,4.77,0,1,1,4.76-4.76A4.75,4.75,0,0,1,44,25.36Z' },
+];
+---
+
+<BaseLayout title={`idenfit — ${title}`} description={title} localeUrls={localeUrls}>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
+      <h1 class="text-3xl font-bold text-heading sm:text-4xl">{title}</h1>
+      {
+        pdfUrl && (
+          <a
+            href={pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex shrink-0 items-center gap-2 rounded-md border border-gray-200 px-4 py-2 text-sm font-semibold text-heading transition-colors hover:border-brand hover:text-brand"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 shrink-0" aria-hidden="true">
+              <path d="M12 3v12" />
+              <path d="m7 10 5 5 5-5" />
+              <path d="M5 21h14" />
+            </svg>
+            {t.faqPage.pdfLabel}
+          </a>
+        )
+      }
+    </div>
+
+    <div class="mt-10 flex flex-col gap-10 lg:flex-row lg:gap-14">
+      <!-- Sol: kategori sekmeleri -->
+      <div class="flex flex-col gap-6 lg:w-[30%] lg:gap-10" role="tablist">
+        {
+          categories.map((category, i) => {
+            const icon = CATEGORY_ICONS[i % CATEGORY_ICONS.length];
+            return (
+              <button
+                type="button"
+                class:list={['faq-tab-btn group flex items-center gap-3 text-left lg:flex-col lg:items-start lg:gap-2', i === 0 && 'is-active']}
+                data-faq-tab={`faq-tab-${i}`}
+                role="tab"
+                aria-selected={i === 0}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox={icon.viewBox}
+                  fill="currentColor"
+                  aria-hidden="true"
+                  class="h-6 w-6 shrink-0 text-[#455a64] group-[.is-active]:text-brand"
+                >
+                  <path d={icon.path} />
+                </svg>
+                <span class="font-light text-muted group-[.is-active]:font-medium group-[.is-active]:text-brand lg:text-lg">
+                  {category.name}
+                </span>
+              </button>
+            );
+          })
+        }
+      </div>
+
+      <!-- Sağ: aktif kategorinin soru+cevapları (accordion YOK, kaynakla aynı) -->
+      <div class="lg:w-[70%]">
+        {
+          categories.map((category, i) => (
+            <div id={`faq-tab-${i}`} class:list={['faq-tab-panel space-y-8', i !== 0 && 'hidden']} role="tabpanel">
+              {category.items.map((item) => (
+                <div>
+                  <h3 class="relative pl-5 text-lg font-bold text-heading before:absolute before:left-0 before:content-['•']">
+                    {item.question}
+                  </h3>
+                  <div class="mt-2 text-sm leading-relaxed text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={item.answer} />
+                </div>
+              ))}
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <script src="../scripts/faq-tabs.js"></script>
+</BaseLayout>

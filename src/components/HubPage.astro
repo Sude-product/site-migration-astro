@@ -1,0 +1,101 @@
+---
+// İK hub/dizin sayfası (İnsan Kaynakları Modülleri, İşgücü Yönetimi) —
+// idenfit.com'un gerçek `page` post type içeriğinden, ama ProductPage'in
+// hero+section şemasına UYMAYAN bir düzen: hero + tanıtım bloğu + "ürün
+// tile grid" (bkz. `src/data/hubContent.ts`, `scripts/extract-hubs.mjs`,
+// CLAUDE.md "İK Hub sayfaları — GERÇEK İÇERİK UYGULANDI"). Bilinçli olarak
+// ProductPage'e zorlanmadı, ayrı bir basit component.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HubTileCard from './HubTileCard.astro';
+import { getTranslations } from '../i18n';
+import type { getHubContent } from '../data/hubContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: NonNullable<ReturnType<typeof getHubContent>>;
+  pageTitle: string;
+  localeUrls: Partial<Record<Locale, string>>;
+}
+
+const { content, pageTitle, localeUrls } = Astro.props;
+const { hero, intro, tiles, faq } = content;
+
+const locale = Astro.currentLocale ?? 'tr';
+const t = getTranslations(locale);
+const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+---
+
+<BaseLayout title={`idenfit — ${pageTitle}`} description={description} localeUrls={localeUrls}>
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl" set:html={hero.title} />
+        {hero.text && <p class="mt-5 max-w-xl text-lg text-body" set:html={hero.text} />}
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+            >
+              {hero.ctaText}
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Tanıtım bloğu (varsa) -->
+  {
+    intro && intro.title && (
+      <section class="bg-brand-light py-12 lg:py-20">
+        <div class="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
+          <h2 class="h2-section text-heading" set:html={intro.title} />
+          <div class="mt-4 text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={intro.text} />
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Ürün tile grid (veri kaynaklı, sabit sayı değil) -->
+  {
+    tiles.length > 0 && (
+      <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {tiles.map((tile) => (
+            <HubTileCard {...tile} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- SSS (varsa — bkz. KARAR 1, kaynak sitede olduğu gibi gösterilir) -->
+  {
+    faq.length > 0 && (
+      <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
+        <div class="mt-6 divide-y divide-gray-100">
+          {faq.map((item) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
+                <span>{item.question}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  aria-hidden="true"
+                  class="h-3 w-3 shrink-0 transition-transform group-open:rotate-180"
+                >
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </summary>
+              <div class="mt-3 text-sm text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={item.answer} />
+            </details>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

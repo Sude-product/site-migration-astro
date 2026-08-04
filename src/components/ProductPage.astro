@@ -1,0 +1,109 @@
+---
+// Ürün/modül sayfası (Bordro, PDKS, İzin vb.) — idenfit.com'un gerçek
+// `page` post type içeriğinden (bkz. `src/data/productContent.ts`,
+// `reference/wordpress-export/products.json`, `scripts/extract-products.mjs`).
+// Sektör sayfalarıyla aynı desen: BaseLayout + per-sayfa gerçek locale
+// URL'leri (dil değiştirici düzeltmesi) + CTA URL'lerinin kendi route
+// şemamıza göre yeniden çözülmesi.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductSectionBlock from './ProductSectionBlock.astro';
+import { getTranslations } from '../i18n';
+import type { getProductContent } from '../data/productContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: NonNullable<ReturnType<typeof getProductContent>>;
+  pageTitle: string;
+  localeUrls: Partial<Record<Locale, string>>;
+}
+
+const { content, pageTitle, localeUrls } = Astro.props;
+// SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
+// biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
+// Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
+// olabilir (PDKS örneği) — bu bilinçli olarak düzeltilmiyor, aynen
+// gösteriliyor.
+const { hero, sections, faq } = content;
+
+const locale = Astro.currentLocale ?? 'tr';
+const t = getTranslations(locale);
+const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+---
+
+<BaseLayout title={`idenfit — ${pageTitle}`} description={description} localeUrls={localeUrls}>
+  <!-- Hero -->
+  <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1
+          class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl"
+          set:html={hero.title}
+        />
+        {hero.text && <p class="mt-5 max-w-xl text-lg text-body" set:html={hero.text} />}
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+            >
+              {hero.ctaText}
+            </a>
+          )
+        }
+      </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="lazy"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- İçerik blokları (veri kaynaklı, sabit sayı değil — sırayla alternatif zeminle) -->
+  {
+    sections.map((section, i) => (
+      <section id={section.id} class={i % 2 === 1 ? 'bg-brand-light' : ''}>
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <ProductSectionBlock section={section} reverse={i % 2 === 1} />
+        </div>
+      </section>
+    ))
+  }
+
+  <!-- SSS -->
+  {
+    faq.length > 0 && (
+      <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
+        <div class="mt-6 divide-y divide-gray-100">
+          {faq.map((item) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
+                <span>{item.question}</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  aria-hidden="true"
+                  class="h-3 w-3 shrink-0 transition-transform group-open:rotate-180"
+                >
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </summary>
+              <div class="mt-3 text-sm text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={item.answer} />
+            </details>
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

@@ -1,0 +1,115 @@
+---
+// /musteriler/ ("Müşteri Başarı Hikayeleri") — idenfit.com'un gerçek
+// sayfasından çıkarıldı. 4 locale route dosyası (tr/en/nl/it) bu component'i
+// sarmalar.
+//
+// 2026-07-27 (ikinci tur): düzen dönüşümlü (zigzag) tek-kolonlu satırlara
+// çevrildi — bkz. `CustomerStoryRow.astro` ve `customerStories.ts`'in
+// başındaki revizyon notu (önceki 3-kolonlu kart grid'i kaynakla
+// karşılaştırılınca yanlış çıkmıştı).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CustomerStoryRow from './CustomerStoryRow.astro';
+import CustomerLogoMarquee from './CustomerLogoMarquee.astro';
+import { getTranslations } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { CUSTOMER_STORIES, CUSTOMER_STORIES_HERO_IMAGE, CUSTOMER_LOGO_MARQUEE } from '../data/customerStories';
+
+const locale = Astro.currentLocale ?? 'tr';
+const t = getTranslations(locale);
+const cs = t.customerStories;
+const ctaHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+---
+
+<BaseLayout title={`idenfit — ${cs.heroTitle.replace('\n', ' ')}`} description={cs.heroDescription}>
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      {/* ⚠️ DÜZELTME (2026-08-04): element-ID doğrulamalı (`d214071`/`b7cc083`,
+          `post-13119.css` — TR/EN/IT/NL'nin HEPSİ AYNI element ID'lerini
+          paylaşıyor, doğrulandı) canlı sayfa okunduğunda H1/açıklamanın
+          font-weight/boyut/RENGİNİN kaynaktan belirgin farklı olduğu
+          ortaya çıktı: H1 `font-bold`(700) değil `font-weight:500`,
+          `sm:text-4xl lg:text-5xl`(36-48px) değil sabit 36px masaüstü/24px
+          mobil. Açıklama ise `text-lg text-body`(18px/#333333) değil
+          22px/mobil→36px/masaüstü VE renk `text-muted`(#808080,
+          `--e-global-color-629b0de` ile birebir) — `text-body` DEĞİL. */}
+      <div class="reveal">
+        <h1
+          class="whitespace-pre-line text-2xl font-medium leading-[28px] tracking-tight text-brand lg:text-[36px] lg:leading-[42px]"
+        >
+          {cs.heroTitle}
+        </h1>
+        <p class="mt-5 text-[22px] leading-[30px] text-muted lg:text-[36px] lg:leading-[50px]">{cs.heroDescription}</p>
+        <a
+          href={ctaHref}
+          class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+        >
+          {cs.ctaLabel}
+        </a>
+      </div>
+      {/* ⚠️ DÜZELTME (2026-08-04): görsel `max-w-sm`(384px sabit tavan) ile
+          küçük/okunmaz kalıyordu — kaynağın gerçek kuralı (element `7118d76`,
+          `img{width:80%}`) SABİT bir piksel değeri DEĞİL, kendi sütununun
+          %80'i — ekran büyüdükçe görsel de büyüyor. Sabit tavan kaldırılıp
+          `w-4/5`(%80) ile birebir eşleştirildi. */}
+      {/* ⚠️ DÜZELTME (2026-08-04, 2. tur): %80 (kaynağın gerçek ölçülen
+          değeri, yukarıdaki yorum) kullanıcıya hâlâ küçük geldi — "biraz
+          daha büyüt" isteğiyle BİLİNÇLİ olarak kaynağın ötesine, `w-full`
+          (kendi sütununun tamamı) çıkarıldı. */}
+      <div class="reveal flex items-center justify-center" style="transition-delay: 120ms">
+        <img src={CUSTOMER_STORIES_HERO_IMAGE} alt="" loading="lazy" class="w-full" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Pilot (4 logo) onaylandı, 2026-07-30 — tam 14 logoluk
+       `CUSTOMER_LOGO_MARQUEE` dizisi (bkz. customerStories.ts'teki yorum).
+       Sarmalayıcı `<section>` BİLİNÇLİ olarak YOK (padding/max-w taşımıyor)
+       — `CustomerLogoMarquee.astro`'nun kendi full-bleed tekniği (`left-1/2
+       -mx-[50vw]`) yalnızca ATASINDA yatay padding OLMADIĞINDA viewport
+       kenarına tam (0 kalıntı offset) hizalanıyor; bir padding'li container
+       içine konsaydı birkaç px'lik kalıntı offset kalırdı. -->
+  <CustomerLogoMarquee logos={CUSTOMER_LOGO_MARQUEE} />
+
+  <!-- 2026-07-28 (dördüncü tur): container `max-w-5xl` (1024px) → `max-w-7xl`
+       (1280px, sayfanın geri kalanıyla — hero bölümüyle — TUTARLI standart
+       genişlik) — kullanıcı isteği: kartlar "yana doğru daha geniş" olsun.
+       İç boşluklar (padding/gap) `CustomerStoryRow.astro`'da orantılı
+       büyütüldü. -->
+  <section class="mx-auto max-w-7xl divide-y divide-gray-100 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+    {
+      CUSTOMER_STORIES.map((story, i) => {
+        const labels = cs[story.key];
+        const stats = [
+          { icon: 'employee' as const, label: labels.employeeCount },
+          ...(labels.secondaryStat ? [{ icon: 'branch' as const, label: labels.secondaryStat }] : []),
+        ];
+        return (
+          <>
+            <CustomerStoryRow
+              mediaSide={story.mediaSide}
+              media={story.media}
+              companyName={story.name}
+              description={labels.description}
+              quote={labels.quote}
+              quotePhotoUrl={story.quotePhotoUrl}
+              stats={stats}
+              videoPlayLabel={cs.videoPlayLabel}
+              revealDelayMs={Math.min(i, 4) * 100}
+            />
+            {story.secondary && (
+              <CustomerStoryRow
+                mediaSide={story.secondary.mediaSide}
+                media={story.secondary.media}
+                quote={cs.civilSecondary.quote}
+                quotePhotoUrl={story.secondary.quotePhotoUrl}
+                videoPlayLabel={cs.videoPlayLabel}
+              />
+            )}
+          </>
+        );
+      })
+    }
+  </section>
+
+  <script src="../scripts/scroll-reveal.js"></script>
+</BaseLayout>

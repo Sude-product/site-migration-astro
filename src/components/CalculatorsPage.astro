@@ -1,0 +1,62 @@
+---
+// Hesaplama Araçları sayfası — 8 hesap makinesi, hepsi client-side (backend
+// YOK). Kaynak: idenfit.com/hesaplama-araclari/ (yalnızca TR — bkz.
+// `calculatorDefinitions.ts` başındaki not, KARAR 2 gereği EN/IT ertelendi).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CalculatorAccordion from './CalculatorAccordion.tsx';
+import { CALCULATOR_DEFINITIONS } from '../data/calculatorDefinitions';
+import calculatorsExport from '../../reference/wordpress-export/calculators.json';
+
+const hero = calculatorsExport.hero;
+
+// Hero illüstrasyonu (turuncu tişörtlü figür + +/-/×/= dekoratif simgeler)
+// — `content.rendered`'da (WP REST API'nin döndürdüğü Elementor HTML) hiç
+// YOK; bu bölümün asıl decorative görseli sayfaya özel Elementor CSS
+// dosyasında (`wp-content/uploads/elementor/css/post-22563.css`, post
+// ID'siyle eşleşiyor) `.elementor-element-01c9f6a` seçicisine
+// `background-image` olarak tanımlı — WP REST API içerik alanı yalnızca
+// HTML döndürüyor, sayfaya özel derlenmiş CSS'i döndürmüyor, bu yüzden
+// önceki taramada (yalnızca `content.rendered` + canlı sayfanın tam
+// HTML'i içinde arandığında) bulunamamıştı. Kaynaktaki gibi dekoratif bir
+// arka plan (metni okuyan biri için görsel ekstra bir bilgi taşımıyor,
+// `alt` gerekmiyor) — yalnızca `lg:` ve üstü genişliklerde gösteriliyor
+// (kaynaktaki `background-position: right` düzeni, dar ekranda metinle
+// çakışacağından).
+const HERO_ILLUSTRATION_URL = 'https://idenfit.com/wp-content/uploads/2025/12/header-bg-2x.png';
+---
+
+<BaseLayout
+  title={`idenfit — ${hero.title}`}
+  description={hero.text ?? undefined}
+>
+  <section class="relative mx-auto max-w-5xl overflow-hidden px-4 py-12 text-center sm:px-6 lg:py-20 lg:pr-[420px] lg:text-left">
+    <!-- Dekoratif illüstrasyon — yalnızca lg+ genişlikte, sağda (kaynaktaki
+         background-position: right düzeniyle tutarlı). URL, bir Tailwind
+         utility sınıfı yerine bilerek inline `style` ile veriliyor: bir JS
+         değişkenine enterpolasyon içeren arbitrary-value bir sınıf,
+         derleme zamanında salt METİN tarayan Tailwind motoru tarafından
+         tanınamaz (kaynak dosyada gerçek URL değil yalnızca değişken adı
+         görünür). -->
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 hidden w-[420px] bg-contain bg-right bg-no-repeat lg:block"
+      style={`background-image: url('${HERO_ILLUSTRATION_URL}')`}
+      aria-hidden="true"
+    />
+    <h1 class="relative text-3xl font-bold text-heading sm:text-4xl">{hero.title}</h1>
+    {hero.text && <p class="relative mt-4 text-lg text-body lg:max-w-md">{hero.text}</p>}
+  </section>
+
+  <section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 lg:px-8">
+    <div id="hesaplama-araclari-list" class="divide-y divide-gray-100 border-t border-gray-100">
+      {
+        CALCULATOR_DEFINITIONS.map((def) => (
+          <div id={def.slug}>
+            <CalculatorAccordion client:visible slug={def.slug} calculateLabel="Hesapla" />
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <script src="../scripts/calculator-anchor.js"></script>
+</BaseLayout>

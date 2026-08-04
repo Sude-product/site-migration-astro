@@ -1,0 +1,46 @@
+---
+import type { ProductBlock } from '../data/productContent';
+
+interface Props {
+  section: ProductBlock;
+  reverse?: boolean;
+}
+
+const { section, reverse = false } = Astro.props;
+const { title, text, ctaText, ctaUrl, image } = section;
+---
+
+<div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+  {
+    image && (
+      <div class={reverse ? 'lg:order-2' : 'lg:order-1'}>
+        <img
+          src={image.url}
+          alt={image.alt}
+          loading="lazy"
+          width={image.width}
+          height={image.height}
+          class="w-full rounded-2xl object-cover"
+        />
+      </div>
+    )
+  }
+  <div class={image ? (reverse ? 'lg:order-1' : 'lg:order-2') : ''}>
+    <h2 class="h2-section text-heading" set:html={title} />
+    {
+      text && (
+        <div
+          class="mt-4 text-body [&_li]:mb-1 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_strong]:font-semibold [&_strong]:text-heading [&_ul]:list-disc [&_ul]:pl-5"
+          set:html={text}
+        />
+      )
+    }
+    {
+      ctaText && ctaUrl && (
+        <a href={ctaUrl} class="mt-4 inline-flex items-center text-sm font-semibold text-brand hover:underline">
+          {ctaText}
+        </a>
+      )
+    }
+  </div>
+</div>

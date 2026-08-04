@@ -1,0 +1,462 @@
+{
+  "_source": "reference/wordpress-export/pages.json (yerel export, `page` post type)",
+  "_fetchedAt": "2026-07-22T06:18:50.018Z",
+  "_note": "Donanım TEK bir sayfa (5 ayrı modül DEĞİL) — bölümler section_N_* (Şema D, PDKS ile aynı) alanlarından çıkarıldı, anchor id'ler kaynak HTML'in gerçek id niteliklerinden (section_4/\"platform\" hariç, biz atadık).",
+  "hardware": {
+    "trSlug": "donanim",
+    "locales": {
+      "tr": {
+        "id": 11715,
+        "slug": "donanim",
+        "link": "https://idenfit.com/donanim/",
+        "title": "Donanım",
+        "modified": "2026-05-08T09:15:48",
+        "hero": {
+          "title": "Farklı donanımlara entegre tanımlama sistemleri",
+          "text": "idenfit kullandığı biyometrik, bluetooth, rfid, gprs gibi teknolojik sistemlerle piyasadaki farklı donanımlara/cihazlara entegre olarak çalışanlarınızın tanımlanmasını ve gerçek zamanlı takibini doğru bir şekilde sağlar.",
+          "ctaText": "Hemen Başvur",
+          "ctaUrl": "https://idenfit.com/tr/online-sunum-talep-et/",
+          "image": {
+            "url": "https://idenfit.com/wp-content/uploads/2025/08/Dananimlar1@2x.png",
+            "alt": "Dananimlar1@2x",
+            "width": 1159,
+            "height": 1174
+          },
+          "id": "entegrasyon"
+        },
+        "sections": [
+          {
+            "title": "Biyometrik çözümler yüz tanıma & parmak okuma sistemleri",
+            "text": "Yüz tanıma ve parmak okuma cihazlarına entegre sistem sayesinde çalışanların kimlik doğrulaması gerçek zamanlı yapılabilir ve aynı zamanda giriş-çıkış takipleri kolaylıkla yönetilebilir.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/Donanimlar2@2x.png",
+              "alt": "Donanimlar2@2x",
+              "width": 1012,
+              "height": 1354
+            },
+            "id": "biyometrik"
+          },
+          {
+            "title": "Bluetooth anlık geçiş takip sistemleri",
+            "text": "<p>Son zamanlarda büyük yada küçük işletmeler fark etmeksizin, çoğu firma güvenlik yönetimi konusunda sorunlar yaşıyor. Bluetooth teknolojisi bu konuda güvenli geçiş ve tanımlamaya olanak vermesi sayesinde işletmelerin işini kolaylaştırıyor.</p>\n<p>Bluetooth sisteminde cep telefonu aracılığıyla, anahtara ihtiyaç duymadan kritik noktalarda geçişler tanımlanabilir. Aynı şekilde herhangi bir mekânda, kapıdan uzak olan noktalarda da sistem üzerinden kapılar açılabilir ve geçişler yönetilebilir.</p>\n<p>Bab bluetooth tabanlı yeni nesil takip sistemiyle, çalışan geçişlerini bluetooth teknolojileriyle yönetebilir ve takiplerini gerçekleştirebilirsiniz.</p>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp",
+              "alt": "4@2x 2",
+              "width": 1335,
+              "height": 1021
+            },
+            "id": "bluetooth"
+          },
+          {
+            "title": "Donanım çekirdek platform",
+            "text": "idenfit çekirdek yapısı, gerçek zamanlı olarak birden fazla cihazla bağlantı kurmak için özel olarak tasarlanmıştır. Sistem (markasız & esnek yapı) önceden satın aldığınız ya da elinizde bulunan cihazları uyum sorunu yaşamadan platforma bağlamanıza olanak sağlar.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp",
+              "alt": "5@2x",
+              "width": 1016,
+              "height": 586
+            },
+            "id": "platform"
+          },
+          {
+            "title": "rfid<br>gerçek zamanlı<br>konum takibi",
+            "text": "Varlıklarınızı veya çalışanlarınızı istediğiniz zaman, istediğiniz yerden rfid teknolojisiyle takip edebilirsiniz. Hareket halindeki nesnelerin, demirbaşların yada kıymetli eserlerin takibini rfid teknolojisiyle yapabileceğiniz gibi, rain rfid okuyucularıyla da insanları gerçek zamanlı olarak izleyebilirsiniz. Bu teknolojiyle çalışanlarınızı çevrimiçi olarak görebilir ve kimin, ne zaman, nerede olduğunu kolaylıkla takip edebilirsiniz.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp",
+              "alt": "6@2x",
+              "width": 1081,
+              "height": 1006
+            },
+            "id": "rfid"
+          },
+          {
+            "title": "gprs<br>kablosuz iletişim",
+            "text": "Idenfit’in sunduğu kablosuz iletişim teknolojisi sayesinde, GSM destekli biyometrik ve rfid okuyucuları doğrudan idenfit sunucularıyla iletişim kurar. Bu sayede kablolarla ve yerel sunucularla uğraşmanıza gerek kalmaz. idenfit, gprs olanağı ile zamandan ve operasyon maliyetinden tasarruf etmenizi sağlar.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp",
+              "alt": "7@2x",
+              "width": 1125,
+              "height": 942
+            },
+            "id": "gprs"
+          },
+          {
+            "title": "Geçiş sistemleri <br>turnikeler",
+            "text": "idenfit ile turnike veya kritik geçiş noktalarına tanımlanan sistem sayesinde kimlik doğrulama ve çalışanların gerçek zamanlı giriş-çıkış takibi kolaylıkla yapılabilir. Turnikelere kartlı geçiş, yüz okuma veya parmak okuma sistemleri kurularak geçişler tanımlanabilir. Sistem her türlü cihaza entegre olarak çalışır.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp",
+              "alt": "8@2x",
+              "width": 1118,
+              "height": 1737
+            },
+            "id": "turnikeler"
+          },
+          {
+            "title": "Onaylı markalar cihazlarla entegre",
+            "text": "<p>idenfit çekirdek yapısı, aşağıda belirtilen gelişmiş<br />\ncihazlar ile uyumlu çalışır. Akıllı iletişim yapısı ve<br />\nagnostik formu ile mükemmel bir çalışan deneyimi sunar.</p>\n<ul class=\"list\">\n<li>Suprema</li>\n<li>ZKTeco</li>\n<li>Bab</li>\n</ul>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp",
+              "alt": "9@2x",
+              "width": 1001,
+              "height": 989
+            },
+            "id": "markalar"
+          }
+        ]
+      },
+      "en": {
+        "id": 11820,
+        "slug": "hardware",
+        "link": "https://idenfit.com/en/hardware/",
+        "title": "Hardware",
+        "modified": "2025-09-26T13:57:14",
+        "hero": {
+          "title": "Identification technologies integrated into different hardwares and devices",
+          "text": "Idenfit touch- free identification technologies provide real-time identification and track of your employees by using systems such as biometric, gps, beacon, rfid and nfc. Idenfit software supports wide range of biometric devices, including fingerprint readers, iris scanners, Web and IP cameras.\r\n\r\n",
+          "ctaText": "Get Started",
+          "ctaUrl": "https://idenfit.com/request-online-presentation/",
+          "image": {
+            "url": "https://idenfit.com/wp-content/uploads/2025/08/1@2x-2.webp",
+            "alt": "1@2x 2",
+            "width": 1159,
+            "height": 1174
+          },
+          "id": "entegrasyon"
+        },
+        "sections": [
+          {
+            "title": "Automated Biometric Identification System face & fingerprint biometric modalities",
+            "text": "The solution supports face and fingerprint biometric modalities which has been designed for fast processing of multiple biometric operations with high accuracy and reliability.\r\n\r\nIdenfit offers customizable personal record structure (biometric data and demographic data fields), adjustable identity management and adjudication workflow.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/2@2x-1.webp",
+              "alt": "2@2x 1",
+              "width": 1012,
+              "height": 1354
+            },
+            "id": "biyometrik"
+          },
+          {
+            "title": "bluetooth and tracking system",
+            "text": "<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>Implementations of access and tracking systems have become essential issues for many companies recently due to its advantage of location detection of devices or persons.</p>\n<p>Objects and persons are usually tracked using trackers based on gps, rfid and bluetooth signal strength implementation.</p>\n<p>Bab, the bluetooth tracker and access point system implementation allows you to manage employee access and tracking in low cost and easy way.</p>\n</div>\n</article>\n</div>\n<div class=\"text-right col-sm-12 col-md-6 col-lg-6\"></div>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp",
+              "alt": "4@2x 2",
+              "width": 1335,
+              "height": 1021
+            },
+            "id": "bluetooth"
+          },
+          {
+            "title": "core hardware",
+            "text": "Idenfit’s core hardware is designed to integrated with multiple devices. Idenfit core hardware allows on the market and also guarantees you accuracy, security, availability, ease of use, full integration to devices, user acceptance, usability, cost effectiveness and hygiene issue.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp",
+              "alt": "5@2x",
+              "width": 1016,
+              "height": 586
+            },
+            "id": "platform"
+          },
+          {
+            "title": "rfid real- time location tracking",
+            "text": "Tagging items with RFID tags allows users to track moving objects or assets with rfid technology and you can also track people with rain rfid systems while having real-time data. With this technology, you can see your employees online and easily keep track of who, when and where. RFID takes auto-ID technology can be used in a range between a few centimeters to over 20+ meters.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp",
+              "alt": "6@2x",
+              "width": 1081,
+              "height": 1006
+            },
+            "id": "rfid"
+          },
+          {
+            "title": "gprs wireless communication",
+            "text": "The wireless communication technology offered by Idenfit allows GSM supported biometric and rfid readers communicate directly with Idenfit servers. In this way, users do not have to deal with cables and local servers. Idenfit reduces the operation costs with GPRS technology.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp",
+              "alt": "7@2x",
+              "width": 1125,
+              "height": 942
+            },
+            "id": "gprs"
+          },
+          {
+            "title": "Access control systems Swing barriers",
+            "text": "Idenfit allows users to identify and track employees by swing barriers can be installed in combination with various identification sensors, such as intelligent card reader, fingerprint readers and face recognition systems. Idenfit can be easily integrated with recognition devices.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp",
+              "alt": "8@2x",
+              "width": 1118,
+              "height": 1737
+            },
+            "id": "turnikeler"
+          },
+          {
+            "title": "Idenfit supports wide range of devices and brands",
+            "text": "<div>\n<div>\n<section id=\"brands\" class=\"section\">\n<div class=\"container\">\n<div class=\"row align-items-center justify-content-between column-reverse\">\n<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>Idenfit core hardware works well with recognition devices and brands that users can find on the market. Flexible structure allows it to integrate fully with the main devices. It offers to companies an ultimate employee experience.</p>\n<ul class=\"list\">\n<li>Suprema</li>\n<li>ZKTeco</li>\n<li>Bab</li>\n</ul>\n</div>\n</article>\n</div>\n</div>\n</div>\n</section>\n</div>\n</div>\n<div>\n<div id=\"box\"></div>\n</div>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp",
+              "alt": "9@2x",
+              "width": 1001,
+              "height": 989
+            },
+            "id": "markalar"
+          }
+        ]
+      },
+      "nl": {
+        "id": 20287,
+        "slug": "hardware-2",
+        "link": "https://idenfit.com/nl/hardware/",
+        "title": "Hardware",
+        "modified": "2025-12-15T13:39:46",
+        "hero": {
+          "title": "Identificatietechnologieën geïntegreerd in verschillende hardware en apparaten",
+          "text": "Idenfit contactloze identificatietechnologieën bieden realtime identificatie en volgen van uw medewerkers door gebruik te maken van systemen zoals biometrisch, gps, beacon, rfid en nfc. De software van Idenfit ondersteunt een breed scala aan biometrische apparaten, waaronder vingerafdruklezers, irisscanners, web- en IP-camera's.",
+          "ctaText": "Aan de slag",
+          "ctaUrl": "https://idenfit.com/request-online-presentation/",
+          "image": {
+            "url": "https://idenfit.com/wp-content/uploads/2025/08/1@2x-2.webp",
+            "alt": "1@2x 2",
+            "width": 1159,
+            "height": 1174
+          },
+          "id": "entegrasyon"
+        },
+        "sections": [
+          {
+            "title": "Geautomatiseerd Biometrisch Identificatiesysteem gezichts- & vingerafdrukbiometrische modaliteiten",
+            "text": "",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/2@2x-1.webp",
+              "alt": "2@2x 1",
+              "width": 1012,
+              "height": 1354
+            },
+            "id": "biyometrik"
+          },
+          {
+            "title": "bluetooth- en volgsysteem",
+            "text": "<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>Implementaties van toegang- en volgsystemen zijn de laatste tijd essentiële kwesties geworden voor veel bedrijven vanwege het voordeel van locatiebepaling van apparaten of personen.</p>\n<p>Objecten en personen worden meestal gevolgd met trackers op basis van gps, rfid en bluetooth-signaalsterkte-implementatie.</p>\n<p>Bab, de bluetooth-tracker en toegangspunt systeemimplementatie stelt u in staat om de toegang en het volgen van medewerkers op een kosteneffectieve en eenvoudige manier te beheren.</p>\n</p></div>\n</article></div>\n<div class=\"text-right col-sm-12 col-md-6 col-lg-6\"></div>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp",
+              "alt": "4@2x 2",
+              "width": 1335,
+              "height": 1021
+            },
+            "id": "bluetooth"
+          },
+          {
+            "title": "kernhardware",
+            "text": "De kernhardware van Idenfit is ontworpen om geïntegreerd te worden met meerdere apparaten. De kernhardware van Idenfit biedt op de markt en garandeert ook nauwkeurigheid, veiligheid, beschikbaarheid, gebruiksgemak, volledige integratie met apparaten, gebruikersacceptatie, bruikbaarheid, kosteneffectiviteit en hygiënekwesties.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp",
+              "alt": "5@2x",
+              "width": 1016,
+              "height": 586
+            },
+            "id": "platform"
+          },
+          {
+            "title": "rfid realtime locatie tracking",
+            "text": "Het taggen van items met RFID-tags stelt gebruikers in staat om bewegende objecten of activa te volgen met rfid-technologie en u kunt ook mensen volgen met regen rfid-systemen terwijl u realtime gegevens heeft. Met deze technologie kunt u uw medewerkers online zien en eenvoudig bijhouden wie, wanneer en waar. RFID neemt auto-ID-technologie die kan worden gebruikt in een bereik van enkele centimeters tot meer dan 20+ meter.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp",
+              "alt": "6@2x",
+              "width": 1081,
+              "height": 1006
+            },
+            "id": "rfid"
+          },
+          {
+            "title": "gprs draadloze communicatie",
+            "text": "De draadloze communicatietechnologie die door Idenfit wordt aangeboden, stelt GSM-ondersteunde biometrische en rfid-lezers in staat om rechtstreeks met de servers van Idenfit te communiceren. Op deze manier hoeven gebruikers zich geen zorgen te maken over kabels en lokale servers. Idenfit verlaagt de operationele kosten met GPRS-technologie.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp",
+              "alt": "7@2x",
+              "width": 1125,
+              "height": 942
+            },
+            "id": "gprs"
+          },
+          {
+            "title": "Toegangscontrolesystemen Swingbarrières",
+            "text": "Idenfit stelt gebruikers in staat om medewerkers te identificeren en te volgen door swingbarrières die kunnen worden geïnstalleerd in combinatie met verschillende identificatiesensoren, zoals intelligente kaartlezers, vingerafdruklezers en gezichtsherkenningssystemen. Idenfit kan eenvoudig worden geïntegreerd met herkenningsapparaten.",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp",
+              "alt": "8@2x",
+              "width": 1118,
+              "height": 1737
+            },
+            "id": "turnikeler"
+          },
+          {
+            "title": "Idenfit ondersteunt een breed scala aan apparaten en merken",
+            "text": "<div>\n<div>\n<section id=\"brands\" class=\"section\">\n<div class=\"container\">\n<div class=\"row align-items-center justify-content-between column-reverse\">\n<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>De kernhardware van Idenfit werkt goed met herkenningsapparaten en merken die gebruikers op de markt kunnen vinden. De flexibele structuur stelt het in staat om volledig te integreren met de belangrijkste apparaten. Het biedt bedrijven een ultieme medewerkerservaring.</p>\n<ul class=\"list\">\n<li>Suprema</li>\n<li>ZKTeco</li>\n<li>Bab</li>\n</ul></div>\n</article></div>\n</p></div>\n</p></div>\n</section></div>\n</p></div>\n<div>\n<div id=\"box\"></div>\n</p></div>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp",
+              "alt": "9@2x",
+              "width": 1001,
+              "height": 989
+            },
+            "id": "markalar"
+          }
+        ]
+      },
+      "it": {
+        "id": 23428,
+        "slug": "hardware-3",
+        "link": "https://idenfit.com/it/hardware/",
+        "title": "Hardware_IT",
+        "modified": "2026-02-10T14:14:51",
+        "hero": {
+          "title": "Identification technologies integrated into different hardwares and devices",
+          "text": "Idenfit touch- free identification technologies provide real-time identification and track of your employees by using systems such as biometric, gps, beacon, rfid and nfc. Idenfit software supports wide range of biometric devices, including fingerprint readers, iris scanners, Web and IP cameras.\r\n\r\n",
+          "ctaText": "Get Started",
+          "ctaUrl": "https://idenfit.com/request-online-presentation/",
+          "image": {
+            "url": "https://idenfit.com/wp-content/uploads/2025/08/1@2x-2.webp",
+            "alt": "1@2x 2",
+            "width": 1159,
+            "height": 1174
+          },
+          "id": "entegrasyon"
+        },
+        "sections": [
+          {
+            "title": "Automated Biometric Identification System face & fingerprint biometric modalities",
+            "text": "The solution supports face and fingerprint biometric modalities which has been designed for fast processing of multiple biometric operations with high accuracy and reliability.\r\n\r\nIdenfit offers customizable personal record structure (biometric data and demographic data fields), adjustable identity management and adjudication workflow.\r\n\r\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/2@2x-1.webp",
+              "alt": "2@2x 1",
+              "width": 1012,
+              "height": 1354
+            },
+            "id": "biyometrik"
+          },
+          {
+            "title": "bluetooth and tracking system",
+            "text": "<div class=\"col-sm-12 col-md-6 col-lg-6\"><article>\r\n<div>\r\n\r\nImplementations of access and tracking systems have become essential issues for many companies recently due to its advantage of location detection of devices or persons.\r\n\r\nObjects and persons are usually tracked using trackers based on gps, rfid and bluetooth signal strength implementation.\r\n\r\nBab, the bluetooth tracker and access point system implementation allows you to manage employee access and tracking in low cost and easy way.\r\n\r\n</div>\r\n</article></div>\r\n<div class=\"text-right col-sm-12 col-md-6 col-lg-6\"></div>",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp",
+              "alt": "4@2x 2",
+              "width": 1335,
+              "height": 1021
+            },
+            "id": "bluetooth"
+          },
+          {
+            "title": "core hardware",
+            "text": "<p>Idenfit’s core hardware is designed to integrated with multiple devices. Idenfit core hardware allows on the market and also guarantees you accuracy, security, availability, ease of use, full integration to devices, user acceptance, usability, cost effectiveness and hygiene issue.</p>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp",
+              "alt": "5@2x",
+              "width": 1016,
+              "height": 586
+            },
+            "id": "platform"
+          },
+          {
+            "title": "rfid real- time location tracking",
+            "text": "<p>Tagging items with RFID tags allows users to track moving objects or assets with rfid technology and you can also track people with rain rfid systems while having real-time data. With this technology, you can see your employees online and easily keep track of who, when and where. RFID takes auto-ID technology can be used in a range between a few centimeters to over 20+ meters.</p>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp",
+              "alt": "6@2x",
+              "width": 1081,
+              "height": 1006
+            },
+            "id": "rfid"
+          },
+          {
+            "title": "gprs wireless communication",
+            "text": "<p>The wireless communication technology offered by Idenfit allows GSM supported biometric and rfid readers communicate directly with Idenfit servers. In this way, users do not have to deal with cables and local servers. Idenfit reduces the operation costs with GPRS technology.</p>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp",
+              "alt": "7@2x",
+              "width": 1125,
+              "height": 942
+            },
+            "id": "gprs"
+          },
+          {
+            "title": "Access control systems Swing barriers",
+            "text": "<p>Idenfit allows users to identify and track employees by swing barriers can be installed in combination with various identification sensors, such as intelligent card reader, fingerprint readers and face recognition systems. Idenfit can be easily integrated with recognition devices.</p>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp",
+              "alt": "8@2x",
+              "width": 1118,
+              "height": 1737
+            },
+            "id": "turnikeler"
+          },
+          {
+            "title": "Idenfit supports wide range of devices and brands",
+            "text": "<div>\n<div>\n<section id=\"brands\" class=\"section\">\n<div class=\"container\">\n<div class=\"row align-items-center justify-content-between column-reverse\">\n<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>Idenfit core hardware works well with recognition devices and brands that users can find on the market. Flexible structure allows it to integrate fully with the main devices. It offers to companies an ultimate employee experience.</p>\n<ul class=\"list\">\n<li>Suprema</li>\n<li>ZKTeco</li>\n<li>Bab</li>\n</ul>\n</div>\n</article>\n</div>\n</div>\n</div>\n</section>\n</div>\n</div>\n<div>\n<div id=\"box\"></div>\n</div>\n",
+            "ctaText": "",
+            "ctaUrl": "",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp",
+              "alt": "9@2x",
+              "width": 1001,
+              "height": 989
+            },
+            "id": "markalar"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+---
+// Aşama 2.5 — şema çeşitliliği testi (Anket Modülü). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../../data/productContent';
+
+const trSlug = 'anket-modulu';
+const content = getProductContent(trSlug, 'nl')!;
+const pageTitle = getProductPageTitle(trSlug, 'nl');
+const localeUrls = getProductLocaleUrls(trSlug);
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

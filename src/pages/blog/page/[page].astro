@@ -1,0 +1,22 @@
+---
+// Blog listesinin 2. ve sonraki sayfaları (`/blog/page/2/` vb.) —
+// `/blog/<slug>/` (src/pages/blog/[slug].astro) ile aynı dizin seviyesinde
+// dinamik bir `[slug]`/`[page]` çakışması olmasın diye kasıtlı olarak ayrı
+// bir `page/` alt yoluna konuldu.
+import BlogListPage from '../../../components/BlogListPage.astro';
+import { getAllBlogPosts, paginate } from '../../../data/blogContent';
+
+export async function getStaticPaths() {
+  const allPosts = await getAllBlogPosts();
+  const { totalPages } = paginate(allPosts, 1);
+  return Array.from({ length: Math.max(0, totalPages - 1) }, (_, i) => ({
+    params: { page: String(i + 2) },
+  }));
+}
+
+const pageNumber = Number(Astro.params.page);
+const allPosts = await getAllBlogPosts();
+const result = paginate(allPosts, pageNumber);
+---
+
+<BlogListPage result={result} allPosts={allPosts} />

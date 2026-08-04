@@ -1,0 +1,12 @@
+---
+// Aşama 3 (kısım 2) — İK Hub sayfası (KARAR 3 gereği ayrıca ele alındı). Bkz. CLAUDE.md.
+import HubPage from '../components/HubPage.astro';
+import { getHubContent, getHubLocaleUrls, getHubPageTitle } from '../data/hubContent';
+
+const trSlug = 'insan-kaynaklari-yonetimi-modulu';
+const content = getHubContent(trSlug, 'tr')!;
+const pageTitle = getHubPageTitle(trSlug, 'tr');
+const localeUrls = getHubLocaleUrls(trSlug);
+---
+
+<HubPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

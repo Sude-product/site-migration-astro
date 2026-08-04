@@ -1,0 +1,16 @@
+---
+// Donanım sayfası — TEK sayfa (5 ayrı modül DEĞİL), farklı donanım/teknoloji
+// türleri (Biyometrik, Bluetooth, RFID, GPRS, Turnikeler, Onaylı Markalar)
+// birer bölüm olarak art arda sıralanıyor, anchor id'lerle (#rfid gibi)
+// atlanabiliyor. İçerik şekli (hero + N blok, SSS yok) ürün sayfalarıyla
+// birebir aynı olduğu için `ProductPage.astro` yeniden kullanıldı (bkz.
+// `hardwareContent.ts`, `ProductBlock.id` anchor desteği).
+import ProductPage from '../components/ProductPage.astro';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle } from '../data/hardwareContent';
+
+const content = { ...getHardwareContent('tr')!, faq: [] };
+const pageTitle = getHardwarePageTitle('tr');
+const localeUrls = getHardwareLocaleUrls();
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

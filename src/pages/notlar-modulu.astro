@@ -1,0 +1,12 @@
+---
+// Aşama 2.5 — şema çeşitliliği testi (Notlar Modülü). Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+
+const trSlug = 'notlar-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

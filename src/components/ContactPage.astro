@@ -1,0 +1,89 @@
+---
+// İletişim sayfası — bkz. `miscPagesContent.ts`. Hero (başlık+alt başlık) +
+// "bizi arayın"/"bize yazın" blokları + ofis listesi + form (hero'daki
+// AYNI alanlara sahip, `HeroForm.tsx` yeniden kullanıldı — `idPrefix=
+// "contact"` ile id çakışması önlendi, bkz. PanelFeatureSection.astro'daki
+// aynı desen). Kaynaktaki hero görsel/harita/video BİLİNÇLİ OLARAK
+// eklenmedi (dekoratif, sayfanın asıl işlevi olan iletişim bilgisi için
+// gerekli değil) — kapsam sadeleştirmesi.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroForm from './HeroForm.tsx';
+import { getTranslations } from '../i18n';
+import { getKvkkAndTermsHrefs, type ContactContent } from '../data/miscPagesContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: ContactContent;
+  localeUrls: Record<string, string | undefined>;
+}
+
+const { content, localeUrls } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+---
+
+<BaseLayout title={`idenfit — ${content.pageTitle}`} description={content.pageTitle} localeUrls={localeUrls}>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <h1 class="text-3xl font-bold text-heading sm:text-4xl" set:html={content.pageTitle} />
+    <p class="mt-4 max-w-xl text-lg text-body" set:html={content.pageSubtitle} />
+
+    <div class="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+      <div>
+        <div class="flex flex-col gap-6 sm:flex-row sm:gap-10">
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.callTitle}</h2>
+            <a href={content.callLinkUrl} class="mt-2 block text-lg font-semibold text-heading transition-colors hover:text-brand">
+              {content.callText}
+            </a>
+          </div>
+          <div>
+            <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.emailTitle}</h2>
+            <a href={content.emailLinkUrl} class="mt-2 block text-lg font-semibold text-heading transition-colors hover:text-brand">
+              {content.emailLinkUrl.replace('mailto:', '')}
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-10">
+          <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.officesTitle}</h2>
+          <ul class="mt-4 space-y-5">
+            {
+              content.offices.map((office) => (
+                <li>
+                  <p class="font-semibold text-heading">{office.name}</p>
+                  <p class="mt-1 text-sm text-body">{office.address}</p>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+
+      <div class="rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm sm:p-8">
+        <h2 class="text-lg font-semibold text-heading">{content.formTitle}</h2>
+        <div class="mt-4">
+          <HeroForm
+            client:visible
+            idPrefix="contact"
+            labels={{
+              name: t.hero.formName,
+              phone: t.hero.formPhone,
+              phoneError: t.hero.formPhoneError,
+              phoneCountryLabel: t.hero.formPhoneCountryLabel,
+              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+              company: t.hero.formCompany,
+              email: t.hero.formEmail,
+              submit: t.cta.submit,
+              kvkkNotice: t.hero.kvkkNotice,
+            }}
+            locale={locale}
+            kvkkHref={kvkkHref}
+            termsHref={termsHref}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,216 @@
+---
+// Online Sunum Talebi (Request Online Presentation) — sitedeki HER "Online
+// Sunum Talebi"/"Get Started" CTA'sının gittiği ortak sayfa (bkz.
+// `miscPagesContent.ts`'teki canonical slug notu).
+//
+// ⚠️ 2026-07-31 BAŞTAN KURULUM: önceki (2026-07-30) tur bu sayfanın gerçek
+// DOM yapısını YANLIŞ varsaymıştı — kaynağın (idenfit.com/online-sunum-talep-et/,
+// template 15441) element-ID'leriyle çapraz doğrulanan GERÇEK yapısı hiç öyle
+// değil. `post-15441.css` + ham HTML birebir okunarak şu bulundu:
+//
+// - Sol kolon (a338640, ŞEFFAF — arkasındaki kırmızı f04cc27 bloğu görünür
+//   olsun diye HİÇBİR arka plan taşımıyor): h1 → "info" bullet listesi →
+//   "Hemen Ara" başlığı → telefon numarası (mor ikonlu, beyaz kalın metin) →
+//   100px boşluk → "Entegre Çalışabileceğimiz Sistemler" başlığı + görsel
+//   (BU İKİSİ kaynakta zaten mevcut olan integrationsText/Image alanları —
+//   ama pembe bir panelde DEĞİL, düz sol kolonun devamı olarak, gri metinle).
+// - Sağ kolon (eabfe75, TEK bir dolu BEYAZ kart — rounded-20px + box-shadow):
+//   form başlığı → form açıklaması → form (YEŞİL solid buton, pill input'lar,
+//   BÜYÜK HARF placeholder'lar) → "Siz de bize güvenen..." başlığı +
+//   customer-brands.jpeg görseli — BU İKİSİ (referencesText/Image) ayrı,
+//   alt bir bölüm DEĞİL, AYNI beyaz form kartının İÇİNDE, formun hemen altında.
+// - f04cc27: `position:absolute; top:0; min-height:600px;
+//   background-color:var(--e-global-color-uicore_primary)` (marka kırmızısı)
+//   — hero'nun (081122e) İÇİNDE değil, onunla aynı üst seviyede bir kardeş;
+//   en yakın `position:relative` atası (bu bölümü saran `<section>`) sayesinde
+//   TÜM hero satırının ARKASINDA durur. Sol kolon şeffaf olduğu için kırmızı
+//   ORADA görünür; sağ kolonun kendi opak beyaz zemini kırmızıyı ÖRTER. Bu,
+//   kullanıcının ekran görüntüsünde gördüğü "sol taraf tam kırmızı, yalnızca
+//   form kartı beyaz" görünümünün BİREBİR açıklaması.
+//
+// Önceki turun "Entegrasyonlar = ayrı pembe (bg-brand-light) panel" ve
+// "Referanslar = hero'nun ALTINDA ayrı kırmızı full-bleed bölüm" varsayımları
+// YANLIŞTI — ikisi de kaynakta YOK, bu turda tamamen kaldırıldı.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroForm from './HeroForm.tsx';
+import { getTranslations } from '../i18n';
+import { getKvkkAndTermsHrefs, type PresentationContent } from '../data/miscPagesContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: PresentationContent;
+}
+
+const { content } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+const description = content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+---
+
+<BaseLayout title={`idenfit — ${content.formTitle}`} description={description}>
+  <section class="relative isolate overflow-hidden">
+    {/* f04cc27 — bkz. yukarıdaki dosya başı yorumu. */}
+    <div
+      class="absolute inset-x-0 top-0 left-1/2 right-1/2 -z-10 min-h-[600px] w-screen -mx-[50vw] bg-brand"
+      aria-hidden="true"
+    />
+    <div class="mx-auto max-w-[1440px] px-6 py-16 lg:px-[100px] lg:py-[120px]">
+      {/* ⚠️ DÜZELTME (2026-08-04, 9. tur): 8. turun `items-stretch` +
+          `mt-auto` yaklaşımı YANLIŞ referans noktasını kullanıyordu — blok
+          sol kolonu sağ kolonun (form kartı, kırmızı şeritten çok daha
+          uzun) ALT kenarına yaslıyordu, kullanıcı "çok aşağı inmiş" dedi.
+          Doğru referans nokta kırmızı şeridin kendisi (`min-h-[600px]`,
+          içeriksiz olduğu için tam 600px sabit) — bkz. aşağıdaki sol kolon
+          yorumu. `items-start`'a geri dönüldü. */}
+      <div class="grid items-start gap-y-10 lg:grid-cols-2 lg:gap-x-0">
+        {/* Sol kolon — şeffaf, arkadaki kırmızı görünür. */}
+        <div>
+          {/* ⚠️ DÜZELTME (2026-08-04, 9. tur — KALICI ÇÖZÜM): "Entegre..."
+              bloğu kırmızı şeridin (yukarıdaki `min-h-[600px]`, sabit —
+              içeriksiz olduğu için asla uzamaz) HEMEN ALTINDA başlamalı,
+              dilden bağımsız olarak. Üst grubun (başlık+liste+telefon)
+              yüksekliği dile göre değişiyor (TR'nin uzun H1'i 3 satır, EN'in
+              kısa `<br>`'lı H1'i 2 satır) — bu yüzden üst gruba, kırmızı
+              şeridin bittiği noktaya kadar dolduran bir `min-height`
+              verildi: masaüstü padding-top 120px + bu min-height (472px) +
+              alttaki `mt-6`(24px) ≈ 616px ≈ kırmızı şeridin bittiği 600px +
+              16px küçük nefes payı. Mobilde padding-top 64px olduğu için
+              min-height daha büyük (528px) tutuldu, aynı ~616px hedefine
+              ulaşmak için. İçerik bu min-height'i AŞARSA (TR'de muhtemel)
+              min-height devre dışı kalır, doğal akış korunur — yalnızca
+              KISA içerik (EN/NL/IT gibi) için bir taban değeri. **Dürüst
+              sınır:** Chrome uzantısı/Playwright bu oturumda da
+              kullanılamadı, değerler element-ID ölçümü değil hesaplanmış
+              tahmin — kullanıcı görsel olarak doğrulamalı. */}
+          <div class="min-h-[528px] lg:min-h-[472px]">
+          <h1
+            class="text-2xl font-bold leading-7 text-white lg:text-[36px] lg:leading-[43px]"
+            set:html={content.pageTitle}
+          />
+
+          <ul class="mt-6 space-y-2">
+            {
+              content.info.map((line: string) => (
+                <li class="flex items-center gap-2.5 text-base text-white">
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-white" aria-hidden="true" />
+                  {line}
+                </li>
+              ))
+            }
+          </ul>
+
+          {
+            content.phoneNumber && (
+              <>
+                <p class="mt-8 text-[22px] leading-[30px] text-white lg:mt-[50px]">{content.callText}</p>
+                <a
+                  href={content.phoneNumberLink}
+                  class="mt-1 inline-flex items-center gap-3 text-2xl font-bold text-white transition-opacity hover:opacity-90"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="h-7 w-7 shrink-0 text-secondary"
+                    aria-hidden="true"
+                  >
+                    <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+                  </svg>
+                  {content.phoneNumber}
+                </a>
+              </>
+            )
+          }
+          </div>
+          {/* (2026-07-31, 4-7. tur ve 2026-08-04, 8. tur denemeleri —
+              `content.phoneNumber` bazlı sabit margin ve ardından
+              `mt-auto`/sağ-kolon-hizalama — ikisi de yanlış referans
+              noktası kullandığı için TERK EDİLDİ, bkz. yukarıdaki sol kolon
+              yorumu ve CLAUDE.md 2026-08-04 günlüğü. Artık konum tamamen
+              üstteki `min-h-[...]` ile kontrol ediliyor, burada yalnızca
+              küçük sabit bir `mt-6` kalıyor.) */}
+          {
+            content.integrationsText && (
+              <div class="mt-6 flex flex-col items-center justify-center text-center">
+                <h2
+                  class="mx-auto block max-w-xs text-[22px] leading-[30px] text-[#4D4D4D]"
+                  set:html={content.integrationsText}
+                />
+                {content.integrationsImage && (
+                  <img
+                    src={content.integrationsImage.url}
+                    alt={content.integrationsImage.alt}
+                    width={content.integrationsImage.width}
+                    height={content.integrationsImage.height}
+                    loading="lazy"
+                    class="mx-auto mt-6 block h-auto w-full max-w-[394px] object-contain"
+                  />
+                )}
+              </div>
+            )
+          }
+        </div>
+
+        {/* Sağ kolon — TEK dolu beyaz kart (form + referanslar birlikte) */}
+        <div class="rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)] lg:px-[80px] lg:py-10">
+          <h2 class="text-center text-2xl font-normal text-heading lg:text-[36px]">{content.formTitle}</h2>
+          <p class="mt-2 mb-6 text-center text-sm text-muted">{content.formText}</p>
+
+          {/* ⚠️ DÜZELTME (2026-08-04): bu sayfanın KENDİ form widget'ı
+              (`69d7eaa`, template 15441) Hero'nun widget'ından (`43e32bd`)
+              FARKLI placeholder'lar kullanıyor — element-ID doğrulamalı
+              (TR: "ADINIZ SOYADINIZ"/"TELEFON NUMARASI"/"ŞİRKET
+              E-POSTANIZ"/"FİRMANIZIN ADI", EN: "FULL NAME"/"PHONE
+              NUMBER"/"E-MAIL"/"COMPANY NAME", IT: "NOME COMPLETO"/"NUMERO
+              DI TELEFONO"/"E-MAIL"/"NOME AZIENDA" — büyük harf CSS'ten
+              geliyor, `placeholder:uppercase`). Önceden yanlışlıkla
+              Hero'nun paylaşılan `t.hero.formName` vb. kullanılıyordu —
+              artık ayrı `t.hero.presentationForm` alanına bağlandı. */}
+          <HeroForm
+            client:load
+            idPrefix="presentation"
+            variant="presentation"
+            labels={{
+              name: t.hero.presentationForm.name,
+              phone: t.hero.presentationForm.phone,
+              phoneError: t.hero.formPhoneError,
+              phoneCountryLabel: t.hero.formPhoneCountryLabel,
+              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+              company: t.hero.presentationForm.company,
+              email: t.hero.presentationForm.email,
+              submit: t.hero.formSubmit,
+              kvkkNotice: t.hero.kvkkNotice,
+            }}
+            locale={locale}
+            kvkkHref={kvkkHref}
+            termsHref={termsHref}
+          />
+
+          {
+            content.referencesText && (
+              <div class="mt-8 text-center">
+                <h2 class="text-lg leading-[22px] text-[#4D4D4D]" set:html={content.referencesText} />
+                {content.referencesImage && (
+                  <img
+                    src={content.referencesImage.url}
+                    alt={content.referencesImage.alt}
+                    width={content.referencesImage.width}
+                    height={content.referencesImage.height}
+                    loading="lazy"
+                    class="mx-auto mt-4 max-w-xs"
+                  />
+                )}
+              </div>
+            )
+          }
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

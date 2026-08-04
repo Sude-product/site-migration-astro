@@ -1,0 +1,23 @@
+---
+// Müşteri logo şeridi — idenfit.com ana sayfasından (bkz.
+// docs/homepage-sections-report.md §2). 7 gerçek müşteri logosu
+// (`src/data/homeContent.ts`, 4 dilde aynı — WP medya kütüphanesinde
+// dile göre ayrı logo yok) + tek bir başlık cümlesi.
+import { getTranslations } from '../i18n';
+import { CUSTOMER_LOGOS } from '../data/homeContent';
+
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <p class="mx-auto max-w-2xl text-center text-base font-medium text-body">
+    {t.home.logoStrip.caption}
+  </p>
+  <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+    {
+      CUSTOMER_LOGOS.map((logo) => (
+        <img src={logo.url} alt={logo.name} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+      ))
+    }
+  </div>
+</section>

@@ -1,0 +1,416 @@
+// Kalan öncelikli sayfaların (İletişim, Tüketici Hakları Sözleşmesi,
+// Mesafeli Satış Sözleşmesi, Güvenlik, Hedef Global Marka, Neden İdenfit)
+// veri katmanı. Kaynak: `reference/wordpress-export/misc-pages.json`
+// (`scripts/extract-misc-pages.mjs` ile yerel `pages.json`'dan). `link`
+// alanı otoriter (WP `slug` değil) — bu dosyada da aynı ilke.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import miscExport from '../../reference/wordpress-export/misc-pages.json';
+import { cleanRichText, localizeCtaUrl, type ProductBlock, type ProductContent } from './productContent';
+import {
+  CONTACT_IT_OVERRIDE,
+  SECURITY_IT_OVERRIDE,
+  GLOBAL_BRAND_IT_HERO,
+  GLOBAL_BRAND_IT_SECTIONS,
+  WHY_IDENFIT_IT_HERO,
+  WHY_IDENFIT_IT_SECTIONS,
+  ABOUT_EN_SECTIONS,
+  ABOUT_IT_HERO,
+  ABOUT_IT_SECTIONS,
+  ABOUT_TEAM_PHOTO_IMAGE,
+  PRESENTATION_IT_OVERRIDE,
+  PRESENTATION_EN_OVERRIDE,
+  PRESENTATION_NL_OVERRIDE,
+  type SecurityItem,
+  type PresentationContent,
+} from './miscPagesTranslationOverrides';
+
+export type { SecurityItem, PresentationContent };
+import type { Locale } from './nav';
+
+interface RawGroup {
+  trSlug: string;
+  kind: 'contact' | 'legal' | 'security' | 'productLike';
+  locales: Partial<
+    Record<
+      Locale,
+      { id: number; slug: string; title: string; modified: string; content: unknown }
+    >
+  >;
+}
+const DATA = miscExport as unknown as { pages: RawGroup[] };
+
+function findGroup(trSlug: string): RawGroup | undefined {
+  return DATA.pages.find((g) => g.trSlug === trSlug);
+}
+
+function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
+  const group = findGroup(trSlug);
+  if (!group) return {};
+  const result: Partial<Record<Locale, string>> = {};
+  for (const [locale, entry] of Object.entries(group.locales) as [Locale, { slug: string }][]) {
+    result[locale] = getRelativeLocaleUrl(locale, entry.slug);
+  }
+  // BULUNAN BUG (2026-07-22): bu gruplardan bazılarının (KVKK, Tüketici
+  // Hakları, Mesafeli Satış, Güvenlik) NL'de kaynak sayfası hiç yok —
+  // `result.nl` burada hiç set edilmiyordu. `Header.astro`'nun
+  // `localeUrls` merge mantığı (`{...generic, ...override}`) bu durumda
+  // NL için kendi GENERIC (yanlış, "aktif path'in bare slug'ı + nl
+  // prefix'i" varsayan) hesaplamasını sızdırıyordu — bu da TR sayfasından
+  // NL'e geçerken (bare slug TR'ninkiyle aynı olduğu için) `astro.config.mjs`'teki
+  // elle redirect'e denk gelip ÇALIŞIYOR, ama EN/IT sayfasından NL'e
+  // geçerken (bare slug farklı, o path için redirect tanımlı değil) GERÇEK
+  // 404 veriyordu — "bazen İngilizce'ye düşüyor, bazen hata veriyor"
+  // tutarsızlığının kök nedeni buydu. Düzeltme: `nl` eksikse (ve `en`
+  // varsa) doğrudan EN'in gerçek URL'ine eşitleniyor — `getFaqLocaleUrls()`'te
+  // (bkz. faqContent.ts) daha önce uygulanan aynı düzeltme, artık bu
+  // paylaşılan fonksiyonda TÜM `legal`/`security` tipi sayfalar için
+  // merkezi olarak yapılıyor. Sonuç: NL seçeneği HER ZAMAN (hangi
+  // sayfadan tıklanırsa tıklansın) doğrudan EN'in gerçek URL'ine gider —
+  // tutarsız ara-adım/404 riski kalmadı.
+  if (!result.nl && result.en) result.nl = result.en;
+  return result;
+}
+
+function slugFor(trSlug: string, locale: Locale): string | undefined {
+  return findGroup(trSlug)?.locales[locale]?.slug;
+}
+
+// ============================== İletişim ==============================
+export interface ContactOffice {
+  name: string;
+  address: string;
+}
+export interface ContactContent {
+  pageTitle: string;
+  pageSubtitle: string;
+  callTitle: string;
+  callText: string;
+  callLinkUrl: string;
+  emailTitle: string;
+  emailLinkUrl: string;
+  formTitle: string;
+  officesTitle: string;
+  offices: ContactOffice[];
+}
+
+const CONTACT_TR_SLUG = 'iletisim';
+
+export function getContactContent(locale: Locale): ContactContent | undefined {
+  if (locale === 'it') return CONTACT_IT_OVERRIDE;
+  const raw = findGroup(CONTACT_TR_SLUG)?.locales[locale]?.content as ContactContent | undefined;
+  return raw;
+}
+export function getContactSlug(locale: Locale): string | undefined {
+  return slugFor(CONTACT_TR_SLUG, locale);
+}
+export function getContactLocaleUrls(): Partial<Record<Locale, string>> {
+  return localeUrlsFor(CONTACT_TR_SLUG);
+}
+
+// ==================== Tüketici Hakları / Mesafeli Satış ====================
+// İkisi de aynı şekilde: tek `contentHtml` alanı, 3 dilde de (tr/en/it)
+// zaten gerçek/kaliteli çeviri — override GEREKMEDİ.
+export interface LegalContent {
+  title: string;
+  contentHtml: string;
+}
+
+export function getLegalContent(trSlug: string, locale: Locale): LegalContent | undefined {
+  const entry = findGroup(trSlug)?.locales[locale];
+  if (!entry) return undefined;
+  const raw = entry.content as { contentHtml: string };
+  return { title: entry.title, contentHtml: cleanRichText(raw.contentHtml) };
+}
+export function getLegalSlug(trSlug: string, locale: Locale): string | undefined {
+  return slugFor(trSlug, locale);
+}
+export function getLegalLocaleUrls(trSlug: string): Partial<Record<Locale, string>> {
+  return localeUrlsFor(trSlug);
+}
+
+export const CONSUMER_RIGHTS_TR_SLUG = 'sozlesme/tuketici-haklari';
+export const DISTANCE_SALES_TR_SLUG = 'sozlesme/mesafeli-satis-sozlesmesi';
+
+// ==================== Gizlilik ve Güvenlik Politikası ====================
+// Güvenlik sayfasından (SECURITY_TR_SLUG, `guvenlik` — 6 hukuki belgeye
+// link veren bir LİSTE sayfası) TAMAMEN AYRI bir sayfa: gerçek paragraf
+// içerikli bir gizlilik politikası makalesi (`content_block`, KVKK'yla
+// aynı `legal` şeması). Önceki bir turda bu ikisi yanlışlıkla AYNI sayfa
+// sanılıp footer linki `guvenlik`'e yönlendirilmişti — kullanıcı
+// düzeltmesiyle (2026-07-24) bu sayfa gerçekten migrate edildi. IT'nin ham
+// WP `title` alanı junk ("Privacy and Security Policy_IT" — İngilizce +
+// anlamsız "_IT" soneki, `content_block`'un kendisi gerçek İtalyanca) —
+// KVKK_IT_TITLE'daki aynı düzeltme burada da uygulanıyor.
+export const PRIVACY_SECURITY_TR_SLUG = 'sozlesme/gizlilik-ve-guvenlik-politikasi';
+const PRIVACY_SECURITY_IT_TITLE = 'Politica sulla Privacy e Sicurezza';
+
+export function getPrivacySecurityContent(locale: Locale): LegalContent | undefined {
+  const content = getLegalContent(PRIVACY_SECURITY_TR_SLUG, locale);
+  if (!content) return undefined;
+  if (locale === 'it') return { ...content, title: PRIVACY_SECURITY_IT_TITLE };
+  return content;
+}
+export function getPrivacySecuritySlug(locale: Locale): string | undefined {
+  return getLegalSlug(PRIVACY_SECURITY_TR_SLUG, locale);
+}
+export function getPrivacySecurityLocaleUrls(): Partial<Record<Locale, string>> {
+  return getLegalLocaleUrls(PRIVACY_SECURITY_TR_SLUG);
+}
+
+// ============================== KVKK Aydınlatma Metni ==============================
+// TR/EN/IT'nin üçü de zaten gerçek, tam, birbirinden farklı çeviri (18KB/16KB/18KB
+// düz metin — kaynak sitede sıkça görülen "IT = EN kopyası" örüntüsü BURADA
+// YOK, kontrol edildi). Tek istisna: IT'nin ham WP `<title>` alanı
+// ("Information Text Regarding Personal Data&IT" — İngilizce + anlamsız
+// "&IT" soneki) — GlobalBrand/Hakkımızda'daki "About_IT" ile aynı sınıf
+// junk, yalnızca bu tek alan gerçek İtalyanca'yla değiştirildi.
+export const KVKK_TR_SLUG = 'kisisel-verilerin-korunmasi';
+const KVKK_IT_TITLE = 'Informativa sulla Protezione dei Dati Personali';
+
+export function getKvkkContent(locale: Locale): LegalContent | undefined {
+  const content = getLegalContent(KVKK_TR_SLUG, locale);
+  if (!content) return undefined;
+  if (locale === 'it') return { ...content, title: KVKK_IT_TITLE };
+  return content;
+}
+export function getKvkkSlug(locale: Locale): string | undefined {
+  return getLegalSlug(KVKK_TR_SLUG, locale);
+}
+export function getKvkkLocaleUrls(): Partial<Record<Locale, string>> {
+  return getLegalLocaleUrls(KVKK_TR_SLUG);
+}
+
+// Hero/Panel/İletişim formlarındaki KVKK onay metninin 2 linki (HeroForm.tsx)
+// için tek yerden hesaplanan URL çifti. NL'in kendi KVKK/Tüketici Hakları
+// sayfası yok — bare slug + `getRelativeLocaleUrl` kullanılıyor, bu da
+// `astro.config.mjs`'teki elle tanımlı `redirects` girdilerine düşüyor
+// (`/nl/kisisel-verilerin-korunmasi` → `/en/data-use-policy`,
+// `/nl/sozlesme/tuketici-haklari` → `/en/contract/consumer-rights`).
+export function getKvkkAndTermsHrefs(locale: Locale): { kvkkHref: string; termsHref: string } {
+  return {
+    kvkkHref: getRelativeLocaleUrl(locale, getKvkkSlug(locale) ?? KVKK_TR_SLUG),
+    termsHref: getRelativeLocaleUrl(locale, getLegalSlug(CONSUMER_RIGHTS_TR_SLUG, locale) ?? CONSUMER_RIGHTS_TR_SLUG),
+  };
+}
+
+// ============================== Güvenlik ==============================
+const SECURITY_TR_SLUG = 'guvenlik';
+
+// Güvenlik sayfasının 1. maddesi (KVKK/GDPR) kaynakta TAM (mutlak) bir
+// idenfit.com URL'i taşıyor (ör. `https://idenfit.com/tr/kisisel-verilerin-korunmasi/`)
+// — `SecurityPage.astro`'nun `isExternal()` kontrolü bunu YANLIŞLIKLA dış
+// link sayıp gerçek idenfit.com'a `target=_blank` ile gönderiyordu (artık
+// bizim kendi KVKK sayfamız var, oraya gitmeli). Bu 3 bare slug'ın her
+// biri KVKK sayfamızın gerçek per-locale slug'ına karşılık geliyor — hangi
+// dilde karşımıza çıkarsa çıksın `getKvkkSlug(locale)`'e yeniden çözülüyor.
+const KVKK_SOURCE_BARE_SLUGS = new Set(['kisisel-verilerin-korunmasi', 'data-use-policy', 'protezione-dati-personali']);
+
+function bareSlugFromAbsoluteUrl(url: string): string {
+  try {
+    const { pathname } = new URL(url);
+    const parts = pathname.split('/').filter(Boolean);
+    if (parts.length && ['tr', 'en', 'nl', 'it'].includes(parts[0])) parts.shift();
+    return parts.join('/');
+  } catch {
+    return url;
+  }
+}
+
+function resolveSecurityItemUrl(rawUrl: string, locale: Locale): string {
+  const bare = bareSlugFromAbsoluteUrl(rawUrl);
+  if (KVKK_SOURCE_BARE_SLUGS.has(bare)) return getKvkkSlug(locale) ?? KVKK_TR_SLUG;
+  return rawUrl;
+}
+
+export function getSecurityItems(locale: Locale): SecurityItem[] {
+  const items =
+    locale === 'it'
+      ? SECURITY_IT_OVERRIDE
+      : ((findGroup(SECURITY_TR_SLUG)?.locales[locale]?.content as { items: SecurityItem[] } | undefined)?.items ?? []);
+  return items.map((item) => ({ ...item, url: resolveSecurityItemUrl(item.url, locale) }));
+}
+export function getSecuritySlug(locale: Locale): string | undefined {
+  return slugFor(SECURITY_TR_SLUG, locale);
+}
+export function getSecurityLocaleUrls(): Partial<Record<Locale, string>> {
+  return localeUrlsFor(SECURITY_TR_SLUG);
+}
+
+// Sayfa daha önce `<title>`/meta description için footer'ın kısa menü
+// etiketini ("Güvenlik"/"Security"/"Sicurezza") kullanıyordu — bu hem tek
+// kelimelik bir meta description üretiyordu (site denetim raporu madde 10)
+// hem de EN'de `/en/security-sector-hr-solutions/` sektör sayfasıyla AYNI
+// `<title>`'ı paylaşmasına yol açıyordu (madde 12). Sayfanın kendi
+// içeriğinden (6 madde: KVKK/GDPR, Bilgi Güvenliği Politikası, Çerez
+// Politikası, Veri Sahibi Başvuru Formu, çalışan/iş ortağı aydınlatma
+// metinleri) gerçek, ayırt edici bir başlık + açıklama yazıldı. NL yok
+// (KVKK ailesiyle aynı — sayfa hiç render edilmiyor, `en`'e fallback
+// düşüyor), bu yüzden `nl` anahtarı gerekmiyor.
+const SECURITY_META: Record<'tr' | 'en' | 'it', { pageTitle: string; description: string }> = {
+  tr: {
+    pageTitle: 'Güvenlik ve Kişisel Verilerin Korunması Politikaları',
+    description:
+      "idenfit'in KVKK kapsamındaki kişisel veri koruma, bilgi güvenliği ve çerez politikalarına, veri sahibi başvuru formuna ve aydınlatma metinlerine buradan ulaşabilirsiniz.",
+  },
+  en: {
+    pageTitle: 'Security & Data Protection Policies',
+    description:
+      "Access idenfit's GDPR data protection, information security and cookie policies, along with the data subject request form and information notices.",
+  },
+  it: {
+    pageTitle: 'Sicurezza e Protezione dei Dati Personali',
+    description:
+      "Consulta le politiche di idenfit su protezione dei dati (GDPR), sicurezza delle informazioni e cookie, oltre al modulo di richiesta del titolare dei dati e alle informative.",
+  },
+};
+export function getSecurityMeta(locale: Locale): { pageTitle: string; description: string } {
+  return SECURITY_META[locale as 'tr' | 'en' | 'it'] ?? SECURITY_META.en;
+}
+
+// ================= Hedef Global Marka / Neden İdenfit =================
+// Her ikisi de Şema D (ProductBlock uyumlu) — ProductPage.astro doğrudan
+// yeniden kullanılıyor (Donanım'da yapıldığı gibi).
+function resolveBlock(b: ProductBlock, locale: Locale): ProductBlock {
+  return {
+    title: cleanRichText(b.title),
+    text: cleanRichText(b.text),
+    ctaText: b.ctaText,
+    ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
+    image: b.image,
+  };
+}
+
+export const GLOBAL_BRAND_TR_SLUG = 'hedef-global-marka';
+export const WHY_IDENFIT_TR_SLUG = 'neden-idenfit';
+
+function getProductLikeContent(trSlug: string, locale: Locale, itHero: ProductBlock, itSections: ProductBlock[]): ProductContent | undefined {
+  if (locale === 'it') {
+    return {
+      hero: resolveBlock(itHero, locale),
+      sections: itSections.map((s) => resolveBlock(s, locale)),
+      faq: [],
+    };
+  }
+  const entry = findGroup(trSlug)?.locales[locale];
+  if (!entry) return undefined;
+  const raw = entry.content as { hero: ProductBlock; sections: ProductBlock[] };
+  return {
+    hero: resolveBlock(raw.hero, locale),
+    sections: raw.sections.map((s) => resolveBlock(s, locale)),
+    faq: [],
+  };
+}
+
+export function getGlobalBrandContent(locale: Locale): ProductContent | undefined {
+  return getProductLikeContent(GLOBAL_BRAND_TR_SLUG, locale, GLOBAL_BRAND_IT_HERO, GLOBAL_BRAND_IT_SECTIONS);
+}
+export function getGlobalBrandSlug(locale: Locale): string | undefined {
+  return slugFor(GLOBAL_BRAND_TR_SLUG, locale);
+}
+export function getGlobalBrandLocaleUrls(): Partial<Record<Locale, string>> {
+  return localeUrlsFor(GLOBAL_BRAND_TR_SLUG);
+}
+export function getGlobalBrandTitle(locale: Locale): string {
+  if (locale === 'it') return GLOBAL_BRAND_IT_HERO.title;
+  return findGroup(GLOBAL_BRAND_TR_SLUG)?.locales[locale]?.title ?? '';
+}
+
+export function getWhyIdenfitContent(locale: Locale): ProductContent | undefined {
+  return getProductLikeContent(WHY_IDENFIT_TR_SLUG, locale, WHY_IDENFIT_IT_HERO, WHY_IDENFIT_IT_SECTIONS);
+}
+export function getWhyIdenfitSlug(locale: Locale): string | undefined {
+  return slugFor(WHY_IDENFIT_TR_SLUG, locale);
+}
+export function getWhyIdenfitLocaleUrls(): Partial<Record<Locale, string>> {
+  return localeUrlsFor(WHY_IDENFIT_TR_SLUG);
+}
+export function getWhyIdenfitTitle(locale: Locale): string {
+  if (locale === 'it') return WHY_IDENFIT_IT_HERO.title;
+  return findGroup(WHY_IDENFIT_TR_SLUG)?.locales[locale]?.title ?? '';
+}
+
+// ============================== Hakkımızda ==============================
+// Aynı Şema D (ProductBlock uyumlu) — ProductPage.astro yeniden kullanılıyor.
+// EN'in "Our story" bölümünde tarihçe paragrafı eksikti (KARAR 1 →
+// `ABOUT_EN_SECTIONS`), IT'nin TÜMÜ (hero dahil) EN'in ham kopyasıydı
+// (KARAR 1 → `ABOUT_IT_HERO`/`ABOUT_IT_SECTIONS`). TR/NL zaten gerçek,
+// dokunulmadı.
+export const ABOUT_TR_SLUG = 'hakkimizda';
+
+export function getAboutContent(locale: Locale): ProductContent | undefined {
+  if (locale === 'it') {
+    return {
+      hero: resolveBlock(ABOUT_IT_HERO, locale),
+      sections: ABOUT_IT_SECTIONS.map((s) => resolveBlock(s, locale)),
+      faq: [],
+    };
+  }
+  const entry = findGroup(ABOUT_TR_SLUG)?.locales[locale];
+  if (!entry) return undefined;
+  const raw = entry.content as { hero: ProductBlock; sections: ProductBlock[] };
+  const sections = locale === 'en' ? ABOUT_EN_SECTIONS : raw.sections;
+  return {
+    hero: resolveBlock(raw.hero, locale),
+    // TR/NL'nin ham `sections[1].image`'ı (misc-pages.json'daki eski
+    // snapshot) kaynak site 2026-05'te güncellediği için artık YANLIŞ —
+    // `ABOUT_TEAM_PHOTO_IMAGE` ile ezilir (bkz. o sabitin yorumu,
+    // miscPagesTranslationOverrides.ts). EN/IT zaten kendi override
+    // dizilerinde aynı sabiti kullanıyor.
+    sections: sections.map((s, i) =>
+      resolveBlock(i === 1 && s.image ? { ...s, image: ABOUT_TEAM_PHOTO_IMAGE } : s, locale),
+    ),
+    faq: [],
+  };
+}
+export function getAboutSlug(locale: Locale): string | undefined {
+  return slugFor(ABOUT_TR_SLUG, locale);
+}
+export function getAboutLocaleUrls(): Partial<Record<Locale, string>> {
+  return localeUrlsFor(ABOUT_TR_SLUG);
+}
+export function getAboutTitle(locale: Locale): string {
+  // IT'nin ham WP başlığı ("About_IT") anlamsız bir kalıntı — gerçek
+  // İtalyanca başlıkla değiştirildi. TR/EN/NL'nin gerçek başlıkları
+  // (Hakkımızda/About/Over) zaten kısa ve doğru, dokunulmadı.
+  if (locale === 'it') return 'Chi Siamo';
+  return findGroup(ABOUT_TR_SLUG)?.locales[locale]?.title ?? '';
+}
+
+// ========================= Online Sunum Talebi =========================
+// Kaynaktaki gerçek slug 3 dilde birbirinden TAMAMEN FARKLI (`online-sunum-talep-et`/
+// `request-online-presentation`/`richiedi-presentazione-online`) — ama
+// proje GENELİNDE (bkz. `productContent.ts`'in `localizeCtaUrl()`'ü,
+// `sectorContent.ts`, `hardwareTranslationOverrides.ts` vb. — ONLARCA
+// mevcut CTA çağrı noktası) bu sayfaya giden her CTA zaten TEK bir
+// canonical slug'a (`online-sunum-talebi`) çözülecek şekilde kurulmuştu.
+// **Bulunan gerçek bug:** bu slug'a hiçbir zaman karşılık gelen bir SAYFA
+// kurulmamıştı — `online-sunum-talebi` her yerde referans alınıyordu ama
+// `src/pages/`'de hiç dosyası yoktu (Header'ın kırmızı CTA butonu dahil,
+// tüm sitedeki "Online Sunum Talebi" butonları 404 veriyordu). Bu artık
+// düzeltiliyor — mevcut onlarca çağrı noktasını değiştirmek yerine, route
+// da bu yerleşik canonical slug'ı kullanıyor (4 dilde AYNI — sektör/ürün
+// sayfalarındaki "per-locale farklı slug" deseninin bilinçli bir
+// istisnası). NL'in kaynakta sayfası hiç yok (id 22735 export'ta
+// bulunamadı, muhtemelen taslak/yayımlanmamış) — ama bare slug her
+// locale'de aynı olduğu için Astro'nun otomatik `i18n.fallback`'i (nl→en)
+// manuel bir `redirects` girdisi gerekmeden doğru çalışıyor (KARAR 2 —
+// kaynakta olmayan dil için yeni sayfa üretilmedi).
+export const PRESENTATION_CANONICAL_SLUG = 'online-sunum-talebi';
+// Yalnızca `misc-pages.json`'daki gruba erişmek için — GERÇEK route slug'ı
+// DEĞİL (bkz. yukarıdaki not).
+const PRESENTATION_TR_SLUG = 'online-sunum-talep-et';
+
+export function getPresentationContent(locale: Locale): PresentationContent | undefined {
+  if (locale === 'it') return PRESENTATION_IT_OVERRIDE;
+  // Kaynakta NL versiyonu hiç yok (canlı `idenfit.com/nl/`'in kendi CTA'sı
+  // bile EN'e gidiyor, bkz. `PRESENTATION_NL_OVERRIDE` yorumu) — kullanıcının
+  // açık talimatıyla gerçek bir NL sayfası eklendi.
+  if (locale === 'nl') return PRESENTATION_NL_OVERRIDE;
+  const entry = findGroup(PRESENTATION_TR_SLUG)?.locales[locale];
+  const content = entry?.content as PresentationContent | undefined;
+  // EN'in kaynakta boş olan callText/phoneNumber/phoneNumberLink'i + 3
+  // gramer hatalı alanı (bkz. `PRESENTATION_EN_OVERRIDE` yorumu,
+  // miscPagesTranslationOverrides.ts) düzeltiyor.
+  if (content && locale === 'en') return { ...content, ...PRESENTATION_EN_OVERRIDE };
+  return content;
+}

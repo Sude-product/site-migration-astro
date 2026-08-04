@@ -1,0 +1,129 @@
+---
+// Hakkımızda (About Us) — ⚠️ DÜZELTME (2026-08-04): önceden generic
+// `ProductPage.astro` (ürün/modül sayfaları şablonu) yeniden kullanılıyordu.
+// Kullanıcı "yazı stilleri/fontları ana siteden farklı" dedi — element-ID
+// doğrulamalı canlı sayfa (`post-9739.css`, TR/EN/IT'nin AYNI element
+// ID'lerini paylaştığı doğrulandı) incelemesi bunun neden olduğunu
+// gösterdi: bu sayfanın GERÇEK kaynak yapısı ürün/modül sayfalarınınkinden
+// TAMAMEN FARKLI —
+//   1. Hero: BÜYÜK bir ürün-sayfası başlığı DEĞİL, küçük alıntı-tarzı bir
+//      H1 (26px/600, kırmızı) + altında küçük bir "idenfit Ekibi" etiketi
+//      (16px/400, gri) + küçük solid-dolgu bir buton (16px/500, 4px köşe —
+//      `.btn-cta`'nın pill/çerçeveli stilinden FARKLI).
+//   2. "tarihimiz" bölümü: resim YOK, İKİ paragraf YAN YANA (kaynakta 2 AYRI
+//      widget, `justify-content:space-between`) — ProductSectionBlock'un
+//      resim|metin 2 kolonlu şablonu bu bölüme hiç uymuyor.
+//   3. "Burada olmaktan mutluyuz =)" bölümü: metin YOK, başlık ORTALANMIŞ +
+//      altında TAM GENİŞLİK bir görsel (yan yana değil, ALT ALTA) —
+//      yine ProductSectionBlock'un yan-yana düzeninden farklı.
+// Bu yüzden ProductPage.astro'nun genel şablonu yerine bu sayfaya özel,
+// bespoke bir component yazıldı (projenin PricingPage.astro/
+// CustomerStoriesPage.astro/PresentationRequestPage.astro'da izlediği AYNI
+// ilke: kaynağın gerçek yapısı genel şablondan sapıyorsa özel component).
+// Veri modeli DEĞİŞMEDİ (`ProductContent`/`getAboutContent()` aynen
+// kullanılıyor) — yalnızca RENDER farklı.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import type { ProductContent } from '../data/productContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: ProductContent;
+  pageTitle: string;
+  localeUrls: Partial<Record<Locale, string>>;
+}
+
+const { content, pageTitle, localeUrls } = Astro.props;
+const { hero, sections } = content;
+const [historySection, teamPhotoSection] = sections;
+const description = hero.title.replace(/<[^>]+>/g, '').slice(0, 160);
+---
+
+<BaseLayout title={`idenfit — ${pageTitle}`} description={description} localeUrls={localeUrls}>
+  <!-- Hero — küçük alıntı-tarzı başlık, ürün sayfalarının büyük H1'i DEĞİL. -->
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1
+          class="text-base font-semibold leading-[22px] tracking-tight text-brand lg:text-[26px] lg:leading-[36px]"
+          set:html={hero.title}
+        />
+        {
+          hero.text && (
+            <div
+              class="mt-3 text-base leading-[22px] text-muted [&_strong]:font-normal [&_p]:mb-0"
+              set:html={hero.text}
+            />
+          )
+        }
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="mt-4 inline-flex items-center justify-center rounded text-base font-medium leading-6 text-white"
+              style="background-color:#FF0000; padding:10px 12px;"
+            >
+              {hero.ctaText}
+            </a>
+          )
+        }
+      </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="lazy"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- "tarihimiz" — resimsiz, iki paragraf yan yana (kaynakta 2 ayrı widget,
+       `justify-content:space-between`). Tek bir HTML string'i CSS
+       `columns-2` ile ikiye bölmek, veriyi paragraf sınırından manuel
+       ayırmadan aynı yan-yana görünümü veriyor — kaynağın 2 widget'ının
+       görsel eşdeğeri, veri modelini bozmadan. -->
+  {
+    historySection && (
+      <section>
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+          <h2 class="text-2xl font-medium leading-[28px] text-brand lg:text-[36px] lg:leading-[43px]" set:html={historySection.title} />
+          {historySection.text && (
+            <div
+              class="mt-5 text-base leading-[22px] text-body lg:columns-2 lg:gap-5 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_p]:break-inside-avoid"
+              set:html={historySection.text}
+            />
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- "Burada olmaktan mutluyuz =)" — ortalanmış başlık + tam genişlik
+       görsel, alt alta (yan yana DEĞİL). -->
+  {
+    teamPhotoSection && (
+      <section>
+        <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
+          <h2 class="text-center text-2xl font-medium leading-[28px] text-muted lg:text-[36px] lg:leading-[43px]" set:html={teamPhotoSection.title} />
+          {teamPhotoSection.image && (
+            <img
+              src={teamPhotoSection.image.url}
+              alt={teamPhotoSection.image.alt}
+              loading="lazy"
+              width={teamPhotoSection.image.width}
+              height={teamPhotoSection.image.height}
+              class="mt-8 w-full rounded-2xl object-cover"
+            />
+          )}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

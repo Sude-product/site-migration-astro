@@ -1,0 +1,116 @@
+[
+  {
+    "id": 334,
+    "slug": "dijital-ik",
+    "name": "Dijital İK",
+    "count": 41
+  },
+  {
+    "id": 366,
+    "slug": "gecmis-etkinlikler",
+    "name": "Geçmiş Etkinlikler",
+    "count": 14
+  },
+  {
+    "id": 212,
+    "slug": "genel-tr",
+    "name": "Genel",
+    "count": 0
+  },
+  {
+    "id": 991,
+    "slug": "genel-nl",
+    "name": "Genel",
+    "count": 0
+  },
+  {
+    "id": 1148,
+    "slug": "guncel-bilgiler",
+    "name": "Güncel Bilgiler",
+    "count": 0
+  },
+  {
+    "id": 1162,
+    "slug": "guncel-bilgiler-tr",
+    "name": "Güncel Bilgiler",
+    "count": 13
+  },
+  {
+    "id": 328,
+    "slug": "guncel-bilgiler",
+    "name": "Güncel Bilgiler",
+    "count": 117
+  },
+  {
+    "id": 330,
+    "slug": "ik-akademi",
+    "name": "İK Akademi",
+    "count": 337
+  },
+  {
+    "id": 362,
+    "slug": "ik-roportajlari",
+    "name": "İK Röportajları",
+    "count": 4
+  },
+  {
+    "id": 332,
+    "slug": "ik-trendleri",
+    "name": "İK Trendleri",
+    "count": 159
+  },
+  {
+    "id": 378,
+    "slug": "ogretici-bilgiler",
+    "name": "Öğretici Bilgiler",
+    "count": 3
+  },
+  {
+    "id": 62,
+    "slug": "uncategorized-tr",
+    "name": "Uncategorized",
+    "count": 7
+  },
+  {
+    "id": 463,
+    "slug": "uncategorized-nl",
+    "name": "Uncategorized",
+    "count": 0
+  },
+  {
+    "id": 1022,
+    "slug": "uncategorized-it",
+    "name": "Uncategorized",
+    "count": 0
+  },
+  {
+    "id": 1,
+    "slug": "uncategorized-en",
+    "name": "Uncategorized",
+    "count": 0
+  },
+  {
+    "id": 1131,
+    "slug": "uncategorized-az",
+    "name": "Uncategorized",
+    "count": 0
+  },
+  {
+    "id": 432,
+    "slug": "upcoming-events",
+    "name": "Upcoming Events",
+    "count": 0
+  },
+  {
+    "id": 364,
+    "slug": "yaklasan-etkinlikler",
+    "name": "Yaklaşan Etkinlikler",
+    "count": 3
+  },
+  {
+    "id": 336,
+    "slug": "yenilikler-tr",
+    "name": "Yenilikler",
+    "count": 2
+  }
+]

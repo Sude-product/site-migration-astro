@@ -1,0 +1,9 @@
+---
+import LegalPage from '../../components/LegalPage.astro';
+import { getPrivacySecurityContent, getPrivacySecurityLocaleUrls } from '../../data/miscPagesContent';
+
+const content = getPrivacySecurityContent('tr')!;
+const localeUrls = getPrivacySecurityLocaleUrls();
+---
+
+<LegalPage content={content} localeUrls={localeUrls} />

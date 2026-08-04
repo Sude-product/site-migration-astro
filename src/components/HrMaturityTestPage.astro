@@ -1,0 +1,16 @@
+---
+// Dijital İK Olgunluk Testi — kaynakta yalnızca TR'de var (3 sayfanın da
+// `pll_translations` alanı yalnızca `tr` — KARAR 2 gereği EN/NL/IT bu
+// turda kasıtlı olarak kurulmadı, `astro.config.mjs`'in mevcut
+// `en:'tr'`/`it:'tr'`/`nl:'en'` fallback zinciri Hesaplama Araçları'ndaki
+// AYNI mekanizmayla otomatik TR'ye yönlendirir).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HrMaturityTest from './HrMaturityTest.tsx';
+---
+
+<BaseLayout
+  title="idenfit — Dijital İK Olgunluk Testi"
+  description="İK süreçlerinizin dijital olgunluğunu 3 dakikada ölçün, size özel skor ve kategori bazlı analiz alın."
+>
+  <HrMaturityTest client:load />
+</BaseLayout>

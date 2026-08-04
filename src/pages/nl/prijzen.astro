@@ -1,0 +1,9 @@
+---
+import PricingPage from '../../components/PricingPage.astro';
+import { getPricingContent, getPricingLocaleUrls } from '../../data/pricingContent';
+
+const content = getPricingContent('nl')!;
+const localeUrls = getPricingLocaleUrls();
+---
+
+<PricingPage content={content} localeUrls={localeUrls} />

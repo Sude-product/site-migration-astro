@@ -1,0 +1,88 @@
+---
+// "Kullanıcı Dostu Panel" — bkz. docs/homepage-sections-report.md §8.
+// Hero'daki İLE AYNI form alanlarına sahip 2. bir lead-capture form
+// içeriyor — `HeroForm.tsx` doğrudan yeniden kullanıldı (yeni bir form
+// component'i yazılmadı), yalnızca `idPrefix="panel"` ile input/label
+// id'lerinin hero formuyla ÇAKIŞMASI önlendi (aynı sayfada 2 form olduğu
+// için, bkz. HeroForm.tsx'teki yorum). Bu form sayfanın altında olduğu
+// için `client:visible` kullanıldı (hero'nun `client:load`'ının aksine —
+// ilk ekranda değil, performans için gecikmeli hydrate).
+import HeroForm from './HeroForm.tsx';
+import { getTranslations } from '../i18n';
+import { HOME_PANEL_IMAGE } from '../data/homeContent';
+import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { panel } = t.home;
+const image = HOME_PANEL_IMAGE[locale];
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+    <div>
+      <img
+        src={image.url}
+        alt={panel.imageAlt}
+        loading="lazy"
+        width={image.width}
+        height={image.height}
+        class="reveal w-full rounded-2xl object-cover"
+      />
+    </div>
+    <div>
+      <h2 class="h2-section text-heading">{panel.title}</h2>
+      <p class="mt-4 text-body">{panel.text}</p>
+
+      <ul class="mt-5 space-y-2">
+        {
+          panel.features.map((feature) => (
+            <li class="flex items-center gap-2 text-sm font-medium text-heading">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-4 w-4 shrink-0 text-brand"
+                aria-hidden="true"
+              >
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              {feature}
+            </li>
+          ))
+        }
+      </ul>
+
+      <div class="mt-8 max-w-md rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm">
+        <h3 class="text-lg font-semibold text-heading">{panel.formHeading}</h3>
+        <div class="mt-4">
+          <HeroForm
+            client:visible
+            idPrefix="panel"
+            labels={{
+              name: t.hero.formName,
+              phone: t.hero.formPhone,
+              phoneError: t.hero.formPhoneError,
+              phoneCountryLabel: t.hero.formPhoneCountryLabel,
+              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+              company: t.hero.formCompany,
+              email: t.hero.formEmail,
+              submit: panel.formSubmit,
+              kvkkNotice: t.hero.kvkkNotice,
+            }}
+            locale={locale}
+            kvkkHref={kvkkHref}
+            termsHref={termsHref}
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,108 @@
+---
+// Müşteriler sayfasının hero'sunun HEMEN ALTINDAKİ sürekli kayan müşteri
+// logosu şeridi — bkz. `customerStories.ts`'teki `CUSTOMER_LOGO_MARQUEE`
+// yorumu (kaynak: idenfit.com/musteriler/'in gerçek Elementor widget'ı).
+//
+// Salt CSS animasyonu — Header'ın duyuru barının (`MarqueeBar.tsx`) AYNI
+// `animate-marquee` utility'sini (`global.css`, `marquee 40s linear infinite`,
+// `translateX(0)→translateX(-50%)`) yeniden kullanıyor, yeni bir keyframe
+// yazılmadı. React DEĞİL — `MarqueeBar.tsx` da hydration'sız (`client:load`
+// olmadan) render ediliyor, burada da hiçbir state/etkileşim gerekmediği
+// için düz Astro component olarak kuruldu (gereksiz JS gönderilmiyor).
+// Sıra 2 kez art arda listelenip (`sequence`) sonsuz döngüde boşluk
+// oluşmaması sağlanıyor (aynı `MarqueeBar` deseni), ikinci kopya
+// `aria-hidden` ile ekran okuyucudan gizleniyor.
+//
+// SÜRE (2026-07-30, ÜÇÜNCÜ ve SON düzeltme — artık TAHMİN DEĞİL, kaynağın
+// gerçek widget JS'inden hesaplandı): global `--animate-marquee` token'ı
+// 40s'de SABİT (Header'ın kısa metin şeridi için doğru, DEĞİŞTİRİLMEDİ).
+// İlk iki turda 22s/28s'e tahmini ayar yapılmıştı — kullanıcı "tahmin
+// etme, gerçek kaynağı ölç" deyince `idenfit.com`'un gerçek carousel
+// widget JS'i (`global-carousel.js`, `case"marquee"` bloğu) indirilip
+// okundu: `speed: Math.abs(marquee_speed - 1e4) || 5e3` +
+// `autoplay:{delay:0}` — bu Swiper.js'in kendi "marquee" implementasyonu,
+// `speed` HER BİR slide geçişinin (ms) süresi, `delay:0` ile aralıksız
+// art arda tetikleniyor. Bizim widget'ın `marquee_speed:4000` ayarıyla:
+// `|4000-10000|=6000` ms/slide. 14 gerçek logo olduğundan tam bir görsel
+// döngü = 14 × 6000ms = **84 saniye**. Bu, önceki iki tahmini değerden
+// (22s/28s) ÇOK daha yavaş — kullanıcının "gerçek değeri tahmin yerine
+// uygula" talimatı doğrultusunda birebir uygulandı, ancak kullanıcının
+// önceki turlarda ifade ettiği hız hissiyatıyla (40s bile "biraz yavaş"
+// denmişti) açıkça ÇELİŞİYOR — bilinçli bir uyarı olarak burada not
+// düşülüyor, kullanıcı canlı kontrol edip isterse geri döndürebilir.
+//
+// FULL-BLEED (2026-07-30): Şerit artık `CustomerStoriesPage.astro`'nun
+// `max-w-7xl`/padding'li container'ının İÇİNDE DEĞİL — klasik "break-out"
+// tekniğiyle (`relative left-1/2 right-1/2 w-screen -mx-[50vw]`) viewport
+// kenarından kenarına uzanıyor. Projenin ÖNCEKİ full-bleed denemesi
+// (`mr-[calc(50%-50vw)]`, bkz. HeroSection.astro'nun geçmiş yorumu)
+// paddingli bir atanın İÇİNDE kullanılınca hizalama sorunu çıkarmıştı —
+// bu yüzden BİLİNÇLİ olarak farklı, daha sağlam bir teknik seçildi:
+// `left-1/2`+`-mx-[50vw]` ata paddingi/genişliğinden bağımsız çalışır
+// (yalnızca viewport genişliğine göre hesaplanır), aynı riski taşımıyor.
+//
+// SEAMLESS LOOP (2026-07-30, İKİNCİ tur — gerçek kök neden bulundu):
+// `sequence` iki KOPYA aynı listeyi taşıyor, aralarındaki boşluk da (flex
+// `gap-[50px]`) diğer TÜM öğeler arasındakiyle birebir aynı — bu matematik
+// zaten doğruydu. Ama kullanıcı ARALIKLI (sürekli değil) bir kayma/sıçrama
+// bildirdi — bu, sabit/deterministik bir matematik hatasıyla ÇELİŞİYORDU
+// (o her turda aynı şekilde bozuk olurdu), runtime'da DEĞİŞKEN bir şeyin
+// tetiklendiğine işaret ediyordu. **Gerçek kök neden bulundu:** hiçbir
+// `<img>` `width`/`height` (veya eşdeğer `aspect-ratio`) taşımıyordu —
+// tarayıcı, görsel ağdan gelene kadar `w-auto` için yer AYIRMIYOR (ör.
+// 0 genişlik veya varsayılan kırık-görsel boyutu kullanıyor). 28 görsel
+// FARKLI zamanlarda (ağ/önbellek durumuna göre DEĞİŞKEN, dosya boyutu
+// 1.6KB-846KB arası) yükleniyor; biri hâlâ yüklenirken track zaten
+// kayıyor olabilir — o görsel yüklenip gerçek genişliğini alınca `w-max`
+// container'ın TOPLAM genişliği DEĞİŞİYOR, bu da %-tabanlı
+// `translateX(-50%)`'nin hedefini animasyon SIRASINDA kaydırıp görünür
+// bir sıçrama yaratıyordu. Bu, ağ zamanlamasına bağlı olduğundan "her
+// turda değil, arada bir" olması BEKLENEN bir davranıştı (deterministik
+// bir matematik hatası olsaydı her turda aynı yerde olurdu). Sekme arka
+// plana alınıp geri gelme senaryosu ELENDİ — CSS `animation` (JS
+// `requestAnimationFrame` DEĞİL) monotonik bir zaman çizelgesiyle
+// çalışır, arka plandan dönüşte "sıçramaz", yalnızca atlanan süreyi
+// yansıtır (kullanıcı sekmeyi değiştirmeden izlerken bildirdiği için
+// bu senaryo zaten uygun değildi). **Düzeltme:** her `<img>`'e kaynağın
+// KENDİ gerçek intrinsic boyutu (`width`/`height`, bkz. `customerStories.ts`
+// — 13'ü 100×50, Acun Medya 101×50, `curl` ile tek tek doğrulandı)
+// eklendi — tarayıcı artık görsel yüklenmeden ÖNCE doğru en-boy oranını
+// bilip yer ayırıyor, container genişliği animasyon sırasında
+// DEĞİŞMİYOR. Ayrıca `loading="lazy"` de kaldırıldı (sürekli görünür bir
+// şeritte zaten yanlış bir optimizasyondu, geç yüklemeyi teşvik ederdi).
+interface LogoItem {
+  name: string;
+  url: string;
+  width: number;
+  height: number;
+}
+interface Props {
+  logos: LogoItem[];
+}
+const { logos } = Astro.props;
+const sequence = [...logos, ...logos];
+---
+
+<div
+  class="group relative left-1/2 right-1/2 w-screen -mx-[50vw] overflow-hidden py-2"
+  role="region"
+  aria-label="Müşteri logoları"
+>
+  <div
+    class="flex w-max items-center gap-[50px] whitespace-nowrap will-change-transform animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+    style="animation-duration: 84s;"
+  >
+    {
+      sequence.map((logo, i) => (
+        <img
+          src={logo.url}
+          alt={i >= logos.length ? '' : logo.name}
+          aria-hidden={i >= logos.length ? 'true' : undefined}
+          width={logo.width}
+          height={logo.height}
+          class="h-10 w-auto shrink-0 object-contain sm:h-12"
+        />
+      ))
+    }
+  </div>
+</div>

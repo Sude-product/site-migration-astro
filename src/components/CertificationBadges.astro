@@ -1,0 +1,41 @@
+---
+// Sertifika/kalite rozet şeridi — idenfit.com ana sayfasından (bkz.
+// docs/homepage-sections-report.md §10). Metin ISO 27001/9001'i açıkça
+// adlandırıyor, ama 7 rozetin kaynak sitedeki `alt` metni zaten anlamsız
+// (`icon5`..`icon11`) ve SVG path'lerinden hangi spesifik sertifikayı
+// temsil ettikleri güvenilir şekilde teşhis edilemedi — bu yüzden rozetler
+// burada DEKORATİF kabul edilip `alt=""` ile render ediliyor (metindeki
+// ISO 27001/9001 bilgisi zaten erişilebilir gerçek metin olarak sunuluyor).
+//
+// DÜZELTME (2026-07-22): kaynak sitenin gerçek CSS'i (post-9.css)
+// incelendiğinde rozetlerin çıplak sayfa zemininde DEĞİL, `#FFE5E5` açık
+// pembe (FeatureGrid'in 1. kart ikonuyla aynı ton — bkz. `FeatureGrid.astro`),
+// `border-radius:10px`, padding'li bir kutu İÇİNDE gösterildiği görüldü —
+// ilk implementasyon bu kutuyu atlayıp ikonları çıplak zeminde + opacity-80
+// ile soluk göstermişti.
+import { getTranslations } from '../i18n';
+import { CERTIFICATION_BADGE_URLS } from '../data/homeContent';
+
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+const { certifications } = t.home;
+---
+
+<section class="mx-auto max-w-5xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-16">
+  <h2 class="h2-section text-heading">
+    {certifications.titleLine1}
+    <br />
+    {certifications.titleLine2}
+  </h2>
+  <p class="mx-auto mt-4 max-w-2xl text-body">{certifications.text}</p>
+
+  <div
+    class="mx-auto mt-8 flex max-w-4xl flex-wrap items-center justify-center gap-x-8 gap-y-6 rounded-[10px] bg-[#FFE5E5] px-8 py-8 sm:px-16"
+    aria-hidden="true"
+  >
+    {
+      CERTIFICATION_BADGE_URLS.map((url) => (
+        <img src={url} alt="" loading="lazy" class="h-8 w-auto object-contain sm:h-10" />
+      ))
+    }
+  </div>
+</section>

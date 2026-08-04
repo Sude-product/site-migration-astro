@@ -1,11 +1,34 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import VideoSection from '../components/VideoSection.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import EfficiencySection from '../components/EfficiencySection.astro';
+import PanelFeatureSection from '../components/PanelFeatureSection.astro';
+import SupremaSection from '../components/SupremaSection.astro';
+import CertificationBadges from '../components/CertificationBadges.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
+import HrtechSection from '../components/HrtechSection.astro';
+import { getTranslations } from '../i18n';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+const title = `idenfit — ${t.hero.title.replace('\n', ' ')}`;
 ---
 
-<Layout>
-	<Welcome />
-</Layout>
+<BaseLayout title={title} description={t.hero.description}>
+	<HeroSection />
+	<LogoStrip />
+	<SectionDivider text={t.home.dividers.afterLogos} />
+	<VideoSection />
+	<FeatureGrid />
+	<SectionDivider text={t.home.dividers.afterFeatures} />
+	<EfficiencySection />
+	<PanelFeatureSection />
+	<SupremaSection />
+	<CertificationBadges />
+	<TestimonialSection />
+	<HrtechSection />
+	<script src="../scripts/scroll-reveal.js"></script>
+</BaseLayout>

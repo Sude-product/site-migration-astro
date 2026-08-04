@@ -1,0 +1,102 @@
+---
+// Sektör sayfası — idenfit.com'un gerçek `sectors` custom post type
+// içeriğinden (bkz. `src/data/sectorContent.ts`, `reference/wordpress-export/sectors.json`).
+// 4 dilde 12 sektörün tamamı bu TEK component'ten üretiliyor
+// (`src/pages/[sectorSlug].astro` + `en/nl/it` eşdeğerleri).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectorFeatureCard from './SectorFeatureCard.astro';
+import type { getSectorContent } from '../data/sectorContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: NonNullable<ReturnType<typeof getSectorContent>>;
+  /** Bu sektörün 4 dildeki gerçek URL'leri — bkz. `getSectorLocaleUrls()`. */
+  localeUrls: Partial<Record<Locale, string>>;
+}
+
+const { content, localeUrls } = Astro.props;
+const { hero, whyIdenfit, features } = content;
+---
+
+<BaseLayout
+  title={`idenfit — ${content.pageTitle}`}
+  description={hero.text || whyIdenfit.text}
+  localeUrls={localeUrls}
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl">
+          {hero.title}
+        </h1>
+        {hero.text && <p class="mt-5 max-w-xl text-lg text-body">{hero.text}</p>}
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+            >
+              {hero.ctaText}
+            </a>
+          )
+        }
+      </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="lazy"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- "Neden idenfit?" bloğu -->
+  {
+    whyIdenfit.title && (
+      <section class="bg-brand-light py-12 lg:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            {whyIdenfit.image && (
+              <div class="order-2 flex items-center justify-center lg:order-1">
+                <img
+                  src={whyIdenfit.image.url}
+                  alt={whyIdenfit.image.alt}
+                  loading="lazy"
+                  width={whyIdenfit.image.width}
+                  height={whyIdenfit.image.height}
+                  class="w-full rounded-2xl object-cover"
+                />
+              </div>
+            )}
+            <div class="order-1 lg:order-2">
+              <h2 class="h2-section text-heading">{whyIdenfit.title}</h2>
+              <p class="mt-4 text-body">{whyIdenfit.text}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Modül vurgu blokları (2-4 arası, veri kaynaklı — sabit sayı değil) -->
+  {
+    features.length > 0 && (
+      <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid gap-8 sm:grid-cols-2">
+          {features.map((f) => (
+            <SectorFeatureCard {...f} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

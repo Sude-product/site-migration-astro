@@ -1,0 +1,12 @@
+---
+// Aşama 3 (kısım 2) — Puantaj (Şema E, KARAR 3 gereği ayrıca ele alındı). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../../data/productContent';
+
+const trSlug = 'puantaj-takip-programi-modulu';
+const content = getProductContent(trSlug, 'it')!;
+const pageTitle = getProductPageTitle(trSlug, 'it');
+const localeUrls = getProductLocaleUrls(trSlug);
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

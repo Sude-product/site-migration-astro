@@ -1,0 +1,10 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle } from '../../data/hardwareContent';
+
+const content = { ...getHardwareContent('it')!, faq: [] };
+const pageTitle = getHardwarePageTitle('it');
+const localeUrls = getHardwareLocaleUrls();
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

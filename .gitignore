@@ -22,3 +22,11 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# generated analysis data (reproducible via scripts/*.mjs)
+scripts/_*.json
+
+# large raw WordPress export archives (too big for GitHub's 100MB file limit;
+# extracted/used assets already live under public/wp-content/)
+reference/wordpress-export/uploads.zip
+reference/wordpress-export/themes.zip

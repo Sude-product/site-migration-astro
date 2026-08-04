@@ -1,0 +1,9 @@
+---
+import LegalPage from '../../../components/LegalPage.astro';
+import { getLegalContent, getLegalLocaleUrls, CONSUMER_RIGHTS_TR_SLUG } from '../../../data/miscPagesContent';
+
+const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'en')!;
+const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+---
+
+<LegalPage content={content} localeUrls={localeUrls} />
