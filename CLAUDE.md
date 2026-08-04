@@ -8,10 +8,18 @@ gerçek bir sayfaya kavuşması + telefon araması IT'ye kadar + logo
 konumlandırma — 5 tur), Fiyatlar sayfası (kart altı bölümlerin `<table>`→
 kutulu-sütun revizyonu + sticky/senkronize vurgulama JS'i — 2 tur), Müşteriler
 sayfası (font/renk + video çözünürlüğü/boyutu — 3 tur), Hakkımızda sayfası
-(bespoke component'e geçiş + ekip fotoğrafı güncellemesi) ele alındı — hepsi
-aşağıda ayrı ayrı loglu, tam gerekçe/ölçüm detayları için ilgili günlük
-maddesine bakılabilir.
-**Açık uç — Fiyatlar sayfası ADIM 3 (kullanıcı onayı bekliyor, henüz
+(bespoke component'e geçiş + ekip fotoğrafı güncellemesi), **ve Blog CMS
+entegrasyonu (Decap CMS) — keşif + per-file Markdown göçüne 4 yazılık pilot
++ yerel Decap panel kurulumu** ele alındı — hepsi aşağıda ayrı ayrı loglu,
+tam gerekçe/ölçüm detayları için ilgili günlük maddesine bakılabilir.
+**📍 Açık uç #1 (öncelikli) — Blog CMS, KADEMELİ ÜRETİM aşaması henüz
+BAŞLAMADI:** pilot 4 yazı göçtü (bkz. günlük (11)), kullanıcı onayı
+sonrası kalan 618 yazı `scripts/migrate-blog-to-markdown.mjs <slug...>`
+ile gruplar halinde taşınmalı — her grup sonrası `astro build` +
+regresyon. Ayrıca IT'den OAuth App bekleniyor (geldiğinde
+`public/admin/config.yml`'in `base_url`/`auth_endpoint`'i + bir Cloudflare
+Pages Functions OAuth proxy'si kurulmalı, bkz. Açık nokta #21).
+**Açık uç #2 — Fiyatlar sayfası ADIM 3 (kullanıcı onayı bekliyor, henüz
 başlanmadı):** parantez içi metinlerin soluk rengi (`.parenthetical
 {opacity:0.7}`, ör. "Dijital Sicil (Mikro)"), `employee-range` kutusunun
 gerçek stili (`border:1px solid rgba(0,0,0,.1);border-radius:4px`) +
@@ -26,6 +34,200 @@ okuması (`curl` + ham `post-*.css` analizi) + `curl` ile derlenen HTML
 YOK — kullanıcının ekran görüntüsü geri bildirimi bu yüzden özellikle
 değerli, birçok madde ("bu sefer çok aşağı inmiş" gibi) yalnızca bu
 geri bildirimle düzeltilebildi.
+
+**2026-08-04 günlüğü (11) — Blog CMS entegrasyonu (Decap CMS) başladı:
+keşif + per-file Markdown göçüne PİLOT (4 yazı) + yerel Decap panel
+kurulumu.** Proje artık `github.com/Sude-product/site-migration-astro`
+reposunda (Private); pazarlama ekibinin 622 blog yazısını kendi başına
+düzenleyebilmesi için Decap CMS kurulacak. GitHub OAuth App onayı IT'den
+bekleniyor — bu yalnızca PROD'daki gerçek GitHub kimlik doğrulamasını
+etkiliyor, keşif+yerel pilot OAuth beklenmeden tamamlandı.
+
+**Kritik mimari bulgu:** Decap'in doğal çalıştığı biçim (klasör
+koleksiyonu, her yazı kendi dosyası) mevcut `posts.json`'a (622 yazı, tek
+dosyada ~6MB, `file()` loader) uymuyordu — 6MB'lık dosyayı taray��cıda
+düzenlemek yavaş olurdu ve her tekil yazı değişikliği aynı dosyayı
+etkileyeceği için git diff/merge çakışması riski yüksekti. **Karar
+(kullanıcı onaylı): per-file Markdown'a KADEMELİ göç** — TEK SEFERDE 622
+değil, gruplar halinde (`scripts/migrate-blog-to-markdown.mjs <slug...>`,
+`extract-blog-posts.mjs`'in izlediği AYNI "slug bazlı, toplu değil" ilkesi).
+
+**Bu geçişi TEK build'de güvenli kılan teknik çözüm — `content.config.ts`
+artık bir "composite loader" kullanıyor.** `glob()` (zaten göç etmiş
+`.md` dosyaları) ile elle yazılmış bir `posts.json` okuyucusunu (henüz göç
+etmemiş kalıntı) AYNI collection'da birleştiriyor. Astro'nun kendi
+loader kaynağı (`node_modules/astro/dist/content/loaders/{glob,file}.js`)
+satır satır okunarak doğrulandı: `file()` loader her senkronizasyonda
+`store.clear()` çağırıyor (glob'un entry'lerini SİLERDİ), `glob()` ise
+TERSİNE kendi `untouchedEntries` mekanizmasıyla store'u TEMİZLEMEDEN
+senkronize oluyor — bu yüzden sıra kritik (glob ÖNCE, JSON ekleme SONRA).
+Legacy (henüz göç etmemiş) yazılar için `context.renderMarkdown()`
+kullanılarak ham WP HTML'i `render(entry)`'nin okuyabileceği aynı
+`RenderedContent` şekline çevriliyor — CommonMark'ın blok-seviyeli HTML
+passthrough kuralı sayesinde ham HTML DEĞİŞMEDEN geçiyor (gerçek bir
+yazıyla `curl` diff'iyle karakter karakter doğrulandı — "İnsan
+kaynakları..." ile başlayan içerik build çıktısında birebir aynı).
+Sonuç: hem eski (JSON) hem yeni (Markdown) yazılar TEK render boru
+hattından (`render(entry)` + `<Content />`) geçiyor, `blog/[slug].astro`
+artık `set:html={content}` KULLANMIYOR.
+
+**Şema sadeleştirmeleri (kullanıcı onaylı):** `categories`/`tags`'teki
+WP'den miras `id` alanı kaldırıldı (kod tabanında hiçbir yerde
+kullanılmadığı grep ile doğrulandı) — `categories` artık ham veride düz
+slug dizisi, `content.config.ts`'teki yeni `CATEGORY_LABELS` sabiti
+(posts.json'daki 622 kaydın TAMAMI taranarak çıkarılan GERÇEK 11
+slug→isim eşlemesi, tahmin değil) ile `{slug,name}`'e dönüştürülüyor —
+`blogContent.ts`/`.astro` dosyalarındaki `.slug`/`.name` kullanımı
+DEĞİŞMEDEN çalışıyor. `featuredImage.width/height` opsiyonel oldu (Decap
+formu editöre piksel boyutu sordurmuyor). `modifiedDate` tamamen
+kaldırıldı (CMS'te güvenilir otomatik bir "son düzenleme" alanı yok,
+elle doldurulan bir alan yanıltıcı olurdu) — `[slug].astro`'daki
+"Güncellendi: ..." satırı da kaldırıldı.
+
+**Pilot:** 4 çeşitlilik yazısı göç ettirildi (iç içe `<div>`+`<iframe>`
+gömülü karmaşık bir yazı, `featuredImage:null` olan bir yazı, çoklu
+kategori, WP'nin kopya kategori sorununu taşıyan `guncel-bilgiler-tr`
+slug'lı bir yazı) — `astro check` 0 hata (284 dosya), `astro build` 870
+sayfa hatasız (değişmedi, 618 JSON + 4 md = 622 toplam korundu),
+`test-no-external-idenfit-links.mjs` 2340/0, `dev:clean` + `curl` ile
+hem göç etmiş hem legacy yazılar TR'de tek tek doğrulandı.
+`verify-blog-posts.mjs`'in artık GÜNCEL OLMADIĞI not düşüldü — script
+hâlâ yalnızca `posts.json`'ı okuyor, göç etmiş yazıları görmüyor; toplu
+üretim ilerledikçe güncellenmeli veya emekliye ayrılmalı (yeni bir açık
+nokta, bkz. altta #21).
+
+**Yerel Decap panel pilotu kuruldu:** `public/admin/{index.html,config.yml}`
+(Decap CDN'den `decap-cms@^3.0.0`, `local_backend: true` — GitHub'a hiç
+bağlanmadan `decap-server` proxy'siyle doğrudan dosyaya yazıyor, PROD'da
+aynı config otomatik gerçek `github` backend'ine geçiyor, AYRI bir config
+gerekmedi). `decap-server` devDependency olarak kuruldu (`npm run
+cms:proxy`). **Bulunan bir quirk:** `astro dev`/`astro preview` (Vite
+tabanlı) `public/` altındaki dizinler için örtük `index.html` çözümlemesi
+YAPMIYOR — `/admin/` 404 veriyor, `/admin/index.html` (açık) 200
+dönüyor. Gerçek üretim host'u (Cloudflare Pages) standart statik-host
+davranışıyla `/admin/`'i otomatik çözecektir (neredeyse tüm statik
+host'ların evrensel davranışı) ama bu HENÜZ deploy edilmiş siteyle
+doğrulanmadı — bkz. açık nokta #21.
+
+**`npm install`lar sırasında bulunan bir gerçek bug, düzeltildi:**
+`js-yaml`'ı devDependency olarak eklerken v4→v5 major sürüm atlaması
+oldu (`import yaml from 'js-yaml'` artık çalışmıyor, v5 default export'u
+kaldırmış) — migrasyon script'i `import { dump } from 'js-yaml'`e
+düzeltildi. Astro'nun KENDİ iç `js-yaml` bağımlılığı (`file()` loader'ı
+için) npm'in nested `node_modules/astro/node_modules/js-yaml@4.3.1`
+izolasyonu sayesinde ETKİLENMEDİ — çapraz doğrulandı. Aynı `npm install`
+turunda `npm audit` 2 açık buldu (fast-uri: yüksek, postcss: orta,
+js-yaml eklenmesiyle ilişkisiz, muhtemelen lockfile yeniden çözümlemesi
+sırasında ortaya çıktı) — `npm audit fix` ile 0 açığa indirildi, ardından
+tam regresyon (`astro check`/`astro build`/`test-no-external-idenfit-links.mjs`)
+tekrar koşuldu (bkz. §Proje kuralları "Güvenlik taraması alışkanlığı").
+
+**Dürüst sınır:** Chrome uzantısı bu oturumda da bağlı değildi — Decap
+panelinin GERÇEK görsel/etkileşim sonucu (form alanları doğru render
+oluyor mu, "Yeni Yazı" akışı çalışıyor mu) kullanıcı tarafından
+`http://localhost:4321/admin/index.html` + `npx decap-server`
+(ikisi de bu oturumda arka planda zaten çalışır durumda) ile elle
+doğrulanmalı.
+
+**2026-08-04 günlüğü (10) — Hero'nun GERÇEK kök nedeni bulundu: kaynağın
+`min-height:calc(100vh-120px)` kuralı hiç taşınmamıştı.** Kullanıcı bir
+önceki turun ("görsel büyüsün") ardından ek bir madde bildirdi: kırmızı
+panel sayfanın EN BAŞINDAN başlamalı (header'ın hemen altında, boşluksuz),
+soldaki form paneli de AYNI miktarda yukarı kaymalı. `post-25148.css`
+yeniden, bu kez tüm hero wrapper'ının (`.elementor-element-955e842`,
+`0d37a63`+`efc5a57`'nin ortak ebeveyni) kendi kuralı için okununca gerçek
+kök neden bulundu: `padding:0` (tüm kenarlar) + `@media(min-width:1024px)
+{min-height:calc(100vh - 120px) !important}` — yani hero, header'ın hemen
+altından başlayıp neredeyse TÜM ilk ekranı kaplıyor. **Bu, bir önceki
+turun "görsel ekranı kaplasın" isteğinin de GERÇEK açıklamasıydı** — 9.
+günlükteki düzeltme (615px/90% tavanlarının kaldırılması) doğru yöndeydi
+ama eksikti, asıl kaynak bu min-height kuralıydı, gözden kaçmıştı.
+**Düzeltme:** dıştaki `<section>`'ın `py-12 lg:py-20`'si → `py-12
+lg:py-0` (mobilde korundu, kaynağın min-height kuralı zaten yalnızca
+`min-width:1024px`'te geçerli); grid sarmalayıcıya `lg:min-h-[calc(100vh-97px)]`
+eklendi — 120px yerine BİZİM header'ımızın gerçek yüksekliği kullanıldı
+(`h-16`=64px + 1px kenarlık + marquee `py-1.5`+`text-sm` satırı ≈32px =
+97px — bu değer önceki bir oturumda Playwright ile bağımsız ÖLÇÜLMÜŞ ve
+CLAUDE.md'ye kaydedilmiş AYNI 97px'e denk düştü, hesaplama çapraz
+doğrulandı). Grid zaten `items-stretch` kullandığından bu min-height iki
+kolonu da EŞİT yükseklikte tutuyor — sol panel ayrı bir müdahale
+gerekmeden otomatik olarak aynı miktarda yukarı kaydı. **Test:** `astro
+check` 0 hata (283 dosya), `astro build` 870 sayfa hatasız,
+`test-no-external-idenfit-links.mjs` 2340/0, `dev:clean` + loglar temiz,
+yeni class'lar (`py-12 lg:py-0`, `lg:min-h-[calc(100vh-97px)]`) `curl`
+ile doğrulandı. **Dürüst sınır:** Chrome uzantısı bu oturumda da bağlı
+değildi — 97px tahmini iki bağımsız yöntemle (element boyutu toplamı +
+geçmiş Playwright ölçümü) çapraz doğrulanmış olsa da, gerçek piksel
+sonucu kullanıcının ekran görüntüsüyle teyit edilmeli.
+
+**2026-08-04 günlüğü (9, kısa) — Ana sayfa hero'sunda 2 düzeltme: sol
+panel ortalama + sağ görsel büyütme.** Kullanıcı 2 madde bildirdi: (1)
+kırmızı paneldeki görsel ekranı kaplayacak boyutta büyümeli, (2) soldaki
+metin/form paneli ortalanmalı (sağa kaymalı). (1) `post-25148.css`'ten
+kaynağın gerçek ölçülen değeri hâlâ `max-width:90%` (sarmalayıcı
+`content-width:615px`) — yani mevcut kodumuz zaten kaynakla BİREBİR
+eşleşiyordu, bu kullanıcının "ana sitedeki gibi" beklentisiyle çelişiyordu.
+Kullanıcının açık isteğiyle BİLİNÇLİ olarak kaynağın ötesine çıkıldı
+(Müşteriler sayfası video/görsel büyütmesiyle AYNI ilke): sarmalayıcının
+615px tavanı kaldırıldı (`w-full`), görselin 90% tavanı kaldırıldı
+(`w-full`) — artık görsel kırmızı panelin tam genişliğini kaplıyor
+(`object-contain` + gerçek en-boy oranı korunuyor). (2) Sol panelin
+`lg:mx-0`'ı (masaüstünde bloğu kolonun SOL kenarına yapıştırıyordu)
+kaldırıldı — artık `mx-auto` tüm breakpoint'lerde geçerli, blok kolonun
+ortasına oturuyor. **Test:** `astro check` 0 hata (283 dosya — IDE'nin
+`.astro` dosyasını JSX sanıp verdiği ~40 sahte "JSX.IntrinsicElements"
+uyarısı `astro check`'te hiç görünmedi, bilinen bir stale-diagnostics
+örneği), `astro build` 870 sayfa hatasız, `test-no-external-idenfit-links.mjs`
+2340/0, `dev:clean` + loglar temiz, yeni class'lar (`mx-auto w-full
+max-w-xl` — `lg:mx-0` YOK, `w-full object-contain`) `curl` ile TR ana
+sayfada doğrulandı. **Dürüst sınır:** Chrome uzantısı bu oturumda da
+bağlı değildi — gerçek piksel sonucu (özellikle görselin ne kadar
+"ekran kaplar" hissi verdiği) kullanıcının ekran görüntüsüyle
+doğrulanmalı, muhtemelen bir ince ayar turu daha gerekebilir.
+
+**2026-08-04 günlüğü (8) — İK Dijital Olgunluk Testi sonuç ekranı: 2 eksik
+buton eklendi + "Yakında" rozeti kaldırılıp e-posta rapor formu aktif
+edildi.** Kullanıcı sonuç adımında (ResultStep) eksik buton bildirdi.
+Kaynağın gerçek yapısı 3 ayrı sayfadan biri olan sonuç sayfasının
+(`ik-dijital-olgunluk-testi-sonucu`, WP id 24317, `content.rendered` +
+`post-24317.css`) ham HTML'i çekilip incelendi — **gerçek yapıda 3 buton
+var, bizde yalnızca 1'i (devre dışı e-posta formu) vardı**: (1)
+"Detaylı Raporu Gönder" (e-posta girip backend'e POST atan buton), (2)
+"Ana Sayfa" (`.secondary` — şeffaf, `rgba(0,0,0,.6)` kenarlık), (3)
+"Hemen Başvur" (`.primary-outline` — isme rağmen kaynakta DOLU kırmızı
+zemin, outline değil, `idenfit.com/tr/online-sunum-talep-et`'e gidiyor).
+2 ve 3 hiç taşınmamıştı — ölçülen gerçek stille (`post-24317.css`'ten
+birebir: 8px köşe, 18px/600 font, aralarında 120px'lik `.divider` çizgisi)
+eklendi, "Hemen Başvur" projenin kendi canonical Online Sunum Talebi
+sayfasına (`/online-sunum-talebi/`) bağlandı.
+
+**"Yakında" rozeti + devre dışı e-posta formu — dürüstlük sorunu
+kullanıcıyla netleştirildi, sonra çözüldü.** Kaynaktaki gerçek buton
+`/wp-json/hr-maturity/generate` adlı özel bir WP REST endpoint'ine POST
+atıp dönen URL'de bir PDF açıyor (TODO #12, backend'imiz yok, Faz 2).
+Rozeti kaldırıp butonu aktif etmek tek başına "raporunuz gönderildi" gibi
+YANLIŞ bir başarı iması yaratabilirdi — `AskUserQuestion` ile soruldu:
+yeni/özel bir teşekkürler sayfası mı, yoksa zaten var olan genel
+`/tesekkurler/` mi (gerçek e-posta/rapor gönderimi iddia etmeyen,
+"size en kısa sürede ulaşacağız" gibi güvenli bir mesaj)? **Kullanıcı
+mevcut `/tesekkurler/`yi seçti.** Uygulama: yeni `EmailReportForm`
+component'i — client-side e-posta validasyonu (kaynağın kendi
+`isValidEmail()` regex'iyle birebir aynı), `console.log` (HeroForm'un
+backend'siz hâliyle AYNI ilke — gerçek bir istek atılmıyor), başarılı
+validasyondan sonra `window.location.href='/tesekkurler/'`. Bu, madde
+#12'nin "Faz 2'de kendi PDF/e-posta çözümümüzle değiştirilecek" TODO'sunu
+KAPATMIYOR — yalnızca kullanıcı deneyimini (devre dışı/yanıtsız buton
+yerine gerçek bir sonraki adım) iyileştiriyor, gerçek backend hâlâ yok.
+**Test:** `astro check` 0 hata (283 dosya, 2 pre-existing `FormEvent`
+deprecation uyarısı — bu dosyaya özel değil, 4 formda da var), `astro
+build` 870 sayfa hatasız, `test-no-external-idenfit-links.mjs` 2340/0,
+`dev:clean` + loglar temiz, yeni string'ler (`Ana Sayfa`, `Hemen Başvur`,
+`/tesekkurler/`, `Yakında`'nın YOKLUĞU) Vite dev server'dan transform
+edilmiş component kaynağı `curl` ile doğrulandı. **Dürüst sınır:** Chrome
+uzantısı bu oturumda da bağlı değildi — sonuç adımı yalnızca testi
+tamamlayınca (client-side state) göründüğü için SSR HTML'de doğrudan
+görünmüyor, gerçek görsel/etkileşim sonucu kullanıcı tarafından
+doğrulanmalı.
 
 **2026-08-04 günlüğü (7) — Hakkımızda sayfası BAŞTAN kuruldu (bespoke
 component) + ekip fotoğrafı güncellendi.** Kullanıcı yazı stillerinin ana
@@ -522,6 +724,31 @@ yalnızca DİKKAT ÇEKİCİ/farklı test sonuçları not düşülüyor.
     gerekmiyorsa buraya (yeni bir madde olarak) not düşülüp iş listesine
     eklenmeli — kritik/yüksek seviye açıklar ise bulunduğu anda (bu
     maddeyi beklemeden) düzeltilip regresyon testleriyle doğrulanmalı.
+21. **YENİ — Blog CMS entegrasyonu (Decap CMS) devam ediyor, 3 açık uç
+    (2026-08-04).**
+    - **KADEMELİ ÜRETİM bekliyor:** pilot 4 yazı göç etti, kalan 618
+      yazı `scripts/migrate-blog-to-markdown.mjs <slug...>` ile gruplar
+      halinde taşınmalı (her grup sonrası `astro build` + regresyon).
+      Tüm yazılar göç edince `content.config.ts`'teki `legacyJsonLoader`
+      basit bir `glob()`'a indirgenebilir, `posts.json` silinebilir.
+    - **`verify-blog-posts.mjs` GÜNCEL DEĞİL** — hâlâ yalnızca
+      `posts.json`'ı okuyor, göç etmiş `.md` yazılarını görmüyor. Göç
+      ilerledikçe (ya da tamamlanınca) script güncellenmeli/emekliye
+      ayrılmalı.
+    - **`/admin/` trailing-slash davranışı Cloudflare Pages'te henüz
+      doğrulanmadı** — yerelde (`astro dev`/`preview`) yalnızca
+      `/admin/index.html` (açık) çalışıyor, `/admin/` 404 veriyor (Astro'nun
+      `public/` geçişinin örtük dizin-index çözümlemesi yapmaması).
+      Gerçek statik host'larda (Cloudflare Pages dahil) bu genelde
+      otomatik çözülür ama ilk deploy'dan sonra `/admin/`'in de
+      çalıştığı elle teyit edilmeli.
+    - **OAuth App onayı IT'den bekleniyor** — geldiğinde: (1)
+      `public/admin/config.yml`'deki `base_url`/`auth_endpoint` gerçek
+      değerlerle doldurulacak, (2) Client Secret'ı sunucu tarafında
+      tutan küçük bir OAuth proxy (Cloudflare Pages Functions, madde
+      2/12'deki Faz 2 backend TODO'suyla aynı altyapı) kurulacak —
+      Netlify'ın aksine Cloudflare Pages bu proxy'yi hazır sağlamıyor,
+      bu adım yalnızca Client ID/Secret'ı yapıştırmaktan İBARET DEĞİL.
 
 ---
 

@@ -647,6 +647,61 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
+// E-posta doğrulaması — kaynağın kendi `isValidEmail()`'iyle birebir aynı
+// basit regex (bkz. sonuç sayfasının ham script'i, `wp-json/hr-maturity/generate`
+// çağrısından önce kaynakta da yalnızca bu kontrol yapılıyor).
+const EMAIL_PATTERN = /\S+@\S+\.\S+/;
+
+// "Detaylı raporu e-postama gönder" — kaynakta bu buton `/wp-json/hr-maturity/generate`
+// adlı özel bir WP REST endpoint'ine POST atıp dönen URL'de bir PDF açıyordu
+// (bkz. CLAUDE.md TODO #12). Bizim tarafımızda bu backend henüz yok — bu yüzden
+// GERÇEK bir rapor/e-posta göndermiyoruz (yanlış bir başarı iması olmasın diye),
+// yalnızca kullanıcının niyetini kaydedip (`console.log`, `HeroForm`'un backend'siz
+// hâliyle AYNI ilke) siteye zaten var olan genel Teşekkürler sayfasına
+// yönlendiriyoruz (`/tesekkurler/`, "size en kısa sürede ulaşacağız" gibi
+// gerçek bir e-posta gönderimi iddia ETMEYEN genel bir mesaj — kullanıcı
+// onayıyla, yeni/özel bir sayfa yerine bu mevcut sayfa yeniden kullanıldı).
+function EmailReportForm({ result }: { result: MaturityResult }) {
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!EMAIL_PATTERN.test(email)) {
+      setError('Geçerli bir e-posta adresi giriniz.');
+      return;
+    }
+    console.log('HR Maturity Test — rapor talebi:', { email, result });
+    window.location.href = '/tesekkurler/';
+  };
+
+  return (
+    <div className="mx-auto mt-10 max-w-sm rounded-2xl border border-gray-100 p-6">
+      <h3 className="text-sm font-semibold text-heading">Detaylı raporu e-postama gönder</h3>
+      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
+        <input
+          type="email"
+          required
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            if (error) setError('');
+          }}
+          placeholder="E-posta adresinizi yazınız"
+          className="w-full rounded-[3px] border border-brand px-3.5 py-2.5 text-sm text-heading placeholder:text-[rgba(0,0,0,0.4)] focus:outline-none focus:ring-2 focus:ring-brand/20"
+        />
+        <button
+          type="submit"
+          className="shrink-0 rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
+        >
+          Gönder
+        </button>
+      </form>
+      {error && <p className="mt-2 text-xs text-brand">{error}</p>}
+    </div>
+  );
+}
+
 function ResultStep({ result }: { result: MaturityResult }) {
   return (
     <div className="mx-auto max-w-2xl text-center">
@@ -676,33 +731,28 @@ function ResultStep({ result }: { result: MaturityResult }) {
         </div>
       </div>
 
-      {/* "Raporu e-postama gönder" — kaynakta bu buton `/wp-json/hr-maturity/generate`
-          adlı özel bir WP REST endpoint'ine POST atıp dönen URL'de bir PDF
-          açıyordu (gerçek backend bağımlılığı, bkz. CLAUDE.md TODO). Bizim
-          tarafımızda bu backend henüz yok — buton bilinçli olarak devre dışı,
-          "Yakında" rozetiyle işaretlendi; e-posta hiçbir yere gönderilmiyor. */}
-      <div className="mx-auto mt-10 max-w-sm rounded-2xl border border-gray-100 p-6">
-        <div className="flex items-center justify-center gap-2">
-          <h3 className="text-sm font-semibold text-heading">Detaylı raporu e-postama gönder</h3>
-          <span className="rounded-full bg-gray-100 px-2 py-0.5 text-[11px] font-semibold text-muted">Yakında</span>
-        </div>
-        <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-          <input
-            type="email"
-            placeholder="E-posta adresinizi yazınız"
-            disabled
-            aria-disabled="true"
-            className="w-full rounded-[3px] border border-[rgba(0,0,0,0.3)] bg-gray-50 px-3.5 py-2.5 text-sm text-muted placeholder:text-muted"
-          />
-          <button
-            type="button"
-            disabled
-            aria-disabled="true"
-            className="shrink-0 cursor-not-allowed rounded-md bg-gray-200 px-5 py-2.5 text-sm font-semibold text-muted"
-          >
-            Gönder
-          </button>
-        </div>
+      <EmailReportForm result={result} />
+
+      {/* "Ana Sayfa" / "Hemen Başvur" — kaynakta e-posta kutusunun ALTINDA
+          bir ayırıcı çizgiyle ayrılmış 2 ek buton daha var (`post-24317.css`,
+          `.secondary`/`.primary-outline` — ikisi de canlı ölçülen değerler,
+          `.primary-outline` adına rağmen kaynakta DOLU kırmızı zemin
+          taşıyor, gerçek outline değil). Önceki turda bu 2 buton hiç
+          taşınmamıştı — bulunup eklendi. */}
+      <div className="mx-auto mt-10 h-px w-[120px] bg-[rgba(0,0,0,0.8)]" />
+      <div className="mt-8 flex items-center justify-center gap-3">
+        <a
+          href="/"
+          className="rounded-lg border border-[rgba(0,0,0,0.6)] px-[18px] py-2.5 text-sm font-semibold text-heading transition hover:border-brand hover:text-brand sm:text-base"
+        >
+          Ana Sayfa
+        </a>
+        <a
+          href="/online-sunum-talebi/"
+          className="rounded-lg bg-brand px-[18px] py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:text-base"
+        >
+          Hemen Başvur
+        </a>
       </div>
     </div>
   );

@@ -43,14 +43,38 @@ const CALL_URL = 'tel:02162950927';
      hesaplıyor. Bu aynı zamanda `overflow-hidden`'ı da gereksiz kıldı
      (kaldırıldı) — eskiden full-bleed hilesinin olası yatay scrollbar
      riskine karşı eklenmişti, artık hiçbir çocuk taşmıyor. -->
-<section class="bg-[#F8F8F8] py-12 lg:py-20">
-	<div class="grid items-stretch gap-8 lg:grid-cols-2 lg:gap-0">
+<!-- ⚠️ DÜZELTME (2026-08-04): kullanıcı kırmızı panelin sayfanın EN
+     BAŞINDAN başlamasını (header'ın hemen altında, aradaki boşluk
+     olmadan) + iki kolonun eşit hizada olmasını istedi. Kök neden
+     bulundu: kaynağın kendi hero wrapper'ı (`post-25148.css`,
+     `.elementor-element-955e842`) masaüstünde `padding:0` + `min-height:
+     calc(100vh - 120px)` taşıyor — yani hero, header'ın hemen altından
+     başlayıp neredeyse TÜM ilk ekranı (viewport - header/marquee
+     yüksekliği) kaplıyor. Bizim `<section>`'ımız bunun yerine kendi
+     `py-12 lg:py-20`'siyle hero'yu YAPAY olarak sıkıştırıp header'dan
+     uzaklaştırıyordu. `lg:py-0` ile bu boşluk kaldırıldı, `lg:min-h-[...]`
+     ile kaynağın 100vh-tabanlı yaklaşımı eklendi — 120px yerine 97px
+     kullanıldı (kaynağın kendi header/marquee yüksekliği bize ait değil;
+     bizim GERÇEK header+marquee toplamı: `h-16`=64px + 1px kenarlık +
+     marquee `py-1.5`+`text-sm` satırı ≈32px = 97px, önceki bir oturumda
+     Playwright ile ölçülüp doğrulanmış AYNI değer). Grid zaten
+     `items-stretch` kullandığı için bu min-height iki kolonu da EŞİT
+     yükseklikte tutuyor — sol panel de otomatik olarak aynı miktarda
+     yukarı kayıyor, ayrı bir düzeltme gerekmedi. Mobilde (`lg:` altı)
+     kaynağın kendi min-height kuralı da uygulanmadığından `py-12`
+     korundu. -->
+<section class="bg-[#F8F8F8] py-12 lg:py-0">
+	<div class="grid items-stretch gap-8 lg:min-h-[calc(100vh-97px)] lg:grid-cols-2 lg:gap-0">
 		<!-- Sol kolon: başlık + açıklama + form. İç içerik `max-w-xl`'e
 		     sarmalanmış — kolon artık tam yarım viewport genişliğinde
 		     olduğundan (geniş ekranlarda 700px+), metnin/formun aşırı
-		     yayılmaması için. -->
+		     yayılmaması için. ⚠️ DÜZELTME (2026-08-04): `lg:mx-0` masaüstünde
+		     bloğu kolonun SOL kenarına yapıştırıyordu — kullanıcı bunun
+		     yerine kaynaktaki gibi ortalanmasını istedi (kaldırıldı, artık
+		     `mx-auto` tüm breakpoint'lerde geçerli — kolon max-w-xl'den
+		     (576px) geniş olduğu sürece blok sağa doğru kayıp ortalanıyor). -->
 		<div class="flex flex-col justify-center px-4 py-8 sm:px-6 lg:px-12 xl:px-20">
-			<div class="mx-auto w-full max-w-xl lg:mx-0">
+			<div class="mx-auto w-full max-w-xl">
 			<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
 			     (`post-25148.css`, `.elementor-element-0c8eb2b`/`4ec6dae`) —
 			     H1 mobilde 20px, `lg:` 35px/`font-weight:600`/`line-height:45px`
@@ -153,14 +177,23 @@ const CALL_URL = 'tel:02162950927';
 		     `text-sm lg:text-base`/14→16px, `font-medium`, kaynak: `68737fd{
 		     font-size:16px;font-weight:500}` + mobil override `font-size:14px`)
 		     kaynaktan BİREBİR ölçüldü. -->
+		<!-- ⚠️ DÜZELTME (2026-08-04): kullanıcı görselin "ekranı kaplayacak
+		     boyutta" büyümesini istedi — kaynağın kendi ölçülen değerleri
+		     (max-w-[615px] sarmalayıcı + görsel max-width:90%) BİLİNÇLİ
+		     olarak aşılıp sarmalayıcı kolonun tam genişliğine (`w-full`,
+		     615px tavanı kaldırıldı), görsel de sarmalayıcının tamamını
+		     kaplayacak şekilde (`w-full`, 90% tavanı kaldırıldı) büyütüldü
+		     — `object-contain` + gerçek `width`/`height` oranı korunuyor,
+		     yalnızca üst sınır kaldırıldı (Müşteriler sayfası video/görsel
+		     büyütmesiyle AYNI ilke, kaynaktan bilinçli sapma). -->
 		<div class="flex items-center justify-center bg-brand px-6 py-5 text-center text-white lg:px-0 lg:py-0">
-			<div class="mx-auto flex w-full max-w-[615px] flex-col items-center">
+			<div class="mx-auto flex w-full flex-col items-center">
 				<img
 					src={heroImage.url}
 					width={heroImage.width}
 					height={heroImage.height}
 					alt={t.hero.sideTitle}
-					class="max-w-[90%] object-contain"
+					class="w-full object-contain"
 					loading="eager"
 				/>
 				<h2 class="mt-5 text-2xl font-bold leading-[1.2] lg:text-[32px]">{t.hero.sideTitle}</h2>
