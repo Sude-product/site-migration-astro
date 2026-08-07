@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import lottie, { type AnimationItem } from 'lottie-web';
+import { useEffect, useState } from 'react';
+import MaturityArcDecoration from './MaturityArcDecoration.tsx';
 import {
   MATURITY_QUESTIONS,
   MATURITY_CATEGORY_LABELS,
@@ -48,36 +48,6 @@ const ANSWER_OPTIONS: { value: MaturityAnswerValue; label: string }[] = [
 // şey rounded-10px beyaz kutu (bkz. CLAUDE.md 2026-07-29 günlüğü).
 const inputClass =
   'h-full w-full rounded-[10px] border border-white bg-white px-3.5 py-2.5 text-sm text-heading shadow-sm placeholder:text-muted transition-colors focus:border-brand focus:outline-none focus:ring-2 focus:ring-brand/20';
-
-// Kaynakta (`uzun.json`) 8 katmanlı, kırmızıdan şeffafa geçen radyal
-// gradyan glow'lardan oluşan bir Lottie animasyonu — hero'nun arkasında
-// dekoratif bir "yay" oluşturuyor (bkz. CLAUDE.md 2026-07-29 KEŞİF notu).
-// `lottie-web` ile birebir, kaynağın kendi JSON dosyası kullanılarak
-// (public/lottie/hr-maturity-arc.json, aynı `uzun.json`) oynatılıyor.
-function MaturityArcDecoration() {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    let anim: AnimationItem | undefined;
-    anim = lottie.loadAnimation({
-      container: containerRef.current,
-      renderer: 'svg',
-      loop: true,
-      autoplay: true,
-      path: '/lottie/hr-maturity-arc.json',
-    });
-    return () => anim?.destroy();
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 top-0 -z-10 opacity-90"
-    />
-  );
-}
 
 // Hero'nun altındaki 2. bölüm ("İK Dijital Dönüşümünüzü 5 Kritik Alanda
 // Netleştirin", template id 23868, container `68cfe75`). 5 kartın her biri

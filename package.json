@@ -32,6 +32,7 @@
     "@types/yauzl": "^3.4.0",
     "decap-server": "^3.10.0",
     "js-yaml": "^5.2.3",
+    "turndown": "^7.2.4",
     "typescript": "^6.0.3",
     "yauzl": "^3.4.0"
   },

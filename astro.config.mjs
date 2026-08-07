@@ -171,5 +171,20 @@ export default defineConfig({
     // olabilir) gelen bir ziyaretçinin 404 almaması için ucuz bir
     // güvenlik ağı.
     '/online-sunum-talep-et': '/online-sunum-talebi',
+    // 2026-08-05: kapsamlı URL denetimi (canlı sitemap_index.xml'in 4 alt
+    // sitemap'i ile `astro build` çıktısının tam karşılaştırması) 9 sayfa
+    // için AYNI kalıbı buldu — içerik bizde zaten var, ama canlının gerçek
+    // slug'ı bizimkinden farklı ve redirect'i unutulmuş (yalnızca TR'nin
+    // Online Sunum Talebi'i için böyle bir güvenlik ağı vardı, EN/IT'si
+    // hiç eklenmemişti). Dış link/SEO/yer imi trafiği 404 almasın diye:
+    '/en/customers': '/en/musteriler',
+    '/it/clienti': '/it/musteriler',
+    '/nl/klanten': '/nl/musteriler',
+    '/en/request-online-presentation': '/en/online-sunum-talebi',
+    '/it/richiedi-presentazione-online': '/it/online-sunum-talebi',
+    '/en/thank-you': '/en/thanks',
+    '/suprema': '/donanim',
+    '/en/suprema-tools': '/en/hardware',
+    '/it/dispositivi-suprema': '/it/hardware',
   },
 });

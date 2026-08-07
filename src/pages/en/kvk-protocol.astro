@@ -1,0 +1,12 @@
+---
+// 2026-08-05: kapsamlı URL denetimiyle bulunan, önceki turlarda kaçırılmış
+// bir sayfa (ana KVKK Aydınlatma Metni'nden ayrı bir hukuki doküman). Bkz.
+// CLAUDE.md.
+import LegalPage from '../../components/LegalPage.astro';
+import { getKvkProtocolContent, getKvkProtocolLocaleUrls } from '../../data/miscPagesContent';
+
+const content = getKvkProtocolContent('en')!;
+const localeUrls = getKvkProtocolLocaleUrls();
+---
+
+<LegalPage content={content} localeUrls={localeUrls} />

@@ -180,6 +180,27 @@ export function getKvkkLocaleUrls(): Partial<Record<Locale, string>> {
   return getLegalLocaleUrls(KVKK_TR_SLUG);
 }
 
+// ============================== KVK Protokol ==============================
+// Ana KVKK Aydınlatma Metni'nden AYRI bir sayfa — 2026-08-05'te kapsamlı
+// URL denetimiyle bulunan, önceki modül/sayfa migrasyon turlarında
+// kaçırılmış bir hukuki doküman (yalnızca TR+EN, kaynakta NL/IT hiç yok).
+// İçerik `content_block` ACF alanından değil, doğrudan `content.rendered`
+// içindeki bir Elementor "HTML" widget'ından geliyor (bkz.
+// `scripts/extract-misc-pages.mjs`'teki `extractLegalFromRenderedHtml()`
+// yorumu) — ama çıktısı aynı `{contentHtml}` şeklinde olduğu için
+// `getLegalContent()` değişmeden yeniden kullanılabiliyor.
+export const KVK_PROTOCOL_TR_SLUG = 'kvk-protokol';
+
+export function getKvkProtocolContent(locale: Locale): LegalContent | undefined {
+  return getLegalContent(KVK_PROTOCOL_TR_SLUG, locale);
+}
+export function getKvkProtocolSlug(locale: Locale): string | undefined {
+  return getLegalSlug(KVK_PROTOCOL_TR_SLUG, locale);
+}
+export function getKvkProtocolLocaleUrls(): Partial<Record<Locale, string>> {
+  return getLegalLocaleUrls(KVK_PROTOCOL_TR_SLUG);
+}
+
 // Hero/Panel/İletişim formlarındaki KVKK onay metninin 2 linki (HeroForm.tsx)
 // için tek yerden hesaplanan URL çifti. NL'in kendi KVKK/Tüketici Hakları
 // sayfası yok — bare slug + `getRelativeLocaleUrl` kullanılıyor, bu da

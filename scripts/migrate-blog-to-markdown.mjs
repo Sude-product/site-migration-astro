@@ -14,6 +14,7 @@ import { readFileSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { dump } from 'js-yaml';
+import { htmlToMarkdown } from './lib/html-to-markdown.mjs';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const POSTS_JSON = path.join(ROOT, 'src/content/blog/posts.json');
@@ -56,7 +57,13 @@ for (const post of posts) {
   };
 
   const yamlText = dump(frontmatter, { lineWidth: -1 });
-  const fileContent = `---\n${yamlText}---\n\n${post.content}\n`;
+  // `post.content` posts.json'da ham WP/Gutenberg HTML'i olarak duruyor —
+  // Decap'in Rich Text editörü gerçek Markdown bekliyor, ham HTML'i
+  // (`<p class="wp-block-paragraph">` vb.) olduğu gibi yazarsak editörde
+  // kod gibi görünüyor (bkz. CLAUDE.md göç günlüğü). `htmlToMarkdown()`
+  // ile temiz Markdown'a çevriliyor.
+  const markdownBody = htmlToMarkdown(post.content);
+  const fileContent = `---\n${yamlText}---\n\n${markdownBody}\n`;
   writeFileSync(path.join(BLOG_DIR, `${post.slug}.md`), fileContent, 'utf-8');
   migrated++;
   console.log(`✓ ${post.slug}.md yazıldı`);

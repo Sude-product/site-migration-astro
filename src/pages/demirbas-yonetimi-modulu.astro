@@ -1,0 +1,13 @@
+---
+// 2026-08-05: kapsamlı URL denetimiyle bulunan, önceki modül migrasyon
+// turlarında kaçırılmış bir modül. Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+
+const trSlug = 'demirbas-yonetimi-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

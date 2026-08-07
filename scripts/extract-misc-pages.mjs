@@ -116,6 +116,41 @@ function cleanRichText(html) {
   return (html || '').replace(/\s(class|style)="[^"]*"/g, '');
 }
 
+/** KVK Protokol (2026-08-05, kapsamlı URL denetimiyle bulunan kaçırılmış
+ * sayfa) diğer "legal" sayfalar gibi bir ACF `content_block` alanı
+ * KULLANMIYOR — ham belge doğrudan bir Elementor "HTML" widget'ına
+ * (`widget_type="html.default"`) yapıştırılmış, yani yalnızca
+ * `content.rendered`'da var. Kaynağın TR kaydı `<section class="contract-body">`
+ * etiketini hiç KAPATMAMIŞ (well-formed değil, tarayıcı toleranslı olduğu
+ * için canlıda sorun çıkmıyor) — EN kaydı ise kapatmış, iki dil arasında
+ * bile tutarsız. Bu yüzden önce gerçek `</section>` aranır (varsa, EN gibi,
+ * en güvenilir sınır); yoksa (TR gibi) Elementor'un kendi wrapper
+ * div'lerinin ardışık/saf kapanış zincirinden yalnızca içeriğe ait SON
+ * gerçek kapanış (`highlight` bloğu) geri bırakılıp gerisi atılır. */
+function extractLegalFromRenderedHtml(entry) {
+  const html = entry.content?.rendered || '';
+  const startMarker = '<section class="contract-body">';
+  const startIdx = html.indexOf(startMarker);
+  if (startIdx === -1) {
+    console.warn(`UYARI: '${entry.slug}' (${entry.id}) içinde 'contract-body' bulunamadı, boş içerik.`);
+    return { contentHtml: '' };
+  }
+  let body = html.slice(startIdx + startMarker.length);
+  const sectionCloseIdx = body.indexOf('</section>');
+  if (sectionCloseIdx !== -1) {
+    body = body.slice(0, sectionCloseIdx);
+  } else {
+    const trailingCloseChain = /(?:\s*<\/div>)+\s*$/;
+    const m = body.match(trailingCloseChain);
+    if (m) body = body.slice(0, m.index) + '\n</div>';
+  }
+  // Belgenin kendi başlığı (`div.contract-title`) sayfanın `<h1>`'iyle
+  // (page_title) örtüşen bir tekrar — semantik bir alt başlığa (`h2`)
+  // çevrilip LegalPage.astro'nun mevcut `[&_h2]` stiliyle render ediliyor.
+  body = body.replace(/<div class="contract-title">([\s\S]*?)<\/div>/, (_, inner) => `<h2>${inner.trim()}</h2>`);
+  return { contentHtml: cleanRichText(body.trim()) };
+}
+
 function extractLegal(acf) {
   return { contentHtml: cleanRichText(acf.content_block || '') };
 }
@@ -179,7 +214,12 @@ function group(trSlug, kind, extractFn, maxSections) {
       slug: bareSlugFromLink(entry.link),
       title: stripHtml(entry.title?.rendered),
       modified: entry.modified,
-      content: kind === 'productLike' ? extractFn(entry.acf || {}, maxSections) : extractFn(entry.acf || {}),
+      content:
+        kind === 'productLike'
+          ? extractFn(entry.acf || {}, maxSections)
+          : kind === 'legalRendered'
+            ? extractFn(entry)
+            : extractFn(entry.acf || {}),
     };
   }
   return { trSlug, kind, locales };
@@ -195,6 +235,9 @@ const groups = [
   group('neden-idenfit', 'productLike', extractProductLike, 8),
   group('hakkimizda', 'productLike', extractProductLike, 3),
   group('kisisel-verilerin-korunmasi', 'legal', extractLegal),
+  // 2026-08-05 — kapsamlı URL denetimiyle bulunan, önceki turlarda
+  // kaçırılmış sayfa (bkz. extractLegalFromRenderedHtml() yorumu).
+  group('kvk-protokol', 'legalRendered', extractLegalFromRenderedHtml),
   buildPresentationGroup(),
 ].filter(Boolean);
 

@@ -1,6 +1,6 @@
 {
   "_source": "reference/wordpress-export/pages.json (yerel export, `page` post type — sectors.json gibi ayrı bir CPT DEĞİL, bkz. CLAUDE.md)",
-  "_fetchedAt": "2026-07-21T14:17:51.280Z",
+  "_fetchedAt": "2026-08-05T13:21:37.641Z",
   "_note": "Aşamalı rollout: MODULE_TR_SLUGS listesi henüz 89 modülün tamamını kapsamıyor, yalnızca onaylanan sayfaları içerir. ACF şeması sayfa/modüle göre değişiyor (bkz. CLAUDE.md) — extractHeroAndSections() şema tespiti yapıyor.",
   "products": [
     {
@@ -6565,6 +6565,215 @@
               "height": 176
             }
           }
+        }
+      }
+    },
+    {
+      "trSlug": "demirbas-yonetimi-modulu",
+      "locales": {
+        "tr": {
+          "id": 11631,
+          "slug": "demirbas-yonetimi-modulu",
+          "link": "https://idenfit.com/demirbas-yonetimi-modulu/",
+          "title": "Demirbaş Modülü",
+          "modified": "2025-08-15T13:39:00",
+          "hero": {
+            "title": "Demirbaşları dijital ortama taşıyın, kontrolü kolaylaştırın!",
+            "text": "İşletmenizin sahip olduğu tüm demirbaşları tek bir panelde takip etmek ister misiniz? <br><br>idenfit Varlık Yönetimi Modülü, demirbaşlarınızı dijitalleştirerek kayıt, takip ve yönetim süreçlerini sadeleştirir.",
+            "ctaText": "Hemen Başvur",
+            "ctaUrl": "#",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/hero-demirbaş-tr.png",
+              "alt": "hero demirbaş tr",
+              "width": 1137,
+              "height": 1260
+            }
+          },
+          "sections": [
+            {
+              "title": "idenfit Varlıklar Modülü ile:",
+              "text": "<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">İşletmenizin sistemde kayıtlı tüm demirbaşlarını modül üzerinden tanımlayabilirsiniz.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Her bir demirbaş için zimmet atamaları kolayca yapılabilir.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Demirbaşların satın alınma tarihleri, garanti süreleri, seri numaraları ve model bilgileri sisteme girilebilir.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Tüm bu bilgiler zaman damgasıyla kayıt altına alınır, geçmişe dönük izlenebilirlik sağlanır.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Ana sayfadan Varlıklar sekmesine tıklayarak tüm detaylara anında erişebilirsiniz.</span></li>\n</ul>\n<p>&nbsp;</p>\n<p>Bu modül, varlık yönetimini hem şeffaf hem de verimli hale getirerek zaman tasarrufu sağlar. İster küçük ölçekli ister büyük ölçekli bir işletme olun, dijitalleşmiş demirbaş takibiyle süreci güvence altına alırsınız.</p>\n",
+              "ctaText": "İletişime Geçin",
+              "ctaUrl": "#",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/web-demirbaş-tr.png",
+                "alt": "web demirbaş tr",
+                "width": 1092,
+                "height": 1032
+              }
+            }
+          ],
+          "faq": [],
+          "testimonial": null
+        },
+        "en": {
+          "id": 11657,
+          "slug": "fixed-asset-management-module",
+          "link": "https://idenfit.com/en/fixed-asset-management-module/",
+          "title": "Asset Management Module",
+          "modified": "2025-08-27T12:40:43",
+          "hero": {
+            "title": "Asset Management Module",
+            "text": "<b>Digitize your assets, streamline control!</b> Would you like to track all the assets your business owns from a single panel? With the Idenfit Asset Management Module, your fixed assets are digitalized, simplifying the processes of registration, tracking, and management.",
+            "ctaText": "Get Started",
+            "ctaUrl": "#",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/hero-demirbaş-en.png",
+              "alt": "hero demirbaş en",
+              "width": 1137,
+              "height": 1260
+            }
+          },
+          "sections": [
+            {
+              "title": "With the Idenfit Assets Module:",
+              "text": "<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">You can define all assets registered in your system directly through the module.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Asset assignments (check-in/check-out) can be managed easily.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Details such as purchase date, warranty period, serial number, and model can be recorded.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">All information is timestamped and stored, enabling traceability over time.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Simply click on the Assets tab on the dashboard for instant access to full details.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">This module makes asset management both transparent and efficient, saving time and ensuring operational continuity. Whether you&#8217;re a small or large business, digital asset tracking helps you secure and control the entire process.</span></p>\n",
+              "ctaText": "",
+              "ctaUrl": "#",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/web-demirbaş-en.png",
+                "alt": "web demirbaş en",
+                "width": 1103,
+                "height": 1025
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "Can Idenfit be used as a fixed asset registration and asset management system?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Yes. All company-owned assets can be defined in the system and stored with details such as warranty periods, model types, and serial numbers.</span></p>\n"
+            },
+            {
+              "question": "How is the assignment process managed with the asset tracking system?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Each asset’s assignee, assignment date, and expected return date are entered into the system. This way, you can instantly track where the asset is, who has it, and in what condition.</span></p>\n"
+            },
+            {
+              "question": "Why should asset management be digitalized?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Manual records often lead to confusion. Idenfit’s digital asset management module centralizes the entire process, making it transparent and fully auditable.</span></p>\n"
+            },
+            {
+              "question": "What types of reports can be generated with the asset tracking program?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">You can generate detailed reports such as assignment histories and user-based asset lists—all from a single dashboard.</span></p>\n"
+            }
+          ],
+          "testimonial": null
+        }
+      }
+    },
+    {
+      "trSlug": "seyahat-ve-gorevlendirme-yonetimi-modulu",
+      "locales": {
+        "tr": {
+          "id": 10874,
+          "slug": "seyahat-ve-gorevlendirme-yonetimi-modulu",
+          "link": "https://idenfit.com/seyahat-ve-gorevlendirme-yonetimi-modulu/",
+          "title": "Seyahat Modülü",
+          "modified": "2025-08-27T09:18:12",
+          "hero": {
+            "title": "Seyahat Modülü",
+            "text": "Çalışan seyahatlerini; transfer, konaklama ve iş başlıkları altında kategorize ederek yönetin!",
+            "ctaText": "Hemen Başvur",
+            "ctaUrl": "#",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/07/seyahat1@2x.webp",
+              "alt": "seyahat1@2x",
+              "width": 1197,
+              "height": 1233
+            }
+          },
+          "sections": [
+            {
+              "title": "Seyahat yönetimini idenfit’e bırakın!",
+              "text": "<p>idenfit seyahat modülüyle, çalışanlarınızın yurt içi veya yurt dışı seyahatlerini güvenle yönetebilirsiniz. Çalışan izin taleplerinde olduğu gibi, gidilecek tarih ve yer bilgilerini girerek seyahat veya iş gezisi talebinde bulunabilirsiniz.</p>\n<p>Çalışanlarınızın seyahat ve iş gezileri sistemde hızlıca oluşturulup güvenle saklanır. idenfit seyahat modülüyle çalışanın seyahat veya iş gezisindeki harcama, avans ve zimmetlerinin takibi yapılır, transfer ve konaklama detaylarının kontrolü sağlanır.</p>\n",
+              "ctaText": "Satış Ekibi İle Görüşün",
+              "ctaUrl": "#",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/seyahat2@2x.webp",
+                "alt": "seyahat2@2x",
+                "width": 1137,
+                "height": 878
+              }
+            },
+            {
+              "title": "Çalışan iş gezileri için seyahat modülü!",
+              "text": "<p class=\"text-sm\">idenfit seyahat modülüyle,</p>\n<ul class=\"list\">\n<li>Çalışanın seyahat ve iş gezisi bilgileri sistem üzerinde görülebilir.</li>\n<li>Transfer, konaklama ve iş gibi detayların kontrolü sağlanabilir.</li>\n<li>Seyahat formu üzerinden personel bilgileri ve seyahat ile ilgili detaylara ulaşılabilir.</li>\n<li>Çalışanların seyahat sürecinde yapmış oldukları harcamalar, mobil üzerinden gerçek zamanlı olarak sisteme kaydedilir ve düzenli olarak takip edilebilir.</li>\n<li>İstenilen harcama, avans ve zimmet bilgisine mobil üzerinden anlık ulaşılabilir.</li>\n</ul>\n",
+              "ctaText": "Online Sunum Talebi",
+              "ctaUrl": "#",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/seyahat3@2x.webp",
+                "alt": "seyahat3@2x",
+                "width": 948,
+                "height": 1196
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "idenfit’in insan kaynakları yazılımı içinde kurumsal seyahat yönetimi modülü yer alıyor mu?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Evet, idenfit İKY yazılımında yer alan seyahat modülü sayesinde çalışanların yurt içi ve yurt dışı iş gezileri pratik ve merkezi biçimde yönetilebilir.</span></p>\n"
+            },
+            {
+              "question": "Seyahat organizasyonu modülü çalışanlar için iş gezisi sürecini nasıl kolaylaştırır?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Çalışanlar mobil cihazlarıyla seyahat detaylarını, avans ve harcama bilgilerini anlık olarak sisteme girebilir.</span></p>\n"
+            }
+          ],
+          "testimonial": null
+        },
+        "en": {
+          "id": 10947,
+          "slug": "travel-and-assignment-management-module",
+          "link": "https://idenfit.com/en/travel-and-assignment-management-module/",
+          "title": "Travel Module",
+          "modified": "2025-08-28T12:00:06",
+          "hero": {
+            "title": "Travel Module",
+            "text": "Manage employee travels, transfers by categorizing them under accommodation and job headings!",
+            "ctaText": "Get Started",
+            "ctaUrl": "https://idenfit.com/request-online-presentation/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/07/travel_1@2x.png",
+              "alt": "travel 1@2x",
+              "width": 1197,
+              "height": 1233
+            }
+          },
+          "sections": [
+            {
+              "title": "Let Idenfit to manage your travel!",
+              "text": "<section class=\"section\">\n<div class=\"container\">\n<div class=\"row align-items-center justify-content-between column-reverse\">\n<div class=\"col-sm-12 col-md-6 col-lg-6\">\n<article>\n<div>\n<p>You can safely manage your employees&#8217; domestic or international travels with the Idenfit travel module. As with employee permit requests, you can request a trip or business trip by entering the date and place to go.</p>\n</div>\n</article>\n</div>\n</div>\n</div>\n</section>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/travel_2@2x.png",
+                "alt": "travel 2@2x",
+                "width": 1137,
+                "height": 878
+              }
+            },
+            {
+              "title": "Travel module for business trips!",
+              "text": "<p class=\"text-sm\">Wıth the Idenfit travel module,</p>\n<ul class=\"list\">\n<li>The employee&#8217;s travel and business trip information can be viewed on the system.</li>\n<li>Details such as transfer, accommodation and business can be controlled.</li>\n<li>Personnel information and details about travel can be accessed through the travel form.</li>\n<li>The expenditures made by the employees during the travel process are recorded in real time on mobile and can be monitored regularly.</li>\n<li>The asked expenditure, advance and dept information can be accessed instantly on mobile.</li>\n</ul>\n",
+              "ctaText": "Get Started",
+              "ctaUrl": "https://idenfit.com/request-online-presentation/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/travel_3@2x.png",
+                "alt": "travel 3@2x",
+                "width": 948,
+                "height": 1196
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "Does Idenfit’s HR software include a corporate travel management module?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Yes, Idenfit’s HR software features a travel management module that enables seamless planning and centralized control of both domestic and international business trips.</span></p>\n"
+            },
+            {
+              "question": "How does the travel organization module simplify business trips for employees?\r\n",
+              "answer": "<p><span style=\"font-weight: 400;\">Employees can easily enter travel details, advance requests, and expense information into the system in real time using their mobile devices.</span></p>\n"
+            }
+          ],
+          "testimonial": null
         }
       }
     }

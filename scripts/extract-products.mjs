@@ -60,6 +60,12 @@ const MODULE_TR_SLUGS = [
   'calisan-egitim-yonetimi-modulu',
   // --- Aşama 3 (kısım 2) — Puantaj (Şema E, bkz. extractSchemaE()) ---
   'puantaj-takip-programi-modulu',
+  // --- 2026-08-05: kapsamlı URL denetimi ile bulunan 2 kaçırılmış modül —
+  // ikisi de pages.json'da ZATEN vardı (orijinal crawl'da yakalanmış),
+  // yalnızca bu listeye hiç eklenmemişlerdi. Şema A (module_title). NL
+  // çevirisi Demirbaş'ta var ama bu turda TALEP EDİLMEDİ (yalnızca TR+EN).
+  'demirbas-yonetimi-modulu',
+  'seyahat-ve-gorevlendirme-yonetimi-modulu',
   // NOT: insan-kaynaklari-yonetimi-modulu ve insan-kaynaklari-isgucu-yonetimi
   // (hub/dizin sayfaları, "product tile grid" düzeni) BİLİNÇLİ OLARAK bu
   // script'e eklenmedi — bunlar standart hero+section düzenine uymuyor,
