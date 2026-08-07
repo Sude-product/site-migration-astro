@@ -73,10 +73,14 @@ html {
    ile eklenir; öğeye özel `style="transition-delay:…ms"` ile hafif bir
    stagger (sırayla belirme) uygulanabilir. JS hiç çalışmazsa (nadiren) veya
    `prefers-reduced-motion: reduce` açıksa içerik HER ZAMAN tam görünür
-   kalır — progressive enhancement, erişilebilirlik önceliklidir. */
+   kalır — progressive enhancement, erişilebilirlik önceliklidir.
+   `--reveal-y` (2026-08-07 eklendi): varsayılan 16px'i DEĞİŞTİRMEDEN
+   (mevcut tüm site geneli kullanımlar birebir aynı kalıyor) landing
+   page'in "daha belirgin" iddiası için tek tek component'lerde inline
+   `style="--reveal-y: 28px"` ile override edilebilir bir kanca. */
 .reveal {
   opacity: 0;
-  transform: translateY(16px);
+  transform: translateY(var(--reveal-y, 16px));
   transition:
     opacity 500ms ease-out,
     transform 500ms ease-out;
@@ -90,6 +94,57 @@ html {
     opacity: 1;
     transform: none;
     transition: none;
+  }
+}
+
+/* Hero panelinin dekoratif nabız/halka animasyonu (2026-08-07) — bkz.
+   `LandingPulseDecoration.tsx`. 3 halka staggered scale+opacity ile
+   merkezden dışa doğru büyüyüp solan bir "radar" döngüsü oluşturuyor —
+   yalnızca transform/opacity (layout tetiklemiyor, header flicker
+   dersinden). */
+@keyframes lp-ring-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.lp-ring {
+  animation: lp-ring-pulse 2.4s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-ring {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Ürün paneli görselinin yavaş yukarı-aşağı süzülme animasyonu
+   (2026-08-07, `LandingProductShowcase.astro`) — hafif 3D perspektif
+   tilt'i (`rotateX`/`rotateY`) animasyon boyunca SABİT tutuluyor, yalnızca
+   `translateY` değişiyor (tek transform içinde birleştirilmiş, layout
+   tetiklemiyor). */
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: perspective(1400px) rotateX(2deg) rotateY(-3deg) translateY(0);
+  }
+  50% {
+    transform: perspective(1400px) rotateX(2deg) rotateY(-3deg) translateY(-14px);
+  }
+}
+.landing-float {
+  animation: landing-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-float {
+    animation: none;
   }
 }
 

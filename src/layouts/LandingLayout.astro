@@ -1,0 +1,76 @@
+---
+// Landing Page (`/demo`) — `BaseLayout.astro`'nun `<head>` bloğunu birebir
+// taşır (Quicksand font, favicon, meta, `noscript`/`.reveal` fallback,
+// `noindex` desteği) ama `<body>`'de tam `Header`/`Footer`/
+// `FloatingContactButtons` yerine minimal `LandingHeader`/`LandingFooter`
+// kullanır — kullanıcı kararı: reklam trafiği ziyaretçisi formda tutulsun,
+// siteye dağıtacak nav olmasın (bkz. CLAUDE.md 2026-08-06 günlüğü).
+import '../styles/global.css';
+import LandingHeader from '../components/LandingHeader.astro';
+import LandingFooter from '../components/LandingFooter.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** `BaseLayout.astro`'daki AYNI `noindex` prop'u — burada varsayılan
+   * `true` (landing sayfaları için güvenli varsayılan, aksine ihtiyaç
+   * olursa açıkça `noindex={false}` verilebilir). */
+  noindex?: boolean;
+}
+
+const { title = 'idenfit', description = 'idenfit — İnsan kaynakları yönetim yazılımı.', noindex = true } = Astro.props;
+---
+
+<!doctype html>
+<html lang="tr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		<!-- Quicksand (idenfit.com marka fontu) -->
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+		<!-- JS tamamen kapalıysa scroll-reveal script'i hiç çalışmaz — `.reveal`
+		     öğelerinin görünmez kalmaması için (bkz. global.css) burada zorla
+		     tam görünür yapılıyor. -->
+		<noscript>
+			<style>
+				.reveal {
+					opacity: 1 !important;
+					transform: none !important;
+				}
+			</style>
+		</noscript>
+	</head>
+	<body class="min-h-screen bg-surface text-body font-sans antialiased">
+		<LandingHeader />
+		<main>
+			<slot />
+		</main>
+		<LandingFooter />
+	</body>
+</html>
+
+<style>
+	/* Sayfa geneli çok hafif nokta-grid dokusu (2026-08-07, KONU 5 —
+	   "boş beyaz alan" hissini azaltmak için). `:global(body)` kullanıldığı
+	   için Astro'nun otomatik scoping'ini atlıyor GİBİ görünse de, bu
+	   stylesheet yalnızca `LandingLayout` kullanan sayfalara (şu an
+	   yalnızca `/demo`) bundle edilip yükleniyor — diğer sayfalar
+	   `BaseLayout`'u kullandığı için bu kural onlara HİÇ ulaşmıyor.
+	   Marka kırmızısı %4 opaklıkta, 24px aralıklı tekrarlayan nokta —
+	   abartısız, yalnızca çok yakından fark edilir. */
+	:global(body) {
+		background-image: radial-gradient(rgba(255, 0, 0, 0.04) 1px, transparent 1px);
+		background-size: 24px 24px;
+	}
+</style>

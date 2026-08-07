@@ -10,12 +10,18 @@ interface Props {
   description?: string;
   /** Bkz. `Header.astro`'daki `localeUrls` prop açıklaması. */
   localeUrls?: Partial<Record<Locale, string>>;
+  /** `true` ise `<meta name="robots" content="noindex, nofollow">` eklenir
+   * — arama motorlarından gizli, yalnızca doğrudan/reklam trafiğine açık
+   * sayfalar için (ör. Landing Page `/demo`, bkz. CLAUDE.md 2026-08-06).
+   * Varsayılan `false` (mevcut tüm sayfaların davranışı değişmez). */
+  noindex?: boolean;
 }
 
 const {
   title = 'idenfit',
   description = 'idenfit — İnsan kaynakları yönetim yazılımı.',
   localeUrls,
+  noindex = false,
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
@@ -31,6 +37,7 @@ const lang = Astro.currentLocale ?? 'tr';
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
+		{noindex && <meta name="robots" content="noindex, nofollow" />}
 		<!-- Quicksand (idenfit.com marka fontu) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

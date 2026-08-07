@@ -1,0 +1,43 @@
+---
+// Görsel dashboard paneli — ürünün "Devam Takibi" ekranının basitleştirilmiş
+// bir önizlemesi (2026-08-07). Rakamlar (248/6/3) İLLÜSTRATİF örnek veridir,
+// gerçek bir müşteri kaydı değil — statik build olduğu için tarihe bağlı bir
+// alan (ör. "Şubat 2026") KULLANILMADI (build anında dondurulup ziyaret
+// anında bayatlamış görünürdü), bunun yerine "bugün"/"bu ayki" gibi
+// bağıl ifadeler tercih edildi.
+//
+// Yalnızca dekoratif ikonlar için lucide-react `client:*` direktifi OLMADAN
+// (server-only, hiç JS göndermiyor) render ediliyor — proje kuralı: React
+// yalnızca gerçek etkileşim gerektiğinde hydrate edilir.
+import { Fingerprint, CheckCircle2 } from 'lucide-react';
+---
+
+<div class="w-full max-w-sm rounded-2xl bg-white p-6 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)]">
+  <div class="flex items-center justify-between">
+    <h3 class="text-base font-semibold text-heading">Devam Takibi — bugün</h3>
+    <span class="h-2 w-2 rounded-full bg-green-500" aria-hidden="true"></span>
+  </div>
+  <div class="mt-5 grid grid-cols-3 gap-3 text-center">
+    <div>
+      <p class="text-2xl font-bold text-heading">248</p>
+      <p class="mt-1 text-xs text-muted">Toplam çalışan</p>
+    </div>
+    <div>
+      <p class="text-2xl font-bold text-heading">6</p>
+      <p class="mt-1 text-xs text-muted">Geç kalan</p>
+    </div>
+    <div>
+      <p class="text-2xl font-bold text-heading">3</p>
+      <p class="mt-1 text-xs text-muted">Bekleyen izin</p>
+    </div>
+  </div>
+  <div class="mt-5 flex items-center gap-2 rounded-lg bg-brand-light px-3 py-2 text-xs text-body">
+    <Fingerprint className="h-4 w-4 shrink-0 text-brand" aria-hidden="true" />
+    <span>Biyometrik giriş — Suprema entegre</span>
+  </div>
+</div>
+
+<div class="mt-4 flex w-full max-w-sm items-center gap-3 rounded-2xl bg-white p-4 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.25)]">
+  <CheckCircle2 className="h-5 w-5 shrink-0 text-green-600" aria-hidden="true" />
+  <p class="text-sm text-body">Bu ayki bordro raporu hazır</p>
+</div>
