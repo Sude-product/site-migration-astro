@@ -373,4 +373,14 @@ export const nl: Translations = {
     metaDescription:
       'Vind antwoorden op veelgestelde vragen over idenfit — algemene info, prijzen, installatie, klantenservice en gegevensbeveiliging.',
   },
+  notFound: {
+    pageTitle: 'Pagina Niet Gevonden',
+    metaDescription:
+      'De pagina die u zoekt kon niet worden gevonden. Ga terug naar de idenfit homepage of bekijk populaire pagina\'s zoals Blog, Contact en Prijzen.',
+    heading: 'Pagina Niet Gevonden',
+    description:
+      'De pagina die u zoekt is mogelijk verplaatst, verwijderd of heeft nooit bestaan. Ga terug naar de homepage of bekijk hieronder enkele populaire pagina\'s.',
+    backHomeButton: 'Terug naar Homepage',
+    popularLinksTitle: 'Populaire Pagina\'s',
+  },
 };

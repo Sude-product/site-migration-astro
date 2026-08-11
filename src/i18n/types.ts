@@ -455,6 +455,21 @@ export interface HomeLabels {
   hrtech: HomeHrtechLabels;
 }
 
+/** 404 sayfası (`src/pages/404.astro` + `en/nl/it/404.astro`) — bkz.
+ * `NotFoundPage.astro`. Popüler sayfa linklerinin METİNLERİ burada
+ * DEĞİL, mevcut `footer.links.*` anahtarları yeniden kullanılıyor (Blog/
+ * İletişim/Fiyatlar/SSS) — içerik tekrarı yerine tek kaynak. */
+export interface NotFoundLabels {
+  /** `buildIdenfitTitle()`'a geçilen ham sayfa adı (`<title>` DEĞİL). */
+  pageTitle: string;
+  metaDescription: string;
+  /** "404" rakamının altındaki başlık. */
+  heading: string;
+  description: string;
+  backHomeButton: string;
+  popularLinksTitle: string;
+}
+
 export interface Translations {
   nav: NavLabels;
   cta: CtaLabels;
@@ -465,6 +480,7 @@ export interface Translations {
   customerStories: CustomerStoriesLabels;
   home: HomeLabels;
   faqPage: FaqPageLabels;
+  notFound: NotFoundLabels;
 }
 
 /** SSS sayfası (`/sss/`, `/en/faq/`, `/it/faq/`) — bkz. `FaqPage.astro`.

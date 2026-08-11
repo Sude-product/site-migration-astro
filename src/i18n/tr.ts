@@ -376,4 +376,14 @@ export const tr: Translations = {
     pdfLabel: 'PDF İNDİR',
     metaDescription: 'Genel, ödeme, kurulum, müşteri deneyimi, veri güvenliği ve üyelik konularında idenfit hakkında sıkça sorulan soruların yanıtlarını bulun.',
   },
+  notFound: {
+    pageTitle: 'Sayfa Bulunamadı',
+    metaDescription:
+      'Aradığınız sayfa bulunamadı. idenfit ana sayfasına dönün veya Blog, İletişim, Fiyatlar gibi popüler sayfalarımızı keşfedin.',
+    heading: 'Sayfa Bulunamadı',
+    description:
+      'Aradığınız sayfa taşınmış, kaldırılmış olabilir ya da hiç var olmamış olabilir. Ana sayfaya dönebilir veya aşağıdaki popüler sayfalarımızdan birine göz atabilirsiniz.',
+    backHomeButton: 'Ana Sayfaya Dön',
+    popularLinksTitle: 'Popüler Sayfalar',
+  },
 };

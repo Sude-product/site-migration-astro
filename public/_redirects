@@ -1,0 +1,23 @@
+# Cloudflare Pages özel 404 sayfaları (2026-08-11).
+#
+# Cloudflare Pages, `404.html` adlı bir dosyayı OTOMATİK olarak (bu dosyaya
+# HİÇ gerek kalmadan) istenen dizinden köke doğru yukarı tarayarak bulur —
+# bu yüzden TR (prefix'siz kök, `dist/404.html`, Astro'nun `404.astro`
+# dosya adını ÖZEL tanıyıp ürettiği bare-file) için elle bir kural GEREKMEZ.
+#
+# `en/nl/it` için AYRICA `src/pages/<locale>/404.astro` DENENDİ ama
+# Astro'nun "404" dosya adına verdiği ÖZEL muamele `i18n.fallback`
+# mekanizmasıyla çakıştı — Astro bu dosyayı normal bir EN/NL/IT sayfası
+# olarak DEĞİL, TR'nin `/404.html` route'unun "eksik karşılığı" sanıp
+# otomatik bir redirect stub'una çeviriyordu (2026-08-11'de derlenip
+# bulundu). Çözüm: locale'e özel 404 içeriği "404" adı OLMAYAN normal
+# sayfalarda tutuluyor (`src/pages/en/not-found.astro` vb., bkz. o
+# dosyaların kendi yorumu) — aşağıdaki kurallar `/en/*`/`/nl/*`/`/it/*`
+# altındaki HERHANGİ bir eşleşmeyen isteği ilgili dilin GERÇEK 404
+# içeriğine yönlendirir. Statik dosya eşleşmesi `_redirects`
+# kurallarından ÖNCE gelir (Cloudflare Pages'in dokümante davranışı) —
+# yani var olan gerçek sayfalar bu kurallardan ETKİLENMEZ, yalnızca
+# hiçbir dosyayla eşleşmeyen istekler buraya düşer.
+/en/*  /en/not-found/  404
+/nl/*  /nl/not-found/  404
+/it/*  /it/not-found/  404

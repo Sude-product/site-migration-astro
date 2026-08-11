@@ -18,7 +18,74 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-11)
+## Proje Durumu (son güncelleme: 2026-08-11, 2. tur)
+
+**🟢 SİTE GENELİ — ÖZEL 404 SAYFASI KURULDU, 4 DİLDE (2026-08-11).**
+Bir önceki turda ("title tamamen eksik" uyarısı araştırılırken) yan bulgu
+olarak ortaya çıkmıştı: proje hiç 404 sayfası ÜRETMİYORDU (`src/pages/404.astro`
+yoktu, `dist/404.html` yoktu) — kullanıcı bunun düzeltilmesini istedi.
+
+**Yeni component — `NotFoundPage.astro`:** `BaseLayout` kullanıyor (header/
+mega-menü/footer dahil, sitenin geri kalanıyla BİREBİR aynı iskelet), büyük
+kırmızı "404" rakamı (`aria-hidden`, H1'in yanında dekoratif/tekrar
+sayılıyor) + gerçek H1 başlık + dostça açıklama + `btn-cta-solid` "Ana
+Sayfaya Dön" butonu + 4 popüler sayfa linki (Blog/İletişim/Fiyatlar ve
+Modüller/Sıkça Sorulan Sorular — **metinleri YENİDEN YAZILMADI**, mevcut
+`footer.links.*` çevirileri kullanıldı, içerik tekrarı yok). `<title>`
+`buildIdenfitTitle()` ile (SEO title-uzunluk kuralına otomatik uyuyor),
+`noindex:true` (404 zaten indekslenmez ama meta etiketi ek güvenlik
+katmanı). Yeni `t.notFound` şeması (`i18n/types.ts` + 4 dil dosyası) —
+KARAR 1 gereği 4 dilin HER BİRİNE gerçek, kendi doğal metniyle yazıldı
+(placeholder/kopya çeviri yok).
+
+**Kök-neden bulgusu — Astro'nun "404" dosya adı özel muamelesi `i18n.fallback`
+ile ÇAKIŞIYOR:** `src/pages/404.astro` (kök, TR) Astro'nun dokümante
+davranışıyla doğru şekilde bare `/404.html`'e derleniyor. AMA
+`src/pages/en/404.astro` / `nl/404.astro` / `it/404.astro` DENENDİĞİNDE
+— Astro bunları normal birer EN/NL/IT sayfası olarak DEĞİL, TR'nin
+`/404` route'unun "eksik locale karşılığı" sanıp **otomatik bir redirect
+stub'una çeviriyordu** (içerik hiç render edilmiyordu, yalnızca
+`<meta http-equiv="refresh">` üretiliyordu — build'de sessizce oluyor,
+hata vermiyor). **Çözüm:** locale'e özel içerik "404" adı OLMAYAN normal
+sayfalarda tutuluyor (`src/pages/en/not-found.astro` vb., gerçek route
+`/en/not-found/`) + yeni `public/_redirects` (Cloudflare Pages formatı)
+`/en/* /en/not-found/ 404` gibi 3 kuralla `/en/*`/`/nl/*`/`/it/*` altındaki
+HERHANGİ bir eşleşmeyen isteği doğru dile yönlendiriyor. TR için elle
+kural GEREKMEZ — Cloudflare Pages zaten `404.html`'i dizin dizin yukarı
+tarayarak otomatik buluyor (dokümante, zero-config davranış).
+
+**Yan doğrulama (bug değil, kasıtlı davranış):** 404 sayfasındaki dil
+değiştiricide "Türkçe"ye tıklamak `/not-found/`'a gidiyor (TR'nin gerçek
+404 route'u `/404` farklı olduğu için `Header.astro`'nun genel
+`restPath` hesaplaması bunu bilemiyor) — ama bu KIRIK bir link DEĞİL:
+hem `astro dev`'in kendi otomatik 404 fallback'i hem Cloudflare Pages'in
+dizin-yukarı `404.html` taraması `/not-found/`'u da yakalayıp kök
+`404.html`'in (doğru TR içeriği) sunuyor. Chrome'da doğrulandı — dil
+değiştirildiğinde doğru TR başlık/metin görünüyor, konsol hatasız.
+
+**Kanıt:** `astro check` 0 hata (327 dosya), `astro build` 877→**881**
+sayfa (tam 4 yeni), `check-title-length`/`check-meta-description-length`
+(4 yeni sayfa hiçbirinde flag yok) / `check-link-accessibility` /
+`check-image-alt-text` / `test-no-external-idenfit-links` hepsi 0 ihlal.
+3 çekirdek regresyon script'i (`test-urunler-menu-links` 108/108,
+`test-faq-language-switch` 9/9, `test-sector-language-switch` 36/36)
+regresyonsuz. Chrome'da 4 dilin hepsi (`/404` TR + `/en/not-found/` +
+`/nl/not-found/` + `/it/not-found/`) tek tek ziyaret edilip header/
+mega-menü/footer'ın tam render edildiği, "Ana Sayfaya Dön" linkinin
+`href="/"` taşıdığı (element-ID doğrulamalı), popüler sayfa linklerinin
+çalıştığı (İletişim tıklanıp gerçek sayfaya gidildi), konsolda hata
+olmadığı doğrulandı.
+
+**Dürüst sınır:** `public/_redirects`'in gerçek Cloudflare Pages
+davranışı yalnızca `astro dev`/`astro preview` ile test edilebildi
+(ikisi de bu dosyayı YORUMLAMIYOR, salt Astro'nun kendi 404 fallback'i
+test edildi) — gerçek Cloudflare Pages ortamında (`wrangler pages dev`
+projede kurulu değil) henüz doğrulanmadı, Faz 1 deploy'unda ilk
+kontrollerden biri olmalı.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, alt-text turu (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — GÖRSEL `alt` METNİ DENETİMİ TAMAMLANDI (2026-08-11,
 2026-08-10'da yarım kalan bir turun devamı).** Önceki oturumda
@@ -882,7 +949,10 @@ madde başına tekrarlanmıyor.
     878 gerçek içerik sayfasının yalnızca 2'si noindex, kalan 876'sı
     indekslenebilir). Bu, SEO araçlarında "çok fazla noindex sayfa"
     uyarısı tetikleyebilir ama gerçek bir sorun DEĞİL, mimarinin beklenen
-    bir sonucu.
+    bir sonucu. **Güncelleme (2026-08-11):** 4 yeni özel 404 sayfası
+    (`/404`, `en/nl/it`'in `not-found` route'ları) da BİLİNÇLİ olarak
+    `noindex` — toplam noindex sayfa sayısı 2→6 oldu, aynı gerekçe (404
+    zaten indekslenmemeli) geçerli.
 28. **TODO — Blog yazılarının `<title>` uzunluğu (622 yazının 435'i,
     %70, 50-60 aralığı dışında) BİLİNÇLİ olarak ayrı bir tura ertelendi
     (kullanıcı kararı, 2026-08-10).** Kök neden site sayfalarınınkinden
@@ -911,6 +981,14 @@ madde başına tekrarlanmıyor.
     `Article` için de zorunlu/önerilen alan listesi tanımlı) — yeni bir
     tür eklenirse `REQUIRED_BY_TYPE`/`RECOMMENDED_BY_TYPE`'a satır eklemek
     yeterli.
+30. **TODO — `public/_redirects`'in (404 sayfası, 2026-08-11) gerçek
+    Cloudflare Pages davranışı henüz DOĞRULANMADI.** `astro dev`/`astro
+    preview` bu dosyayı yorumlamıyor (yalnızca Astro'nun kendi 404
+    fallback'i test edilebildi, bkz. Proje Durumu) — proje `wrangler`
+    içermiyor. Faz 1 deploy'unda ilk kontrol edilmesi gereken şeylerden
+    biri: `/en/<var-olmayan-bir-slug>/` gibi bir URL'in gerçekten
+    `en/not-found/`'un İngilizce içeriğini (TR'ye değil) 404 HTTP status
+    koduyla döndürdüğü canlıda doğrulanmalı.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26,27) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -1196,6 +1274,14 @@ KARAR 2), Demirbaş Yönetimi Modülü (`demirbas-yonetimi-modulu`/
 `en/fixed-asset-management-module`), Seyahat ve Görevlendirme Yönetimi
 Modülü (`seyahat-ve-gorevlendirme-yonetimi-modulu`/
 `en/travel-and-assignment-management-module`).
+
+**404 sayfası (2026-08-11):** TR kökte `src/pages/404.astro` (Astro'nun
+özel muamelesiyle bare `/404.html`'e derlenir). EN/NL/IT'de AYNI isimde
+(`en/404.astro`) bir dosya İ18N FALLBACK ile çakıştığı için `src/pages/en/
+not-found.astro` (route: `/en/not-found/`, aynı desen NL/IT'de) +
+`public/_redirects`'in (Cloudflare Pages formatı) `/en/* /en/not-found/
+404` kurallarıyla bağlı — bkz. Açık nokta #30 (canlıda henüz
+doğrulanmadı) ve §Mimari.
 
 ---
 

@@ -375,4 +375,14 @@ export const it: Translations = {
     metaDescription:
       'Trova le risposte alle domande più frequenti su idenfit: informazioni generali, prezzi, configurazione, supporto e sicurezza dei dati.',
   },
+  notFound: {
+    pageTitle: 'Pagina Non Trovata',
+    metaDescription:
+      'La pagina che stai cercando non è stata trovata. Torna alla home page di idenfit oppure esplora pagine popolari come Blog, Contatti e Prezzi.',
+    heading: 'Pagina Non Trovata',
+    description:
+      'La pagina che stai cercando potrebbe essere stata spostata, rimossa o non essere mai esistita. Torna alla home page oppure scopri alcune delle nostre pagine più popolari qui sotto.',
+    backHomeButton: 'Torna alla Home Page',
+    popularLinksTitle: 'Pagine Popolari',
+  },
 };
