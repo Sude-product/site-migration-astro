@@ -22,7 +22,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, date, excerpt, featuredImage, categories } = post.data;
+const { title, date, excerpt, featuredImage, categories, modifiedDate } = post.data;
 const { Content } = await render(post);
 
 const allPosts = await getAllBlogPosts();
@@ -35,9 +35,45 @@ const relatedPosts = getRelatedPosts(allPosts, post);
 // kaynağın kendi hatası). Bizim verimiz zaten temiz olduğu için burada
 // yalnızca virgülle birleştirmek yeterli, ekstra bir dedupe GEREKMİYOR.
 const categoryLabel = categories.map((c) => c.name).join(', ');
+
+// JSON-LD (BlogPosting, schema.org) — 2026-08-10, structured data turu.
+// Site genelinde İLK JSON-LD uygulaması (daha önce hiç yoktu — bkz. CLAUDE.md
+// "JSON-LD/dateModified" notu). `dateModified`: legacy yazılarda (posts.json)
+// WP'nin gerçek `modified` alanından geliyor; göç etmiş `.md` yazılarında
+// (Decap CMS, henüz düzenleme-tarihi takibi YOK) bu alan yok — bu durumda
+// `date`'e (yayın tarihi) düşer ("hiç düzenlenmemişse mantıklı bir varsayım",
+// kullanıcı kararı). `mainEntityOfPage.@id` göreli bir yol (`Astro.url.pathname`)
+// — proje henüz kalıcı bir prod domain'e (`astro.config.mjs`'in `site` alanı)
+// sahip değil, mutlak bir URL icat ETMEDİK; domain netleşince buraya
+// `Astro.site` tabanlı mutlak bir URL eklenmeli. `publisher.logo` gerçek,
+// canlı idenfit.com barındırılan logo dosyası (bkz. `IdenfitLogo.tsx`'in
+// kaynak yorumu) — uydurulmadı.
+const IDENFIT_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/07/idenfit-logo.svg';
+// `image` Google'ın Article/BlogPosting rich result'ları için ZORUNLU —
+// `featuredImage: null` olan tek bilinen yazıda (bkz. CLAUDE.md "617/618
+// geçerli featured_media", kaynağın kendi eksikliği) gerçek marka logosuna
+// düşülüyor — uydurma bir görsel DEĞİL, zaten `publisher.logo` için
+// kullanılan AYNI gerçek, barındırılan dosya.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description: excerpt,
+  image: featuredImage?.url ?? IDENFIT_LOGO_URL,
+  datePublished: date.toISOString(),
+  dateModified: (modifiedDate ?? date).toISOString(),
+  author: { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'idenfit',
+    logo: { '@type': 'ImageObject', url: IDENFIT_LOGO_URL },
+  },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': Astro.url.pathname },
+};
 ---
 
 <BaseLayout title={`${title} — idenfit Blog`} description={excerpt}>
+  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
   <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="flex flex-col gap-12 lg:flex-row lg:items-start">
       <article class="min-w-0 max-w-3xl flex-1">

@@ -38,7 +38,9 @@
 // istenmedi. (c) satır hover'da vurgulama (`highlightRow()`) — ayrı,
 // küçük bir polish özelliği, bu turda istenmedi.
 import BaseLayout from '../layouts/BaseLayout.astro';
-import type { PricingContent, PricingPlan } from '../data/pricingContent';
+import { getPricingMetaDescription, type PricingContent, type PricingPlan } from '../data/pricingContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
+import type { Locale } from '../data/nav';
 
 interface Props {
   content: PricingContent;
@@ -46,7 +48,13 @@ interface Props {
 }
 
 const { content, localeUrls } = Astro.props;
-const description = content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+// `pageTitle` (H1 için hâlâ kullanılıyor) TR'de meta description için 1
+// karakter kısaydı (2026-08-10 denetimi) — bkz. `getPricingMetaDescription()`.
+const description = getPricingMetaDescription(locale) ?? content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+// `content.packagesTitle` ("Paketler"/"Packages" vb.) 50 karakterin
+// altında (2026-08-10 title uzunluk denetimi).
+const title = buildIdenfitTitle(content.packagesTitle, locale);
 
 const plans: { plan: PricingPlan; isPro?: boolean }[] = [
   { plan: content.micro },
@@ -64,7 +72,7 @@ const PLAN_BTN_CLASS =
   'pricing-btn mt-3 flex h-[54px] w-full items-center justify-center rounded-[10px] px-4 text-center text-base font-semibold transition-colors';
 ---
 
-<BaseLayout title={`idenfit — ${content.packagesTitle}`} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls}>
   <section class="bg-[#f8f8f8] py-12 lg:py-16">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
       {/* ⚠️ DÜZELTME (2026-08-04): tüm başlık `font-bold` (700) uygulanmıştı —

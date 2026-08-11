@@ -5,6 +5,7 @@
 // (`src/pages/[sectorSlug].astro` + `en/nl/it` eşdeğerleri).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectorFeatureCard from './SectorFeatureCard.astro';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { getSectorContent } from '../data/sectorContent';
 import type { Locale } from '../data/nav';
 
@@ -12,15 +13,25 @@ interface Props {
   content: NonNullable<ReturnType<typeof getSectorContent>>;
   /** Bu sektörün 4 dildeki gerçek URL'leri — bkz. `getSectorLocaleUrls()`. */
   localeUrls: Partial<Record<Locale, string>>;
+  /** Meta description override — `hero.text` bazı sektörlerde 70 karakterden
+   * kısa çıkıyor (2026-08-10 denetimi, bkz. CLAUDE.md); verilmezse eski
+   * `hero.text || whyIdenfit.text` davranışına düşer (`ProductPage.astro`/
+   * `SecurityPage.astro` ile AYNI opt-in desen). */
+  description?: string;
 }
 
-const { content, localeUrls } = Astro.props;
+const { content, localeUrls, description: descriptionOverride } = Astro.props;
 const { hero, whyIdenfit, features } = content;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+// `content.pageTitle` çoğu sektörde 50 karakterin altında (2026-08-10
+// title uzunluk denetimi, ör. "idenfit — Turizm" 16 karakter) —
+// `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
+const title = buildIdenfitTitle(content.pageTitle, locale);
 ---
 
 <BaseLayout
-  title={`idenfit — ${content.pageTitle}`}
-  description={hero.text || whyIdenfit.text}
+  title={title}
+  description={descriptionOverride ?? (hero.text || whyIdenfit.text)}
   localeUrls={localeUrls}
 >
   <!-- Hero -->

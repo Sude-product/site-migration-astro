@@ -8,6 +8,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HubTileCard from './HubTileCard.astro';
 import { getTranslations } from '../i18n';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { getHubContent } from '../data/hubContent';
 import type { Locale } from '../data/nav';
 
@@ -20,12 +21,15 @@ interface Props {
 const { content, pageTitle, localeUrls } = Astro.props;
 const { hero, intro, tiles, faq } = content;
 
-const locale = Astro.currentLocale ?? 'tr';
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+// `pageTitle` bazı hub sayfalarında 50 karakterin altında (2026-08-10
+// title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
+const title = buildIdenfitTitle(pageTitle, locale);
 ---
 
-<BaseLayout title={`idenfit — ${pageTitle}`} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls}>
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">

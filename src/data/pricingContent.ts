@@ -114,6 +114,20 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
   };
 }
 
+// Meta description override — yalnızca TR (2026-08-10, meta description
+// uzunluk denetimi). `PricingPage.astro` `content.pageTitle`'ı hem H1 hem
+// description olarak kullanıyor; TR'nin pageTitle'ı ("En değerli
+// varlığınız insan kaynaklarını verimli ve bütüncül yönetin!") 69 karakter
+// — sınırın 1 altında. EN/NL/IT'nin kendi `pageTitle`'ları zaten 70+,
+// DOKUNULMADI. `pageTitle`'IN KENDİSİ değiştirilmedi (H1 için hâlâ doğru) —
+// yalnızca META ETİKETİ için sayfanın kendi gerçek paket isimlerinden
+// (Mikro/KOBİ/Pro) genişletilmiş bir açıklama.
+const PRICING_META_DESCRIPTION_TR =
+  "En değerli varlığınız insan kaynaklarını verimli yönetin — idenfit'in Mikro, KOBİ ve Pro paketleriyle işletmenize uygun fiyatlandırmayı keşfedin.";
+export function getPricingMetaDescription(locale: Locale): string | undefined {
+  return locale === 'tr' ? PRICING_META_DESCRIPTION_TR : undefined;
+}
+
 export function getPricingSlug(locale: Locale): string | undefined {
   return DATA.locales[locale]?.slug;
 }

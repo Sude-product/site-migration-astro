@@ -12,12 +12,23 @@ import CertificationBadges from '../../components/CertificationBadges.astro';
 import TestimonialSection from '../../components/TestimonialSection.astro';
 import HrtechSection from '../../components/HrtechSection.astro';
 import { getTranslations } from '../../i18n';
+import { truncateAtWord } from '../../data/metaDescription';
 
 const t = getTranslations(Astro.currentLocale ?? 'it');
-const title = `idenfit — ${t.hero.title.replace('\n', ' ')}`;
+// `t.hero.title` görünür hero başlığıyla PAYLAŞILAN gerçek metin —
+// `<title>` etiketi 63 karakterle 60 sınırını aşıyordu (2026-08-10 title
+// uzunluk denetimi). `truncateAtWord()` yalnızca `<title>` için kırpıyor
+// (kelime ortasından kesmiyor), görünür H1 (`HeroSection.astro`) DEĞİŞMİYOR.
+const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)}`;
+// `t.hero.description` görünür hero alt başlığıyla PAYLAŞILAN, canlı
+// siteyle doğrulanmış gerçek metin — meta description denetimi (2026-08-10)
+// bu dilde 185 karakter çıkardı, 160 sınırı için yalnızca META ETİKETİNDE
+// kırpılıyor (`truncateAtWord()`, kelime ortasından kesmiyor) — hero'nun
+// GÖRÜNÜR metni (`HeroSection.astro`) DEĞİŞMEDEN kalıyor.
+const metaDescription = truncateAtWord(t.hero.description);
 ---
 
-<BaseLayout title={title} description={t.hero.description}>
+<BaseLayout title={title} description={metaDescription}>
 	<HeroSection />
 	<LogoStrip />
 	<SectionDivider text={t.home.dividers.afterLogos} />

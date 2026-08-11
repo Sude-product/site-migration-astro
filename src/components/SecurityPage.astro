@@ -4,6 +4,7 @@
 // (dış link, target=_blank) — kaynakta da aynı karışık yapı var.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { SecurityItem } from '../data/miscPagesTranslationOverrides';
 import type { Locale } from '../data/nav';
 
@@ -26,9 +27,13 @@ function isExternal(url: string) {
 function resolveHref(url: string) {
   return isExternal(url) ? url : getRelativeLocaleUrl(locale, url);
 }
+
+// `pageTitle ?? title` bazı dillerde 50 karakterin altında/üstünde olabilir
+// (2026-08-10 title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
+const seoTitle = buildIdenfitTitle(pageTitle ?? title, locale);
 ---
 
-<BaseLayout title={`idenfit — ${pageTitle ?? title}`} description={description ?? title} localeUrls={localeUrls}>
+<BaseLayout title={seoTitle} description={description ?? title} localeUrls={localeUrls}>
   <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h1 class="text-3xl font-bold text-heading sm:text-4xl">{title}</h1>
 

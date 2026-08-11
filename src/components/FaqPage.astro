@@ -19,6 +19,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getTranslations } from '../i18n';
 import { getFaqCategories, getFaqLocaleUrls, getFaqPdfUrl } from '../data/faqContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
@@ -42,7 +43,7 @@ const CATEGORY_ICONS = [
 ];
 ---
 
-<BaseLayout title={`idenfit — ${title}`} description={title} localeUrls={localeUrls}>
+<BaseLayout title={buildIdenfitTitle(title, locale)} description={t.faqPage.metaDescription} localeUrls={localeUrls}>
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
       <h1 class="text-3xl font-bold text-heading sm:text-4xl">{title}</h1>

@@ -6,10 +6,15 @@
 // AYNI mekanizmayla otomatik TR'ye yönlendirir).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HrMaturityTest from './HrMaturityTest.tsx';
+import { buildIdenfitTitle } from '../data/pageTitle';
+
+// TR-only (KARAR 2) — "idenfit — Dijital İK Olgunluk Testi" 35 karakterle
+// 50 sınırının altındaydı (2026-08-10 title uzunluk denetimi).
+const title = buildIdenfitTitle('Dijital İK Olgunluk Testi', 'tr');
 ---
 
 <BaseLayout
-  title="idenfit — Dijital İK Olgunluk Testi"
+  title={title}
   description="İK süreçlerinizin dijital olgunluğunu 3 dakikada ölçün, size özel skor ve kategori bazlı analiz alın."
 >
   <HrMaturityTest client:load />

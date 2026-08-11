@@ -3,11 +3,18 @@
 // turlarında kaçırılmış bir modül. Bkz. CLAUDE.md.
 import ProductPage from '../components/ProductPage.astro';
 import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 
 const trSlug = 'demirbas-yonetimi-modulu';
 const content = getProductContent(trSlug, 'tr')!;
+// `pageTitle` (H1 için hâlâ kullanılıyor) kaynağın gerçek hero cümlesi
+// ("Demirbaşları dijital ortama taşıyın, kontrolü kolaylaştırın!") — bu,
+// `<title>` etiketinde 70 karaktere çıkıp 60 sınırını aşıyordu (2026-08-10
+// title uzunluk denetimi). `<title>` için modülün kısa, gerçek adından
+// ayrı bir başlık üretildi (H1 DEĞİŞMEDİ).
 const pageTitle = getProductPageTitle(trSlug, 'tr');
+const title = buildIdenfitTitle('Demirbaş Yönetimi Modülü', 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} localeUrls={localeUrls} />

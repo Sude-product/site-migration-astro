@@ -4,6 +4,8 @@ import { getKvkkContent, getKvkkLocaleUrls } from '../../data/miscPagesContent';
 
 const content = getKvkkContent('it')!;
 const localeUrls = getKvkkLocaleUrls();
+const description =
+  'Scopri come idenfit raccoglie, elabora e protegge i tuoi dati personali, e quali sono i tuoi diritti ai sensi del GDPR.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

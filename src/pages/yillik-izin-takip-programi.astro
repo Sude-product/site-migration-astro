@@ -7,6 +7,11 @@ const trSlug = 'yillik-izin-takip-programi';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+// hero.text 65 karakter (meta description denetimi, 2026-08-10) — sayfanın
+// kendi gövde metnindeki gerçek temalardan (kısıt/koşullara göre izin
+// tipleri, resmi tatil/hastalık/evlilik izni) türetildi.
+const description =
+  'idenfit ile dilediğiniz kısıt ve koşullarda izin tipleri tanımlayın; resmi tatiller, hastalık ve evlilik izni gibi türleri tek takvimde yönetin.';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} />

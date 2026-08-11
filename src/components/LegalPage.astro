@@ -4,18 +4,35 @@
 // ProductPage.astro'ya zorla uydurulmadı (hero/section/FAQ şeması yok,
 // gerçekten düz bir metin sayfası).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { LegalContent } from '../data/miscPagesContent';
+import type { Locale } from '../data/nav';
 
 interface Props {
   content: LegalContent;
   localeUrls: Record<string, string | undefined>;
+  /** Meta description override (2026-08-10, meta description uzunluk
+   * denetimi — bkz. CLAUDE.md). Varsayılan davranış (`content.contentHtml`'in
+   * ilk 160 karakteri) KÖK NEDEN BUG'IYDI: hukuki belgeler genelde şirket
+   * ünvanı/adresiyle BAŞLADIĞI için ("Ünvanı : Idenfit Bilişim Hizmetleri
+   * Sanayi ve Dış Ticaret A.Ş. Adresi : ...") çıkan description bir özet
+   * değil, ham adres bloğuydu — 8 sayfanın TAMAMINDA (14 dil varyantı)
+   * aynı desen. Artık HER sayfa gerçek, elle yazılmış bir açıklama
+   * geçiriyor; verilmezse eski (kusurlu) davranışa düşer — geriye dönük
+   * uyumluluk için, yeni bir legal sayfa eklenip description unutulursa
+   * sessizce boş kalmasın diye. */
+  description?: string;
 }
 
-const { content, localeUrls } = Astro.props;
-const description = content.contentHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+const { content, localeUrls, description: descriptionOverride } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const description = descriptionOverride ?? content.contentHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+// `content.title` bazı hukuki sayfalarda 50 karakterin altında (2026-08-10
+// title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
+const title = buildIdenfitTitle(content.title, locale);
 ---
 
-<BaseLayout title={`idenfit — ${content.title}`} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls}>
   <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h1 class="text-3xl font-bold text-heading sm:text-4xl">{content.title}</h1>
     <div

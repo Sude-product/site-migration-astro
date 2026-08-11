@@ -372,5 +372,7 @@ export const it: Translations = {
   },
   faqPage: {
     pdfLabel: 'Scarica PDF',
+    metaDescription:
+      'Trova le risposte alle domande più frequenti su idenfit: informazioni generali, prezzi, configurazione, supporto e sicurezza dei dati.',
   },
 };

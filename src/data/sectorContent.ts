@@ -203,3 +203,33 @@ export function getSectorContent(trSlug: string, locale: Locale) {
     features: c.features.map(resolveBlock),
   };
 }
+
+// Meta description override'ları (2026-08-10, meta description uzunluk
+// denetimi) — `SectorPage.astro`'nun varsayılan `hero.text || whyIdenfit.text`
+// mantığı bu 7 (sektör, dil) kombinasyonunda 70 karakterin altında kaldı.
+// Her açıklama o sektörün KENDİ `hero.text`/`whyIdenfit.text` gerçek
+// temasından (kaynağın kendi WP içeriği) sentezlendi — kopya çeviri değil,
+// diğer 5 sektör/29 kombinasyon zaten 70+ karakter olduğu için DOKUNULMADI.
+const SECTOR_META_DESCRIPTION_OVERRIDES: Partial<Record<string, Partial<Record<Locale, string>>>> = {
+  'perakende-sektoru-ik-cozumleri': {
+    tr: "idenfit, perakende sektöründeki köklü firma ve KOBİ'lerin PDKS, izin/zaman yönetimi, işe alım ve personel eğitimi süreçlerini tek platformda birleştirir.",
+  },
+  'guvenlik-sektoru-ik-cozumleri': {
+    tr: 'Güvenlik sektöründe yetişmiş personel yönetimi idenfit ile kolaylaşır — PDKS, vardiya planlama ve İK süreçlerini tek platformda yönetin.',
+  },
+  'gida-sektoru-ik-cozumleri': {
+    tr: 'Gıda sektöründe yoğun rekabet ve nitelikli personel eksikliğine karşı idenfit, İK süreçlerinizi dijitalleştirip verimliliğinizi artırır.',
+  },
+  'egitim-sektoru-ik-cozumleri': {
+    tr: 'Genç nüfusla büyüyen eğitim sektöründe idenfit, yetenek keşfi, işe alım ve İK süreçlerinizi kolaylaştırarak rekabet avantajı sağlar.',
+    nl: 'In de competitieve onderwijssector helpt Idenfit u de juiste talenten te vinden en HR-processen efficiënt te beheren.',
+    en: 'High competition in education makes finding the right talent and managing HR processes challenging — idenfit helps you stay ahead.',
+  },
+  'tesis-yonetimi-ik-cozumleri': {
+    nl: 'De facilitair beheerindustrie groeit snel — Idenfit helpt u HR en personeel systematisch te beheren binnen deze sector.',
+  },
+};
+
+export function getSectorMetaDescription(trSlug: string, locale: Locale): string | undefined {
+  return SECTOR_META_DESCRIPTION_OVERRIDES[trSlug]?.[locale];
+}

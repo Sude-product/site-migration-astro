@@ -1,10 +1,18 @@
 ---
 import ProductPage from '../../components/ProductPage.astro';
-import { getWhyIdenfitContent, getWhyIdenfitLocaleUrls, getWhyIdenfitTitle } from '../../data/miscPagesContent';
+import { getWhyIdenfitContent, getWhyIdenfitLocaleUrls, getWhyIdenfitTitle, getWhyIdenfitMetaDescription } from '../../data/miscPagesContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
 
 const content = { ...getWhyIdenfitContent('it')!, faq: [] };
+// `pageTitle` (H1 için hâlâ kullanılıyor, `WHY_IDENFIT_IT_HERO.title` —
+// kasıtlı küçük harfli tagline-tarzı bir H1, kaynağın kendi üslubu)
+// `<title>` etiketinde 101 karaktere çıkıyordu (2026-08-10 title uzunluk
+// denetimi). `<title>` için sitede zaten kullanılan gerçek kısa başlık
+// ("Perché Idenfit?", bkz. `src/i18n/it.ts`) kullanıldı.
 const pageTitle = getWhyIdenfitTitle('it');
+const title = buildIdenfitTitle('Perché Idenfit?', 'it');
 const localeUrls = getWhyIdenfitLocaleUrls();
+const description = getWhyIdenfitMetaDescription('it');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} localeUrls={localeUrls} description={description} />

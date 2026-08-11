@@ -7,6 +7,8 @@ import { getKvkProtocolContent, getKvkProtocolLocaleUrls } from '../../data/misc
 
 const content = getKvkProtocolContent('en')!;
 const localeUrls = getKvkProtocolLocaleUrls();
+const description =
+  "Review the terms of idenfit's Protocol on the Protection of Personal Data, including obligations and data processing principles.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

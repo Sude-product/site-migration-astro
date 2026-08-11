@@ -366,5 +366,11 @@ export const nl: Translations = {
   },
   faqPage: {
     pdfLabel: 'PDF DOWNLOADEN',
+    // NL'nin kendi `/nl/faq/` sayfası yok (`i18n.fallback: { nl: 'en' }`
+    // ile `/en/faq/`'e yönleniyor) — bu alan yine de dolduruldu (KARAR 1,
+    // gerçek çeviri kuralı, placeholder değil), ileride NL sayfası
+    // eklenirse hazır olsun diye.
+    metaDescription:
+      'Vind antwoorden op veelgestelde vragen over idenfit — algemene info, prijzen, installatie, klantenservice en gegevensbeveiliging.',
   },
 };

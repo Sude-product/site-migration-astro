@@ -8,6 +8,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductSectionBlock from './ProductSectionBlock.astro';
 import { getTranslations } from '../i18n';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { getProductContent } from '../data/productContent';
 import type { Locale } from '../data/nav';
 
@@ -15,9 +16,21 @@ interface Props {
   content: NonNullable<ReturnType<typeof getProductContent>>;
   pageTitle: string;
   localeUrls: Partial<Record<Locale, string>>;
+  /** Meta description override — `hero.text` bazı sayfalarda 70 karakterden
+   * kısa çıkıyor (2026-08-10 denetimi, bkz. CLAUDE.md); verilmezse eski
+   * `hero.text` davranışına düşer (`SecurityPage.astro` ile AYNI opt-in
+   * desen — mevcut ürün/modül sayfalarının çoğu zaten 70+ karakter,
+   * DOKUNULMADI). */
+  description?: string;
+  /** `<title>` override — `buildIdenfitTitle(pageTitle, locale)` bazı
+   * sayfalarda (`pageTitle` ÇOK UZUN, ör. Donanım'ın İngilizce/İtalyanca/
+   * Felemenkçe hero cümlesi) 60 karakteri aşan bir sonuç üretebilir;
+   * otomatik kırpma güvenli olmadığı için bu durumlarda çağıran sayfa
+   * elle kısa bir başlık geçirir (2026-08-10 title uzunluk denetimi). */
+  title?: string;
 }
 
-const { content, pageTitle, localeUrls } = Astro.props;
+const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
 // Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
@@ -25,12 +38,13 @@ const { content, pageTitle, localeUrls } = Astro.props;
 // gösteriliyor.
 const { hero, sections, faq } = content;
 
-const locale = Astro.currentLocale ?? 'tr';
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
-const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+const description = descriptionOverride ?? hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
 ---
 
-<BaseLayout title={`idenfit — ${pageTitle}`} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls}>
   <!-- Hero -->
   <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">

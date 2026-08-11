@@ -13,14 +13,17 @@ import CustomerLogoMarquee from './CustomerLogoMarquee.astro';
 import { getTranslations } from '../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { CUSTOMER_STORIES, CUSTOMER_STORIES_HERO_IMAGE, CUSTOMER_LOGO_MARQUEE } from '../data/customerStories';
+import { buildIdenfitTitle } from '../data/pageTitle';
+import type { Locale } from '../data/nav';
 
-const locale = Astro.currentLocale ?? 'tr';
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const cs = t.customerStories;
 const ctaHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+const title = buildIdenfitTitle(cs.heroTitle.replace('\n', ' '), locale);
 ---
 
-<BaseLayout title={`idenfit — ${cs.heroTitle.replace('\n', ' ')}`} description={cs.heroDescription}>
+<BaseLayout title={title} description={cs.heroDescription}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       {/* ⚠️ DÜZELTME (2026-08-04): element-ID doğrulamalı (`d214071`/`b7cc083`,

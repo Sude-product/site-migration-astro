@@ -12,6 +12,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob, type Loader } from 'astro/loaders';
 import { existsSync, promises as fs } from 'node:fs';
 import { fileURLToPath } from 'node:url';
+import { fixLinkAccessibility } from './data/blogContentAccessibility';
 
 // Kaynağın 11 gerçek kategorisi (posts.json'daki 622 kaydın TAMAMI
 // taranarak çıkarılan gerçek slug→isim eşlemesi, tahmin değil).
@@ -36,6 +37,14 @@ const blogSchema = z.object({
   slug: z.string(),
   title: z.string(),
   date: z.coerce.date(),
+  // JSON-LD `BlogPosting.dateModified` için (2026-08-10, structured data
+  // turu) — legacy yazılarda WP'nin gerçek `modified` alanından geliyor
+  // (`extract-blog-posts.mjs`, bkz. §Proje kuralları "JSON-LD/dateModified
+  // güncelleme kuralı"). Göç etmiş `.md` yazılarında (Decap CMS, henüz
+  // düzenleme-tarihi takibi YOK) bu alan hiç yok — `.optional()`,
+  // `[slug].astro` yoksa `date`'e (yayın tarihi) düşüyor ("hiç
+  // düzenlenmemişse mantıklı bir varsayım", kullanıcı kararı 2026-08-10).
+  modifiedDate: z.coerce.date().optional(),
   // WP'nin otomatik excerpt'i (başlığı tekrar eden, `[&hellip;]` ile
   // kesilen) kullanılmıyor — extraction script'i temizlenmiş gövdenin
   // ilk paragrafından kendi excerpt'ini üretiyor (bkz. `buildExcerpt()`).
@@ -107,7 +116,10 @@ const legacyJsonLoader: Loader = {
       // bir güvenlik ağı).
       if (store.get(id)) continue;
 
-      const { content, categories, tags, id: _wpId, modifiedDate: _modifiedDate, ...rest } = item as {
+      // `modifiedDate` ARTIK atılmıyor (2026-08-10 öncesi burada
+      // discard ediliyordu, bkz. git geçmişi) — JSON-LD `dateModified`
+      // için gerekiyor, `rest`'e dahil kalıp şemaya geçiyor.
+      const { content, categories, tags, id: _wpId, ...rest } = item as {
         content?: string;
         categories?: Array<{ slug: string }>;
         tags?: Array<{ slug: string }>;
@@ -129,7 +141,11 @@ const legacyJsonLoader: Loader = {
       // gibi etiketler) olduğu gibi geçirir, yani ham HTML pratikte
       // değişmeden `Content` component'ine ulaşıyor — gerçek bir yazıyla
       // `curl` diff'iyle doğrulandı (bkz. göç günlüğü).
-      const rendered = await renderMarkdown(content ?? '');
+      // `fixLinkAccessibility()` (2026-08-10) — kaynak WP içeriğinde
+      // erişilebilir adı olmayan `<a>` linklerini (bkz. o dosyanın kendi
+      // yorumu) `renderMarkdown()`'a ulaşmadan ÖNCE düzeltiyor; zaten
+      // etiketli/metinli linklere DOKUNMUYOR.
+      const rendered = await renderMarkdown(fixLinkAccessibility(content ?? ''));
       store.set({ id, data, filePath, body: content, rendered });
       loaded++;
     }

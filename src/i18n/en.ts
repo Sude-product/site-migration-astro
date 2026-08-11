@@ -372,5 +372,7 @@ export const en: Translations = {
   },
   faqPage: {
     pdfLabel: 'PDF DOWNLOAD',
+    metaDescription:
+      'Find answers to frequently asked questions about idenfit — general info, pricing, setup, customer support, data security and subscriptions.',
   },
 };

@@ -6,8 +6,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import CalculatorAccordion from './CalculatorAccordion.tsx';
 import { CALCULATOR_DEFINITIONS } from '../data/calculatorDefinitions';
 import calculatorsExport from '../../reference/wordpress-export/calculators.json';
+import { buildIdenfitTitle } from '../data/pageTitle';
 
 const hero = calculatorsExport.hero;
+// TR-only (KARAR 2) — `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
+const title = buildIdenfitTitle(hero.title, 'tr');
 
 // Hero illüstrasyonu (turuncu tişörtlü figür + +/-/×/= dekoratif simgeler)
 // — `content.rendered`'da (WP REST API'nin döndürdüğü Elementor HTML) hiç
@@ -26,7 +29,7 @@ const HERO_ILLUSTRATION_URL = 'https://idenfit.com/wp-content/uploads/2025/12/he
 ---
 
 <BaseLayout
-  title={`idenfit — ${hero.title}`}
+  title={title}
   description={hero.text ?? undefined}
 >
   <section class="relative mx-auto max-w-5xl overflow-hidden px-4 py-12 text-center sm:px-6 lg:py-20 lg:pr-[420px] lg:text-left">

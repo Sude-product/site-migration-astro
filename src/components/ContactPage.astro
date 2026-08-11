@@ -9,7 +9,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroForm from './HeroForm.tsx';
 import { getTranslations } from '../i18n';
-import { getKvkkAndTermsHrefs, type ContactContent } from '../data/miscPagesContent';
+import { getKvkkAndTermsHrefs, getContactMetaDescription, type ContactContent } from '../data/miscPagesContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -21,9 +22,13 @@ const { content, localeUrls } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+// `content.pageTitle` (H1 için hâlâ kullanılıyor) meta description için
+// çok kısaydı (2026-08-10 denetimi) — bkz. `getContactMetaDescription()`.
+const description = getContactMetaDescription(locale) ?? content.pageTitle;
+const title = buildIdenfitTitle(content.pageTitle, locale);
 ---
 
-<BaseLayout title={`idenfit — ${content.pageTitle}`} description={content.pageTitle} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls}>
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h1 class="text-3xl font-bold text-heading sm:text-4xl" set:html={content.pageTitle} />
     <p class="mt-4 max-w-xl text-lg text-body" set:html={content.pageSubtitle} />

@@ -112,9 +112,6 @@ export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3" aria-label={step === 1 ? labels.next : labels.submit}>
-      {/* Dürüst adım göstergesi — gerçekten 2 adımlı bir akış olduğu için. */}
-      <p className="text-center text-xs font-medium tracking-wide text-muted uppercase">Adım {step}/2</p>
-
       {step === 1 ? (
         <>
           <div>

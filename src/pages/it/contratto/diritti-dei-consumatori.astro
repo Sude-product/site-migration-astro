@@ -2,8 +2,15 @@
 import LegalPage from '../../../components/LegalPage.astro';
 import { getLegalContent, getLegalLocaleUrls, CONSUMER_RIGHTS_TR_SLUG } from '../../../data/miscPagesContent';
 
-const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'it')!;
+// Kaynağın kendi IT WP title'ı "Consumer Rights Agreement_IT" — İngilizce +
+// anlamsız "_IT" soneki (2026-08-10 title uzunluk denetiminde bulundu,
+// `PRIVACY_SECURITY_IT_TITLE`'daki AYNI kaynak hatası — bkz.
+// miscPagesContent.ts'teki o yorum). Hem H1 hem `<title>` için gerçek
+// İtalyanca başlıkla değiştirildi.
+const content = { ...getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'it')!, title: 'Diritti dei Consumatori' };
 const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+const description =
+  'Consulta i tuoi diritti come cliente idenfit, incluse le condizioni di recesso e le procedure di reclamo.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

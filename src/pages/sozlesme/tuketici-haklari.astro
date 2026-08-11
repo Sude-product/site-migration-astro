@@ -4,6 +4,10 @@ import { getLegalContent, getLegalLocaleUrls, CONSUMER_RIGHTS_TR_SLUG } from '..
 
 const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'tr')!;
 const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
+const description =
+  'idenfit müşterisi olarak sahip olduğunuz tüketici haklarını, iade/cayma koşullarını ve şikayet süreçlerini bu sözleşme metninde inceleyin.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

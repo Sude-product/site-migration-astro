@@ -11,18 +11,26 @@ import type { Locale } from './nav';
 export interface CustomerLogo {
   name: string;
   url: string;
+  /** Gerçek intrinsic boyut (2026-08-10, `LogoStrip.astro`'nun `animated`
+   * varyantı için eklendi — `CustomerLogoMarquee.astro`'daki AYNI
+   * ders: `width`/`height` olmadan tarayıcı görsel yüklenene kadar yer
+   * ayırmıyor, kayan şeritte görünür bir sıçrama/kayma yaratıyor. Her
+   * dosya doğrudan indirilip SVG `viewBox`/PNG `IHDR`/WebP `VP8` header'ı
+   * okunarak ölçüldü, tahmin edilmedi. */
+  width: number;
+  height: number;
 }
 
 // 4 dilde de AYNI (WP medya kütüphanesinde dile göre ayrı logo yok, hero'daki
 // diğer görsellerle aynı ilke — bkz. productTranslationOverrides.ts'teki not).
 export const CUSTOMER_LOGOS: CustomerLogo[] = [
-  { name: 'Migros One', url: 'https://idenfit.com/wp-content/uploads/2025/09/migros-one.svg' },
-  { name: 'Acun Medya', url: 'https://idenfit.com/wp-content/uploads/2025/09/Frame-1365419597.svg' },
-  { name: "Kellogg's", url: 'https://idenfit.com/wp-content/uploads/2025/09/kelloggs.svg' },
-  { name: 'Ferre', url: 'https://idenfit.com/wp-content/uploads/2025/09/ferre_15112021175937-1-1.png' },
-  { name: 'Tuğba', url: 'https://idenfit.com/wp-content/uploads/2025/09/tugba.webp' },
-  { name: 'Civil', url: 'https://idenfit.com/wp-content/uploads/2025/09/civil.svg' },
-  { name: 'Caribou', url: 'https://idenfit.com/wp-content/uploads/2025/09/caribou.svg' },
+  { name: 'Migros One', url: 'https://idenfit.com/wp-content/uploads/2025/09/migros-one.svg', width: 81, height: 48 },
+  { name: 'Acun Medya', url: 'https://idenfit.com/wp-content/uploads/2025/09/Frame-1365419597.svg', width: 123, height: 51 },
+  { name: "Kellogg's", url: 'https://idenfit.com/wp-content/uploads/2025/09/kelloggs.svg', width: 121, height: 42 },
+  { name: 'Ferre', url: 'https://idenfit.com/wp-content/uploads/2025/09/ferre_15112021175937-1-1.png', width: 307, height: 96 },
+  { name: 'Tuğba', url: 'https://idenfit.com/wp-content/uploads/2025/09/tugba.webp', width: 301, height: 125 },
+  { name: 'Civil', url: 'https://idenfit.com/wp-content/uploads/2025/09/civil.svg', width: 101, height: 38 },
+  { name: 'Caribou', url: 'https://idenfit.com/wp-content/uploads/2025/09/caribou.svg', width: 123, height: 36 },
 ];
 
 // Kaynak sitede bu 7 rozetin `alt` metni zaten anlamsız (`icon5`..`icon11`)

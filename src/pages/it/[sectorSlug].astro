@@ -1,6 +1,6 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-import { listSectorSlugs, getSectorContent, getSectorLocaleUrls } from '../../data/sectorContent';
+import { listSectorSlugs, getSectorContent, getSectorLocaleUrls, getSectorMetaDescription } from '../../data/sectorContent';
 
 export function getStaticPaths() {
   return listSectorSlugs('it').map(({ trSlug, localeSlug }) => ({
@@ -16,6 +16,7 @@ interface Props {
 const { trSlug } = Astro.props as Props;
 const content = getSectorContent(trSlug, 'it')!;
 const localeUrls = getSectorLocaleUrls(trSlug);
+const description = getSectorMetaDescription(trSlug, 'it');
 ---
 
-<SectorPage content={content} localeUrls={localeUrls} />
+<SectorPage content={content} localeUrls={localeUrls} description={description} />

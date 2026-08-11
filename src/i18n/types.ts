@@ -474,4 +474,10 @@ export interface FaqPageLabels {
   /** "PDF İNDİR" butonu — kaynakta IT bunu "PDF DOWNLOAD" (EN kopyası)
    * olarak gösteriyordu, burada gerçek İtalyanca çeviri kullanıldı. */
   pdfLabel: string;
+  /** Meta description (2026-08-10, meta description uzunluk denetimi) —
+   * önceden sayfa BAŞLIĞI description olarak kullanılıyordu ("Sıkça
+   * Sorulan Sorular", 21 karakter — bkz. CLAUDE.md). Sayfanın gerçek 6
+   * kategorisinden (Genel/Ödeme/Kurulum/Müşteri Deneyimi/Veri Güvenliği/
+   * Üyelik) türetildi. */
+  metaDescription: string;
 }

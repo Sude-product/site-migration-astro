@@ -4,6 +4,12 @@ import { getKvkkContent, getKvkkLocaleUrls } from '../data/miscPagesContent';
 
 const content = getKvkkContent('tr')!;
 const localeUrls = getKvkkLocaleUrls();
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// önceki davranış (`content.contentHtml`'in ilk 160 karakteri) ham şirket
+// ünvanı/adres bloğunu gösteriyordu, bkz. `LegalPage.astro`'daki kök neden
+// yorumu.
+const description =
+  "idenfit'in kişisel verilerinizi hangi amaçlarla topladığını, işlediğini ve KVKK kapsamındaki haklarınızı bu aydınlatma metninde öğrenin.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

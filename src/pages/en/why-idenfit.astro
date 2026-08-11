@@ -1,10 +1,11 @@
 ---
 import ProductPage from '../../components/ProductPage.astro';
-import { getWhyIdenfitContent, getWhyIdenfitLocaleUrls, getWhyIdenfitTitle } from '../../data/miscPagesContent';
+import { getWhyIdenfitContent, getWhyIdenfitLocaleUrls, getWhyIdenfitTitle, getWhyIdenfitMetaDescription } from '../../data/miscPagesContent';
 
 const content = { ...getWhyIdenfitContent('en')!, faq: [] };
 const pageTitle = getWhyIdenfitTitle('en');
 const localeUrls = getWhyIdenfitLocaleUrls();
+const description = getWhyIdenfitMetaDescription('en');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} />

@@ -107,6 +107,24 @@ export function getContactLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(CONTACT_TR_SLUG);
 }
 
+// Meta description override (2026-08-10, meta description uzunluk denetimi)
+// — `ContactPage.astro` önceden `content.pageTitle`'ı description olarak
+// kullanıyordu (TR "Her türlü iletişime açığız", 26 karakter; EN "Contact
+// Us", 10 karakter). Sayfanın kendi başlık+alt başlık gerçek metninden
+// (`pageTitle`/`pageSubtitle`) sentezlendi, kopya çeviri değil. NL kendi
+// gerçek İletişim sayfasına sahip (bkz. `nl/mededelingen.astro`'daki
+// yorum — WP'nin YANLIŞ slug'ına rağmen gerçek içerik), bu yüzden NL'nin
+// de kendi açıklaması var (EN'e fallback DEĞİL).
+const CONTACT_META_DESCRIPTION: Partial<Record<Locale, string>> = {
+  tr: "Her türlü iletişime açığız — sınırsız destek ve bilgi için her zaman yanınızdayız. Telefon, e-posta ve ofislerimizle idenfit'e ulaşın.",
+  en: "Contact idenfit for any assistance you need — reach us by phone, email or visit one of our offices, we're ready to help.",
+  nl: 'Neem contact met ons op — als u verdere hulp nodig heeft, staan we voor u klaar via telefoon, e-mail of onze kantoren.',
+  it: 'Siamo aperti a qualsiasi tipo di comunicazione: contatta idenfit per telefono, e-mail o presso i nostri uffici, siamo sempre al tuo fianco.',
+};
+export function getContactMetaDescription(locale: Locale): string | undefined {
+  return CONTACT_META_DESCRIPTION[locale];
+}
+
 // ==================== Tüketici Hakları / Mesafeli Satış ====================
 // İkisi de aynı şekilde: tek `contentHtml` alanı, 3 dilde de (tr/en/it)
 // zaten gerçek/kaliteli çeviri — override GEREKMEDİ.
@@ -269,9 +287,17 @@ export function getSecurityLocaleUrls(): Partial<Record<Locale, string>> {
 // düşüyor), bu yüzden `nl` anahtarı gerekmiyor.
 const SECURITY_META: Record<'tr' | 'en' | 'it', { pageTitle: string; description: string }> = {
   tr: {
-    pageTitle: 'Güvenlik ve Kişisel Verilerin Korunması Politikaları',
+    // 2026-08-10: 52→36 karaktere kısaltıldı (title uzunluk denetimi —
+    // "idenfit — " ile birlikte 62 karaktere çıkıp 60 sınırını aşıyordu).
+    // `buildIdenfitTitle()` bu 36 karakterlik hâli otomatik olarak
+    // "İK Yazılımı" ile 50-60 aralığına tamamlıyor — bkz. `SecurityPage.astro`.
+    pageTitle: 'Güvenlik ve Veri Koruma Politikaları',
+    // 2026-08-10: 169→143 karaktere kısaltıldı (meta description denetimi,
+    // hedef aralık 70-160) — anlam DEĞİŞMEDİ, yalnızca "ve aydınlatma
+    // metinlerine" ibaresi çıkarıldı (veri sahibi başvuru formu zaten
+    // aydınlatma metinlerini de kapsayan bir şemsiye ifade).
     description:
-      "idenfit'in KVKK kapsamındaki kişisel veri koruma, bilgi güvenliği ve çerez politikalarına, veri sahibi başvuru formuna ve aydınlatma metinlerine buradan ulaşabilirsiniz.",
+      "idenfit'in KVKK kapsamındaki kişisel veri koruma, bilgi güvenliği ve çerez politikalarına, veri sahibi başvuru formuna buradan ulaşabilirsiniz.",
   },
   en: {
     pageTitle: 'Security & Data Protection Policies',
@@ -280,8 +306,10 @@ const SECURITY_META: Record<'tr' | 'en' | 'it', { pageTitle: string; description
   },
   it: {
     pageTitle: 'Sicurezza e Protezione dei Dati Personali',
+    // 2026-08-10: 173→150 karaktere kısaltıldı (meta description denetimi) —
+    // TR'deki AYNI kısaltma mantığı, "alle informative" ibaresi çıkarıldı.
     description:
-      "Consulta le politiche di idenfit su protezione dei dati (GDPR), sicurezza delle informazioni e cookie, oltre al modulo di richiesta del titolare dei dati e alle informative.",
+      'Consulta le politiche di idenfit su protezione dei dati (GDPR), sicurezza delle informazioni e cookie, e il modulo di richiesta del titolare dei dati.',
   },
 };
 export function getSecurityMeta(locale: Locale): { pageTitle: string; description: string } {
@@ -348,6 +376,24 @@ export function getWhyIdenfitLocaleUrls(): Partial<Record<Locale, string>> {
 export function getWhyIdenfitTitle(locale: Locale): string {
   if (locale === 'it') return WHY_IDENFIT_IT_HERO.title;
   return findGroup(WHY_IDENFIT_TR_SLUG)?.locales[locale]?.title ?? '';
+}
+
+// Meta description override (2026-08-10, meta description uzunluk denetimi)
+// — `hero.text` 4 dilin hepsinde 70 karakterden kısa (ör. TR "birbirini
+// destekleyen, kolay, dinamik & esnek modüller", 54 karakter). Kaynağın
+// KENDİ sayfa gövdesindeki gerçek temalardan (4 dilde de tekrarlanan "40
+// iyi neden"/"20 yıllık sektör deneyimi"/"1. sınıf hizmet garantisi"
+// başlıkları, `dist/*/neden-idenfit veya karşılığı` içeriğinden okunarak)
+// türetildi — KOPYA ÇEVİRİ değil, her dil kendi gerçek vurgusuyla ayrı
+// yazıldı (NL altyapı/güvenliği öne çıkarıyor, EN hizmet garantisini).
+const WHY_IDENFIT_META_DESCRIPTION: Record<Locale, string> = {
+  tr: "idenfit'i seçmek için 40'tan fazla neden var: 20 yıllık sektör deneyimi, esnek modüller ve 1. sınıf hizmet garantisiyle işletmenizi büyütün.",
+  en: 'Discover 40 reasons to choose idenfit: 20 years of industry experience, flexible modules and a first-class service guarantee.',
+  nl: 'Ontdek 40 redenen om voor idenfit te kiezen: 20 jaar sectorervaring, flexibele modules en een sterke, veilige infrastructuur.',
+  it: 'Scopri 40 motivi per scegliere idenfit: 20 anni di esperienza nel settore, moduli flessibili e un servizio di prima classe.',
+};
+export function getWhyIdenfitMetaDescription(locale: Locale): string {
+  return WHY_IDENFIT_META_DESCRIPTION[locale];
 }
 
 // ============================== Hakkımızda ==============================
@@ -434,4 +480,21 @@ export function getPresentationContent(locale: Locale): PresentationContent | un
   // miscPagesTranslationOverrides.ts) düzeltiyor.
   if (content && locale === 'en') return { ...content, ...PRESENTATION_EN_OVERRIDE };
   return content;
+}
+
+// Meta description override (2026-08-10, meta description uzunluk denetimi)
+// — `PresentationRequestPage.astro` `content.pageTitle`'ı hem H1 hem meta
+// description olarak kullanıyor; TR/IT'nin `pageTitle`'ı zaten 70+ karakter
+// ama NL (56) ve EN (24, "Get started with Idenfit") kısa kaldı.
+// `pageTitle`'IN KENDİSİ değiştirilmedi (H1 için hâlâ doğru/onaylı) — bu
+// yalnızca META ETİKETİ için sayfanın kendi gerçek madde metinlerinden
+// (48 saatte kurulum/onboarding/veri güvenliği için NL, ücretsiz
+// güncellemeler/kullanıma göre ödeme için EN — ikisi FARKLI gerçek
+// vurgular taşıyor, kopya çeviri değil) türetilen ayrı bir alan.
+const PRESENTATION_META_DESCRIPTION: Partial<Record<Locale, string>> = {
+  nl: 'Ervaar snelheid en efficiëntie in HR-beheer met idenfit — binnen 48 uur klaar, met moeiteloze onboarding en veilige gegevensmigratie.',
+  en: 'Get started with idenfit — no credit card needed, pay only for the employees you need, with free updates included.',
+};
+export function getPresentationMetaDescription(locale: Locale): string | undefined {
+  return PRESENTATION_META_DESCRIPTION[locale];
 }

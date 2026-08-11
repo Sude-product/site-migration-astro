@@ -7,6 +7,11 @@ const trSlug = 'onboarding-modulu';
 const content = getProductContent(trSlug, 'nl')!;
 const pageTitle = getProductPageTitle(trSlug, 'nl');
 const localeUrls = getProductLocaleUrls(trSlug);
+// hero.text 59 karakter (meta description denetimi, 2026-08-10) — sayfanın
+// kendi gövde metnindeki gerçek temalardan (e-handtekeningen, welkomst-
+// e-mails, dag-1 betrokkenheid) türetildi.
+const description =
+  "idenfit's inwerkmodule automatiseert papierwerk, handtekeningen en welkomst-e-mails, zodat nieuwe medewerkers zich vanaf dag 1 betrokken voelen.";
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} />

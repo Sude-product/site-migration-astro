@@ -9,6 +9,10 @@ import { getLegalContent, getLegalLocaleUrls, DISTANCE_SALES_TR_SLUG } from '../
 
 const content = getLegalContent(DISTANCE_SALES_TR_SLUG, 'tr')!;
 const localeUrls = getLegalLocaleUrls(DISTANCE_SALES_TR_SLUG);
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
+const description =
+  "idenfit hizmetlerini online satın alırken geçerli olan Mesafeli Satış Sözleşmesi'nin şartlarını, cayma hakkınızı ve ödeme koşullarını öğrenin.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

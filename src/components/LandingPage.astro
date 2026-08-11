@@ -26,6 +26,7 @@ import LandingFeatureHighlights from './LandingFeatureHighlights.astro';
 import LogoStrip from './LogoStrip.astro';
 import { getTranslations } from '../i18n';
 import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 
 // TR-only pilot (KARAR 2 ile aynı ilke — kaynakta olmayan/bespoke içerik
 // için diğer dillere çeviri bu turda üretilmiyor). KVKK onay metni site
@@ -35,19 +36,16 @@ const locale = 'tr';
 const t = getTranslations(locale);
 const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
 
-// TODO: Bu slogan geçici — ana sayfanın (`t.hero.title`) sloganı, ileride
-// landing page'e özel bir varyantla değiştirilecek (kullanıcı kararı,
-// 2026-08-07). `whitespace-pre-line` gerçek `\n` satır sonunu render eder
-// (bkz. `HeroSection.astro`'daki AYNI kullanım).
-const HERO_TITLE = t.hero.title;
+// Landing page hero'su artık kendi İngilizce metnini kullanıyor (kullanıcı
+// tarafından verildi, 2026-08-10) — ana sayfanın TR sloganı (`t.hero.title`)
+// artık BURADA kullanılmıyor. Sayfanın geri kalanı (form etiketleri,
+// dashboard paneli, istatistik şeridi, bento grid, "3 Adımda idenfit")
+// bilinçli olarak TÜRKÇE kalıyor — ekip nihai dil kararını (TR/EN/karışık)
+// verdiğinde tüm sayfa buna göre güncellenecek.
+const HERO_TITLE = 'People first. Everything else, simplified.';
 
-// Hero alt açıklaması — landing page'e özel yeni metin (kullanıcı tarafından
-// verildi, 2026-08-07). Gerçek ürün temalarına dayanıyor: biyometrik/RFID
-// donanım entegrasyonu (bkz. `t.home.suprema`) ve yapay zeka destekli işe
-// alım (bkz. `t.hero.description`'daki AYNI ifade, ana sayfa hero'sunda
-// zaten onaylı) — yeni bir iddia icat edilmedi.
 const HERO_SUBTITLE =
-  'Bordro, izin, performans ve daha fazlası — tek platformda, biyometrik/RFID donanım entegrasyonu ve yapay zeka destekli işe alımla, 48 saatte kurulur.';
+  'Idenfit brings HR, workforce management, payroll and employee experience together—so your teams can focus on people, not processes.';
 
 // Fayda listesi — sitenin diğer bölümlerinde zaten kullanılan, doğrulanmış
 // ürün iddiaları/temaları yeniden ifade edildi (bkz. `t.home.featureGrid`/
@@ -58,9 +56,13 @@ const BENEFITS = [
   'Veriyle desteklenen İK analitiğiyle doğru kararlar alın',
   '1000’den fazla şirketin tercih ettiği dijital İK platformu',
 ];
+
+// TR-only, noindex landing page — "idenfit — Ücretsiz Demo Talep Edin"
+// 34 karakterle 50 sınırının altındaydı (2026-08-10 title uzunluk denetimi).
+const LANDING_TITLE = buildIdenfitTitle('Ücretsiz Demo Talep Edin', 'tr');
 ---
 
-<LandingLayout title="idenfit — Ücretsiz Demo Talep Edin" description="idenfit ile İK süreçlerinizi tek platformda dijitalleştirin. Ücretsiz demo talep edin.">
+<LandingLayout title={LANDING_TITLE} description="idenfit ile İK süreçlerinizi tek platformda dijitalleştirin. Ücretsiz demo talep edin.">
   <section class="relative isolate overflow-hidden bg-surface">
     <div class="mx-auto grid max-w-[1440px] items-center gap-y-10 px-6 py-12 lg:grid-cols-2 lg:gap-x-16 lg:px-[100px] lg:py-20">
       {/* Sol kolon — başlık + alt açıklama + fayda listesi + tasarruf
@@ -103,7 +105,7 @@ const BENEFITS = [
           kart" deseniyle aynı ilke, bkz. `PresentationRequestPage.astro`). */}
       <div class="relative isolate flex items-center justify-center overflow-hidden rounded-[20px] bg-brand px-6 py-12 lg:px-16 lg:py-20">
         <LandingPulseDecoration client:visible />
-        <div class="relative z-10 w-full max-w-md rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)]">
+        <div id="landing-form" class="relative z-10 w-full max-w-md rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)]">
           <h2 class="text-center text-2xl font-normal text-heading">Ücretsiz Demo Talep Edin</h2>
           <p class="mt-2 mb-6 text-center text-sm text-muted">Bilgilerinizi bırakın, ekibimiz sizinle iletişime geçsin.</p>
 
@@ -161,16 +163,15 @@ const BENEFITS = [
       (bkz. `LandingStatStrip.astro`). */}
   <LandingStatStrip />
 
-  {/* Sosyal kanıt satırı + hazır, doğrulanmış `LogoStrip.astro` (gerçek 7
-      müşteri logosu + zaten onaylı "1000'den fazla mutlu müşteri..." metni,
-      `t.home.logoStrip.caption`). Civil/Femaş/Kellogg's gerçek müşteri
-      isimleri (bkz. `customerStories.ts`/`CUSTOMER_LOGOS`) — uydurulmadı. */}
-  <section class="bg-surface pt-16 lg:pt-24">
-    <p class="reveal text-center text-xs font-semibold uppercase tracking-wide text-muted">
-      Civil, Femaş, Kellogg's ve 1000+ şirketin tercihi
-    </p>
-  </section>
-  <LogoStrip />
+  {/* Hazır, doğrulanmış `LogoStrip.astro` (gerçek 7 müşteri logosu + zaten
+      onaylı "1000'den fazla mutlu müşteri..." metni, `t.home.logoStrip.caption`).
+      Ayrı "Civil, Femaş, Kellogg's ve 1000+ şirketin tercihi" satırı
+      kullanıcı talimatıyla kaldırıldı (2026-08-10) — LogoStrip'in kendi
+      caption'ı zaten aynı mesajı taşıyor, tekrar önlendi. `animated` prop'u
+      (2026-08-10, kullanıcı talimatıyla eklendi) logoları statik wrap-grid
+      yerine sürekli kayan bir marquee'ye çeviriyor — yalnızca `/demo`'ya
+      opt-in, 4 ana sayfa (`tr`/`en`/`nl`/`it`) hâlâ statik. */}
+  <LogoStrip animated />
 
   {/* "3 Adımda idenfit" — süreç zaman çizgisi (2026-08-07, bkz.
       `LandingTimeline.astro`). Bento grid'den ÖNCE — önce nasıl

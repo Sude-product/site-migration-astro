@@ -4,6 +4,8 @@ import { getLegalContent, getLegalLocaleUrls, CONSUMER_RIGHTS_TR_SLUG } from '..
 
 const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'en')!;
 const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+const description =
+  'Review your consumer rights as an idenfit customer, including return/withdrawal conditions and how to raise complaints.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

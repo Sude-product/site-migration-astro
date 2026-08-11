@@ -4,6 +4,8 @@ import { getPrivacySecurityContent, getPrivacySecurityLocaleUrls } from '../../.
 
 const content = getPrivacySecurityContent('en')!;
 const localeUrls = getPrivacySecurityLocaleUrls();
+const description =
+  "Review idenfit's privacy and security policy — how we protect user data, the security measures we apply, and our privacy principles.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

@@ -233,7 +233,36 @@ export default function MobileMenu({
   // (SSR'da `document` yok) — hydration mismatch olmadan, ilk render
   // sunucudakiyle aynı (portal içeriği yok), `useEffect` sonrası eklenir.
   const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
+
+  // DOM boyutu düzeltmesi (2026-08-10) — bkz. CLAUDE.md Açık nokta #24.
+  // Panel + tüm akordeon içeriği (~408 element) önceden `lg:hidden`
+  // tetikleyiciye rağmen masaüstünde de HER ZAMAN mount'luydu (yalnızca
+  // CSS `translate-x-full`/`pointer-events-none` ile görünmez kılınıyordu).
+  // `MegaMenu.tsx`'in aynı "her zaman mount'lu" davranışının AKSİNE
+  // (bkz. o dosyadaki satır 241-253 — koşullu unmount geçmişte gerçek bir
+  // focus/`focusout` bug'ına yol açmıştı), burada tetikleyicinin kendisi
+  // zaten `lg:hidden` ile masaüstünde erişilemez — yani "aç/kapa sırasında
+  // odaklı bir elemanın kaybolması" riski YOK, panel yalnızca viewport
+  // `lg` eşiğinin (1024px) ALTINDAYKEN hiç mount edilir. `matchMedia`'nın
+  // `change` event'i pencere yeniden boyutlandırılsa da (ör. DevTools
+  // responsive mod) doğru tepki verir; masaüstüne geçilirken panel açık
+  // kalmışsa `setOpen(false)` ile kapatılır (aksi halde görünmez ama
+  // "açık" bir state'te takılı kalırdı).
+  const [isDesktop, setIsDesktop] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+    const mql = window.matchMedia('(min-width: 1024px)');
+    const update = () => {
+      setIsDesktop(mql.matches);
+      if (mql.matches) {
+        setOpen(false);
+        setExpandedSlug(null);
+      }
+    };
+    update();
+    mql.addEventListener('change', update);
+    return () => mql.removeEventListener('change', update);
+  }, []);
 
   // Body scroll kilidi (menü açıkken arka plan kaymasın).
   useEffect(() => {
@@ -309,8 +338,11 @@ export default function MobileMenu({
 
       {/* Overlay + panel: `document.body`'ye portal'lanır (bkz. `mounted`
           yorumu yukarıda) — header'ın `backdrop-blur`'ü yüzünden `fixed`in
-          viewport yerine header'a göre çözülmesini engeller. */}
+          viewport yerine header'a göre çözülmesini engeller. `!isDesktop`
+          (bkz. yukarıdaki DOM boyutu düzeltmesi yorumu) — masaüstünde bu
+          alt ağaç HİÇ oluşturulmaz. */}
       {mounted &&
+        !isDesktop &&
         createPortal(
           <>
             {/* Overlay (yarı saydam siyah) */}

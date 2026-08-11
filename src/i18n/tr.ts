@@ -374,5 +374,6 @@ export const tr: Translations = {
   },
   faqPage: {
     pdfLabel: 'PDF İNDİR',
+    metaDescription: 'Genel, ödeme, kurulum, müşteri deneyimi, veri güvenliği ve üyelik konularında idenfit hakkında sıkça sorulan soruların yanıtlarını bulun.',
   },
 };

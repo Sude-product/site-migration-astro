@@ -4,6 +4,8 @@ import { getLegalContent, getLegalLocaleUrls, DISTANCE_SALES_TR_SLUG } from '../
 
 const content = getLegalContent(DISTANCE_SALES_TR_SLUG, 'en')!;
 const localeUrls = getLegalLocaleUrls(DISTANCE_SALES_TR_SLUG);
+const description =
+  "Learn the terms of idenfit's Distance Sales Contract, including your right of withdrawal and payment conditions for online purchases.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

@@ -9,6 +9,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { toYoutubeEmbedUrl } from '../data/customerStories';
 import { THANK_YOU_HERO_IMAGE, THANK_YOU_BRAND_ICON_URL, type ThankYouContent } from '../data/thankYouContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -19,9 +20,10 @@ interface Props {
 const { content, localeUrls } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const homeHref = getRelativeLocaleUrl(locale, '');
+const title = buildIdenfitTitle(content.title, locale);
 ---
 
-<BaseLayout title={`idenfit — ${content.title}`} description={content.text} localeUrls={localeUrls}>
+<BaseLayout title={title} description={content.text} localeUrls={localeUrls}>
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="grid items-center gap-10 lg:grid-cols-2">
       <div>

@@ -12,12 +12,27 @@ import CertificationBadges from '../../components/CertificationBadges.astro';
 import TestimonialSection from '../../components/TestimonialSection.astro';
 import HrtechSection from '../../components/HrtechSection.astro';
 import { getTranslations } from '../../i18n';
+import { truncateAtWord } from '../../data/metaDescription';
+import { buildIdenfitTitle } from '../../data/pageTitle';
+import type { Locale } from '../../data/nav';
 
-const t = getTranslations(Astro.currentLocale ?? 'nl');
-const title = `idenfit — ${t.hero.title.replace('\n', ' ')}`;
+const locale = (Astro.currentLocale ?? 'nl') as Locale;
+const t = getTranslations(locale);
+// `t.hero.title` görünür hero başlığıyla PAYLAŞILAN gerçek metin — 45
+// karakterle "idenfit — " öneki dahil 50'nin altında kalıyordu (2026-08-10
+// title uzunluk denetimi). `truncateAtWord()` yalnızca ÇOK UZUN olsaydı
+// kırpardı (burada no-op), `buildIdenfitTitle()` KISA kaldığında gerçek
+// bir niteleyici ekliyor — görünür H1 (`HeroSection.astro`) DEĞİŞMEDEN.
+const title = buildIdenfitTitle(truncateAtWord(t.hero.title.replace('\n', ' '), 50), locale);
+// `t.hero.description` görünür hero alt başlığıyla PAYLAŞILAN, canlı
+// siteyle doğrulanmış gerçek metin — meta description denetimi (2026-08-10)
+// bu dilde 174 karakter çıkardı, 160 sınırı için yalnızca META ETİKETİNDE
+// kırpılıyor (`truncateAtWord()`, kelime ortasından kesmiyor) — hero'nun
+// GÖRÜNÜR metni (`HeroSection.astro`) DEĞİŞMEDEN kalıyor.
+const metaDescription = truncateAtWord(t.hero.description);
 ---
 
-<BaseLayout title={title} description={t.hero.description}>
+<BaseLayout title={title} description={metaDescription}>
 	<HeroSection />
 	<LogoStrip />
 	<SectionDivider text={t.home.dividers.afterLogos} />

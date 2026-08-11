@@ -4,6 +4,10 @@ import { getPrivacySecurityContent, getPrivacySecurityLocaleUrls } from '../../d
 
 const content = getPrivacySecurityContent('tr')!;
 const localeUrls = getPrivacySecurityLocaleUrls();
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
+const description =
+  "idenfit'in kullanıcı verilerini nasıl koruduğunu, hangi güvenlik önlemlerini uyguladığını ve gizlilik ilkelerini bu politika metninde inceleyin.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} />

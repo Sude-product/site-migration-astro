@@ -34,7 +34,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroForm from './HeroForm.tsx';
 import { getTranslations } from '../i18n';
-import { getKvkkAndTermsHrefs, type PresentationContent } from '../data/miscPagesContent';
+import { getKvkkAndTermsHrefs, getPresentationMetaDescription, type PresentationContent } from '../data/miscPagesContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -45,10 +46,13 @@ const { content } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
-const description = content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+// `pageTitle` (H1 için hâlâ kullanılıyor) NL/EN'de meta description için
+// çok kısaydı (2026-08-10 denetimi) — bkz. `getPresentationMetaDescription()`.
+const description = getPresentationMetaDescription(locale) ?? content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+const title = buildIdenfitTitle(content.formTitle, locale);
 ---
 
-<BaseLayout title={`idenfit — ${content.formTitle}`} description={description}>
+<BaseLayout title={title} description={description}>
   <section class="relative isolate overflow-hidden">
     {/* f04cc27 — bkz. yukarıdaki dosya başı yorumu. */}
     <div
