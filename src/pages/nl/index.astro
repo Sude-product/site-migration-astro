@@ -10,6 +10,7 @@ import PanelFeatureSection from '../../components/PanelFeatureSection.astro';
 import SupremaSection from '../../components/SupremaSection.astro';
 import CertificationBadges from '../../components/CertificationBadges.astro';
 import TestimonialSection from '../../components/TestimonialSection.astro';
+import HomeFaqSection from '../../components/HomeFaqSection.astro';
 import HrtechSection from '../../components/HrtechSection.astro';
 import { getTranslations } from '../../i18n';
 import { truncateAtWord } from '../../data/metaDescription';
@@ -44,6 +45,7 @@ const metaDescription = truncateAtWord(t.hero.description);
 	<SupremaSection />
 	<CertificationBadges />
 	<TestimonialSection />
+	<HomeFaqSection />
 	<HrtechSection />
 	<script src="../../scripts/scroll-reveal.js"></script>
 </BaseLayout>

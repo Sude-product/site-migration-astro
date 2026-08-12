@@ -31,9 +31,15 @@ async function findHtmlFiles(dir) {
 }
 
 // `BlogPosting`/`Article`'ın Google Rich Results için zorunlu/önerilen alanları.
+// `FAQPage` (2026-08-12, ana sayfa SSS bölümü) — `mainEntity`'nin kendisi
+// var mı kontrolü burada, İÇ yapısının (her Question'ın `name`+
+// `acceptedAnswer.text` taşıması) daha derin kontrolü `validateBlock()`'ta
+// AYRI bir FAQPage-özel bloğa yazıldı (aşağıda) — flat alan listesi bunu
+// ifade edemiyor.
 const REQUIRED_BY_TYPE = {
   BlogPosting: ['headline', 'image', 'datePublished'],
   Article: ['headline', 'image', 'datePublished'],
+  FAQPage: ['mainEntity'],
 };
 const RECOMMENDED_BY_TYPE = {
   BlogPosting: ['dateModified', 'author', 'publisher'],
@@ -74,6 +80,27 @@ function validateBlock(block) {
     if (modified < published) {
       errors.push(`\`dateModified\` (${block.dateModified}) \`datePublished\`'tan (${block.datePublished}) ÖNCE — mantıksız`);
     }
+  }
+
+  // `FAQPage`'in Google Rich Results gereksinimleri `mainEntity`'nin
+  // İÇİNDE — her `Question`'ın gerçek `name` (boş olmayan) + `acceptedAnswer`
+  // taşıması, `acceptedAnswer`'ın da `@type:"Answer"` + gerçek `text`
+  // (boş olmayan) taşıması gerekiyor.
+  if (type === 'FAQPage' && Array.isArray(block.mainEntity)) {
+    if (block.mainEntity.length === 0) {
+      errors.push('`mainEntity` boş dizi — en az 1 soru olmalı');
+    }
+    block.mainEntity.forEach((q, i) => {
+      if (q['@type'] !== 'Question') errors.push(`mainEntity[${i}]: \`@type\` "Question" değil`);
+      if (!q.name || !String(q.name).trim()) errors.push(`mainEntity[${i}]: \`name\` eksik/boş`);
+      const answer = q.acceptedAnswer;
+      if (!answer) {
+        errors.push(`mainEntity[${i}]: \`acceptedAnswer\` eksik`);
+      } else {
+        if (answer['@type'] !== 'Answer') errors.push(`mainEntity[${i}].acceptedAnswer: \`@type\` "Answer" değil`);
+        if (!answer.text || !String(answer.text).trim()) errors.push(`mainEntity[${i}].acceptedAnswer: \`text\` eksik/boş`);
+      }
+    });
   }
 
   return { errors, warnings };

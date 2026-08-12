@@ -365,6 +365,9 @@ export const nl: Translations = {
       text:
         'Hrtech-Alliance is een next-generation HR-platform, ontworpen om HR-processen te vereenvoudigen en te stroomlijnen. Hrtech-Alliance is toegankelijk via de Idenfit-app en brengt toonaangevende aanbieders van HR-technologie samen, zodat we HR-professionals een geïntegreerde oplossing bieden die tijd bespaart en kosten verlaagt.',
     },
+    faq: {
+      viewAllLink: 'Bekijk Alle Vragen',
+    },
   },
   faqPage: {
     pdfLabel: 'PDF DOWNLOADEN',

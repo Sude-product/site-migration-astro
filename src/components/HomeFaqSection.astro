@@ -1,0 +1,77 @@
+---
+// Ana sayfa SSS (FAQ) bölümü (2026-08-12, kullanıcı talimatıyla) —
+// mevcut 90 sorudan (`/sss/`) en genel/başlangıç-seviyesi 7'si seçilip
+// (bkz. `getHomeFaqItems()`, `faqContent.ts`) akordeon olarak gösteriliyor
+// + `FAQPage` JSON-LD şeması eklendi. `/sss/`'in kendisi accordion
+// KULLANMIYOR (sekmeli düzen, bkz. `FaqPage.astro`'nun kendi yorumu) —
+// burada kullanıcının istediği akordeon davranışı için `ProductPage.astro`/
+// `HubPage.astro`'nun SSS bloklarındaki AYNI kanıtlanmış `<details>`
+// deseni yeniden kullanıldı (site genelinde tutarlı tek bir accordion
+// dili), yeni bir görsel dil İCAT EDİLMEDİ.
+import { getTranslations } from '../i18n';
+import { getHomeFaqItems, getFaqLocaleUrls } from '../data/faqContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const items = getHomeFaqItems(locale);
+const faqHref = getFaqLocaleUrls()[locale];
+
+// FAQPage JSON-LD (schema.org) — blog'un `BlogPosting` şemasıyla AYNI
+// ilke (bkz. `src/pages/blog/[slug].astro`'nun kendi yorumu): `@context`/
+// `@type` + zorunlu alanlar. `acceptedAnswer.text` HTML etiketlerinden
+// arındırılmış düz metin — görsel render (`set:html`, aşağıda) kaynağın
+// `<p>`/`<br>` işaretlemesini KORUYOR, yalnızca JSON-LD'nin kendisi düz
+// metin (schema.org validator'ları için en taşınabilir biçim).
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((item) => ({
+    '@type': 'Question',
+    name: item.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+    },
+  })),
+};
+---
+
+{
+  items.length > 0 && (
+    <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+      <h2 class="reveal h2-section text-center text-heading">{t.footer.links.general.faq}</h2>
+      <div class="reveal mt-8 divide-y divide-gray-100">
+        {items.map((item) => (
+          <details class="group py-4">
+            <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
+              <span>{item.question}</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 12 12"
+                fill="none"
+                aria-hidden="true"
+                class="h-3 w-3 shrink-0 transition-transform group-open:rotate-180"
+              >
+                <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+              </svg>
+            </summary>
+            <div class="mt-3 text-sm leading-relaxed text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={item.answer} />
+          </details>
+        ))}
+      </div>
+      {faqHref && (
+        <div class="reveal mt-8 text-center">
+          <a href={faqHref} class="inline-flex items-center gap-1 text-sm font-semibold text-brand hover:underline">
+            {t.home.faq.viewAllLink}
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4" aria-hidden="true">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      )}
+    </section>
+  )
+}

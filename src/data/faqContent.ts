@@ -130,3 +130,38 @@ export function getFaqCategories(locale: Locale): FaqCategory[] {
     }))
     .filter((c) => c.items.length > 0);
 }
+
+// Ana sayfa SSS (FAQ) bölümü (2026-08-12) — bkz. `HomeFaqSection.astro`.
+// Kullanıcı talimatıyla 90 sorudan (`/sss/`'de zaten var) en genel/
+// başlangıç-seviyesi 7 soru elle seçildi ("idenfit nedir", fiyatlandırma,
+// kurulum, sözleşme, güvenlik gibi — çok teknik/destek-spesifik sorular
+// DEĞİL, ör. "Bu Cihaz Size Ait Değildir Uyarısı" gibi maddeler bilinçli
+// olarak dışarıda bırakıldı).
+//
+// **ÖNEMLİ BULGU:** kategori SAYISI/SIRASI 3 dilde aynı olsa da (bkz.
+// `getFaqCategories()`'in kendi yorumu) bir kategori İÇİNDEKİ soru SIRASI
+// dilden dile FARKLI (ör. IT'de "Quanto costa Idenfit?" TR/EN'in aksine
+// "Genel" kategorisinin hemen içine, id sırasına göre değil farklı bir
+// menu_order'a göre serpiştirilmiş) — düz `DATA.faq[locale][i]` indeksi
+// dilller arasında AYNI SORUYU işaret ETMİYOR. Bu yüzden aşağıdaki
+// index'ler TEK TEK elle, her dilin kendi 30 sorusu okunup GERÇEK aynı
+// soru bulunarak doğrulandı (bazı index'ler [0,11,12,14,23] 3 dilde de
+// aynı çıktı, bazıları [4/4/5, 7/6/6] dilden dile kaydı).
+const HOME_FAQ_INDICES: Record<FaqLocale, number[]> = {
+  tr: [0, 4, 7, 11, 12, 14, 23],
+  en: [0, 4, 6, 11, 12, 14, 23],
+  it: [0, 5, 6, 11, 12, 14, 23],
+};
+
+/** Ana sayfa SSS bölümü için 7 seçilmiş soru — NL için kendi verisi
+ * olmadığından (bkz. dosya başındaki yorum) EN'in AYNI 7 sorusuna düşer
+ * (`getFaqLocaleUrls()`/`getFaqSlug()` ile AYNI NL→EN ilkesi). */
+export function getHomeFaqItems(locale: Locale): FaqItem[] {
+  const effectiveLocale: FaqLocale = isFaqLocale(locale) ? locale : 'en';
+  const indices = HOME_FAQ_INDICES[effectiveLocale];
+  const items = DATA.faq[effectiveLocale] ?? [];
+  return indices
+    .map((i) => items[i])
+    .filter((i): i is FaqItemRaw => Boolean(i))
+    .map((i) => ({ question: decodeEntities(i.question), answer: decodeEntities(i.answer) }));
+}

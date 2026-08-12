@@ -371,6 +371,9 @@ export const it: Translations = {
       text:
         "Hrtech-Alliance è una piattaforma HR all'avanguardia progettata per facilitare e semplificare i processi delle Risorse Umane. Accessibile tramite l'applicazione Idenfit, Hrtech-Alliance riunisce i principali fornitori di tecnologia HR, offrendo ai professionisti del settore una soluzione unificata che fa risparmiare tempo e costi.",
     },
+    faq: {
+      viewAllLink: 'Visualizza Tutte le Domande',
+    },
   },
   faqPage: {
     pdfLabel: 'Scarica PDF',

@@ -456,6 +456,15 @@ export interface HomeHrtechLabels {
   text: string;
 }
 
+/** Ana sayfa SSS (FAQ) bölümü (2026-08-12) — bkz. `HomeFaqSection.astro`.
+ * Bölüm başlığı YENİDEN bir çeviri gerektirmiyor, `footer.links.general.faq`
+ * ("Sıkça Sorulan Sorular") doğrudan yeniden kullanılıyor — burada yalnızca
+ * bu bölüme ÖZEL, gerçekten yeni olan tek metin (/sss/ sayfasına giden
+ * link). */
+export interface HomeFaqLabels {
+  viewAllLink: string;
+}
+
 export interface HomeLabels {
   logoStrip: HomeLogoStripLabels;
   dividers: HomeDividerLabels;
@@ -467,6 +476,7 @@ export interface HomeLabels {
   suprema: HomeSupremaLabels;
   testimonials: HomeTestimonialsLabels;
   hrtech: HomeHrtechLabels;
+  faq: HomeFaqLabels;
 }
 
 /** 404 sayfası (`src/pages/404.astro` + `en/nl/it/404.astro`) — bkz.

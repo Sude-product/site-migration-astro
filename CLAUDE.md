@@ -18,7 +18,73 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 13. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 14. tur)
+
+**🟢 ANA SAYFA — SSS (FAQ) BÖLÜMÜ + `FAQPage` JSON-LD ŞEMASI EKLENDİ (4
+DİLDE).** Kullanıcı, mevcut 90 sorudan (`/sss/`'de zaten var) en genel/
+başlangıç-seviyesi birkaçının ana sayfaya görsel bölüm + yapılandırılmış
+veri olarak eklenmesini istedi.
+
+**Soru seçimi — 7 soru, elle seçildi ("idenfit nedir", fiyatlandırma,
+kimler kullanabilir, sözleşme süresi, kurulum, KVKK/GDPR — teknik/destek-
+spesifik sorular BİLİNÇLİ olarak dışarıda bırakıldı).** **Kritik bulgu:**
+kategori SAYISI/SIRASI 3 dilde aynı olsa da (`getFaqCategories()`'in
+zaten bilinen notu) bir kategori İÇİNDEKİ soru sırası dilden dile FARKLI
+çıktı (ör. IT'de "Quanto costa Idenfit?" TR/EN'in aksine hemen 2. sıraya
+serpiştirilmiş) — düz `DATA.faq[locale][i]` indeksi diller arasında AYNI
+soruyu işaret ETMİYORDU. 30 soruluk 3 liste tek tek okunup GERÇEK aynı
+soru eşleştirilerek doğrulandı (`src/data/faqContent.ts`'in yeni
+`HOME_FAQ_INDICES` sabiti — TR/EN/IT için AYRI index dizileri, bazıları
+[0,11,12,14,23] 3 dilde de aynı çıktı, bazıları [4/4/5, 7/6/6] kaydı).
+NL kendi verisi olmadığından (CPT'de hiç yok, bilinen kısıt) EN'in AYNI
+7 sorusuna düşüyor (`getFaqSlug()`/`getFaqLocaleUrls()` ile AYNI NL→EN
+ilkesi).
+
+**Görsel bölüm — `HomeFaqSection.astro` (yeni, Testimonial'dan SONRA/
+HrTech'ten ÖNCE, kullanıcının önerdiği sırada).** `/sss/`'in KENDİSİ
+accordion KULLANMIYOR (sekmeli düzen, `FaqPage.astro`'nun kendi
+yorumunda dokümante) — kullanıcının istediği akordeon davranışı için
+YENİ bir görsel dil icat edilmedi, `ProductPage.astro`/`HubPage.astro`'nun
+SSS bloklarındaki AYNI kanıtlanmış `<details class="group py-4">`
+deseni (chevron `group-open:rotate-180`) yeniden kullanıldı — site
+genelinde tek/tutarlı bir accordion dili korunuyor. Başlık
+`t.footer.links.general.faq` ("Sıkça Sorulan Sorular") YENİDEN
+kullanıldı (yeni çeviri gerekmedi); yalnızca "/sss/" sayfasına giden
+link metni (`t.home.faq.viewAllLink`) gerçekten YENİ bir çeviri — 4
+dilde eklendi. `.reveal` scroll-animasyonu (site standardı, homepage'in
+zaten include ettiği `scroll-reveal.js`).
+
+**`FAQPage` JSON-LD — blog'un `BlogPosting` şemasıyla AYNI ilke**
+(`@context`/`@type` + `mainEntity: Question[]`, her `Question`
+`acceptedAnswer.Answer.text`). Görsel render kaynağın `<p>`/`<br>`
+işaretlemesini `set:html` ile KORUYOR, JSON-LD'nin kendisi HTML
+etiketlerinden arındırılmış düz metin (schema.org validator'ları için
+en taşınabilir biçim, blog'un `description`'ı için kullanılan AYNI
+`.replace(/<[^>]+>/g, ...)` deseni).
+
+**Kalıcı `check-json-ld.mjs` aracı genişletildi (2026-08-10'da yalnızca
+`BlogPosting`/`Article` alan-varlığı kontrolü yapıyordu):** `FAQPage`
+için `mainEntity` zorunlu alan listesine eklendi + `mainEntity`'nin İÇ
+yapısı (her `Question`'ın `@type`/`name`, her `acceptedAnswer`'ın
+`@type`/`text` taşıması) için AYRI, derinlemesine bir doğrulama bloğu
+yazıldı — flat alan-varlığı kontrolü bunu ifade edemiyordu, gerçek bir
+"geçerli mi" testi olsun diye eklendi (trivial "kural yok = geçti"
+sonucu yerine).
+
+**Kanıt:** `astro check` 0 hata (327 dosya), `astro build` 881 sayfa.
+`check-json-ld.mjs` → 626 blok (622 BlogPosting + **4 FAQPage, yeni**),
+0 geçersiz, 0 uyarı (yeni derin `FAQPage` kurallarıyla). 5 regresyon
+script'i (108/108, 9/9, 18/18, 58/58, 36/36) + `test-no-external-idenfit-links`
+(2374/0) + `check-link-accessibility` (0 ihlal) + `check-heading-hierarchy`
+(yalnızca `/admin/`) regresyonsuz. 4 dilin hepsinde `dist` çıktısından
+JSON-LD'nin 7 soruyu doğru taşıdığı (TR/EN/IT kendi dilinde, NL EN'e
+düştüğü) + akordeonun 7 `<details>` bloğu ürettiği + "Tüm Soruları
+Görüntüleyin" linkinin doğru `/sss/`(locale'e göre) URL'ine gittiği
+metin metin doğrulandı.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 13. tur (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — CTA/ANCHOR TEXT OPTİMİZASYONU: ~150 ÜRÜN/SEKTÖR/HUB
 SAYFASININ HERO CTA'SI JENERİKTEN BENZERSİZ, ANAHTAR KELİME İÇEREN METNE
