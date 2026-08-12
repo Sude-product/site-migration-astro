@@ -18,7 +18,41 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 14. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 15. tur)
+
+**🟢 SİTE GENELİ — HERO GÖRSELİ `loading="lazy"` BUG'I DÜZELTİLDİ (TERSİ
+İSTENEN DAVRANIŞTAN — 143 SAYFA).** Kullanıcı Kurumsal Takvim Modülü
+(`kurumsal-takvim-modulu`) sayfasında lazy-loading optimizasyonu istedi:
+above-the-fold DIŞINDAKİ görsellere `loading="lazy"` eklensin, above-the-
+fold İÇİNDEKİLER (hero) dokunulmasın. İnceleme kullanıcının varsaydığının
+TAM TERSİNİ ortaya çıkardı: **section görselleri (below-the-fold) ZATEN
+`loading="lazy"` idi (doğru) — asıl bug HERO görselinin (above-the-fold)
+YANLIŞLIKLA `loading="lazy"` taşımasıydı.** Bu, istenenin tersi bir
+performans hatası: tarayıcı ilk ekranda görünen hero görselini bilerek
+GECİKTİRİYORDU (LCP — Largest Contentful Paint — metriğini kötüleştiren
+klasik bir anti-pattern), section görselleri zaten doğruydu.
+
+**Kök neden `ProductPage.astro`/`SectorPage.astro`'da (2 paylaşılan
+component) — `HubPage.astro`'da hiç hero görseli render edilmiyor,
+etkilenmedi.** `ProductSectionBlock.astro`/`SectorPage.astro`'nun
+`whyIdenfit.image`'ı (ikisi de below-the-fold) zaten doğruydu,
+DOKUNULMADI. Düzeltme: hero `<img>`'lerinde `loading="lazy"` →
+`loading="eager"` (tek satırlık değişiklik, 2 dosyada).
+
+**Kanıt/kapsam:** `astro build` sonrası TAM `dist` taraması → **143
+gerçek sayfa** (4 dilin TAMAMI dahil — 81 ürün/modül + 48 sektör'ün ham
+veri tahmini yerine gerçek build çıktısından SAYILDI, `HubPage.astro`'nun
+hero görseli hiç olmadığı için 0 hub sayfası etkilendi) artık doğru
+`loading="eager"` taşıyor, section/whyIdenfit görselleri (below-the-fold)
+`loading="lazy"` olarak DEĞİŞMEDEN kaldı. `astro check` 0 hata, `astro
+build` 881 sayfa. 5 regresyon script'i (108/108, 9/9, 18/18, 58/58,
+36/36) + `test-no-external-idenfit-links`(2374/0) + `check-image-alt-text`/
+`check-link-accessibility`/`check-heading-hierarchy`/`check-json-ld`
+(hepsi 0 ihlal) regresyonsuz.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 14. tur (tarihsel, o turda doğruydu)
 
 **🟢 ANA SAYFA — SSS (FAQ) BÖLÜMÜ + `FAQPage` JSON-LD ŞEMASI EKLENDİ (4
 DİLDE).** Kullanıcı, mevcut 90 sorudan (`/sss/`'de zaten var) en genel/
