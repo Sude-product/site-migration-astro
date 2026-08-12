@@ -18,7 +18,55 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 17. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 18. tur)
+
+**🟢 PUANTAJ SAYFASI — BÖLÜM-SEVİYESİ CTA OVERRIDE MEKANİZMASI KURULDU
+(`ProductPage.astro`'ya YENİ `sectionCtaOverrides` prop'u), TOPLAM 4
+"BAŞLAYIN" CTA'SI TEK TEK ÇÖZÜLDÜ.** 17. turda yalnızca HERO'nun
+"Başlayın" metni ele alınmıştı ("Zaman Yönetimine Başlayın" verilmişti)
+— kullanıcı sayfayı detaylı inceleyip aslında **hero + 3 section'da**
+(toplam 4) AYNI jenerik "Başlayın" metninin tekrar ettiğini fark etti.
+Tam envanter (`content.sections`, 0-tabanlı index): 0="Zaman Yönetimi"
+(CTA var), 1="Akıllı Vardiya Yönetimi" (CTA var), 2="Yıllık Takvim"
+(**kaynakta CTA HİÇ YOKTU**, boş `ctaText`/`ctaUrl`), 3="Vardiya
+Takvimi" (CTA var), 4="Molalar" (CTA yok), 5="Canlı ve Tarihsel
+Monitörler" (CTA yok).
+
+**Kullanıcı kararıyla nihai eşleme:**
+- **Hero** → "Zaman Yönetimine Başlayın" ÇIKARILDI, yerine sayfanın
+  TAMAMINI özetleyen daha genel bir metin verildi: **"Puantaj Takibine
+  Başlayın"** (modülün kendi adı, H1'in "Zaman ve Devamsızlık
+  Yönetimi"sinden daha geniş kapsayıcı).
+- **Section 0 "Zaman Yönetimi"** → "Zaman Yönetimine Başlayın" (hero'dan
+  BURAYA taşındı — başlığıyla TAM eşleşiyor).
+- **Section 2 "Yıllık Takvim"** → "Yıllık Takvime Başlayın" + **YENİ bir
+  CTA linki EKLENDİ** (kaynakta hiç yoktu) — hedef diğer CTA'larla AYNI
+  (Online Sunum Talebi), `localizeCtaUrl()` ile AYNI şekilde çözülüyor
+  (ham URL elle YAZILMADI, mevcut CTA'ların kullandığı AYNI kaynak
+  string'i geçirildi).
+- **Section 3 "Vardiya Takvimi"** → "Vardiya Yönetimine Başlayın"
+  (kelime benzerliğiyle en yakın eşleşen bölüm).
+- **Section 1 + 4 + 5 BU TURDA ELE ALINMADI** (kullanıcı yalnızca 3
+  öneri verdi) — Section 1 hâlâ jenerik "Başlayın", 4/5 hâlâ CTA'sız.
+
+**Yeni mekanizma — `ProductPage.astro`'nun `sectionCtaOverrides?:
+Record<number, { ctaText: string; ctaUrl?: string }>` prop'u:** section
+index'e göre CTA metni/URL'i override eder — `ctaUrl` verilmezse mevcut
+`ctaUrl` KORUNUR (yalnızca metin değişir), verilirse (Section 2 örneği)
+YENİ bir CTA linki EKLENMİŞ olur. `ctaTextOverride` (hero) ile AYNI
+ilke, section seviyesine genelleştirildi — gelecekte başka bir sayfada
+benzer bir ihtiyaç çıkarsa tekrar kullanılabilir.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-heading-hierarchy`/`check-link-accessibility`(0 ihlal, yeni
+eklenen CTA linki de dahil)/`test-no-external-idenfit-links`
+regresyonsuz, diğer ProductPage sayfalarının (`dokuman-yonetim-sistemi-
+modulu` dahil) CTA'larının DEĞİŞMEDEN kaldığı doğrulandı, H1 hiçbir
+aşamada değişmedi.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 17. tur (tarihsel, o turda doğruydu)
 
 **🟢 CTA/ANCHOR TEXT TAKİP TURLARI (16-17. turlar, ürün sayfaları tek
 tek doğrulanıyor) — `ProductPage.astro`'ya YENİ `ctaTextOverride` prop'u

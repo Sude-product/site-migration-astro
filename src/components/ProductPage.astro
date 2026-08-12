@@ -12,6 +12,16 @@ import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data
 import type { getProductContent } from '../data/productContent';
 import type { Locale } from '../data/nav';
 
+/** Bölüm-seviyesi CTA override'ı (2026-08-12, Puantaj sayfası — bkz.
+ * `sectionCtaOverrides` prop yorumu). `ctaUrl` opsiyonel: yalnızca
+ * kaynakta o bölümün HİÇ CTA'sı yoktu (boş `ctaText`/`ctaUrl`) ve YENİ
+ * bir CTA ekleniyorsa gerekir; kaynakta zaten bir CTA varsa (yalnızca
+ * metni değişiyorsa) verilmeyebilir, mevcut `ctaUrl` korunur. */
+interface SectionCtaOverride {
+  ctaText: string;
+  ctaUrl?: string;
+}
+
 interface Props {
   content: NonNullable<ReturnType<typeof getProductContent>>;
   pageTitle: string;
@@ -47,9 +57,26 @@ interface Props {
    * kullanılır — `title`/`description`/`ctaKeyword` override'larıyla AYNI
    * ilke, yalnızca en üst öncelikli. */
   ctaTextOverride?: string;
+  /** Bölüm-seviyesi CTA override'ları (2026-08-12, Puantaj sayfası —
+   * kullanıcı kararıyla, hero'daki AYNI jenerik "Başlayın" metninin
+   * SECTION seviyesinde de tekrar ettiği bulundu). Anahtar = `content.sections`
+   * dizisindeki 0-tabanlı index. Hero'nun `ctaTextOverride`'ından FARKI:
+   * bu, tek bir sayfada BİRDEN FAZLA section'ı AYRI AYRI (farklı metin/
+   * gerekirse yeni bir CTA linki) hedefleyebiliyor — `SectionCtaOverride`
+   * tipine bkz. */
+  sectionCtaOverrides?: Record<number, SectionCtaOverride>;
 }
 
-const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride, ctaKeyword, ctaTextOverride } = Astro.props;
+const {
+  content,
+  pageTitle,
+  localeUrls,
+  description: descriptionOverride,
+  title: titleOverride,
+  ctaKeyword,
+  ctaTextOverride,
+  sectionCtaOverrides,
+} = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
 // Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
@@ -108,13 +135,23 @@ const heroCtaText =
 
   <!-- İçerik blokları (veri kaynaklı, sabit sayı değil — sırayla alternatif zeminle) -->
   {
-    sections.map((section, i) => (
-      <section id={section.id} class={i % 2 === 1 ? 'bg-brand-light' : ''}>
-        <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-          <ProductSectionBlock section={section} reverse={i % 2 === 1} />
-        </div>
-      </section>
-    ))
+    sections.map((section, i) => {
+      // Bölüm-seviyesi CTA override'ı (2026-08-12) — bkz. `sectionCtaOverrides`
+      // prop yorumu. Kaynakta o bölümün HİÇ CTA'sı yoksa (`ctaUrl` boş)
+      // override'ın kendi `ctaUrl`'i kullanılır (yeni bir CTA EKLENMİŞ olur);
+      // zaten bir CTA varsa yalnızca metni değişir, mevcut `ctaUrl` KORUNUR.
+      const ctaOverride = sectionCtaOverrides?.[i];
+      const effectiveSection = ctaOverride
+        ? { ...section, ctaText: ctaOverride.ctaText, ctaUrl: ctaOverride.ctaUrl ?? section.ctaUrl }
+        : section;
+      return (
+        <section id={section.id} class={i % 2 === 1 ? 'bg-brand-light' : ''}>
+          <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+            <ProductSectionBlock section={effectiveSection} reverse={i % 2 === 1} />
+          </div>
+        </section>
+      );
+    })
   }
 
   <!-- SSS -->
