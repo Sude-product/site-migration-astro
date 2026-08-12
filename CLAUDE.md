@@ -18,7 +18,80 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-11, 11. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 12. tur)
+
+**🟢 BLOG — GÖVDE İÇİNDE STRAY `<h1>` DÜZELTMESİ, KALICI 2 KATMANLI RENDER-
+TIME GÜVENLİK AĞI KURULDU.** Kullanıcı bir SEO uyarısı bildirdi:
+"2026-sgk-tesvikleri-rehberi-neler-degisti" yazısında 7 H1 bulunduğu
+(olması gereken 1). Doğrulama: canlı `idenfit.com/blog/2026-sgk-tesvikleri-
+rehberi-neler-degisti/` gerçekten 7 H1 taşıyor (1 gerçek başlık +
+WordPress Gutenberg editöründe ara başlıklar için yanlışlıkla seçilmiş
+"Heading 1" blok stili, `wp-block-heading` class'lı 6 `<h1>`) — kullanıcının
+kök-neden hipotezi DOĞRU çıktı. **Ama bizim sitemizde bu spesifik yazı
+ZATEN temizdi** (dev server'da `curl` ile doğrulandı, 1 H1) — kök neden
+`scripts/extract-blog-posts.mjs`'in kendi `downgradeStrayH1sToH2()`'si
+(daha önceki bir FAZ B taramasında bulunup eklenmiş, bu SGK yazısı
+fonksiyonun kendi yorumunda örnek olarak zaten anılıyordu) extraction
+ANINDA bunu çoktan düzeltiyordu.
+
+**Site geneli tarama (622 yazı, hem ham `reference/wordpress-export/
+posts.json` hem çıkarılmış veri):** ham kaynakta yalnızca 2 yazı hiç
+`<h1>` içeriyordu (bu SGK yazısı 6 adet + `yaz-aylarinda-yillik-izin-
+yogunlugunu-yonetmenin-yollari` 1 adet) — ikisi de extraction-anında
+zaten düzeltilmişti, `src/content/blog/posts.json` + göç etmiş 4 `.md`
+dosyanın TAMAMINDA (622/622) stray H1 sıfırdı. Yani **canlı sitede
+gerçek bir sorun var, bizim migrasyonumuzda YOKTU** — ama kullanıcının
+talebi kalıcı bir RENDER-TIME güvenlik ağı kurmaktı (yalnızca extraction-
+anındaki tek katmana güvenmemek), bu istekle tutarlı 2 yeni katman eklendi:
+
+1. **`src/data/blogHeadingSanitizer.ts`'in `demoteBodyH1s()`'i** —
+   legacy JSON yolu için (`content.config.ts`, `renderMarkdown()`'a
+   ulaşmadan ÖNCE `fixLinkAccessibility()` ile AYNI noktada zincirleniyor)
+   — `posts.json` elle düzenlenirse/extraction script'i atlanırsa ikinci
+   bir güvenlik ağı (extraction-anındaki fonksiyonla AYNI regex mantığı).
+2. **`astro.config.mjs`'in `rehypeDemoteBodyH1s`'i** — göç etmiş `.md`
+   yazılar (Decap CMS) için TEK koruma katmanı burası. **Bulunan teknik
+   gerçek:** `content.config.ts`'teki loader-time müdahale (`store.entries()`
+   üzerinden `rendered.html`'i değiştirmeye çalışmak) bu dosyalar için
+   ÇALIŞMIYOR — Astro'nun `glob()` loader'ı Markdown dosyalarını
+   `deferredRender:true` ile işaretliyor, gerçek HTML üretimi loader
+   ÇALIŞTIKTAN SONRA, sayfa render edilirken (`astro:content-module-imports`
+   virtual modülü üzerinden) gerçekleşiyor — bu yüzden tek doğru müdahale
+   noktası `markdown.processor`'ın kendisi (rehype plugin). Astro 7.1'de
+   varsayılan işleyici artık "Sätteri" olduğu için eski `unified`/rehype
+   API'sini kullanmak `@astrojs/markdown-remark`'ın AYRICA kurulmasını
+   gerektirdi (yeni `dependencies`, `npm audit` ile 1 yüksek-seviye
+   `nanoid` bulgusu geldi, `npm audit fix` ile anında 0'a indirildi).
+   Projede blog DIŞINDA Markdown-render edilen tek bir sayfa/koleksiyon
+   olmadığı doğrulandı, yani bu "global" görünen ayar pratikte yalnızca
+   blog'u etkiliyor.
+
+**Yeni kalıcı araç — `scripts/check-heading-hierarchy.mjs`:** diğer
+`check-*.mjs` araçlarıyla AYNI desen (`dist/**/*.html`, elle recursive
+tarama, redirect stub'ları hariç) — her sayfada TAM 1 `<h1>` olduğunu
+doğruluyor.
+
+**Kanıt:** Sahte bir `.md` test yazısı (`# Ara Başlık`) oluşturulup her
+iki mekanizmanın (legacy JSON regex + Markdown rehype plugin) ayrı ayrı
+ÇALIŞTIĞI doğrulandıktan sonra test dosyası silindi. `astro check` 0
+hata, `astro build` 881 sayfa, `check-heading-hierarchy.mjs` → **882
+gerçek içerik sayfasının 1'i hariç (yalnızca `/admin/`, Decap paneli,
+bilinçli kapsam dışı) TAMAMINDA tam 1 H1** (2 kez art arda çalıştırılıp
+istikrar doğrulandı — ilk çalıştırmada OneDrive `readdir` flakiness'i
+bir kez daha görüldü, 2374 yerine 102 dosya döndürdü, ikinci
+çalıştırmada düzeldi, bkz. §Proje kuralları). 6 regresyon script'i
+(`test-urunler-menu-links` 108/108, `test-faq-language-switch` 9/9,
+`test-no-external-idenfit-links` 2374/0, `test-legal-nl-consistency`
+18/18, `test-product-language-switch` 58/58, `test-sector-language-switch`
+36/36) + `check-link-accessibility`/`check-image-alt-text`/`check-json-ld`
+(hepsi 0 ihlal) regresyonsuz. `check-title-length` 440 sorunlu sayfa
+verdi (önceki dokümante edilen 435'e yakın, blog başlık uzunluğu zaten
+BİLİNÇLİ olarak ertelenmiş bir kapsam — Açık nokta #28, bu turla
+İLGİSİZ/regresyon DEĞİL).
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, 11. tur (tarihsel, o turda doğruydu)
 
 **🟢 HEADER/NAVBAR — LOGO+SAĞ GRUP KONTEYNER BUG'I + MARQUEE BOYUT/
 RENK/SONSUZ-DÖNGÜ DÜZELTMESİ (site geneli, `Header.astro`+`MarqueeBar.tsx`
@@ -1839,8 +1912,14 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   `publisher` önerilen) taşıdığını, tarih alanlarının ISO 8601 olduğunu
   ve `dateModified >= datePublished` mantığını doğrular — internet
   erişimi olmadan Google Rich Results Test/schema.org validator
-  kurallarını YEREL uygular). **Not:** bu BEŞ `check-*.mjs` script'i
-  (title/description/link-accessibility/json-ld/image-alt-text) `readdir(dir,
+  kurallarını YEREL uygular), `check-heading-hierarchy.mjs` (2026-08-12,
+  KALICI SEO/erişilebilirlik aracı — her sayfada TAM 1 `<h1>` olduğunu
+  doğrular, AYNI desen; bkz. Proje Durumu — kullanıcının bildirdiği bir
+  SEO uyarısından çıktı, blog gövdesinde WordPress kaynaklı stray `<h1>`
+  bulguları için `src/data/blogHeadingSanitizer.ts` + `astro.config.mjs`'in
+  `rehypeDemoteBodyH1s`'i render-time'da otomatik `<h2>`'ye indirgiyor).
+  **Not:** bu ALTI `check-*.mjs` script'i (title/description/link-
+  accessibility/json-ld/image-alt-text/heading-hierarchy) `readdir(dir,
   {recursive:true})` yerine ELLE recursive tarama kullanıyor — bu proje
   OneDrive-senkronize bir klasörde, `recursive:true` bazen (görünürde
   rastgele) 2368 yerine 1 (hatta bazen 57) dosya döndürdü (2026-08-10'da

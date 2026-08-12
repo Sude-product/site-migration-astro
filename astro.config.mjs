@@ -3,10 +3,48 @@ import { defineConfig } from 'astro/config';
 
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import { unified } from '@astrojs/markdown-remark';
+
+// Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
+// `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
+// neler-degisti" yazısında canlı idenfit.com'da 7 H1 bulundu — WordPress
+// Gutenberg editöründe bazı yazarlar ara başlıklar için yanlışlıkla
+// "Heading 1" blok stilini seçmiş). Sayfa şablonu (`src/pages/blog/
+// [slug].astro`) zaten kendi TEK `<h1>`'ini basıyor, gövdede kalan herhangi
+// bir `<h1>` her zaman geçersiz HTML semantiği (birden fazla H1).
+//
+// Bu, `src/data/blogHeadingSanitizer.ts`'in (legacy JSON — ham WP HTML
+// passthrough — için kullanılan regex tabanlı `demoteBodyH1s()`) İKİNCİ,
+// TAMAMLAYICI katmanı: göç etmiş `.md` yazılar (Decap CMS) `astro:content`'in
+// "deferred render" mekanizmasıyla render ediliyor (bkz. `content.config.ts`
+// git geçmişi — `store.entries()` üzerinden loader-time müdahale bu yazılar
+// için ÇALIŞMIYOR, HTML henüz üretilmemiş oluyor) — gerçek render bu
+// `markdown.processor` boru hattından geçiyor, tek doğru müdahale noktası
+// burası. **Astro 7.1'de varsayılan Markdown işleyicisi artık "Sätteri"**
+// (`markdown.rehypePlugins` doğrudan kullanılırsa deprecation uyarısı
+// veriyor + `@astrojs/markdown-remark` paketinin kurulu olmasını
+// gerektiriyor, bkz. bu paketin `package.json`'a eklenmesi) — bu yüzden
+// eski `unified` işleyicisi `@astrojs/markdown-remark`'tan İÇE AKTARILIP
+// `markdown.processor`'a elle atanıyor (aşağıda). Projede blog DIŞINDA
+// Markdown-render edilen tek bir sayfa/koleksiyon yok (doğrulandı), yani
+// bu global görünen ayar pratikte yalnızca blog'u etkiliyor.
+function rehypeDemoteBodyH1s() {
+  return (/** @type {any} */ tree) => {
+    /** @param {any} node */
+    function walk(node) {
+      if (node.tagName === 'h1') node.tagName = 'h2';
+      for (const child of node.children ?? []) walk(child);
+    }
+    walk(tree);
+  };
+}
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
+  markdown: {
+    processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s] }),
+  },
   vite: {
     plugins: [tailwindcss()],
     // KALICI ÇÖZÜM (2026-07-23) — bkz. CLAUDE.md "Vite bağımlılık önbelleği

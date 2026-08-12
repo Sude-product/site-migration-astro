@@ -13,6 +13,7 @@ import { glob, type Loader } from 'astro/loaders';
 import { existsSync, promises as fs } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { fixLinkAccessibility } from './data/blogContentAccessibility';
+import { demoteBodyH1s } from './data/blogHeadingSanitizer';
 
 // Kaynağın 11 gerçek kategorisi (posts.json'daki 622 kaydın TAMAMI
 // taranarak çıkarılan gerçek slug→isim eşlemesi, tahmin değil).
@@ -103,6 +104,7 @@ const legacyJsonLoader: Loader = {
     await mdLoader.load(context);
 
     const { config, store, parseData, renderMarkdown, logger } = context;
+
     const jsonUrl = new URL(POSTS_JSON_PATH, config.root);
     if (!existsSync(jsonUrl)) return;
 
@@ -144,8 +146,11 @@ const legacyJsonLoader: Loader = {
       // `fixLinkAccessibility()` (2026-08-10) — kaynak WP içeriğinde
       // erişilebilir adı olmayan `<a>` linklerini (bkz. o dosyanın kendi
       // yorumu) `renderMarkdown()`'a ulaşmadan ÖNCE düzeltiyor; zaten
-      // etiketli/metinli linklere DOKUNMUYOR.
-      const rendered = await renderMarkdown(fixLinkAccessibility(content ?? ''));
+      // etiketli/metinli linklere DOKUNMUYOR. `demoteBodyH1s()` (2026-08-12)
+      // — `extract-blog-posts.mjs`'in extraction-anındaki AYNI düzeltmesinin
+      // render-time ikinci katmanı (bkz. o dosyanın kendi yorumu) —
+      // `posts.json` elle düzenlenirse/extraction atlanırsa güvenlik ağı.
+      const rendered = await renderMarkdown(demoteBodyH1s(fixLinkAccessibility(content ?? '')));
       store.set({ id, data, filePath, body: content, rendered });
       loaded++;
     }
