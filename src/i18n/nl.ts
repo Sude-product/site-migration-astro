@@ -29,6 +29,7 @@ export const nl: Translations = {
     formEmail: 'E-mail',
     formMessage: 'Uw Bericht',
     formSubmit: 'Nu Aanvragen',
+    ctaKeyword: 'Gratis Demo',
     kvkkNotice: {
       prefix: 'Ik accepteer de ',
       kvkkLinkText: 'Contact Web GDPR-verklaring',

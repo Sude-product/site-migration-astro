@@ -18,7 +18,97 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 12. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 13. tur)
+
+**🟢 SİTE GENELİ — CTA/ANCHOR TEXT OPTİMİZASYONU: ~150 ÜRÜN/SEKTÖR/HUB
+SAYFASININ HERO CTA'SI JENERİKTEN BENZERSİZ, ANAHTAR KELİME İÇEREN METNE
+ÇEVRİLDİ.** Kullanıcı, "Hemen Başvur" gibi genel/tekrarlayan CTA
+metinlerinin SEO/GEO için sayfaya özel metinlere çevrilmesini istedi (ör.
+"Doküman Modülü için Başvur"). Önce bir keşif turu yapıldı (henüz kod
+yazılmadı), sonuçlar onaylandıktan sonra uygulandı.
+
+**Keşif bulguları:** `ProductPage.astro`(+`ProductSectionBlock.astro`)/
+`SectorPage.astro`/`HubPage.astro` — 3 paylaşılan component, sırasıyla
+96/48(4 şablon×12 sektör)/6 gerçek sayfa üretiyor — hero CTA'sını
+doğrudan WP kaynağından (`hero.ctaText`) basıyordu. Header'ın "Online
+Sunum Talebi" nav butonu (732 sayfa) AYRI bir kategori olarak
+işaretlendi — kullanıcı KARARIYLA kapsam dışı bırakıldı (kalıcı navbar
+butonu, spesifik bir eylemi adlandırıyor, "Hemen Başvur" gibi belirsiz
+bir dolgu metni değil).
+
+**Uygulama — `src/data/pageTitle.ts`'e 3 yeni export:**
+- `GENERIC_CTA_TEXTS` (Set) — jenerik/tekrarlayan kabul edilen metinler.
+  **İki aşamada dolduruldu:** ilk tur keşif taramasından ("Hemen Başvur"/
+  "Get Started"/"Aan de slag"+"Aan de Slag"/"Invia Richiesta", TR/EN/NL/IT'nin
+  BÜYÜK CTA metni) + **uygulama SONRASI ikinci bir doğrulama taramasıyla**
+  (881 sayfalık gerçek `dist` çıktısı, tüm 150 sayfanın hero CTA'sı
+  tek tek karşılaştırıldı) bulunan ek metinler ("Richiedi Subito" — 12
+  sayfa, TEK başına en büyük kalan tekrar; "Richiedi Ora"/"Direct
+  Aanvragen"/"Apply Now"/"Aanmelden"). **Kök neden bu ikinci turun
+  gerekli olmasının nedeni:** ilk keşif turu yalnızca ham
+  `reference/wordpress-export/products.json`/`sectors.json`'ı taradı —
+  IT'de (KARAR 1 gereği) yoğun kullanılan `*TranslationOverrides.ts`
+  dosyalarının RUNTIME'da uyguladığı override metinlerini GÖRMÜYORDU.
+  "Online Sunum Talebi" BİLİNÇLİ OLARAK bu sete DAHİL EDİLMEDİ (Header'la
+  AYNI ilke — spesifik bir eylem adı, belirsiz dolgu metni değil).
+- `buildCtaAnchorText(keyword, locale)` — her dilin kendi doğal CTA fiil
+  kalıbı (kopya çeviri DEĞİL): TR `"{keyword} için Başvur"`, EN `"Get
+  Started with {keyword}"`, NL `"Start met {keyword}"`, IT `"Richiedi
+  Info su {keyword}"`.
+- `isGenericCtaText(text)` — kontrol fonksiyonu.
+
+**3 component'e uygulanan mantık (hepsi AYNI desen):** `hero.ctaText`
+jenerikse `buildCtaAnchorText(ctaKeyword ?? pageTitle, locale)`'a
+düşülür, DEĞİLSE (kaynak zaten benzersiz/anlamlı bir metin taşıyorsa)
+HİÇ DOKUNULMAZ. `pageTitle` zaten her üç component'te `<title>` üretimi
+için (`buildIdenfitTitle()`) kullanılan AYNI değer — yeni bir veri alanı
+GEREKMEDİ. Sektör/hub sayfaları TAMAMEN otomatik (`pageTitle` her zaman
+kısa). Ürün/modül sayfalarına yeni bir opsiyonel `ctaKeyword?` prop'u
+eklendi (`title`/`description` override'larıyla AYNI kurulmuş desen) —
+`pageTitle`'ın kendisi uzun bir tanıtım cümlesi olduğu (ör. Donanım/
+Demirbaş/Neden İdenfit'in IT hero'su) **5 sayfada** kullanıldı (150
+sayfadan yalnızca 5'i, 60 karakter sınırı hesaplanarak doğrulandı):
+`demirbas-yonetimi-modulu`(TR, "Demirbaş Yönetimi Modülü"), `en/hardware`
+("Hardware & Device Integrations"), `nl/hardware`
+("Hardware-integraties"), `it/hardware` ("Integrazioni Hardware"),
+`it/perche-idenfit` ("Perché Idenfit") — hepsi ZATEN VAR OLAN `<title>`
+override metinleri yeniden kullanıldı (yeni metin İCAT EDİLMEDİ).
+**Dikkatli bulgu:** `neden-idenfit`(TR)/`en/why-idenfit`'in `pageTitle`'ı
+İLK BAKIŞTA (H1 metninden) uzun görünüyordu ama gerçek `pageTitle`
+kaynağı (`getWhyIdenfitTitle()`) H1'den FARKLI, WP'nin kısa `title`
+alanını ("Neden İdenfit"/"Why Idenfit") kullanıyor — override GEREKMEDİ,
+yanlış pozitif olarak elendi (H1 tabanlı ilk simülasyon yanıltıcıydı,
+gerçek `pageTitle` değeriyle çapraz doğrulandı).
+
+**`HeroForm.tsx`'in submit butonu (aynı mantık, kullanıcı talimatıyla):**
+yeni `ctaKeyword?` prop'u + `t.hero.ctaKeyword` i18n alanı (4 dilde yeni
+çeviri: TR "Ücretsiz Demo", EN "Free Demo", NL "Gratis Demo", IT "Demo
+Gratuita"). **Yalnızca 2 kullanım noktası** (`HeroSection.astro` ana
+sayfa hero'su + `PanelFeatureSection.astro`, `panel.title`="Kullanıcı
+Dostu Panel" — zaten var olan gerçek metin) güncellendi. **İletişim/
+Online Sunum Talebi'nin butonu BİLİNÇLİ OLARAK DOKUNULMADI** — "{X} için
+Başvur" kalıbı bir ürün/modül adıyla doğal okunuyor ama bu 2 formun
+KENDİ amacını adlandıran bir kelimeyle ("İletişim"/"Online Sunum
+Talebi") zorlanınca doğal bir ifade üretmiyor + Contact'ın buton metni
+daha önce element-ID doğrulamalı canlı siteyle pixel-perfect eşleştirilmişti
+(ayrı bir turda, bkz. 2026-08-11 günlüğü) — bu iki form `ctaKeyword`
+almadığı için eski davranış BİREBİR korunuyor (aria-label de dahil).
+
+**Kanıt:** `astro check` 0 hata (326 dosya), `astro build` 881 sayfa.
+Uygulama SONRASI tam site taraması (`dist`, 150 sayfa) → **143/143 hero
+CTA linki artık TAMAMEN BENZERSİZ** (7 sayfanın hero'sunda zaten hiç CTA
+linki yok — kaynağın kendi `ctaUrl` boşluğu, bu turla ilgisiz). 6
+regresyon script'i (108/108, 9/9, 2374/0, 18/18, 58/58, 36/36) +
+`check-link-accessibility`(0 ihlal, buton `aria-label`'ları da dahil) +
+`check-heading-hierarchy`(yalnızca `/admin/`) + `check-json-ld`(0
+geçersiz) regresyonsuz. Ana sayfanın 2 formu (Hero+Panel × 4 dil) +
+3 örnek sayfa (ürün/sektör/hub) `dist` çıktısından metin metin
+doğrulandı, İletişim/Online Sunum Talebi'nin butonu DEĞİŞMEDEN kaldığı
+teyit edildi.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 12. tur (tarihsel, o turda doğruydu)
 
 **🟢 BLOG — GÖVDE İÇİNDE STRAY `<h1>` DÜZELTMESİ, KALICI 2 KATMANLI RENDER-
 TIME GÜVENLİK AĞI KURULDU.** Kullanıcı bir SEO uyarısı bildirdi:
@@ -1357,7 +1447,9 @@ madde başına tekrarlanmıyor.
     yalnızca İK Olgunluk Testi + `pdks-nedir` blog yazısı yerelleştirildi
     (`public/wp-content/uploads/`). **Kalan ~1260 görsel (618 blog yazısı
     + 10 veri dosyası) hâlâ hotlink** — kademeli üretim onayı bekliyor.
-    Script: `scripts/localize-images.mjs`.
+    Script: `scripts/localize-images.mjs`. **Karar (2026-08-12, kullanıcı
+    onayı ile):** Görsel yerelleştirme işi, Faz 2'ye geçmeden hemen önce
+    ele alınacak — öncelik sırası bu tarihte netleşti.
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:**
     - Section 2 rozet boyutu pilot kodda (yalnızca ilk kart büyütülmüş,
       `index===0` özel durumu) — onay gelirse kalan 4 karta + Section 5'e
@@ -1479,6 +1571,15 @@ madde başına tekrarlanmıyor.
     biri: `/en/<var-olmayan-bir-slug>/` gibi bir URL'in gerçekten
     `en/not-found/`'un İngilizce içeriğini (TR'ye değil) 404 HTTP status
     koduyla döndürdüğü canlıda doğrulanmalı.
+31. **Karar (2026-08-12, kullanıcı onayı ile):** Canonical URL etiketi
+    (`<link rel="canonical">`) site genelinde eksik — hiçbir gerçek
+    içerik sayfasında yok (yalnızca Astro'nun otomatik ürettiği redirect
+    stub'larda var). Bu, Faz 2'ye — gerçek prod domain (idenfit.com)
+    Cloudflare'e bağlanana kadar — ertelendi, çünkü canonical mutlak URL
+    gerektiriyor ve `astro.config.mjs`'in `site` alanı şu an boş. Faz
+    2'de domain bağlandığında: `BaseLayout` ve `LandingLayout`'a
+    canonical etiketi eklenmeli, her dil (TR/EN/NL/IT) kendi URL'sini
+    canonical olarak göstermeli.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26,27) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -1968,6 +2069,20 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   `node scripts/check-title-length.mjs` (önce `astro build` şart) ile
   doğrulanabilir. **Blog yazıları bu kuralın DIŞINDA** — bkz. Açık
   nokta #28, ayrı/ertelenmiş bir kapsam.
+- **CTA/anchor text kuralı (2026-08-12):** Yeni bir ürün/modül/sektör/hub
+  sayfası eklendiğinde hero CTA'sı (`hero.ctaText`) OTOMATİK kontrol
+  edilir — `src/data/pageTitle.ts`'in `isGenericCtaText()`'i jenerik
+  bulursa `buildCtaAnchorText(ctaKeyword ?? pageTitle, locale)`'a düşülür
+  (bkz. Proje Durumu, CTA/anchor text optimizasyonu turu). Elle bir aksiyon
+  GENELDE GEREKMEZ — yalnızca `pageTitle` kendisi 45+ karakterlik uzun bir
+  tanıtım cümlesiyse (ör. Donanım/Demirbaş gibi), sonuç 60 karakteri
+  aşabilir; bu durumda `ProductPage.astro`'ya `ctaKeyword` prop'uyla
+  (`title`/`description` override'larıyla AYNI desen) kısa, gerçek bir
+  anahtar kelime geçirilmeli. Kaynağın `hero.ctaText`'i ZATEN benzersiz/
+  anlamlıysa (jenerik listede yoksa) HİÇBİR ŞEY yapılmaz. Yeni bir
+  jenerik/tekrarlayan metin kalıbı keşfedilirse (kaynak WP verisi veya
+  `*TranslationOverrides.ts` dosyaları büyüdükçe olası) `GENERIC_CTA_TEXTS`
+  set'ine eklenmeli.
 - **JSON-LD `dateModified` güncelleme kuralı (2026-08-10):** Bir blog
   yazısının GERÇEK içeriği (metin/görsel/başlık — küçük yazım
   düzeltmeleri hariç) düzenlendiğinde, `BlogPosting` JSON-LD'sinin

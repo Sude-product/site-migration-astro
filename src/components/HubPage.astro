@@ -8,7 +8,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HubTileCard from './HubTileCard.astro';
 import { getTranslations } from '../i18n';
-import { buildIdenfitTitle } from '../data/pageTitle';
+import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { getHubContent } from '../data/hubContent';
 import type { Locale } from '../data/nav';
 
@@ -27,6 +27,11 @@ const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
 // `pageTitle` bazı hub sayfalarında 50 karakterin altında (2026-08-10
 // title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
 const title = buildIdenfitTitle(pageTitle, locale);
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ProductPage.astro`'daki
+// AYNI mantığın yorumu. Tamamen otomatik — 2 hub grubunun (6 sayfa) hiçbiri
+// 60 karakter sınırını aşmıyor (keşif turunda doğrulandı), override
+// prop'u GEREKMİYOR.
+const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(pageTitle, locale) : hero.ctaText;
 ---
 
 <BaseLayout title={title} description={description} localeUrls={localeUrls}>
@@ -42,7 +47,7 @@ const title = buildIdenfitTitle(pageTitle, locale);
               href={hero.ctaUrl}
               class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
             >
-              {hero.ctaText}
+              {heroCtaText}
             </a>
           )
         }

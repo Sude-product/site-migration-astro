@@ -13,6 +13,10 @@ const pageTitle = getWhyIdenfitTitle('it');
 const title = buildIdenfitTitle('Perché Idenfit?', 'it');
 const localeUrls = getWhyIdenfitLocaleUrls();
 const description = getWhyIdenfitMetaDescription('it');
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu) — `title`
+// override'ıyla AYNI kısa/gerçek isim (soru işareti olmadan, cümle içinde
+// "su" edatının nesnesi olarak daha doğal okunuyor).
+const ctaKeyword = 'Perché Idenfit';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} title={title} localeUrls={localeUrls} description={description} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} description={description} />

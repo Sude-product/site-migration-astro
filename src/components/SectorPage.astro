@@ -5,7 +5,7 @@
 // (`src/pages/[sectorSlug].astro` + `en/nl/it` eşdeğerleri).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectorFeatureCard from './SectorFeatureCard.astro';
-import { buildIdenfitTitle } from '../data/pageTitle';
+import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { getSectorContent } from '../data/sectorContent';
 import type { Locale } from '../data/nav';
 
@@ -27,6 +27,12 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 // title uzunluk denetimi, ör. "idenfit — Turizm" 16 karakter) —
 // `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
 const title = buildIdenfitTitle(content.pageTitle, locale);
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ProductPage.astro`'daki
+// AYNI mantığın yorumu. Sektör sayfalarında `pageTitle` HER ZAMAN kısa
+// (sektör adı, ör. "Gıda Sektörü") olduğu için override prop'u GEREKMİYOR
+// — tamamen otomatik (keşif turunda 48/48 sektör sayfası 60 karakter
+// sınırının altında doğrulandı).
+const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(content.pageTitle, locale) : hero.ctaText;
 ---
 
 <BaseLayout
@@ -48,7 +54,7 @@ const title = buildIdenfitTitle(content.pageTitle, locale);
               href={hero.ctaUrl}
               class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
             >
-              {hero.ctaText}
+              {heroCtaText}
             </a>
           )
         }

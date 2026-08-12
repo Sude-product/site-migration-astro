@@ -8,7 +8,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductSectionBlock from './ProductSectionBlock.astro';
 import { getTranslations } from '../i18n';
-import { buildIdenfitTitle } from '../data/pageTitle';
+import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { getProductContent } from '../data/productContent';
 import type { Locale } from '../data/nav';
 
@@ -28,9 +28,18 @@ interface Props {
    * otomatik kırpma güvenli olmadığı için bu durumlarda çağıran sayfa
    * elle kısa bir başlık geçirir (2026-08-10 title uzunluk denetimi). */
   title?: string;
+  /** CTA anchor text override (2026-08-12, CTA/anchor text optimizasyonu —
+   * bkz. `pageTitle.ts`'in `buildCtaAnchorText()` yorumu). Hero CTA'sı
+   * (`hero.ctaText`) jenerik bir metinse (`isGenericCtaText()`) varsayılan
+   * olarak `pageTitle` anahtar kelime olarak kullanılır; `pageTitle`
+   * kendisi uzun bir tanıtım cümlesiyse (ör. Donanım/Demirbaş) bu prop'la
+   * daha kısa, elle seçilmiş bir anahtar kelime geçirilebilir — `title`
+   * override'ıyla AYNI kurulmuş desen (keşif turunda 150 sayfadan yalnızca
+   * 5'inin buna ihtiyacı olduğu doğrulandı). */
+  ctaKeyword?: string;
 }
 
-const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride } = Astro.props;
+const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride, ctaKeyword } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
 // Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
@@ -42,6 +51,10 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const description = descriptionOverride ?? hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
 const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ctaKeyword` prop
+// yorumu. Kaynak zaten benzersiz/anlamlı bir metin taşıyorsa (jenerik
+// listede yoksa) hiç DOKUNULMAZ.
+const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText;
 ---
 
 <BaseLayout title={title} description={description} localeUrls={localeUrls}>
@@ -60,7 +73,7 @@ const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
               href={hero.ctaUrl}
               class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
             >
-              {hero.ctaText}
+              {heroCtaText}
             </a>
           )
         }

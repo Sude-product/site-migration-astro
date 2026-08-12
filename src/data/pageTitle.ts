@@ -69,3 +69,82 @@ export function buildIdenfitTitle(pageTitle: string, locale: Locale): string {
   // kullan — mevcut durumdan (16-49 karakter) her zaman daha iyi.
   return `${base} | ${best}`;
 }
+
+// CTA/anchor text optimizasyonu (2026-08-12, kullanıcı talimatıyla — SEO/GEO
+// faydası: her sayfaya özel, anahtar kelime içeren benzersiz link metni).
+// KÖK OLAY: `ProductPage.astro`/`SectorPage.astro`/`HubPage.astro`'nun hero
+// CTA'sı (`hero.ctaText`) doğrudan WP kaynağından basılıyordu — kaynak
+// verinin kendisi son derece tekrarlı: ~150 gerçek sayfa (96 ürün/modül +
+// 48 sektör + 6 hub) tarandığında "Hemen Başvur"(TR)/"Get Started"(EN)/
+// "Aan de slag"(NL)/"Invia Richiesta"(IT) gibi birkaç jenerik metin
+// onlarca sayfada BİREBİR tekrar ediyordu (keşif turunda doğrulandı).
+//
+// Bu set'teki metinler jenerik/tekrarlayan kabul edilir — `hero.ctaText`
+// bunlardan biriyse `buildCtaAnchorText()` çıktısına düşülür, DEĞİLSE
+// (kaynak zaten benzersiz/anlamlı bir metin taşıyorsa, ör. "Detaylı Bilgi
+// Al" gibi bazı ürün sayfalarında) DOKUNULMAZ. "Online Sunum Talebi"
+// BİLİNÇLİ OLARAK bu sete dahil EDİLMEDİ — Header'ın kalıcı nav CTA'sıyla
+// AYNI ilke (kullanıcı kararı, 2026-08-12): bu, vurgu için tekrarlanan
+// belirsiz bir dolgu metni değil, spesifik bir eylemi adlandıran gerçek
+// bir ifade (bir sitenin navbar'ında "İletişime Geç" gibi).
+const GENERIC_CTA_TEXTS = new Set([
+  'Hemen Başvur',
+  'Get Started',
+  'Get Started1', // kaynağın kendi veri hatası (WP'de yazım hatası, ham veride birebir böyle) — aynı jenerik metin olarak ele alınır
+  'Aan de slag',
+  'Aan de Slag',
+  'Invia Richiesta',
+  // İlk taramada (`reference/wordpress-export/products.json`/`sectors.json`)
+  // kaçırılan, uygulama SONRASI ikinci bir doğrulama taramasıyla (881
+  // sayfalık gerçek `dist` çıktısı) bulunan ek jenerik metinler — ilk
+  // tarama yalnızca HAM WP verisini taradı, `productTranslationOverrides.ts`/
+  // `hardwareTranslationOverrides.ts`/`miscPagesTranslationOverrides.ts`'in
+  // (KARAR 1 gereği IT'de özellikle yoğun) RUNTIME'da uyguladığı override
+  // metinlerini görmüyordu — bu yüzden IT'nin "Richiedi Subito"su (12
+  // sayfa, TEK başına en büyük kalan tekrar) ilk turda atlanmıştı.
+  'Richiedi Subito',
+  'Richiedi Ora',
+  'Direct Aanvragen',
+  'Apply Now',
+  'Aanmelden',
+  // `HeroForm.tsx`'in submit butonu — `t.hero.formSubmit`/`t.home.panel.formSubmit`
+  // (site genelinde 4 form: Hero/Panel/İletişim/Online Sunum Talebi, HER
+  // BİRİ AYNI metni taşıyor) — NL/IT'nin kendi metni yukarıdakilerden
+  // FARKLI (ayrı bir i18n anahtarı), aynı "tekrarlayan/jenerik" mantığıyla
+  // buraya eklendi.
+  'Nu Aanvragen',
+  'Inizia Ora',
+]);
+
+export function isGenericCtaText(text: string): boolean {
+  return GENERIC_CTA_TEXTS.has(text.trim());
+}
+
+// Her dilin kendi doğal CTA fiil kalıbı — kopya çeviri DEĞİL (KARAR 1),
+// TR'nin "için Başvur"u EN'de "Get Started with", NL'de "Start met", IT'de
+// "Richiedi Info su" gibi o dilin kendi doğal/profesyonel eylem çağrısı
+// yapısını kullanıyor (hepsi "bu konu için harekete geç" anlamını taşıyor,
+// birebir kelime çevirisi değil).
+const CTA_TEMPLATES: Record<Locale, (keyword: string) => string> = {
+  tr: (keyword) => `${keyword} için Başvur`,
+  en: (keyword) => `Get Started with ${keyword}`,
+  nl: (keyword) => `Start met ${keyword}`,
+  it: (keyword) => `Richiedi Info su ${keyword}`,
+};
+
+/**
+ * Sayfaya özel, anahtar kelime içeren CTA anchor text'i üretir. `keyword`
+ * genelde `pageTitle` (bkz. `ProductPage.astro`/`SectorPage.astro`/
+ * `HubPage.astro`'nun `<title>` için ZATEN kullandığı AYNI değer) —
+ * bazı ürün/modül sayfalarında `pageTitle` kendisi uzun bir cümle olduğu
+ * (hero'nun kaynak metni bir tanıtım sloganı) durumlarda çağıran sayfa
+ * `ctaKeyword` prop'uyla daha kısa, elle seçilmiş bir anahtar kelime
+ * geçirebilir (bkz. `ProductPage.astro`'daki `title`/`description`
+ * override'larıyla AYNI kurulmuş desen). Uzunluk sınırı `<title>`
+ * kadar katı değil (anchor text `<title>` gibi arama sonucunda
+ * kırpılmıyor) ama 60 karakter civarı hedef olarak korunuyor.
+ */
+export function buildCtaAnchorText(keyword: string, locale: Locale): string {
+  const template = CTA_TEMPLATES[locale] ?? CTA_TEMPLATES.en;
+  return template(keyword);
+}

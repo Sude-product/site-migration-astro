@@ -10,6 +10,9 @@ const content = { ...getHardwareContent('nl')!, faq: [] };
 const pageTitle = getHardwarePageTitle('nl');
 const title = buildIdenfitTitle('Hardware-integraties', 'nl');
 const localeUrls = getHardwareLocaleUrls();
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu) — `title`
+// override'ıyla AYNI kısa/gerçek isim, CTA anchor text'i için de kullanılıyor.
+const ctaKeyword = 'Hardware-integraties';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} title={title} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} />

@@ -34,6 +34,7 @@ export const en: Translations = {
     formEmail: 'Email',
     formMessage: 'Your Message',
     formSubmit: 'Get Started',
+    ctaKeyword: 'Free Demo',
     kvkkNotice: {
       prefix: 'I accept the ',
       kvkkLinkText: 'Contact Web GDPR Statement',

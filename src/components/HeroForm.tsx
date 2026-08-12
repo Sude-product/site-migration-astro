@@ -7,6 +7,7 @@ import {
   normalizePhoneDigits,
   type CountryPhoneDef,
 } from '../data/phoneCountries';
+import { buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
 interface FormData {
@@ -118,6 +119,21 @@ export interface HeroFormProps {
    * PanelFeatureSection/Online Sunum Talebi) eski davranış (yönlendirme
    * yok) korunuyor. */
   redirectHref?: string;
+  /** CTA/anchor text optimizasyonu (2026-08-12, kullanıcı talimatıyla) —
+   * `labels.submit` jenerik bir metinse (`isGenericCtaText()`, bkz.
+   * `pageTitle.ts`) VE bu prop verilmişse, buton metni
+   * `buildCtaAnchorText(ctaKeyword, locale)`'a düşülür (ör. TR: "Ücretsiz
+   * Demo için Başvur"). **Yalnızca ana sayfanın hero formu**
+   * (`HeroSection.astro`, `t.hero.ctaKeyword`) ve "Kullanıcı Dostu Panel"
+   * formu (`PanelFeatureSection.astro`, `t.home.panel.title`) bu prop'u
+   * geçiyor. İletişim/Online Sunum Talebi'nin butonu BİLİNÇLİ olarak
+   * DOKUNULMADI — "{X} için Başvur" kalıbı bir ürün/modül adıyla doğal
+   * okunuyor ("Doküman Modülü için Başvur") ama "İletişim"/"Online Sunum
+   * Talebi" gibi bu formların KENDİ amacını adlandıran bir kelimeyle
+   * zorlanınca ("İletişim için Başvur") doğal bir Türkçe/İngilizce/
+   * Hollandaca/İtalyanca ifade üretmiyor — verilmezse (bu iki form)
+   * `labels.submit` DEĞİŞMEDEN kalır. */
+  ctaKeyword?: string;
 }
 
 // idenfit.com hero başvuru formu. NOT: submit şimdilik yalnızca console.log —
@@ -135,10 +151,14 @@ export default function HeroForm({
   layout = 'stacked',
   submitStyle = 'default',
   redirectHref,
+  ctaKeyword,
 }: HeroFormProps) {
   const isPresentation = variant === 'presentation';
   const isGrid = layout === 'grid';
   const isGreenSubmit = submitStyle === 'green';
+  // CTA/anchor text optimizasyonu (2026-08-12) — bkz. `HeroFormProps.ctaKeyword`
+  // yorumu.
+  const submitLabel = ctaKeyword && isGenericCtaText(labels.submit) ? buildCtaAnchorText(ctaKeyword, locale) : labels.submit;
   const [data, setData] = useState<FormData>(EMPTY);
   // Ülke kodu — site diline göre makul bir varsayılanla başlıyor (TR→TR,
   // EN→GB, NL→NL, IT→IT, bkz. `getDefaultCountryForLocale()`), kullanıcı
@@ -228,7 +248,7 @@ export default function HeroForm({
   const messageColClass = isGrid ? 'w-full sm:min-w-[280px] sm:flex-1' : '';
 
   return (
-    <form onSubmit={handleSubmit} className={isGrid ? 'space-y-6' : isPresentation ? 'space-y-3' : 'space-y-2.5'} aria-label={labels.submit}>
+    <form onSubmit={handleSubmit} className={isGrid ? 'space-y-6' : isPresentation ? 'space-y-3' : 'space-y-2.5'} aria-label={submitLabel}>
     <div className={fieldsWrapperClass}>
       <div className={fieldColClass}>
         <label htmlFor={`${idPrefix}-fullName`} className="sr-only">{labels.name}</label>
@@ -408,7 +428,7 @@ export default function HeroForm({
                 'btn-cta btn-cta-form w-full px-6 py-3'
         }
       >
-        {labels.submit}
+        {submitLabel}
       </button>
 
       <p className="text-xs leading-relaxed text-muted">

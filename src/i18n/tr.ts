@@ -35,6 +35,7 @@ export const tr: Translations = {
     formEmail: 'Mail',
     formMessage: 'Mesajınız',
     formSubmit: 'Hemen Başvur',
+    ctaKeyword: 'Ücretsiz Demo',
     kvkkNotice: {
       prefix: '',
       kvkkLinkText: 'İletişim Web KVKK İbaresi',

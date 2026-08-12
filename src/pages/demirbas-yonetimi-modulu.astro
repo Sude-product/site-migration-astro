@@ -15,6 +15,11 @@ const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const title = buildIdenfitTitle('Demirbaş Yönetimi Modülü', 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu) — `pageTitle`
+// (hero'nun tanıtım cümlesi) `<title>` için de aynı sebeple kısaltılmıştı
+// (yukarıya bakın), CTA anchor text'i için de AYNI kısa/gerçek modül adı
+// kullanılıyor.
+const ctaKeyword = 'Demirbaş Yönetimi Modülü';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} title={title} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} />

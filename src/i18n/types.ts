@@ -53,6 +53,14 @@ export interface HeroLabels {
    * `t.hero.*`'dan alıyor). */
   formMessage: string;
   formSubmit: string;
+  /** CTA/anchor text optimizasyonu (2026-08-12) — `HeroForm.tsx`'in
+   * submit butonu jenerik metin taşıdığında (`isGenericCtaText()`)
+   * `buildCtaAnchorText(ctaKeyword, locale)`'a düşülür (ör. TR: "Ücretsiz
+   * Demo için Başvur"). Yalnızca ana sayfanın hero formunda kullanılıyor
+   * (`HeroSection.astro`) — `PanelFeatureSection.astro` kendi gerçek
+   * `home.panel.title`'ını (zaten var olan, çeviri gerektirmeyen bir
+   * metin) kullanıyor. */
+  ctaKeyword: string;
   kvkkNotice: KvkkNoticeLabels;
   sideTitle: string;
   sideSubtitle: string;
