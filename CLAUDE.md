@@ -18,7 +18,45 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 15. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 16. tur)
+
+**🟢 DONANIM SAYFASI (`/donanim/`) — LAZY-LOADING + CTA TAKİP TURU (bir
+önceki iki turun kapsam doğrulaması).** Kullanıcı, hem 15. turun (hero
+görseli lazy-loading bug'ı) hem 13. turun (CTA/anchor text optimizasyonu)
+`/donanim/` sayfasına gerçekten yayılıp yayılmadığını tek tek doğrulamak
+istedi — `donanim.astro`'nun ayrı bir `HardwarePage.astro` component'i
+kullanabileceği şüphesiyle.
+
+**Lazy-loading (ayrı bir tur, kod değişikliği YOK):** `donanim.astro`
+gerçekten `ProductPage.astro`'yu yeniden kullanıyor (kendi yorumunda
+zaten dokümante) — hero (`Dananimlar1@2x.png`) `eager`, 7 bölümün
+tamamı (`Donanimlar2`/`4`/`5`/`6`/`7`/`8`/`9@2x`) `lazy` — 15. turun
+düzeltmesi otomatik yayılmıştı, DOKUNULMADI. Aynı doğrulama
+`dokuman-yonetim-sistemi-modulu` için de yapıldı (bir tur önce), o da
+zaten doğruydu.
+
+**CTA — GERÇEK bir eksik bulundu, düzeltildi.** Hero CTA'sı jenerik
+DEĞİLDİ (13. turda zaten otomatik üretilmişti) ama sonuç ideal değildi:
+"Farklı donanımlara entegre tanımlama sistemleri için Başvur" (59
+karakter) — `pageTitle`'ın kendisi kısa bir modül adı değil, uzun bir
+tanıtım CÜMLESİ olduğu için `ctaKeyword` override'ı GEREKİYORDU
+(`en/nl/it/hardware.astro`'nun `<title>` için zaten aldığı kısa
+başlıklarla AYNI kök neden) — ama TR tam 59 karakterle 13. turun 60'lık
+eşiğinin TEKNİK OLARAK altında kaldığı için o turda ATLANMIŞTI (eşik
+"çok uzun mu" sorusuna cevap veriyor, "kısa bir anahtar kelime mi"
+sorusuna değil — bu ayrım o turda net değildi). `donanim.astro`'ya
+`ctaKeyword="Donanım Entegrasyonu"` eklendi (EN/NL/IT'nin "Hardware &
+Device Integrations"/"Hardware-integraties"/"Integrazioni Hardware"
+kısa başlıklarıyla AYNI anlam) → yeni sonuç: "Donanım Entegrasyonu için
+Başvur" (33 karakter). H1 DEĞİŞMEDİ, yalnızca CTA butonu.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-heading-hierarchy`/`test-no-external-idenfit-links` regresyonsuz,
+EN/NL/IT hardware sayfalarının CTA'sı DEĞİŞMEDEN kaldığı doğrulandı.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 15. tur (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — HERO GÖRSELİ `loading="lazy"` BUG'I DÜZELTİLDİ (TERSİ
 İSTENEN DAVRANIŞTAN — 143 SAYFA).** Kullanıcı Kurumsal Takvim Modülü
