@@ -18,7 +18,44 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 18. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 19. tur)
+
+**🟢 SİTE GENELİ — `<html lang>` DENETİMİ: GERÇEK SAYFALAR ZATEN DOĞRU,
+BULGU ASTRO'NUN KENDİ FRAMEWORK ŞABLONUNDA (KOD DEĞİŞİKLİĞİ GEREKMEDİ).**
+Kullanıcı "`<html>` etiketinde lang özniteliği eksik" uyarısını bildirdi.
+İnceleme: `BaseLayout.astro` (site geneli, hemen hemen tüm sayfalar) ZATEN
+dinamik (`lang={Astro.currentLocale ?? 'tr'}`) — 4 dilin TAMAMINDA doğru
+çalışıyor, doğrulandı. `LandingLayout.astro` (`/demo`) sabit `lang="tr"`
+taşıyor ama bu bir BUG DEĞİL — sayfa zaten TR-only (KARAR 2, bilinçli
+tasarım), tek locale'i olan bir sayfada sabit değer doğru olanı.
+
+**Gerçek bulgu bizim `src/` kodumuzda DEĞİLDİ.** 1492 redirect stub
+sayfasının (i18n fallback + elle `redirects`, bkz. Açık nokta #27)
+TAMAMI Astro'nun KENDİ framework-içi `redirectTemplate()`'inden
+(`node_modules/astro/dist/core/routing/3xx.js`) geliyor — bu şablon
+`<!doctype html><title>...<meta refresh>...<body>` üretiyor, **hiç
+`<html>` etiketi YOK** (dolayısıyla `lang` da yok). Bu, Astro çekirdeğine
+gömülü, projeden bağımsız bir davranış — özelleştirmek için Astro'nun
+sunduğu bir config seçeneği yok, `node_modules` içine elle müdahale
+(kalıcı olmayan, `npm install`'da silinecek bir hack) YAPILMADI. Aynı
+"zaten noindex, gerçek bir sorun değil" ilkesiyle (Açık nokta #27'nin
+devamı) kapsam dışı bırakıldı.
+
+**Yeni kalıcı araç — `scripts/check-html-lang-attribute.mjs`:** diğer
+`check-*.mjs` araçlarıyla AYNI desen — gerçek içerik sayfalarında
+`<html lang>`'in var olduğunu VE sayfanın URL yoluna göre BEKLENEN
+locale'le (tr/en/nl/it) eşleştiğini doğruluyor, redirect stub'larını
+AYRI, "hata" değil "bilgi amaçlı" bir kategori olarak raporluyor.
+
+**Kanıt:** `astro build` 881 sayfa, `check-html-lang-attribute.mjs`
+(2 kez art arda) → **882 gerçek içerik sayfasının TAMAMI doğru**
+(0 eksik, 0 yanlış locale), 1492 redirect stub'ın 1492'sinde de
+BEKLENEN (framework kısıtlaması) davranış doğrulandı. Kod değişikliği
+YOK — yalnızca doğrulama + dokümantasyon.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 18. tur (tarihsel, o turda doğruydu)
 
 **🟢 PUANTAJ SAYFASI — BÖLÜM-SEVİYESİ CTA OVERRIDE MEKANİZMASI KURULDU
 (`ProductPage.astro`'ya YENİ `sectionCtaOverrides` prop'u), TOPLAM 4
@@ -1761,7 +1798,18 @@ madde başına tekrarlanmıyor.
     bir sonucu. **Güncelleme (2026-08-11):** 4 yeni özel 404 sayfası
     (`/404`, `en/nl/it`'in `not-found` route'ları) da BİLİNÇLİ olarak
     `noindex` — toplam noindex sayfa sayısı 2→6 oldu, aynı gerekçe (404
-    zaten indekslenmemeli) geçerli.
+    zaten indekslenmemeli) geçerli. **Güncelleme (2026-08-12):** bu
+    stub'ların TAMAMI (1492, site büyüdükçe 1490'dan artmış) `<html>`
+    etiketini HİÇ içermiyor (dolayısıyla `lang` özniteliği de yok) —
+    kullanıcının bildirdiği "`<html>` etiketinde lang özniteliği eksik"
+    uyarısının kaynağı. Bu, Astro'nun KENDİ framework-içi redirect
+    şablonundan geliyor (`node_modules/astro/dist/core/routing/3xx.js`'in
+    `redirectTemplate()`'i — `<!doctype html><title>...<meta refresh>...
+    <body>`, hiç `<html>` üretmiyor) — bizim `src/` kodumuzda düzeltilecek
+    bir şey YOK, Astro'nun kendisinin sunduğu bir config hook'u da yok.
+    Aynı "noindex zaten var, gerçek bir sorun değil" ilkesiyle kapsam
+    dışı bırakıldı, doğrulama script'i (`check-html-lang-attribute.mjs`)
+    bu 1492'yi "hata" değil "bilgi amaçlı" olarak ayrı raporluyor.
 28. **TODO — Blog yazılarının `<title>` uzunluğu (622 yazının 435'i,
     %70, 50-60 aralığı dışında) BİLİNÇLİ olarak ayrı bir tura ertelendi
     (kullanıcı kararı, 2026-08-10).** Kök neden site sayfalarınınkinden
@@ -2245,10 +2293,17 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   doğrular, AYNI desen; bkz. Proje Durumu — kullanıcının bildirdiği bir
   SEO uyarısından çıktı, blog gövdesinde WordPress kaynaklı stray `<h1>`
   bulguları için `src/data/blogHeadingSanitizer.ts` + `astro.config.mjs`'in
-  `rehypeDemoteBodyH1s`'i render-time'da otomatik `<h2>`'ye indirgiyor).
-  **Not:** bu ALTI `check-*.mjs` script'i (title/description/link-
-  accessibility/json-ld/image-alt-text/heading-hierarchy) `readdir(dir,
-  {recursive:true})` yerine ELLE recursive tarama kullanıyor — bu proje
+  `rehypeDemoteBodyH1s`'i render-time'da otomatik `<h2>`'ye indirgiyor),
+  `check-html-lang-attribute.mjs` (2026-08-12, KALICI SEO/erişilebilirlik
+  aracı — gerçek içerik sayfalarında `<html lang>`'in var olduğunu VE
+  URL yoluna göre BEKLENEN locale'le eşleştiğini doğrular, redirect
+  stub'larını AYRI/bilgi-amaçlı raporlar; bkz. Proje Durumu — kullanıcının
+  bildirdiği bir uyarıdan çıktı, gerçek sayfalar zaten doğruydu, bulgu
+  Astro'nun kendi framework-içi redirect şablonundaydı, kod değişikliği
+  GEREKMEDİ). **Not:** bu YEDİ `check-*.mjs` script'i (title/description/
+  link-accessibility/json-ld/image-alt-text/heading-hierarchy/html-lang)
+  `readdir(dir, {recursive:true})` yerine ELLE recursive tarama kullanıyor
+  — bu proje
   OneDrive-senkronize bir klasörde, `recursive:true` bazen (görünürde
   rastgele) 2368 yerine 1 (hatta bazen 57) dosya döndürdü (2026-08-10'da
   defalarca bulundu, elle-taramaya geçildikten SONRA bile ara sıra
