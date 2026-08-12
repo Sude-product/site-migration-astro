@@ -7,6 +7,14 @@ const trSlug = 'puantaj-takip-programi-modulu';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+// `ctaTextOverride` (2026-08-12, kullanıcı kararı) — kaynağın kendi
+// `hero.ctaText`'i ("Başlayın") jenerik SAYILMADIĞI için otomatik
+// mekanizma hiç devreye girmiyordu; kullanıcı H1'deki ("Zaman ve
+// Devamsızlık Yönetimi") temayla tutarlı, "Başlayın" fiilini koruyan
+// tam bir metin istedi — `ctaKeyword`'ün şablonuna ("{X} için Başvur")
+// UYMADIĞI için `ProductPage.astro`'nun yeni, şablonsuz VERBATİM
+// override prop'u kullanıldı. H1 DEĞİŞMEDİ.
+const ctaTextOverride = 'Zaman Yönetimine Başlayın';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} ctaTextOverride={ctaTextOverride} localeUrls={localeUrls} />

@@ -18,7 +18,48 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 16. tur)
+## Proje Durumu (son güncelleme: 2026-08-12, 17. tur)
+
+**🟢 CTA/ANCHOR TEXT TAKİP TURLARI (16-17. turlar, ürün sayfaları tek
+tek doğrulanıyor) — `ProductPage.astro`'ya YENİ `ctaTextOverride` prop'u
+eklendi.** 13. turun (~150 sayfa) CTA optimizasyonu sonrası kullanıcı
+birkaç modül sayfasını tek tek elle doğruluyor (Doküman/Masraf/Donanım/
+Şirket Takvimi/Özlük Dosyası/Puantaj) — bu, o turun kapsamının
+GERÇEKTEN doğru yayıldığını (veya kaçırdığı bir kenar durumu olup
+olmadığını) tek tek kanıtlıyor. Özet, bu turda **Puantaj Takip Programı**
+(`puantaj-takip-programi-modulu`) kapandı:
+
+- **Kaynağın kendi `hero.ctaText`'i "Başlayın"** — `GENERIC_CTA_TEXTS`
+  setinde YOK (13. turun taramasında yalnızca 1 sayfada tespit edilmişti,
+  "tekrarlayan" eşiğini geçmiyordu) — bu yüzden otomatik mekanizma hiç
+  DEVREYE GİRMEMİŞTİ, kaynak metin AYNEN kalmıştı.
+- Kullanıcı, H1'deki ("Zaman ve Devamsızlık Yönetimi") temayla tutarlı
+  ama "Başlayın" fiilini KORUYAN bir metin istedi ("Zaman Yönetimine
+  Başlayın") — `ctaKeyword`'ün sabit şablonuna ("{X} için Başvur")
+  UYMUYOR. Bu yüzden `ProductPage.astro`'ya yeni, en yüksek öncelikli
+  bir override prop'u eklendi: `ctaTextOverride?: string` — verilirse
+  kaynağın jenerik olup olmadığına BAKMAKSIZIN, şablonsuz/VERBATİM bu
+  metni gösterir (`ctaKeyword`'ün "şablonlu anahtar kelime" ile AYNI
+  seviyede ama farklı bir override türü — `title`/`description`
+  override'larıyla kurulmuş AYNI ilke).
+
+**Diğer takip turlarının sonucu (kod değişikliği GEREKMEDİ, yalnızca
+doğrulandı):** Doküman Yönetim Sistemi + Masraf Yönetimi (lazy-loading
+zaten doğruydu) + Şirket Takvimi (CTA zaten "Şirket takvimi için
+Başvur" — kullanıcı bu hâliyle onayladı, override İSTEMEDİ). **Özlük
+Dosyası** (`calisan-ozluk-yonetimi-modulu`) — CTA zaten otomatik
+üretilmişti ("Özlük dosyası modülü için Başvur"), kullanıcı daha kısa
+bir alternatif ("Özlük Dosyası için Başvur") seçti → `ctaKeyword="Özlük
+Dosyası"` eklendi (ayrı bir commit, 94a07a0).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa, her turda
+`check-heading-hierarchy`/`test-no-external-idenfit-links` regresyonsuz,
+diğer ProductPage sayfalarının (`dokuman-yonetim-sistemi-modulu` dahil)
+CTA'sının DEĞİŞMEDEN kaldığı doğrulandı.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 16. tur (tarihsel, o turda doğruydu)
 
 **🟢 DONANIM SAYFASI (`/donanim/`) — LAZY-LOADING + CTA TAKİP TURU (bir
 önceki iki turun kapsam doğrulaması).** Kullanıcı, hem 15. turun (hero

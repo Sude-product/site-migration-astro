@@ -37,9 +37,19 @@ interface Props {
    * override'ıyla AYNI kurulmuş desen (keşif turunda 150 sayfadan yalnızca
    * 5'inin buna ihtiyacı olduğu doğrulandı). */
   ctaKeyword?: string;
+  /** Tam CTA metni override'ı (2026-08-12, kullanıcı kararı — Puantaj
+   * sayfası) — `ctaKeyword`'den FARKI: `ctaKeyword` yalnızca kaynak metin
+   * jenerikse devreye girer ve şablonlu ("{keyword} için Başvur") bir
+   * sonuç üretir; bu prop VERİLDİĞİNDE kaynağın jenerik olup olmadığına
+   * BAKMAKSIZIN, şablonsuz/VERBATİM bu metni gösterir. Kullanıcı kararıyla
+   * her sayfada anlamlı ama şablona uymayan (ör. "Zaman Yönetimine
+   * Başlayın" gibi "Başlayın" fiilini koruyan) bir metin gerektiğinde
+   * kullanılır — `title`/`description`/`ctaKeyword` override'larıyla AYNI
+   * ilke, yalnızca en üst öncelikli. */
+  ctaTextOverride?: string;
 }
 
-const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride, ctaKeyword } = Astro.props;
+const { content, pageTitle, localeUrls, description: descriptionOverride, title: titleOverride, ctaKeyword, ctaTextOverride } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
 // Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
@@ -51,10 +61,11 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const description = descriptionOverride ?? hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
 const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
-// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ctaKeyword` prop
-// yorumu. Kaynak zaten benzersiz/anlamlı bir metin taşıyorsa (jenerik
-// listede yoksa) hiç DOKUNULMAZ.
-const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText;
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ctaKeyword`/
+// `ctaTextOverride` prop yorumları. Kaynak zaten benzersiz/anlamlı bir
+// metin taşıyorsa (jenerik listede yoksa) hiç DOKUNULMAZ.
+const heroCtaText =
+  ctaTextOverride ?? (hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText);
 ---
 
 <BaseLayout title={title} description={description} localeUrls={localeUrls}>
