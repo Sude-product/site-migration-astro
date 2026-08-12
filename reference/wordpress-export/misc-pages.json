@@ -1,6 +1,6 @@
 {
   "_source": "reference/wordpress-export/pages.json (yerel export, `page` post type)",
-  "_fetchedAt": "2026-08-05T13:36:47.650Z",
+  "_fetchedAt": "2026-08-11T10:46:22.033Z",
   "_note": "Her grup kendi doğal şeklinde: contact (hero+ofis listesi), legal (tek content_block), security (madde listesi), productLike (Şema D — ProductBlock uyumlu, ProductPage.astro ile render edilebilir).",
   "pages": [
     {
@@ -35,7 +35,27 @@
                 "name": "Lahey Global Satış Ofisi",
                 "address": "Zuid Hollandlaan, Rode Olifant 7, 2596 AL Den Haag/The Netherlands"
               }
-            ]
+            ],
+            "heroImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png",
+              "alt": "bisiklet@2x",
+              "width": 1362,
+              "height": 1068
+            },
+            "officesImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp",
+              "alt": "contact image",
+              "width": 1299,
+              "height": 895
+            },
+            "mapImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/09/contact-map-1-scaled.webp",
+              "alt": "contact-map",
+              "width": 2560,
+              "height": 1433
+            },
+            "socialMediaTitle": "Daha fazla içerik için sosyal medyada bizi takip edin !",
+            "videoUrl": "https://youtu.be/N4cuH5AdDmg"
           }
         },
         "en": {
@@ -66,7 +86,27 @@
                 "name": "MENA Sales Office",
                 "address": "Ofis-D. Şerifali Mah. Kale Sk. No:22 Zemin Kat 34775 Ümraniye / İSTANBUL"
               }
-            ]
+            ],
+            "heroImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png",
+              "alt": "bisiklet@2x",
+              "width": 1362,
+              "height": 1068
+            },
+            "officesImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp",
+              "alt": "contact image",
+              "width": 1299,
+              "height": 895
+            },
+            "mapImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp",
+              "alt": "contact-map",
+              "width": 2560,
+              "height": 1433
+            },
+            "socialMediaTitle": "Follow us on social media for more information.",
+            "videoUrl": "https://youtu.be/iEQ_lep-ZY8"
           }
         },
         "nl": {
@@ -97,7 +137,27 @@
                 "name": "MENA Sales Office",
                 "address": "Ofis-D. Şerifali Mah. Kale Sk. No:22 Zemin Kat 34775 Ümraniye / İSTANBUL"
               }
-            ]
+            ],
+            "heroImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png",
+              "alt": "bisiklet@2x",
+              "width": 1362,
+              "height": 1068
+            },
+            "officesImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp",
+              "alt": "contact image",
+              "width": 1299,
+              "height": 895
+            },
+            "mapImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp",
+              "alt": "contact-map",
+              "width": 2560,
+              "height": 1433
+            },
+            "socialMediaTitle": "Volg ons op sociale media voor meer informatie.",
+            "videoUrl": "https://youtu.be/iEQ_lep-ZY8"
           }
         },
         "it": {
@@ -128,7 +188,27 @@
                 "name": "MENA Sales Office",
                 "address": "Ofis-D. Şerifali Mah. Kale Sk. No:22 Zemin Kat 34775 Ümraniye / İSTANBUL"
               }
-            ]
+            ],
+            "heroImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png",
+              "alt": "bisiklet@2x",
+              "width": 1362,
+              "height": 1068
+            },
+            "officesImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp",
+              "alt": "contact image",
+              "width": 1299,
+              "height": 895
+            },
+            "mapImage": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp",
+              "alt": "contact-map",
+              "width": 2560,
+              "height": 1433
+            },
+            "socialMediaTitle": "Follow us on social media for more information.",
+            "videoUrl": "https://youtu.be/iEQ_lep-ZY8"
           }
         }
       }

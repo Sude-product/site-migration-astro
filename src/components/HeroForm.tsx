@@ -18,9 +18,13 @@ interface FormData {
   phone: string;
   company: string;
   email: string;
+  /** Yalnızca `showMessage` true olan kullanımlarda (İletişim sayfası,
+   * 2026-08-11 KARAR) dolduruluyor — Hero/Presentation formlarında hiç
+   * render edilmiyor, her zaman boş kalıyor. */
+  message: string;
 }
 
-const EMPTY: FormData = { fullName: '', phone: '', company: '', email: '' };
+const EMPTY: FormData = { fullName: '', phone: '', company: '', email: '', message: '' };
 
 export interface KvkkNoticeLabels {
   prefix: string;
@@ -43,6 +47,9 @@ export interface HeroFormLabels {
   email: string;
   submit: string;
   kvkkNotice: KvkkNoticeLabels;
+  /** `showMessage` true'yken zorunlu — İletişim sayfasının "Mesajınız"
+   * textarea placeholder'ı. */
+  message?: string;
 }
 
 export interface HeroFormProps {
@@ -72,6 +79,45 @@ export interface HeroFormProps {
    * (`background-color:#289C0F`, ölçülen — Destek Talebi'nin `#60A344`'ünden
    * FARKLI bir yeşil, karıştırılmamalı). */
   variant?: 'underline' | 'presentation';
+  /** `true` ise e-posta/firma alanlarının altına bir "Mesajınız" textarea'sı
+   * eklenir (2026-08-11, KARAR: İletişim sayfasının gerçek kaynak formunda
+   * 5. bir serbest-metin alanı var — `pages.json`'daki `iletisim` ACF
+   * grubunda ayrı bir alan olarak YOK, kaynağın form widget'ının kendi
+   * built-in alanı, bkz. CLAUDE.md). Yalnızca İletişim sayfası bunu
+   * `true` geçiyor — Hero/PanelFeatureSection/Online Sunum Talebi
+   * ETKİLENMEDİ, varsayılan `false` ile eski davranış birebir korunuyor. */
+  showMessage?: boolean;
+  /** `'stacked'` (varsayılan) — Hero/PanelFeatureSection/Online Sunum
+   * Talebi'nin bugüne kadarki DAVRANIŞI, her alan tek sütunda alt alta.
+   * `'grid'` — İletişim sayfasının gerçek kaynak formu (2026-08-11,
+   * element-ID doğrulamalı ölçüldü: `.elementor-form-fields-wrapper{
+   * display:flex;flex-wrap:wrap}`, her alan konteynerin ~1/3'ü genişliğinde
+   * [3'lü satır, kalan 2 alan bir sonraki satıra taşıyor], `Mesajınız`
+   * textarea'sı ise SABİT 1/3 DEĞİL, satırındaki kalan boşluğu dolduruyor
+   * [ölçülen: diğerleri 448px, mesaj 709px] — burada `flex-1` ile
+   * taklit edildi). Yalnızca İletişim sayfası `'grid'` geçiyor. */
+  layout?: 'stacked' | 'grid';
+  /** `'default'` (varsayılan) — mevcut `.btn-cta btn-cta-form` (kırmızı) ya
+   * da `presentation` varyantının yeşil pill'i (`variant` tarafından
+   * belirlenir). `'green'` — İletişim sayfasının GERÇEK submit butonu
+   * (2026-08-11, element-ID doğrulamalı ölçüldü, `variant`'tan BAĞIMSIZ —
+   * İletişim'in input'ları `'underline'` KALIYOR ama butonu `presentation`
+   * pill'inden FARKLI: `background-color:#289C0F` [AYNI yeşil, ölçüldü],
+   * `border-radius:6px` [pill DEĞİL], `font-weight:700`, `font-size:15px`,
+   * metin literal BÜYÜK HARF ["HEMEN BAŞVUR"] — `labels.submit` normal
+   * case kalıyor, `uppercase` CSS ile uygulanıyor, `presentation`
+   * varyantının placeholder-uppercase deseniyle AYNI ilke). */
+  submitStyle?: 'default' | 'green';
+  /** Verilirse, GEÇERLİ bir submit sonrası (telefon doğrulaması geçti)
+   * kullanıcı bu URL'e yönlendirilir (2026-08-11, KARAR). ⚠️ Faz 2 backend
+   * HÂLÂ YOK — bu, gerçek bir form gönderimi/CRM entegrasyonu DEĞİL,
+   * yalnızca `console.log` stub'ının üstüne eklenen İSTEMCİ-TARAFI bir
+   * yönlendirme (`ThankYouPage.astro`'nun kendi yorumundaki "Faz 2'de
+   * bağlanacak" notuyla ÇELİŞMİYOR — o not gerçek backend entegrasyonu
+   * için geçerli, bu yalnızca UX akışını tamamlıyor). Verilmezse (Hero/
+   * PanelFeatureSection/Online Sunum Talebi) eski davranış (yönlendirme
+   * yok) korunuyor. */
+  redirectHref?: string;
 }
 
 // idenfit.com hero başvuru formu. NOT: submit şimdilik yalnızca console.log —
@@ -85,8 +131,14 @@ export default function HeroForm({
   kvkkHref,
   termsHref,
   variant = 'underline',
+  showMessage = false,
+  layout = 'stacked',
+  submitStyle = 'default',
+  redirectHref,
 }: HeroFormProps) {
   const isPresentation = variant === 'presentation';
+  const isGrid = layout === 'grid';
+  const isGreenSubmit = submitStyle === 'green';
   const [data, setData] = useState<FormData>(EMPTY);
   // Ülke kodu — site diline göre makul bir varsayılanla başlıyor (TR→TR,
   // EN→GB, NL→NL, IT→IT, bkz. `getDefaultCountryForLocale()`), kullanıcı
@@ -100,6 +152,9 @@ export default function HeroForm({
 
   const update = (field: 'fullName' | 'company' | 'email') => (e: React.ChangeEvent<HTMLInputElement>) =>
     setData((d) => ({ ...d, [field]: e.target.value }));
+
+  const updateMessage = (e: React.ChangeEvent<HTMLTextAreaElement>) =>
+    setData((d) => ({ ...d, message: e.target.value }));
 
   const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setData((d) => ({ ...d, phone: normalizePhoneDigits(e.target.value, country) }));
@@ -122,6 +177,11 @@ export default function HeroForm({
     if (!phoneValid) return; // eksik/yanlış telefon — gönderme, hata görünür kalır.
     // TODO: backend entegrasyonu — şimdilik sadece logla.
     console.log('Hero form gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
+    // `redirectHref` verilmişse (yalnızca İletişim, 2026-08-11) GERÇEK bir
+    // backend gönderimi/CRM kaydı YOK — yalnızca istemci-tarafı, "başarılı
+    // gönderim" akışını tamamlayan bir yönlendirme (bkz. `HeroFormProps`
+    // yorumu).
+    if (redirectHref) window.location.href = redirectHref;
   };
 
   // ⚠️ DÜZELTME (2026-07-28, BEŞİNCİ tur): önceki tur (2026-07-27) hero
@@ -159,10 +219,18 @@ export default function HeroForm({
   // Form alanları arası boşluk: `presentation` (Online Sunum Talebi,
   // post-15441.css) `space-y-3` (12px) korunuyor — `underline` varyantı
   // 2026-08-03'te element-ID doğrulamalı gerçek değere (`43e32bd`
-  // `.elementor-field-group{margin-bottom:10px}`) düzeltildi.
+  // `.elementor-field-group{margin-bottom:10px}`) düzeltildi. `isGrid`
+  // durumunda bu boşluk artık FORM'un değil, alanları saran iç wrapper'ın
+  // sorumluluğu (bkz. `fieldsWrapperClass`) — form seviyesinde yalnızca
+  // wrapper/buton/KVKK metni arası kalır.
+  const fieldsWrapperClass = isGrid ? 'flex flex-wrap gap-x-6 gap-y-5' : isPresentation ? 'space-y-3' : 'space-y-2.5';
+  const fieldColClass = isGrid ? 'w-full sm:w-[calc(33.333%-1rem)]' : '';
+  const messageColClass = isGrid ? 'w-full sm:min-w-[280px] sm:flex-1' : '';
+
   return (
-    <form onSubmit={handleSubmit} className={isPresentation ? 'space-y-3' : 'space-y-2.5'} aria-label={labels.submit}>
-      <div>
+    <form onSubmit={handleSubmit} className={isGrid ? 'space-y-6' : isPresentation ? 'space-y-3' : 'space-y-2.5'} aria-label={labels.submit}>
+    <div className={fieldsWrapperClass}>
+      <div className={fieldColClass}>
         <label htmlFor={`${idPrefix}-fullName`} className="sr-only">{labels.name}</label>
         <input
           id={`${idPrefix}-fullName`}
@@ -175,7 +243,7 @@ export default function HeroForm({
           className={inputClass}
         />
       </div>
-      <div>
+      <div className={fieldColClass}>
         <label htmlFor={`${idPrefix}-phone`} className="sr-only">{labels.phone}</label>
         {/* Ülke kodu seçici — idenfit.com'un HERO formunda (43e32bd) YOK,
             ama aynı sayfadaki 2. formda (b10b9e1, "Kullanıcı Dostu Panel")
@@ -248,7 +316,7 @@ export default function HeroForm({
           kullanımlar etkilenmiyor. */}
       {isPresentation ? (
         <>
-          <div>
+          <div className={fieldColClass}>
             <label htmlFor={`${idPrefix}-email`} className="sr-only">{labels.email}</label>
             <input
               id={`${idPrefix}-email`}
@@ -261,7 +329,7 @@ export default function HeroForm({
               className={inputClass}
             />
           </div>
-          <div>
+          <div className={fieldColClass}>
             <label htmlFor={`${idPrefix}-company`} className="sr-only">{labels.company}</label>
             <input
               id={`${idPrefix}-company`}
@@ -277,7 +345,7 @@ export default function HeroForm({
         </>
       ) : (
         <>
-          <div>
+          <div className={fieldColClass}>
             <label htmlFor={`${idPrefix}-company`} className="sr-only">{labels.company}</label>
             <input
               id={`${idPrefix}-company`}
@@ -290,7 +358,7 @@ export default function HeroForm({
               className={inputClass}
             />
           </div>
-          <div>
+          <div className={fieldColClass}>
             <label htmlFor={`${idPrefix}-email`} className="sr-only">{labels.email}</label>
             <input
               id={`${idPrefix}-email`}
@@ -306,17 +374,38 @@ export default function HeroForm({
         </>
       )}
 
+      {showMessage && labels.message && (
+        <div className={messageColClass}>
+          <label htmlFor={`${idPrefix}-message`} className="sr-only">{labels.message}</label>
+          <textarea
+            id={`${idPrefix}-message`}
+            name="message"
+            rows={3}
+            value={data.message}
+            onChange={updateMessage}
+            placeholder={labels.message}
+            className={`${inputClass} resize-none`}
+          />
+        </div>
+      )}
+    </div>
+
       <button
         type="submit"
         className={
-          isPresentation
-            ? // Ölçülen gerçek renk: #289C0F — Destek Talebi'nin (`SupportRequestForm.tsx`)
-              // #60A344'ünden FARKLI bir yeşil, birbirine karıştırılmamalı.
-              'w-full rounded-full bg-[#289C0F] px-6 py-3 text-base font-normal text-white transition-opacity hover:opacity-90'
-            : // `.btn-cta-form` renk/kenarlık/köşeyi `.btn-cta`'dan miras alıp
-              // yalnızca font-size/weight'i bu widget'ın ölçülen gerçek
-              // değerine (16/18/21px, 500) override ediyor — bkz. global.css.
-              'btn-cta btn-cta-form w-full px-6 py-3'
+          isGreenSubmit
+            ? // İletişim sayfasının GERÇEK submit butonu (bkz. `HeroFormProps.submitStyle`
+              // yorumu) — AYNI #289C0F yeşili ama `presentation`'ın pill'inden
+              // FARKLI: 6px radius, 700 kalınlık, 15px, literal büyük harf.
+              'w-full rounded-md bg-[#289C0F] px-6 py-3 text-[15px] font-bold uppercase text-white transition-opacity hover:opacity-90'
+            : isPresentation
+              ? // Ölçülen gerçek renk: #289C0F — Destek Talebi'nin (`SupportRequestForm.tsx`)
+                // #60A344'ünden FARKLI bir yeşil, birbirine karıştırılmamalı.
+                'w-full rounded-full bg-[#289C0F] px-6 py-3 text-base font-normal text-white transition-opacity hover:opacity-90'
+              : // `.btn-cta-form` renk/kenarlık/köşeyi `.btn-cta`'dan miras alıp
+                // yalnızca font-size/weight'i bu widget'ın ölçülen gerçek
+                // değerine (16/18/21px, 500) override ediyor — bkz. global.css.
+                'btn-cta btn-cta-form w-full px-6 py-3'
         }
       >
         {labels.submit}

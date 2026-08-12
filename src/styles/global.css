@@ -28,8 +28,14 @@
      panelin sayfanın beyaz zeminine karışıp "soğuk/düz" durmasını önlüyor. */
   --color-menu-surface: #f2f2f2;
 
-  /* Marquee (duyuru barı) — soft lavender/pembe zemin */
-  --color-marquee-bg: #f5eefb;
+  /* Marquee (duyuru barı) — kaynağın `.scrolling-banner`/`.scrolling-text`
+     kurallarından element-ID doğrulamalı ölçüldü (2026-08-11): zemin
+     `rgb(251,229,255)`, alt kenarlık `1.5px solid rgb(241,160,255)`, metin
+     rengi `rgb(217,0,255)` — önceki 3 değer de UYDURMAYDI (`text-brand`
+     kırmızısı dahil), hiçbiri kaynakla örtüşmüyordu. */
+  --color-marquee-bg: #fbe5ff;
+  --color-marquee-border: #f1a0ff;
+  --color-marquee-text: #d900ff;
 
   /* Footer zemini — 2026-07-28 (dördüncü tur). Kaynağın footer template'i
      (`<footer data-elementor-id="10095">` → `post-10095.css`) doğrulandı:
@@ -41,15 +47,35 @@
      kullanıyor, bu bilinçli/kaynaktan — dokunulmadı). */
   --color-footer-bg: #949494;
 
-  /* Animasyonlar → `animate-marquee` utility'sine dönüşür */
-  --animate-marquee: marquee 40s linear infinite;
+  /* Animasyonlar → `animate-marquee` utility'sine dönüşür. Kaynağın gerçek
+     `.scrolling-track{animation:30s linear infinite scroll-left}` süresi
+     LİTERAL kopyalanmadı — kaynağın döngü genişliği (2112px, `-50%`=1056px
+     kayma / 30s ≈ 35.2px/s) bizim `MarqueeBar.tsx`'in kasıtlı olarak çok
+     daha geniş yarı-kopyasından (bkz. `HALF_REPEAT` yorumu, ~3500px)
+     FARKLI — 30s'yi birebir kullanmak akış hızını yaklaşık 3 katına
+     çıkarırdı. Bunun yerine kaynağın GERÇEK piksel/saniye hızı (~35.2px/s)
+     korunup bizim genişliğimize göre süre hesaplandı (~100s) — görsel
+     "okuma temposu" kaynakla aynı, yalnızca döngü matematiği (bkz.
+     `@keyframes marquee` yorumu) güvenli genişlik için uzatıldı. */
+  --animate-marquee: marquee 100s linear infinite;
 
   /* Tipografi */
   --font-sans: "Quicksand", ui-sans-serif, system-ui, -apple-system,
     "Segoe UI", Roboto, sans-serif;
 }
 
-/* Marquee: içerik 2x listelendiği için -50% kayma kusursuz döngü verir. */
+/* Marquee: -50% kayma matematiği (0→-50%, içerik 2 kopya) her zaman
+   TEK BAŞINA yeterli değil — 2026-08-11'de bulunan gerçek kök neden:
+   -50%'lik kayma yalnızca HER YARIM KOPYA (tek `MODULES` döngüsü)
+   viewport genişliğine EŞİT VEYA DAHA GENİŞSE kusursuz. Önceki halde
+   bir yarı kopya yalnızca ~856px'ti (1536px viewport'ta) — kayma
+   ilerledikçe track'in kalan genişliği viewport'tan azaldığı an, döngü
+   sıfırlanana kadar zeminin (boş) görünmesi ("boşluk/duraklama" hissi)
+   kaçınılmazdı. Çözüm CSS'te değil `MarqueeBar.tsx`'te: her yarı artık
+   `MODULES` dizisini yeterince (4x) tekrarlıyor ki yarı-kopya genişliği
+   her gerçekçi masaüstü viewport'unu (~3400px'e kadar) aşsın — 2-kopya/
+   -50% matematiği DEĞİŞMEDİ, yalnızca her kopyanın kendi içeriği
+   büyütüldü. */
 @keyframes marquee {
   from {
     transform: translateX(0);

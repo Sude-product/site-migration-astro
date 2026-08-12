@@ -33,11 +33,13 @@ const title = buildIdenfitTitle(content.title, locale);
 ---
 
 <BaseLayout title={title} description={description} localeUrls={localeUrls}>
-  <section class="mx-auto max-w-3xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <h1 class="text-3xl font-bold text-heading sm:text-4xl">{content.title}</h1>
-    <div
-      class="prose-legal mt-8 text-sm leading-relaxed text-body [&_h1]:text-lg [&_h1]:font-bold [&_h1]:text-heading [&_h2]:mt-6 [&_h2]:text-lg [&_h2]:font-bold [&_h2]:text-heading [&_h3]:mt-4 [&_h3]:text-base [&_h3]:font-bold [&_h3]:text-heading [&_h4]:mt-4 [&_h4]:font-semibold [&_h4]:text-heading [&_li]:mb-1 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-5 [&_p]:mb-3 [&_strong]:font-semibold [&_strong]:text-heading [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
-      set:html={content.contentHtml}
-    />
-  </section>
+  <div class="w-full px-4 py-12 sm:px-6 lg:px-[100px] lg:py-16">
+    <section class="mx-auto max-w-[1440px]">
+      <h1 class="text-4xl font-normal uppercase leading-[43px] text-brand">{content.title}</h1>
+      <div
+        class="prose-legal mt-10 text-base leading-[30px] text-black [&_a]:text-brand [&_h1]:mt-6 [&_h1]:text-2xl [&_h1]:font-medium [&_h1]:leading-[28px] [&_h1]:text-brand [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:leading-[28px] [&_h2]:text-brand [&_h3]:mt-6 [&_h3]:text-2xl [&_h3]:font-medium [&_h3]:leading-[28px] [&_h3]:text-brand [&_h4]:mt-6 [&_h4]:text-2xl [&_h4]:font-medium [&_h4]:leading-[28px] [&_h4]:text-brand [&_li]:mb-0 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-10 [&_p]:mb-4 [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-10 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#dee2e6] [&_th]:p-2 [&_th]:text-left [&_th]:font-bold [&_td]:border [&_td]:border-[#dee2e6] [&_td]:p-2 [&_td]:font-normal [&_tbody_tr:nth-of-type(odd)]:bg-black/5"
+        set:html={content.contentHtml}
+      />
+    </section>
+  </div>
 </BaseLayout>

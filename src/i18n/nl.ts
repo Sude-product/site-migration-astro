@@ -27,6 +27,7 @@ export const nl: Translations = {
     formPhoneCountryNoResults: 'Geen resultaten gevonden',
     formCompany: 'Bedrijfsnaam',
     formEmail: 'E-mail',
+    formMessage: 'Uw Bericht',
     formSubmit: 'Nu Aanvragen',
     kvkkNotice: {
       prefix: 'Ik accepteer de ',

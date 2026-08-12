@@ -46,6 +46,12 @@ export interface HeroLabels {
   formPhoneCountryNoResults: string;
   formCompany: string;
   formEmail: string;
+  /** "Mesajınız" — yalnızca İletişim sayfasının formunda kullanılıyor
+   * (`HeroForm.tsx`'in `showMessage` prop'u, 2026-08-11 KARAR). Hero'nun
+   * kendisi bu alanı hiç render etmiyor ama diğer 4 form etiketiyle aynı
+   * `t.hero.*` grubunda tutuluyor (component zaten tüm etiketleri
+   * `t.hero.*`'dan alıyor). */
+  formMessage: string;
   formSubmit: string;
   kvkkNotice: KvkkNoticeLabels;
   sideTitle: string;

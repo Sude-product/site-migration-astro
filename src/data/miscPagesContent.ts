@@ -80,6 +80,12 @@ export interface ContactOffice {
   name: string;
   address: string;
 }
+export interface ContactImage {
+  url: string;
+  alt: string;
+  width?: number;
+  height?: number;
+}
 export interface ContactContent {
   pageTitle: string;
   pageSubtitle: string;
@@ -91,6 +97,27 @@ export interface ContactContent {
   formTitle: string;
   officesTitle: string;
   offices: ContactOffice[];
+  /** Bisikletli kişi illüstrasyonu — kaynakta 4 dilde AYNI görsel
+   * (2026-08-11 eklendi, bkz. CLAUDE.md "İletişim sayfası eksik-bölüm
+   * turu"). Dekoratif — render'da `alt=""` kullanılır (kaynağın ham
+   * `alt`'i dosya-adı kaynaklı anlamsız metin, `check-image-alt-text.mjs`
+   * turundaki AYNI düzeltme ilkesi). */
+  heroImage: ContactImage | null;
+  /** Gerçek ofis fotoğrafı (kolaj), 4 dilde AYNI görsel. */
+  officesImage: ContactImage | null;
+  /** Kaynağın statik dünya haritası illüstrasyonu (taralı desen + kırmızı
+   * yıldız pin'ler — GERÇEK bir sokak/uydu haritası DEĞİL, "global ofis
+   * varlığı" temalı bir illüstrasyon). 2026-08-11'de bir tur canlı/
+   * interaktif bir Google Maps embed'iyle DEĞİŞTİRİLMİŞTİ (KARAR 1) —
+   * kullanıcı geri bildirimiyle aynı gün kaynağa sadık statik görsele
+   * GERİ DÖNÜLDÜ. TR kendi dosyasını kullanıyor, EN/NL/IT paylaşılan
+   * AYNI dosyayı (kaynakta da öyle). */
+  mapImage: ContactImage | null;
+  socialMediaTitle: string;
+  /** Locale'e özel gerçek YouTube linki (TR farklı, EN/NL/IT aynı video) —
+   * kaynakta boş bir tıkla-oynat kutusu, biz zaten var olan
+   * `YoutubeClickToPlay.tsx`'i yeniden kullanıyoruz. */
+  videoUrl: string;
 }
 
 const CONTACT_TR_SLUG = 'iletisim';

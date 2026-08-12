@@ -33,6 +33,21 @@ export const CONTACT_IT_OVERRIDE: ContactContent = {
     { name: 'Ufficio R&S', address: 'Teknopark İstanbul Teknopark Bulvarı 1/1A Blok No:109 Pendik' },
     { name: 'Ufficio Vendite MENA', address: 'Ofis-D. Şerifali Mah. Kale Sk. No:22 Zemin Kat 34775 Ümraniye / İSTANBUL' },
   ],
+  // 2026-08-11 eklendi — heroImage/officesImage kaynakta 4 dilde AYNI
+  // gerçek görsel (TR/EN/NL'nin `misc-pages.json`'daki değerleriyle
+  // BİREBİR aynı URL/boyut), socialMediaTitle + videoUrl ise IT'nin kendi
+  // gerçek ACF verisinden (bkz. `reference/wordpress-export/pages.json`
+  // id 23526) — `social_media_title` ham ACF'de İngilizce idi (IT
+  // sayfasının kaynak bug'ı, `page_title`'daki AYNI sınıf), burada gerçek
+  // İtalyanca çeviriyle düzeltildi. `videoUrl` EN/NL ile AYNI
+  // (`iEQ_lep-ZY8`, kaynakta da öyle — yalnızca TR'nin kendi videosu var).
+  heroImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png', alt: 'bisiklet@2x', width: 1362, height: 1068 },
+  officesImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp', alt: 'contact image', width: 1299, height: 895 },
+  // EN/NL ile AYNI paylaşılan dosya (kaynakta da öyle — yalnızca TR'nin
+  // kendi map_image'ı var, bkz. `extract-misc-pages.mjs`).
+  mapImage: { url: 'https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp', alt: 'contact-map', width: 2560, height: 1433 },
+  socialMediaTitle: 'Seguici sui social media per maggiori informazioni.',
+  videoUrl: 'https://youtu.be/iEQ_lep-ZY8',
 };
 
 export const SECURITY_IT_OVERRIDE: SecurityItem[] = [

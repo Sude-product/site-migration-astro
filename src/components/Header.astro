@@ -157,7 +157,17 @@ const navItems = NAV_ITEMS.map((item) => {
 			<MarqueeBar />
 		</div>
 	</div>
-	<div class="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+	<!-- 2026-08-11 — konteyner düzeltmesi: `mx-auto max-w-7xl` (1280px,
+	     ortalanan) kaynakla UYUŞMUYORDU — canlı `<header>` element-ID
+	     doğrulamalı ölçüldü, gerçek davranış `width:100%; padding:0 100px`
+	     (max-width KAPAĞI YOK, `mx-auto` ORTALAMA YOK). Önceki `max-w-7xl
+	     mx-auto` 1536px viewport'ta logoyu x≈152'de başlatıyordu (gerçek
+	     x=100) — Contact/Legal sayfalarında bulunan AYNI "tek katmanlı
+	     max-width+mx-auto, padding'in üstüne biniyor" bug sınıfı, bkz.
+	     ContactPage.astro yorumu. Header'da iç içe max-width KATMANI da
+	     GEREKMİYOR (ölçülen `maxWidth:100%` — kaynak çok geniş ekranlarda
+	     bile yeniden ortalamıyor, sabit 100px kenar boşluğu sürüyor). -->
+	<div class="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-[100px]">
 		<!-- Sol: logo (idenfit.com'un gerçek logotype'ı, bkz. IdenfitLogo.tsx).
 		     2026-07-28 (YEDİNCİ tur, KONU 1): `h-8`(32px) kaynaktan KÜÇÜKMÜŞ —
 		     canlı HTML'de logo widget'ının gerçek element ID'si (`87adeaf`)

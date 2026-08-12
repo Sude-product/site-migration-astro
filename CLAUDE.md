@@ -18,7 +18,424 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-11, 2. tur)
+## Proje Durumu (son güncelleme: 2026-08-11, 11. tur)
+
+**🟢 HEADER/NAVBAR — LOGO+SAĞ GRUP KONTEYNER BUG'I + MARQUEE BOYUT/
+RENK/SONSUZ-DÖNGÜ DÜZELTMESİ (site geneli, `Header.astro`+`MarqueeBar.tsx`
+her sayfada render ediliyor).** Kullanıcı 3 sorun bildirdi: (1) logo
+gerçek siteden daha sağda duruyor, (2) sağ taraf (Giriş Yap/Online Sunum
+Talebi/dil seçici) gerçek siteden daha içeride/solda, (3) marquee'nin
+boyut/rengi kaynakla uyuşmuyor + döngü sonunda boşluk/duraklama oluyor.
+Canlı `idenfit.com` element-ID doğrulamalı ölçüldü (1536px viewport).
+
+**1-2: Header konteyneri — Contact/Legal sayfalarındaki AYNI bug sınıfı.**
+Gerçek `<header>`'in kendisi `width:100%; padding:0 100px` (max-width
+KAPAĞI YOK, `mx-auto` YOK) — bizim `mx-auto max-w-7xl px-4 sm:px-6
+lg:px-8` konteynerimiz 1536px viewport'ta logoyu x≈152'de başlatıyordu
+(gerçek x=100), çünkü `max-w-7xl`(1280px)'in kendi ortalama boşluğu
+(`mx-auto`) + iç `lg:px-8`(32px) üst üste biniyordu — Contact sayfasının
+5. turunda bulunan "tek katmanlı max-width+mx-auto" bug'ının AYNISI.
+Düzeltme: `max-w-7xl mx-auto` tamamen kaldırıldı, `w-full ...
+lg:px-[100px]` ile DOĞRUDAN kaynağın sınırsız/sabit-100px modeli
+uygulandı (iç `max-w-[1440px]` katmanı da GEREKMİYOR — ölçülen
+`maxWidth:100%`, kaynak çok geniş ekranlarda bile yeniden ortalamıyor).
+Doğrulandı: logo x=100 (ikisi de), sağ taraftaki dil seçici artık gerçek
+100px kenar boşluğuna oturuyor (önceki ~32px'lik yanlış konumdan).
+
+**3: Marquee — 3 gerçek fark bulundu, `.scrolling-banner`/`.scrolling-track`/
+`.scrolling-text` CSS kurallarından ölçüldü.**
+- **Renk/boyut tamamen uydurmaydı:** zemin `rgb(251,229,255)`/`#FBE5FF`
+  (önceki `#f5eefb` YANLIŞTI), alt kenarlık `1.5px solid rgb(241,160,255)`/
+  `#F1A0FF` (hiç yoktu), metin rengi `rgb(217,0,255)`/`#D900FF` (önceki
+  `text-brand` KIRMIZISI tamamen yanlıştı), banner yüksekliği sabit 50px
+  (önceki içerik-güdümlü `py-1.5` yüksekliği). 3 yeni tema token'ı
+  (`--color-marquee-bg/border/text`) eklendi.
+- **Sonsuz döngü boşluğu — gerçek kök neden matematik değil, GENİŞLİKTİ.**
+  `translateX(0→-50%)` + 2 kopya matematiği DOĞRU (kusursuz döngü için
+  yeterli) AMA yalnızca her yarı-kopyanın genişliği viewport'a EŞİT VEYA
+  DAHA GENİŞSE. Önceki halde bir yarı (tek `MODULES` turu) yalnızca
+  ~856px'ti — 1536px'lik viewport'ta kayma ilerledikçe track'in kalan
+  genişliği viewport'un altına düşüyor, döngü sıfırlanana kadar zemin
+  (boş) görünüyordu ("boşluk/duraklama" şikayetinin gerçek nedeni).
+  Düzeltme CSS matematiğinde DEĞİL, içerikte: `MarqueeBar.tsx`'te her
+  yarı artık `MODULES`'ı 5 kez tekrarlıyor (~3500px/yarı) — 0/-10/-25/
+  -40/-50% ara noktalarının HEPSİNDE track'in sağ kenarının viewport'u
+  kapladığı doğrulandı (`getBoundingClientRect()` ile), yani döngünün
+  HİÇBİR anında boşluk oluşamaz. Süre kaynağın LİTERAL "30s" değeri
+  DEĞİL, kaynağın GERÇEK piksel/saniye hızı (~35.2px/s, `1056px/30s`)
+  korunarak bizim daha geniş içeriğimize göre yeniden hesaplandı (~100s)
+  — görsel "okuma temposu" kaynakla aynı kalıyor.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa hatasız,
+`test-urunler-menu-links.mjs` 108/108 (mega-menü header konteyner
+değişikliğinden ETKİLENMEDİ), `test-faq-language-switch.mjs` 9/9,
+`test-no-external-idenfit-links.mjs` 2374/0, `check-link-accessibility.mjs`
+0 ihlal (2 kez art arda). Chrome'da TR+EN ziyaret edilip logo/sağ grup
+konumu + marquee renk/boyfu görsel doğrulandı, ayrıca `wait`+`screenshot`
+serisiyle (2s aralıklarla 5 kare) marquee'nin kesintisiz aktığı, hiçbir
+karede zemin/boşluk görünmediği kanıtlandı.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, 10. tur (tarihsel, o turda doğruydu)
+
+**🟢 KVKK/HUKUKİ SAYFA AİLESİ (`LegalPage.astro`) — FONT/TASARIM CANLI
+SİTEYLE EŞLEŞTİRİLDİ (14 sayfa: KVKK/KVK Protokol/Tüketici Hakları/
+Mesafeli Satış Sözleşmesi/Gizlilik ve Güvenlik Politikası × TR/EN/IT,
+NL→EN redirect).** Kullanıcı `/kisisel-verilerin-korunmasi/` sayfasının
+"yazıları kaymış, fontlar da aynısı değil" olduğunu bildirdi — canlı
+`idenfit.com/kisisel-verilerin-korunmasi/` element-ID doğrulamalı ölçülüp
+(`getComputedStyle`/`getBoundingClientRect`, 1536px viewport, bu oturumun
+İletişim sayfası turlarındaki AYNI metodoloji) kök neden bulundu: **font
+dosyası sorunu DEĞİLDİ** (Quicksand yerelde de doğru yükleniyordu,
+`document.fonts.check()` ile doğrulandı) — asıl sorun konteyner genişliği
++ tipografi değerleriydi.
+
+**Bulunan 3 gerçek fark:**
+1. **Konteyner tek katmanlı `max-w-3xl` (768px) idi, gerçek site ~1320px.**
+   İletişim sayfasının 5. turunda keşfedilen AYNI iki-katmanlı konteyner
+   deseni (`w-full px-4 sm:px-6 lg:px-[100px]` dış + `mx-auto max-w-[1440px]`
+   iç) buraya da uygulandı — "yazılar kaymış" şikayetinin gerçek nedeni.
+2. **Tipografi tamamen uydurmaydı, hiçbiri ölçülmemişti:** başlık gerçekte
+   36px/400(normal, BOLD DEĞİL)/kırmızı(`text-brand`)/BÜYÜK HARF
+   (`text-transform:uppercase`) iken bizde 36px/700(bold)/siyah/normal-case
+   idi. Gövde metni gerçekte 16px/400/SİYAH(`#000`, `line-height:30px`)
+   iken bizde 14px/`text-body`(#333)/`leading-relaxed` idi. **Alt başlıklar
+   (h2/h3/h4) canlı sitede TAMAMEN AYNI stili taşıyor** (hepsi 24px/500/
+   kırmızı/28px line-height, seviyeye göre KÜÇÜLEN bir hiyerarşi YOK) —
+   bizim önceki kodumuz h2/h3/h4'e farklı boyutlar veriyordu (18px/16px/
+   semibold), bu da "fontlar aynı değil" hissinin bir parçasıydı.
+3. **KVKK sayfasının "Ünvanı/Adresi/Telefonu/..." bloğu canlı sitede
+   gerçek bir Bootstrap `<table class="table table-striped table-bordered">`
+   (kenarlıklı + zebra-şeritli, `th` kalın) iken bizim `set:html` çıktımızda
+   HTML `<table>` etiketi vardı ama class'lar extraction sırasında
+   düşmüştü ve Tailwind preflight'ı çıplak tabloyu stilsiz bırakıyordu —
+   `[&_table]`/`[&_th]`/`[&_td]`/`[&_tbody_tr:nth-of-type(odd)]` arbitrary-
+   variant kurallarıyla kenarlık+zebra-şerit yeniden kuruldu.
+
+**Kanıt:** 14 sayfanın hepsi AYNI `LegalPage.astro`'yu paylaştığı için
+tek dosya değişikliği ile tamamı düzeldi — KVKK (TR/EN) + Tüketici
+Hakları (TR) Chrome'da spot-check edildi, üçü de tutarlı (büyük harf
+kırmızı başlık, doğru konteyner genişliği, madde işaretli listelerin
+doğru girintisi). `astro check` 0 hata, `astro build` 881 sayfa hatasız,
+`test-legal-nl-consistency.mjs` 18/18, `check-link-accessibility.mjs`
+0 ihlal (2 kez art arda, OneDrive `readdir` istikrar kontrolü),
+`test-no-external-idenfit-links.mjs` 2374/0.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, 9. tur (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI — SUBMIT BUTONU "HEMEN BAŞVUR" + TEŞEKKÜRLER
+SAYFASINA YÖNLENDİRME.** Kullanıcı butonun metninin "Hemen Başvur"a
+çevrilmesini ve doldurma sonrası Teşekkürler sayfasına yönlendirme
+istedi. Canlı site element-ID doğrulamalı ölçüldü (tahmin edilmedi):
+gerçek buton `rgb(40,156,15)`/`#289C0F` (Online Sunum Talebi'nin YEŞİLİYLE
+AYNI), `border-radius:6px` (Presentation'ın pill'inden FARKLI), `font-weight:700`,
+`15px`, metin literal BÜYÜK HARF "HEMEN BAŞVUR".
+
+**`HeroForm.tsx`'e 2 yeni opsiyonel prop eklendi** (ikisi de varsayılan
+kapalı — Hero/PanelFeatureSection/Online Sunum Talebi ETKİLENMEDİ):
+- `submitStyle?: 'default' | 'green'` — `'green'` yukarıdaki gerçek
+  Contact-özel buton stilini üretir (`variant`'tan BAĞIMSIZ — İletişim'in
+  input'ları hâlâ `'underline'`, yalnızca BUTON farklı; kaynakta bu ikisi
+  ayrı eksenler olduğu bu turda anlaşıldı). Metin `t.hero.formSubmit`
+  ("Hemen Başvur", zaten var olan çeviri) + `uppercase` CSS (Presentation
+  varyantının placeholder-uppercase deseniyle AYNI ilke — kaynak metni
+  literal büyük harf, veri normal case kalıyor).
+- `redirectHref?: string` — geçerli (telefon doğrulaması geçmiş) bir
+  submit sonrası bu URL'e yönlendirir. **⚠️ Dürüst sınır: GERÇEK bir
+  backend/CRM gönderimi DEĞİL** — Faz 2 hâlâ yok, `console.log` stub'ı
+  aynen duruyor, yalnızca ÜSTÜNE istemci-tarafı bir yönlendirme eklendi.
+  `ContactPage.astro` `getThankYouSlug(locale) ?? getThankYouSlug('en')
+  ?? 'tesekkurler'` ile hesaplayıp geçiyor (NL'in kendi Teşekkürler
+  sayfası yok, EN'e düşüyor — `getFaqSlug`/`getContactSlug` ile AYNI
+  kurulmuş fallback deseni).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text`/`check-link-accessibility`/`test-no-external-idenfit-links`
+temiz. Chrome'da UÇTAN UCA test edildi: form gerçek verilerle dolduruldu,
+"HEMEN BAŞVUR" tıklandı, `/tesekkurler/` sayfasına (gerçek Teşekkürler
+içeriğiyle) yönlendirildiği doğrulandı; AYRICA eksik/geçersiz alanlarla
+gönderim denenip HTML5 `required` doğrulamasının engellediği ve
+yönlendirme OLMADIĞI doğrulandı. Ana sayfanın Hero formu ayrıca kontrol
+edildi — buton hâlâ eski kırmızı/`Hemen Başvur` stilinde, `redirectHref`
+geçmediği için yönlendirme YOK (regresyon yok, `HeroSection.astro`
+dokunulmadı). 4 regresyon script'i regresyonsuz.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, çift ölçüm/full-bleed turu (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI — "BİZİ ARAYIN!/BİZE YAZIN!" GERÇEKTEN DİKEYMİŞ,
+ÖNCEKİ 2 TURUN "ZATEN YATAY" TESPİTİ YANLIŞTI.** Kullanıcı bu bloğun
+kaynakta ALT ALTA olduğunu ve daha SOLDAN başlaması gerektiğini
+bildirdi — canlı site AYNI `1536px` viewport'ta yeniden, dikkatli
+ölçülünce kullanıcı HAKLI çıktı: "Bizi arayın!"/"Bize Yazın!" HER ZAMAN
+tek sütunda alt alta (`x=100` sol kenardan, ikisi de AYNI). Önceki
+turdaki `sm:flex-row` (yan yana) tamamen hatalıydı — muhtemelen erken
+bir keşif turunda yanlış okunan bir ekran görüntüsünden kaynaklandı.
+`flex-col` (koşulsuz, `sm:flex-row` tamamen kaldırıldı) ile düzeltildi.
+
+**İkinci, daha köklü bulgu — konteyner tekniği YANLIŞ modellenmiş:**
+önceki turların `mx-auto max-w-[1440px] px-[100px]` (TEK katmanlı)
+yaklaşımı H1'i gerçek `x=100` yerine `x=152`'de başlatıyordu (+52px) —
+`mx-auto`'nun kendi ortalama boşluğu, 100px padding'in ÜSTÜNE
+biniyordu. Kaynak aslında İKİ KATMANLI: DIŞ eleman `width:100%` + SABİT
+`padding:0 100px`, İÇ eleman AYRI bir `max-width:1440px` + `margin:auto`
+(yalnızca >1640px gibi çok geniş viewport'larda devreye girer). Bu
+yapı `ContactPage.astro`'nun 3 konteyner örneğinin ÜÇÜNDE de (hero/form
+section'ı, ofisler pembe bandının iç sarmalayıcısı, harita section'ı)
+uygulandı. **Yan etki (istenmeden düzelen bir bug):** bu düzeltme aynı
+zamanda "resim biraz büyümeli" şikayetini de otomatik çözdü — bike
+görseli `588px`'den gerçek `640px`'e (element-ID doğrulamalı EN/BOY
+BİREBİR eşleşme) büyüdü, çünkü konteyner artık gerçek ~1336px içerik
+genişliğini veriyor (önceden ~1216px'e sıkışıyordu).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text`/`check-link-accessibility`/`test-no-external-idenfit-links`
+temiz. Chrome'da element-ID doğrulamalı ÇİFT ölçüm yapıldı (canlı site +
+bizim site, AYNI `1536px` viewport, AYNI `getBoundingClientRect()`
+sorgusu) — H1 `x=100` (ikisi de), bike görseli `640×502` (ikisi de,
+PİKSEL BİREBİR). 4 dilin hepsi tek tek görsel doğrulandı, 4 regresyon
+script'i regresyonsuz.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, form alanları yatay yapma turu (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI — FORM ALANLARI KESİN OLARAK YATAY YAPILDI.**
+Bir önceki turda "yatay bilgi tablosu" maddesi YANLIŞ bir varsayıma
+(telefon/e-posta bloğunun ikonlu kart olması gerektiği) odaklanmıştı —
+o blok zaten yataydı. Kullanıcı ısrarla "hâlâ dikey" dedi; gerçek sorun
+**"Bize ulaşın!" başlıklı FORM'un kendisiydi** (İsim/Telefon/Firma/
+E-posta/Mesaj — hepsi `HeroForm.tsx`'in `space-y-2.5` ile TEK sütunda
+alt alta dizdiği inputlar) — kullanıcının "telefon, e-posta vb. bilgi
+tablosu" tarifi buydu, önceki turda yanlış bölümle eşleştirilmişti.
+
+**Kaynak canlı sitede element-ID doğrulamalı incelendi (tahmin
+edilmedi):** `.elementor-form-fields-wrapper{display:flex;flex-wrap:wrap}`,
+her alan konteynerin ~1/3'ü (`448px`/`1345px`, 3'lü satır — isim/telefon/
+e-posta üstte, firma/mesaj bir alt satırda taşıyor), `Mesajınız`
+textarea'sı SABİT 1/3 DEĞİL — satırındaki kalan boşluğu dolduruyor
+(ölçülen: diğerleri 448px, mesaj 709px).
+
+**`HeroForm.tsx`'e yeni `layout?: 'stacked' | 'grid'` prop'u eklendi**
+(varsayılan `'stacked'`, Hero/PanelFeatureSection/Online Sunum Talebi'nin
+BUGÜNE KADARKİ davranışı BİREBİR korunuyor — hiçbiri bu prop'u geçmiyor).
+`'grid'` modunda alanları saran `<div>` `flex flex-wrap gap-x-6 gap-y-5`
+olur, her standart alan `sm:w-[calc(33.333%-1rem)]`, mesaj textarea'sı
+`sm:flex-1 sm:min-w-[280px]` (kalan boşluğu doldurur — gerçek 709px
+davranışının taklidi). Yalnızca İletişim sayfası `layout="grid"` geçiyor.
+Form kartı da genişletildi (`lg:max-w-xl` kaldırıldı → `lg:p-12`) çünkü
+kaynağın gerçek formu dar bir kart değil, section'ın TAMAMINI kullanıyor
+(~1321px, element-ID doğrulamalı ölçüldü).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text`/`check-link-accessibility` temiz. Chrome'da 4
+dilin İletişim sayfası + ayrıca Hero (ana sayfa) + Online Sunum Talebi
+(Presentation varyantı) TEK TEK ziyaret edilip `layout` prop'unun
+YALNIZCA İletişim'i etkilediği, diğer ikisinin ESKİ tek-sütun
+davranışını birebir koruduğu doğrulandı — konsol hatasız (bilinen
+`fdprocessedid` gürültüsü dışında).
+
+**Bilinçli, küçük bir kalan fark:** kaynağın form alan SIRASI
+isim→telefon→**e-posta**→firma→mesaj (İletişim'in KENDİ formu bu sırada)
+— bizim `layout="grid"` hâlâ Hero/PanelFeatureSection'ın uzun süredir
+belgelenen sırasını (isim→telefon→**firma**→e-posta→mesaj) kullanıyor.
+Kullanıcının bu turdaki talebi yalnızca yatay/dikey düzenle ilgiliydi,
+alan SIRASI ayrı bir konu — dokunulmadı, ileride istenirse
+`HeroForm.tsx`'e üçüncü bir sıra varyantı eklenebilir.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, İletişim tipografi/full-bleed turu (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI — 4 EK DÜZELTME, HEPSİ CANLI SİTEDE `getComputedStyle()`
+İLE TEK TEK ÖLÇÜLDÜ.** Kullanıcı 4 spesifik sorun bildirdi ("tahmin etmeden,
+ölçerek uygula" talimatıyla) — 2'si tam doğru çıktı, 2'sinde kullanıcının
+kendi "muhtemelen" diye işaretlediği varsayımı YANLIŞ çıktı, gerçek ölçüm
+onun yerine geçti (aşağıda açıklanıyor):
+
+1. **Ofisler bandı tam genişlik/full-bleed oldu (DOĞRU tespit).** Önceki
+   `rounded-3xl` kutulu hâli gerçekten "küçük" duruyordu — canlı sitede
+   ölçülünce bandın kenardan kenara (viewport genişliği kadar) uzandığı
+   doğrulandı. `CustomerLogoMarquee.astro`'daki AYNI kanıtlanmış teknik
+   (`relative left-1/2 right-1/2 w-screen -mx-[50vw]`) uygulandı. Zemin
+   rengi de ölçüldü: `rgb(251,215,211)`/`#FBD7D3` — projenin
+   `brand-light` token'ından (`#fff2f2`, çok daha soluk) belirgin ölçüde
+   farklı çıktı, bu widget'a özel `bg-[#FBD7D3]` kullanıldı (global
+   token'a eklenmedi, tek-seferlik gerçek bir değer).
+2. **Tipografi TAMAMEN gerçek ölçümle değiştirildi (DOĞRU tespit).**
+   Önceki sürüm rastgele küçük/kalın/büyük-harf etiketlerdi, kaynakla
+   HİÇ örtüşmüyordu. Gerçek ölçülen değerler: H1 36px/500/`text-brand`
+   (kaynakta GERÇEKTEN kırmızı, `text-heading` değil), telefon/e-posta
+   DEĞERLERİ 36px/700/`text-brand` (öncekinden çok daha büyük/belirgin —
+   önceden `text-lg`/18px siyahtı), "Bizi arayın!" gibi ETİKETLER
+   26px/300(`font-light`)/`text-muted`, BÜYÜK HARF DEĞİL (`uppercase`
+   kaldırıldı), "Ofislerimiz"/"Bize ulaşın!"/sosyal medya başlığı 36px
+   (H1 ile AYNI ölçek), ofis adı 22px/500/`text-body`, ofis adresi
+   16px/400/`text-heading` (kaynakta tam siyah). 26/36/22px Tailwind
+   standart ölçeğine denk gelmediği için `text-[26px]` gibi kesin
+   arbitrary değerler kullanıldı.
+3. **"Yatay bilgi tablosu" — kullanıcının "muhtemelen ikonlu kartlar"
+   varsayımı YANLIŞ çıktı.** Telefon/e-posta ZATEN yan yana duruyordu
+   (`sm:flex-row`, önceki turdan) — canlı sitede `hasIconNearCall`
+   sorgusuyla doğrulandı: kaynakta bu alanların yanında HİÇ ikon YOK,
+   düz metin. İkon EKLENMEDİ — asıl eksik büyük/kalın/kırmızı DEĞER
+   tipografisiydi (madde 2), o düzeltilince blok zaten kaynaktaki gibi
+   belirgin bir "kart" hissi kazandı.
+4. **Sosyal medya — kullanıcının "ana sayfadaki 4 platform" varsayımı da
+   YANLIŞ çıktı.** Ana sayfanın footer'ı da AYNI 7 platformu gösteriyor
+   (canlı sitede `inFooter`/href sorgusuyla doğrulandı, ayrı bir 4'lü set
+   YOK) — kullanıcının "muhtemelen X de var" tahmini de yanlıştı. Gerçek
+   kaynak: İletişim sayfasının KENDİ özel 4 ikonu (`pages.json`'daki
+   `social_media_icon_1-4` ACF alanları — LinkedIn/Instagram/YouTube/
+   **Medium**, X DEĞİL), Footer'ın 7'lik setinden BAĞIMSIZ. `FOOTER_SOCIAL`'daki
+   AYNI gerçek URL'lerden 4'e filtrelenip kaynaktaki gerçek sıraya göre
+   diziliyor (ikinci bir veri seti YAZILMADI). İkonlar kaynakta düz PNG
+   (kırmızı daire GÖRSELİN içine gömülü, 42×42px) — projenin SVG-tabanlı
+   ikon sistemiyle tutarlı kalmak için `SOCIAL_ICON_PATHS` kullanılmaya
+   devam edildi, yalnızca varsayılan renk hover'da değil HER ZAMAN dolu
+   kırmızı zemin/beyaz ikona çevrildi (kaynakta hover farkı yok).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text` (3 kez art arda, istikrarlı) + `check-link-accessibility`
++ `test-no-external-idenfit-links` + title/meta-description kontrolleri
+temiz, aria-label sayımı doğrulandı (Contact sayfası tam 4 YENİ ikon
+ekliyor, Footer'ın 7'sinin üstüne — LinkedIn/Instagram/YouTube/Medium
+2'şer kez, Facebook/Pinterest/X yalnızca 1'er kez [Footer]). 4 regresyon
+script'i regresyonsuz. Chrome'da 4 dilin hepsi canlı siteyle YAN YANA
+karşılaştırıldı, yatay taşma (`scrollWidth`) kontrol edildi (full-bleed
+tekniği güvenli), konsol hatasız (bilinen `fdprocessedid` gürültüsü
+dışında).
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, İletişim harita/boyut düzeltme turu (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI DÜZELTMESİ — HARİTA GERİ ALINDI + BOYUT/DÜZEN
+ÖLÇÜMLE DOĞRULANDI.** Bir önceki turun 2 kararı gözden geçirildi:
+
+1. **Harita (KARAR 1 GERİ ALINDI):** canlı Google Maps embed'i kaldırıldı,
+   kaynağın statik dünya haritası illüstrasyonuna (`map_image` ACF alanı —
+   taralı desen + kırmızı yıldız pin'ler, "global ofis varlığı" teması,
+   GERÇEK bir sokak haritası DEĞİL) geri dönüldü. `extractContact()`'a
+   `mapImage: slimImage(acf.map_image)` tekrar eklendi (`CONTACT_MAP_EMBED_URL`
+   silindi, artık kullanılmıyor). TR kendi dosyasını (`contact-map-1-*`),
+   EN/NL/IT paylaşılan AYNI dosyayı (`contact-map-*`) kullanıyor — ikisi de
+   2560×1433, kaynakta da böyle.
+2. **Boyut/düzen element-ID doğrulamalı ÖLÇÜLDÜ** (1536px viewport'ta canlı
+   sitede `getBoundingClientRect()` ile) — 3 gerçek fark bulundu ve
+   düzeltildi:
+   - Container `max-w-6xl`(1152px) → `max-w-7xl`(1280px) — gerçek Elementor
+     konteyneri ~1240-1440px (100px yan padding + 1440px `max-width`),
+     site genelinde zaten kullanılan `max-w-7xl` en yakın mevcut değer.
+   - Hero görseli `max-w-sm`(384px, YAPAY olarak küçültülmüştü) → `w-full`
+     (kendi grid kolonunu dolduruyor) — gerçek görsel kolonunun ~%97'si
+     kadar (kaynakta 640px/660px kolon), önceki hâli ~%60 küçüktü.
+   - **Sosyal medya + video kaynakta YAN YANA (2 kolon)** — önceki tur
+     ikisini alt alta, ayrı tam-genişlik blokları olarak diziyordu. Aynı
+     `lg:grid-cols-2` deseni uygulanıp video kutusu (704×396, 16:9)
+     metnin yanına taşındı.
+   - Ofis fotoğrafı+listesi (pembe bant) zaten doğruydu, dokunulmadı.
+   - Sosyal medya ikon SETİ (7 platform, Footer'la paylaşılan) ve form
+     mesaj alanı kararı kullanıcı talimatıyla AYNEN korundu.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text`/`check-link-accessibility` (3 kez art arda
+çalıştırılıp istikrar doğrulandı — bir seferinde OneDrive `readdir`
+flakiness'i yine görüldü, 674→2374 dosya, bkz. §Proje kuralları) +
+`test-no-external-idenfit-links` + title/meta-description kontrolleri
+temiz. 4 regresyon script'i regresyonsuz. Chrome'da canlı site ile
+YAN YANA karşılaştırıldı (aynı 1536px viewport) — hero görseli artık
+gerçek boyutunda (568-640px aralığında, viewport'a göre orantılı),
+sosyal+video yan yana, ofis+harita bölümleri sırası/boyutu birebir
+örtüşüyor, 4 dilin hepsinde konsol hatasız (bilinen `fdprocessedid`
+gürültüsü dışında).
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, İletişim eksik-bölüm turu (tarihsel, o turda doğruydu)
+
+**🟢 İLETİŞİM SAYFASI PİKSEL-PİKSEL KARŞILAŞTIRILDI, 6 EKSİK BÖLÜM
+TAMAMLANDI (4 dilde).** Kullanıcı gerçek `idenfit.com/iletisim/`'i
+detaylı incelemesini istedi — önceki sürümün yorumu ("kaynaktaki hero
+görsel/harita/video BİLİNÇLİ OLARAK eklenmedi, dekoratif/gerekli değil")
+YANLIŞ çıktı: kaynakta gerçekten 6 bölüm vardı ve içerik-tekrarı DEĞİL,
+gerçek eksiklerdi.
+
+**Veri katmanı — `extract-misc-pages.mjs`'in `extractContact()`'ı
+genişletildi** (`heroImage`/`officesImage`/`socialMediaTitle`/`videoUrl`,
+ham ACF'den — `slimImage()` yardımcı fonksiyonu zaten vardı, script
+yeniden çalıştırılıp `misc-pages.json` regenerate edildi). `CONTACT_IT_OVERRIDE`'a
+aynı 4 alan eklendi — `socialMediaTitle`'ın ham IT ACF'i yine İngilizceydi
+(`page_title`'daki AYNI kaynak-bug sınıfı), gerçek İtalyanca çeviriyle
+düzeltildi.
+
+**6 eklenen bölüm:**
+1. **Hero illüstrasyonu** (bisikletli kişi, "The Hague"/"Istanbul" pin
+   etiketleri görselin İÇİNDE — kaynağın kendi tasarımı) — `alt=""`
+   (dekoratif, hemen yanındaki metin zaten anlamı taşıyor; ham ACF `alt`
+   dosya-adı kaynaklı anlamsızdı, aynı düzeltme ilkesi).
+2. **Form'a "Mesajınız" textarea'sı** — `HeroForm.tsx`'e yeni `showMessage`
+   prop'u (varsayılan `false`) eklendi, Hero/PanelFeatureSection/Online
+   Sunum Talebi ETKİLENMEDİ (hepsi `showMessage` geçmiyor). Yalnızca
+   İletişim `showMessage` + `labels.message={t.hero.formMessage}` geçiyor.
+3. **Sosyal medya bölümü (KARAR 2)** — Footer'daki AYNI 7 platform/ikon/URL
+   yeniden kullanıldı (`SOCIAL_ICON_PATHS` artık `Footer.astro`'dan
+   `export` ediliyor, ikinci bir ikon seti YAZILMADI), AYNI `aria-label`
+   kuralı.
+4. **YouTube videosu** — locale'e özel gerçek link (TR `N4cuH5AdDmg`,
+   EN/NL/IT `iEQ_lep-ZY8`), zaten var olan `YoutubeClickToPlay.tsx`
+   (Müşteriler/ana sayfa ile AYNI component) tıkla-oynat deseniyle.
+5. **Ofis fotoğrafı** — gerçek kolaj görseli, ofis listesinin yanında.
+6. **Google Maps embed'i (KARAR 1)** — kaynağın statik dünya haritası
+   illüstrasyonunun YERİNE, gerçek Ar-ge Ofisi adresiyle (Teknopark
+   Bulvarı 1/1A Blok No:109, Pendik/İstanbul) canlı/interaktif embed.
+   API key GEREKTİRMEYEN `output=embed` formatı (`CONTACT_MAP_EMBED_URL`,
+   `miscPagesContent.ts`) — bilinçli bir iyileştirme, kaynağa birebir
+   sadakat DEĞİL (kullanıcı kararı).
+
+**Kanıt:** `astro check` 0 hata (327 dosya), `astro build` 881 sayfa,
+`check-image-alt-text`/`check-link-accessibility`/`test-no-external-idenfit-links`/
+`check-title-length`/`check-meta-description-length` (İletişim sayfaları
+hiçbirinde flag yok) hepsi temiz. 4 çekirdek regresyon script'i
+(`test-urunler-menu-links` 108/108, `test-faq-language-switch` 9/9,
+`test-product-language-switch` 58/58, `test-legal-nl-consistency` 18/18)
+regresyonsuz. Chrome'da 4 dilin hepsi (`/iletisim/`, `/en/contact/`,
+`/nl/mededelingen/`, `/it/contatti/`) tek tek gezildi: hero illüstrasyonu
+(ilk bakışta yine soluk/"boş" görünüyor, zoom ile doğrulandı — 404
+görseliyle AYNI palet notu), form'un 5 alanı (mesaj textarea'sına gerçek
+metin yazılıp test edildi), 7 sosyal ikon, video thumbnail, ofis
+kolajı+listesi, Google Maps embed'i (gerçek Teknopark/Pendik bölgesini
+gösterdiği, "OTAK Networks"/"Teknopark Kurtkoy" gibi gerçek yakın
+işletme etiketleriyle doğrulandı) — hepsi 4 dilde render edildi, konsolda
+(bilinen `fdprocessedid` tarayıcı-uzantısı gürültüsü DIŞINDA) hata yok.
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, 404 illüstrasyon turu (tarihsel, o turda doğruydu)
+
+**🟢 404 SAYFASINA KAYNAĞIN GERÇEK İLLÜSTRASYONU EKLENDİ.** Kullanıcı
+canlı `idenfit.com/<var-olmayan-url>/` incelenip GERÇEK 404 görselinin
+bulunmasını istedi — bulundu: `https://idenfit.com/wp-content/themes/vault/assets/img/bg-404.png`
+(dürbünle bakan kişi illüstrasyonu, 534×534). **Dikkat:** diğer
+görsellerin aksine `wp-content/uploads/` (medya kütüphanesi) DEĞİL,
+`wp-content/themes/vault/` (tema asset'i) altında — proje genelindeki
+hotlink konvansiyonuna uyularak aynı şekilde hotlink edildi (indirilmedi).
+4 dilde de AYNI görsel (kaynakta da öyle) — yalnızca metin dile göre
+değişiyor. `NotFoundPage.astro`'ya `alt=""` (dekoratif, hemen altındaki
+H1 zaten anlamı taşıyor) ile eklendi, `width`/`height` gerçek intrinsic
+boyutla (CLS önleme). Kanıt: `astro check` 0 hata, `astro build` 881
+sayfa, `check-image-alt-text`/`check-link-accessibility` 0 ihlal, Chrome'da
+TR+EN'de görsel doğru render edildiği doğrulandı (ilk bakışta arka planla
+karışıp "boş" görünüyor — zoom ile net görüldü, gerçek bir render sorunu
+DEĞİL, tasarımın kendi soluk paleti).
+
+---
+
+## Proje Durumu — 2026-08-11 girdisi, 404 sayfası kurulumu (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — ÖZEL 404 SAYFASI KURULDU, 4 DİLDE (2026-08-11).**
 Bir önceki turda ("title tamamen eksik" uyarısı araştırılırken) yan bulgu

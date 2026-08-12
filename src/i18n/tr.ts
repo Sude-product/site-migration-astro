@@ -33,6 +33,7 @@ export const tr: Translations = {
     formPhoneCountryNoResults: 'Sonuç bulunamadı',
     formCompany: 'Firma Adı',
     formEmail: 'Mail',
+    formMessage: 'Mesajınız',
     formSubmit: 'Hemen Başvur',
     kvkkNotice: {
       prefix: '',

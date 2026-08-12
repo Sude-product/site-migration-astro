@@ -32,6 +32,7 @@ export const en: Translations = {
     formPhoneCountryNoResults: 'No results found',
     formCompany: 'Company Name',
     formEmail: 'Email',
+    formMessage: 'Your Message',
     formSubmit: 'Get Started',
     kvkkNotice: {
       prefix: 'I accept the ',

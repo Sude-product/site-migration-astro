@@ -1,15 +1,75 @@
 ---
-// İletişim sayfası — bkz. `miscPagesContent.ts`. Hero (başlık+alt başlık) +
-// "bizi arayın"/"bize yazın" blokları + ofis listesi + form (hero'daki
-// AYNI alanlara sahip, `HeroForm.tsx` yeniden kullanıldı — `idPrefix=
-// "contact"` ile id çakışması önlendi, bkz. PanelFeatureSection.astro'daki
-// aynı desen). Kaynaktaki hero görsel/harita/video BİLİNÇLİ OLARAK
-// eklenmedi (dekoratif, sayfanın asıl işlevi olan iletişim bilgisi için
-// gerekli değil) — kapsam sadeleştirmesi.
+// İletişim sayfası — bkz. `miscPagesContent.ts`. Hero (başlık+alt başlık+
+// illüstrasyon) + "bizi arayın"/"bize yazın" blokları + form (hero'daki
+// AYNI alanlara + "Mesajınız" textarea'sına sahip, `HeroForm.tsx`
+// yeniden kullanıldı — `idPrefix="contact"` ile id çakışması önlendi,
+// `showMessage` ile 5. alan açılıyor) + sosyal medya+video (yan yana) +
+// ofis fotoğrafı/listesi (tam-genişlik/full-bleed pembe bant) + statik
+// dünya haritası (ayrı, beyaz zeminli bölüm).
+//
+// 2026-08-11 turu (bkz. CLAUDE.md "İletişim sayfası eksik-bölüm turu") —
+// önceki sürüm kaynağın hero görseli/harita/video/sosyal medya/ofis
+// fotoğrafını "dekoratif, gerekli değil" diyerek BİLİNÇLİ olarak
+// atlıyordu. Kullanıcı piksel-piksel karşılaştırma istedi, gerçekten
+// eksik olduğu netleşti — hepsi gerçek kaynak veriyle tamamlandı.
+//
+// 2026-08-11, 2. tur — DÜZELTME: harita önce Google Maps embed'ine
+// çevrilmişti, kullanıcı geri bildirimiyle kaynağın statik dünya
+// haritası illüstrasyonuna GERİ DÖNÜLDÜ (`content.mapImage`). Container/
+// görsel boyutları canlı sitede element-ID doğrulamalı ölçüldü.
+//
+// 2026-08-11, 3. tur — 4 DÜZELTME, hepsi canlı sitede `getComputedStyle()`
+// ile TEK TEK ÖLÇÜLDÜ (tahmin edilmedi):
+// 1. Ofisler bandı artık TAM GENİŞLİK/full-bleed (`left-1/2 -mx-[50vw]`
+//    tekniği, `CustomerLogoMarquee.astro`'daki AYNI kanıtlanmış desen) —
+//    önceki `rounded-3xl` kutulu hâli, kaynağın kenardan kenara uzanan
+//    gerçek bandından çok daha "küçük" duruyordu. Gerçek zemin rengi de
+//    ölçüldü: `rgb(251,215,211)`/`#FBD7D3` — projenin `brand-light`
+//    token'ından (`#fff2f2`, çok daha soluk) BELİRGİN ÖLÇÜDE farklı, bu
+//    yüzden bu widget'a özel `bg-[#FBD7D3]` kullanıldı (token'a EKLENMEDİ,
+//    yalnızca bu bantta kullanılan tek-seferlik gerçek bir değer).
+// 2. Tipografi TAMAMEN gerçek ölçümle değiştirildi (önceki sürüm rastgele
+//    küçük/kalın/büyük-harf etiketlerdi, kaynakla hiç örtüşmüyordu):
+//    H1 36px/500/`text-brand` (`text-heading` DEĞİL — kaynakta gerçekten
+//    kırmızı), telefon/e-posta DEĞERLERİ 36px/700/`text-brand` (`bold` +
+//    kırmızı, öncekinden ÇOK daha büyük/belirgin), "Bizi arayın!" gibi
+//    ETİKETLER 26px/300(`font-light`)/`text-muted`, BÜYÜK-HARF DEĞİL
+//    (önceki `uppercase` kaldırıldı), "Ofislerimiz"/"Bize ulaşın!"/sosyal
+//    medya başlığı 36px (kaynakta H1 ile AYNI boyut ölçeği), ofis adı
+//    22px/500/`text-body`, ofis adresi 16px/400/`text-heading` (kaynakta
+//    tam siyah). 26/36/22px Tailwind'in standart ölçeğine denk gelmiyor —
+//    `text-[26px]` gibi kesin arbitrary değerler kullanıldı (projenin
+//    diğer element-ID doğrulamalı ölçümlerinde de aynı yaklaşım, bkz.
+//    `HeroForm.tsx`'in font-size yorumu).
+// 3. "Yatay bilgi tablosu" — telefon/e-posta ZATEN yan yana (`sm:flex-row`)
+//    duruyordu, kaynakta bunların yanında hiç İKON YOK (canlı sitede
+//    `hasIconNearCall` sorgusuyla doğrulandı) — ikon EKLENMEDİ. Asıl eksik
+//    büyük/kalın/kırmızı DEĞER tipografisiydi (madde 2), o düzeltilince bu
+//    blok zaten kaynaktaki gibi belirgin "kart" hissini kazanıyor.
+// 4. Sosyal medya artık Contact sayfasının KENDİ gerçek 4 ikonu (LinkedIn/
+//    Instagram/YouTube/Medium, `pages.json`'daki `social_media_icon_1-4`
+//    ACF alanlarından — Footer'ın 7 platformluk seti DEĞİL). "Ana sayfada
+//    kullanılan 4 platform" varsayımı YANLIŞ çıktı — ana sayfanın footer'ı
+//    da AYNI 7 platformu gösteriyor (canlı sitede doğrulandı), ayrı bir
+//    4'lü set yok; kullanıcının "muhtemelen X de var" tahmini de yanlıştı
+//    (gerçek 4'lü Medium içeriyor, X değil). URL'ler `FOOTER_SOCIAL`'daki
+//    AYNI gerçek hesaplar (ikinci bir veri seti YAZILMADI), yalnızca 4'e
+//    filtrelenip kaynaktaki gerçek sıraya (LinkedIn→Instagram→YouTube→
+//    Medium) göre diziliyor. İkonlar kaynakta düz PNG (kırmızı daire
+//    dairenin İÇİNE gömülü) — projenin SVG-tabanlı ikon sistemiyle
+//    tutarlı kalmak için `SOCIAL_ICON_PATHS` kullanılmaya devam edildi,
+//    yalnızca varsayılan renk `bg-brand-light`+hover'da kırmızı yerine
+//    HER ZAMAN dolu kırmızı zemin/beyaz ikona çevrildi (kaynakta hover
+//    farkı yok, ikon her zaman dolu kırmızı — 42×42px ölçüldü).
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroForm from './HeroForm.tsx';
+import YoutubeClickToPlay from './YoutubeClickToPlay.tsx';
+import { SOCIAL_ICON_PATHS } from './Footer.astro';
+import { FOOTER_SOCIAL } from '../data/footer';
 import { getTranslations } from '../i18n';
 import { getKvkkAndTermsHrefs, getContactMetaDescription, type ContactContent } from '../data/miscPagesContent';
+import { getThankYouSlug } from '../data/thankYouContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
@@ -26,69 +86,221 @@ const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
 // çok kısaydı (2026-08-10 denetimi) — bkz. `getContactMetaDescription()`.
 const description = getContactMetaDescription(locale) ?? content.pageTitle;
 const title = buildIdenfitTitle(content.pageTitle, locale);
+
+// Contact sayfasının kendi gerçek 4 platformu + kaynaktaki gerçek sırası
+// (bkz. yukarıdaki madde 4 yorumu) — `FOOTER_SOCIAL`'ın 7'lik listesinden
+// filtrelenip yeniden sıralanıyor, ikinci bir URL seti YOK.
+const CONTACT_SOCIAL_ORDER = ['linkedin', 'instagram', 'youtube', 'medium'] as const;
+const contactSocial = CONTACT_SOCIAL_ORDER.map((platform) => FOOTER_SOCIAL.find((s) => s.platform === platform)).filter(
+  (s): s is (typeof FOOTER_SOCIAL)[number] => Boolean(s),
+);
+
+// 2026-08-11 KARAR — form "başarıyla" doldurulup gönderildiğinde (yalnızca
+// istemci-tarafı doğrulama, GERÇEK backend YOK, bkz. `HeroForm.tsx`
+// `redirectHref` yorumu) Teşekkürler sayfasına yönlendirilir. NL'nin
+// kendi Teşekkürler sayfası yok (`getThankYouSlug` NL için `undefined`
+// döner) — `getFaqSlug`/`getContactSlug` ile AYNI kurulmuş fallback
+// deseni: EN'in gerçek URL'ine düşülüyor.
+const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? getThankYouSlug('en') ?? 'tesekkurler');
 ---
 
 <BaseLayout title={title} description={description} localeUrls={localeUrls}>
-  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-    <h1 class="text-3xl font-bold text-heading sm:text-4xl" set:html={content.pageTitle} />
-    <p class="mt-4 max-w-xl text-lg text-body" set:html={content.pageSubtitle} />
-
-    <div class="mt-10 grid gap-10 lg:grid-cols-2 lg:gap-16">
+  <!-- ⚠️ DÜZELTME (2026-08-11, 8. tur): kaynağın gerçek konteyner tekniği
+       İKİ KATMANLI — DIŞ eleman `width:100%` + SABİT `padding:0 100px`
+       (viewport ne olursa olsun sol kenar HEP x=100), İÇ eleman AYRI bir
+       `max-width:1440px` + `margin:auto` taşıyor (yalnızca viewport çok
+       geniş olduğunda — ör. >1640px — devreye girip içeriği ortalar).
+       Tek katmanlı `max-w-[1440px] mx-auto px-[100px]` YANLIŞTI: o desende
+       `mx-auto`'nun kendi ortalama boşluğu 100px padding'in ÜSTÜNE
+       biniyor (1536px viewport'ta soldan 148px, gerçek 100px yerine) —
+       element-ID doğrulamalı ölçümle bulundu (`h1Rect.x` gerçekte 100,
+       bizde 152 çıkıyordu). İki katmanlı yapı bunu düzeltiyor. -->
+  <div class="w-full px-4 py-12 sm:px-6 lg:px-[100px] lg:py-16">
+  <section class="mx-auto max-w-[1440px]">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
       <div>
-        <div class="flex flex-col gap-6 sm:flex-row sm:gap-10">
+        <h1 class="text-4xl font-medium text-brand" set:html={content.pageTitle} />
+        <p class="mt-4 max-w-xl text-lg text-muted" set:html={content.pageSubtitle} />
+
+        <!-- ⚠️ DÜZELTME (2026-08-11, 8. tur): önceki `sm:flex-row` YANLIŞTI —
+             kaynak `1536px` viewport'ta bile "Bizi arayın!"/"Bize Yazın!"
+             HER ZAMAN alt alta (`getComputedStyle` yerine doğrudan
+             `getBoundingClientRect` ile görsel doğrulandı, ikisi de AYNI
+             x=100 sol kenardan başlıyor) — yan yana hiç değildi, önceki
+             turun "zaten yatay" tespiti hatalıydı. -->
+        <div class="mt-10 flex flex-col gap-10">
           <div>
-            <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.callTitle}</h2>
-            <a href={content.callLinkUrl} class="mt-2 block text-lg font-semibold text-heading transition-colors hover:text-brand">
+            <h2 class="text-[26px] font-light text-muted">{content.callTitle}</h2>
+            <a href={content.callLinkUrl} class="mt-2 block text-4xl font-bold text-brand transition-opacity hover:opacity-80">
               {content.callText}
             </a>
           </div>
           <div>
-            <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.emailTitle}</h2>
-            <a href={content.emailLinkUrl} class="mt-2 block text-lg font-semibold text-heading transition-colors hover:text-brand">
+            <h2 class="text-[26px] font-light text-muted">{content.emailTitle}</h2>
+            <a href={content.emailLinkUrl} class="mt-2 block text-4xl font-bold text-brand transition-opacity hover:opacity-80">
               {content.emailLinkUrl.replace('mailto:', '')}
             </a>
           </div>
         </div>
+      </div>
 
-        <div class="mt-10">
-          <h2 class="text-sm font-bold uppercase tracking-wide text-muted">{content.officesTitle}</h2>
+      {
+        content.heroImage && (
+          <img
+            src={content.heroImage.url}
+            alt=""
+            loading="lazy"
+            width={content.heroImage.width}
+            height={content.heroImage.height}
+            class="mx-auto hidden w-full sm:block"
+          />
+        )
+      }
+    </div>
+
+    <!-- `lg:max-w-xl` KALDIRILDI — kaynağın gerçek formu (element-ID
+         doğrulamalı ölçüldü: `.elementor-form` genişliği ~1321px, sayfanın
+         geri kalanıyla AYNI konteyner) dar bir kart DEĞİL, `max-w-7xl`
+         section'ının TAMAMINI kullanıyor — 3'lü yatay alan düzeni
+         (`layout="grid"`, bkz. HeroForm.tsx) ancak bu genişlikte anlamlı
+         görünüyor. -->
+    <div class="mt-16 rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm sm:p-8 lg:p-12">
+      <h2 class="text-4xl font-light text-muted">{content.formTitle}</h2>
+      <div class="mt-6">
+        <!-- `submit`: `t.cta.submit` ("Gönder", jenerik) yerine
+             `t.hero.formSubmit` ("Hemen Başvur") — canlı sitede ölçüldü,
+             gerçek buton metni BİREBİR bu (`uppercase` CSS ile
+             "HEMEN BAŞVUR" render ediliyor, `submitStyle="green"`, bkz.
+             HeroForm.tsx). `redirectHref`: geçerli gönderim sonrası
+             Teşekkürler sayfasına yönlendirir (2026-08-11 KARAR, GERÇEK
+             backend YOK — bkz. yukarıdaki `thankYouHref` yorumu). -->
+        <HeroForm
+          client:visible
+          idPrefix="contact"
+          showMessage
+          layout="grid"
+          submitStyle="green"
+          redirectHref={thankYouHref}
+          labels={{
+            name: t.hero.formName,
+            phone: t.hero.formPhone,
+            phoneError: t.hero.formPhoneError,
+            phoneCountryLabel: t.hero.formPhoneCountryLabel,
+            phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+            phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+            company: t.hero.formCompany,
+            email: t.hero.formEmail,
+            message: t.hero.formMessage,
+            submit: t.hero.formSubmit,
+            kvkkNotice: t.hero.kvkkNotice,
+          }}
+          locale={locale}
+          kvkkHref={kvkkHref}
+          termsHref={termsHref}
+        />
+      </div>
+    </div>
+
+    <!-- Sosyal medya + video — kaynakta YAN YANA (2 kolon), alt alta DEĞİL. -->
+    <div class="mt-16 grid items-center gap-10 lg:grid-cols-2">
+      {
+        content.socialMediaTitle && (
+          <div>
+            <h2 class="text-4xl font-medium text-brand">{content.socialMediaTitle}</h2>
+            <ul class="mt-4 flex flex-wrap items-center gap-3">
+              {contactSocial.map((social) => {
+                const icon = SOCIAL_ICON_PATHS[social.platform];
+                return (
+                  <li>
+                    <a
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      aria-label={social.label}
+                      class="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-brand text-white transition-opacity hover:opacity-90"
+                    >
+                      <svg width="18" height="18" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
+                        <path d={icon.path} />
+                      </svg>
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )
+      }
+
+      {
+        content.videoUrl && (
+          <div class="aspect-video w-full overflow-hidden rounded-2xl shadow-[0_4px_34px_rgba(0,0,0,0.1)]">
+            <YoutubeClickToPlay client:visible videoUrl={content.videoUrl} title={t.home.video.videoTitle} playLabel={t.home.video.playLabel} />
+          </div>
+        )
+      }
+    </div>
+  </section>
+  </div>
+
+  <!-- Ofisler — gerçek ofis fotoğrafı (kolaj) + liste, TAM GENİŞLİK/
+       full-bleed bant (kaynakta canlı ölçüldü: `left-1/2 -mx-[50vw]`
+       tekniği, `CustomerLogoMarquee.astro`'daki AYNI kanıtlanmış desen —
+       section'ın kendi `max-w-7xl` padding'inden bağımsız çalışır). Zemin
+       rengi gerçek ölçülen `#FBD7D3` (bkz. component başındaki yorum). -->
+  <div class="relative left-1/2 right-1/2 w-screen -mx-[50vw] bg-[#FBD7D3] py-12 sm:py-16">
+    <div class="px-4 sm:px-6 lg:px-[100px]">
+    <div class="mx-auto max-w-[1440px]">
+      <div class="grid gap-10 lg:grid-cols-2 lg:items-center">
+        {
+          content.officesImage && (
+            <img
+              src={content.officesImage.url}
+              alt=""
+              loading="lazy"
+              width={content.officesImage.width}
+              height={content.officesImage.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          )
+        }
+        <div>
+          <h2 class="text-4xl font-medium text-muted">{content.officesTitle}</h2>
           <ul class="mt-4 space-y-5">
             {
               content.offices.map((office) => (
                 <li>
-                  <p class="font-semibold text-heading">{office.name}</p>
-                  <p class="mt-1 text-sm text-body">{office.address}</p>
+                  <p class="text-[22px] font-medium text-body">{office.name}</p>
+                  <p class="mt-1 text-base text-heading">{office.address}</p>
                 </li>
               ))
             }
           </ul>
         </div>
       </div>
+    </div>
+    </div>
+  </div>
 
-      <div class="rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm sm:p-8">
-        <h2 class="text-lg font-semibold text-heading">{content.formTitle}</h2>
-        <div class="mt-4">
-          <HeroForm
-            client:visible
-            idPrefix="contact"
-            labels={{
-              name: t.hero.formName,
-              phone: t.hero.formPhone,
-              phoneError: t.hero.formPhoneError,
-              phoneCountryLabel: t.hero.formPhoneCountryLabel,
-              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
-              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
-              company: t.hero.formCompany,
-              email: t.hero.formEmail,
-              submit: t.cta.submit,
-              kvkkNotice: t.hero.kvkkNotice,
-            }}
-            locale={locale}
-            kvkkHref={kvkkHref}
-            termsHref={termsHref}
+  <div class="w-full px-4 sm:px-6 lg:px-[100px]">
+  <section class="mx-auto max-w-[1440px]">
+    <!-- Dünya haritası illüstrasyonu — kaynakta pembe banttan AYRI, beyaz
+         zeminli kendi bölümü (gerçek bir sokak haritası DEĞİL, "global
+         ofis varlığı" temalı statik bir illüstrasyon, bkz. ContactContent
+         tipindeki yorum). Kendi doğal en-boy oranıyla render ediliyor. -->
+    {
+      content.mapImage && (
+        <div class="py-16">
+          <img
+            src={content.mapImage.url}
+            alt=""
+            loading="lazy"
+            width={content.mapImage.width}
+            height={content.mapImage.height}
+            class="mx-auto w-full max-w-4xl"
           />
         </div>
-      </div>
-    </div>
+      )
+    }
   </section>
+  </div>
 </BaseLayout>

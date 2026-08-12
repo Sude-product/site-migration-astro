@@ -96,6 +96,20 @@ function extractContact(acf) {
     formTitle: acf.form_title || '',
     officesTitle: acf.offices_title || '',
     offices,
+    // 2026-08-11 eklendi (İletişim sayfası eksik-bölüm turu) — daha önce
+    // extraction'da hiç toplanmıyordu (bkz. CLAUDE.md). `heroImage`/
+    // `officesImage`/`mapImage` 4 dilde AYNI gerçek görsel (TR `map_image`
+    // kendi dosyasını kullanıyor — `contact-map-1-*` — EN/NL/IT tek bir
+    // paylaşılan dosyayı — `contact-map-*` — kullanıyor, ikisi de aynı
+    // 2560×1433 boyutunda). `mapImage`: ilk turda (KARAR 1, Google Maps
+    // embed'i) BİLİNÇLİ olarak atlanmıştı — kullanıcı geri bildirimiyle
+    // (2026-08-11, 2. tur) kaynağın statik dünya haritası illüstrasyonuna
+    // GERİ DÖNÜLDÜ, bu yüzden tekrar toplanıyor.
+    heroImage: slimImage(acf.hero_image),
+    officesImage: slimImage(acf.offices_image),
+    mapImage: slimImage(acf.map_image),
+    socialMediaTitle: acf.social_media_title || '',
+    videoUrl: acf.video_url || '',
   };
 }
 

@@ -84,7 +84,10 @@ const copyright = t.footer.copyright.replace('{year}', String(year));
 // Sosyal ikonlar — lucide-react marka logosu içermediği için (yalnızca jenerik
 // arayüz ikonları var) statik .astro içinde inline SVG olarak tutuluyor;
 // bu şekilde hiçbir client JS gönderilmiyor (mimari kuralımıza uygun).
-const SOCIAL_ICON_PATHS: Record<string, { viewBox: string; path: string }> = {
+// `export`: İletişim sayfası (2026-08-11, KARAR 2) AYNI 7 platformu +
+// AYNI ikon path'lerini sayfa içinde de gösteriyor — Footer'daki tek
+// kaynaktan yeniden kullanılıyor, ikinci bir path seti YAZILMADI.
+export const SOCIAL_ICON_PATHS: Record<string, { viewBox: string; path: string }> = {
   linkedin: {
     viewBox: '0 0 24 24',
     path:
