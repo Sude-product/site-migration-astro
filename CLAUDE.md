@@ -18,7 +18,40 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-13, 23. tur)
+## Proje Durumu (son güncelleme: 2026-08-13, 24. tur)
+
+**🟡 KARAR — BLOG YAZISI "YAZAR ATIFI EKSİK" SEO UYARISI: BİLİNÇLİ
+OLARAK EKLENMEYECEK.** Kullanıcı bir SEO uyarısı bildirdi, önce durum
+araştırıldı (kod değişikliği YAPILMADI, yalnızca keşif): `posts.json`'ın
+(ham WP export) `author` alanı yalnızca sayısal bir WP kullanıcı ID'si
+(4/6/7/9/10/23) — ama `yoast_head_json.author` gerçek görünen-ad
+taşıyor. **622 yazının %87'si (544) `id=4`, "idenfit editör" adlı
+PAYLAŞILAN/jenerik bir hesaba ait** — kullanıcının hatırladığı
+"idenfit_wpdmin" bu hesabın URL slug'ı (`/blog/author/idenfit_wpdmin/`),
+görünen ad değil. Kalan %13 (78 yazı) 5 farklı GERÇEK kişiye ait ama
+2'si düzgün biçimlendirilmiş ("neslihan gültekin", "Aysegul Topcu"),
+3'ü ham WP kullanıcı adı formatında (`furkan.ergelmis` gibi, nokta
+ayraçlı, Display Name hiç ayarlanmamış — **canlı sitenin kendisi de
+bu ham hâliyle gösteriyor**, 2 canlı sayfa `WebFetch` ile doğrudan
+çekilip doğrulandı). Bizim şablonumuzda (`[slug].astro`) hâlihazırda
+HİÇ per-post yazar bilgisi render edilmiyordu (yalnızca JSON-LD'de
+genel `Organization` atıfı var, kişiye özel değil).
+
+**Sunulan 3 seçenek** (A: tek tip "idenfit Ekibi" kurumsal atıf / B:
+gerçek isim + kurumsal fallback, kaynağın ham kusurları dahil / C: B +
+ham kullanıcı adlarını elle "düzeltme") **— kullanıcı KARARI: hiçbiri,
+yazar bilgisi HİÇ gösterilmeyecek.** Gerekçe (çıkarımsal): C uydurma
+riski taşıyordu (Türkçe karakter belirsizliği), B kaynağın kendi kusurunu
+(`furkan.ergelmis` gibi profesyonel görünmeyen ham kullanıcı adı) miras
+alacaktı, A ise zaten çoğunluk durumunu (jenerik "editör" hesabı)
+yansıtan ama gerçek katkıyı gizleyen bir orta yol olurdu — kullanıcı
+bunların hiçbirini gerekli görmedi. **Kod/veri değişikliği YAPILMADI** —
+şablon zaten yazar göstermiyor, bu hâliyle KALACAK. İleride AYNI uyarı
+tekrar gelirse bu karara bakılabilir, yeniden araştırmaya GEREK YOK.
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 23. tur (tarihsel, o turda doğruydu)
 
 **🟢 BLOG TITLE-UZUNLUK BACKLOG'UNDAN İLK TAKİP DÜZELTMESİ — YENİ
 `metaTitle` OVERRIDE ALANI (Açık nokta #28'in kademeli kapanışının
