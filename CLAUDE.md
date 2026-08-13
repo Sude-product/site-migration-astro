@@ -18,7 +18,60 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-13, 22. tur)
+## Proje Durumu (son güncelleme: 2026-08-13, 23. tur)
+
+**🟢 BLOG TITLE-UZUNLUK BACKLOG'UNDAN İLK TAKİP DÜZELTMESİ — YENİ
+`metaTitle` OVERRIDE ALANI (Açık nokta #28'in kademeli kapanışının
+başlangıcı).** Kullanıcı SEO uyarısı bildirdi: "Stratejik İK Yaklaşımı
+ile İş Gücünüzü Verimli Yönetin - idenfit" (64 karakter, hedef 50-60).
+İnceleme: bu, `blog/stratejik-yaklasimi` yazısının başlığı — bizim
+sitemizde gerçek `<title>` etiketi "Stratejik İK Yaklaşımı ile İş
+Gücünüzü Verimli Yönetin — idenfit Blog" (kullanıcının bildirdiğinden
+FARKLI biçim/uzunluk, **69 karakter** — kendi ölçümümüzle doğrulandı,
+tahmin edilmedi). **2026-08-10'un "4 sayfa 61-63 karakter" listesinde
+DEĞİL** — o liste BLOG-DIŞI sayfalardı (Donanım EN/IT/NL, IT ana sayfa,
+IT Neden İdenfit, Demirbaş TR, Güvenlik TR). Bu, Açık nokta #28'in
+BİLİNÇLİ ERTELENEN 435 yazılık blog title backlog'unun (622 yazının
+435'i 50-60 dışında, 186'sı >60 karakter) parçası — özel olarak daha
+önce TEK TEK enumerе edilmemişti, kullanıcının bu turda işaret ettiği
+YENİ bir bulgu (backlog'un kendisi zaten biliniyordu).
+
+**Çözüm — `content.config.ts`'in `blogSchema`'sına yeni, isteğe bağlı
+`metaTitle?: string` alanı eklendi.** H1 (sayfa başlığı) VE JSON-LD
+`headline` HER ZAMAN `title`'ın TAMAMINI kullanmaya devam ediyor —
+editoryal içerik DEĞİŞMEDİ, doğrulandı (`curl` ile H1 hâlâ "...Verimli
+Yönetin", JSON-LD `headline` hâlâ tam metin). Yalnızca `[slug].astro`'nun
+`<title>` etiketi (`metaTitle ?? title`) kısaltılmış versiyonu kullanıyor
+— `ProductPage`/`LegalPage` gibi component'lerin zaten kurulu "title
+override" desenine AYNI, blog'a UYARLANMIŞ hâli (`title`/H1'i değiştiren
+bir alan DEĞİL, yalnızca `<title>` etiketi için). `stratejik-yaklasimi`
+yazısına `metaTitle: "Stratejik İK Yaklaşımı ile İş Gücü Yönetimi"`
+verildi (title-only 43 karakter + sabit `" — idenfit Blog"` soneki = 58
+karakter, hedef aralıkta) — gerçek içerikten (excerpt'in kendi "Stratejik
+İK yaklaşımı" ifadesiyle uyumlu), en önemli anahtar kelime ("Stratejik
+İK Yaklaşımı") başta kalacak şekilde, "Verimli Yönetin" (emir kipi) →
+"Yönetimi" (isim tamlaması) kısaltmasıyla — uydurulmadı.
+
+**Kanıt:** `astro check` 0 hata (328 dosya), `astro build` 881 sayfa.
+`check-title-length.mjs` → toplam sorunlu sayfa **440→439** (tam 1
+azaldı, "uzun" kovası 190→189, "kısa" kovası DEĞİŞMEDİ — yan etki yok,
+bu yazının gerçekten backlog'un bir parçası olduğunu doğruluyor),
+`stratejik-yaklasimi` artık listede YOK. `check-json-ld`(0 geçersiz,
+`headline` hâlâ tam başlık)/`check-heading-hierarchy`(yalnızca
+`/admin/`)/`check-meta-description-length`(yalnızca `/admin/`)
+regresyonsuz. **EN/NL/IT karşılığı YOK** (`dist/en/blog/`, `dist/it/blog/`
+altındaki aynı slug'lar `<meta http-equiv="refresh">` redirect stub'ı —
+blog TR-only mimarisi gereği, bkz. §Mimari "Blog dil stratejisi") — 4
+dile yayacak bir düzeltme GEREKMEDİ, tek gerçek sayfa TR'de.
+
+**Not — bu mekanizma kalan 434 yazı için TEK TEK/talep geldikçe
+kullanılacak** (622 yazıyı toptan düzeltecek bir editoryal iş bu turda
+YAPILMADI, Açık nokta #28 hâlâ AÇIK — yalnızca bu bir yazı + gelecekteki
+benzer takip turları için gerekli ALTYAPI kuruldu).
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 22. tur (tarihsel, o turda doğruydu)
 
 **🟢 HUKUKİ SÖZLEŞME AİLESİNE (11 SAYFA) H2/H3 ALT BAŞLIĞI EKLENDİ —
 MERKEZİ, OTOMATİK BİR DÖNÜŞÜM FONKSİYONUYLA (21. turun bulgusunun
@@ -1985,18 +2038,25 @@ madde başına tekrarlanmıyor.
     Aynı "noindex zaten var, gerçek bir sorun değil" ilkesiyle kapsam
     dışı bırakıldı, doğrulama script'i (`check-html-lang-attribute.mjs`)
     bu 1492'yi "hata" değil "bilgi amaçlı" olarak ayrı raporluyor.
-28. **TODO — Blog yazılarının `<title>` uzunluğu (622 yazının 435'i,
-    %70, 50-60 aralığı dışında) BİLİNÇLİ olarak ayrı bir tura ertelendi
-    (kullanıcı kararı, 2026-08-10).** Kök neden site sayfalarınınkinden
-    (`scripts/check-title-length.mjs`'in 194 blog-dışı düzeltmesi, bkz.
-    Proje Durumu) FARKLI — format `${başlık} — idenfit Blog` (sabit ek),
-    başlık uzunluğu EDİTORYAL olarak doğal biçimde değişken, mekanik bir
-    şablon çözümü YOK. 249 yazı <50 karakter (doğal bir alt ifade
-    eklenmeli, ör. "Başlık: Alt İfade — idenfit Blog"), 186 yazı >60
-    karakter (kısaltılmalı). Bu, önceki turdaki 194 sayfalık düzeltmeden
-    ~2 kat daha büyük bir içerik yazım işi — hazır olduğunda
+28. **TODO — Blog yazılarının `<title>` uzunluğu (622 yazının ~434'ü
+    hâlâ 50-60 aralığı dışında, 1'i 2026-08-13'te düzeltildi) BİLİNÇLİ
+    olarak toplu değil KADEMELİ/talep geldikçe ele alınıyor (kullanıcı
+    kararı, 2026-08-10, ilk takip turu 2026-08-13).** Kök neden site
+    sayfalarınınkinden (`scripts/check-title-length.mjs`'in 194 blog-dışı
+    düzeltmesi, bkz. Proje Durumu) FARKLI — format
+    `${metaTitle ?? başlık} — idenfit Blog` (sabit ek), başlık uzunluğu
+    EDİTORYAL olarak doğal biçimde değişken, mekanik bir şablon çözümü
+    YOK. **Altyapı artık hazır** — `content.config.ts`'in `blogSchema`'sına
+    eklenen `metaTitle?: string` alanı, `posts.json`'da ilgili yazıya bu
+    alan eklenince H1/JSON-LD `headline`'ı DEĞİŞTİRMEDEN yalnızca `<title>`
+    etiketini kısaltıyor (bkz. Proje Durumu 23. tur, `stratejik-yaklasimi`
+    örneği). ~249 yazı <50 karakter (doğal bir alt ifade eklenmeli, ör.
+    "Başlık: Alt İfade — idenfit Blog"), ~185 yazı >60 karakter
+    (kısaltılmalı). Bu, önceki turdaki 194 sayfalık düzeltmeden ~2 kat
+    daha büyük bir içerik yazım işi — hazır olduğunda
     `node scripts/check-title-length.mjs` çıktısının `blog/` ile
-    başlayan satırları başlangıç noktası.
+    başlayan satırları başlangıç noktası, her biri için `posts.json`'a
+    `metaTitle` eklenmesi yeterli (H1'e DOKUNULMAZ).
 29. **TODO — JSON-LD yalnızca blog'a (`BlogPosting`) kuruldu; ürün/modül,
     sektör ve kurumsal (Hakkımızda/İletişim/Fiyatlar vb.) sayfalarına
     structured data eklenmesi BİLİNÇLİ olarak ayrı bir karara bırakıldı

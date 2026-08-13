@@ -37,6 +37,15 @@ export const CATEGORY_LABELS: Record<string, string> = {
 const blogSchema = z.object({
   slug: z.string(),
   title: z.string(),
+  // `<title>` etiketi için isteğe bağlı, daha kısa bir alternatif
+  // (2026-08-13, "H2 eksik" turlarının ardından ilk blog title-uzunluk
+  // takip turu — bkz. CLAUDE.md Açık nokta #28). H1/JSON-LD `headline`
+  // HER ZAMAN `title`'ın TAMAMINI kullanır (editoryal içerik DEĞİŞMEZ) —
+  // yalnızca tarayıcı sekmesi/SERP'teki `<title>` etiketi, verilmişse bu
+  // alanı kullanır. 622 yazının 435'i 50-60 karakter hedefinin dışında
+  // (622 için TEK TEK dolduracak bir alan değil, kademeli/tek-tek takip
+  // turlarında ihtiyaç oldukça eklenecek — bkz. `[slug].astro`).
+  metaTitle: z.string().optional(),
   date: z.coerce.date(),
   // JSON-LD `BlogPosting.dateModified` için (2026-08-10, structured data
   // turu) — legacy yazılarda WP'nin gerçek `modified` alanından geliyor
