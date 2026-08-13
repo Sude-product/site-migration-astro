@@ -18,7 +18,182 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-12, 19. tur)
+## Proje Durumu (son güncelleme: 2026-08-13, 22. tur)
+
+**🟢 HUKUKİ SÖZLEŞME AİLESİNE (11 SAYFA) H2/H3 ALT BAŞLIĞI EKLENDİ —
+MERKEZİ, OTOMATİK BİR DÖNÜŞÜM FONKSİYONUYLA (21. turun bulgusunun
+düzeltmesi).** Kullanıcı onayıyla, 21. turda tespit edilen 11 hukuki
+sayfa (`sozlesme/tuketici-haklari`+`mesafeli-satis-sozlesmesi`+
+`gizlilik-ve-guvenlik-politikasi` TR/EN/IT + `en/data-use-policy`+
+`it/protezione-dati-personali` KVKK) için gerçek `<h2>`/`<h3>` yapısı
+kuruldu — **11 sayfaya elle DOKUNULMADI**, tek bir merkezi fonksiyon
+(`src/data/legalHeadingSanitizer.ts`'in `structureLegalHeadings()`'i)
+`LegalPage.astro`'nun render zincirine eklendi (`blogHeadingSanitizer.ts`
+ile AYNI ilke — render-time'da tek noktadan geçiyor — ama TERS yönde:
+orada FAZLA H1 indirgeniyordu, burada EKSİK H2/H3 ekleniyor).
+
+**Kaynak WP içeriği (`misc-pages.json`) tek tip DEĞİLDİ, 3 ayrı desen
+bulundu — fonksiyon HER BİRİNİ ayrı bir kuralla, birbirinden bağımsız
+işliyor:**
+1. **Tek başına bir paragrafı dolduran kalın metin**
+   (`<p><b><strong>METİN</strong></b></p>`) — Tüketici Hakları/Mesafeli
+   Satış/Gizlilik-Güvenlik'in editöryal "başlık" deseni. `<h2>`'ye
+   çevriliyor; ilk eşleşme H1 başlığıyla (`content.title`) BİREBİR
+   aynıysa atlanıyor (Mesafeli Satış/Gizlilik-Güvenlik'in İKİSİ de kendi
+   başlığını içeriğin başında TEKRAR ediyor — H1/H2 çiftlenmesini
+   önler). Kaynağın kendi ondalık alt-madde numarası varsa ("7.2.
+   Fiyatlar" gibi, kaynağın kendi metninde zaten var, UYDURULMADI)
+   `<h3>` olarak nested ediliyor.
+2. **İzole tek-elemanlı `<ol start="N"><li>...</li></ol>` blokları** —
+   Mesafeli Satış Sözleşmesi'nin "madde" başlıkları (TARAFLAR, TANIMLAR,
+   KONU vb.) kaynakta HER BİRİ kendi `start=N`'iyle izole bir liste
+   olarak kodlanmış, gerçek çok-elemanlı listelerden (aynı belgedeki
+   numaralı maddeler) BU ŞEKİLDE ayırt edildi (27 belge/dil kombinasyonu
+   tek tek incelendi — hiçbir gerçek tek-cümlelik madde içeriği
+   yanlışlıkla başlığa çevrilmedi). `<h2>N. METİN</h2>`'ye çevrilip
+   liste kaldırılıyor — numaralandırma yalnızca belgede GERÇEKTEN başka
+   bir başlık adayının açık `start=` taşıdığı doğrulanınca uygulanıyor
+   (aksi halde Tüketici Hakları'nın numarasız tek istisnasına — "SATICININ
+   CAYMA HAKKI BİLDİRİMİ..." — yanlışlıkla "1." öneki uydurulacaktı, bu
+   BULUNUP DÜZELTİLDİ, bkz. kod yorumu).
+3. **`<h4>` var ama `<h2>`/`<h3>` hiç yoksa** (KVKK EN/IT'nin H1→H4
+   seviye atlaması) — tüm `<h4>`'ler `<h2>`'ye yükseltiliyor. KVKK TR'nin
+   zaten geçerli h2/h3/h4 sırası bu kuralı TETİKLEMİYOR (kural yalnızca
+   h2 VE h3 ikisi de sıfırsa devreye giriyor).
+
+**Görsel etki YOK** — `LegalPage.astro`'nun `prose-legal` CSS'i zaten
+`[&_h1]`...`[&_h4]`'ün TAMAMINI aynı stille (24px/medium/kırmızı)
+biçimlendiriyordu (önceki bir turdan), yeni `<h2>`/`<h3>` etiketleri bu
+mevcut kurallara otomatik uyuyor — yalnızca SEMANTİK/erişilebilirlik
+katmanı düzeldi.
+
+**Kanıt:** prototip 27 belge/dil kombinasyonu üzerinde ayrı ayrı test
+edilip (kelime/başlık listesi tek tek okunarak) doğrulandıktan SONRA
+koda geçirildi. Zaten sağlıklı 3 sayfa (KVKK TR, KVK Protokol TR+EN)
+fonksiyondan geçince **BİREBİR AYNI** çıktı (`identical=true`, no-op) —
+regresyon yok. `astro check` 0 hata (328 dosya), `astro build` 881
+sayfa. H2-eksik sayfa sayısı **30→19** (tam 11 azaldı, hepsi hedeflenen
+sayfalar), 2 kez art arda çalıştırılıp istikrar doğrulandı. Kalan 19
+sayfa 21. turda "sorun değil"/"sınırda-küçük" olarak zaten
+kategorilendirilmişti (Teşekkürler/404/Destek Talebi/Güvenlik hub/SSS/
+NL Hedef Global Marka/`admin`). `check-heading-hierarchy.mjs` (H1 sayısı,
+yalnızca `/admin/` — regresyon yok), tüm 11 sayfada H1→H2(→H3) sırasının
+HİÇBİR YERDE seviye atlamadığı (`<h2>` öncesi `<h3>` yok, `<h4>` hiç yok)
+elle doğrulandı. `check-link-accessibility`(0 ihlal)/`check-meta-
+description-length`(yalnızca `/admin/`)/`check-title-length`(440,
+ÖNCEKİYLE AYNI, hiçbiri legal sayfa DEĞİL — bkz. Açık nokta #28, bu
+turla ilgisiz)/`check-json-ld`(0 geçersiz) regresyonsuz.
+`test-legal-nl-consistency.mjs` 18/18, `test-no-external-idenfit-links.mjs`
+2374/0, `test-urunler-menu-links.mjs` 108/108, `test-faq-language-switch.mjs`
+9/9 — hepsi regresyonsuz. Dev server'da (`curl`) canlı HMR çıktısı da
+doğrulandı — build'le birebir aynı yapı.
+
+**Dürüst sınır (kod hatası DEĞİL, kaynağın kendi asimetrisi):**
+Mesafeli Satış Sözleşmesi'nin "madde 7" üst başlığının kendisi kaynakta
+YOK (yalnızca alt maddeleri 7.2/7.3 var, o `<ol>` gerçek 2-elemanlı bir
+liste olduğu için kural 2'ye yakalanmıyor) — düzeltmenin bir eksiği
+değil, kaynağın kendi tutarsızlığı.
+
+**Örnek URL'ler (ekran görüntüsü için):**
+- `http://localhost:4321/sozlesme/mesafeli-satis-sozlesmesi/` (en
+  zengin örnek — 12 H2 + 4 nested H3, "1. TARAFLAR"'dan "14. YÜRÜRLÜK"'e)
+- `http://localhost:4321/sozlesme/tuketici-haklari/` (13 H2)
+- `http://localhost:4321/en/data-use-policy/` (KVKK EN, H4→H2 yükseltme
+  örneği, 11 H2)
+- `http://localhost:4321/sozlesme/gizlilik-ve-guvenlik-politikasi/`
+  (12 H2)
+
+Açık nokta #32 KAPANDI (kapanmış maddeler listesine taşındı).
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 21. tur (tarihsel, o turda doğruydu)
+
+**🟡 "H2 ALT BAŞLIĞI EKSİK" SEO UYARISI — SİTE GENELİ KEŞİF/RAPORLAMA
+TURU (DÜZELTME YAPILMADI, kullanıcı talimatıyla bilinçli).** Kullanıcı
+hangi sayfayı işaret ettiğini belirtmeyen bir "H2 eksik" uyarısı bildirdi
+— `astro build` (881 sayfa) sonrası `dist/**/*.html` üzerinde H2 sayısı
+0 olan sayfalar tarandı (`check-heading-hierarchy.mjs` ile AYNI elle-
+recursive desen, redirect stub'ları hariç, 2 kez art arda çalıştırılıp
+istikrar doğrulandı — 882 gerçek sayfadan **30'u H2 taşımıyor**).
+**Blog'un 622 yazısının HİÇBİRİ etkilenmiyor** (WP içeriği doğal olarak
+bölümlere ayrılmış).
+
+**Kategorilere ayrıldı (`<main>` içi metin/kelime sayısı ölçülerek "uzun
+mu/kısa mı" sorusu gerçek veriyle cevaplandı, tahmin edilmedi):**
+1. **GERÇEK SORUN — hukuki sözleşme ailesi (`LegalPage.astro`, 14
+   sayfadan 11'i):** `sozlesme/tuketici-haklari`+`mesafeli-satis-
+   sozlesmesi`+`gizlilik-ve-guvenlik-politikasi` (TR) + bunların EN/IT
+   karşılıkları + `en/data-use-policy`+`it/protezione-dati-personali`
+   (KVKK) — 536-3185 kelimelik UZUN, ÇOK MADDELİ belgeler ama H2 SEVİYESİNDE
+   hiç alt başlık YOK: bazıları kaynağın kendi HTML'inde H1'DEN DOĞRUDAN
+   H4'E atlıyor (seviye atlama), bazıları (Tüketici Hakları/Mesafeli
+   Satış/Gizlilik-Güvenlik'in ÜÇÜ de, 3 dilde) alt başlıkları yalnızca
+   `<strong>` KALIN METİN olarak taşıyor, hiç heading etiketi yok — kaynak
+   WP içeriğinin kendi eksikliği (`content.contentHtml`, `set:html` ile
+   olduğu gibi basılıyor). **Aynı ailenin diğer 3 sayfası zaten sağlam:**
+   TR `kisisel-verilerin-korunmasi` (KVKK) 1 H2 taşıyor, `kvk-protokol`
+   (TR+EN) 14 H2 taşıyor — kaynağın bu 3 sayfada gerçek heading yapısı var.
+2. **SINIRDA, KÜÇÜK — SSS sayfaları (3: `sss`/`en/faq`/`it/faq`):** 1081-
+   1654 kelime, 30-43 soru `<h3>` olarak render ediliyor ama kategori
+   başlıkları STATİK H2 DEĞİL (`FaqPage.astro`'nun kendi tasarımı gereği
+   sekmeli/TAB düzeni — kategori adı tab tetikleyicisi, bkz. §Mimari).
+   Kritik değil (sorular zaten `h3` ile düzgün etiketli) ama istenirse
+   tab başlıklarına eşlik eden statik bir H2 eklenebilir.
+3. **SINIRDA, TEK SAYFA — `nl/wereldwijd-merk` (Hedef Global Marka
+   NL):** TR karşılığı (`hedef-global-marka`) 143 kelime + 1 H2 taşırken
+   NL yalnızca 43 kelime (belirgin şekilde KISALTILMIŞ çeviri) + H2 YOK
+   — içerik zaten kısa olduğu için H2 zorunlu değil ama TR'ye göre eksik
+   kalan bir cümle/bölüm olabilir, ayrı bir NL içerik incelemesi
+   gerektirir.
+4. **SORUN DEĞİL (4 kategori, 12 sayfa) — kısa/tek-konulu sayfalar,
+   H2'ye zaten ihtiyaç yok:** Güvenlik hub/link listesi (`guvenlik`+
+   `en/security-policy`+`it/politica-di-sicurezza`, `SecurityPage.astro`
+   — 6 maddelik düz link listesi, 45-58 kelime), 404/Not Found (4 sayfa,
+   50-90 kelime), **Teşekkürler (3 sayfa, 75-110 kelime — kullanıcının
+   kendi verdiği örnekle BİREBİR aynı kategori, doğrulandı)**, Destek
+   Talebi (3 sayfa, 75-84 kelime, kısa form sayfası), Hesaplama Araçları
+   hub (TR-only, 340 kelime, 8 araçlık kart listesi).
+5. **KAPSAM DIŞI — `admin/index.html`** (Decap CMS paneli, 0 kelime,
+   zaten SEO'ya konu olan bir içerik sayfası değil, önceki turlarda da
+   aynı gerekçeyle hariç tutulmuştu).
+
+**Sonuç/öneri:** 30 sayfanın **~19'u (kategori 4+5) gerçek bir sorun
+değil**, **11'i (kategori 1, hukuki sözleşme ailesi) düzeltilmeye değer**
+— uzun/çok maddeli içerikte H2 eksikliği hem SEO hem erişilebilirlik
+açısından gerçek bir gedik. Kategori 2/3 küçük/isteğe bağlı. **Bu turda
+kod/veri değişikliği YAPILMADI** (kullanıcı talimatı: "henüz düzeltme
+yapma, sadece raporla") — bkz. Açık nokta #32.
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 20. tur (tarihsel, o turda doğruydu)
+
+**🟢 İKİ SEO UYARISI DAHA — İKİSİ DE ESKİ (WORDPRESS) SİTEYE ÖZGÜ, BİZİM
+SİTEMİZDE GEÇERSİZ (KOD DEĞİŞİKLİĞİ GEREKMEDİ).** Kullanıcı, canlı
+`idenfit.com/tr/blog/` ve `idenfit.com/tr/sample-page/` için "H1 eksik"
+SEO uyarısı bildirdi — bunların bizim Astro sitemizdeki karşılığı
+kontrol edildi.
+
+- **`/blog/`:** dev server'da `curl` ile doğrulandı — `<h1
+  class="...">Blog</h1>` MEVCUT. Zaten `check-heading-hierarchy.mjs`'in
+  (2026-08-12, 12. tur) 882 gerçek sayfalık taramasının kapsamında
+  (o taramada `/admin/` hariç tüm sayfalar tam 1 H1 taşıyordu) —
+  bu tur yalnızca kullanıcının spesifik uyarısını nokta atışı
+  yeniden doğruladı, yeni bir bulgu değil.
+- **`/sample-page/`:** bizim sitemizde bu route hiç YOK (`curl` 404,
+  `src/pages` içinde eşleşme yok) — zaten **bilinçli olarak migrate
+  edilmedi** (2026-08-05 URL denetiminde "WP test çöpü" olarak
+  işaretlenip atlanan 4 sayfadan biri, bkz. "4 sayfa bilinçli atlandı"
+  notu). Eski sitenin kendi WordPress varsayılan/boş örnek sayfası —
+  bizde karşılığı olmadığı için uyarı bizim için anlamsız.
+
+**Sonuç:** iki uyarı da eski siteye özgü, bizim migrasyonumuzda karşılığı
+yok veya zaten doğru. Kod/veri değişikliği yapılmadı.
+
+---
+
+## Proje Durumu — 2026-08-12 girdisi, 19. tur (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — `<html lang>` DENETİMİ: GERÇEK SAYFALAR ZATEN DOĞRU,
 BULGU ASTRO'NUN KENDİ FRAMEWORK ŞABLONUNDA (KOD DEĞİŞİKLİĞİ GEREKMEDİ).**
@@ -1855,6 +2030,15 @@ madde başına tekrarlanmıyor.
     2'de domain bağlandığında: `BaseLayout` ve `LandingLayout`'a
     canonical etiketi eklenmeli, her dil (TR/EN/NL/IT) kendi URL'sini
     canonical olarak göstermeli.
+32. **TODO — 2 küçük/isteğe bağlı H2 bulgusu (madde #32'nin hukuki
+    sözleşme kısmı 2026-08-13'te KAPANDI, bkz. Proje Durumu 22. tur +
+    kapanmış maddeler).** SSS sayfaları (3: `sss`/`en/faq`/`it/faq`)
+    soruları `h3` ile doğru etiketliyor ama kategori TAB başlıkları
+    (`FaqPage.astro`'nun sekmeli tasarımı) statik H2 değil — kritik değil,
+    istenirse tab başlıklarına eşlik eden statik bir H2 eklenebilir.
+    `nl/wereldwijd-merk` (Hedef Global Marka NL) TR karşılığına göre
+    belirgin kısaltılmış (43 vs 143 kelime) + H2 kaybetmiş — ayrı bir NL
+    içerik incelemesi gerektirir, bu ikisi henüz ele alınmadı.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26,27) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

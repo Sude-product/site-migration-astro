@@ -5,6 +5,7 @@
 // gerçekten düz bir metin sayfası).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildIdenfitTitle } from '../data/pageTitle';
+import { structureLegalHeadings } from '../data/legalHeadingSanitizer';
 import type { LegalContent } from '../data/miscPagesContent';
 import type { Locale } from '../data/nav';
 
@@ -26,7 +27,11 @@ interface Props {
 
 const { content, localeUrls, description: descriptionOverride } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
-const description = descriptionOverride ?? content.contentHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
+// H2/H3 alt başlığı eksikliği düzeltmesi (2026-08-13) — bkz.
+// `legalHeadingSanitizer.ts`'in dosya başı yorumu (kök neden + 3 dönüşüm
+// kuralı). Zaten sağlıklı sayfalarda (KVKK TR, KVK Protokol) no-op.
+const structuredHtml = structureLegalHeadings(content.contentHtml, content.title);
+const description = descriptionOverride ?? structuredHtml.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim().slice(0, 160);
 // `content.title` bazı hukuki sayfalarda 50 karakterin altında (2026-08-10
 // title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
 const title = buildIdenfitTitle(content.title, locale);
@@ -38,7 +43,7 @@ const title = buildIdenfitTitle(content.title, locale);
       <h1 class="text-4xl font-normal uppercase leading-[43px] text-brand">{content.title}</h1>
       <div
         class="prose-legal mt-10 text-base leading-[30px] text-black [&_a]:text-brand [&_h1]:mt-6 [&_h1]:text-2xl [&_h1]:font-medium [&_h1]:leading-[28px] [&_h1]:text-brand [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:leading-[28px] [&_h2]:text-brand [&_h3]:mt-6 [&_h3]:text-2xl [&_h3]:font-medium [&_h3]:leading-[28px] [&_h3]:text-brand [&_h4]:mt-6 [&_h4]:text-2xl [&_h4]:font-medium [&_h4]:leading-[28px] [&_h4]:text-brand [&_li]:mb-0 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-10 [&_p]:mb-4 [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-10 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#dee2e6] [&_th]:p-2 [&_th]:text-left [&_th]:font-bold [&_td]:border [&_td]:border-[#dee2e6] [&_td]:p-2 [&_td]:font-normal [&_tbody_tr:nth-of-type(odd)]:bg-black/5"
-        set:html={content.contentHtml}
+        set:html={structuredHtml}
       />
     </section>
   </div>
