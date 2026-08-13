@@ -18,7 +18,91 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-13, 24. tur)
+## Proje Durumu (son güncelleme: 2026-08-13, 25. tur)
+
+**🟢 SİTE GENELİ — OPEN GRAPH + TWITTER CARD PAKETİ SIFIRDAN KURULDU
+(881 SAYFA, "og:image eksik" SEO uyarısının tam çözümü).** Kullanıcı
+onayıyla, önceki turda raporlanan bulgu (site genelinde `og:*` etiketi
+HİÇ yoktu, ne `BaseLayout.astro` ne `LandingLayout.astro`'da) kapatıldı.
+
+**3 katmanlı görsel hiyerarşisi (önerilen plan birebir uygulandı):**
+1. **Blog yazıları** (`[slug].astro`) — kendi `featuredImage.url`'i,
+   yoksa (1 yazı, `zirve-katilim-ix-...`) idenfit logosuna düşülüyor —
+   JSON-LD `image` alanının ZATEN kullandığı AYNI fallback (`IDENFIT_LOGO_URL`),
+   ikinci bir mantık İCAT EDİLMEDİ. `og:type="article"`.
+2. **Sayfaya özgü görseli olan component'ler** (`ProductPage`/`SectorPage`/
+   `AboutPage`/`ContactPage`) — kendi `hero.image.url`'i (`SectorPage` için
+   `whyIdenfit.image.url`'e de düşer) `image` prop'uyla `BaseLayout`'a
+   geçiriliyor. Bu 4 component ~150+ sayfayı kapsıyor.
+3. **Görseli olmayan/geçirmeyen HER ŞEY** (Hub sayfaları — zaten hero
+   görseli yok, bilinen bir gerçek —, Fiyatlar/SSS/Güvenlik/Legal/Landing
+   vb.) — ana sayfanın "Kullanıcı Dostu Panel" dashboard görseline
+   (`HOME_PANEL_IMAGE`, `Astro.currentLocale`'e göre — NL kendi farklı
+   görselini otomatik alır) düşülüyor. **Kaynağın kendi Yoast `og_image`
+   verisi BİLİNÇLİ olarak KULLANILMADI** — 170 WP sayfasının yalnızca
+   49'unda vardı ve incelendiğinde KÜRASYONLU DEĞİL, Yoast'ın "sayfadaki
+   ilk görsel" otomatiği çıktı (ör. ana sayfanın kendi `og_image`'i bir
+   MÜŞTERİ LOGOSU — "migros-one.svg" —, SSS sayfasınınki bir PDF ikonu).
+
+**Mimari — `BaseLayout`/`LandingLayout`'a `description`/`noindex` ile AYNI
+desende 2 yeni opsiyonel prop:** `image?: string` (mutlak URL, verilmezse
+`HOME_PANEL_IMAGE[locale]`'e düşer) + `ogType?: 'website' | 'article'`
+(varsayılan `'website'`). `og:title`/`og:description`/`twitter:title`/
+`twitter:description` mevcut `title`/`description` prop'larını AYNEN
+yeniden kullanıyor — yeni veri TOPLANMADI. `twitter:card` her zaman
+`summary_large_image` (görsel her zaman en az bir varsayılana sahip
+olduğu için `summary`'ye düşme durumu YOK).
+
+**`og:url` — mutlak URL kararı, canonical ile AYNI ilke (kullanıcı
+talimatıyla):** `astro.config.mjs`'in `site` alanı hâlâ boş (Açık nokta
+#31, Faz 2'ye ertelendi) — `https://idenfit.com` gibi bir alan adı ELLE
+UYDURULMADI, çünkü o alan adı ŞU AN canlı, BAŞKA (eski WordPress) bir
+siteye ait; paylaşım linki o siteye çıkarsa yanlış/kırık bir döngü
+olurdu. Kod `Astro.site ? new URL(Astro.url.pathname, Astro.site).href :
+Astro.url.pathname` — `site` tanımlıysa mutlak, değilse göreli yola
+düşüyor (`[slug].astro`'nun JSON-LD `mainEntityOfPage`'iyle AYNI
+ilke). **Faz 2'de domain bağlanınca bu kod DEĞİŞMEDEN otomatik mutlak
+URL üretmeye başlayacak** — o an canonical `<link>` etiketi de AYNI
+mekanizmayla eklenmeye hazır.
+
+**Kanıt:** `astro check` 0 hata (328 dosya), `astro build` 881 sayfa.
+Ana sayfa/blog/ürün/sektör/Landing(`/demo`)/Hakkımızda/İletişim/EN
+locale-prefix'li sayfa TEK TEK `dist` çıktısından okundu — hepsi doğru
+`og:type`/`og:title`/`og:description`/`og:url`(locale prefix'i dahil
+doğru)/`og:image` + eşleşen `twitter:*` üretiyor. Hero görseli OLMAYAN
+bir sayfa (`insan-kaynaklari-yonetimi-modulu`, hub) `HOME_PANEL_IMAGE`
+fallback'ine doğru düştüğü doğrulandı. NL ana sayfası kendi FARKLI
+panel görselini kullandığı doğrulandı (TR/EN/IT'nin `pnl-img-...webp`'i
+yerine `Group-1365420439-...png`). `check-heading-hierarchy`(0 sorun)/
+`check-link-accessibility`(0 ihlal)/`check-meta-description-length`
+(yalnızca `/admin/`)/`check-title-length`(439, ÖNCEKİYLE AYNI)/
+`check-json-ld`(0 geçersiz) regresyonsuz. 5 dil/link regresyon script'i
+(`test-urunler-menu-links` 108/108, `test-faq-language-switch` 9/9,
+`test-legal-nl-consistency` 18/18, `test-product-language-switch`
+58/58, `test-sector-language-switch` 36/36) + `test-no-external-idenfit-links`
+(2374/0, `og:image`'in idenfit.com hotlink URL'leri bu testi YANLIŞLIKLA
+tetiklemedi — test yalnızca `<a href>` kontrol ediyor) regresyonsuz.
+
+**Örnek URL'ler (meta debugger doğrulaması için):**
+- `http://localhost:4321/` (ana sayfa — `website`, dashboard görseli)
+- `http://localhost:4321/blog/stratejik-yaklasimi/` (blog — `article`,
+  kendi featured image'i)
+- `http://localhost:4321/pdks-modulu/` (ürün sayfası — kendi hero görseli)
+- `http://localhost:4321/gida-sektoru-ik-cozumleri/` (sektör — kendi
+  hero görseli)
+- `http://localhost:4321/insan-kaynaklari-yonetimi-modulu/` (hub, hero
+  görseli YOK — `HOME_PANEL_IMAGE` fallback'i canlı örneği)
+- `http://localhost:4321/nl/` (NL ana sayfa — kendi farklı panel görseli)
+
+**Dürüst sınır:** `og:url` şu an GÖRELİ (`/blog/...` gibi) — teknik
+olarak ogp.me spesifikasyonu mutlak URL istiyor, bazı sosyal platformlar
+göreli `og:url`'i reddedip paylaşımda hedefi yanlış çözebilir. Bu,
+domain kararı netleşene kadar (Faz 2) kabul edilen, bilinçli bir
+ödün — canonical'la AYNI kısıt/karar.
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 24. tur (tarihsel, o turda doğruydu)
 
 **🟡 KARAR — BLOG YAZISI "YAZAR ATIFI EKSİK" SEO UYARISI: BİLİNÇLİ
 OLARAK EKLENMEYECEK.** Kullanıcı bir SEO uyarısı bildirdi, önce durum
@@ -2642,6 +2726,17 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   jenerik/tekrarlayan metin kalıbı keşfedilirse (kaynak WP verisi veya
   `*TranslationOverrides.ts` dosyaları büyüdükçe olası) `GENERIC_CTA_TEXTS`
   set'ine eklenmeli.
+- **Open Graph görsel kuralı (2026-08-13):** Yeni bir sayfa/component
+  eklendiğinde, sayfanın gerçek/temsili bir görseli varsa (`hero.image`,
+  `featuredImage` gibi) `<BaseLayout>`/`<LandingLayout>` çağrısına
+  `image={...url}` prop'uyla geçirilmeli (`title`/`description`
+  override'larıyla AYNI desen) — verilmezse otomatik `HOME_PANEL_IMAGE`
+  fallback'ine düşer (SORUN DEĞİL, yalnızca sayfaya özgü bir görsel
+  varsa AKTARILMASI daha iyi bir paylaşım önizlemesi sağlar). Blog
+  yazıları için `ogType="article"` geçirilir, diğer HER ŞEY varsayılan
+  `website` kalır. Doğrulama: `node scripts/check-json-ld.mjs` OG'yi
+  KAPSAMIYOR — elle `dist/**/*.html`'de `<meta property="og:` araması
+  yeterli (bkz. Proje Durumu 25. tur).
 - **JSON-LD `dateModified` güncelleme kuralı (2026-08-10):** Bir blog
   yazısının GERÇEK içeriği (metin/görsel/başlık — küçük yazım
   düzeltmeleri hariç) düzenlendiğinde, `BlogPosting` JSON-LD'sinin

@@ -3,6 +3,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
+import { HOME_PANEL_IMAGE } from '../data/homeContent';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -15,6 +16,19 @@ interface Props {
    * sayfalar için (ör. Landing Page `/demo`, bkz. CLAUDE.md 2026-08-06).
    * Varsayılan `false` (mevcut tüm sayfaların davranışı değişmez). */
   noindex?: boolean;
+  /** Open Graph/Twitter Card paylaşım görseli (2026-08-13, "og:image eksik"
+   * SEO uyarısı turu — bkz. CLAUDE.md). Mutlak bir URL bekleniyor — WP'nin
+   * kendi hotlink edilen medya dosyaları (ör. `hero.image.url`, blog
+   * `featuredImage.url`) zaten mutlak. Verilmezse ana sayfanın "Kullanıcı
+   * Dostu Panel" dashboard görseline (`HOME_PANEL_IMAGE`, locale'e göre)
+   * düşülür — kaynağın kendi Yoast `og_image`'i İNCELENDİ ama güvenilmez
+   * çıktı (ör. ana sayfanın kendisi bir müşteri logosuna düşüyordu,
+   * Yoast'ın "sayfadaki ilk görsel" otomatiği, kürasyonlu DEĞİL) — bu
+   * yüzden kaynaktan taşınmadı, kendi markaya uygun varlığımız kullanıldı. */
+  image?: string;
+  /** `og:type` — blog yazıları `article` geçirir, geri kalan HER ŞEY
+   * (varsayılan) `website`. */
+  ogType?: 'website' | 'article';
 }
 
 const {
@@ -22,10 +36,28 @@ const {
   description = 'idenfit — İnsan kaynakları yönetim yazılımı.',
   localeUrls,
   noindex = false,
+  image,
+  ogType = 'website',
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
 const lang = Astro.currentLocale ?? 'tr';
+
+// OG/Twitter görseli — sayfaya özgü verilmemişse ana sayfanın dashboard
+// mockup'ına (locale'e göre — NL kendi farklı görselini kullanıyor, bkz.
+// `HOME_PANEL_IMAGE`'in kendi yorumu) düşülür.
+const ogImage = image ?? HOME_PANEL_IMAGE[lang as Locale].url;
+
+// `og:url` mutlak URL gerektiriyor (ogp.me spec) ama `astro.config.mjs`'in
+// `site` alanı henüz boş (prod domain yok — canonical etiketiyle AYNI
+// kısıt/karar, bkz. CLAUDE.md Açık nokta #31). `https://idenfit.com` gibi
+// bir alan adını ELLE UYDURMADIK — o alan adı ŞU AN canlı, BAŞKA (eski
+// WordPress) bir siteye ait; paylaşım linki o siteye çıkarsa yanlış/kırık
+// bir döngü olurdu. `[slug].astro`'nun JSON-LD `mainEntityOfPage`'iyle AYNI
+// ilke: `Astro.site` tanımlıysa (Faz 2, domain bağlanınca) otomatik mutlak
+// URL üretir, tanımlı DEĞİLSE göreli yola düşer — `site` alanı Faz 2'de
+// doldurulduğu an bu kod DEĞİŞMEDEN doğru (mutlak) davranışa geçer.
+const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -38,6 +70,22 @@ const lang = Astro.currentLocale ?? 'tr';
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
+
+		<!-- Open Graph (2026-08-13, "og:image eksik" SEO uyarısı turu — bkz.
+		     `image`/`ogType` prop yorumları yukarıda). -->
+		<meta property="og:type" content={ogType} />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={pageUrl} />
+		<meta property="og:image" content={ogImage} />
+
+		<!-- Twitter Card — Open Graph ile AYNI veriyi paylaşıyor, ayrı veri
+		     TOPLANMADI (kullanıcı kararı). -->
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={ogImage} />
+
 		<!-- Quicksand (idenfit.com marka fontu) -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
