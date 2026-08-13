@@ -18,7 +18,106 @@ bu dosyanın sadeleştirilmeden önceki hali), `docs/claude-md-archive-2026-07-3
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-13, 25. tur)
+## Proje Durumu (son güncelleme: 2026-08-13, 27. tur)
+
+**🟢 BAŞLIK SEVİYE ATLAMASI — 3 SAYFA DÜZELTİLDİ (44. Açık nokta #33'ün
+"b" ve "c" alt kategorileri kapandı, "a" — 38 blog yazısı — hâlâ AÇIK,
+ayrı/daha büyük bir tur gerektiriyor).** 26. turun keşfettiği 44 sayfalık
+listeden en net kapsamlı 2 kategori ele alındı:
+
+1. **2 hub sayfası** (`en/human-resources-management-modules`,
+   `it/moduli-gestione-risorse-umane`) — `hubTranslationOverrides.ts`'e
+   TR kaynaktan çevrilmiş gerçek EN/IT `intro.title`/`intro.text`
+   eklendi (KARAR 1 ilkesi, kopya/uydurma DEĞİL). `HubPage.astro`/
+   `HubTileCard.astro`'ya yeni bir koşullu `headingLevel` mekanizması
+   eklendi — `intro` VARSA (artık EN/IT dahil TÜM hub/dil) tile'lar
+   `<h3>` (intro'nun H2'sinin altında doğru nested) kalıyor, `intro`
+   YOKSA (gelecekte benzer bir veri boşluğu çıkarsa) tile'lar otomatik
+   `<h2>`'ye düşüp atlamayı önlüyor.
+2. **1 hukuki sayfa** (`kisisel-verilerin-korunmasi`, KVKK TR) —
+   `legalHeadingSanitizer.ts`'in Kural 3'ü ("H4 var, H2/H3 yoksa
+   yükselt") KOŞULSUZ hale getirildi ("her H4 → H2"). 14 hukuki
+   sayfanın YALNIZCA KVKK'sında (3 dilde) H4 kullanıldığı doğrulandı —
+   koşulsuz yükseltme diğer 11 sayfayı hiç etkilemiyor, KVKK EN/IT'de
+   davranış AYNI kaldı (zaten H2/H3 yoktu). KVKK TR'de gerçek sıra H1→H4
+   (atlama!)→H2→H3→H4×8 idi — artık H1→H2(eski H4)→H2→H3→H2(eski
+   H4)×8, atlama yok.
+
+**Kanıt:** `astro check` 0 hata (328 dosya), `astro build` 881 sayfa.
+`check-heading-hierarchy.mjs` → seviye atlaması **44→41** (tam 3 azaldı,
+2 kez art arda çalıştırılıp istikrar doğrulandı), düzeltilen 3 sayfanın
+`dist` çıktısından okunan gerçek başlık sırası (H1→H2→H3, hiç atlama
+yok) elle doğrulandı. 5 regresyon script'i (`test-urunler-menu-links`
+108/108, `test-faq-language-switch` 9/9, `test-legal-nl-consistency`
+18/18, `test-product-language-switch` 58/58, `test-sector-language-switch`
+36/36) + `check-link-accessibility`(0 ihlal)/`test-no-external-idenfit-links`
+(2374/0) regresyonsuz.
+
+**Kalan 41 sorun — kullanıcı kararıyla bu turda ele ALINMADI:** 38 blog
+yazısı (kaynağın Gutenberg heading-blok kalite sorunu — hangi seviyenin
+"doğru" olduğu her yazıda farklı, `blogHeadingSanitizer.ts`'in "stray H1
+indirgeme" gibi tek/basit bir regex kuralına indirgenemiyor, ayrı ve daha
+büyük bir tur gerektiriyor) + 3 FAQ sayfası (H1→H3, ZATEN BİLİNEN/sınırda
+bir bulgu — bkz. Açık nokta #32, `FaqPage.astro`'nun sekmeli tasarımı
+gereği). Açık nokta #33 güncellendi.
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 26. tur (tarihsel, o turda doğruydu)
+
+**🟡 "BAŞLIK HİYERARŞİSİ SIRALI DEĞİL" SEO UYARISI — SİTE GENELİ KEŞİF/
+RAPORLAMA TURU + KALICI ARACA YENİ KONTROL EKLENDİ (DÜZELTME YAPILMADI).**
+Kullanıcı bir SEO uyarısı bildirdi (H1'den doğrudan H3'e gibi seviye
+atlaması) — inceleme `check-heading-hierarchy.mjs`'in (2026-08-12) O
+ANA KADAR YALNIZCA H1 SAYISINI kontrol ettiğini, seviye SIRASINI hiç
+denetlemediğini ortaya çıkardı. Script'e YENİ bir bölüm eklendi:
+ardışık başlıklar arasında >1 seviye ARTIŞI (azalan geçişler, ör.
+H4→H2, sorun DEĞİL) arayan `findLevelSkips()`, yalnızca `<main>` içi
+taranıyor (Header'ın mega-menüsü + Footer'ın kolon başlıkları da `<h3>`
+kullanıyor — belge TAMAMI taranırsa sahte atlama sinyalleri üretirdi,
+legal heading turundaki AYNI `<main>` izolasyon ilkesi).
+
+**Sonuç — 882 gerçek sayfadan 44'ünde seviye atlaması var (2 kez art
+arda çalıştırılıp istikrar doğrulandı), 3 kategori:**
+1. **38 blog yazısı** — kök neden "stray H1" sorununun (2026-08-12,
+   `downgradeStrayH1sToH2`/`blogHeadingSanitizer.ts`/`rehypeDemoteBodyH1s`
+   ile kapatılmıştı) AYNI kök neden SINIFININ farklı bir tezahürü: WP
+   Gutenberg editöründe yazarlar anlamsal seviyeye değil GÖRSEL boyuta
+   göre heading bloğu seçmiş — en yaygın kalıp H2→H4 (~20 yazı), bazıları
+   H2→H5/H6, `kadinlar-gunu` yazısı TAMAMEN H6 ile başlıyor (röportaj
+   sorularının HEPSİ H6 olarak işaretlenmiş). Önceki düzeltme YALNIZCA
+   FAZLA H1'leri H2'ye indirgiyordu — gövde İÇİNDEKİ H2→H4/H5/H6 atlamaları
+   HİÇ ele alınmamıştı, bu YENİ bir bulgu.
+2. **3 FAQ sayfası** (`sss` TR, `en/faq`, `it/faq`) — H1→H3, ZATEN BİLİNEN
+   bir bulgu (2026-08-13, "H2 eksik" turunda "sınırda/küçük" olarak
+   raporlanmıştı — `FaqPage.astro`'nun sekmeli tasarımı gereği kategori
+   başlıkları statik H2 değil, sorular direkt H3).
+3. **2 hub sayfası, yalnızca EN+IT** (`en/human-resources-management-modules`,
+   `it/moduli-gestione-risorse-umane`) — H1→H3. Kök neden BULUNDU:
+   `HubPage.astro`'nun "Tanıtım bloğu" H2'si `intro && intro.title`
+   koşuluna bağlı — `hubs.json`'da BU hub'ın EN/IT `intro` alanı `null`
+   (TR'de gerçek bir intro var, NL zaten bu hub'a sahip değil/fallback).
+   TR ve DİĞER hub (`insan-kaynaklari-isgucu-yonetimi`, 4 dilin TAMAMINDA)
+   etkilenmiyor — intro verisi orada mevcut, bu HUB'A ve BU 2 DİLE özgü
+   bir kaynak veri boşluğu.
+4. **1 hukuki sayfa** (`kisisel-verilerin-korunmasi`, KVKK TR) — H1→H4.
+   Önceki turda (11 sayfalık H2/H3 düzeltmesi) bu sayfa "zaten H2/H3/H4
+   karışık ama VAR" diye dokunulmamıştı — ama yalnızca VARLIK kontrol
+   edilmişti, SIRA değil. Gerçek sıra: H1 → H4 (atlama!) → H2 → H3 →
+   H4×8 — ilk içerik başlığı doğrudan H4 (madde numaralı bir alt bölüm),
+   H2/H3 daha SONRA geliyor. Kaynağın kendi ham HTML yapısı (`content.contentHtml`,
+   aynı kaynak WP kalite sorunu — `legalHeadingSanitizer.ts`'in dokunmadığı
+   3 "zaten sağlıklı" sayfadan biri, kapsamı GENİŞLETİLEBİLİR).
+
+**Bu turda kod/veri değişikliği YAPILMADI** (yalnızca `check-heading-hierarchy.mjs`
+aracına YENİ bir tespit yeteneği eklendi, mevcut 44 sayfa DÜZELTİLMEDİ —
+kullanıcı talimatı: "henüz düzeltme yapma, önce net bir liste ver").
+Kanıt: `astro check` etkilenmedi (script bir `.mjs` aracı, TypeScript
+kapsamı dışı), script 2 kez art arda çalıştırılıp AYNI 44 sonucu verdi.
+
+---
+
+## Proje Durumu — 2026-08-13 girdisi, 25. tur (tarihsel, o turda doğruydu)
 
 **🟢 SİTE GENELİ — OPEN GRAPH + TWITTER CARD PAKETİ SIFIRDAN KURULDU
 (881 SAYFA, "og:image eksik" SEO uyarısının tam çözümü).** Kullanıcı
@@ -2216,6 +2315,28 @@ madde başına tekrarlanmıyor.
     `nl/wereldwijd-merk` (Hedef Global Marka NL) TR karşılığına göre
     belirgin kısaltılmış (43 vs 143 kelime) + H2 kaybetmiş — ayrı bir NL
     içerik incelemesi gerektirir, bu ikisi henüz ele alınmadı.
+33. **KISMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa (2026-08-13,
+    "Başlık hiyerarşisi sıralı değil" SEO uyarısı — bkz. Proje Durumu 26.
+    tur keşif + 27. tur düzeltme).** 3 alt kategoriden 2'si (b, c) 27.
+    turda KAPANDI (44→41). **(a) 38 blog yazısı — HÂLÂ AÇIK, kullanıcı
+    kararıyla ayrı bir turda ele alınacak.** Kaynağın kendi Gutenberg
+    heading-blok kalitesi sorunu ("stray H1" sınıfının devamı, ör.
+    H2→H4/H5/H6, `kadinlar-gunu` TAMAMEN H6 ile başlıyor) — düzeltme
+    yöntemi muhtemelen `blogHeadingSanitizer.ts`/`rehypeDemoteBodyH1s` ile
+    AYNI render-time mekanizmaya bir "seviye normalize etme" kuralı
+    eklemek olabilir, ama bu 435 yazılık title backlog'undan (Açık nokta
+    #28) daha KARMAŞIK bir iş — hangi seviyenin "doğru" olduğu her
+    yazıda farklı, otomatik/güvenilir bir kural bulmak gerekiyor. **(b) 2
+    hub sayfası** (`en/human-resources-management-modules`,
+    `it/moduli-gestione-risorse-umane`) — KAPANDI: `hubTranslationOverrides.ts`'e
+    TR kaynaktan çevrilmiş gerçek EN/IT `intro.title`/`intro.text`
+    eklendi, `HubPage.astro`/`HubTileCard.astro`'ya koşullu
+    `headingLevel` mekanizması eklendi. **(c) 1 hukuki sayfa**
+    (`kisisel-verilerin-korunmasi`, KVKK TR) — KAPANDI:
+    `legalHeadingSanitizer.ts`'in Kural 3'ü koşulsuz hale getirildi (her
+    H4 → H2, diğer 11 legal sayfayı etkilemiyor). FAQ sayfalarındaki
+    (Açık nokta #32) H1→H3 atlaması AYNI kök nedenin BİR PARÇASI — ayrı
+    listelenmedi, hâlâ küçük/isteğe bağlı kategoride.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26,27) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

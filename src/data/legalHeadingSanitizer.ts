@@ -12,8 +12,10 @@
 //
 // Üç ayrı, birbirinden bağımsız desen tespit edilip `<h2>`'ye (gerekirse
 // `<h3>`'e) çevriliyor — 14 hukuki sayfanın TAMAMI üzerinde çalıştırılan
-// TEK bir fonksiyon, zaten sağlıklı 3 sayfada (KVKK TR, KVK Protokol TR+EN)
-// hiçbir desen eşleşmediği gerçek veriyle doğrulandı, no-op kalıyor:
+// TEK bir fonksiyon, zaten sağlıklı 2 sayfada (KVK Protokol TR+EN) hiçbir
+// desen eşleşmediği gerçek veriyle doğrulandı, no-op kalıyor (KVKK TR
+// ÖNCEDEN bu listedeydi — 2026-08-13'te kural 3'ün koşulsuz hâle
+// getirilmesiyle o da artık bir dönüşümden geçiyor, bkz. kural 3 yorumu):
 //
 // 1. Tek başına bir paragrafı dolduran kalın metin — `<p><b><strong>METİN
 //    </strong></b></p>` (veya `<b>` olmadan `<p><strong>METİN</strong></p>`)
@@ -41,10 +43,21 @@
 //    uydurulmasın diye. 27 belge/dil kombinasyonu üzerinde doğrulandı,
 //    hiçbir gerçek tek-cümlelik madde içeriği (ör. uzun, küçük harfle
 //    başlayan cümleler) yanlışlıkla başlığa çevrilmiyor.
-// 3. `<h4>` var ama `<h2>`/`<h3>` hiç yoksa (KVKK EN/IT'nin H1→H4 seviye
-//    atlaması) — tüm `<h4>`'ler `<h2>`'ye yükseltiliyor. KVKK TR'nin
-//    zaten karışık ama GEÇERLİ h2/h3/h4 sırası varsa (TR öyle, kaynağın
-//    kendi gerçek yapısı) bu kural DEVREYE GİRMİYOR.
+// 3. `<h4>` KOŞULSUZ `<h2>`'ye yükseltiliyor (2026-08-13 GÜNCELLEME —
+//    "Başlık hiyerarşisi sıralı değil" SEO uyarısı turu, bkz. CLAUDE.md).
+//    ÖNCEDEN bu kural yalnızca "H2/H3 hiç yoksa" tetikleniyordu (KVKK
+//    EN/IT'nin H1→H4 atlamasını kapatıyordu) — ama KVKK TR'nin "zaten
+//    H2/H3/H4 karışık ama VAR" diye dokunulmayan hâli GERÇEKTE H1→H4→H2→
+//    H3→H4×8 sırasıyla render ediyordu (İLK içerik başlığı doğrudan H4,
+//    gerçek H2/H3 daha SONRA geliyordu — hâlâ bir atlama, yalnızca VARLIK
+//    kontrolü bunu YAKALAMIYORDU). 14 sayfanın TAMAMI üzerinde doğrulandı:
+//    H4 YALNIZCA KVKK'nın 3 dilinde (TR/EN/IT) kullanılıyor, başka HİÇBİR
+//    legal sayfada yok — bu yüzden koşulsuz promosyon TAMAMEN GÜVENLİ
+//    (diğer 11 sayfayı hiç ETKİLEMİYOR, KVKK EN/IT'de davranış AYNI kaldı).
+//    KVKK TR'de H4→H2 sonrası sıra: H2(eski H4)→H2(gerçek)→H3(gerçek,
+//    ardışık artış yalnızca +1, sorun DEĞİL)→H2(eski H4)×8 — TAMAMEN
+//    geçerli, seviye atlaması YOK. Metin İÇERİĞİ değişmedi, yalnızca
+//    etiket seviyesi.
 //
 // Dürüst sınır: Mesafeli Satış Sözleşmesi'nin "madde 7" başlığının
 // kendisi kaynakta yok (yalnızca alt maddeleri 7.2/7.3 var, `<ol>`'u
@@ -69,10 +82,10 @@ function isAllCapsHeading(text: string): boolean {
 export function structureLegalHeadings(html: string, pageTitle: string): string {
   let result = html;
 
-  // Kural 3: yalnızca H4 var, H2/H3 hiç yoksa hepsini H2'ye yükselt.
-  if (!/<h2[\s>]/i.test(result) && !/<h3[\s>]/i.test(result)) {
-    result = result.replace(/<h4(\s[^>]*)?>/gi, '<h2>').replace(/<\/h4>/gi, '</h2>');
-  }
+  // Kural 3: her `<h4>` koşulsuz `<h2>`'ye yükseltilir (bkz. dosya başı
+  // yorumu — 14 sayfanın YALNIZCA KVKK'sında (TR/EN/IT) H4 var, koşulsuz
+  // yükseltme diğer 11 sayfayı hiç etkilemiyor).
+  result = result.replace(/<h4(\s[^>]*)?>/gi, '<h2>').replace(/<\/h4>/gi, '</h2>');
 
   // Kural 2: izole tek-elemanlı <ol> "madde başlığı" blokları.
   const singleItemOlRe =

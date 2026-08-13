@@ -26,12 +26,29 @@ export interface HubOverride {
 
 export const HUB_OVERRIDES: Record<string, Partial<Record<Locale, HubOverride>>> = {
   'insan-kaynaklari-yonetimi-modulu': {
+    // `intro` (TR/EN) 2026-08-13'te eklendi — "Başlık hiyerarşisi sıralı
+    // değil" SEO uyarısı turu, bkz. CLAUDE.md. Kaynağın kendi ham verisinde
+    // (`hubs.json`) bu hub'ın EN/IT `intro` alanı `null`'dı (TR'de gerçek
+    // bir intro var) — `HubPage.astro`'nun "Tanıtım bloğu" H2'si bu yüzden
+    // hiç render edilmiyor, sayfa doğrudan tile grid'in H3'üne (H1→H3
+    // atlaması) düşüyordu. TR'nin gerçek `intro.title`/`intro.text`'inden
+    // (bkz. `hubs.json`) çevrildi — kopya/uydurma DEĞİL, KARAR 1 ilkesi.
+    en: {
+      intro: {
+        title: '360° HR Management With a Single Software',
+        text: "idenfit's cloud-based human resources software brings a holistic approach to HR management, letting you handle every HR process — from employee information to hiring, performance evaluation to trainings — all on a single platform. There's no need for extra software or additional programs when using idenfit — managing everything through one cloud platform with a single piece of software saves you time and operational costs.",
+      },
+    },
     it: {
       hero: {
         title: 'Moduli di Gestione delle Risorse Umane',
         text: 'Idenfit, basato su cloud, è un software di gestione delle risorse umane e della forza lavoro che porta un approccio olistico ai processi HR e ti aiuta a esaminare e gestire tutti i processi HR in un unico posto.',
         ctaText: 'Richiedi Subito',
         ctaUrl: 'https://idenfit.com/tr/online-sunum-talep-et/',
+      },
+      intro: {
+        title: 'Gestione delle Risorse Umane a 360° con un Unico Software',
+        text: "Il software per le risorse umane di idenfit porta un approccio olistico alla gestione HR, permettendoti di gestire tutti i processi che rientrano nell'ambito delle risorse umane — dai fascicoli dei dipendenti al reclutamento, dalla valutazione delle prestazioni alla formazione — su un'unica piattaforma. Utilizzando idenfit non hai bisogno di software o programmi aggiuntivi: gestendo tutto da un'unica piattaforma cloud con un solo software, risparmi tempo e costi operativi.",
       },
       tiles: [
         {
