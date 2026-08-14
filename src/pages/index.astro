@@ -5,6 +5,7 @@ import LogoStrip from '../components/LogoStrip.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import VideoSection from '../components/VideoSection.astro';
 import FeatureGrid from '../components/FeatureGrid.astro';
+import HomeProductPreview from '../components/HomeProductPreview.astro';
 import EfficiencySection from '../components/EfficiencySection.astro';
 import PanelFeatureSection from '../components/PanelFeatureSection.astro';
 import SupremaSection from '../components/SupremaSection.astro';
@@ -30,6 +31,7 @@ const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)
 	<VideoSection />
 	<FeatureGrid />
 	<SectionDivider text={t.home.dividers.afterFeatures} />
+	<HomeProductPreview />
 	<EfficiencySection />
 	<PanelFeatureSection />
 	<SupremaSection />

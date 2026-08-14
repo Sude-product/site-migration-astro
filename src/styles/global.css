@@ -361,6 +361,29 @@ html {
   }
 }
 
+/* Ana sayfa interaktif "ürün önizleme" widget'ı (2026-08-13) — sekme
+   içeriği değiştiğinde (`ProductPreviewWidget.tsx`, `key={activeTab}`
+   remount'u) yumuşak bir fade+slide geçişi. `.reveal` ile AYNI ilke
+   (yalnızca `opacity`/`transform`, `prefers-reduced-motion`'da kapalı). */
+@keyframes ppwFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ppw-tab-enter {
+  animation: ppwFadeSlide 350ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ppw-tab-enter {
+    animation: none;
+  }
+}
+
 /* Landing Page tasarruf hesaplayıcısı — marka renkli `<input type="range">`
    (2026-08-10). Tarayıcı varsayılan slider'ı tamamen `appearance:none` ile
    sıfırlanıp track/thumb elle çizildi (WebKit + Firefox ayrı pseudo-element
