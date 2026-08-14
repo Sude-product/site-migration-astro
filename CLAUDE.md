@@ -176,9 +176,170 @@ HRTECHTOOLS (ikonlar belirgin şekilde daha kalın/net), Avatar menüsü
 sayfa akışında) `getComputedStyle()` ile SAYISAL olarak + görsel
 zoom ile doğrulandı.
 
-**Kalan:** kullanıcının nihai görsel onayı + commit kararı (widget'ın
-TAMAMI için — 11/11 sekme + 9/9 ikon paneli). Bu turda commit
-YAPILMADI, tüm değişiklikler hâlâ working tree'de.
+---
+
+**🟡 YENİ ALT-İŞ (aynı gün) — WIDGET ÇERÇEVESİNİN ARKA PLANINA DEKORATİF
+"AĞ" DESENİ EKLENDİ (yalnızca MASAÜSTÜ, PİLOT — mobil uyarlaması AYRI bir
+turda). GÜNCELLEME: bu madde ARTIK GEÇERLİ DEĞİL — aşağıdaki "3. ADDENDUM"da
+kullanıcı isteğiyle TAMAMEN TERK EDİLDİ, `WidgetNetworkBackground.astro`
+SİLİNDİ, yerine çok daha basit bir "kayık kart" arka planı kondu. Bu
+madde yalnızca o kararın GEREKÇESİ/geçmişi için tutuluyor.** Kullanıcı gerçek app.idenfit.com giriş ekranındaki dekoratif
+deseni referans verdi: açık pembe/kırmızı radyal gradyan + nokta-grid
+zemin, widget çerçevesinin etrafında kesikli kırmızı çizgilerle bağlı
+6-8 ikon+etiket kutucuğu, köşe noktalarında küçük kırmızı daireler.
+
+**Yeni component — `WidgetNetworkBackground.astro`** (statik, React
+DEĞİL — widget'ın kendi içeriğine hiç dokunmuyor, salt görsel katman).
+8 kutucuk (kullanıcının verdiği AYNI isimler — idenfit'in gerçek erişim
+yöntemleri/modülleri): MOBİL/LAPTOP/YÜZ TANIMA/KART-NFC/PERFORMANS/İŞE
+ALIM/QR OKUYUCU/PC, her biri elle çizilmiş sade bir SVG ikonla (üçüncü
+parti ikon paketi KURULMADI, `FlagIcon.tsx`'in ilkesiyle AYNI).
+
+**Teknik:** gradyan+nokta-grid zemin kendi `overflow-hidden`'ı olan AYRI
+bir "hale" katmanı (`-inset-6 lg:-inset-8`); bağlantı çizgileri TEK bir
+`overflow:visible` SVG'de, viewBox KULLANILMADI (doğrudan yüzde birimi —
+container'ın gerçek boyutuna göre `preserveAspectRatio` bozulması/
+letterbox riski olmadan hizalanıyor), `vector-effect="non-scaling-stroke"`
+ile kesikli çizgi kalınlığı en/boy oranından bağımsız sabit. Kutucuklar
+SVG değil sade HTML/CSS (gerçek font-rendering için).
+
+**⚠️ Gerçek bug bulunup düzeltildi — yatay sayfa taşması:** ilk sürümde
+yan kutucuklar (%113/-13 gibi) `document.documentElement.scrollWidth`'i
+viewport'tan 177px taşırıp SAYFA GENELİNDE yatay scrollbar'a yol açtı —
+çerçeve `max-w-7xl`'i neredeyse tamamen kapladığı için kenarlarda gerçek
+boşluk yalnızca section'ın kendi padding'i kadardı. **İki katmanlı
+düzeltme:** (1) yüzdeler mütevazı değerlere çekildi (%106/-3 gibi), (2)
+`HomeProductPreview.astro`'daki section'a `overflow-x-hidden` eklendi
+(savunma katmanı — olası bir kenar durumu sayfayı kırmak yerine sessizce
+kırpılır). **İkinci bir bug:** sağ kutucuklar (KART/NFC, PERFORMANS)
+çerçevenin İÇİNE 20px taşıyordu — çerçeve `z-10` (opak) olduğu için o
+kısım görünmez oluyordu (metin "PERI" gibi kırpılmış görünüyordu) — Chrome'da
+`getBoundingClientRect()` ile hem viewport hem çerçeve sınırlarına karşı
+TEK TEK doğrulanıp yüzdeler (%103→%106) ayarlandı, her iki sorun da
+kapandı (0 taşma, 0 çerçeve-üstü-binme, 8 kutucuğun TAMAMI için).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal. Chrome'da: `document.documentElement.scrollWidth`
+viewport'a EŞİT (taşma yok, doğrulandı), 8 kutucuğun `getBoundingClientRect()`'i
+hem viewport hem çerçeve sınırlarına karşı SAYISAL olarak kontrol edildi
+(hepsi temiz), `hidden lg:block` class'larının doğru uygulandığı
+doğrulandı (mobilde bu katman TAMAMEN gizli — CSS mekanizması kontrol
+edildi, gerçek dar viewport ekran görüntüsü bu oturumdaki bir araç
+kısıtlaması nedeniyle alınamadı, ama Tailwind'in bu standart `hidden/lg:`
+deseni site genelinde zaten kanıtlanmış).
+
+---
+
+**🟢 3. ADDENDUM (aynı gün) — "ağ" deseni TAMAMEN TERK EDİLDİ + 3 ayrı
+bug düzeltmesi.** Kullanıcı "scroll kesinlikle olmamış" dedi — bir önceki
+addendumun yatay-taşma düzeltmesi kullanıcının kendi ortamında YETERLİ
+OLMAMIŞTI. Kullanıcı KENDİSİ karmaşık "ağ" desenini (nokta-grid+8 kutucuk)
+terk etmeye açık olduğunu belirtti, yerine çok daha basit bir istek
+verdi: koyu kırmızı bir "kayık kart" (offset shadow-card) arka planı,
+hover'da kayma artan. Aynı mesajda 2 AYRI sorun daha bildirdi.
+
+- **`WidgetNetworkBackground.astro` SİLİNDİ**, yerine `WidgetAccentBackdrop.astro`
+  (yeni, çok daha basit) — widget çerçevesinin arkasında `#8A0000`
+  (brand kırmızısı #FF0000'dan koyu) düz bir renk bloğu, `translate-x-2
+  translate-y-2` ile hafifçe kaydırılmış (çerçevenin sağ/alt kenarından
+  ince bir şerit halinde taşıyor), `group-hover:translate-x-3
+  group-hover:translate-y-3` ile üzerine gelince kayma artıyor. Sabit
+  piksel offset'leri (8px→12px) kullanıldığı için önceki turların
+  yüzde-tabanlı taşma riski YAPISAL OLARAK YOK — bu yeni katman HER
+  ZAMAN çerçeveyle birebir aynı boyutta (`inset-0`), yalnızca birkaç
+  piksel kayıyor.
+  **⚠️ Gerçek bug bulunup düzeltildi:** ilk denemede `-z-10` (negatif
+  z-index) katmanı TAMAMEN GÖRÜNMEZ yaptı — negatif z-index'li bir
+  absolute öğe, en yakın stacking-context kuran atanın (`<section>`)
+  kendi opak sayfa arka planının ALTINA düşüyor. Düzeltme: negatif
+  z-index KULLANILMADI, bunun yerine DOM sırası (katman çerçeveden ÖNCE)
+  + çerçevenin kendi `z-10`'u yeterli oldu.
+  **Hover doğrulaması:** `getComputedStyle().translate` ile hover
+  ÖNCESİ "8px 8px" / hover SIRASINDA "12px 12px" ölçüldü (`--tw-translate-x/y`
+  CSS custom property'leri üzerinden), gerçek çalıştığı SAYISAL olarak
+  kanıtlandı.
+- **Dashboard boyutu sekme değişiminde ARTIK SABİT.** Kullanıcı: "Modüller
+  değişirken dashboardımızın boyutu değişmesin, bazen büyüyor bazen
+  küçülüyor." Chrome'da 5 fonksiyonel sekmenin gerçek yüksekliği ölçüldü:
+  İnsan Kaynakları 352px (en kısa) → Veri Analizi 576px (en uzun), 224px
+  fark. `role="tabpanel"` içeriğine `min-h-[590px]` eklendi (en uzun
+  sekme + küçük tampon) — artık 5 sekmenin TAMAMI 590px panel/760px
+  çerçeve yüksekliğinde, ölçülüp doğrulandı (regresyon: kısa sekmeler
+  altta biraz boş alan bırakıyor, bilinçli ödün).
+- **Icon boldness — "bazı ikonlar hala soluk" bulgusu, 3 gerçek kaynak
+  bulundu ve düzeltildi** (bir önceki turun HRTECHTOOLS/Avatar
+  düzeltmesi widget'ın TAMAMINI kapsamıyordu): (1) `DateRangeCard`'ın
+  (Veri Analizi sekmesi) tarih alanı ikonları `text-body`/`text-gray-300`
+  miras alıyordu → `text-heading`/`text-gray-100`'e çevrildi; (2) sidebar
+  modül listesinin ETKİN-AMA-SEÇİLİ-OLMAYAN sekmeleri (ör. aktif değilken
+  "İzin"/"Veri Analizi") AYNI soluk `text-body` sorununu taşıyordu →
+  `text-heading`'e çevrildi (gerçekten DEVRE DIŞI/"Yakında" sekmeler
+  BİLİNÇLİ olarak dokunulmadı, o soluklaştırma doğru/kasıtlı bir sinyal);
+  (3) TÜM ikon render noktalarına (`AppTileData`/`TabDef`/`StatCard`'ın
+  `icon` tipleri genişletildi) `strokeWidth={2.5}` eklendi (lucide'ın
+  varsayılan `strokeWidth=2`'si ince/pale görünüyordu, renk doğru olsa
+  bile) — HRTECHTOOLS+Avatar'daki AYNI turun ilkesiyle, artık widget
+  genelinde tutarlı.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal. Chrome'da: 5 sekmenin panel
+yüksekliği SAYISAL olarak (590px, hepsi eşit) doğrulandı, backdrop
+katmanının `translate` değeri hover öncesi/sonrası (8px→12px) SAYISAL
+olarak doğrulandı, `DateRangeCard` ikonlarının artık koyu render
+edildiği görsel olarak teyit edildi.
+
+---
+
+**🟢 4. ADDENDUM (aynı gün) — Widget "tek bakışta görülebilecek" boyuta
+küçültüldü + dashboard genelinde hover efekti + pasif sekme yazıları
+koyulaştırıldı.** Kullanıcının 3 isteği:
+
+1. **Küçültme.** Sidebar/header/kart/grafik/satır boşlukları ve
+   boyutları sistematik olarak küçültüldü (`p-5`→`p-4`/`p-3`, ikon
+   butonları `h-9 w-9`→`h-8 w-8`, grafik yükseklikleri `h-40`/`h-48`→
+   `h-28`/`h-36`, sidebar genişliği `lg:w-72`→`lg:w-64`, `gap-5`→`gap-3`
+   gibi ~25 ayrı değişiklik). **Sekme sabit-boyut mekanizması (bir
+   önceki addendum) yeniden ölçüldü:** 5 sekmenin doğal yüksekliği artık
+   308px–464px (önceki 352px–576px'ten belirgin küçük), `min-h`
+   470px'e güncellendi. Chrome'da ölçüldü: widget artık TEK ekran
+   görüntüsüne (709px yükseklik) SIĞIYOR — üst tarayıcı çerçevesinden
+   alt köşesine kadar hiç sayfa kaydırmadan görünüyor.
+2. **Hover efekti — dashboard'daki NEREDEYSE TÜM görsel öğelere
+   eklendi:** `WidgetCard` (merkezi paylaşılan kart — gölge büyür +
+   kenarlık kırmızıya döner, TÜM içerik kartlarını otomatik kapsıyor),
+   `StatCard` (İzin KPI kartları — hafif yukarı kalkma + gölge),
+   `EvaluationRow` (360° satırları — gölge + 3 eylem butonu `scale-105`),
+   `ShiftAttendanceCard`/`BirthdayAnniversaryCard`/`ApprovalStatusCard`
+   satırları (arka plan tonu), `DateRangeCard` alanları (kenarlık rengi),
+   `RecalculateButton`/"Detaya Git" (scale/gölge), header ikon butonları
+   (`hover:scale-105` eklendi, mevcut `hover:bg-*`ye ek). Sidebar
+   sekmeleri ve `SectionMiniHeader`'ın linki ZATEN hover taşıyordu,
+   dokunulmadı.
+3. **Pasif sekme yazıları koyulaştırıldı — BİLİNÇLİ bir önceki karardan
+   DÖNÜŞ.** Önceki turda "gerçekten devre dışı sekmeler (Bordro/İşe
+   Alım/Çalışan Deneyimi/Modüller/Raporlar/Eğitim Akademisi) soluk
+   kalmalı, bu kasıtlı bir sinyal" denilmişti — kullanıcı bu turda
+   AÇIKÇA bunu istemedi, "diğerleri gibi koyu yap" dedi. `text-muted/50`/
+   `text-gray-600` → `text-heading`/`text-gray-100` (enabled-inactive
+   sekmelerle AYNI renk). `cursor-not-allowed` + tıklanamazlık
+   KORUNDU — yalnızca RENK değişti, işlevsellik aynı.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal. Chrome'da: 5 sekmenin yeni
+doğal yükseklikleri tek tek ölçüldü (Zaman 329/İzin 333/İK 308/
+Performans 390/Veri Analizi 464), widget'ın TEK ekran görüntüsüne
+sığdığı doğrulandı, `WidgetCard`+satır hover'ları görsel olarak
+(zoom ile) doğrulandı, karanlık modda pasif sekmelerin okunaklı
+olduğu doğrulandı. **Yan not:** bu turda React'in synthetic
+`dispatchEvent(new MouseEvent(...))` tekniği tutarsız çalıştı (bazen
+tab değiştirmedi) — gerçek `computer` aracı fare tıklaması HER ZAMAN
+güvenilir çalıştı, ölçümler o yöntemle yapıldı.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı (widget'ın TAMAMI
+için — 11/11 sekme + 9/9 ikon paneli + sabit/küçültülmüş boyut + hover
+efektleri + basit arka plan katmanı). Bu turda commit YAPILMADI, tüm
+değişiklikler hâlâ working
+tree'de.
 
 ---
 

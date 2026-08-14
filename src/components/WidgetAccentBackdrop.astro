@@ -1,0 +1,30 @@
+---
+// Ürün Önizleme widget'ının (dashboard mockup) ARKASINA eklenen sade
+// dekoratif renk katmanı — 2026-08-14, kullanıcının 2. talimatı: ilk
+// denemenin "ağ" deseni (nokta-grid + 8 ikon kutucuğu, `WidgetNetworkBackground.astro`,
+// artık silindi) sayfa genelinde yatay scroll sorununa yol açmaya devam
+// etti ("scroll kesinlikle olmamış") — kullanıcı BİLİNÇLİ olarak
+// karmaşık deseni terk edip yerine bu çok daha basit/güvenli "kayık
+// kart" (offset shadow-card) tekniğini istedi: widget çerçevesinin
+// arkasında, `--color-brand`den (#FF0000) daha KOYU bir kırmızı renk
+// bloğu, birkaç piksel kaydırılmış olarak — üzerine gelince (hover)
+// kayma miktarı artıyor. Sabit küçük piksel offsetleri (8px→12px)
+// kullanıldığı için önceki turun yüzde-tabanlı taşma riski YOK — bu
+// katman her zaman widget çerçevesiyle SIKI SIKIYA orantılı kalıyor.
+//
+// ⚠️ Bulunan bug: `-z-10` (negatif z-index) kullanılınca katman
+// GÖRÜNMEZ oluyordu — negatif z-index'li absolute bir öğe, en yakın
+// stacking-context kuran ATANIN kendisinin ARKASINA düşüyor; burada o
+// atanın (`<section>`) kendi opak (beyaz) sayfa arka planı bu negatif
+// katmanın ÜSTÜNE biniyor, katman sayfa arka planının ALTINDA kalıp
+// kayboluyordu. Düzeltme: negatif z-index KULLANILMADI — bunun yerine
+// bu `<div>` DOM sırasında çerçeveden ÖNCE geliyor (bkz. `HomeProductPreview.astro`)
+// ve çerçevenin kendisi `z-10` taşıyor, doğal DOM-sırası + pozitif
+// z-index yeterli, negatif değer riske gerek YOK.
+---
+
+<div
+  class="pointer-events-none absolute inset-0 translate-x-2 translate-y-2 rounded-2xl bg-[#8A0000] transition-transform duration-300 ease-out group-hover:translate-x-3 group-hover:translate-y-3"
+  aria-hidden="true"
+>
+</div>

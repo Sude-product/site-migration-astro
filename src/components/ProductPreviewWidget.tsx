@@ -84,7 +84,7 @@ type TabKey =
 interface TabDef {
   key: TabKey;
   label: string;
-  icon: ComponentType<{ className?: string }>;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   enabled: boolean;
   /** Yalnızca gerçek üründe de "YAKINDA" rozetiyle gösterilen modüller için
    * (Bordro/İşe Alım, bkz. kullanıcının gönderdiği referans ekran görüntüsü)
@@ -348,7 +348,7 @@ function LineChart({
   return (
     <div>
       <div className="flex gap-2">
-        <div className={`flex h-40 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+        <div className={`flex h-28 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {yTicks.map((v, i) => (
             <span key={i}>{v}</span>
           ))}
@@ -356,7 +356,7 @@ function LineChart({
         <svg
           viewBox={`0 0 ${width} ${height}`}
           preserveAspectRatio="none"
-          className="h-40 flex-1 overflow-visible"
+          className="h-28 flex-1 overflow-visible"
           aria-hidden="true"
         >
           <defs>
@@ -393,7 +393,7 @@ function SimpleBarChart({ data, unit = '' }: { data: { label: string; value: num
 
   return (
     <div className="flex gap-3">
-      <div className={`flex h-48 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+      <div className={`flex h-36 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
         {axisLabels.map((v, i) => (
           <span key={i}>{v}</span>
         ))}
@@ -404,7 +404,7 @@ function SimpleBarChart({ data, unit = '' }: { data: { label: string; value: num
         {data.map((d) => (
           <div key={d.label} className="flex flex-1 flex-col items-center gap-2">
             <div
-              className={`flex h-48 w-full max-w-10 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
+              className={`flex h-36 w-full max-w-10 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
             >
               <div className="rounded-t-md bg-brand" style={{ height: `${(d.value / axisMax) * 100}%` }} title={`${d.label}: ${d.value}${unit}`} />
             </div>
@@ -425,7 +425,7 @@ function StatCard({
   value,
   label,
 }: {
-  icon: ComponentType<{ className?: string; style?: { color?: string } }>;
+  icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
   color: string;
   value: string;
   label: string;
@@ -433,12 +433,12 @@ function StatCard({
   const { isDark } = useTheme();
   return (
     <div
-      className={`rounded-xl border border-t-4 p-4 ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}
+      className={`rounded-xl border border-t-4 p-3 transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-[0_6px_16px_rgba(0,0,0,0.08)] ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}
       style={{ borderTopColor: color }}
     >
-      <Icon className="h-5 w-5" style={{ color }} aria-hidden="true" />
-      <p className={`mt-3 text-2xl font-bold ${isDark ? 'text-white' : 'text-heading'}`}>{value}</p>
-      <p className={`mt-1 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{label}</p>
+      <Icon className="h-4 w-4" style={{ color }} strokeWidth={2.5} aria-hidden="true" />
+      <p className={`mt-2 text-xl font-bold ${isDark ? 'text-white' : 'text-heading'}`}>{value}</p>
+      <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{label}</p>
     </div>
   );
 }
@@ -454,8 +454,8 @@ function DonutChart({ segments, centerLabel }: { segments: { label: string; valu
   let cumulativeFraction = 0;
 
   return (
-    <div className="flex flex-wrap items-center gap-6">
-      <div className="relative h-28 w-28 shrink-0">
+    <div className="flex flex-wrap items-center gap-4">
+      <div className="relative h-24 w-24 shrink-0">
         <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90">
           <circle cx="50" cy="50" r={radius} fill="none" stroke={isDark ? '#374151' : '#F3F4F6'} strokeWidth="12" />
           {segments.map((s) => {
@@ -523,14 +523,14 @@ function SectionMiniHeader({
 }) {
   const { isDark } = useTheme();
   return (
-    <div className="mb-4 flex items-center justify-between gap-3">
+    <div className="mb-3 flex items-center justify-between gap-3">
       <div className="flex items-center gap-2">
-        <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
-        <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h3>
+        <Icon className="h-4 w-4 text-brand" aria-hidden="true" />
+        <h3 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h3>
       </div>
       <a
         href={href}
-        className="shrink-0 rounded-full bg-brand-light px-4 py-1.5 text-xs font-semibold whitespace-nowrap text-brand transition-colors hover:bg-brand hover:text-white"
+        className="shrink-0 rounded-full bg-brand-light px-3 py-1 text-xs font-semibold whitespace-nowrap text-brand transition-all hover:bg-brand hover:text-white hover:shadow-[0_2px_8px_rgba(255,0,0,0.35)]"
       >
         Detaya Git →
       </a>
@@ -541,10 +541,14 @@ function SectionMiniHeader({
 function WidgetCard({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
   const { isDark } = useTheme();
   return (
-    <div className={`rounded-xl border p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] ${isDark ? 'border-gray-700 bg-gray-800' : 'border-gray-200 bg-white'}`}>
+    <div
+      className={`rounded-xl border p-4 shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow duration-200 hover:shadow-[0_6px_20px_rgba(0,0,0,0.09)] ${
+        isDark ? 'border-gray-700 bg-gray-800 hover:border-gray-600' : 'border-gray-200 bg-white hover:border-brand/25'
+      }`}
+    >
       <h4 className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h4>
       <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{subtitle}</p>
-      <div className="mt-5">{children}</div>
+      <div className="mt-3">{children}</div>
     </div>
   );
 }
@@ -553,9 +557,12 @@ function ShiftAttendanceCard() {
   const { isDark } = useTheme();
   return (
     <WidgetCard title="Vardiya Devam Oranı" subtitle="Vardiya bazlı devam durumu">
-      <div className="space-y-4">
+      <div className="space-y-3">
         {SHIFTS.map((shift) => (
-          <div key={shift.label} className="flex items-center gap-3">
+          <div
+            key={shift.label}
+            className={`flex items-center gap-3 rounded-lg p-1.5 -m-1.5 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
+          >
             <span className={`w-32 shrink-0 truncate text-xs sm:w-44 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
               {shift.label}
             </span>
@@ -581,7 +588,7 @@ function OvertimeSummaryCard() {
   return (
     <WidgetCard title="Fazla Mesai Özeti" subtitle="Aylık — Şubeye göre">
       <div className="flex gap-3">
-        <div className={`flex h-48 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+        <div className={`flex h-36 flex-col justify-between text-right text-[10px] ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
             <span key={v}>{v}</span>
           ))}
@@ -592,7 +599,7 @@ function OvertimeSummaryCard() {
           {OVERTIME_MONTHS.map((month) => (
             <div key={month.label} className="flex flex-1 flex-col items-center gap-2">
               <div
-                className={`flex h-48 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
+                className={`flex h-36 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
                 {month.values.map((v, i) => (
                   <div
@@ -607,7 +614,7 @@ function OvertimeSummaryCard() {
           ))}
         </div>
       </div>
-      <div className={`mt-5 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+      <div className={`mt-3 flex flex-wrap gap-x-4 gap-y-2 border-t pt-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         {BRANCHES.map((b) => (
           <span key={b.name} className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: b.color }} aria-hidden="true" />
@@ -623,7 +630,7 @@ function TimeManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={Clock} title="Zaman" href="/puantaj-takip-programi-modulu/" />
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-3 lg:grid-cols-2">
         <ShiftAttendanceCard />
         <OvertimeSummaryCard />
       </div>
@@ -647,9 +654,12 @@ function ApprovalStatusCard() {
   return (
     <WidgetCard title="Onay Durumu Özeti" subtitle="Bu ayki izin talepleri">
       <SegmentedProgressBar segments={withPercent.filter((s) => s.percent > 0).map((s) => ({ color: s.color, percent: s.percent }))} />
-      <div className="mt-5 grid grid-cols-3 gap-3">
+      <div className="mt-3 grid grid-cols-3 gap-2">
         {withPercent.map((s) => (
-          <div key={s.label} className={`rounded-lg border p-3 text-center ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+          <div
+            key={s.label}
+            className={`rounded-lg border p-2 text-center transition-colors ${isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'}`}
+          >
             <p className="text-lg font-bold" style={{ color: s.color }}>
               {s.count}
             </p>
@@ -671,7 +681,7 @@ function LeaveManagementTab() {
           <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
         ))}
       </div>
-      <div className="mt-5 grid gap-5 lg:grid-cols-2">
+      <div className="mt-3 grid gap-3 lg:grid-cols-2">
         <LeaveTypeDistributionCard />
         <ApprovalStatusCard />
       </div>
@@ -692,11 +702,16 @@ function BirthdayAnniversaryCard() {
   const { isDark } = useTheme();
   return (
     <WidgetCard title="Doğum Günü & Yıldönümü" subtitle="Bu hafta">
-      <div className="space-y-3">
+      <div className="space-y-2">
         {HR_EVENTS.map((event) => (
-          <div key={event.name} className={`flex items-center gap-3 rounded-lg border p-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+          <div
+            key={event.name}
+            className={`flex items-center gap-3 rounded-lg border p-2.5 transition-colors ${
+              isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'
+            }`}
+          >
             <span
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
               style={{ backgroundColor: event.avatarColor }}
               aria-hidden="true"
             >
@@ -720,7 +735,7 @@ function HumanResourcesTab() {
   return (
     <div>
       <SectionMiniHeader icon={Users} title="İnsan Kaynakları" href="/insan-kaynaklari-yonetimi-modulu/" />
-      <div className="grid gap-5 lg:grid-cols-2">
+      <div className="grid gap-3 lg:grid-cols-2">
         <HeadcountTrendCard />
         <BirthdayAnniversaryCard />
       </div>
@@ -737,13 +752,13 @@ function EvaluationRow({ evaluation }: { evaluation: (typeof PERFORMANCE_EVALUAT
   const { isDark } = useTheme();
   return (
     <div
-      className={`flex flex-col gap-4 rounded-lg border p-4 sm:flex-row sm:items-center sm:justify-between ${
-        isDark ? 'border-gray-700' : 'border-gray-100'
+      className={`flex flex-col gap-3 rounded-lg border p-3 transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(0,0,0,0.07)] sm:flex-row sm:items-center sm:justify-between ${
+        isDark ? 'border-gray-700 hover:border-gray-600' : 'border-gray-100 hover:border-gray-200'
       }`}
     >
       <div className="flex min-w-0 flex-1 items-center gap-3">
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
+          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
           style={{ backgroundColor: evaluation.avatarColor }}
           aria-hidden="true"
         >
@@ -756,11 +771,18 @@ function EvaluationRow({ evaluation }: { evaluation: (typeof PERFORMANCE_EVALUAT
         <p className={`mt-0.5 text-xs font-medium ${isDark ? 'text-gray-300' : 'text-body'}`}>{evaluation.period}</p>
       </div>
       <div className="flex shrink-0 flex-wrap gap-2" aria-hidden="true">
-        <span className="rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white" style={{ backgroundColor: '#289C0F' }}>
+        <span
+          className="rounded-full px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105"
+          style={{ backgroundColor: '#289C0F' }}
+        >
           Değerlendirmeyi Başlat
         </span>
-        <span className="rounded-full bg-secondary px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white">Önizleme</span>
-        <span className="rounded-full bg-brand px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white">Kopya Oluştur</span>
+        <span className="rounded-full bg-secondary px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105">
+          Önizleme
+        </span>
+        <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105">
+          Kopya Oluştur
+        </span>
       </div>
     </div>
   );
@@ -791,7 +813,7 @@ function RecalculateButton() {
     <span
       role="button"
       aria-hidden="true"
-      className="inline-flex shrink-0 cursor-default items-center rounded-lg bg-brand px-4 py-2.5 text-xs font-semibold whitespace-nowrap text-white"
+      className="inline-flex shrink-0 cursor-default items-center rounded-lg bg-brand px-3.5 py-2 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105"
     >
       Verileri Hesapla
     </span>
@@ -800,21 +822,21 @@ function RecalculateButton() {
 
 function DateRangeCard() {
   const { isDark } = useTheme();
-  const fieldClass = `flex h-10 min-w-0 items-center gap-2 rounded-lg border px-3 text-xs font-medium ${
-    isDark ? 'border-gray-700 bg-gray-900 text-gray-300' : 'border-gray-200 bg-white text-body'
+  const fieldClass = `flex h-9 min-w-0 items-center gap-2 rounded-lg border px-3 text-xs font-medium transition-colors ${
+    isDark ? 'border-gray-700 bg-gray-900 text-gray-100 hover:border-gray-500' : 'border-gray-200 bg-white text-heading hover:border-brand/40'
   }`;
   return (
     <WidgetCard title="Tarih Aralığı" subtitle="Analiz edilecek dönemi seçin">
       <div className="flex flex-wrap items-center gap-3">
         <span className={fieldClass} aria-hidden="true">
-          <CalendarDays className="h-3.5 w-3.5 shrink-0" />
+          <CalendarDays className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
           01.01.2026
         </span>
         <span className={isDark ? 'text-gray-500' : 'text-muted'} aria-hidden="true">
           –
         </span>
         <span className={fieldClass} aria-hidden="true">
-          <CalendarDays className="h-3.5 w-3.5 shrink-0" />
+          <CalendarDays className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} />
           30.06.2026
         </span>
         <RecalculateButton />
@@ -849,9 +871,9 @@ function DataAnalysisTab() {
   return (
     <div>
       <SectionMiniHeader icon={BarChart3} title="Veri Analizi" href="/hesaplama-araclari/" />
-      <div className="space-y-5">
+      <div className="space-y-3">
         <DateRangeCard />
-        <div className="grid gap-5 lg:grid-cols-2">
+        <div className="grid gap-3 lg:grid-cols-2">
           <DepartmentAbsenteeismCard />
           <AbsenteeismTrendCard />
         </div>
@@ -1223,7 +1245,7 @@ function VisibilityPanelContent() {
 // İCAT EDİLMEDİ.
 function AppHeaderBar() {
   const { isDark, toggle } = useTheme();
-  const iconBtnClass = `flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors ${
+  const iconBtnClass = `flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border transition-colors hover:scale-105 ${
     isDark ? 'border-gray-700 text-gray-200 hover:bg-gray-800' : 'border-gray-200 text-heading hover:bg-gray-50'
   }`;
   const headerRef = useRef<HTMLDivElement>(null);
@@ -1251,7 +1273,7 @@ function AppHeaderBar() {
   return (
     <div
       ref={headerRef}
-      className={`mb-5 flex flex-wrap items-center justify-between gap-3 border-b pb-4 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+      className={`mb-3 flex flex-wrap items-center justify-between gap-2 border-b pb-3 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
     >
       <div className="flex items-center gap-2">
         <IconDropdown
@@ -1277,7 +1299,7 @@ function AppHeaderBar() {
           <ShortcutsPanelContent />
         </IconDropdown>
         <span
-          className={`hidden h-9 items-center gap-2 rounded-lg border px-3 text-xs sm:flex ${
+          className={`hidden h-8 items-center gap-2 rounded-lg border px-3 text-xs sm:flex ${
             isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 bg-gray-50 text-muted'
           }`}
         >
@@ -1295,7 +1317,7 @@ function AppHeaderBar() {
           openPanel={openPanel}
           onToggle={togglePanel}
           panelWidthClass="w-64"
-          iconBtnClass={`flex h-9 shrink-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-semibold transition-colors ${
+          iconBtnClass={`flex h-8 shrink-0 items-center gap-1.5 rounded-lg border px-2.5 text-xs font-semibold transition-colors hover:scale-105 ${
             isDark ? 'border-gray-700 text-gray-200 hover:bg-gray-800' : 'border-gray-200 text-heading hover:bg-gray-50'
           }`}
           trigger={
@@ -1345,7 +1367,7 @@ function AppHeaderBar() {
           // `hover:opacity-90` KULLANILMADI — ikonu soluklaştırıyordu, diğer
           // ikon butonlarıyla (arka plan tonu değişen `hover:bg-*`) AYNI
           // ilkeyle `brightness` filtresine çevrildi (opaklık SABİT %100 kalıyor).
-          iconBtnClass="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-secondary text-white transition-[filter] hover:brightness-90"
+          iconBtnClass="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-secondary text-white transition-[filter,transform] hover:brightness-90 hover:scale-105"
           panelWidthClass="w-[26rem]"
           hiddenSm
         >
@@ -1356,11 +1378,11 @@ function AppHeaderBar() {
           panelKey="avatar"
           openPanel={openPanel}
           onToggle={togglePanel}
-          iconBtnClass="flex items-center gap-2.5 rounded-lg transition-colors"
+          iconBtnClass={`flex items-center gap-2 rounded-lg p-1 transition-colors ${isDark ? 'hover:bg-gray-800' : 'hover:bg-gray-50'}`}
           panelWidthClass="w-48"
           trigger={
             <>
-              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
+              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
               <span className="hidden leading-tight sm:block">
                 <span className={`block text-xs font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Deniz Aydın</span>
                 <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>İK Yöneticisi</span>
@@ -1392,9 +1414,9 @@ export default function ProductPreviewWidget() {
             gönderdiği tam ekran görüntüsündeki GERÇEK modül isimleriyle
             genişletildi — yalnızca ilk 3'ü (Zaman/İzin/İnsan Kaynakları)
             fonksiyonel, kalanı `enabled:false` (bkz. `TABS` üstündeki yorum). */}
-        <div className={`shrink-0 border-b p-5 lg:w-72 lg:border-r lg:border-b-0 ${isDark ? 'border-gray-700 bg-gray-900' : 'border-gray-200 bg-white'}`}>
-          <IdenfitLogo className={`h-6 w-auto sm:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
-          <nav aria-label="Panel önizleme modülleri" className="mt-5 space-y-1">
+        <div className={`shrink-0 border-b p-4 lg:w-64 lg:border-r lg:border-b-0 ${isDark ? 'border-gray-700 bg-gray-900' : 'border-gray-200 bg-white'}`}>
+          <IdenfitLogo className={`h-5 w-auto sm:h-6 ${isDark ? 'text-white' : 'text-heading'}`} />
+          <nav aria-label="Panel önizleme modülleri" className="mt-4 space-y-0.5">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -1405,22 +1427,22 @@ export default function ProductPreviewWidget() {
                   aria-selected={isActive}
                   disabled={!tab.enabled}
                   onClick={() => tab.enabled && setActiveTab(tab.key)}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+                  className={`flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs font-medium transition-colors ${
                     isActive
                       ? 'bg-brand text-white'
                       : tab.enabled
                         ? isDark
-                          ? 'text-gray-300 hover:bg-gray-800 hover:text-white'
-                          : 'text-body hover:bg-brand-light hover:text-brand'
+                          ? 'text-gray-100 hover:bg-gray-800 hover:text-white'
+                          : 'text-heading hover:bg-brand-light hover:text-brand'
                         : isDark
-                          ? 'cursor-not-allowed text-gray-600 hover:bg-gray-800/60'
-                          : 'cursor-not-allowed text-muted/50 hover:bg-gray-50'
+                          ? 'cursor-not-allowed text-gray-100 hover:bg-gray-800/60'
+                          : 'cursor-not-allowed text-heading hover:bg-gray-50'
                   }`}
                 >
-                  <tab.icon className="h-4 w-4 shrink-0" aria-hidden="true" />
+                  <tab.icon className="h-3.5 w-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
                   <span className="flex-1 truncate">{tab.label}</span>
                   {tab.badge && (
-                    <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
+                    <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[9px] font-semibold text-brand">
                       {tab.badge}
                     </span>
                   )}
@@ -1430,9 +1452,21 @@ export default function ProductPreviewWidget() {
           </nav>
         </div>
 
-        <div className={`flex-1 p-4 sm:p-6 ${isDark ? 'bg-gray-950' : 'bg-[#F9FAFB]'}`}>
+        <div className={`flex-1 p-3 sm:p-4 ${isDark ? 'bg-gray-950' : 'bg-[#F9FAFB]'}`}>
           <AppHeaderBar />
-          <div key={activeTab} role="tabpanel" className="ppw-tab-enter">
+          {/* Sekmeler arası GEÇİŞTE widget çerçevesinin boyu değişmesin diye
+              (2026-08-14, kullanıcı geri bildirimi — "bazen büyüyor bazen
+              küçülüyor") — 5 fonksiyonel sekmenin gerçek yüksekliği Chrome'da
+              ölçülüp en uzununa göre bir taban (`min-h`) verildi. Aynı gün,
+              3. tur: kullanıcı "tek bakışta görülebilecek boyut" istedi —
+              TÜM kart/grafik/boşluk/ikon değerleri küçültüldü (bkz. bu
+              dosyadaki `p-4`/`p-3`/chart `h-28`/`h-36` gibi değerler),
+              5 sekmenin yeniden ölçülen doğal yüksekliği 308px–464px
+              (önceki turun 352px–576px aralığından belirgin küçük) —
+              `min-h` en uzununa (Veri Analizi) göre yeniden ayarlandı.
+              Kısa sekmeler altta biraz boş alan bırakıyor — bilinçli bir
+              ödün, "sabit boyut" isteğiyle tutarlı. */}
+          <div key={activeTab} role="tabpanel" className="ppw-tab-enter min-h-[470px]">
             {activeTab === 'zaman' && <TimeManagementTab />}
             {activeTab === 'izin' && <LeaveManagementTab />}
             {activeTab === 'ik' && <HumanResourcesTab />}
