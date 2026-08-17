@@ -9,10 +9,10 @@ Destek Talebi, Hesaplama Araçları, Dijital İK Olgunluk Testi, Fiyatlar,
 Hakkımızda, İletişim, SSS, KVKK/hukuki sayfa ailesi (+ KVK Protokol),
 Footer/Header tamamlandı. Site denetim raporu (14 madde) + kapsamlı URL
 denetimi (853 canlı URL karşılaştırması) kapandı. Landing Page (/demo)
-tamamlanıp commit edildi (2026-08-11, f21f863). Şu anki odak: ana sayfa
-interaktif Ürün Önizleme widget'ı (11/11 sekme + üst header'ın 9/9 ikon
-paneli TAMAMLANDI, henüz commit edilmedi) + Blog CMS (Decap) kademeli
-üretimi + SEO/erişilebilirlik takip turları.
+tamamlanıp commit edildi (2026-08-11, f21f863). Ana sayfa interaktif
+Ürün Önizleme widget'ı (11/11 sekme + üst header'ın 9/9 ikon paneli)
+tamamlanıp commit edildi (2026-08-13, 808412a+b9f713d). Şu anki odak:
+Blog CMS (Decap) kademeli üretimi + SEO/erişilebilirlik takip turları.
 
 **Eski günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13 tam günlük,
@@ -75,13 +75,12 @@ Yapımı") artık doğru H3, göç etmiş Markdown pilotu
 TAMAMEN KAPANDI** — (a) 38 blog artık bu turda, (b) 2 hub + (c) 1 hukuki
 sayfa zaten 2026-08-13'te kapanmıştı.
 
-**Kalan:** kullanıcı onayı + commit kararı. Bu turda commit YAPILMADI —
-`git status`: `astro.config.mjs`/`src/content.config.ts`/
-`src/data/blogHeadingSanitizer.ts` (M), working tree'de. **Not:** ana
-sayfa Ürün Önizleme widget'ı (11/11 sekme + 9/9 header paneli, bkz. 4.
-tur/2026-08-13 28. tur girdileri) da HÂLÂ commit edilmemiş durumda —
-bu iki iş birbirinden bağımsız, ayrı ayrı veya birlikte commit
-edilebilir, kullanıcıya sorulmalı.
+**Kullanıcı onayıyla commit edildi: cb35dac.** **Not (bu turda düzeltilen
+eski bir CLAUDE.md yanlışlığı):** ana sayfa Ürün Önizleme widget'ı (11/11
+sekme + 9/9 header paneli, bkz. 4. tur/2026-08-13 28. tur girdileri)
+önceki turların notunun aksine ASLINDA ZATEN commit edilmiş durumdaydı
+(`808412a`/`b9f713d`, `git log` ile doğrulandı) — dosyanın o bölümlerindeki
+"henüz commit edilmedi" ifadeleri güncel değildi, düzeltildi.
 
 ---
 
@@ -1223,7 +1222,7 @@ içerikleri hâlâ geçerli.)*
     KAPANDI** (`normalizeHeadingLevels()` — `blogHeadingSanitizer.ts`
     regex/stack tabanlı + `astro.config.mjs`'in `rehypeNormalizeHeadingLevels()`
     HAST karşılığı, `min(ham, ebeveyn+1)` mekanik kuralı, bkz. Proje
-    Durumu 2026-08-17 6. tur tam detay) — kod henüz commit edilmedi.
+    Durumu 2026-08-17 6. tur tam detay, commit edildi: cb35dac).
     **(b) 2 hub sayfası** (`en/human-resources-management-modules`,
     `it/moduli-gestione-risorse-umane`) — KAPANDI: `hubTranslationOverrides.ts`'e
     TR kaynaktan çevrilmiş gerçek EN/IT `intro.title`/`intro.text`
