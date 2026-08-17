@@ -35,9 +35,9 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
                   </span>
                 )}
                 <span class="flex flex-col">
-                  <span class="text-sm font-semibold leading-snug text-heading transition-colors group-hover:text-brand">
+                  <h3 class="m-0 text-sm font-semibold leading-snug text-heading transition-colors group-hover:text-brand">
                     {post.data.title}
-                  </span>
+                  </h3>
                   <time datetime={post.data.date.toISOString()} class="mt-1 text-xs text-muted">
                     {formatBlogDate(post.data.date)}
                   </time>
@@ -69,9 +69,9 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
                   </span>
                 )}
                 <span class="flex flex-col">
-                  <span class="text-sm font-semibold leading-snug text-heading transition-colors group-hover:text-brand">
+                  <h3 class="m-0 text-sm font-semibold leading-snug text-heading transition-colors group-hover:text-brand">
                     {post.data.title}
-                  </span>
+                  </h3>
                   <time datetime={post.data.date.toISOString()} class="mt-1 text-xs text-muted">
                     {formatBlogDate(post.data.date)}
                   </time>
