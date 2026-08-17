@@ -47,9 +47,11 @@ const pageHref = (page: number) => (page <= 1 ? '/blog/' : `/blog/page/${page}/`
 const pageItems = getPaginationItems(currentPage, totalPages);
 ---
 
+<!-- Blog TR-only — bkz. `blog/[slug].astro`'daki AYNI yorum. -->
 <BaseLayout
   title="idenfit Blog — İK, İnsan Kaynakları ve Dijitalleşme Yazıları"
   description="İnsan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine idenfit'in blog yazıları."
+  hreflangLocales={['tr']}
 >
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h1 class="text-3xl font-bold tracking-tight text-heading sm:text-4xl">Blog</h1>

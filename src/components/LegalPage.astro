@@ -12,6 +12,12 @@ import type { Locale } from '../data/nav';
 interface Props {
   content: LegalContent;
   localeUrls: Record<string, string | undefined>;
+  /** hreflang için GERÇEK içeriği olan locale listesi — bkz.
+   * `BaseLayout.astro`'daki `hreflangLocales` prop yorumu. Bu component 5
+   * farklı hukuki aile tarafından paylaşıldığı için (KVKK/KVK Protokol/
+   * Tüketici Hakları/Mesafeli Satış/Gizlilik ve Güvenlik Politikası) hangi
+   * dillerin gerçek olduğunu KENDİSİ bilemez — çağıran sayfa geçirmeli. */
+  hreflangLocales?: Locale[];
   /** Meta description override (2026-08-10, meta description uzunluk
    * denetimi — bkz. CLAUDE.md). Varsayılan davranış (`content.contentHtml`'in
    * ilk 160 karakteri) KÖK NEDEN BUG'IYDI: hukuki belgeler genelde şirket
@@ -25,7 +31,7 @@ interface Props {
   description?: string;
 }
 
-const { content, localeUrls, description: descriptionOverride } = Astro.props;
+const { content, localeUrls, hreflangLocales, description: descriptionOverride } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 // H2/H3 alt başlığı eksikliği düzeltmesi (2026-08-13) — bkz.
 // `legalHeadingSanitizer.ts`'in dosya başı yorumu (kök neden + 3 dönüşüm
@@ -37,7 +43,7 @@ const description = descriptionOverride ?? structuredHtml.replace(/<[^>]+>/g, ' 
 const title = buildIdenfitTitle(content.title, locale);
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls} hreflangLocales={hreflangLocales}>
   <div class="w-full px-4 py-12 sm:px-6 lg:px-[100px] lg:py-16">
     <section class="mx-auto max-w-[1440px]">
       <h1 class="text-4xl font-normal uppercase leading-[43px] text-brand">{content.title}</h1>

@@ -26,6 +26,13 @@ interface Props {
   content: NonNullable<ReturnType<typeof getProductContent>>;
   pageTitle: string;
   localeUrls: Partial<Record<Locale, string>>;
+  /** hreflang için GERÇEK içeriği olan locale listesi — bkz.
+   * `BaseLayout.astro`'daki `hreflangLocales` prop yorumu. Standart ürün/
+   * modül sayfalarının HEPSİ için (`getProductLocaleUrls()` alias'lamaz,
+   * `SLUG_INDEX`'te gerçekten VAR olan locale'leri döner) verilmezse
+   * VARSAYILAN (LOCALES, hepsi) doğru — yalnızca Demirbaş/Seyahat (TR+EN)/
+   * Puantaj (TR) gibi GERÇEKTEN kısıtlı sayfalar bunu elle geçirmeli. */
+  hreflangLocales?: Locale[];
   /** Meta description override — `hero.text` bazı sayfalarda 70 karakterden
    * kısa çıkıyor (2026-08-10 denetimi, bkz. CLAUDE.md); verilmezse eski
    * `hero.text` davranışına düşer (`SecurityPage.astro` ile AYNI opt-in
@@ -71,6 +78,7 @@ const {
   content,
   pageTitle,
   localeUrls,
+  hreflangLocales,
   description: descriptionOverride,
   title: titleOverride,
   ctaKeyword,
@@ -95,7 +103,7 @@ const heroCtaText =
   ctaTextOverride ?? (hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText);
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} image={hero.image?.url}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls} hreflangLocales={hreflangLocales} image={hero.image?.url}>
   <!-- Hero -->
   <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -163,7 +171,7 @@ const heroCtaText =
           {faq.map((item) => (
             <details class="group py-4">
               <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
-                <span>{item.question}</span>
+                <h3 class="m-0 text-base font-semibold text-heading">{item.question}</h3>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 12 12"

@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
+import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -11,6 +12,19 @@ interface Props {
   description?: string;
   /** Bkz. `Header.astro`'daki `localeUrls` prop açıklaması. */
   localeUrls?: Partial<Record<Locale, string>>;
+  /** hreflang üretimi için GERÇEK içeriği olan locale listesi (2026-08-17,
+   * "No hreflang tags" SEO turu — bkz. CLAUDE.md). Verilmezse TÜM diller
+   * (`LOCALES`) varsayılır — sayfaların büyük çoğunluğu için doğru (4
+   * dilde de gerçek dosya var). **Yalnızca gerçek bir dil eksikse** (ör.
+   * NL'de kaynak sayfa hiç yok — KVKK/Güvenlik/SSS/Hub/Destek Talebi/
+   * Teşekkürler/Gizlilik-Güvenlik/Tüketici Hakları/Mesafeli Satış ailesi;
+   * ya da yalnızca TR+EN — Demirbaş/Seyahat; ya da yalnızca TR — Puantaj/
+   * blog/Hesaplama Araçları/İK Dijital Olgunluk Testi) çağıran sayfa bu
+   * prop'u AÇIKÇA kısıtlı geçirmeli. **`localeUrls`'in ham anahtarlarını
+   * KULLANMA** — birçok `get*LocaleUrls()` fonksiyonu dil değiştirici için
+   * eksik NL'yi EN'in URL'ine "alias"lıyor (bkz. `hreflang.ts`'in dosya
+   * başı yorumu), bu hreflang için GEÇERSİZ bir sinyal olur. */
+  hreflangLocales?: Locale[];
   /** `true` ise `<meta name="robots" content="noindex, nofollow">` eklenir
    * — arama motorlarından gizli, yalnızca doğrudan/reklam trafiğine açık
    * sayfalar için (ör. Landing Page `/demo`, bkz. CLAUDE.md 2026-08-06).
@@ -35,6 +49,7 @@ const {
   title = 'idenfit',
   description = 'idenfit — İnsan kaynakları yönetim yazılımı.',
   localeUrls,
+  hreflangLocales,
   noindex = false,
   image,
   ogType = 'website',
@@ -58,6 +73,15 @@ const ogImage = image ?? HOME_PANEL_IMAGE[lang as Locale].url;
 // URL üretir, tanımlı DEĞİLSE göreli yola düşer — `site` alanı Faz 2'de
 // doldurulduğu an bu kod DEĞİŞMEDEN doğru (mutlak) davranışa geçer.
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+
+// Canonical + hreflang (2026-08-17, "No hreflang tags" SEO turu — bkz.
+// CLAUDE.md). İkisi de `Astro.site` boşken (Faz 2 domain bağlanana kadar)
+// HİÇ üretilmez — canonical/hreflang mutlak URL şart koşuyor, `pageUrl`'in
+// yukarıdaki AYNI ilkesi. `noindex` sayfalarda da (404, redirect'e denk
+// gelen stub'lar vb.) ikisi de bastırılır — bu sayfalar zaten indekslenmeyecek.
+const hreflangAlternates =
+  noindex ? [] : buildHreflangAlternates(Astro.site, Astro.url.pathname, localeUrls, hreflangLocales);
+const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 ---
 
 <!doctype html>
@@ -70,6 +94,15 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		{Astro.site && !noindex && <link rel="canonical" href={pageUrl} />}
+
+		<!-- hreflang (2026-08-17) — bkz. `hreflangAlternates` yorumu yukarıda.
+		     Kendi kendine referans dahil (Google'ın gerekliliği), x-default
+		     her zaman TR'ye (varsayılan dil) işaret eder. -->
+		{hreflangAlternates.map((a: HreflangAlternate) => (
+			<link rel="alternate" hreflang={a.locale} href={a.href} />
+		))}
+		{xDefaultHref && <link rel="alternate" hreflang="x-default" href={xDefaultHref} />}
 
 		<!-- Open Graph (2026-08-13, "og:image eksik" SEO uyarısı turu — bkz.
 		     `image`/`ogType` prop yorumları yukarıda). -->

@@ -49,6 +49,10 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 		<meta name="generator" content={Astro.generator} />
 		<meta name="description" content={description} />
 		{noindex && <meta name="robots" content="noindex, nofollow" />}
+		{/* Canonical (2026-08-17) — `BaseLayout.astro`'daki AYNI ilke: `site`
+		    boşken hiç üretilmez. hreflang burada YOK — bu sayfa TR-only
+		    (tek dil), bildirilecek bir alternatif yok. */}
+		{Astro.site && !noindex && <link rel="canonical" href={pageUrl} />}
 
 		<!-- Open Graph + Twitter Card — `BaseLayout.astro`'daki AYNI blok
 		     (2026-08-13, "og:image eksik" SEO uyarısı turu). -->

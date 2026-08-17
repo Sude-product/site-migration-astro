@@ -183,6 +183,12 @@ export default defineConfig({
     // düzeltildi.
     '/nl/hesaplama-araclari': '/hesaplama-araclari',
     '/nl/ik-dijital-olgunluk-testi': '/ik-dijital-olgunluk-testi',
+    // 2026-08-17: hreflang denetim turunda bulundu — SSS'nin TR bare slug'ı
+    // (`sss`) EN/IT'nin `faq`'ından FARKLI, bu yüzden otomatik `fallback:
+    // {nl:'en'}` mekanizması `/nl/sss/`'i var olmayan `/en/sss/`'e düşürüp
+    // sessiz 404 üretiyordu (Tüketici Hakları/Güvenlik'teki AYNI sınıf bug,
+    // yukarıdaki elle-redirect deseniyle düzeltildi).
+    '/nl/sss': '/en/faq',
     // 2026-07-30: kaynak sitede (idenfit.com) bu yazının slug'ı sonradan
     // `2025-issizlik-maasi`'den `2026-issizlik-maasi`'ye değiştirilmiş
     // (başlık zaten "2026..." idi, WP export'umuzun snapshot'ı eski

@@ -24,6 +24,101 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-17 — "No hreflang tags" SEO bulgusu kapandı, canonical de aynı turda eklendi, kod commit EDİLMEDİ)
+
+**🟢 hreflang + canonical altyapısı sıfırdan kuruldu, "hazır ama uykuda"
+ilkesiyle.** Kullanıcının bildirdiği "No hreflang tags" SEO bulgusu
+araştırıldı — keşif turunda 2 kritik bulgu netleşti (uygulamaya geçmeden
+önce kullanıcıya raporlanıp onay alındı):
+1. **Mutlak URL bloker'ı.** Google'ın hreflang dokümantasyonu `href`'in
+   fully-qualified olmasını zorunlu kılıyor, göreli yol GEÇERSİZ sayılıyor
+   — ama `astro.config.mjs`'in `site` alanı hâlâ boş (Açık nokta #31'in
+   AYNI gerekçesi: `idenfit.com` domain'i hâlâ eski WordPress sitesine
+   ait). **Kullanıcı kararı:** hem hreflang hem canonical şimdi kodlanıp
+   `Astro.site` tanımlıysa aktif, tanımlı DEĞİLSE HİÇ `<link>` üretmeyecek
+   şekilde kuruldu (`BaseLayout.astro`'nun `pageUrl`'i zaten bu ilkeyi
+   taşıyordu) — Faz 2'de domain bağlanınca **ikisi de otomatik aynı anda
+   aktifleşecek**, ek kod değişikliği gerekmeyecek.
+2. **Fallback/redirect sayfalara hreflang YASAK.** Google'ın rehberi:
+   hreflang hedefleri geçerli/indexlenebilir sayfalar olmalı, redirect'e
+   veya `noindex` sayfaya işaret eden hreflang GEÇERSİZ sayılıp yok
+   sayılıyor. Projenin fallback redirect stub'ları (Açık nokta #27) zaten
+   `noindex` — bu yüzden yalnızca GERÇEK içeriği olan diller için hreflang
+   üretiliyor, fallback/alias'lı diller için HİÇ.
+
+**Mimari:** `src/i18n/localeUrls.ts` (Header'ın `genericLocaleUrls`
+hesaplaması buraya taşındı, DRY) + `src/i18n/hreflang.ts`
+(`buildHreflangAlternates()`). `BaseLayout.astro`/`LandingLayout.astro`'ya
+yeni `hreflangLocales?: Locale[]` prop'u — verilmezse TÜM diller
+varsayılır (sayfaların çoğu için doğru), GERÇEKTEN kısıtlı sayfalar
+(NL'i olmayanlar, TR-only olanlar) elle geçiriyor.
+
+**⚠️ Gerçek bir mimari tuzak bulunup düzeltildi — `get*LocaleUrls()`
+fonksiyonlarının çoğu (dil değiştirici için) eksik NL'yi EN'in URL'ine
+"alias"lıyor.** `miscPagesContent.ts`'in `localeUrlsFor()`'ı (KVKK/KVK
+Protokol/Tüketici Hakları/Mesafeli Satış/Gizlilik-Güvenlik/Güvenlik/
+GlobalBrand/WhyIdenfit/Hakkımızda/İletişim için paylaşılan) + ayrı
+kopyaları (`faqContent.ts`/`hubContent.ts`/`supportRequestContent.ts`/
+`thankYouContent.ts`) — `nl` eksikse `result.nl = result.en` yaparak
+switcher'da kırık ara-adım/404'ü önlüyor (2026-07-22'den beri bilinen,
+BİLİNÇLİ bir düzeltme). Bu hreflang için TAM TERSİ yönde yanlış bir sinyal
+— hreflang="nl" hiç var olmayan bir NL sayfası yerine EN sayfasına işaret
+ederdi. **Çözüm:** hreflang bu fonksiyonların ham `localeUrls` anahtarlarını
+KULLANMIYOR, her sayfa `hreflangLocales` ile GERÇEK diller listesini
+açıkça beyan ediyor (NL'i gerçekten olmayan 10 sayfa ailesi: KVKK/KVK
+Protokol/Tüketici Hakları/Mesafeli Satış/Gizlilik-Güvenlik/Güvenlik/SSS/
+2 Hub/Destek Talebi/Teşekkürler).
+
+**⚠️ İKİNCİ bir gerçek bug — dosya adına göre "dil eksik" varsayımı YANLIŞ
+çıktı, doğrulama script'i yakaladı.** İlk denemede Puantaj'a
+(`puantaj-takip-programi-modulu.astro`) `hreflangLocales={['tr']}`
+verildi (dosya listesinde "puantaj" içeren en/nl/it dosyası
+BULUNAMADIĞI için) — ama gerçekte `en/time-attendance-module.astro`/
+`nl/tijdregistratie.astro`/`it/modulo-gestione-presenze.astro` ÜÇÜ DE
+`trSlug='puantaj-takip-programi-modulu'` kullanıyor (dosya adları PDKS'i
+çağrıştırsa da, PDKS `pdks-modulu.astro` TAMAMEN AYRI bir aile) — CLAUDE.md'nin
+kendi "slug değil, gerçek veriye güven" ilkesinin (bkz. §Mimari "Veri
+çıkarma kuralı") TAM ÖRNEĞİ. `check-hreflang.mjs`'in karşılıklılık
+(reciprocity) kontrolü bunu ANINDA yakaladı (EN sayfası TR'ye hreflang
+veriyordu ama TR geri vermiyordu) — override kaldırılıp varsayılana
+(4 dilin hepsi, `localeUrls`'un kendi anahtarlarından) dönüldü, sorun
+kapandı. **Ders:** yeni bir `hreflangLocales` kısıtlaması eklenirken dosya
+ADI değil, `grep -r "<trSlug>" src/pages` ile GERÇEK referans kontrol
+edilmeli.
+
+**Yan bulgu düzeltildi — `SupportRequestPage.astro`'nun `localeUrls`'i
+HİÇ BaseLayout'a geçmiyordu** (dil değiştirici bu sayfada generic/yanlış
+fallback'e düşüyordu, `getSupportRequestLocaleUrls()` zaten
+`HeroSection.astro`'da kullanılıyordu ama buraya hiç bağlanmamıştı) —
+düzeltildi, artık hem switcher hem hreflang doğru 3 dili (tr/en/it)
+gösteriyor.
+
+**Yan bulgu düzeltildi — `/nl/sss` sessiz 404.** SSS'nin TR bare slug'ı
+(`sss`) EN/IT'nin (`faq`) FARKLI olduğu için otomatik `fallback` mekanizması
+`/nl/sss/`'i var olmayan `/en/sss/`'e düşürüyordu — `astro.config.mjs`'e
+elle `/nl/sss → /en/faq` redirect'i eklendi (Tüketici Hakları/Güvenlik'teki
+AYNI bug sınıfı).
+
+**Doğrulama script'i — `scripts/check-hreflang.mjs`** (KALICI, diğer
+`check-*.mjs`'lerle AYNI desen). 3 kural: (a) her sayfa kendi kendine
+referans veriyor mu, (b) karşılıklı mı (A→B varsa B→A da olmalı), (c)
+hiçbir hedef redirect stub/noindex sayfa DEĞİL. `site` boşken (şu anki
+durum) 0 sayfa bulup bilgi amaçlı mesaj basıyor (hata DEĞİL) — gerçek
+çıktı GEÇİCİ bir `site` değeriyle test edildi (881 sayfa, 200 hreflang
+taşıyan sayfa, 0 sorun bulundu Puantaj düzeltmesi sonrası), sonra `site`
+KESİN olarak geri alındı (commit'e girmedi, yalnızca yerel doğrulama).
+
+**Kanıt:** `astro check` 0 hata (334 dosya), `astro build` 881 sayfa
+(hem `site` boşken hem GEÇİCİ dolu haldeyken denendi, ikisinde de sayfa
+sayısı değişmedi). Geçici `site` build'inde: `check-hreflang.mjs` 0 sorun
+(200 sayfa), `check-link-accessibility.mjs` 0 ihlal, `check-html-lang-attribute.mjs`
+0 sorun, `check-heading-hierarchy.mjs` 42 (41 bilinen seviye atlaması +
+1 bilinen `admin/index.html` H1-yok — SIFIR yeni regresyon), `check-json-ld.mjs`
+0 geçersiz blok. Nihai (site boş) build'de aynı regresyon script'leri
+tekrar 0/temiz.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-14 — ÜST HEADER'IN 9/9 İKON PANELİ TAMAMLANDI, kod commit EDİLMEDİ)
 
 **🟢 Kalan 6 ikon** (Analiz/Göz/Dil seçici/2. zil/HRTECHTOOLS/Avatar — bir
@@ -747,15 +842,17 @@ içerikleri hâlâ geçerli.)*
     biri: `/en/<var-olmayan-bir-slug>/` gibi bir URL'in gerçekten
     `en/not-found/`'un İngilizce içeriğini (TR'ye değil) 404 HTTP status
     koduyla döndürdüğü canlıda doğrulanmalı.
-31. **Karar (2026-08-12, kullanıcı onayı ile):** Canonical URL etiketi
-    (`<link rel="canonical">`) site genelinde eksik — hiçbir gerçek
-    içerik sayfasında yok (yalnızca Astro'nun otomatik ürettiği redirect
-    stub'larda var). Bu, Faz 2'ye — gerçek prod domain (idenfit.com)
-    Cloudflare'e bağlanana kadar — ertelendi, çünkü canonical mutlak URL
-    gerektiriyor ve `astro.config.mjs`'in `site` alanı şu an boş. Faz
-    2'de domain bağlandığında: `BaseLayout` ve `LandingLayout`'a
-    canonical etiketi eklenmeli, her dil (TR/EN/NL/IT) kendi URL'sini
-    canonical olarak göstermeli.
+31. **KISMEN KAPANDI (2026-08-17) — Canonical URL etiketi artık KODLANDI,
+    yalnızca AKTİVASYONU Faz 2'yi bekliyor.** Önceki karar (2026-08-12)
+    canonical'ı TAMAMEN ertelemişti; hreflang turunda (bkz. Proje Durumu)
+    kullanıcı ikisinin AYNI anda, otomatik aktifleşmesini istedi —
+    `BaseLayout.astro`/`LandingLayout.astro`'ya `{Astro.site && !noindex &&
+    <link rel="canonical" href={pageUrl} />}` eklendi (`pageUrl` zaten
+    `Astro.site` tanımlıysa mutlak, değilse göreli hesaplıyordu). `site`
+    alanı hâlâ boş olduğu için ŞU AN hiçbir sayfada canonical YOK — Faz
+    2'de domain bağlanınca (`astro.config.mjs`'e `site: 'https://idenfit.com'`
+    girilince) EK KOD DEĞİŞİKLİĞİ GEREKMEDEN otomatik aktifleşecek, hreflang
+    ile birlikte (bkz. Proje Durumu 2026-08-17 girdisi + `src/i18n/hreflang.ts`).
 32. **TODO — 2 küçük/isteğe bağlı H2 bulgusu (madde #32'nin hukuki
     sözleşme kısmı 2026-08-13'te KAPANDI, bkz. Proje Durumu 22. tur +
     kapanmış maddeler).** SSS sayfaları (3: `sss`/`en/faq`/`it/faq`)
@@ -787,6 +884,85 @@ içerikleri hâlâ geçerli.)*
     H4 → H2, diğer 11 legal sayfayı etkilemiyor). FAQ sayfalarındaki
     (Açık nokta #32) H1→H3 atlaması AYNI kök nedenin BİR PARÇASI — ayrı
     listelenmedi, hâlâ küçük/isteğe bağlı kategoride.
+34. **KAPANDI — "No H3 subheadings" SEO bulgusu, ~250 canlı-site
+    URL'i (2026-08-14).** Kullanıcının verdiği ham URL listesi 9
+    kategoriye ayrılıp proje kaynak dosyalarından doğrulandı (tahmin
+    edilmedi). **Kritik bulgu:** listenin ~%49'u (blog `/tag/` 67 +
+    `/category/` 51 + `/blog/author/` 20 = 138 URL) bizim Astro
+    projesinde HİÇ YOK — `src/pages` içinde bu route'lar için sıfır
+    dosya (kategori arşivi zaten Açık nokta #22'de biliniyordu, etiket/
+    yazar arşivleri için de AYNI durum bu turda doğrulandı). Bu URL'ler
+    muhtemelen `idenfit.com`'un hâlâ canlı olan ESKİ WordPress sitesinden
+    taranmış (domain henüz Cloudflare'e bağlanmadı, Açık nokta #31) —
+    Astro migrasyonu canlıya alındığında bu 138 URL zaten var olmayacak,
+    kod tarafında hiçbir aksiyon GEREKMİYOR (SEO aracına bildirmek
+    kullanıcının kendi işi). Ayrıca 4 test/çöp URL (Grup 9) zaten bilinçli
+    olarak migrate edilmemişti (dokunulmadı). **Yapılan düzeltme
+    (`ProductPage.astro`, ~96 modül/ürün sayfasını TEK component
+    değişikliğiyle kapsıyor):** SSS accordion'undaki `<summary>` içindeki
+    soru metni `<span>`'dan gerçek `<h3 class="m-0 text-base
+    font-semibold text-heading">`'e çevrildi (görsel/stil hiç değişmeden
+    — `<summary>`'nin HTML5 içerik modeli tek bir heading elemanını ilk
+    çocuk olarak kabul ediyor). Zimmet Yönetimi'nde pilot olarak
+    doğrulandı, onay sonrası tüm siteye (`astro build` 881 sayfa) uygulandı.
+    **Kanıt:** `astro check` 0 hata, `check-link-accessibility.mjs` 0
+    ihlal (2374 dosya), `check-heading-hierarchy.mjs` 41 sorunlu sayfa —
+    Açık nokta #33a'nın ÖNCEDEN bilinen/değişmeyen 38 blog+3 FAQ sayısıyla
+    BİREBİR aynı (yalnızca `admin/index.html`'in bilinen H1-yok durumu
+    ayrı), yani bu değişiklik SIFIR yeni seviye-atlaması üretti —
+    `<h3>` her zaman bir `<h2>`'nin (SSS başlığı) altında, sıralı.
+    **`BlogListPage.astro` (Grup 6) — KAPANDI, kasıtlı sınırlı kapsamla
+    (2026-08-14, 2. tur).** Kart seviyesinde (kategori rozeti/tarih/okuma
+    süresi) H3 eklemek BİLİNÇLİ olarak REDDEDİLDİ — bunlar bir içerik
+    bölümünü TANITMIYOR, salt metaveri etiketi; heading yapmak sahte bir
+    başlık üretip ekran okuyucu gezinme deneyimini bozardı (WCAG başlık
+    kullanım ilkesine aykırı). Bunun yerine gerçekten anlamlı bir yer
+    bulundu: `BlogSidebar.astro` (hem `/blog/` liste hem 622 tekil yazı
+    sayfasında ORTAK kullanılan component) zaten 2 gerçek `<h2>` taşıyordu
+    ("Popüler İçerikler"/"Yaklaşan Etkinlikler"), altlarındaki listede her
+    satır kendi başlığı olan AYRI bir yazıyı adlandırıyordu —
+    `ProductPage.astro`'nun SSS `<h2>→<h3>` deseniyle AYNI ilke. Post
+    başlığı `<span>`'ı `<h3 class="m-0 text-sm font-semibold ...">`'e
+    çevrildi (görsel/stil hiç değişmeden). **Kanıt:** `astro check` 0
+    hata, `astro build` 881 sayfa, `check-link-accessibility.mjs` 0
+    ihlal, `check-heading-hierarchy.mjs` 41 sorunlu sayfa — ProductPage
+    turuyla BİREBİR aynı liste, SIFIR yeni seviye-atlaması (sidebar'ın
+    H3'ü her zaman kendi H2'sinin altında). Grup 2'nin kurumsal alt
+    kümesi (Hakkımızda/İletişim/Güvenlik, `AboutPage`/`ContactPage`/
+    `SecurityPage.astro`) — 2026-08-14, 3. tur, TAMAMEN KAPANDI.**
+    Her üç component TEK TEK incelendi (Hakkımızda/İletişim/Güvenlik'in
+    TR/EN/IT hepsi aynı 3 shared component'i kullanıyor, tek yerden
+    kapsıyor):
+    - **`AboutPage.astro` — H3 EKLENMEDİ, gerekçe kaydedildi.** İki
+      bölümü de ("tarihimiz" serbest metin/2 sütun paragraf, "Burada
+      olmaktan mutluyuz" tek görsel+ortalanmış başlık) H2'nin altında
+      AYRIŞTIRILABİLİR, adlandırılmış alt-öğeler taşımıyor — yalnızca
+      düz metin/tek görsel. Zorlama bir H3 eklemek sahte başlık olurdu,
+      bu sayfa türü için H3 GEREKMİYOR.
+    - **`SecurityPage.astro` — H3 EKLENMEDİ, gerekçe kaydedildi.** Sayfada
+      H2 bile YOK (yalnızca H1 + numaralı belge/link listesi) — H3'ü
+      doğrudan H1'in altına eklemek YENİ bir H1→H3 seviye-atlaması
+      üretirdi (bu turun asıl düzeltmeye çalıştığı sorun sınıfının
+      AYNISI). Liste öğeleri zaten birer link (belge/KVKK'ya), her
+      öğenin altında ayrıca içerik YOK — heading'e ihtiyaç duyan bir
+      "bölüm" yapısı değil, düz bir link dizini. Bu sayfa türü için H3
+      GEREKMİYOR.
+    - **`ContactPage.astro` — GERÇEK bir yer bulundu, UYGULANDI.**
+      "Ofislerimiz" H2'sinin altında `content.offices` — her biri
+      kendi adı+adresi olan GERÇEK, adlandırılmış ofis kayıtları (TR: 3
+      ofis — İstanbul Merkez/Ar-Ge, Lahey Global Satış; EN/IT'de kendi
+      gerçek karşılıkları) — `ProductPage`'in SSS/`BlogSidebar`'ın
+      popüler-yazı deseniyle AYNI ilke: gerçek adlandırılmış alt-varlık,
+      zorlama değil. `office.name`'i taşıyan `<p>` → `<h3 class="m-0
+      text-[22px] font-medium text-body">`'e çevrildi (görsel/stil hiç
+      değişmeden).
+    **Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+    `check-heading-hierarchy.mjs` 41 sorunlu sayfa — ÖNCEKİ turla
+    BİREBİR aynı liste, SIFIR yeni seviye-atlaması/regresyon. 3 dilde
+    (TR/EN/IT) `dist/**/*.html`'den H3'lerin doğru ofis adlarıyla
+    render olduğu doğrulandı. **Açık nokta #34 bu turla TAMAMEN
+    KAPANDI** — SEO bulgusundaki tüm kategoriler (gerçek sayfa
+    olmayanlar dahil) ele alındı/gerekçelendirildi.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26,27) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -1308,8 +1484,15 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   stub'larını AYRI/bilgi-amaçlı raporlar; bkz. Proje Durumu — kullanıcının
   bildirdiği bir uyarıdan çıktı, gerçek sayfalar zaten doğruydu, bulgu
   Astro'nun kendi framework-içi redirect şablonundaydı, kod değişikliği
-  GEREKMEDİ). **Not:** bu YEDİ `check-*.mjs` script'i (title/description/
-  link-accessibility/json-ld/image-alt-text/heading-hierarchy/html-lang)
+  GEREKMEDİ), `check-hreflang.mjs` (2026-08-17, KALICI SEO aracı — her
+  sayfanın kendi kendine referans verdiğini, karşılıklı (reciprocal)
+  olduğunu VE hiçbir hedefin redirect stub/`noindex` sayfa olmadığını
+  doğrular; bkz. Proje Durumu — `astro.config.mjs`'in `site` alanı boşken
+  hiç hreflang üretilmediği için script bu durumda 0 sayfa bulup bilgi
+  amaçlı çıkar, gerçek doğrulama GEÇİCİ bir `site` değeriyle yapılıp
+  sonra geri alındı). **Not:** bu SEKİZ `check-*.mjs` script'i (title/
+  description/link-accessibility/json-ld/image-alt-text/heading-hierarchy/
+  html-lang/hreflang)
   `readdir(dir, {recursive:true})` yerine ELLE recursive tarama kullanıyor
   — bu proje
   OneDrive-senkronize bir klasörde, `recursive:true` bazen (görünürde

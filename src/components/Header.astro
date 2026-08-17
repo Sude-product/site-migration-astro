@@ -1,10 +1,11 @@
 ---
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { computeGenericLocaleUrls } from '../i18n/localeUrls';
 import LanguageSwitcher from './LanguageSwitcher.tsx';
 import MarqueeBar from './MarqueeBar.tsx';
 import MobileMenu from './MobileMenu.tsx';
 import MegaMenu from './MegaMenu.tsx';
-import { LOCALES, NAV_ITEMS, type Locale } from '../data/nav';
+import { NAV_ITEMS, type Locale } from '../data/nav';
 import {
   buildMegaMenus,
   type MegaMenuContent,
@@ -36,12 +37,9 @@ const MEGA_MENUS = buildMegaMenus(t.mega, currentLocale);
 
 // Aktif yolun dil önekini soyutla → diğer dillerdeki eşdeğer URL'leri üret.
 // (localeUrlsOverride verilmişse bu sayfa-özel değerler önceliklidir.)
-const segments = Astro.url.pathname.split('/').filter(Boolean);
-if (LOCALES.includes(segments[0] as Locale)) segments.shift();
-const restPath = segments.join('/');
-const genericLocaleUrls = Object.fromEntries(
-  LOCALES.map((l) => [l, getRelativeLocaleUrl(l, restPath)]),
-);
+// Hesaplama `../i18n/localeUrls.ts`'e taşındı (2026-08-17) — `BaseLayout.astro`'nun
+// hreflang üretimi de AYNI mantığı paylaşıyor.
+const genericLocaleUrls = computeGenericLocaleUrls(Astro.url.pathname);
 const localeUrls = { ...genericLocaleUrls, ...localeUrlsOverride };
 
 const l = (slug: string) => getRelativeLocaleUrl(currentLocale, slug);
