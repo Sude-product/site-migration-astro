@@ -24,7 +24,87 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-17 — "No hreflang tags" SEO bulgusu kapandı, canonical de aynı turda eklendi, kod commit EDİLMEDİ)
+## Proje Durumu (son güncelleme: 2026-08-17, 2. tur — "Few H2 subheadings" SEO bulgusu kapandı, commit edildi)
+
+**🟢 3 aile için gerçek/adlandırılmış içerik bloklarına eksik h2 eklendi
+— mekanik bir "her sayfada en az N h2" kuralı DEĞİL, H3/FAQ turlarındaki
+AYNI disiplin (sahte başlık yok, yalnızca gerçekten var olan içerik
+etiketleniyor).** Keşif turunda TÜM sayfa şablonları tek tek incelendi
+(ProductPage/SectorPage/HubPage/LegalPage/ContactPage/AboutPage/
+PricingPage/CustomerStoriesPage/SupportRequestPage/ThankYouPage/
+SecurityPage/FaqPage/HrMaturityTestPage/CalculatorsPage/BlogListPage/
+blog `[slug]`/ana sayfa) — çoğu ZATEN iyi yapılandırılmış (ProductPage
+her section'ı kendi h2'si, ana sayfa 8 h2, Contact 5, Pricing ~5 vb.).
+LegalPage ailesi (14 sayfa) ZATEN 2026-08-13'te ayrı bir turda kapatılmış
+(`legalHeadingSanitizer.ts`) — tekrar dokunulmadı. Kısa/tek-amaçlı
+sayfalarda (Destek Talebi/Teşekkürler/Güvenlik) az h2 BİLİNÇLİ olarak
+DOĞRU kabul edildi, zorlanmadı (Güvenlik zaten H3 turunda "H2 bile yok,
+kasıtlı" diye karara bağlanmıştı).
+
+**Düzeltilen 3 gerçek aile:**
+1. **SSS sayfaları (sss/en/faq/it/faq)** — 6 kategori paneli DOM'da
+   gerçekten var (yalnızca CSS `hidden` ile gizli), ama kategori adı
+   önceden yalnızca sol sekme butonundaki bir `<span>`'dı, sağ panelde
+   hiç heading yoktu. `FaqPage.astro`'ya her panelin başına
+   `category.name` ile gerçek bir `<h2>` eklendi (sorular zaten `<h3>`,
+   doğru H2→H3 hiyerarşisi kuruldu).
+2. **Sektör sayfaları (12 sayfa × 4 dil)** — "Modül vurgu blokları"
+   (`SectorFeatureCard` grid'i, kartlar zaten h3) hiç sarmalayıcı h2
+   taşımıyordu. Yeni bir i18n anahtarı (`sectorPage.modulesHeading`,
+   4 dilde gerçek çeviri — TR: "Bu Sektöre Özel Modüller", EN: "Modules
+   Built for This Sector", NL: "Modules Speciaal voor Deze Sector", IT:
+   "Moduli Dedicati a Questo Settore") `SectorPage.astro`'ya eklendi.
+3. **Hesaplama Araçları** — 8 gerçek/farklı hesap makinesi (`CalculatorAccordion`,
+   her biri zaten h3) hiç sarmalayıcı h2 olmadan hero h1'inin altında
+   duruyordu. TR-only (KARAR 2) olduğu için elle kısa bir h2
+   ("Hesaplama Araçları", H1'in uzun tanıtım cümlesinden FARKLI metin)
+   `CalculatorsPage.astro`'ya eklendi.
+
+**⚠️ Kendi kendine yanıltma bulunup düzeltildi — HTML yorumu içindeki
+`<h2>`/`<h3>` metinleri (gerçek etiket değil, açıklama amaçlı) sahte bir
+seviye-atlaması raporuna yol açtı.** `FaqPage.astro`'ya eklenen ilk
+yorum "...Sorular zaten `<h3>` (birebir kaynak yapı) — ... gerçek bir
+`<h2>` olarak eklendi..." diye köşeli parantezli yazılmıştı — Astro HTML
+yorumları build çıktısında KORUNUYOR (JS yorumları gibi silinmiyor), ve
+`check-heading-hierarchy.mjs`'in naif regex'i (`<h([1-6])`, gerçek DOM
+parse değil) bu yorum metnindeki "<h3>"/"<h2>" alt-dizelerini GERÇEK
+başlık sanıp `[H1→H3]` diye sahte bir atlama raporladı. Düzeltme: yorum
+köşeli parantezsiz yazıldı ("H2"/"H3", `<` olmadan) — **kalıcı ders:**
+`check-*.mjs` script'lerinin taradığı `dist/**/*.html` çıktısına giden
+herhangi bir `.astro` dosyasına HTML yorumu eklenirken, yorum metninin
+KENDİSİ ilgili script'in regex'ini tetikleyebilecek literal bir alt-dize
+(`<h2>`, `<a href`, vb.) İÇERMEMELİ.
+
+**🎁 Yan kazanım — bu turun SSS düzeltmesi, Açık nokta #33a'nın (Başlık
+seviye atlaması) bekleyen bir parçasını da kapattı.** O turun notu zaten
+"FAQ sayfalarındaki H1→H3 atlaması AYNI kök nedenin BİR PARÇASI" diye
+işaretlemişti — SSS'ye gerçek h2 eklenince bu 3 sayfanın (tr/en/it)
+H1→H3 atlaması da GERÇEKTEN düzeldi, ayrı bir iş gerekmedi
+(`check-heading-hierarchy.mjs`'in seviye-atlaması sayısı 41→38'e düştü).
+
+**Kanıt:** `astro check` 0 hata (334 dosya), `astro build` 881 sayfa
+(değişmedi). `check-heading-hierarchy.mjs` 39 sorunlu sayfa (1 bilinen
+`admin/index.html` H1-yok + 38 seviye atlaması, ÖNCEKİ 41'den 3 azaldı —
+SSS'nin 3 dili düzeldi, YENİ hiçbir atlama YOK). `check-link-accessibility.mjs`
+0 ihlal, `check-html-lang-attribute.mjs` 0 sorun, `check-json-ld.mjs` 0
+geçersiz blok, `check-hreflang.mjs` hâlâ uykuda (0, beklenen). Pilot HTML
+çıktısı `dist/sss/`, `dist/gida-sektoru-ik-cozumleri/`, `dist/hesaplama-araclari/`,
+`dist/en/energy-sector-hr-solutions/`, `dist/nl/energie/` üzerinde
+doğrulandı (doğru h1→h2 sırası, doğru çeviri). **Yan not (regresyon
+DEĞİL):** `check-title-length.mjs` bu turda 431→439 sonucu verdi ama
+farkın TAMAMI blog yazılarında (dokunulmayan Açık nokta #28 backlog'u) —
+düzeltilen 3 ailenin (SSS/sektör/hesaplama) HİÇBİRİ raporda yok, sayı
+farkı bu turun konusuyla ilgisiz.
+
+**Dokunulmayan maddeler (kullanıcı kararıyla, bilinçli):** kısa/tek-amaçlı
+sayfalar (Destek Talebi/Teşekkürler/Güvenlik), Hub sayfaları (intro+FAQ
+zaten 2 gerçek h2, tile grid'e ekstra h2 GEREKMİYOR), LegalPage ailesi
+(zaten kapalı), `nl/wereldwijd-merk` (ayrı bir NL içerik eksikliği,
+şablon sorunu değil — Açık nokta #32'nin ikinci yarısı hâlâ açık).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-17, 1. tur — "No hreflang tags" SEO bulgusu kapandı, canonical de aynı turda eklendi, commit edildi: 34e5366 + bbd5e11)
 
 **🟢 hreflang + canonical altyapısı sıfırdan kuruldu, "hazır ama uykuda"
 ilkesiyle.** Kullanıcının bildirdiği "No hreflang tags" SEO bulgusu
@@ -853,15 +933,15 @@ içerikleri hâlâ geçerli.)*
     2'de domain bağlanınca (`astro.config.mjs`'e `site: 'https://idenfit.com'`
     girilince) EK KOD DEĞİŞİKLİĞİ GEREKMEDEN otomatik aktifleşecek, hreflang
     ile birlikte (bkz. Proje Durumu 2026-08-17 girdisi + `src/i18n/hreflang.ts`).
-32. **TODO — 2 küçük/isteğe bağlı H2 bulgusu (madde #32'nin hukuki
-    sözleşme kısmı 2026-08-13'te KAPANDI, bkz. Proje Durumu 22. tur +
-    kapanmış maddeler).** SSS sayfaları (3: `sss`/`en/faq`/`it/faq`)
-    soruları `h3` ile doğru etiketliyor ama kategori TAB başlıkları
-    (`FaqPage.astro`'nun sekmeli tasarımı) statik H2 değil — kritik değil,
-    istenirse tab başlıklarına eşlik eden statik bir H2 eklenebilir.
-    `nl/wereldwijd-merk` (Hedef Global Marka NL) TR karşılığına göre
-    belirgin kısaltılmış (43 vs 143 kelime) + H2 kaybetmiş — ayrı bir NL
-    içerik incelemesi gerektirir, bu ikisi henüz ele alınmadı.
+32. **KISMEN KAPANDI — 2 küçük H2 bulgusu (madde #32'nin hukuki sözleşme
+    kısmı 2026-08-13'te, SSS kısmı 2026-08-17'de KAPANDI, bkz. Proje
+    Durumu 2026-08-17 2. tur).** SSS sayfalarının (3: `sss`/`en/faq`/
+    `it/faq`) kategori TAB başlıkları artık gerçek `<h2>` (`FaqPage.astro`,
+    "Few H2 subheadings" SEO turu). **Kalan tek açık uç:** `nl/wereldwijd-merk`
+    (Hedef Global Marka NL) TR karşılığına göre belirgin kısaltılmış (43
+    vs 143 kelime) + H2 kaybetmiş — bu bir ŞABLON sorunu değil, ayrı bir
+    NL İÇERİK eksikliği (Açık nokta #34.5 turu bilerek dokunmadı, ayrı bir
+    NL içerik incelemesi gerektiriyor), henüz ele alınmadı.
 33. **KISMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa (2026-08-13,
     "Başlık hiyerarşisi sıralı değil" SEO uyarısı — bkz. Proje Durumu 26.
     tur keşif + 27. tur düzeltme).** 3 alt kategoriden 2'si (b, c) 27.

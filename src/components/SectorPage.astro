@@ -5,6 +5,7 @@
 // (`src/pages/[sectorSlug].astro` + `en/nl/it` eşdeğerleri).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectorFeatureCard from './SectorFeatureCard.astro';
+import { getTranslations } from '../i18n';
 import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { getSectorContent } from '../data/sectorContent';
 import type { Locale } from '../data/nav';
@@ -23,6 +24,7 @@ interface Props {
 const { content, localeUrls, description: descriptionOverride } = Astro.props;
 const { hero, whyIdenfit, features } = content;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
 // `content.pageTitle` çoğu sektörde 50 karakterin altında (2026-08-10
 // title uzunluk denetimi, ör. "idenfit — Turizm" 16 karakter) —
 // `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
@@ -105,11 +107,15 @@ const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnc
     )
   }
 
-  <!-- Modül vurgu blokları (2-4 arası, veri kaynaklı — sabit sayı değil) -->
+  <!-- Modül vurgu blokları (2-4 arası, veri kaynaklı — sabit sayı değil).
+       "Few H2 subheadings" SEO bulgusu (2026-08-17) — kartlar zaten h3
+       (`SectorFeatureCard`) ama bu bölümün hiç sarmalayıcı h2'si yoktu,
+       whyIdenfit'in h2'sinden sonra "boşlukta" duruyordu. -->
   {
     features.length > 0 && (
       <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <div class="grid gap-8 sm:grid-cols-2">
+        <h2 class="h2-section text-heading">{t.sectorPage.modulesHeading}</h2>
+        <div class="mt-8 grid gap-8 sm:grid-cols-2">
           {features.map((f) => (
             <SectorFeatureCard {...f} />
           ))}

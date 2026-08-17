@@ -381,6 +381,9 @@ export const tr: Translations = {
     pdfLabel: 'PDF İNDİR',
     metaDescription: 'Genel, ödeme, kurulum, müşteri deneyimi, veri güvenliği ve üyelik konularında idenfit hakkında sıkça sorulan soruların yanıtlarını bulun.',
   },
+  sectorPage: {
+    modulesHeading: 'Bu Sektöre Özel Modüller',
+  },
   notFound: {
     pageTitle: 'Sayfa Bulunamadı',
     metaDescription:

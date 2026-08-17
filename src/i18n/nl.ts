@@ -378,6 +378,9 @@ export const nl: Translations = {
     metaDescription:
       'Vind antwoorden op veelgestelde vragen over idenfit — algemene info, prijzen, installatie, klantenservice en gegevensbeveiliging.',
   },
+  sectorPage: {
+    modulesHeading: 'Modules Speciaal voor Deze Sector',
+  },
   notFound: {
     pageTitle: 'Pagina Niet Gevonden',
     metaDescription:

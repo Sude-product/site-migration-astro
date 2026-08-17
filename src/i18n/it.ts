@@ -380,6 +380,9 @@ export const it: Translations = {
     metaDescription:
       'Trova le risposte alle domande più frequenti su idenfit: informazioni generali, prezzi, configurazione, supporto e sicurezza dei dati.',
   },
+  sectorPage: {
+    modulesHeading: 'Moduli Dedicati a Questo Settore',
+  },
   notFound: {
     pageTitle: 'Pagina Non Trovata',
     metaDescription:

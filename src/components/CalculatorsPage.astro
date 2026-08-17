@@ -51,7 +51,13 @@ const HERO_ILLUSTRATION_URL = 'https://idenfit.com/wp-content/uploads/2025/12/he
   </section>
 
   <section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 lg:px-8">
-    <div id="hesaplama-araclari-list" class="divide-y divide-gray-100 border-t border-gray-100">
+    <!-- "Few H2 subheadings" SEO bulgusu (2026-08-17) — 8 gerçek/farklı
+         hesap makinesi (her biri zaten kendi h3'ünü taşıyor,
+         `CalculatorAccordion.tsx`) hiç sarmalayıcı h2 olmadan hero h1'inin
+         altında duruyordu. H1'den (uzun tanıtım cümlesi) FARKLI, kısa/gerçek
+         bir başlık — TR-only sayfa (KARAR 2), elle yazıldı. -->
+    <h2 class="h2-section text-heading">Hesaplama Araçları</h2>
+    <div id="hesaplama-araclari-list" class="mt-8 divide-y divide-gray-100 border-t border-gray-100">
       {
         CALCULATOR_DEFINITIONS.map((def) => (
           <div id={def.slug}>

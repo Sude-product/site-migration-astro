@@ -505,6 +505,15 @@ export interface Translations {
   home: HomeLabels;
   faqPage: FaqPageLabels;
   notFound: NotFoundLabels;
+  sectorPage: SectorPageLabels;
+}
+
+/** Sektör sayfası (`[sectorSlug].astro`, 12 sektör × 4 dil) — bkz.
+ * `SectorPage.astro`. "Few H2 subheadings" SEO bulgusu (2026-08-17):
+ * modül vurgu blokları (`SectorFeatureCard` grid'i, kartlar zaten h3)
+ * hiç sarmalayıcı h2 taşımıyordu — bu tek anahtar o boşluğu dolduruyor. */
+export interface SectorPageLabels {
+  modulesHeading: string;
 }
 
 /** SSS sayfası (`/sss/`, `/en/faq/`, `/it/faq/`) — bkz. `FaqPage.astro`.
