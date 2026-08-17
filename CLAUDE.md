@@ -24,6 +24,67 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-17, 6. tur — Açık nokta #33a KAPANDI: 38 blog yazısındaki başlık seviye atlaması mekanik normalize ile düzeltildi, kod commit EDİLMEDİ)
+
+**🟢 Başlık SEVİYE ATLAMASI bulgusunun son/en büyük parçası (38 blog yazısı,
+Açık nokta #33a — 2026-08-13'ten beri "ayrı bir turda ele alınacak" diye
+bilinçli ertelenmişti) kapandı.** Kök neden AYNI aileden ama `demoteBodyH1s()`'ten
+(stray `<h1>`) FARKLI bir hata sınıfı: kaynağın Gutenberg editöründe
+yazarlar ara başlıklar için rastgele/yanlış "Heading N" seviyesi seçmiş
+(H2'den doğrudan H4/H5/H6'ya atlamak, veya `kadinlar-gunu` röportaj
+yazısındaki gibi H1'in hemen altında ardışık 4 tane H6 — gerçek alt-bölüm
+DEĞİL, yazarın Gutenberg'in "Heading 6" bloğunu küçük/kalın METİN STİLİ
+için kötüye kullanması). Her yazıda "doğru" seviye farklı olduğu için
+editoryal bir karar yerine MEKANİK/GÜVENLİ bir kural seçildi: her başlık
+`min(ham_seviye, ebeveynin_yeni_seviyesi + 1)`'e normalize edilir (yığın/
+stack tabanlı) — matematiksel olarak yeni bir atlama ÜRETEMEZ, içerik
+UYDURMAZ (yalnızca etiket seviyesini değiştirir), zaten sıralı belgelerde
+NO-OP'tur, aynı ham seviyedeki kardeş başlıklar (4 H6 gibi) aynı yeni
+seviyeye düşer (artan bir "merdiven" oluşmaz).
+
+**İki paralel uygulama gerekti (blog'un composite loader mimarisi
+nedeniyle, bkz. §Mimari "Blog Content Collection"):**
+1. **Legacy JSON yazılar (618)** — `blogHeadingSanitizer.ts`'e yeni
+   `normalizeHeadingLevels()` (regex+stack tabanlı, `demoteBodyH1s()`'in
+   AYNI dosyasında) eklendi, `content.config.ts`'in `legacyJsonLoader`'ında
+   `demoteBodyH1s()`'TEN SONRA zincire eklendi (sıra kritik — gövdede
+   gerçek `<h1>` kalmamış olmalı, aksi halde kök sentinel'le çakışıp
+   yeniden bir H1 üretirdi).
+2. **Göç etmiş Markdown pilotları (4)** — `astro.config.mjs`'e AYNI
+   mantığın HAST (rehype AST) karşılığı `rehypeNormalizeHeadingLevels()`
+   eklendi, `markdown.processor`'ın `rehypePlugins` dizisinde
+   `rehypeDemoteBodyH1s`'TEN SONRA sıralandı (blog-h1-heading-audit.md
+   memory'sindeki bilinen kısıtın — `glob()` loader'ının render'ı
+   ERTELEDİĞİ için loader-time düzeltmelerin `.md` dosyalarına
+   ULAŞMADIĞI — doğal bir devamı, bu yüzden `.md` için AYRI bir rehype
+   plugin gerekti, legacy'nin regex'i yeterli olmadı).
+
+**Kanıt:** `astro check` 0 hata (337 dosya), `astro build` 881 sayfa.
+`check-heading-hierarchy.mjs` (2 kez art arda çalıştırılıp aynı sonuç
+doğrulandı — OneDrive `readdir` güvenilirlik kuralı, bkz. §Proje kuralları)
+**41→0 seviye atlaması** (yalnızca bilinen `admin/index.html` H1-yok
+istisnası kaldı, kalan TÜM sayfalarda 0 sorun). `check-link-accessibility.mjs`
+0 ihlal, `check-html-lang-attribute.mjs` 0 sorun, `check-json-ld.mjs` 0
+geçersiz blok — sıfır yeni regresyon. 3 örnek elle `dist/**/*.html`'de
+doğrulandı: `kadinlar-gunu`'nun 4 ardışık H6'sı artık H2 kardeşlere
+normalize olmuş, `puantaj-takibi`'nin H4'ü ("Excel Puantaj Cetveli
+Yapımı") artık doğru H3, göç etmiş Markdown pilotu
+(`zirve-katilim-ix-kurumsal-egitim-ve-gelisim-zirvesi`) H1→H2 sıralı.
+
+**Açık nokta #33 (Başlık seviye atlaması, tüm alt kategorileriyle)
+TAMAMEN KAPANDI** — (a) 38 blog artık bu turda, (b) 2 hub + (c) 1 hukuki
+sayfa zaten 2026-08-13'te kapanmıştı.
+
+**Kalan:** kullanıcı onayı + commit kararı. Bu turda commit YAPILMADI —
+`git status`: `astro.config.mjs`/`src/content.config.ts`/
+`src/data/blogHeadingSanitizer.ts` (M), working tree'de. **Not:** ana
+sayfa Ürün Önizleme widget'ı (11/11 sekme + 9/9 header paneli, bkz. 4.
+tur/2026-08-13 28. tur girdileri) da HÂLÂ commit edilmemiş durumda —
+bu iki iş birbirinden bağımsız, ayrı ayrı veya birlikte commit
+edilebilir, kullanıcıya sorulmalı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-17, 5. tur — "Large DOM size" bulgusu KAPANDI: MobileMenu mobilde de lazy-mount'a çevrildi, 1587→1327 element (-%16.4), commit edildi: 20b3465)
 
 **🟢 Gerçek Chromium (Playwright) ölçümüyle kanıtlandı: yeni dashboard
@@ -1155,19 +1216,15 @@ içerikleri hâlâ geçerli.)*
     vs 143 kelime) + H2 kaybetmiş — bu bir ŞABLON sorunu değil, ayrı bir
     NL İÇERİK eksikliği (Açık nokta #34.5 turu bilerek dokunmadı, ayrı bir
     NL içerik incelemesi gerektiriyor), henüz ele alınmadı.
-33. **KISMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa (2026-08-13,
+33. **TAMAMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa (2026-08-13,
     "Başlık hiyerarşisi sıralı değil" SEO uyarısı — bkz. Proje Durumu 26.
     tur keşif + 27. tur düzeltme).** 3 alt kategoriden 2'si (b, c) 27.
-    turda KAPANDI (44→41). **(a) 38 blog yazısı — HÂLÂ AÇIK, kullanıcı
-    kararıyla ayrı bir turda ele alınacak.** Kaynağın kendi Gutenberg
-    heading-blok kalitesi sorunu ("stray H1" sınıfının devamı, ör.
-    H2→H4/H5/H6, `kadinlar-gunu` TAMAMEN H6 ile başlıyor) — düzeltme
-    yöntemi muhtemelen `blogHeadingSanitizer.ts`/`rehypeDemoteBodyH1s` ile
-    AYNI render-time mekanizmaya bir "seviye normalize etme" kuralı
-    eklemek olabilir, ama bu 435 yazılık title backlog'undan (Açık nokta
-    #28) daha KARMAŞIK bir iş — hangi seviyenin "doğru" olduğu her
-    yazıda farklı, otomatik/güvenilir bir kural bulmak gerekiyor. **(b) 2
-    hub sayfası** (`en/human-resources-management-modules`,
+    turda KAPANDI (44→41). **(a) 38 blog yazısı — 2026-08-17 6. turda
+    KAPANDI** (`normalizeHeadingLevels()` — `blogHeadingSanitizer.ts`
+    regex/stack tabanlı + `astro.config.mjs`'in `rehypeNormalizeHeadingLevels()`
+    HAST karşılığı, `min(ham, ebeveyn+1)` mekanik kuralı, bkz. Proje
+    Durumu 2026-08-17 6. tur tam detay) — kod henüz commit edilmedi.
+    **(b) 2 hub sayfası** (`en/human-resources-management-modules`,
     `it/moduli-gestione-risorse-umane`) — KAPANDI: `hubTranslationOverrides.ts`'e
     TR kaynaktan çevrilmiş gerçek EN/IT `intro.title`/`intro.text`
     eklendi, `HubPage.astro`/`HubTileCard.astro`'ya koşullu

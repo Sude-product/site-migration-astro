@@ -39,11 +39,47 @@ function rehypeDemoteBodyH1s() {
   };
 }
 
+// Başlık SEVİYE ATLAMASI normalize etme (2026-08-17, "Heading hierarchy is
+// not sequential" SEO bulgusu — bkz. CLAUDE.md Açık nokta #33a). AYNI kök
+// neden ailesi (Gutenberg'de yazarlar ara başlıklar için rastgele/yanlış
+// "Heading N" seviyesi seçmiş — H2'den doğrudan H4/H5/H6'ya atlamak gibi)
+// ama farklı hata sınıfı: geçersiz bir etiket (H1 tekrarı) yok, yalnızca
+// seviyeler SIRALI DEĞİL. `src/data/blogHeadingSanitizer.ts`'in
+// `normalizeHeadingLevels()`'inin (legacy JSON — regex tabanlı) AST
+// karşılığı — TAM AYNI mantık (yığın/stack tabanlı `min(ham, ebeveyn+1)`
+// kuralı, bkz. o dosyadaki tam ispat/örnek yorumu), yalnızca HAST
+// düğümleri üzerinde çalışıyor. `rehypeDemoteBodyH1s`'TEN SONRA
+// çalışmalı (array sırası önemli — aşağıya bakın) — o zamana kadar
+// gövdede gerçek `<h1>` kalmamış olmalı, aksi halde bir gövde-H1 kök
+// sentinel'le (`{raw:1}`) çakışıp yine bir H1 üretirdi. Zaten SIRALI
+// olan belgelerde NO-OP'tur (matematiksel ispat: `normalizeHeadingLevels()`
+// yorumuna bkz.) — bu turda göç etmiş yalnızca 4 Markdown pilot yazının
+// (bkz. CLAUDE.md) 1'i (`zirve-katilim-ix-kurumsal-egitim-ve-gelisim-zirvesi`,
+// H1→H3 atlaması) etkileniyordu, diğer 3'ü zaten sıralıydı/dokunulmadı.
+function rehypeNormalizeHeadingLevels() {
+  return (/** @type {any} */ tree) => {
+    const stack = [{ raw: 1, mapped: 1 }];
+    /** @param {any} node */
+    function walk(node) {
+      const match = /^h([1-6])$/.exec(node.tagName ?? '');
+      if (match) {
+        const raw = Number(match[1]);
+        while (stack.length > 1 && stack[stack.length - 1].raw >= raw) stack.pop();
+        const mapped = stack[stack.length - 1].mapped + 1;
+        stack.push({ raw, mapped });
+        node.tagName = `h${mapped}`;
+      }
+      for (const child of node.children ?? []) walk(child);
+    }
+    walk(tree);
+  };
+}
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react()],
   markdown: {
-    processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s] }),
+    processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s, rehypeNormalizeHeadingLevels] }),
   },
   vite: {
     plugins: [tailwindcss()],

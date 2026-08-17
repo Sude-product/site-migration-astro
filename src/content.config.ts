@@ -13,7 +13,7 @@ import { glob, type Loader } from 'astro/loaders';
 import { existsSync, promises as fs } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { fixLinkAccessibility } from './data/blogContentAccessibility';
-import { demoteBodyH1s } from './data/blogHeadingSanitizer';
+import { demoteBodyH1s, normalizeHeadingLevels } from './data/blogHeadingSanitizer';
 
 // Kaynağın 11 gerçek kategorisi (posts.json'daki 622 kaydın TAMAMI
 // taranarak çıkarılan gerçek slug→isim eşlemesi, tahmin değil).
@@ -159,7 +159,11 @@ const legacyJsonLoader: Loader = {
       // — `extract-blog-posts.mjs`'in extraction-anındaki AYNI düzeltmesinin
       // render-time ikinci katmanı (bkz. o dosyanın kendi yorumu) —
       // `posts.json` elle düzenlenirse/extraction atlanırsa güvenlik ağı.
-      const rendered = await renderMarkdown(demoteBodyH1s(fixLinkAccessibility(content ?? '')));
+      // `normalizeHeadingLevels()` (2026-08-17, "Heading hierarchy is not
+      // sequential" SEO bulgusu — bkz. CLAUDE.md Açık nokta #33a) —
+      // `demoteBodyH1s()`'TEN SONRA çalışmalı (gövdede artık gerçek `<h1>`
+      // kalmamış olmalı, bkz. o fonksiyonun kendi yorumu).
+      const rendered = await renderMarkdown(normalizeHeadingLevels(demoteBodyH1s(fixLinkAccessibility(content ?? ''))));
       store.set({ id, data, filePath, body: content, rendered });
       loaded++;
     }
