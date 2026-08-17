@@ -24,7 +24,7 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-17, 5. tur — "Large DOM size" bulgusu: MobileMenu mobilde de lazy-mount'a çevrildi, kod değişikliği yapıldı)
+## Proje Durumu (son güncelleme: 2026-08-17, 5. tur — "Large DOM size" bulgusu KAPANDI: MobileMenu mobilde de lazy-mount'a çevrildi, 1587→1327 element (-%16.4), commit edildi: 20b3465)
 
 **🟢 Gerçek Chromium (Playwright) ölçümüyle kanıtlandı: yeni dashboard
 widget'ı (11 sekme + 9 header paneli) SUÇLU DEĞİL — zaten optimal
@@ -94,6 +94,29 @@ GEÇTİ. `astro check` 0 hata, `astro build` 881 sayfa (değişmedi),
 `check-link-accessibility.mjs`/`check-heading-hierarchy.mjs`/
 `check-html-lang-attribute.mjs` sıfır yeni regresyon (heading-hierarchy'nin
 38 bilinen blog seviye-atlaması AYNI kaldı).
+
+**🏁 KAPANIŞ NOTU — düzeltme sonrası SON rakam ölçüldü, "Large DOM size"
+bulgusu KAPANDI.** Taze bir `astro build` + `astro preview` üzerinde,
+ana sayfa, mobil viewport (375×812), off-canvas menü KAPALI (dokunulmamış
+başlangıç durumu — kullanıcının orijinal bulgusuyla doğrudan
+karşılaştırılabilir hâl) tekrar ölçüldü:
+
+```
+Kullanıcının bildirdiği orijinal bulgu: 1587 element
+Düzeltme SONRASI, mobil (menü kapalı): 1327 element
+Fark: -260 element (-%16.4)
+```
+
+(Bu turun kendi ÖNCE/SONRA ölçümüyle de tutarlı: 1737→1327, yani
+MobileMenu'nün kendi mobil viewport üzerindeki katkısı tam olarak
+-410 element/-%23.6 — kullanıcının orijinal 1587 rakamıyla aradaki
+küçük fark muhtemelen ölçüm anındaki viewport genişliği/sayfa
+durumu farkından kaynaklanıyor, kök neden ve düzeltme aynı.) Mobil
+rakam artık **masaüstüyle birebir aynı (1327)** — off-canvas panel
+kullanıcı hiç açmadığı sürece DOM'a hiçbir element eklemiyor,
+doğrulandı (`body > div[role="dialog"]` sorgusu `false` döndü).
+**Kalan bilinen/bilinçli kaynak yalnızca MegaMenu'nün 4 paneli
+(Açık nokta #25, ayrı bir tur bekliyor)** — bu turun kapsamı dışında.
 
 ---
 
