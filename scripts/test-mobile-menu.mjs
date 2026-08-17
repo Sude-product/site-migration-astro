@@ -1,10 +1,13 @@
-// MobileMenu regresyon testi (2026-08-10) — `Header.astro`'nun off-canvas
-// mobil menüsü artık masaüstünde (`>=1024px`) HİÇ mount edilmiyor (bkz.
-// CLAUDE.md Açık nokta #24, DOM boyutu düzeltmesi). Bu script iki şeyi
-// doğruluyor:
-// 1. Masaüstü viewport'ta panel gerçekten DOM'da YOK (fix'in kendisi).
-// 2. Mobil viewport'ta panel HÂLÂ tam işlevsel: aç/kapa, linkler, akordeon,
-//    Escape ile kapama + fokus geri dönüşü, klavye (Tab) navigasyonu.
+// MobileMenu regresyon testi (2026-08-10, GÜNCELLENDİ 2026-08-17) —
+// `Header.astro`'nun off-canvas mobil menüsü masaüstünde (`>=1024px`) HİÇ
+// mount edilmiyor (bkz. CLAUDE.md Açık nokta #24, DOM boyutu düzeltmesi,
+// desktop tarafı). Bu script şunu doğruluyor:
+// 1. Masaüstü viewport'ta panel gerçekten DOM'da YOK (2026-08-10 fix'i).
+// 2. Mobil viewport'ta panel de kullanıcı hamburger'e TIKLAYANA kadar HİÇ
+//    mount edilmiyor (2026-08-17 fix'i — bkz. "Large DOM size" GEO/SEO
+//    bulgusu, CLAUDE.md) — ilk tıklamada mount olup tam işlevsel: aç/kapa,
+//    linkler, akordeon, kayma animasyonu (ilk açılış DAHİL), Escape ile
+//    kapama + fokus geri dönüşü, klavye (Tab) navigasyonu.
 // Ayrıca masaüstü→mobil→masaüstü geçişinde (`matchMedia` `change` event'i)
 // panelin doğru mount/unmount olduğu + açıkken masaüstüne dönülünce
 // otomatik kapandığı test ediliyor.
@@ -52,23 +55,41 @@ console.log('\n=== Mobil viewport (375x800) ===');
   const page = await browser.newPage({ viewport: MOBILE_VIEWPORT });
   await page.goto(`${BASE_URL}/`, { waitUntil: 'networkidle' });
 
+  // 2026-08-17 DOM boyutu düzeltmesi — panel artık kullanıcı hamburger'e
+  // TIKLAYANA kadar hiç mount edilmiyor (bkz. `MobileMenu.tsx`'in
+  // `hasOpened` yorumu). Gerçek Chromium ölçümüyle doğrulandı: bu tek
+  // katman mobil DOM boyutunun ~%24'ünü (~409 element) oluşturuyordu.
   const beforeOpen = await page.evaluate(() => !!document.querySelector('body > div[role="dialog"]'));
-  check('Panel başlangıçta DOM\'da mevcut (mobilde mount edilir)', beforeOpen === true);
+  check('Panel başlangıçta DOM\'da YOK (kullanıcı tıklayana kadar mount edilmiyor)', beforeOpen === false);
 
   const trigger = page.locator('header button[aria-haspopup="dialog"]');
+
+  // İlk açılış anındaki (rAF öncesi, ~30ms) translate durumu — panel
+  // "kapalı" pozisyonda mount olup BİR SONRAKİ frame'de "açık" pozisyona
+  // geçmeli (bkz. `entered` yorumu, `MobileMenu.tsx`) — aksi halde CSS
+  // transition'ın interpolasyon yapacağı bir önceki durum olmaz, panel
+  // kaymadan aniden belirir (ilk açılışta animasyon SESSİZCE kaybolur).
   await trigger.click();
-  await page.waitForTimeout(350); // açılış transition'ı
+  await page.waitForTimeout(30);
+  const midOpenTranslate = await page.evaluate(() => {
+    const panel = document.querySelector('body > div[role="dialog"]');
+    return panel ? getComputedStyle(panel).translate : null;
+  });
+  check('İlk açılışta panel "kapalı" pozisyonda mount olup animasyonla açılıyor (pop-in yok)', midOpenTranslate !== '0px' && midOpenTranslate !== null);
+
+  await page.waitForTimeout(350); // açılış transition'ı tamamlansın
 
   const afterOpen = await page.evaluate(() => {
     const panel = document.querySelector('body > div[role="dialog"]');
     const style = panel ? getComputedStyle(panel) : null;
     return {
       ariaModal: panel?.getAttribute('aria-modal'),
-      translateX: style?.transform,
+      translate: style?.translate,
       linkCount: panel ? panel.querySelectorAll('nav a[href]').length : 0,
     };
   });
   check('Panel açıldı (aria-modal="true")', afterOpen.ariaModal === 'true');
+  check('Panel tam açık pozisyonda yerleşti (translate: 0px)', afterOpen.translate === '0px');
   check('Panel içinde linkler render edildi (>0)', afterOpen.linkCount > 0);
 
   // Akordeon: ilk mega-menü öğesine tıkla, panel içeriği genişlesin.
@@ -94,6 +115,14 @@ console.log('\n=== Mobil viewport (375x800) ===');
     return { pointerEventsNone: panel ? getComputedStyle(panel).pointerEvents === 'none' : null };
   });
   check('Escape ile panel kapandı (pointer-events:none)', afterEscape.pointerEventsNone === true);
+
+  // 2026-08-17 — kapandıktan sonra panel BİLEREK unmount EDİLMİYOR (bkz.
+  // `MobileMenu.tsx`'in `hasOpened` yorumu — Lighthouse/DevTools'un DOM
+  // boyutu denetimi SAYFA YÜKLENİRKEN ölçülür, kullanıcı etkileşiminden
+  // SONRAKİ büyüme bu denetimi etkilemez; kapanışta yeniden unmount eden
+  // bir zamanlayıcı eklemek gereksiz karmaşıklık olurdu).
+  const stillMountedAfterClose = await page.evaluate(() => !!document.querySelector('body > div[role="dialog"]'));
+  check('Kapandıktan sonra panel DOM\'da kalıyor (bilinçli tasarım, tekrar unmount edilmiyor)', stillMountedAfterClose === true);
 
   // Klavye (Tab) navigasyonu — panel yeniden aç, ilk odaklanabilir öğe
   // tetikleyici değil panel içi bir öğe olmalı.

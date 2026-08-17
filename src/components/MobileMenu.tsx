@@ -264,6 +264,49 @@ export default function MobileMenu({
     return () => mql.removeEventListener('change', update);
   }, []);
 
+  // DOM boyutu düzeltmesi, mobil taraf (2026-08-17 — bkz. CLAUDE.md "Large
+  // DOM size" GEO/SEO bulgusu). Yukarıdaki 2026-08-10 düzeltmesi paneli
+  // yalnızca MASAÜSTÜNDE hiç mount etmiyordu — mobil viewport'ta panel
+  // hâlâ `open` state'inden BAĞIMSIZ, hydration'dan hemen sonra tam
+  // içeriğiyle (~409 element) mount oluyordu (yalnızca `translate-x-full`
+  // ile ekran dışına gizleniyordu). Gerçek Chromium ölçümüyle doğrulandı:
+  // bu tek katman mobil DOM boyutunun ~%24'ünü oluşturuyordu. `hasOpened`
+  // İLK gerçek açılışa kadar `false` kalıyor — panel yalnızca kullanıcı
+  // hamburger'e TIKLADIĞINDA mount edilir. Bir kez açıldıktan sonra
+  // BİLEREK bir daha unmount edilmiyor (basit/düşük riskli tasarım —
+  // Lighthouse/DevTools'un "aşırı DOM boyutu" denetimi SAYFA YÜKLENİRKEN
+  // ölçülür, kullanıcı etkileşiminden SONRAKİ büyüme bu denetimi
+  // etkilemez; kapanışta yeniden unmount eden bir zamanlayıcı eklemek
+  // gereksiz karmaşıklık+risk olurdu, bkz. `entered` yorumu altta).
+  const [hasOpened, setHasOpened] = useState(false);
+  useEffect(() => {
+    if (open) setHasOpened(true);
+  }, [open]);
+
+  // `entered` — panel/overlay'in görsel (transform/opacity) durumu,
+  // `open`'dan BİLEREK AYRI tutuluyor. Neden: panel `hasOpened` `true`
+  // olana kadar DOM'da HİÇ yoktu — ilk açılışta `open`'ı DOĞRUDAN class
+  // olarak kullansaydık, eleman "translate-x-0" (açık) durumuyla
+  // DOĞARDI — CSS transition'ın interpolasyon yapacağı bir ÖNCEKİ durum
+  // olmazdı, panel kaymadan aniden belirirdi (ilk açılışta kayma
+  // animasyonu KAYBOLURDU — "görsel davranışı bozma" riski TAM BURADA).
+  // Çözüm: `entered` başlangıçta `false` — eleman İLK PAINT'te "kapalı"
+  // (translate-x-full) durumuyla mount olur, BİR FRAME SONRA (`requestAnimationFrame`)
+  // `entered` `true` olur — tarayıcı artık gerçek bir öncesi/sonrası
+  // durum çifti görüp CSS transition'ı normal şekilde oynatır. Sonraki
+  // her açılış/kapanışta panel zaten mount'lu olduğu için bu gecikme
+  // görünmez bir fark yaratmıyor (mount'lu bir elemanda class değişimi
+  // transition'ı doğal olarak tetikliyor).
+  const [entered, setEntered] = useState(false);
+  useEffect(() => {
+    if (!hasOpened) return;
+    if (open) {
+      const raf = requestAnimationFrame(() => setEntered(true));
+      return () => cancelAnimationFrame(raf);
+    }
+    setEntered(false);
+  }, [open, hasOpened]);
+
   // Body scroll kilidi (menü açıkken arka plan kaymasın).
   useEffect(() => {
     if (!open) return;
@@ -275,6 +318,14 @@ export default function MobileMenu({
   }, [open]);
 
   // Escape ile kapat + focus trap (Tab menü içinde döngü yapsın).
+  // `hasOpened` deps'e EKLENDİ (2026-08-17, DOM boyutu düzeltmesi) — panel
+  // artık İLK açılışta `open` `true` olduğu AYNI render'da henüz mount
+  // edilmiş olmuyor (bkz. yukarıdaki `hasOpened`/`entered` yorumu), yani
+  // bu effect ilk çalıştığında `panelRef.current` hâlâ `null` olabilir.
+  // `hasOpened` `false→true` geçişi effect'i BİR KEZ DAHA tetikleyip
+  // (artık panel gerçekten DOM'da) ilk-odak/focus-trap'in doğru
+  // elemanlarla çalışmasını sağlıyor — aksi halde ilk açılışta "ilk
+  // odaklanabilir öğeye odaklan" davranışı SESSİZCE bozulurdu.
   useEffect(() => {
     if (!open) return;
 
@@ -311,7 +362,7 @@ export default function MobileMenu({
 
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
-  }, [open]);
+  }, [open, hasOpened]);
 
   const close = () => {
     setOpen(false);
@@ -340,9 +391,15 @@ export default function MobileMenu({
           yorumu yukarıda) — header'ın `backdrop-blur`'ü yüzünden `fixed`in
           viewport yerine header'a göre çözülmesini engeller. `!isDesktop`
           (bkz. yukarıdaki DOM boyutu düzeltmesi yorumu) — masaüstünde bu
-          alt ağaç HİÇ oluşturulmaz. */}
+          alt ağaç HİÇ oluşturulmaz. `hasOpened` (2026-08-17, mobil DOM
+          boyutu düzeltmesi) — kullanıcı hamburger'e tıklamadan bu alt ağaç
+          MOBİLDE de hiç mount edilmez. Görsel toggle'lar `open` DEĞİL
+          `entered` kullanıyor (bkz. `entered`'ın yukarıdaki yorumu — ilk
+          mount'ta kayma animasyonunun oynaması için gereken tek-frame'lik
+          gecikme). */}
       {mounted &&
         !isDesktop &&
+        hasOpened &&
         createPortal(
           <>
             {/* Overlay (yarı saydam siyah) */}
@@ -350,7 +407,7 @@ export default function MobileMenu({
               onClick={close}
               aria-hidden="true"
               className={`fixed inset-0 z-50 bg-black/50 transition-opacity duration-300 ease-out motion-reduce:transition-none lg:hidden ${
-                open ? 'opacity-100' : 'pointer-events-none opacity-0'
+                entered ? 'opacity-100' : 'pointer-events-none opacity-0'
               }`}
             />
 
@@ -361,7 +418,7 @@ export default function MobileMenu({
               aria-modal="true"
               aria-label={labels.nav}
               className={`fixed inset-y-0 right-0 z-50 flex w-3/4 max-w-sm flex-col bg-surface shadow-xl transition-transform duration-300 ease-out motion-reduce:transition-none lg:hidden ${
-                open ? 'translate-x-0' : 'pointer-events-none translate-x-full'
+                entered ? 'translate-x-0' : 'pointer-events-none translate-x-full'
               }`}
             >
               {/* Panel başlığı + kapat */}

@@ -24,7 +24,122 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-17, 3. tur — "No visible content dates" GEO bulgusu kapandı, commit bekliyor)
+## Proje Durumu (son güncelleme: 2026-08-17, 5. tur — "Large DOM size" bulgusu: MobileMenu mobilde de lazy-mount'a çevrildi, kod değişikliği yapıldı)
+
+**🟢 Gerçek Chromium (Playwright) ölçümüyle kanıtlandı: yeni dashboard
+widget'ı (11 sekme + 9 header paneli) SUÇLU DEĞİL — zaten optimal
+yazılmış.** Kullanıcı "eski WP sitesi diye kapatmaya çalışma, gerçek
+ölç" dediği için `astro build` + `astro preview` üzerinde gerçek
+Chromium ile ölçüldü (spekülasyon yok):
+
+- **9 header paneli** (`IconDropdown` component'i) — `{isOpen && (...)}` 
+  ile koşullu render, yalnızca tıklanınca mount ediliyor (kaynak kodda
+  doğrulandı). Widget'ın toplam DOM katkısı 251 element (masaüstü
+  toplamının %18.9'u) — bir aktif sekme + kapalı header ikonları için
+  makul.
+- **5 sekme** (`ProductPreviewWidget.tsx`) — `{activeTab === 'zaman' &&
+  <TimeManagementTab />}` deseniyle yalnızca AKTİF sekme mount ediliyor,
+  diğer 4'ü DOM'da yok.
+
+**Gerçek kaynaklar bulundu (ikisi de site geneli, Header her sayfada):**
+1. **MegaMenu (4 panel, masaüstü toplamının %28'i / 372 element)** —
+   `open ? 'opacity-100' : 'pointer-events-none opacity-0'` deseniyle
+   HER ZAMAN DOM'da, yalnızca CSS'le gizleniyor. **YENİ bir sorun DEĞİL
+   — Açık nokta #25'te 2026-08-10'da zaten bulunmuş, focus/kapanma bug
+   riski nedeniyle bilinçli olarak ertelenmişti.** Bu turda TEKRAR
+   dokunulmadı (kullanıcı kararı — ayrı, dikkatli bir tur gerektiriyor).
+2. **MobileMenu off-canvas panel (mobilde +409/410 element, masaüstünde
+   0)** — **DÜZELTİLDİ.** 2026-08-10'daki düzeltme yalnızca masaüstünde
+   hiç mount edilmemesini sağlamıştı; mobil/tablet (<1024px) viewport'ta
+   panel `open` state'inden BAĞIMSIZ, hydration'dan hemen sonra tam
+   içeriğiyle mount oluyordu (yalnızca `translate-x-full` ile ekran
+   dışına gizleniyordu) — kullanıcı hiç açmasa bile DOM'da tam ağırlığıyla
+   duruyordu.
+
+**Uygulanan düzeltme (`MobileMenu.tsx`):** panel artık `hasOpened` state'i
+`true` olana kadar (kullanıcı hamburger'e TIKLAYANA kadar) hiç mount
+edilmiyor — ilk açılıştan sonra BİLEREK bir daha unmount edilmiyor
+(basit/düşük riskli tasarım: Lighthouse/DevTools'un DOM boyutu denetimi
+SAYFA YÜKLENİRKEN ölçülür, kullanıcı etkileşiminden SONRAKİ büyüme bu
+denetimi etkilemez — kapanışta yeniden unmount eden bir zamanlayıcı
+gereksiz karmaşıklık/risk olurdu). **Görsel davranış riski (ilk açılışta
+kayma animasyonunun kaybolması) ayrı bir `entered` state'iyle çözüldü**
+— panel ilk mount'ta "kapalı" pozisyonda doğup bir `requestAnimationFrame`
+sonra "açık" pozisyona geçiyor, böylece CSS transition'ın interpolasyon
+yapacağı gerçek bir önceki/sonraki durum çifti oluşuyor (aksi halde panel
+kaymadan aniden belirirdi). **İkinci bir gerçek risk** (odak-yönetimi
+`useEffect`'i `panelRef.current`'ın ilk açılışta henüz mount edilmemiş
+olabileceği bir yarış durumu) `hasOpened`'ın o effect'in bağımlılık
+dizisine eklenmesiyle önlendi — aksi halde "açılınca ilk odaklanabilir
+öğeye odaklan" davranışı SESSİZCE bozulurdu.
+
+**Kalıcı test script'i güncellendi:** `test-mobile-menu.mjs` (2026-08-10'dan
+kalma) — eski "panel başlangıçta DOM'da mevcut" varsayımı artık YANLIŞ
+olduğu için ilgili assertion tersine çevrildi + ilk açılışta gerçek
+animasyon oynadığını (mount anı ≠ 0px, 500ms sonra = 0px) + kapandıktan
+sonra panelin BİLEREK DOM'da kaldığını doğrulayan 3 yeni kontrol eklendi.
+
+**Kanıt (gerçek Chromium ölçümü, production build):**
+```
+Masaüstü toplam: 1327 element (değişmedi)
+Mobil, DÜZELTME ÖNCESİ: 1737 element (1327 + 409/410 panel)
+Mobil, DÜZELTME SONRASI (ilk açılıştan önce): 1327 element — masaüstüyle
+  BİREBİR aynı, panel gerçekten mount edilmiyor
+```
+8 adımlı fonksiyonel doğrulama (mount öncesi yokluk, ilk açılışta
+animasyonlu giriş, `aria-modal`, link render, akordeon aç/kapa, Escape,
+kapandıktan sonra DOM'da kalma, 2. açılışta animasyonun yine oynaması,
+dışarı tıklama) + güncellenmiş `test-mobile-menu.mjs`'in TÜM testleri
+GEÇTİ. `astro check` 0 hata, `astro build` 881 sayfa (değişmedi),
+`check-link-accessibility.mjs`/`check-heading-hierarchy.mjs`/
+`check-html-lang-attribute.mjs` sıfır yeni regresyon (heading-hierarchy'nin
+38 bilinen blog seviye-atlaması AYNI kaldı).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-17, 4. tur — "Multiple H1 tags" SEO bulgusu incelendi: bizim projede YOK, kod değişikliği gerekmedi)
+
+**🟢 "Multiple H1 tags" (7 H1 bulunmuş) bulgusu araştırıldı — projede
+bu sorun YOK, kapatıldı.** Örnek URL verilmemişti, önceki H2/H3
+turlarındaki AYNI yöntemle (şablon bazlı tarama + kalıcı otomatik
+denetim aracı) ele alındı, kod DEĞİŞTİRİLMEDİ.
+
+**Kanıt 1 — otomatik denetim (kesin):** taze bir `astro build`
+sonrası `check-heading-hierarchy.mjs` (Header/Footer dahil TÜM HTML
+çıktısında H1 sayan, yalnızca `<main>` değil) 882 gerçek içerik
+sayfasının (881 build + admin paneli) **hiçbirinde** birden fazla H1
+bulamadı — `admin/index.html`'in bilinen H1-yok istisnası dışında 0
+sorun.
+
+**Kanıt 2 — elle şablon taraması:** tüm sayfa component'leri (ProductPage/
+SectorPage/LegalPage/HubPage/FaqPage/CalculatorsPage/BlogListPage/blog
+`[slug]`/SecurityPage/ContactPage/AboutPage/HeroSection/NotFoundPage/
+LandingPage/CustomerStoriesPage/ThankYouPage/SupportRequestPage/
+PresentationRequestPage/PricingPage) çok satırlı `<h1\n class=...>`
+yazımını da yakalayan bir regex'le tek tek grep'lendi — HEPSİ tam 1 H1.
+`HrMaturityTest.tsx`'in tek H1'i yalnızca `CompanyStep` (giriş ekranı)
+fonksiyonunda, diğer wizard adımlarıyla çakışma riski yok.
+
+**Özellikle kontrol edilen riskli/yeni bileşenler (0 H1, temiz):**
+`ProductPreviewWidget.tsx` (ana sayfa interaktif dashboard widget'ı),
+`HomeProductPreview.astro`, `LandingHeader.astro`/`LandingDashboardPreview.astro`
+(`/demo` bileşenleri), `Header.astro`/`Footer.astro`/`BaseLayout.astro`.
+`Welcome.astro` (Astro starter kalıntısı) projede hiçbir yerde import
+edilmiyor — ölü kod, risk değil.
+
+**Blog gövdesi:** 622 yazının hiçbirinde birden fazla H1 yok — önceki
+turda kurulan 2 katmanlı güvenlik ağının (`blogHeadingSanitizer.ts` +
+`rehypeDemoteBodyH1s`, bkz. Tamamlanan işler 2026-08-12) hâlâ doğru
+çalıştığının kanıtı.
+
+**Sonuç:** bulgu muhtemelen eski canlı WordPress sitesinden (domain
+henüz Cloudflare'e bağlanmadı, Açık nokta #31) geliyor — Açık nokta
+#34'teki "No H3 subheadings" bulgusunda bulunanla AYNI kök neden
+sınıfı. Kod tarafında hiçbir aksiyon gerekmiyor.
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-17, 3. tur — "No visible content dates" GEO bulgusu kapandı, commit edildi: e766bf5)
 
 **🟢 Gerçek WP `modified` tarihi olan HER sayfa türüne görünür, semantik
 `<time datetime>` eklendi — uydurma/varsayılan tarih HİÇBİR YERDE
@@ -885,8 +1000,18 @@ içerikleri hâlâ geçerli.)*
     özellik demek, küçük bir düzeltme değil. Kullanıcı kararıyla bu
     turda ele alınmadı.
 24. **KISMEN KAPANDI — DOM boyutu (Chrome "1501 element" uyarısı):
-    MobileMenu düzeltildi, MegaMenu BİLİNÇLİ olarak ertelendi
-    (2026-08-10).** `scripts/measure-dom-size.mjs` ile 15 sayfalık
+    MobileMenu masaüstünde 2026-08-10'da, MOBİLDE 2026-08-17'de
+    düzeltildi; MegaMenu HÂLÂ BİLİNÇLİ olarak ertelenmiş durumda.**
+    **2026-08-17 güncellemesi:** 2026-08-10'daki düzeltme yalnızca
+    masaüstünü kapsıyordu — mobil/tablet'te panel `open` state'inden
+    BAĞIMSIZ, hydration'dan hemen sonra tam içeriğiyle (~409/410 element,
+    gerçek Chromium ölçümüyle doğrulandı) mount olmaya devam ediyordu.
+    "Large DOM size" bulgusu turunda `hasOpened` state'i eklenip panel
+    artık MOBİLDE de kullanıcı hamburger'e tıklayana kadar hiç mount
+    edilmiyor (bkz. Proje Durumu 2026-08-17, 5. tur — tam teknik detay,
+    `entered` animasyon çözümü, `test-mobile-menu.mjs` güncellemesi
+    orada). Aşağıdaki 2026-08-10 anlatımı yalnızca O TURUN (masaüstü
+    kapsamı) tarihsel kaydı için tutuluyor. `scripts/measure-dom-size.mjs` ile 15 sayfalık
     temsili bir örneklem tarandı — kök neden `Header.astro`'nun 4
     `MegaMenu.tsx` island'ı (447 element, HER SAYFADA) + `MobileMenu.tsx`'in
     `document.body`'ye portal'lanan off-canvas panel'i (408 element, HER
