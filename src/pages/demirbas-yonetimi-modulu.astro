@@ -2,11 +2,12 @@
 // 2026-08-05: kapsamlı URL denetimiyle bulunan, önceki modül migrasyon
 // turlarında kaçırılmış bir modül. Bkz. CLAUDE.md.
 import ProductPage from '../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
 
 const trSlug = 'demirbas-yonetimi-modulu';
 const content = getProductContent(trSlug, 'tr')!;
+const modified = getProductModifiedDate(trSlug, 'tr');
 // `pageTitle` (H1 için hâlâ kullanılıyor) kaynağın gerçek hero cümlesi
 // ("Demirbaşları dijital ortama taşıyın, kontrolü kolaylaştırın!") — bu,
 // `<title>` etiketinde 70 karaktere çıkıp 60 sınırını aşıyordu (2026-08-10
@@ -29,4 +30,5 @@ const ctaKeyword = 'Demirbaş Yönetimi Modülü';
 	ctaKeyword={ctaKeyword}
 	localeUrls={localeUrls}
 	hreflangLocales={['tr', 'en']}
+	modified={modified}
 />

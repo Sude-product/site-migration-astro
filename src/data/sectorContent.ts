@@ -134,6 +134,14 @@ export function getSectorSlug(trSlug: string, locale: Locale): string | undefine
   return SLUG_INDEX[trSlug]?.[locale];
 }
 
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17 — bkz. CLAUDE.md, `productContent.ts`'teki AYNI
+ * fonksiyonun yorumu). */
+export function getSectorModifiedDate(trSlug: string, locale: Locale): Date | undefined {
+  const raw = DATA.sectors.find((g) => g.trSlug === trSlug)?.locales[locale]?.modified;
+  return raw ? new Date(raw) : undefined;
+}
+
 /**
  * Bir sektörün 4 dildeki TAM (locale-prefix'li) URL'leri — LanguageSwitcher'a
  * geçirilir. Sektör sayfalarında her dilin slug'ı tamamen farklı olduğu

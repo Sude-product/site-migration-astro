@@ -1,9 +1,10 @@
 ---
 import PricingPage from '../../components/PricingPage.astro';
-import { getPricingContent, getPricingLocaleUrls } from '../../data/pricingContent';
+import { getPricingContent, getPricingLocaleUrls, getPricingModifiedDate } from '../../data/pricingContent';
 
 const content = getPricingContent('it')!;
 const localeUrls = getPricingLocaleUrls();
+const modified = getPricingModifiedDate('it');
 ---
 
-<PricingPage content={content} localeUrls={localeUrls} />
+<PricingPage content={content} localeUrls={localeUrls} modified={modified} />

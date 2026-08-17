@@ -1,6 +1,12 @@
 ---
 import SectorPage from '../../components/SectorPage.astro';
-import { listSectorSlugs, getSectorContent, getSectorLocaleUrls, getSectorMetaDescription } from '../../data/sectorContent';
+import {
+  listSectorSlugs,
+  getSectorContent,
+  getSectorLocaleUrls,
+  getSectorMetaDescription,
+  getSectorModifiedDate,
+} from '../../data/sectorContent';
 
 export function getStaticPaths() {
   return listSectorSlugs('en').map(({ trSlug, localeSlug }) => ({
@@ -17,6 +23,8 @@ const { trSlug } = Astro.props as Props;
 const content = getSectorContent(trSlug, 'en')!;
 const localeUrls = getSectorLocaleUrls(trSlug);
 const description = getSectorMetaDescription(trSlug, 'en');
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`.
+const modified = getSectorModifiedDate(trSlug, 'en');
 ---
 
-<SectorPage content={content} localeUrls={localeUrls} description={description} />
+<SectorPage content={content} localeUrls={localeUrls} description={description} modified={modified} />

@@ -3,12 +3,13 @@
 // NOT: NL karşılığı yok — kaynak sitede o sayfa yayınlanmamış (WP REST API
 // 401 rest_forbidden döndürüyor), i18n.fallback NL isteklerini EN'e düşürür.
 import ProductPage from '../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
 
 const trSlug = 'ise-alim-modulu';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

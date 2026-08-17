@@ -1,12 +1,13 @@
 ---
 // Aşama 2 — onaylı 5 modülden biri (İzin Yönetimi). Bkz. CLAUDE.md.
 import ProductPage from '../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
 
 const trSlug = 'yillik-izin-takip-programi';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
 // hero.text 65 karakter (meta description denetimi, 2026-08-10) — sayfanın
 // kendi gövde metnindeki gerçek temalardan (kısıt/koşullara göre izin
 // tipleri, resmi tatil/hastalık/evlilik izni) türetildi.
@@ -14,4 +15,4 @@ const description =
   'idenfit ile dilediğiniz kısıt ve koşullarda izin tipleri tanımlayın; resmi tatiller, hastalık ve evlilik izni gibi türleri tek takvimde yönetin.';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} modified={modified} />

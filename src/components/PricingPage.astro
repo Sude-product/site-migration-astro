@@ -38,6 +38,7 @@
 // istenmedi. (c) satır hover'da vurgulama (`highlightRow()`) — ayrı,
 // küçük bir polish özelliği, bu turda istenmedi.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LastUpdated from './LastUpdated.astro';
 import { getPricingMetaDescription, type PricingContent, type PricingPlan } from '../data/pricingContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
@@ -45,9 +46,12 @@ import type { Locale } from '../data/nav';
 interface Props {
   content: PricingContent;
   localeUrls: Record<string, string | undefined>;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. */
+  modified?: Date;
 }
 
-const { content, localeUrls } = Astro.props;
+const { content, localeUrls, modified } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 // `pageTitle` (H1 için hâlâ kullanılıyor) TR'de meta description için 1
 // karakter kısaydı (2026-08-10 denetimi) — bkz. `getPricingMetaDescription()`.
@@ -267,6 +271,12 @@ const PLAN_BTN_CLASS =
             </div>
           </div>
         </div>
+      </div>
+
+      <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+           kararıyla H1'in hemen altından sayfanın EN ALTINA taşındı. -->
+      <div class="mt-12 text-center">
+        <LastUpdated date={modified} locale={locale} />
       </div>
     </div>
   </section>

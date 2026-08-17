@@ -1,12 +1,13 @@
 ---
 // Aşama 3 (kısım 2) — Puantaj (Şema E, KARAR 3 gereği ayrıca ele alındı). Bkz. CLAUDE.md.
 import ProductPage from '../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle, localizeCtaUrl } from '../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate, localizeCtaUrl } from '../data/productContent';
 
 const trSlug = 'puantaj-takip-programi-modulu';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
 // `ctaTextOverride` (2026-08-12, kullanıcı kararı, bu turda GÜNCELLENDİ) —
 // önceki turda hero bu metni ("Zaman Yönetimine Başlayın") taşıyordu; bu
 // turda kullanıcı SAYFADA "Başlayın" metnini taşıyan TOPLAM 4 CTA olduğunu
@@ -63,4 +64,5 @@ const sectionCtaOverrides = {
   ctaTextOverride={ctaTextOverride}
   sectionCtaOverrides={sectionCtaOverrides}
   localeUrls={localeUrls}
+  modified={modified}
 />

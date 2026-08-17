@@ -1,12 +1,19 @@
 ---
 // Aşama 2 — onaylı 5 modülden biri (Bordro). Bkz. CLAUDE.md.
 import ProductPage from '../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../data/productContent';
+import {
+  getProductContent,
+  getProductLocaleUrls,
+  getProductPageTitle,
+  getProductModifiedDate,
+} from '../data/productContent';
 
 const trSlug = 'bordo-onay-modulu';
 const content = getProductContent(trSlug, 'tr')!;
 const pageTitle = getProductPageTitle(trSlug, 'tr');
 const localeUrls = getProductLocaleUrls(trSlug);
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`.
+const modified = getProductModifiedDate(trSlug, 'tr');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

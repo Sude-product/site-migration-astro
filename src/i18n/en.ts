@@ -1,6 +1,9 @@
 import type { Translations } from './types';
 
 export const en: Translations = {
+  common: {
+    lastUpdated: 'Last updated',
+  },
   nav: {
     products: 'PRODUCTS',
     whyIdenfit: 'WHY IDENFIT',

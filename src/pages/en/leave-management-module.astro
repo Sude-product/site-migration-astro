@@ -1,12 +1,13 @@
 ---
 // Aşama 2 — onaylı 5 modülden biri (İzin Yönetimi). Bkz. CLAUDE.md.
 import ProductPage from '../../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
 
 const trSlug = 'yillik-izin-takip-programi';
 const content = getProductContent(trSlug, 'en')!;
 const pageTitle = getProductPageTitle(trSlug, 'en');
 const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

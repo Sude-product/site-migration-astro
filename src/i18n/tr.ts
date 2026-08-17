@@ -2,6 +2,9 @@ import type { Translations } from './types';
 
 // Ana kaynak dil — sayfalardan/component'lerden çıkarılan gerçek metinler.
 export const tr: Translations = {
+  common: {
+    lastUpdated: 'Son güncelleme',
+  },
   nav: {
     products: 'ÜRÜNLER',
     whyIdenfit: 'NEDEN IDENFIT',

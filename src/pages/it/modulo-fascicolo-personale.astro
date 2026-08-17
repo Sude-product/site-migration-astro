@@ -1,12 +1,13 @@
 ---
 // Aşama 3 (kısım 1) — 7 temiz modülden biri (Özlük Dosyası). Bkz. CLAUDE.md.
 import ProductPage from '../../components/ProductPage.astro';
-import { getProductContent, getProductLocaleUrls, getProductPageTitle } from '../../data/productContent';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
 
 const trSlug = 'calisan-ozluk-yonetimi-modulu-2';
 const content = getProductContent(trSlug, 'it')!;
 const pageTitle = getProductPageTitle(trSlug, 'it');
 const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'it');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

@@ -1,11 +1,12 @@
 ---
 import LegalPage from '../../components/LegalPage.astro';
-import { getKvkkContent, getKvkkLocaleUrls } from '../../data/miscPagesContent';
+import { getKvkkContent, getKvkkLocaleUrls, getKvkkModifiedDate } from '../../data/miscPagesContent';
 
 const content = getKvkkContent('it')!;
 const localeUrls = getKvkkLocaleUrls();
+const modified = getKvkkModifiedDate('it');
 const description =
   'Scopri come idenfit raccoglie, elabora e protegge i tuoi dati personali, e quali sono i tuoi diritti ai sensi del GDPR.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

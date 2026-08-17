@@ -19,7 +19,15 @@
 // eklenmedi).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getFaqSlug } from './faqContent';
+import { getPageModifiedDateById } from './pagesJsonModified';
 import type { Locale } from './nav';
+
+// bkz. dosya başı yorumu — pages.json id'leri (tr 16607/en 16688/it 23686).
+const SUPPORT_REQUEST_PAGE_IDS: Partial<Record<Locale, number>> = {
+  tr: 16607,
+  en: 16688,
+  it: 23686,
+};
 import type { SupportKvkkNoticeLabels, SupportRequestFormLabels } from '../components/SupportRequestForm';
 
 export interface SupportRequestContent {
@@ -55,6 +63,13 @@ export function getSupportRequestLocaleUrls(): Partial<Record<Locale, string>> {
   // Hakları/Güvenlik ailesindeki aynı desen, bkz. miscPagesContent.ts).
   if (!result.nl && result.en) result.nl = result.en;
   return result;
+}
+
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17). NL'de kaynak sayfa hiç olmadığı için `undefined`. */
+export function getSupportRequestModifiedDate(locale: Locale): Date | undefined {
+  const id = SUPPORT_REQUEST_PAGE_IDS[locale];
+  return id ? getPageModifiedDateById(id) : undefined;
 }
 
 const CONTENT: Partial<Record<Locale, SupportRequestContent>> = {

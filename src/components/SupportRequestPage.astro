@@ -7,10 +7,12 @@
 // zemininde) "SSS'yi ziyaret et" bloğu var — bkz. `supportRequestContent.ts`.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SupportRequestForm from './SupportRequestForm.tsx';
+import LastUpdated from './LastUpdated.astro';
 import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
 import {
   getSupportFaqHref,
   getSupportRequestLocaleUrls,
+  getSupportRequestModifiedDate,
   type SupportRequestContent,
 } from '../data/supportRequestContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
@@ -33,6 +35,8 @@ const title = buildIdenfitTitle(content.pageTitle, locale);
 // bağlanmamıştı. Düzeltildi. NL'de kaynak sayfa yok (aynı fonksiyon NL'i
 // EN'e alias'lıyor) — hreflang bu yüzden yalnızca gerçek 3 dili bildiriyor.
 const localeUrls = getSupportRequestLocaleUrls();
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`.
+const modified = getSupportRequestModifiedDate(locale);
 ---
 
 <BaseLayout
@@ -65,5 +69,10 @@ const localeUrls = getSupportRequestLocaleUrls();
 		<a href={faqHref} class="mt-4 inline-block text-sm font-semibold text-brand hover:underline">
 			{content.faqButtonText}
 		</a>
+		<!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+		     kararıyla açıklamanın hemen altından sayfanın EN ALTINA taşındı. -->
+		<div class="mt-8">
+			<LastUpdated date={modified} locale={locale} />
+		</div>
 	</section>
 </BaseLayout>

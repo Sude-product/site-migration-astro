@@ -7,6 +7,7 @@
 // şemamıza göre yeniden çözülmesi.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import ProductSectionBlock from './ProductSectionBlock.astro';
+import LastUpdated from './LastUpdated.astro';
 import { getTranslations } from '../i18n';
 import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { getProductContent } from '../data/productContent';
@@ -72,6 +73,10 @@ interface Props {
    * gerekirse yeni bir CTA linki) hedefleyebiliyor — `SectionCtaOverride`
    * tipine bkz. */
   sectionCtaOverrides?: Record<number, SectionCtaOverride>;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. GERÇEK WP `modified` tarihi verilmezse (kaynakta
+   * yoksa/sentetik bir sayfaysa) hiçbir şey render edilmez, uydurulmaz. */
+  modified?: Date;
 }
 
 const {
@@ -84,6 +89,7 @@ const {
   ctaKeyword,
   ctaTextOverride,
   sectionCtaOverrides,
+  modified,
 } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
@@ -189,4 +195,11 @@ const heroCtaText =
       </section>
     )
   }
+
+  <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+       kararıyla CTA'nın hemen altından sayfanın EN ALTINA taşındı (dikkat
+       çekmeyen, ama gerçek içerik sayfasında hâlâ var olan bir konum). -->
+  <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+    <LastUpdated date={modified} locale={locale} />
+  </div>
 </BaseLayout>

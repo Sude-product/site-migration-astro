@@ -3,14 +3,15 @@
 // bir sayfa (ana KVKK Aydınlatma Metni'nden ayrı bir hukuki doküman). Bkz.
 // CLAUDE.md.
 import LegalPage from '../components/LegalPage.astro';
-import { getKvkProtocolContent, getKvkProtocolLocaleUrls } from '../data/miscPagesContent';
+import { getKvkProtocolContent, getKvkProtocolLocaleUrls, getKvkProtocolModifiedDate } from '../data/miscPagesContent';
 
 const content = getKvkProtocolContent('tr')!;
 const localeUrls = getKvkProtocolLocaleUrls();
+const modified = getKvkProtocolModifiedDate('tr');
 // Meta description (2026-08-10, meta description uzunluk denetimi) —
 // bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
 const description =
   'İdenfit ile aranızdaki kişisel verilerin korunmasına ilişkin protokolün şartlarını ve veri işleme esaslarını inceleyin.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en']} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en']} modified={modified} />

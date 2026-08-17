@@ -186,6 +186,14 @@ export function getProductSlug(trSlug: string, locale: Locale): string | undefin
   return SLUG_INDEX[trSlug]?.[locale];
 }
 
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17 — bkz. CLAUDE.md) — `SYNTHETIC_SLUGS`/override ile
+ * ÜRETİLEN sayfalarda (kaynakta hiç yok) `undefined` döner, UYDURULMAZ. */
+export function getProductModifiedDate(trSlug: string, locale: Locale): Date | undefined {
+  const raw = DATA.products.find((g) => g.trSlug === trSlug)?.locales[locale]?.modified;
+  return raw ? new Date(raw) : undefined;
+}
+
 export function getProductLocaleUrls(trSlug: string): Partial<Record<Locale, string>> {
   const perLocale = SLUG_INDEX[trSlug];
   if (!perLocale) return {};

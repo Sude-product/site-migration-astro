@@ -33,6 +33,7 @@
 // YANLIŞTI — ikisi de kaynakta YOK, bu turda tamamen kaldırıldı.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroForm from './HeroForm.tsx';
+import LastUpdated from './LastUpdated.astro';
 import { getTranslations } from '../i18n';
 import { getKvkkAndTermsHrefs, getPresentationMetaDescription, type PresentationContent } from '../data/miscPagesContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
@@ -40,9 +41,12 @@ import type { Locale } from '../data/nav';
 
 interface Props {
   content: PresentationContent;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. */
+  modified?: Date;
 }
 
-const { content } = Astro.props;
+const { content, modified } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
@@ -214,6 +218,12 @@ const title = buildIdenfitTitle(content.formTitle, locale);
             )
           }
         </div>
+      </div>
+
+      <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+           kararıyla form başlığının hemen altından sayfanın EN ALTINA taşındı. -->
+      <div class="mt-8 text-center">
+        <LastUpdated date={modified} locale={locale} />
       </div>
     </div>
   </section>

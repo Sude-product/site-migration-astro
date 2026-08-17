@@ -9,6 +9,14 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSidebar from '../../components/BlogSidebar.astro';
 import { estimateReadingMinutes, getAllBlogPosts, getRelatedPosts, formatBlogDate } from '../../data/blogContent';
 
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. CLAUDE.md.
+// `modifiedDate` zaten JSON-LD `dateModified`'da kullanılıyordu ama sayfada
+// GÖRÜNMÜYORDU. Yalnızca yayın tarihinden GERÇEKTEN farklıysa (≥1 gün —
+// WP'nin kaydetme sırasında birkaç saniyelik "sahte" fark üretebilen
+// davranışının gürültüsünü ele, gerçek düzenlemeyi göstermek için) görünür
+// bir not ekleniyor; aynıysa (46/618 yazı) hiçbir şey basılmıyor.
+const DAY_MS = 24 * 60 * 60 * 1000;
+
 // "Benzer Yazılar" kartları da BlogListPage.astro'daki liste kartlarıyla
 // AYNI hover dilini kullanıyor (görsel `group-hover:scale-110`, sabit
 // `aspect-[4/3]` — kaynakta bu grid `.uicore-landscape-ratio.uicore-grid`
@@ -35,6 +43,7 @@ const relatedPosts = getRelatedPosts(allPosts, post);
 // kaynağın kendi hatası). Bizim verimiz zaten temiz olduğu için burada
 // yalnızca virgülle birleştirmek yeterli, ekstra bir dedupe GEREKMİYOR.
 const categoryLabel = categories.map((c) => c.name).join(', ');
+const showModifiedDate = modifiedDate && Math.abs(modifiedDate.getTime() - date.getTime()) >= DAY_MS;
 
 // JSON-LD (BlogPosting, schema.org) — 2026-08-10, structured data turu.
 // Site genelinde İLK JSON-LD uygulaması (daha önce hiç yoktu — bkz. CLAUDE.md
@@ -97,6 +106,16 @@ const jsonLd = {
             <time datetime={date.toISOString()}>{formatBlogDate(date)}</time>
             <span aria-hidden="true">·</span>
             <span>{estimateReadingMinutes(post.body ?? '')} dakikalık okuma</span>
+            {
+              showModifiedDate && (
+                <>
+                  <span aria-hidden="true">·</span>
+                  <span>
+                    Güncellendi: <time datetime={modifiedDate!.toISOString()}>{formatBlogDate(modifiedDate!)}</time>
+                  </span>
+                </>
+              )
+            }
           </div>
         </header>
 

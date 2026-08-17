@@ -6,6 +6,7 @@
 // Pages Functions) kurulacak. Şu an bu sayfaya yalnızca doğrudan URL ile
 // ulaşılabiliyor — bkz. CLAUDE.md "Yapılacaklar (TODO)".
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LastUpdated from './LastUpdated.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { toYoutubeEmbedUrl } from '../data/customerStories';
 import { THANK_YOU_HERO_IMAGE, THANK_YOU_BRAND_ICON_URL, type ThankYouContent } from '../data/thankYouContent';
@@ -15,9 +16,12 @@ import type { Locale } from '../data/nav';
 interface Props {
   content: ThankYouContent;
   localeUrls: Record<string, string | undefined>;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. */
+  modified?: Date;
 }
 
-const { content, localeUrls } = Astro.props;
+const { content, localeUrls, modified } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const homeHref = getRelativeLocaleUrl(locale, '');
 const title = buildIdenfitTitle(content.title, locale);
@@ -82,6 +86,12 @@ const title = buildIdenfitTitle(content.title, locale);
           </div>
         ))
       }
+    </div>
+
+    <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+         kararıyla başlık metninin hemen altından sayfanın EN ALTINA taşındı. -->
+    <div class="mt-10">
+      <LastUpdated date={modified} locale={locale} />
     </div>
   </section>
 </BaseLayout>

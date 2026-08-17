@@ -4,6 +4,7 @@
 // ProductPage.astro'ya zorla uydurulmadı (hero/section/FAQ şeması yok,
 // gerçekten düz bir metin sayfası).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import LastUpdated from './LastUpdated.astro';
 import { buildIdenfitTitle } from '../data/pageTitle';
 import { structureLegalHeadings } from '../data/legalHeadingSanitizer';
 import type { LegalContent } from '../data/miscPagesContent';
@@ -29,9 +30,12 @@ interface Props {
    * uyumluluk için, yeni bir legal sayfa eklenip description unutulursa
    * sessizce boş kalmasın diye. */
   description?: string;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. */
+  modified?: Date;
 }
 
-const { content, localeUrls, hreflangLocales, description: descriptionOverride } = Astro.props;
+const { content, localeUrls, hreflangLocales, description: descriptionOverride, modified } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 // H2/H3 alt başlığı eksikliği düzeltmesi (2026-08-13) — bkz.
 // `legalHeadingSanitizer.ts`'in dosya başı yorumu (kök neden + 3 dönüşüm
@@ -51,6 +55,11 @@ const title = buildIdenfitTitle(content.title, locale);
         class="prose-legal mt-10 text-base leading-[30px] text-black [&_a]:text-brand [&_h1]:mt-6 [&_h1]:text-2xl [&_h1]:font-medium [&_h1]:leading-[28px] [&_h1]:text-brand [&_h2]:mt-6 [&_h2]:text-2xl [&_h2]:font-medium [&_h2]:leading-[28px] [&_h2]:text-brand [&_h3]:mt-6 [&_h3]:text-2xl [&_h3]:font-medium [&_h3]:leading-[28px] [&_h3]:text-brand [&_h4]:mt-6 [&_h4]:text-2xl [&_h4]:font-medium [&_h4]:leading-[28px] [&_h4]:text-brand [&_li]:mb-0 [&_ol]:list-decimal [&_ol]:space-y-2 [&_ol]:pl-10 [&_p]:mb-4 [&_strong]:font-bold [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-10 [&_table]:w-full [&_table]:border-collapse [&_th]:border [&_th]:border-[#dee2e6] [&_th]:p-2 [&_th]:text-left [&_th]:font-bold [&_td]:border [&_td]:border-[#dee2e6] [&_td]:p-2 [&_td]:font-normal [&_tbody_tr:nth-of-type(odd)]:bg-black/5"
         set:html={structuredHtml}
       />
+      <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+           kararıyla H1'in hemen altından sayfanın EN ALTINA taşındı. -->
+      <div class="mt-10">
+        <LastUpdated date={modified} locale={locale} />
+      </div>
     </section>
   </div>
 </BaseLayout>

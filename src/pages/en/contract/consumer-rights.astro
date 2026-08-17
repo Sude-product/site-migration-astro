@@ -1,11 +1,12 @@
 ---
 import LegalPage from '../../../components/LegalPage.astro';
-import { getLegalContent, getLegalLocaleUrls, CONSUMER_RIGHTS_TR_SLUG } from '../../../data/miscPagesContent';
+import { getLegalContent, getLegalLocaleUrls, getLegalModifiedDate, CONSUMER_RIGHTS_TR_SLUG } from '../../../data/miscPagesContent';
 
 const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'en')!;
 const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+const modified = getLegalModifiedDate(CONSUMER_RIGHTS_TR_SLUG, 'en');
 const description =
   'Review your consumer rights as an idenfit customer, including return/withdrawal conditions and how to raise complaints.';
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

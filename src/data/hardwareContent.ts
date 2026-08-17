@@ -63,6 +63,14 @@ export function getHardwareLocaleUrls(): Partial<Record<Locale, string>> {
   return result;
 }
 
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17 — bkz. CLAUDE.md, `productContent.ts`'teki AYNI
+ * fonksiyonun yorumu). */
+export function getHardwareModifiedDate(locale: Locale): Date | undefined {
+  const raw = DATA.hardware.locales[locale]?.modified;
+  return raw ? new Date(raw) : undefined;
+}
+
 /**
  * Ham `hardware.json` verisini + varsa `hardwareTranslationOverrides.ts`'teki
  * gerçek çeviriyi birleştirir — `productContent.ts`'in `getProductContent()`'i

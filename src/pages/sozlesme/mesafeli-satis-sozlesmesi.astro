@@ -5,14 +5,15 @@
 // ayrı bir turda ele alınacak (kaynak Elementor HTML'i homepage gibi
 // karmaşık, ACF `content_block` alanı yok).
 import LegalPage from '../../components/LegalPage.astro';
-import { getLegalContent, getLegalLocaleUrls, DISTANCE_SALES_TR_SLUG } from '../../data/miscPagesContent';
+import { getLegalContent, getLegalLocaleUrls, getLegalModifiedDate, DISTANCE_SALES_TR_SLUG } from '../../data/miscPagesContent';
 
 const content = getLegalContent(DISTANCE_SALES_TR_SLUG, 'tr')!;
 const localeUrls = getLegalLocaleUrls(DISTANCE_SALES_TR_SLUG);
+const modified = getLegalModifiedDate(DISTANCE_SALES_TR_SLUG, 'tr');
 // Meta description (2026-08-10, meta description uzunluk denetimi) —
 // bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
 const description =
   "idenfit hizmetlerini online satın alırken geçerli olan Mesafeli Satış Sözleşmesi'nin şartlarını, cayma hakkınızı ve ödeme koşullarını öğrenin.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

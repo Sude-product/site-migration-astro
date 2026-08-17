@@ -139,3 +139,11 @@ export function getPricingLocaleUrls(): Partial<Record<Locale, string>> {
   }
   return result;
 }
+
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17 — bkz. CLAUDE.md, `productContent.ts`'teki AYNI
+ * fonksiyonun yorumu). */
+export function getPricingModifiedDate(locale: Locale): Date | undefined {
+  const raw = DATA.locales[locale]?.modified;
+  return raw ? new Date(raw) : undefined;
+}

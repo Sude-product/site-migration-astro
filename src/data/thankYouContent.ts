@@ -23,7 +23,15 @@
 // tutarlı olarak `getWhyIdenfitSlug()` üzerinden doğru hedefe bağlandı.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { getWhyIdenfitSlug } from './miscPagesContent';
+import { getPageModifiedDateById } from './pagesJsonModified';
 import type { Locale } from './nav';
+
+// bkz. dosya başı yorumu — pages.json id'leri (tr 15810/en 15856/it 23535).
+const THANK_YOU_PAGE_IDS: Record<ThankYouLocale, number> = {
+  tr: 15810,
+  en: 15856,
+  it: 23535,
+};
 
 type ThankYouLocale = 'tr' | 'en' | 'it';
 
@@ -194,4 +202,11 @@ export function getThankYouLocaleUrls(): Partial<Record<Locale, string>> {
   // madde 3/6'da bulunan hatayı bu YENİ sayfada baştan tekrarlamamak için).
   if (!result.nl && result.en) result.nl = result.en;
   return result;
+}
+
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17). NL'de kaynak sayfa hiç olmadığı için `undefined`. */
+export function getThankYouModifiedDate(locale: Locale): Date | undefined {
+  const key = toThankYouLocale(locale);
+  return key ? getPageModifiedDateById(THANK_YOU_PAGE_IDS[key]) : undefined;
 }

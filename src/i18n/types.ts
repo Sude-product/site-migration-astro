@@ -2,6 +2,13 @@
 // olarak uymak zorunda. Bir anahtar tr.ts'de olup başka bir dilde eksikse
 // TypeScript derleme zamanında hata verir (eksik/fazla property kontrolü).
 
+/** Sayfa tipinden bağımsız, birden fazla şablonda paylaşılan küçük
+ * metinler — bkz. `LastUpdated.astro` ("No visible content dates" GEO
+ * bulgusu, 2026-08-17). */
+export interface CommonLabels {
+  lastUpdated: string;
+}
+
 export interface NavLabels {
   products: string;
   whyIdenfit: string;
@@ -495,6 +502,7 @@ export interface NotFoundLabels {
 }
 
 export interface Translations {
+  common: CommonLabels;
   nav: NavLabels;
   cta: CtaLabels;
   hero: HeroLabels;

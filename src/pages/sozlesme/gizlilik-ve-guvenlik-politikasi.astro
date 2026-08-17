@@ -1,13 +1,14 @@
 ---
 import LegalPage from '../../components/LegalPage.astro';
-import { getPrivacySecurityContent, getPrivacySecurityLocaleUrls } from '../../data/miscPagesContent';
+import { getPrivacySecurityContent, getPrivacySecurityLocaleUrls, getPrivacySecurityModifiedDate } from '../../data/miscPagesContent';
 
 const content = getPrivacySecurityContent('tr')!;
 const localeUrls = getPrivacySecurityLocaleUrls();
+const modified = getPrivacySecurityModifiedDate('tr');
 // Meta description (2026-08-10, meta description uzunluk denetimi) —
 // bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
 const description =
   "idenfit'in kullanıcı verilerini nasıl koruduğunu, hangi güvenlik önlemlerini uyguladığını ve gizlilik ilkelerini bu politika metninde inceleyin.";
 ---
 
-<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} />
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

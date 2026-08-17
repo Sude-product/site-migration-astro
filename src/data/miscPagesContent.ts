@@ -43,6 +43,20 @@ function findGroup(trSlug: string): RawGroup | undefined {
   return DATA.pages.find((g) => g.trSlug === trSlug);
 }
 
+/** Sayfanın GERÇEK WP `modified` tarihi ("No visible content dates" GEO
+ * bulgusu, 2026-08-17 — bkz. CLAUDE.md, `productContent.ts`'teki AYNI
+ * fonksiyonun yorumu). Bu ham tarih yalnızca RAW WP içeriği gösterilen
+ * locale'ler için anlamlı — GlobalBrand/WhyIdenfit/About'un TAM İtalyanca
+ * override'ı (`GLOBAL_BRAND_IT_HERO` vb.) gibi içerik TAMAMEN bizim elle
+ * yazdığımız bir çeviriyse, çağıran fonksiyon bu locale için BİLEREK
+ * `undefined` döndürmeli (bkz. `getGlobalBrandModifiedDate()` vb.) — aksi
+ * halde ekranda "Son güncelleme: [eski WP tarihi]" yazıp altında bizim
+ * çok daha yeni yazdığımız bir metin göstermek yanıltıcı olurdu. */
+function getMiscModifiedDate(trSlug: string, locale: Locale): Date | undefined {
+  const raw = findGroup(trSlug)?.locales[locale]?.modified;
+  return raw ? new Date(raw) : undefined;
+}
+
 function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
   const group = findGroup(trSlug);
   if (!group) return {};
@@ -133,6 +147,9 @@ export function getContactSlug(locale: Locale): string | undefined {
 export function getContactLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(CONTACT_TR_SLUG);
 }
+export function getContactModifiedDate(locale: Locale): Date | undefined {
+  return getMiscModifiedDate(CONTACT_TR_SLUG, locale);
+}
 
 // Meta description override (2026-08-10, meta description uzunluk denetimi)
 // — `ContactPage.astro` önceden `content.pageTitle`'ı description olarak
@@ -172,6 +189,9 @@ export function getLegalSlug(trSlug: string, locale: Locale): string | undefined
 export function getLegalLocaleUrls(trSlug: string): Partial<Record<Locale, string>> {
   return localeUrlsFor(trSlug);
 }
+export function getLegalModifiedDate(trSlug: string, locale: Locale): Date | undefined {
+  return getMiscModifiedDate(trSlug, locale);
+}
 
 export const CONSUMER_RIGHTS_TR_SLUG = 'sozlesme/tuketici-haklari';
 export const DISTANCE_SALES_TR_SLUG = 'sozlesme/mesafeli-satis-sozlesmesi';
@@ -201,6 +221,9 @@ export function getPrivacySecuritySlug(locale: Locale): string | undefined {
 export function getPrivacySecurityLocaleUrls(): Partial<Record<Locale, string>> {
   return getLegalLocaleUrls(PRIVACY_SECURITY_TR_SLUG);
 }
+export function getPrivacySecurityModifiedDate(locale: Locale): Date | undefined {
+  return getMiscModifiedDate(PRIVACY_SECURITY_TR_SLUG, locale);
+}
 
 // ============================== KVKK Aydınlatma Metni ==============================
 // TR/EN/IT'nin üçü de zaten gerçek, tam, birbirinden farklı çeviri (18KB/16KB/18KB
@@ -224,6 +247,9 @@ export function getKvkkSlug(locale: Locale): string | undefined {
 export function getKvkkLocaleUrls(): Partial<Record<Locale, string>> {
   return getLegalLocaleUrls(KVKK_TR_SLUG);
 }
+export function getKvkkModifiedDate(locale: Locale): Date | undefined {
+  return getMiscModifiedDate(KVKK_TR_SLUG, locale);
+}
 
 // ============================== KVK Protokol ==============================
 // Ana KVKK Aydınlatma Metni'nden AYRI bir sayfa — 2026-08-05'te kapsamlı
@@ -244,6 +270,9 @@ export function getKvkProtocolSlug(locale: Locale): string | undefined {
 }
 export function getKvkProtocolLocaleUrls(): Partial<Record<Locale, string>> {
   return getLegalLocaleUrls(KVK_PROTOCOL_TR_SLUG);
+}
+export function getKvkProtocolModifiedDate(locale: Locale): Date | undefined {
+  return getMiscModifiedDate(KVK_PROTOCOL_TR_SLUG, locale);
 }
 
 // Hero/Panel/İletişim formlarındaki KVKK onay metninin 2 linki (HeroForm.tsx)
@@ -300,6 +329,9 @@ export function getSecuritySlug(locale: Locale): string | undefined {
 }
 export function getSecurityLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(SECURITY_TR_SLUG);
+}
+export function getSecurityModifiedDate(locale: Locale): Date | undefined {
+  return getMiscModifiedDate(SECURITY_TR_SLUG, locale);
 }
 
 // Sayfa daha önce `<title>`/meta description için footer'ın kısa menü
@@ -386,6 +418,14 @@ export function getGlobalBrandSlug(locale: Locale): string | undefined {
 export function getGlobalBrandLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(GLOBAL_BRAND_TR_SLUG);
 }
+/** IT'de içerik TAMAMEN bizim çevirimiz (`GLOBAL_BRAND_IT_HERO`/
+ * `..._IT_SECTIONS`) — ham WP `modified` tarihi o metne karşılık
+ * GELMİYOR, bu yüzden IT için BİLEREK `undefined` (bkz. `getMiscModifiedDate()`
+ * yorumu). */
+export function getGlobalBrandModifiedDate(locale: Locale): Date | undefined {
+  if (locale === 'it') return undefined;
+  return getMiscModifiedDate(GLOBAL_BRAND_TR_SLUG, locale);
+}
 export function getGlobalBrandTitle(locale: Locale): string {
   if (locale === 'it') return GLOBAL_BRAND_IT_HERO.title;
   return findGroup(GLOBAL_BRAND_TR_SLUG)?.locales[locale]?.title ?? '';
@@ -399,6 +439,12 @@ export function getWhyIdenfitSlug(locale: Locale): string | undefined {
 }
 export function getWhyIdenfitLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(WHY_IDENFIT_TR_SLUG);
+}
+/** IT'de içerik TAMAMEN bizim çevirimiz — bkz. `getGlobalBrandModifiedDate()`'in
+ * AYNI yorumu. */
+export function getWhyIdenfitModifiedDate(locale: Locale): Date | undefined {
+  if (locale === 'it') return undefined;
+  return getMiscModifiedDate(WHY_IDENFIT_TR_SLUG, locale);
 }
 export function getWhyIdenfitTitle(locale: Locale): string {
   if (locale === 'it') return WHY_IDENFIT_IT_HERO.title;
@@ -462,6 +508,14 @@ export function getAboutSlug(locale: Locale): string | undefined {
 export function getAboutLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(ABOUT_TR_SLUG);
 }
+/** IT'de içerik TAMAMEN bizim çevirimiz (`ABOUT_IT_HERO`/`..._IT_SECTIONS`)
+ * — bkz. `getGlobalBrandModifiedDate()`'in AYNI yorumu. TR/EN ham WP
+ * içeriği kullanıyor (EN'in `ABOUT_EN_SECTIONS` KISMİ override'ı sayfanın
+ * geri kalanını değiştirmiyor, ham tarih hâlâ makul). */
+export function getAboutModifiedDate(locale: Locale): Date | undefined {
+  if (locale === 'it') return undefined;
+  return getMiscModifiedDate(ABOUT_TR_SLUG, locale);
+}
 export function getAboutTitle(locale: Locale): string {
   // IT'nin ham WP başlığı ("About_IT") anlamsız bir kalıntı — gerçek
   // İtalyanca başlıkla değiştirildi. TR/EN/NL'nin gerçek başlıkları
@@ -507,6 +561,17 @@ export function getPresentationContent(locale: Locale): PresentationContent | un
   // miscPagesTranslationOverrides.ts) düzeltiyor.
   if (content && locale === 'en') return { ...content, ...PRESENTATION_EN_OVERRIDE };
   return content;
+}
+
+/** IT/NL'de içerik TAMAMEN bizim elle yazdığımız override (`PRESENTATION_IT_OVERRIDE`/
+ * `PRESENTATION_NL_OVERRIDE`) — ham WP `modified` tarihi o metne karşılık
+ * GELMİYOR, bu locale'ler için BİLEREK `undefined` (bkz.
+ * `getGlobalBrandModifiedDate()`'in AYNI ilkesi). TR/EN ham içerik
+ * kullanıyor (EN'in `PRESENTATION_EN_OVERRIDE` KISMİ düzeltmesi sayfanın
+ * geri kalanını değiştirmiyor). */
+export function getPresentationModifiedDate(locale: Locale): Date | undefined {
+  if (locale === 'it' || locale === 'nl') return undefined;
+  return getMiscModifiedDate(PRESENTATION_TR_SLUG, locale);
 }
 
 // Meta description override (2026-08-10, meta description uzunluk denetimi)

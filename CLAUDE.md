@@ -24,6 +24,71 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-17, 3. tur — "No visible content dates" GEO bulgusu kapandı, commit bekliyor)
+
+**🟢 Gerçek WP `modified` tarihi olan HER sayfa türüne görünür, semantik
+`<time datetime>` eklendi — uydurma/varsayılan tarih HİÇBİR YERDE
+kullanılmadı.** Keşif turunda blog yazılarının (622) zaten doğru `<time
+datetime>` kullandığı doğrulandı (kod değişikliği gerekmedi) — asıl
+eksik, ürün/sektör/hukuki/Donanım/Fiyatlar/Destek Talebi/Teşekkürler/
+Online Sunum Talebi sayfalarının HİÇBİRİNİN `modified` tarihini
+göstermemesiydi, oysa ham WP export'larının (`products.json`/
+`sectors.json`/`misc-pages.json`/`hardware.json`/`pricing.json`/
+`pages.json`) HEPSİNDE per-locale gerçek ISO tarih zaten vardı (Açık
+nokta #29'daki "veri var, atılıyor" deseninin aynısı).
+
+**Yeni altyapı:** `src/data/dates.ts` (`formatLocalizedDate()`, 4 dil
+için BCP47 eşlemesi) + `src/components/LastUpdated.astro` (yalnızca
+GERÇEK bir `date` prop'u verilmişse render eder, verilmezse HİÇBİR ŞEY
+basmaz). Veri katmanına `get*ModifiedDate()` fonksiyonları eklendi
+(`productContent.ts`/`sectorContent.ts`/`miscPagesContent.ts`/
+`hardwareContent.ts`/`pricingContent.ts`/yeni `pagesJsonModified.ts`
+[Destek Talebi/Teşekkürler için `pages.json`'daki bilinen id'den
+okuyor]) — **GlobalBrand/WhyIdenfit/Hakkımızda/Online Sunum Talebi'nin
+IT/NL içeriği TAMAMEN bizim elle yazdığımız çeviri override'ı olduğu
+sayfalarda bu fonksiyonlar BİLEREK `undefined` döner** (ham WP tarihi o
+metne karşılık gelmiyor, yanıltıcı olurdu).
+
+**Kapsam:** 91+ ürün/modül sayfası (TR+EN+NL+IT, tekrarlayan 62 dosya
+`add-modified-product.mjs` geçici script'iyle mekanik olarak işlendi —
+kalıcı script DEĞİL, scratchpad'te), 48 sektör sayfası (`[sectorSlug].astro`
+dinamik route'u tek noktadan tüm dilleri kapsıyor), 14 hukuki sayfa,
+Donanım (4 dil), Fiyatlar (4 dil), Teşekkürler (3 dil, NL yok), Online
+Sunum Talebi (4 dil, NL'de override olduğu için `undefined`).
+
+**⚠️ Kullanıcı geri bildirimiyle konum DEĞİŞTİRİLDİ (aynı turda).** İlk
+uygulamada tarih hero CTA butonunun/başlığın HEMEN ALTINA
+yerleştirilmişti (görünürlüğü artırmak için) — kullanıcı bunun yerine
+dikkat çekmeyen, sayfanın EN ALTINA taşınmasını istedi. Tüm 7 paylaşılan
+component'te (`ProductPage`/`SectorPage`/`LegalPage`/`SupportRequestPage`/
+`ThankYouPage`/`PricingPage`/`PresentationRequestPage`) `<LastUpdated>`
+çağrısı hero/CTA'dan çıkarılıp `</BaseLayout>`'tan hemen önceki son
+bloğa taşındı — `<main>` içeriğinin %94-99'luk noktasında (ölçülüp
+doğrulandı) render ediliyor artık, hâlâ gerçek DOM'da/HTML'de mevcut
+(GEO/arama motoru tarayıcıları görüyor) ama sayfanın ilk ekranında
+GÖRÜNMÜYOR.
+
+**Dokunulmayan sayfalar (kullanıcı kararıyla, bilinçli — gerçek veri
+YOK, uydurulmadı):** Hub sayfaları (2 aile, `hubs.json`'da `modified`
+alanı hiç yok), SSS (FAQ CPT'sinin 90 kaydında tarih alanı yok, sayfa
+zaten çoklu-öğe agregasyonu), Müşteriler/Ana sayfa/Hesaplama Araçları/İK
+Dijital Olgunluk Testi/Landing (`/demo`) — hiçbiri bir WP sayfasına 1:1
+karşılık gelmiyor.
+
+**Kanıt:** `astro check` 0 hata (337 dosya), `astro build` 881 sayfa
+(değişmedi). Konum değişikliği sonrası 7 sayfa türünün HEPSİNDE tarihin
+`<main>` içeriğinin son %1-6'lık diliminde render edildiği ölçülüp
+doğrulandı. `check-link-accessibility.mjs` 0 ihlal, `check-heading-hierarchy.mjs`
+39 (38 bilinen blog seviye atlaması + 1 bilinen `admin/index.html`
+H1-yok — ÖNCEKİ turla birebir aynı, sıfır yeni regresyon),
+`check-html-lang-attribute.mjs` 0 sorun. Pilot turda (`bordo-onay-modulu`/
+`gida-sektoru-ik-cozumleri`/`kisisel-verilerin-korunmasi`/`destek-talebi`/
+blog `google-dsc-fest-nazim-onur-bayindir-roportaj` — 5 yıllık gerçek
+düzenleme farkı) + genel rollout sonrası dev server'da kullanıcı
+tarafından canlı doğrulandı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-17, 2. tur — "Few H2 subheadings" SEO bulgusu kapandı, commit edildi)
 
 **🟢 3 aile için gerçek/adlandırılmış içerik bloklarına eksik h2 eklendi

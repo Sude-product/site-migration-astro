@@ -1,9 +1,10 @@
 ---
 import ProductPage from '../../components/ProductPage.astro';
-import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle } from '../../data/hardwareContent';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle, getHardwareModifiedDate } from '../../data/hardwareContent';
 import { buildIdenfitTitle } from '../../data/pageTitle';
 
 const content = { ...getHardwareContent('en')!, faq: [] };
+const modified = getHardwareModifiedDate('en');
 // `pageTitle` (H1 için hâlâ kullanılıyor) kaynağın hero cümlesi — `<title>`
 // etiketinde 85 karaktere çıkıp 60 sınırını aşıyordu (2026-08-10 title
 // uzunluk denetimi). `<title>` için kısa, gerçek bir başlık kullanıldı.
@@ -15,4 +16,4 @@ const localeUrls = getHardwareLocaleUrls();
 const ctaKeyword = 'Hardware & Device Integrations';
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />
