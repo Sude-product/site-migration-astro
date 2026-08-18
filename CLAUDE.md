@@ -24,6 +24,20 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 6. tur — "Missing HTML lang attribute" GEO bulgusu doğrulandı: bizim projede sorun YOK, kod değişikliği gerekmedi)
+
+**🟢 Zaten bilinen kapalı durum, bu turda yeniden doğrulandı — `check-html-lang-attribute.mjs` (2 kez, tutarlı) + `curl` ile 4 dilde canlı sunucudan teyit edildi.**
+`BaseLayout.astro`/`LandingLayout.astro` her ikisi de `<html lang={lang}>`
+kullanıyor, `lang` her zaman `Astro.currentLocale ?? 'tr'`'den geliyor —
+`curl` ile ana sayfa `/` (tr), `/en/` (en), `/nl/` (nl), `/it/` (it) VE
+`/demo/` (LandingLayout, tr) hepsinde doğru `lang` değeri doğrulandı.
+882 gerçek içerik sayfasının TAMAMINDA (redirect stub'lar hariç, onlar
+zaten Astro'nun kendi framework şablonundan geliyor ve hiç `<html>`
+üretmiyor — bilinen/kabul edilmiş davranış, Açık nokta #27) 0 eksik/0
+yanlış `lang`. Kod tarafında hiçbir değişiklik gerekmedi.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19, 5. tur — "Title tag too short" GEO bulgusu: Açık nokta #28'in kademeli üretimi başladı, 30/250 blog yazısı tamamlandı, commit edildi)
 
 **🟢 Kullanıcının verdiği örnek ("Refakat İzni Hakkı - idenfit", 28
