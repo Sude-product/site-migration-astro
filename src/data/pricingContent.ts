@@ -95,6 +95,39 @@ const SUPREMA_BADGE_TEXT: Record<Locale, string> = {
   it: 'Completamente Integrato',
 };
 
+// Fiyat güncellemesi (2026-08-18, kullanıcı talebi) — ham `pricing.json`
+// `extract-pricing.mjs` ile `pages.json`'dan (dondurulmuş bir WP
+// anlık görüntüsü) yeniden üretilebildiği için fiyat KALICI olarak
+// buraya, `SUPREMA_BADGE_TEXT`/`FEATURES_TITLE_FIX` ile AYNI override
+// ilkesiyle eklendi — ham JSON'a elle dokunulmadı (script yeniden
+// çalıştırılırsa bu override hayatta kalır, ham JSON'daki eski fiyat
+// silinip gitse bile).
+// KOBİ (sme): TR 4.999→9.999 ₺, EN/NL/IT 149→199 € (`priceSuffix` aynı
+// kalıyor, yalnızca sayı değişti).
+const SME_PRICE_OVERRIDE: Record<Locale, string> = {
+  tr: '9.999',
+  en: '199',
+  nl: '199',
+  it: '199',
+};
+
+// Pro paketi artık sabit bir fiyat GÖSTERMİYOR, "Teklif Al" metnine
+// çevrildi (kaynakta zaten var olan ama `PricingPage.astro`'nun hiçbir
+// yerinde render edilmeyen `getQuoteText` alanı — o alan aslında
+// kaynağın "fake-select" dinamik fiyat hesaplayıcısının [bkz.
+// PricingPage.astro dosya başı yorumu, kapsam dışı bırakıldı] belirli
+// çalışan sayılarında gösterdiği metindi. Kullanıcı bu metni artık
+// DAİMİ/koşulsuz istediği için doğrudan `price` alanına yazıldı, ayrı
+// bir bileşen değişikliği gerekmedi). `priceSuffix` de temizlendi —
+// aksi halde "Teklif Al ₺/aylık'dan başlayan fiyatlar" gibi anlamsız
+// bir birleşim oluşurdu.
+const PRO_QUOTE_TEXT: Record<Locale, string> = {
+  tr: 'Teklif Al',
+  en: 'Get a Quote',
+  nl: 'Offerte Aanvragen',
+  it: 'Richiedi un Preventivo',
+};
+
 function resolvePlan(plan: PricingPlan, locale: Locale): PricingPlan {
   const cta = resolveCtaUrl(plan.ctaUrl, locale);
   return { ...plan, ctaUrl: cta.url, ctaExternal: cta.newTab };
@@ -104,12 +137,14 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
   const entry = DATA.locales[locale];
   if (!entry) return undefined;
   const c = entry.content;
+  const sme = resolvePlan(c.sme, locale);
+  const pro = resolvePlan(c.pro, locale);
   return {
     ...c,
     featuresTitle: FEATURES_TITLE_FIX[locale] ?? c.featuresTitle,
     micro: resolvePlan(c.micro, locale),
-    sme: resolvePlan(c.sme, locale),
-    pro: resolvePlan(c.pro, locale),
+    sme: { ...sme, price: SME_PRICE_OVERRIDE[locale] ?? sme.price },
+    pro: { ...pro, price: PRO_QUOTE_TEXT[locale] ?? pro.price, priceSuffix: '' },
     supremaBadgeText: SUPREMA_BADGE_TEXT[locale],
   };
 }

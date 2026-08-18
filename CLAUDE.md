@@ -24,6 +24,45 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-18, 2. tur — Fiyatlar sayfası fiyat güncellemesi: KOBİ zam + Pro "Teklif Al"e çevrildi, commit edildi)
+
+**🟢 Kullanıcının verdiği yeni fiyatlar 4 dilde uygulandı.** KOBİ (sme):
+TR 4.999→**9.999** ₺/aylık, EN/NL/IT 149→**199** €/ay (suffix aynı
+kaldı). Pro paketinin fiyat alanı artık sabit bir rakam GÖSTERMİYOR —
+"**Teklif Al**" (EN "Get a Quote", NL "Offerte Aanvragen", IT "Richiedi
+un Preventivo") metnine çevrildi, `priceSuffix` temizlendi (aksi halde
+"Teklif Al ₺/aylık'dan başlayan fiyatlar" gibi anlamsız bir birleşim
+kalırdı). **CTA buton metinleri (Satın Al/Başvur vb.) DOKUNULMADI** —
+yalnızca fiyat alanı değişti.
+
+**Mimari karar — ham `pricing.json`'a DEĞİL, `pricingContent.ts`'e
+override eklendi.** `reference/wordpress-export/pricing.json`
+`scripts/extract-pricing.mjs` ile dondurulmuş bir WP anlık görüntüsünden
+(`pages.json`) yeniden üretilebiliyor — script tekrar çalıştırılırsa
+ham JSON'a elle yazılan bir fiyat sessizce silinip eski değere dönerdi.
+Bunun yerine `SME_PRICE_OVERRIDE`/`PRO_QUOTE_TEXT` (2 küçük
+`Record<Locale,string>`) `getPricingContent()`'e eklendi — dosyada ZATEN
+var olan `SUPREMA_BADGE_TEXT`/`FEATURES_TITLE_FIX` override deseninin
+AYNISI, script her ne zaman yeniden çalışırsa çalışsın kalıcı.
+
+**Yan bulgu (bilgi amaçlı, kod değişikliği gerekmedi) — `getQuoteText`
+alanı zaten kaynakta vardı ama HİÇBİR YERDE render edilmiyordu.** Bu alan
+aslında kaynağın kapsam dışı bırakılan "fake-select" dinamik fiyat
+hesaplayıcısının (bkz. `PricingPage.astro` dosya başı yorumu — belirli
+çalışan sayılarının üzerinde Pro fiyatını "Sorunuz"/"Request a Quote"ya
+çeviren JS) bir kalıntısıydı. Kullanıcının bu turda istediği DAİMİ/
+koşulsuz bir "Teklif Al" olduğu için o eski alan KULLANILMADI — yeni,
+kullanıcının verdiği kelimelerle (`PRO_QUOTE_TEXT`) doğrudan `price`
+alanına yazıldı.
+
+**Kanıt:** `astro check` 0 hata (337 dosya), `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal (2375 dosya). Chrome'da 4 dilin
+(tr/en/nl/it) TAMAMI DOM'dan okunarak doğrulandı (fiyat/suffix/CTA metni
+sayısal olarak kontrol edildi) + TR'de ekran görüntüsüyle görsel olarak
+teyit edildi (KOBİ "9.999₺/aylık", Pro "Teklif Al", layout bozulmadı).
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-18 — Ürün Önizleme widget'ı "çalışmıyor" bulgusu + kırmızı/genişletilmiş yeniden tasarım, kod commit EDİLMEDİ)
 
 **🟢 Kullanıcının "dashboard çalışmıyor" bulgusu araştırıldı — gerçek bir kod
