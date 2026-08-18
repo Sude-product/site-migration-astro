@@ -79,6 +79,36 @@ export const GLOBAL_BRAND_IT_SECTIONS: ProductBlock[] = [
   },
 ];
 
+// "No H2 subheadings" GEO bulgusu (2026-08-19) — bkz. CLAUDE.md Açık
+// nokta #32. Ham `misc-pages.json`'daki NL kaydı yalnızca `hero`
+// taşıyordu, `sections: []` (tamamen BOŞ dizi) — bu yüzden sayfa TR/IT'nin
+// aksine hiç `<h2>` üretmiyordu (TR/IT'nin kendi section'ı da başlıksız/
+// boş bir `<h2>` üretiyor — bu AYRI, daha küçük bir kusur, bu turun
+// kapsamı DIŞINDA bırakıldı). TR kaynaktan gerçek, profesyonel Hollandaca
+// çeviri (KARAR 1) + section'a GERÇEKTEN anlamlı, kısa bir başlık
+// eklendi ("Onze Wereldwijde Groeivisie") — TR/IT'nin boş başlığını
+// KÖRÜ KÖRÜNE kopyalamak yerine, içeriğin (küresel büyüme vizyonu)
+// gerçekten anlattığı tek temayı özetliyor.
+export const GLOBAL_BRAND_NL_HERO: ProductBlock = {
+  title: 'Wereldwijd Merk & Idenfit',
+  text:
+    'We hebben ons ten doel gesteld om een sterke wereldspeler te worden in human resources en workforce management technologieën. Onze visie is dat Idenfit tegen 2027 een wereldwijd merk wordt en actief wordt gebruikt op ten minste drie continenten.',
+  ctaText: '',
+  ctaUrl: '',
+  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
+};
+
+export const GLOBAL_BRAND_NL_SECTIONS: ProductBlock[] = [
+  {
+    title: 'Onze Wereldwijde Groeivisie',
+    text:
+      "<p>Als Idenfit willen we niet alleen in Turkije, maar ook in verschillende regio's van de wereld richting geven aan de digitale transformatie van de beroepsbevolking. Met onze cloudgebaseerde, nieuwe generatie oplossingen stellen we bedrijven in staat hun personeel efficiënter te beheren, hun beroepsbevolking te versterken en hun manier van werken naar de toekomst te brengen.</p>\n<p>Op onze weg naar wereldwijde groei werken we met als doel tot de tien meest gekozen software ter wereld te behoren. Wanneer we deze visie realiseren, zullen we vanzelfsprekend ook dichter bij de “unicorn”-status komen, een symbool van succes in de ondernemerswereld.</p>\n<p>We danken ons team dat elke dag hard werkt om verder vooruit te komen, al onze zakenpartners die ons steunen en onze klanten. In 2027 zullen we de naam Idenfit met nog meer trots aankondigen als wereldwijd merk, een oplossing die op 3 continenten wordt gebruikt.</p>",
+    ctaText: '',
+    ctaUrl: '',
+    image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
+  },
+];
+
 const DEMO_CTA_URL = 'https://idenfit.com/tr/online-sunum-talep-et/';
 
 export const WHY_IDENFIT_IT_HERO: ProductBlock = {

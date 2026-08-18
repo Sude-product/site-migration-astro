@@ -24,6 +24,49 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 4. tur — "No H2 subheadings" GEO bulgusu kapandı: 13/14 zaten bilinçli karar, nl/wereldwijd-merk (Açık nokta #32) gerçek çeviriyle çözüldü, commit edildi)
+
+**🟢 14 sıfır-H2 sayfa bulundu (`dist/**` taraması, 2 kez tutarlı), 13'ü
+ZATEN bilinçli/kararlaştırılmış:** 404 sayfaları (4, zaten `noindex`),
+Destek Talebi (3)/Teşekkürler (3) — "Few H2 subheadings" turunda (2026-08-17)
+zaten "kısa/tek-amaçlı sayfalarda az h2 bilinçli" kararı verilmiş,
+Güvenlik (3) — H3 turunda (Açık nokta #34) zaten "liste yapısı, heading
+gerekmiyor" diye belgelenmiş. **Tek gerçek/hâlâ açık madde:**
+`nl/wereldwijd-merk` (Açık nokta #32'nin kalıntısı) — ham `misc-pages.json`
+kaydı yalnızca `hero` taşıyordu, `sections: []` tamamen BOŞ, bu yüzden
+hiç `<h2>` üretmiyordu.
+
+**Çözüm (kullanıcı onayıyla):** TR kaynaktan (`hedef-global-marka`'nın 3
+paragraflık section metni) gerçek, profesyonel Hollandaca çeviri +
+GERÇEKTEN anlamlı, kısa bir başlık eklendi ("Onze Wereldwijde Groeivisie")
+— TR/IT'nin kendi section'ının BOŞ başlığı (`title:''`) körü körüne
+kopyalanmadı, içeriğin tek teması (küresel büyüme vizyonu) özetlendi.
+`miscPagesTranslationOverrides.ts`'e `GLOBAL_BRAND_NL_HERO`/
+`GLOBAL_BRAND_NL_SECTIONS` eklendi (`GLOBAL_BRAND_IT_*` ile AYNI desen),
+`getProductLikeContent()` yeni bir `nlOverride` parametresi kabul edecek
+şekilde genişletildi, `getGlobalBrandModifiedDate()`/`getGlobalBrandTitle()`
+IT ile AYNI ilkeyle NL'yi de kapsayacak şekilde güncellendi (içerik
+TAMAMEN bizim çevirimiz olduğu için ham WP `modified` tarihi artık NL
+için de `undefined`).
+
+**Yan bulgu (bilgi amaçlı, bu turda DOKUNULMADI) — TR/IT'nin kendi
+`GlobalBrand` section'ı da BOŞ başlıklı bir `<h2>` üretiyor** (`title:''`
+→ `<h2></h2>`, görünmez ama teknik olarak "H2 var" sayıldığı için sıfır-H2
+taramasında YAKALANMADI). Bu, "zorlama sahte başlık ekleme" ile "gerçekten
+anlamlı bir başlık ekleme" arasındaki ince çizgiye bir örnek — ayrı,
+küçük bir potansiyel iyileştirme, bu turun onaylanan kapsamı (yalnızca
+NL) dışında bırakıldı.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa. Sıfır-H2
+taraması 14→**13** (yalnızca `nl/wereldwijd-merk` düştü, diğerleri
+DEĞİŞMEDİ). `check-heading-hierarchy.mjs` 1 sonuç (bilinen `admin/index.html`),
+`check-link-accessibility.mjs` 0 ihlal, `check-json-ld.mjs` 787 blok/0
+geçersiz — sıfır regresyon. `dev:clean` sonrası Chrome'da hem `curl` hem
+görsel olarak (H1 "Wereldwijd Merk & Idenfit" + yeni H2 "Onze Wereldwijde
+Groeivisie" + tam metin) doğrulandı, tasarım/layout hiç bozulmadı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19, 3. tur — "No dateModified in structured data" GEO bulgusu kapandı, Açık nokta #29 yeniden açılıp JSON-LD 161 sayfaya genişletildi, commit edildi)
 
 **🟢 Blog için zaten kapalıydı (curl ile doğrulandı) — asıl iş, kullanıcı
@@ -1406,15 +1449,15 @@ içerikleri hâlâ geçerli.)*
     2'de domain bağlanınca (`astro.config.mjs`'e `site: 'https://idenfit.com'`
     girilince) EK KOD DEĞİŞİKLİĞİ GEREKMEDEN otomatik aktifleşecek, hreflang
     ile birlikte (bkz. Proje Durumu 2026-08-17 girdisi + `src/i18n/hreflang.ts`).
-32. **KISMEN KAPANDI — 2 küçük H2 bulgusu (madde #32'nin hukuki sözleşme
-    kısmı 2026-08-13'te, SSS kısmı 2026-08-17'de KAPANDI, bkz. Proje
-    Durumu 2026-08-17 2. tur).** SSS sayfalarının (3: `sss`/`en/faq`/
-    `it/faq`) kategori TAB başlıkları artık gerçek `<h2>` (`FaqPage.astro`,
-    "Few H2 subheadings" SEO turu). **Kalan tek açık uç:** `nl/wereldwijd-merk`
-    (Hedef Global Marka NL) TR karşılığına göre belirgin kısaltılmış (43
-    vs 143 kelime) + H2 kaybetmiş — bu bir ŞABLON sorunu değil, ayrı bir
-    NL İÇERİK eksikliği (Açık nokta #34.5 turu bilerek dokunmadı, ayrı bir
-    NL içerik incelemesi gerektiriyor), henüz ele alınmadı.
+32. **TAMAMEN KAPANDI (2026-08-19) — 3 küçük H2 bulgusu (hukuki sözleşme
+    2026-08-13, SSS 2026-08-17, `nl/wereldwijd-merk` 2026-08-19'da "No H2
+    subheadings" GEO turunda).** SSS sayfalarının (3: `sss`/`en/faq`/
+    `it/faq`) kategori TAB başlıkları gerçek `<h2>` (`FaqPage.astro`).
+    `nl/wereldwijd-merk` (Hedef Global Marka NL) — TR karşılığından
+    gerçek Hollandaca çeviri + gerçek bir H2 ("Onze Wereldwijde
+    Groeivisie") eklendi (`GLOBAL_BRAND_NL_HERO`/`..._NL_SECTIONS`,
+    `miscPagesTranslationOverrides.ts` — `GLOBAL_BRAND_IT_*` ile AYNI
+    desen), bkz. Proje Durumu 2026-08-19 4. tur.
 33. **TAMAMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa (2026-08-13,
     "Başlık hiyerarşisi sıralı değil" SEO uyarısı — bkz. Proje Durumu 26.
     tur keşif + 27. tur düzeltme).** 3 alt kategoriden 2'si (b, c) 27.

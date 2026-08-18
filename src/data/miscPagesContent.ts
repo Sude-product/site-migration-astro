@@ -12,6 +12,8 @@ import {
   SECURITY_IT_OVERRIDE,
   GLOBAL_BRAND_IT_HERO,
   GLOBAL_BRAND_IT_SECTIONS,
+  GLOBAL_BRAND_NL_HERO,
+  GLOBAL_BRAND_NL_SECTIONS,
   WHY_IDENFIT_IT_HERO,
   WHY_IDENFIT_IT_SECTIONS,
   ABOUT_EN_SECTIONS,
@@ -418,11 +420,24 @@ function resolveBlock(b: ProductBlock, locale: Locale): ProductBlock {
 export const GLOBAL_BRAND_TR_SLUG = 'hedef-global-marka';
 export const WHY_IDENFIT_TR_SLUG = 'neden-idenfit';
 
-function getProductLikeContent(trSlug: string, locale: Locale, itHero: ProductBlock, itSections: ProductBlock[]): ProductContent | undefined {
+function getProductLikeContent(
+  trSlug: string,
+  locale: Locale,
+  itHero: ProductBlock,
+  itSections: ProductBlock[],
+  nlOverride?: { hero: ProductBlock; sections: ProductBlock[] },
+): ProductContent | undefined {
   if (locale === 'it') {
     return {
       hero: resolveBlock(itHero, locale),
       sections: itSections.map((s) => resolveBlock(s, locale)),
+      faq: [],
+    };
+  }
+  if (locale === 'nl' && nlOverride) {
+    return {
+      hero: resolveBlock(nlOverride.hero, locale),
+      sections: nlOverride.sections.map((s) => resolveBlock(s, locale)),
       faq: [],
     };
   }
@@ -437,7 +452,10 @@ function getProductLikeContent(trSlug: string, locale: Locale, itHero: ProductBl
 }
 
 export function getGlobalBrandContent(locale: Locale): ProductContent | undefined {
-  return getProductLikeContent(GLOBAL_BRAND_TR_SLUG, locale, GLOBAL_BRAND_IT_HERO, GLOBAL_BRAND_IT_SECTIONS);
+  return getProductLikeContent(GLOBAL_BRAND_TR_SLUG, locale, GLOBAL_BRAND_IT_HERO, GLOBAL_BRAND_IT_SECTIONS, {
+    hero: GLOBAL_BRAND_NL_HERO,
+    sections: GLOBAL_BRAND_NL_SECTIONS,
+  });
 }
 export function getGlobalBrandSlug(locale: Locale): string | undefined {
   return slugFor(GLOBAL_BRAND_TR_SLUG, locale);
@@ -445,16 +463,17 @@ export function getGlobalBrandSlug(locale: Locale): string | undefined {
 export function getGlobalBrandLocaleUrls(): Partial<Record<Locale, string>> {
   return localeUrlsFor(GLOBAL_BRAND_TR_SLUG);
 }
-/** IT'de içerik TAMAMEN bizim çevirimiz (`GLOBAL_BRAND_IT_HERO`/
- * `..._IT_SECTIONS`) — ham WP `modified` tarihi o metne karşılık
- * GELMİYOR, bu yüzden IT için BİLEREK `undefined` (bkz. `getMiscModifiedDate()`
- * yorumu). */
+/** IT/NL'de içerik TAMAMEN bizim çevirimiz (`GLOBAL_BRAND_IT_HERO`/
+ * `..._IT_SECTIONS`, `GLOBAL_BRAND_NL_HERO`/`..._NL_SECTIONS`) — ham WP
+ * `modified` tarihi o metne karşılık GELMİYOR, bu yüzden ikisi için de
+ * BİLEREK `undefined` (bkz. `getMiscModifiedDate()` yorumu). */
 export function getGlobalBrandModifiedDate(locale: Locale): Date | undefined {
-  if (locale === 'it') return undefined;
+  if (locale === 'it' || locale === 'nl') return undefined;
   return getMiscModifiedDate(GLOBAL_BRAND_TR_SLUG, locale);
 }
 export function getGlobalBrandTitle(locale: Locale): string {
   if (locale === 'it') return GLOBAL_BRAND_IT_HERO.title;
+  if (locale === 'nl') return GLOBAL_BRAND_NL_HERO.title;
   return findGroup(GLOBAL_BRAND_TR_SLUG)?.locales[locale]?.title ?? '';
 }
 
