@@ -24,6 +24,114 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 7. tur — Ana sayfaya sabit "Demo Talep Et" alt bar'ı eklendi (yeni özellik, kaynakta yok), TAMAMLANDI + kaydırma-tetiklemeli görünürlük/hover eklendi, henüz commit edilmedi)
+
+**🟡 Aynı gün, kullanıcının 3. mesajı — iki davranış eklendi:**
+1. **Kaydırma-tetiklemeli görünürlük** ("sayfayı aşağı kaydırırken
+   görünsün") — bar artık sayfa yüklenir yüklenmez GÖRÜNMÜYOR, `data-state`
+   özniteliğiyle 3 durum yönetiliyor (`bekliyor`[varsayılan/gizli] →
+   `visible`[400px kaydırılınca] → `dismissed`[kapatma tıklamasından
+   sonra, kalıcı]). Basit bir `scroll` dinleyicisi (`{passive:true}`,
+   eşik aşılınca dinleyici KALDIRILIYOR) — `scroll-reveal.js`'in
+   `IntersectionObserver`'ı burada uygun DEĞİL (bu bar `position:fixed`,
+   kendi viewport-girişini gözlemlemenin anlamı yok).
+2. **Hover efekti** — kart, projede zaten yaygın "hover'da hafif yukarı
+   kalkma + gölge artışı" ilkesiyle (`WidgetCard`/`EvaluationRow` ile
+   AYNI dil).
+
+**⚠️ Test metodolojisi dersi (bu turda TEKRAR karşılaşıldı — WidgetAccentBackdrop
+hover turunda zaten belgelenmişti, bkz. CLAUDE.md 2026-08-13 3. ADDENDUM):**
+Tailwind v4'ün `translate` utility'leri (`hover:-translate-y-1`) modern
+CSS `translate` özelliğini kullanıyor, ESKİ `transform: translateX()...`
+DEĞİL — `getComputedStyle(el).transform` kontrolü YANLIŞ SONUÇ verir
+("none"), doğrusu `getComputedStyle(el).translate`. İlk testte bu
+yüzden hover'ın "çalışmadığı" sanıldı, `--tw-translate-y` custom
+property'sini taşıyan gerçek CSS kuralı `document.styleSheets`'ten
+bulununca (`.hover\:-translate-y-1:hover { translate: ... }`) doğru
+özellik kontrol edilip ÇALIŞTIĞI doğrulandı — kod hiç değişmedi, yalnızca
+test yöntemi düzeltildi.
+
+**Test metodolojisi notu #2:** `resize_window` aracı bu oturumda hâlâ
+viewport'u değiştiremiyordu (önceki tur notuyla aynı kısıt) —
+`window.scrollTo()` (JS) de otomasyon bağlamında gerçek bir `scroll`
+event'i TETİKLEMİYOR (ayrı bir araç kısıtlaması, ilk denemede "kaydırma
+çalışmıyor" sanıldı) — gerçek fare tekerleği simülasyonu (`computer`
+aracının `scroll` action'ı) kullanılınca kaydırma-tetiklemeli görünürlük
+DOĞRU çalıştığı doğrulandı.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal. Chrome'da gerçek scroll ile
+bar'ın 400px sonra belirdiği + hover'da `translate:"0px -4px"` +
+gölge artışı olduğu SAYISAL olarak doğrulandı.
+
+**🟡 Kullanıcı gerçek/yüksek çözünürlüklü fotoğrafı paylaştı (aynı gün,
+2. mesaj) — `public/images/demo-bar-avatar.jpg` (590×590, WP kaynağı
+DEĞİL, `wp-content/uploads` yerine bilinçli yeni bir `public/images/`
+klasöründe) — placeholder silüet kaldırıldı, gerçek `<img>` ile
+değiştirildi.** Ayrıca kullanıcı "şu an çok büyük" geri bildirimi
+verdi — TÜM ölçüler bir kademe küçültüldü: konteyner `max-w-3xl`→
+`max-w-md`, avatar `h-16`→`h-11`, yazı `text-lg`→`text-xs`, buton
+dolgusu `px-5 py-3`→`px-3.5 py-2`, kapatma butonu `h-8`→`h-6`.
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs`/`check-image-alt-text.mjs` 0 ihlal.
+Chrome'da: gerçek fotoğrafın net/yüksek çözünürlükte (590×590 kaynak,
+44×44 render) yüklendiği, kapatma butonunun (yıldız) hâlâ doğru
+çalıştığı (`sessionStorage`), CTA linkinin `/online-sunum-talebi/`'ye
+gittiği zoom ekran görüntüsüyle doğrulandı — referans görüntüyle
+görsel olarak birebir yakın.
+
+**Kalan:** yalnızca kullanıcının nihai onayı + commit kararı. Mobil
+görünüm hâlâ TAM doğrulanamadı (önceki turdaki `resize_window` araç
+kısıtlaması devam ediyor).
+
+**🟡 Kullanıcının kendi referans ekran görüntüsüne dayanan BİLİNÇLİ YENİ
+bir özellik** (kaynak WP sitesinde karşılığı YOK — `KURUMSAL`
+mega-menüsündeki promo kart/ana sayfa dashboard widget'ıyla AYNI ilke).
+Yeni component: `StickyDemoBar.astro`, yalnızca TR ana sayfaya
+eklendi (`index.astro`) — site geneli DEĞİL, kullanıcı kararıyla.
+
+**Uygulanan:**
+- Sayfa altına sabit (`position:fixed`), ortalanmış, kırmızı kenarlıklı
+  kart — referans görüntüdeki düzen (avatar + iki satır metin + kırmızı
+  CTA buton) birebir.
+- **Kapatma ikonu:** kullanıcı isteğiyle referans görüntüdeki kırmızı X
+  yerine idenfit logosunun KENDİ yıldızı kullanıldı — `IdenfitLogo.tsx`'in
+  kaynak SVG'sindeki son/bağımsız path (`var(--color-brand)` ile sabit
+  marka rengi) birebir buraya taşındı, viewBox yalnızca o path'in
+  bounding box'ını kapsayacak şekilde daraltıldı — ikinci bir kaynak
+  İCAT EDİLMEDİ.
+- **"Demo Talep Et" butonu** → `getRelativeLocaleUrl(locale,
+  'online-sunum-talebi')` (site genelinde zaten tekrarlanan AYNI desen,
+  `Header.astro`/`CustomerStoriesPage.astro`/`productContent.ts` vb.) —
+  Chrome'da `href="/online-sunum-talebi/"` olarak doğrulandı.
+- Kapatma davranışı: `sessionStorage` ile — kapatılınca aynı oturum
+  içinde (sayfa yenilense bile) tekrar görünmüyor, yeni bir oturumda
+  tekrar beliriyor. Vanilla JS (`is:inline` script, React GEREKMEDİ —
+  `FloatingContactButtons.astro` ile AYNI mimari ilke).
+
+**⚠️ Fotoğraf BİLEREK placeholder — kullanıcının kendi yüksek çözünürlüklü
+dosyasını PAYLAŞMASI bekleniyor.** Referans görüntüdeki kadının
+fotoğrafını UYDURAMAYIZ/yükseltemeyiz (gerçek bir kişinin fotoğrafı,
+telif/kaynak güvenilirliği ilkesi) — kullanıcı "yüksek çözünürlüklü
+dosyayı paylaşacağım" dedi, henüz iletilmedi. Şu an nötr bir silüet
+ikonu (gri daire + kişi SVG'si) kullanılıyor — gerçek dosya gelince
+yalnızca `StickyDemoBar.astro`'daki placeholder `<span>` bloğunun bir
+`<img>` ile değiştirilmesi yeterli, başka hiçbir şey değişmeyecek.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal. Chrome'da: bar'ın gerçekten
+ortalandığı (JS ile ölçüldü, viewport merkeziyle ~8px fark — kabul
+edilebilir), kapatma butonunun `sessionStorage`'a doğru yazdığı VE
+sayfa yenilenince bar'ın gizli KALDIĞI, CTA linkinin doğru URL'e
+gittiği doğrulandı. **Mobil görünüm bu turda TAM doğrulanamadı**
+(tarayıcı `resize_window` aracı bu oturumda viewport'u değiştiremedi,
+görünürde bir araç kısıtlaması) — kullanılan `flex-col`/`sm:flex-row`
+deseni sitede zaten kanıtlanmış standart bir Tailwind kalıbı, ama
+gerçek dar-viewport ekran görüntüsü ALINAMADI, ileride bir fırsat
+turunda doğrulanmalı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19, 6. tur — "Missing HTML lang attribute" GEO bulgusu doğrulandı: bizim projede sorun YOK, kod değişikliği gerekmedi)
 
 **🟢 Zaten bilinen kapalı durum, bu turda yeniden doğrulandı — `check-html-lang-attribute.mjs` (2 kez, tutarlı) + `curl` ile 4 dilde canlı sunucudan teyit edildi.**
