@@ -91,6 +91,8 @@ const jsonLd = {
   description={excerpt}
   image={featuredImage?.url ?? IDENFIT_LOGO_URL}
   ogType="article"
+  articlePublishedTime={date.toISOString()}
+  articleModifiedTime={(modifiedDate ?? date).toISOString()}
   hreflangLocales={['tr']}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

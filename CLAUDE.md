@@ -24,6 +24,23 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 2. tur — "No Open Graph article date tags" GEO bulgusu kapandı, commit edildi)
+
+**🟢 `article:published_time`/`article:modified_time` eklendi — yalnızca
+blog yazılarına (622 yazı), TEK bir şablon değişikliğiyle.** Veri kaynağı
+zaten vardı: JSON-LD'nin `datePublished`/`dateModified`'ında kullanılan
+AYNI `date`/`modifiedDate` (`blog/[slug].astro`), ikinci bir kaynak İCAT
+EDİLMEDİ. `BaseLayout.astro`'ya `articlePublishedTime`/`articleModifiedTime`
+prop'ları eklendi, yalnızca `ogType==='article'` iken basılıyor — ürün/
+sektör/diğer sayfalar (`ogType` varsayılan `website`) hiç etkilenmedi.
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa. `dev:clean`
+sonrası canlı sunucudan `curl` ile 3 farklı yazıda (`pdks-nedir`/
+`kadinlar-gunu`/`ucret-nedir-ucret-turleri-nelerdir`) gerçek/farklı
+tarihlerin doğru çıktığı + bir ürün sayfasında (`insan-kaynaklari-yonetimi-modulu`)
+etiketlerin HİÇ üretilmediği doğrulandı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19 — "Links without descriptive text" SEO bulgusu kapandı, commit edildi)
 
 **🟢 Kullanıcının bildirdiği "6 link" bulgusu araştırıldı — kök neden
