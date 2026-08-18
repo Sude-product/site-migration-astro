@@ -1,15 +1,19 @@
 ---
-import HeroForm from './HeroForm.tsx';
+import HeroEmailCaptureForm from './HeroEmailCaptureForm.astro';
 import { getTranslations } from '../i18n';
 import { HOME_HERO_IMAGE } from '../data/homeContent';
-import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
 import { getSupportRequestLocaleUrls } from '../data/supportRequestContent';
 import type { Locale } from '../data/nav';
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const heroImage = HOME_HERO_IMAGE[locale];
-const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+// KVKK/Kullanım Koşulları onay metni (eski çok-alanlı `HeroForm`'un
+// `kvkkNotice` bloğu) — 2026-08-19'da form tek e-posta alanına
+// indirgenince artık burada RENDER EDİLMİYOR (yeni `HeroEmailCaptureForm`
+// bu metni hiç taşımıyor, `getKvkkAndTermsHrefs()` de bu yüzden artık
+// kullanılmıyor) — KVKK onay metni hâlâ hedef sayfada (Online Sunum
+// Talebi'nin KENDİ formunda) mevcut, veri orada toplanıyor.
 // "Destek Talebi İçin Tıklayın" — kaynakta (idenfit.com'un anasayfası/
 // footer'ı) BULUNAMADI (2026-07-27'de canlı HTML'de arandı, hiç yok) —
 // kullanıcı isteğiyle yeni eklenen bir giriş noktası, kırık bir linki
@@ -88,30 +92,17 @@ const CALL_URL = 'tel:02162950927';
 			     breakpoint'lerde sabit) her iki boşluğun da GERÇEKTE 15px
 			     olduğunu gösterdi, `mt-[15px]`e düzeltildi. -->
 			<h1 class="whitespace-pre-line text-xl font-semibold leading-tight tracking-tight text-heading lg:text-[35px] lg:leading-[45px]">
-				{t.hero.title}
+				{t.hero.headline}
 			</h1>
 			<p class="mt-[15px] max-w-xl text-base text-muted lg:text-xl">
-				{t.hero.description}
+				{t.hero.subheadline}
 			</p>
 
 			<div class="mt-[15px] max-w-md">
-				<HeroForm
-					client:load
-					labels={{
-						name: t.hero.formName,
-						phone: t.hero.formPhone,
-						phoneError: t.hero.formPhoneError,
-						phoneCountryLabel: t.hero.formPhoneCountryLabel,
-						phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
-						phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
-						company: t.hero.formCompany,
-						email: t.hero.formEmail,
-						submit: t.hero.formSubmit,
-						kvkkNotice: t.hero.kvkkNotice,
-					}}
+				<HeroEmailCaptureForm
 					locale={locale}
-					kvkkHref={kvkkHref}
-					termsHref={termsHref}
+					placeholder={t.hero.emailPlaceholder}
+					submitLabel={t.hero.formSubmit}
 					ctaKeyword={t.hero.ctaKeyword}
 				/>
 				{

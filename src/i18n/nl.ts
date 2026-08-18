@@ -22,6 +22,12 @@ export const nl: Translations = {
     title: 'Digitaliseer Al Uw\nHR-processen Nu!',
     description:
       'Met de holistische aanpak van idenfit voor human resources management beheert u alles van werving tot loonadministratie, van verlof tot prestaties — allemaal op één platform.',
+    // 2026-08-19, echte NL-vertaling van de door de gebruiker aangeleverde
+    // Engelse tagline (KARAR 1 — geen letterlijke kopie).
+    headline: 'Mensen eerst. De rest, simpel.',
+    subheadline:
+      'Idenfit brengt HR, workforce management, salarisadministratie en employee experience samen — zodat uw teams zich kunnen richten op mensen, niet op processen.',
+    emailPlaceholder: 'Uw Zakelijke E-mailadres',
     formName: 'Volledige Naam',
     formPhone: 'Telefoon',
     formPhoneError: 'Voer een geldig telefoonnummer in (bijv. 555 123 45 67)',

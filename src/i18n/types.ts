@@ -41,6 +41,23 @@ export interface KvkkNoticeLabels {
 export interface HeroLabels {
   title: string;
   description: string;
+  /** 2026-08-19, kullanıcı isteğiyle eklendi — hero'nun GÖRÜNÜR H1/alt
+   * metni artık `title`/`description`'dan AYRI bir çift (`headline`/
+   * `subheadline`). Neden ayrı: `title`/`description` hâlâ `<title>`
+   * etiketi (`index.astro`) VE meta description'ın (`BaseLayout`) kaynağı
+   * — anahtar kelime içeren eski metni (`"Tüm İK Süreçlerinizi Hemen
+   * Dijitalleştirin!"` vb.) SEO için korumak, aynı anda sayfada yeni bir
+   * marka sloganı ("People first. Everything else, simplified.") GÖSTERMEK
+   * istendi. İkisini AYNI alana yazıp SEO'yu bozmak yerine iki ayrı alan
+   * eklendi — `title`/`description` artık yalnızca <title>/meta description
+   * kaynağı, `headline`/`subheadline` yalnızca H1/paragraf render'ı. */
+  headline: string;
+  subheadline: string;
+  /** Hero'nun YENİ tek-alanlı (yalnızca e-posta) formunun placeholder'ı —
+   * `HeroEmailCaptureForm.astro`, 2026-08-19. Eski çok-alanlı `formEmail`
+   * ("Mail") ile KARIŞTIRILMASIN — o hâlâ Contact/Presentation/Panel
+   * formlarında kullanılıyor, bu yalnızca hero'nun yeni formu için. */
+  emailPlaceholder: string;
   formName: string;
   formPhone: string;
   /** Telefon alanı geçersiz/eksikken (submit denemesinden sonra) gösterilen

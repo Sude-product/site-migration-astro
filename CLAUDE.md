@@ -24,7 +24,108 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-19, 7. tur — Ana sayfaya sabit "Demo Talep Et" alt bar'ı eklendi (yeni özellik, kaynakta yok), TAMAMLANDI + kaydırma-tetiklemeli görünürlük/hover eklendi, henüz commit edilmedi)
+## Proje Durumu (son güncelleme: 2026-08-19, 8. tur — Ana sayfa hero'su köklü revize edildi: tek-alanlı (yalnızca e-posta) form + yeni marka sloganı, 4 dilin hepsinde, henüz commit edilmedi)
+
+**🟢 Kullanıcının 2 referans görüntüsüne dayanan BİLİNÇLİ tasarım kararı
+— eski çok-alanlı (İsim/Telefon/Firma/E-posta) hero formu TAMAMEN
+kaldırılıp yerine tek bir e-posta alanı + buton kondu, buton Online
+Sunum Talebi sayfasına yönlendiriyor.** Kapsam netleştirilirken kullanıcıya
+2 soru soruldu (AskUserQuestion): (1) yeni form + yeni başlık/alt metin
+yalnızca EN'de mi yoksa 4 dilin hepsinde mi — kullanıcı **"tüm diller"**
+dedi, (2) girilen e-posta hedef sayfaya taşınsın mı — kullanıcı **"evet,
+query param ile ön-doldur"** dedi.
+
+**Yeni component — `HeroEmailCaptureForm.astro`** (React DEĞİL, saf
+`<form action=... method="get">` — tarayıcı `name="email"` input'unu
+otomatik `?email=...` query string'ine ekliyor, hiç JS/state gerekmiyor,
+`FloatingContactButtons.astro`/`StickyDemoBar.astro` ile AYNI "gerçek
+etkileşim yoksa React kullanma" ilkesi). Eski çok-alanlı `HeroForm.tsx`
+component'i SİLİNMEDİ — hâlâ PanelFeatureSection/ContactPage/
+PresentationRequestPage'de aynen duruyor, yalnızca ana sayfanın EN ÜST
+hero'su bu yeni sade forma geçti.
+
+**E-posta ön-doldurma — `HeroForm.tsx`'e yeni `prefillEmailFromQuery?:
+boolean` prop'u eklendi**, yalnızca `PresentationRequestPage.astro`
+`true` geçiriyor. `output:'static'` build zamanında `window` olmadığı
+için `Astro.url.searchParams` KULLANILAMAZ — `useEffect` ile yalnızca
+CLIENT tarafında (mount sonrası) `window.location.search`'ten `email`
+okunup forma yazılıyor (SSR/hydration uyuşmazlığı olmasın diye ilk
+render her zaman boş kalıyor).
+
+**SEO'yu bozmama kararı (kullanıcıya sorulmadan, mühendislik kararı) —
+`t.hero.title`/`t.hero.description` (halihazırda `<title>` etiketi VE
+meta description kaynağı) DEĞİŞTİRİLMEDİ, bunun yerine YENİ `t.hero.
+headline`/`t.hero.subheadline` alanları eklendi.** Kullanıcının verdiği
+yeni marka sloganı ("People first. Everything else, simplified.") anahtar
+kelime içermiyor — bunu doğrudan `<title>`'a yazmak SEO'yu geriletirdi
+(eski başlık "Tüm İK Süreçlerinizi Hemen Dijitalleştirin!" gibi arama
+niyetine uygun kelimeler taşıyordu). Sayfanın GÖRÜNÜR H1/paragrafı artık
+`headline`/`subheadline`'dan geliyor, `<title>`/meta description hâlâ
+eski `title`/`description`'dan — ikisi ARTIK AYRI, birbirini etkilemiyor.
+
+**Gerçek çeviri (KARAR 1) — TR/NL/IT için kullanıcının verdiği İngilizce
+metnin profesyonel çevirisi yazıldı, kopya-yapıştır DEĞİL:**
+- TR: "Önce insan. Gerisi kolaylaşsın." / "idenfit; İK, iş gücü yönetimi,
+  bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz
+  süreçlerle değil, insanla ilgilensin."
+- EN (kullanıcının verdiği BİREBİR metin): "People first. Everything
+  else, simplified." / "Idenfit brings HR, workforce management, payroll
+  and employee experience together—so your teams can focus on people,
+  not processes."
+- NL: "Mensen eerst. De rest, simpel." / "Idenfit brengt HR, workforce
+  management, salarisadministratie en employee experience samen — zodat
+  uw teams zich kunnen richten op mensen, niet op processen."
+- IT: "Le persone al centro. Il resto, semplice." / "Idenfit unisce HR,
+  gestione della forza lavoro, payroll ed employee experience in
+  un'unica piattaforma, così i tuoi team possono concentrarsi sulle
+  persone, non sui processi."
+
+**Buton metni — eski CTA/anchor-text optimizasyon kuralı (2026-08-12)
+BİREBİR korundu** (`isGenericCtaText()`/`buildCtaAnchorText()`,
+`HeroEmailCaptureForm.astro`'ya taşındı) — TR "Ücretsiz Demo için
+Başvur", EN "Get Started with Free Demo" (eski formla BİREBİR aynı metin,
+kullanıcı için görünür bir davranış değişikliği yok).
+
+**Dead code temizliği:** `HeroSection.astro`'nun artık kullanılmayan
+`getKvkkAndTermsHrefs()` import'u/`kvkkHref`/`termsHref` değişkenleri
+kaldırıldı (yeni form KVKK onay metni RENDER ETMİYOR — o metin hâlâ
+hedef sayfanın [Online Sunum Talebi] KENDİ formunda mevcut, veri orada
+toplanıyor).
+
+**⚠️ Bu turda 2 kez karşılaşılan, koda İLİŞKİN OLMAYAN OneDrive sorunu —
+`dist/` build çıktısında `-Sude`/`-Sude-2` sonekli çakışma kopyaları
+oluştu (881 dosyanın TAMAMI için bir kez).** Bu, aynı OneDrive hesabına
+bağlı başka bir cihaz/oturumun bu klasörü AYNI ANDA senkronize etmeye
+çalıştığının işareti (`dist/` zaten `.gitignore`'da, atılabilir build
+çıktısı — silinip yeniden build alınması güvenli/yeterliydi, ikinci kez
+oluşunca `check-image-alt-text.mjs` bir dosyayı okurken `UNKNOWN: read`
+hatası verdi, script kendisi BOZUK DEĞİL). Kullanıcıya bu oturumda
+bildirildi — eğer tekrarlarsa OneDrive'ın başka bir cihazda bu klasörü
+aynı anda açık tutup tutmadığı kontrol edilmeli.
+
+**Kanıt:** `astro check` 0 hata (339 dosya), `astro build` 881 sayfa
+(temiz build'de, `-Sude` kopyaları OLMADAN). Regresyon script'leri temiz
+build üzerinde tekrar çalıştırılıp ÖNCEKİ bilinen temel çizgiyle BİREBİR
+aynı sonucu verdi: `check-link-accessibility` 0 ihlal,
+`check-heading-hierarchy` 1 (yalnızca bilinen `admin/index.html`
+H1-yok), `check-html-lang-attribute` 0 sorun, `check-json-ld` 0 geçersiz
+blok, `check-meta-description-length` 1 (aynı bilinen `admin/index.html`),
+`check-title-length` 409 (değişmedi, Açık nokta #28 backlog'u). Chrome'da
+hem `/` (TR) hem `/en/` ekran görüntüsüyle görsel olarak doğrulandı +
+gerçek bir form gönderimi denendi: `test@example.com` yazılıp gönderilince
+`/en/online-sunum-talebi/?email=test%40example.com`'a yönlendiği VE hedef
+sayfanın e-posta alanının bu değerle OTOMATİK dolduğu (diğer alanlar boş
+kaldı) sayısal/görsel olarak teyit edildi. Konsol hatasız (hydration
+hatası yok).
+
+**Kalan:** kullanıcının nihai onayı + commit kararı. Bu turda commit
+YAPILMADI — `CLAUDE.md`/`src/components/HeroForm.tsx`/`HeroSection.astro`/
+`PresentationRequestPage.astro`/`src/i18n/{types,tr,en,nl,it}.ts` (M) +
+`src/components/HeroEmailCaptureForm.astro` (yeni) hâlâ working tree'de.
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 7. tur — Ana sayfaya sabit "Demo Talep Et" alt bar'ı eklendi (yeni özellik, kaynakta yok), TAMAMLANDI + kaydırma-tetiklemeli görünürlük/hover eklendi, kullanıcı onayıyla commit edildi: cd9300c)
 
 **🟡 Aynı gün, kullanıcının 3. mesajı — iki davranış eklendi:**
 1. **Kaydırma-tetiklemeli görünürlük** ("sayfayı aşağı kaydırırken
@@ -80,9 +181,9 @@ Chrome'da: gerçek fotoğrafın net/yüksek çözünürlükte (590×590 kaynak,
 gittiği zoom ekran görüntüsüyle doğrulandı — referans görüntüyle
 görsel olarak birebir yakın.
 
-**Kalan:** yalnızca kullanıcının nihai onayı + commit kararı. Mobil
-görünüm hâlâ TAM doğrulanamadı (önceki turdaki `resize_window` araç
-kısıtlaması devam ediyor).
+**Kalan:** kullanıcı onayıyla commit edildi (cd9300c). Mobil görünüm
+hâlâ TAM doğrulanamadı (önceki turdaki `resize_window` araç kısıtlaması
+devam ediyor) — ileride bir fırsat turunda doğrulanmalı.
 
 **🟡 Kullanıcının kendi referans ekran görüntüsüne dayanan BİLİNÇLİ YENİ
 bir özellik** (kaynak WP sitesinde karşılığı YOK — `KURUMSAL`
@@ -2355,6 +2456,20 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
      island'ların hepsinin `<astro-island>` olarak render edildiğini
      doğrular, (4) kullanıcıya "düzeldi, sert yenile" der — ek onay
      sormadan.
+  4. **YENİ (2026-08-19) — `npm install`/paket güncellemesi SONRASI VS
+     Code'un Problems panelinde onlarca sahte hata çıkabilir** (ör. "42
+     problem" — bir `.astro` dosyasında JSX/"Cannot find module" hataları,
+     halbuki dosya gerçekte var/doğru). Kök neden Vite'ın dev-server
+     önbelleğinden FARKLI — **VS Code'un kendi TypeScript/Astro dil
+     sunucusu**, `node_modules`'taki yeni sürümün tip tanımlarını henüz
+     yüklememiş, bayat bir önbellek durumunda kalmış. `npx astro check`
+     HER ZAMAN doğru sonucu verir (bu durumda 0 hata) — IDE'nin Problems
+     panelindeki sayıya güvenmeden önce mutlaka `astro check` ile
+     çapraz doğrulanmalı. **Çözüm kod tarafında DEĞİL, kullanıcının
+     editöründe:** Command Palette → `TypeScript: Restart TS Server`
+     (veya `Astro: Restart Language Server` / `Developer: Reload
+     Window`). Claude Code bunu kendisi tetikleyemez, kullanıcıya
+     talimat olarak iletilmeli.
 - **Proje temposu:** Haftalık hedeflerle ilerlenir, toplam süre önceden
   belirlenmez. Her hafta sonu değerlendirme yapılır. **Kalite > Hız.**
 - **Güvenlik taraması alışkanlığı (2026-08-03):** `npm run audit`

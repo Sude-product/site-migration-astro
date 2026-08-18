@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PhoneCountrySelect from './PhoneCountrySelect.tsx';
 import {
   formatPhoneDigits,
@@ -119,6 +119,18 @@ export interface HeroFormProps {
    * PanelFeatureSection/Online Sunum Talebi) eski davranış (yönlendirme
    * yok) korunuyor. */
   redirectHref?: string;
+  /** `true` ise mount olduktan sonra `window.location.search`'teki `email`
+   * parametresi okunup e-posta alanına yazılır (2026-08-19, KARAR — ana
+   * sayfanın yeni tek-alanlı hero formu, `HeroEmailCaptureForm.astro`, GET
+   * metoduyla `?email=...` query string'i taşıyarak buraya yönlendiriyor;
+   * kullanıcı e-postayı burada TEKRAR yazmasın diye otomatik dolduruluyor).
+   * `output:'static'` build zamanında `window` yok — bu yüzden Astro
+   * frontmatter'ında (`Astro.url.searchParams`) DEĞİL, `useEffect` ile
+   * yalnızca CLIENT tarafında okunuyor (SSR/hydration uyumsuzluğu
+   * olmasın diye, ilk render her zaman boş/EMPTY kalır). Yalnızca
+   * `PresentationRequestPage.astro` bu prop'u `true` geçiriyor — diğer
+   * kullanımlar (Hero/Contact/Panel) etkilenmiyor. */
+  prefillEmailFromQuery?: boolean;
   /** CTA/anchor text optimizasyonu (2026-08-12, kullanıcı talimatıyla) —
    * `labels.submit` jenerik bir metinse (`isGenericCtaText()`, bkz.
    * `pageTitle.ts`) VE bu prop verilmişse, buton metni
@@ -151,6 +163,7 @@ export default function HeroForm({
   layout = 'stacked',
   submitStyle = 'default',
   redirectHref,
+  prefillEmailFromQuery = false,
   ctaKeyword,
 }: HeroFormProps) {
   const isPresentation = variant === 'presentation';
@@ -160,6 +173,17 @@ export default function HeroForm({
   // yorumu.
   const submitLabel = ctaKeyword && isGenericCtaText(labels.submit) ? buildCtaAnchorText(ctaKeyword, locale) : labels.submit;
   const [data, setData] = useState<FormData>(EMPTY);
+  // `prefillEmailFromQuery` — bkz. `HeroFormProps` yorumu. `useEffect`
+  // (yalnızca CLIENT'ta, mount SONRASI) kullanılıyor ki statik build
+  // sırasında (`window` yok) veya hydration'ın ilk render'ında bir
+  // uyuşmazlık OLUŞMASIN — ilk boyama her zaman EMPTY, e-posta bir sonraki
+  // an dolduruluyor.
+  useEffect(() => {
+    if (!prefillEmailFromQuery) return;
+    const email = new URLSearchParams(window.location.search).get('email');
+    if (email) setData((d) => ({ ...d, email }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   // Ülke kodu — site diline göre makul bir varsayılanla başlıyor (TR→TR,
   // EN→GB, NL→NL, IT→IT, bkz. `getDefaultCountryForLocale()`), kullanıcı
   // dropdown'dan değiştirebilir (2026-07-27, kullanıcı isteği: idenfit.com

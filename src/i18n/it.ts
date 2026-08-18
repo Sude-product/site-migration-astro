@@ -32,6 +32,12 @@ export const it: Translations = {
     title: 'Digitalizza Ora Tutti i Processi\ndelle Risorse Umane!',
     description:
       "Gestisci tutti i processi HR su un'unica piattaforma, dalla gestione delle prestazioni al monitoraggio delle buste paga e delle ferie, oltre alla gestione degli asset e dell'inventario.",
+    // 2026-08-19, traduzione reale della tagline inglese fornita dall'utente
+    // (KARAR 1 — non una copia letterale).
+    headline: 'Le persone al centro. Il resto, semplice.',
+    subheadline:
+      "Idenfit unisce HR, gestione della forza lavoro, payroll ed employee experience in un'unica piattaforma, così i tuoi team possono concentrarsi sulle persone, non sui processi.",
+    emailPlaceholder: 'La Tua Email Aziendale',
     formName: 'Nome e Cognome',
     formPhone: 'Telefono',
     formPhoneError: 'Inserisci un numero di telefono valido (es. 555 123 45 67)',

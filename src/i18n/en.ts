@@ -27,6 +27,11 @@ export const en: Translations = {
     title: 'Digitize All Human\nResources Processes Now!',
     description:
       'Manage all your HR processes on a single platform, from performance management to payroll and leave tracking, as well as asset and inventory management.',
+    // 2026-08-19, user-supplied brand tagline verbatim.
+    headline: 'People first. Everything else, simplified.',
+    subheadline:
+      'Idenfit brings HR, workforce management, payroll and employee experience together—so your teams can focus on people, not processes.',
+    emailPlaceholder: 'Your Work Email',
     formName: 'Full Name',
     formPhone: 'Phone Number',
     formPhoneError: 'Enter a valid phone number (e.g. 555 123 45 67)',
