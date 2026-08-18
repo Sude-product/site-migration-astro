@@ -76,7 +76,7 @@ const PLAN_BTN_CLASS =
   'pricing-btn mt-3 flex h-[54px] w-full items-center justify-center rounded-[10px] px-4 text-center text-base font-semibold transition-colors';
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls}>
+<BaseLayout title={title} description={description} localeUrls={localeUrls} dateModified={modified?.toISOString()}>
   <section class="bg-[#f8f8f8] py-12 lg:py-16">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
       {/* ⚠️ DÜZELTME (2026-08-04): tüm başlık `font-bold` (700) uygulanmıştı —

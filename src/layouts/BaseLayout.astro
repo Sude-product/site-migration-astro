@@ -52,6 +52,18 @@ interface Props {
    * veri kaynağı İCAT EDİLMEDİ. ISO 8601 string bekleniyor. */
   articlePublishedTime?: string;
   articleModifiedTime?: string;
+  /** "No dateModified in structured data" GEO bulgusu (2026-08-19) —
+   * blog DIŞINDAKİ sayfalar (ürün/sektör/hukuki/fiyatlar vb.) için sade
+   * bir `WebPage` JSON-LD bloğu üretir. Blog kendi `BlogPosting`
+   * JSON-LD'sini ZATEN kendi sayfasında (`blog/[slug].astro`) üretiyor —
+   * bu yüzden `ogType==='article'` iken burada HİÇ basılmıyor (çift
+   * JSON-LD bloğu olmasın diye). Yalnızca GERÇEK bir WP `modified`
+   * tarihi varsa render edilir (`get*ModifiedDate()` fonksiyonları, "No
+   * visible content dates" turu, 2026-08-17) — uydurma tarih YOK, bu
+   * yüzden bu prop verilmeyen sayfalarda (Hub/SSS/Ana sayfa/Landing —
+   * gerçek `modified` verisi olmayan sayfa türleri) hiçbir JSON-LD
+   * ÜRETİLMEZ. ISO 8601 string bekleniyor. */
+  dateModified?: string;
 }
 
 const {
@@ -64,6 +76,7 @@ const {
   ogType = 'website',
   articlePublishedTime,
   articleModifiedTime,
+  dateModified,
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
@@ -127,6 +140,28 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		)}
 		{ogType === 'article' && articleModifiedTime && (
 			<meta property="article:modified_time" content={articleModifiedTime} />
+		)}
+
+		<!-- "No dateModified in structured data" GEO bulgusu (2026-08-19) —
+		     blog DIŞINDAKİ sayfalar için sade bir `WebPage` JSON-LD bloğu
+		     (blog kendi `BlogPosting`'ini `blog/[slug].astro`'da ZATEN
+		     üretiyor, `ogType==='article'` kontrolü çift blok olmasını
+		     önlüyor). `url` göreli — `pageUrl`'in dosya başındaki AYNI
+		     ilkesi (mutlak prod domain, `Astro.site`, Faz 2'de bağlanınca
+		     otomatik mutlak olur). -->
+		{ogType !== 'article' && dateModified && (
+			<script
+				type="application/ld+json"
+				set:html={JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'WebPage',
+					name: title,
+					description,
+					url: pageUrl,
+					dateModified,
+				})}
+				is:inline
+			/>
 		)}
 
 		<!-- Twitter Card — Open Graph ile AYNI veriyi paylaşıyor, ayrı veri

@@ -30,7 +30,13 @@ const title = buildIdenfitTitle(content.title, locale);
 <!-- NL'de kaynak sayfa yok (bkz. `getThankYouLocaleUrls()`'in NL→EN alias
      yorumu) — hreflang bu yüzden yalnızca gerçek 3 dili bildiriyor
      (2026-08-17, "No hreflang tags" SEO turu). -->
-<BaseLayout title={title} description={content.text} localeUrls={localeUrls} hreflangLocales={['tr', 'en', 'it']}>
+<BaseLayout
+  title={title}
+  description={content.text}
+  localeUrls={localeUrls}
+  hreflangLocales={['tr', 'en', 'it']}
+  dateModified={modified?.toISOString()}
+>
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="grid items-center gap-10 lg:grid-cols-2">
       <div>

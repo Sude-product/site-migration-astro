@@ -24,6 +24,38 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 3. tur — "No dateModified in structured data" GEO bulgusu kapandı, Açık nokta #29 yeniden açılıp JSON-LD 161 sayfaya genişletildi, commit edildi)
+
+**🟢 Blog için zaten kapalıydı (curl ile doğrulandı) — asıl iş, kullanıcı
+onayıyla Açık nokta #29'un ("JSON-LD yalnızca blog'a kuruldu, ürün/sektör/
+kurumsal sayfalar bilinçli olarak ertelendi") kapsamını yeniden açmaktı.**
+Veri engeli zaten kalkmıştı — "No visible content dates" turunda
+(2026-08-17) `get*ModifiedDate()` fonksiyonları (ProductPage/SectorPage/
+LegalPage/PricingPage/PresentationRequestPage/SupportRequestPage/
+ThankYouPage — bu 7 shared component'in HEPSİ zaten `modified` prop'u
+taşıyordu, görünür "Son Güncelleme" etiketi için) hazır durumdaydı.
+
+**Uygulama:** `BaseLayout.astro`'ya yeni `dateModified?: string` prop'u
+eklendi — yalnızca `ogType !== 'article'` (blog kendi `BlogPosting`
+JSON-LD'sini zaten üretiyor, çift blok olmasın) VE gerçek bir tarih
+verilmişse sade bir `WebPage` (`name`/`description`/`url`/`dateModified`)
+JSON-LD bloğu basıyor. Bu 7 component'in `<BaseLayout>` çağrısına
+`dateModified={modified?.toISOString()}` eklendi — tek satırlık, mekanik
+bir tekrar. Gerçek `modified` verisi OLMAYAN sayfa türlerine (Hub/SSS/Ana
+sayfa/Landing) dokunulmadı, hiç JSON-LD üretilmiyor (uydurma tarih YOK).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-json-ld.mjs` (2 kez, tutarlı) **787 JSON-LD bloğu, 0 geçersiz**
+(`{WebPage:161, BlogPosting:622, FAQPage:4}` — WebPage YENİ, diğer ikisi
+önceden vardı), `check-link-accessibility.mjs` 0 ihlal. `dev:clean`
+sonrası canlı sunucudan `curl` ile 4 farklı sayfa türünde
+(zimmet-yonetimi-modulu/gida-sektoru-ik-cozumleri/fiyatlar/kisisel-
+verilerin-korunmasi) gerçek/farklı `dateModified` değerleri + blog
+sayfasında JSON-LD bloğunun ÇİFTLENMEDİĞİ (1 blok, `BlogPosting`)
+doğrulandı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19, 2. tur — "No Open Graph article date tags" GEO bulgusu kapandı, commit edildi)
 
 **🟢 `article:published_time`/`article:modified_time` eklendi — yalnızca
@@ -1338,22 +1370,23 @@ içerikleri hâlâ geçerli.)*
     `node scripts/check-title-length.mjs` çıktısının `blog/` ile
     başlayan satırları başlangıç noktası, her biri için `posts.json`'a
     `metaTitle` eklenmesi yeterli (H1'e DOKUNULMAZ).
-29. **TODO — JSON-LD yalnızca blog'a (`BlogPosting`) kuruldu; ürün/modül,
-    sektör ve kurumsal (Hakkımızda/İletişim/Fiyatlar vb.) sayfalarına
-    structured data eklenmesi BİLİNÇLİ olarak ayrı bir karara bırakıldı
-    (kullanıcı kararı, 2026-08-10).** Veri kaynağı kısmen hazır —
-    `productContent.ts`/`sectorContent.ts`'in ara veri tipleri (WP export'tan)
-    zaten bir `modified` alanı taşıyor ama public `getProductContent()`/
-    `getSectorContent()` fonksiyonları bunu döndürdükleri objeye dahil
-    ETMİYOR (blog'daki `modifiedDate` ile AYNI "veri var ama atılıyor"
-    deseni) — ileride bu kapsam açılırsa önce bu iki fonksiyonun `modified`
-    alanını expose etmesi gerekecek. Muhtemel şema: ürün/modül sayfaları
-    için `Product` veya `Service`, sektör sayfaları için `Article`,
-    kurumsal sayfalar için `Organization`/`WebPage`. Doğrulama script'i
-    (`check-json-ld.mjs`) zaten genel (yalnızca `BlogPosting` değil,
-    `Article` için de zorunlu/önerilen alan listesi tanımlı) — yeni bir
-    tür eklenirse `REQUIRED_BY_TYPE`/`RECOMMENDED_BY_TYPE`'a satır eklemek
-    yeterli.
+29. **KISMEN KAPANDI (2026-08-19) — JSON-LD artık blog DIŞINDA da var,
+    ama yalnızca sade bir `WebPage` (+`dateModified`) şeması, ZENGİN
+    ürün/sektör-özel şema (`Product`/`Service`/`Article`) DEĞİL.**
+    "No dateModified in structured data" GEO turunda ("No visible content
+    dates" turunun (2026-08-17) açtığı `get*ModifiedDate()` veri yolu
+    kullanılarak) `BaseLayout.astro`'ya genel bir `dateModified` prop'u
+    eklendi — 7 shared component (ProductPage/SectorPage/LegalPage/
+    PricingPage/PresentationRequestPage/SupportRequestPage/ThankYouPage,
+    ~161 sayfa) artık `{@type:"WebPage", name, description, url,
+    dateModified}` JSON-LD'si taşıyor. **Kalan gerçek boşluk:** ürün
+    sayfaları için `Product`/`Service` gibi ZENGİN/tip-özel bir şema
+    (fiyat, modül listesi, rich result potansiyeli) hâlâ YOK — bu hâlâ
+    ayrı, daha büyük bir karar (kullanıcı bu turda yalnızca "dateModified
+    eksikliği"ni kapatmayı onayladı, tam ürün/sektör-özel zenginleştirmeyi
+    DEĞİL). Doğrulama script'i (`check-json-ld.mjs`) zaten genel — yeni
+    bir tür eklenirse `REQUIRED_BY_TYPE`/`RECOMMENDED_BY_TYPE`'a satır
+    eklemek yeterli.
 30. **TODO — `public/_redirects`'in (404 sayfası, 2026-08-11) gerçek
     Cloudflare Pages davranışı henüz DOĞRULANMADI.** `astro dev`/`astro
     preview` bu dosyayı yorumlamıyor (yalnızca Astro'nun kendi 404

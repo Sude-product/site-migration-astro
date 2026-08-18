@@ -46,6 +46,7 @@ const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnc
   description={descriptionOverride ?? (hero.text || whyIdenfit.text)}
   localeUrls={localeUrls}
   image={hero.image?.url ?? whyIdenfit.image?.url}
+  dateModified={modified?.toISOString()}
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">

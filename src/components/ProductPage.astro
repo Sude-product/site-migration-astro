@@ -109,7 +109,14 @@ const heroCtaText =
   ctaTextOverride ?? (hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText);
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} hreflangLocales={hreflangLocales} image={hero.image?.url}>
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  hreflangLocales={hreflangLocales}
+  image={hero.image?.url}
+  dateModified={modified?.toISOString()}
+>
   <!-- Hero -->
   <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">

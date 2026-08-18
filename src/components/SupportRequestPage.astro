@@ -44,6 +44,7 @@ const modified = getSupportRequestModifiedDate(locale);
 	description={content.description.replace(/\n/g, ' ')}
 	localeUrls={localeUrls}
 	hreflangLocales={['tr', 'en', 'it']}
+	dateModified={modified?.toISOString()}
 >
 	<section class="relative overflow-hidden bg-brand px-4 py-16 sm:px-6 lg:py-24">
 		<div class="mx-auto max-w-3xl rounded-[30px] bg-surface p-8 shadow-[4px_8px_40px_0_rgba(0,0,0,0.2)] sm:p-12">

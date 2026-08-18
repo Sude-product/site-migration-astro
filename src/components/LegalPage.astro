@@ -47,7 +47,13 @@ const description = descriptionOverride ?? structuredHtml.replace(/<[^>]+>/g, ' 
 const title = buildIdenfitTitle(content.title, locale);
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} hreflangLocales={hreflangLocales}>
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  hreflangLocales={hreflangLocales}
+  dateModified={modified?.toISOString()}
+>
   <div class="w-full px-4 py-12 sm:px-6 lg:px-[100px] lg:py-16">
     <section class="mx-auto max-w-[1440px]">
       <h1 class="text-4xl font-normal uppercase leading-[43px] text-brand">{content.title}</h1>
