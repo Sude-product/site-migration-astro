@@ -24,6 +24,71 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-18 — Ürün Önizleme widget'ı "çalışmıyor" bulgusu + kırmızı/genişletilmiş yeniden tasarım, kod commit EDİLMEDİ)
+
+**🟢 Kullanıcının "dashboard çalışmıyor" bulgusu araştırıldı — gerçek bir kod
+hatası DEĞİLDİ, bilinen Vite bağımlılık önbelleği bozulmasıydı.** Chrome'da
+widget'ın tamamen katı kırmızı bir blokla kaplı göründüğü teyit edildi —
+kök neden `[astro-island] Error hydrating ... TypeError: _jsxDEV is not a
+function` (§Proje kuralları'ndaki bilinen "Vite bağımlılık önbelleği
+bozulması" quirk'ü) — `ProductPreviewWidget` hiç hydrate olmadığı için
+`WidgetAccentBackdrop`'ın arkasındaki kırmızı katman çıplak görünüyordu.
+İki kez `npm run dev:clean` gerekti (ilk seferinde OneDrive'ın `dist/`
+üzerindeki dosya kilidi `ENOTEMPTY` hatası verdi, elle tekrar denenip
+düzeltildi). Kod tarafında düzeltme GEREKMEDİ.
+
+**Kullanıcı isteği: "idenfit kırmızısıyla boya" + "dashboardı genişlet,
+içindeki modülleri de genişlet iyileştir"** (referans olarak mor/pembe
+degrade zeminli, ferah bir SaaS dashboard ekran görüntüsü paylaşıldı).
+**Renk:** `HomeProductPreview.astro`'ya widget çerçevesinin arkasına
+idenfit kırmızısı tonlarında yumuşak bir radyal gradyan "tuval" eklendi
+(`#FFDCDC→#FFF3F3→#FFFFFF`, sabit padding/border-radius — önceki terk
+edilmiş "ağ" deseninin yüzde-tabanlı taşma riski YOK) + çerçeve gölgesi
+nötr siyahtan kırmızı tonlu bir gölgeye çevrildi
+(`shadow-[...rgba(138,0,0,0.16)]`) + `WidgetAccentBackdrop`'ın "kayık
+kart" ofseti büyütüldü (8px→12px, hover 12px→16px).
+
+**Büyütme:** `ProductPreviewWidget.tsx`'teki TÜM kart/grafik/boşluk/ikon/
+font değerleri (2026-08-14, 3. tur'daki "tek bakışta görülebilir"
+küçültmenin TERSİ yönde) bir kademe büyütüldü — sidebar `lg:w-64`→
+`lg:w-72`, içerik paddingi `p-3 sm:p-4`→`p-4 sm:p-6 lg:p-8`, grafik
+yükseklikleri `h-28/h-36`→`h-36/h-44`, `WidgetCard`/`StatCard` paddingi
+bir kademe arttı, sidebar nav/header ikon butonları büyüdü (`h-8 w-8`→
+`h-9 w-9`). Toplam ~30 ayrı Tailwind class değişikliği.
+
+**⚠️ Bu turda bulunup düzeltilen GERÇEK bir regresyon —
+`EvaluationRow`'da (Performans Yönetimi sekmesi) isimler agresif şekilde
+kırpılıyordu** (ör. "2026 Yıl Sonu 360° Değe..."). Kök neden: satır
+`sm:flex-row` ile viewport genişliğine göre (640px) yatay düzene
+geçiyordu, ama widget'ın GERÇEK konteyner genişliği (sidebar + sayfa
+dolgusu düşülünce ~780-950px) her zaman bu viewport breakpoint'inden DAR
+kaldığı için, büyütülmüş Dönem/Süre sütunu + 3 eylem butonu satırdan pay
+kapıp isim için neredeyse hiç yer bırakmıyordu. **Düzeltme:** `sm:flex-row`
+TAMAMEN kaldırıldı, satır HER genişlikte dikey/yığın düzende kalıyor —
+Tailwind'in viewport-tabanlı breakpoint'lerinin, bir konteynerin GERÇEK
+(sayfa içi sidebar/dolgu düşülmüş) genişliğinden farklı bir şeyi ölçtüğü
+kalıcı bir ders. Bu değişiklik Performans sekmesinin doğal yüksekliğini
+354px→822px'e çıkardı, `min-h-[580px]`→`min-h-[830px]`'e güncellendi.
+
+**Kanıt:** `astro check` 0 hata (337 dosya), `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 ihlal (2375 dosya), `check-heading-hierarchy.mjs`
+1 sorunlu sayfa (yalnızca bilinen `admin/index.html` H1-yok istisnası —
+Açık nokta #33'ün 08-17'de kapanmış 0 seviye-atlaması durumuyla BİREBİR
+aynı, sıfır yeni regresyon). Chrome'da 5 fonksiyonel sekmenin TAMAMI +
+karanlık/aydınlık mod + yatay taşma yokluğu (`scrollWidth` ≤ `innerWidth`)
+görsel/sayısal olarak doğrulandı. **Bilinen test metodolojisi notu (tekrar
+karşılaşıldı, §Tamamlanan işler 2026-08-13'te de not düşülmüştü):**
+`scrollIntoView()` + hemen ardından DOM `.click()` çağrısı `client:visible`
+hydration'ından ÖNCE gerçekleşip sessizce hiçbir şey yapmıyor (hata YOK,
+yalnızca React henüz bağlanmamış) — gerçek fare tekerleği scroll'u (veya
+yeterli bekleme) güvenilir şekilde çalıştı.
+
+**Kalan:** kullanıcının nihai görsel onayı + commit kararı. Bu turda
+commit YAPILMADI, `HomeProductPreview.astro`/`ProductPreviewWidget.tsx`/
+`WidgetAccentBackdrop.astro` hâlâ working tree'de.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-17, 6. tur — Açık nokta #33a KAPANDI: 38 blog yazısındaki başlık seviye atlaması mekanik normalize ile düzeltildi, kod commit EDİLMEDİ)
 
 **🟢 Başlık SEVİYE ATLAMASI bulgusunun son/en büyük parçası (38 blog yazısı,
