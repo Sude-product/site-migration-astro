@@ -6,6 +6,7 @@
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import miscExport from '../../reference/wordpress-export/misc-pages.json';
 import { cleanRichText, localizeCtaUrl, type ProductBlock, type ProductContent } from './productContent';
+import { fixLinkAccessibility } from './contentLinkAccessibility';
 import {
   CONTACT_IT_OVERRIDE,
   SECURITY_IT_OVERRIDE,
@@ -177,11 +178,37 @@ export interface LegalContent {
   contentHtml: string;
 }
 
+// "Links without descriptive text" turu (2026-08-19) — KVKK ailesinin
+// "başvuru formumuza **buradan**/**here**/**qui** ulaşabilirsiniz" cümlesi
+// TR/EN/IT'de aynı deseni taşıyor (NL bu sayfada yok). `deriveHrefLabel()`'in
+// otomatik slug-türetimi bir PDF dosya adı için ("Veri_Sahibi_Basvuru_Formu_v2")
+// yine de OKUNABİLİR bir sonuç verirdi ama gerçek belgenin NE OLDUĞUNU
+// (bir başvuru formu) söylemez — bu yüzden elle yazılmış, doğru dilde bir
+// etiket verildi. Yalnızca `href`'e TAM eşleşen linkler etkileniyor,
+// `fixLinkAccessibility()` başka HİÇBİR linke dokunmuyor (zaten metinli/
+// açıklayıcı linkler bu fonksiyonun genel jenerik-metin/isimsiz-link
+// stratejisiyle değişmeden kalıyor).
+const LEGAL_MANUAL_LINK_LABELS: Partial<Record<Locale, Record<string, string>>> = {
+  tr: {
+    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2.docx.pdf':
+      'Veri sahibi başvuru formunu indir (PDF)',
+  },
+  en: {
+    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+      'Download the data subject application form (PDF)',
+  },
+  it: {
+    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+      "Scarica il modulo di domanda dell'interessato (PDF)",
+  },
+};
+
 export function getLegalContent(trSlug: string, locale: Locale): LegalContent | undefined {
   const entry = findGroup(trSlug)?.locales[locale];
   if (!entry) return undefined;
   const raw = entry.content as { contentHtml: string };
-  return { title: entry.title, contentHtml: cleanRichText(raw.contentHtml) };
+  const contentHtml = fixLinkAccessibility(cleanRichText(raw.contentHtml), LEGAL_MANUAL_LINK_LABELS[locale], locale);
+  return { title: entry.title, contentHtml };
 }
 export function getLegalSlug(trSlug: string, locale: Locale): string | undefined {
   return slugFor(trSlug, locale);

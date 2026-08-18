@@ -24,6 +24,52 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19 — "Links without descriptive text" SEO bulgusu kapandı, commit edildi)
+
+**🟢 Kullanıcının bildirdiği "6 link" bulgusu araştırıldı — kök neden
+tahmin edilenin (ikon-only/etiketsiz butonlar) AKSİNE, görünür metni
+JENERİK olan linklerdi ("buradan"/"tıklayın"/"buraya"/"here"/"qui").**
+`check-link-accessibility.mjs` (erişilebilir adı HİÇ olmayan linkler) 0
+sonuç verdi (2 kez doğrulandı) — bu proje o türden linkten tamamen temiz.
+Manuel tarama 3 kategori buldu:
+1. **Ana sayfa "Neden idenfit?" video CTA'sı** (`VideoSection.astro`,
+   4 dilde "Daha Fazla"/"Learn More"/"Meer informatie"/"Scopri di più") —
+   yeni bir i18n anahtarı (`home.video.ctaAriaLabel`) eklenip görünür
+   metin DEĞİŞTİRİLMEDEN `aria-label` verildi.
+2. **KVKK ailesi PDF linki** (TR/EN/IT, "başvuru formumuza buradan/here/qui
+   ulaşabilirsiniz") — `miscPagesContent.ts`'in `getLegalContent()`'ine
+   href'e göre TAM eşleşen, elle yazılmış 3 dilde `aria-label` eklendi
+   (otomatik slug-türetimi bir PDF dosya adı için okunmaz bir sonuç
+   verirdi).
+3. **Blog gövde içeriği** (en az 8 farklı yazıda aynı desen, muhtemelen
+   622 yazının tamamında daha fazlası var) — MEKANİK bir çözüm: eski
+   `blogContentAccessibility.ts` (yalnızca erişilebilir adı HİÇ olmayan
+   linkleri düzeltiyordu) `contentLinkAccessibility.ts`'e yeniden
+   adlandırılıp genişletildi — artık "erişilebilir adı var ama jenerik"
+   durumunu da kapsıyor, görünür metne DOKUNMADAN yalnızca `aria-label`
+   ekliyor.
+
+**Pilot turu (kullanıcı talebiyle) — ilk deneme "doğal okunmuyor" çıktı,
+düzeltildi.** Slug-türetimi ("Isten Cikis Kodu Nedir sayfası" gibi
+Türkçe aksan işaretsiz) ilk pilotta "makine çevirisi" gibi görünen
+etiketler üretti. Çözüm: `posts.json`/`pages.json` (zaten projede başka
+veri katmanlarınca doğrudan JSON import'uyla okunan ham export
+dosyaları) href'e göre gerçek/aksan-doğru başlık için önceliklendirildi
+— slug-türetimi yalnızca gerçek bir başlık BULUNAMAZSA devreye giriyor.
+`pages.json`'ın dil alanının `lang` değil `pll_language` olduğu bu turda
+bulunup düzeltildi (§Mimari "Veri çıkarma kuralı"nın bir başka örneği).
+Sonuç: "İşten Çıkış Kodu Nedir, İşten Çıkış Kod Listesi yazısı" gibi
+tamamen doğal, gerçek başlıktan türetilmiş etiketler.
+
+**Kanıt:** `astro check` 0 hata (338 dosya), `astro build` 881 sayfa,
+`check-link-accessibility.mjs` 0 sorun (2 kez), `check-heading-hierarchy.mjs`
+bilinen 1 sonuçla (yalnızca `admin/index.html` H1-yok) BİREBİR aynı,
+sıfır yeni regresyon. Chrome'da hem ana sayfa (video CTA) hem KVKK sayfası
+(PDF linki) görsel olarak DEĞİŞMEDİĞİ + `aria-label`'ların DOM'da doğru
+göründüğü doğrulandı.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-18, 2. tur — Fiyatlar sayfası fiyat güncellemesi: KOBİ zam + Pro "Teklif Al"e çevrildi, commit edildi)
 
 **🟢 Kullanıcının verdiği yeni fiyatlar 4 dilde uygulandı.** KOBİ (sme):

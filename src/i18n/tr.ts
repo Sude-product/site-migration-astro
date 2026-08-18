@@ -330,6 +330,7 @@ export const tr: Translations = {
     video: {
       title: 'Neden idenfit?',
       ctaText: 'Daha Fazla',
+      ctaAriaLabel: 'Neden idenfit sayfasında daha fazla bilgi edinin',
       videoTitle: 'idenfit tanıtım videosu',
       playLabel: 'Videoyu oynat',
     },

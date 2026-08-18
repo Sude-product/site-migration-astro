@@ -326,6 +326,7 @@ export const it: Translations = {
         'Idenfit è una piattaforma basata sul cloud che ti consente di gestire i tuoi dipendenti e la tua forza lavoro in modo più semplice e affidabile. Garantiamo ai nostri utenti di offrire tutti i nostri prodotti e servizi, creati con 20 anni di esperienza nel settore, in conformità con gli standard ISO (27001 e 9001) e basandoci sulla soddisfazione del cliente.',
     },
     video: {
+      ctaAriaLabel: 'Scopri di più nella pagina Perché idenfit',
       title: 'Perché Idenfit?',
       ctaText: 'Scopri di più',
       videoTitle: 'Video di presentazione idenfit',

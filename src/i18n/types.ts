@@ -394,6 +394,11 @@ export interface HomeCertificationsLabels {
 export interface HomeVideoLabels {
   title: string;
   ctaText: string;
+  /** "Links without descriptive text" turu (2026-08-19) — `ctaText`
+   * ("Daha Fazla"/"Learn More" vb.) tek başına jenerik, bu yüzden görünür
+   * metin DEĞİŞTİRİLMEDEN ayrı bir `aria-label` eklendi (bkz.
+   * `VideoSection.astro`). */
+  ctaAriaLabel: string;
   /** `<iframe title>` — erişilebilirlik için, kaynakta karşılığı yok. */
   videoTitle: string;
   /** Tıkla-oynat play butonunun aria-label'ı (2026-07-28 — kaynakta bu

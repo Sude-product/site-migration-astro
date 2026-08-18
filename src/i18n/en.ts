@@ -326,6 +326,7 @@ export const en: Translations = {
         'Idenfit is a cloud-based platform that helps you manage your workforce more easily and securely. Backed by over 20 years of industry experience, all our products and services comply with ISO (27001 and 9001) standards, guaranteeing reliability and customer satisfaction.',
     },
     video: {
+      ctaAriaLabel: 'Learn more on the Why idenfit page',
       title: 'Why Choose Idenfit?',
       ctaText: 'Learn More',
       videoTitle: 'idenfit introduction video',

@@ -12,7 +12,7 @@ import { defineCollection, z } from 'astro:content';
 import { glob, type Loader } from 'astro/loaders';
 import { existsSync, promises as fs } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { fixLinkAccessibility } from './data/blogContentAccessibility';
+import { fixLinkAccessibility } from './data/contentLinkAccessibility';
 import { demoteBodyH1s, normalizeHeadingLevels } from './data/blogHeadingSanitizer';
 
 // Kaynağın 11 gerçek kategorisi (posts.json'daki 622 kaydın TAMAMI

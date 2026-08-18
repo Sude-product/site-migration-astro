@@ -320,6 +320,7 @@ export const nl: Translations = {
         'Idenfit is een cloudgebaseerd platform waarmee u uw personeelsbestand eenvoudiger en veiliger kunt beheren. Dankzij meer dan 20 jaar ervaring in de sector voldoen al onze producten en diensten aan de ISO-normen (27001 en 9001), wat betrouwbaarheid en klanttevredenheid garandeert.',
     },
     video: {
+      ctaAriaLabel: 'Meer informatie op de pagina Waarom Idenfit',
       title: 'Waarom kiezen voor Idenfit?',
       ctaText: 'Meer informatie',
       videoTitle: 'idenfit introductievideo',
