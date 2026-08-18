@@ -24,6 +24,44 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
+## Proje Durumu (son güncelleme: 2026-08-19, 5. tur — "Title tag too short" GEO bulgusu: Açık nokta #28'in kademeli üretimi başladı, 30/250 blog yazısı tamamlandı, commit edildi)
+
+**🟢 Kullanıcının verdiği örnek ("Refakat İzni Hakkı - idenfit", 28
+karakter) DOĞRULANDI — gerçek, bizim projemizde de var (33 karakterlik
+kendi `<title>`'ımız, farklı ama AYNI kök sorun sınıfı: Açık nokta #28'in
+kendisi).** `check-title-length.mjs`: 250 blog yazısı 50 karakterin
+altında. Bu turda **30 yazı** (pilot `refakat-izni` + 29 yazı, alfabetik
+sıradan sistematik seçildi) tamamlandı — kalan 220 için "kademeli"
+devam kararı korunuyor.
+
+**Yöntem:** Her yazının GERÇEK içeriği (`src/content/blog/posts.json`'daki
+`content` alanı — İçindekiler/alt başlıklar/somut rakamlar) okunup konuyla
+BİREBİR ilgili, uydurma olmayan bir uzatma yazıldı (ör. `refakat-izni`
+için içeriğin kendi İçindekiler'inde geçen "Süresi"/"Şartları" kelimeleri
+kullanıldı — jenerik bir şablon DEĞİL). Her aday `— idenfit Blog`
+soneki DAHİL 50-60 karakter aralığına gelecek şekilde elle hesaplandı.
+`metaTitle` alanı doğrudan `src/content/blog/posts.json`'a (regex tabanlı,
+yalnızca ilgili 30 kaydın `title` satırının hemen altına satır ekleyen bir
+script'le — 6.4MB'lık dosyanın TAMAMINI yeniden formatlamadan) eklendi —
+`H1`/JSON-LD `headline` DEĞİŞMEDİ (yalnızca `<title>` etiketi etkileniyor,
+`blog/[slug].astro`'nun `${metaTitle ?? title} — idenfit Blog` formülü
+zaten 2026-08-13'te kurulmuştu).
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa,
+`check-title-length.mjs` 439→**409** sorunlu sayfa (kısa: 250→**220**,
+tam 30 azaldı, uzun kategori DEĞİŞMEDİ), `check-link-accessibility.mjs`/
+`check-heading-hierarchy.mjs` sıfır regresyon. `dev:clean` sonrası
+`curl` ile 4 örnek yazıda (`refakat-izni`/`2021-ik-trendleri`/
+`2026-issizlik-maasi`/`asgari-ucret-hesaplama-2020`) doğru `<title>`
++ H1/JSON-LD `headline`'ın DEĞİŞMEDİĞİ doğrulandı.
+
+**Kalan:** 220 yazı hâlâ Açık nokta #28'in kademeli backlog'unda —
+`node scripts/check-title-length.mjs` çıktısının "ÇOK KISA" bölümü
+başlangıç noktası, kullanıcı istedikçe benzer partiler halinde devam
+edilecek.
+
+---
+
 ## Proje Durumu (son güncelleme: 2026-08-19, 4. tur — "No H2 subheadings" GEO bulgusu kapandı: 13/14 zaten bilinçli karar, nl/wereldwijd-merk (Açık nokta #32) gerçek çeviriyle çözüldü, commit edildi)
 
 **🟢 14 sıfır-H2 sayfa bulundu (`dist/**` taraması, 2 kez tutarlı), 13'ü
@@ -1394,25 +1432,24 @@ içerikleri hâlâ geçerli.)*
     Aynı "noindex zaten var, gerçek bir sorun değil" ilkesiyle kapsam
     dışı bırakıldı, doğrulama script'i (`check-html-lang-attribute.mjs`)
     bu 1492'yi "hata" değil "bilgi amaçlı" olarak ayrı raporluyor.
-28. **TODO — Blog yazılarının `<title>` uzunluğu (622 yazının ~434'ü
-    hâlâ 50-60 aralığı dışında, 1'i 2026-08-13'te düzeltildi) BİLİNÇLİ
-    olarak toplu değil KADEMELİ/talep geldikçe ele alınıyor (kullanıcı
-    kararı, 2026-08-10, ilk takip turu 2026-08-13).** Kök neden site
+28. **DEVAM EDİYOR (kademeli, kullanıcı kararı) — Blog yazılarının
+    `<title>` uzunluğu. 31/622 yazı tamamlandı** (`stratejik-yaklasimi`
+    2026-08-13'te ilk pilot + **30 yazı 2026-08-19'da "Title tag too
+    short" GEO turunda**, bkz. Proje Durumu 2026-08-19 5. tur), **220
+    kısa + 189 uzun (409 toplam) hâlâ bekliyor.** Kök neden site
     sayfalarınınkinden (`scripts/check-title-length.mjs`'in 194 blog-dışı
-    düzeltmesi, bkz. Proje Durumu) FARKLI — format
-    `${metaTitle ?? başlık} — idenfit Blog` (sabit ek), başlık uzunluğu
-    EDİTORYAL olarak doğal biçimde değişken, mekanik bir şablon çözümü
-    YOK. **Altyapı artık hazır** — `content.config.ts`'in `blogSchema`'sına
+    düzeltmesi) FARKLI — format `${metaTitle ?? başlık} — idenfit Blog`
+    (sabit ek), başlık uzunluğu EDİTORYAL olarak doğal biçimde değişken,
+    mekanik bir şablon çözümü YOK — her yazının GERÇEK içeriği
+    (`posts.json`'daki `content`) okunup konuyla ilgili bir uzatma/kısaltma
+    elle yazılmalı. Altyapı hazır — `content.config.ts`'in `blogSchema`'sına
     eklenen `metaTitle?: string` alanı, `posts.json`'da ilgili yazıya bu
     alan eklenince H1/JSON-LD `headline`'ı DEĞİŞTİRMEDEN yalnızca `<title>`
-    etiketini kısaltıyor (bkz. Proje Durumu 23. tur, `stratejik-yaklasimi`
-    örneği). ~249 yazı <50 karakter (doğal bir alt ifade eklenmeli, ör.
-    "Başlık: Alt İfade — idenfit Blog"), ~185 yazı >60 karakter
-    (kısaltılmalı). Bu, önceki turdaki 194 sayfalık düzeltmeden ~2 kat
-    daha büyük bir içerik yazım işi — hazır olduğunda
-    `node scripts/check-title-length.mjs` çıktısının `blog/` ile
-    başlayan satırları başlangıç noktası, her biri için `posts.json`'a
-    `metaTitle` eklenmesi yeterli (H1'e DOKUNULMAZ).
+    etiketini değiştiriyor. Devam etmek için: `node scripts/check-title-length.mjs`
+    çıktısının `blog/` ile başlayan satırları başlangıç noktası (kısa:
+    doğal bir alt ifade eklenmeli, ör. "Başlık: Alt İfade — idenfit Blog";
+    uzun: kısaltılmalı), her biri için `posts.json`'a `metaTitle`
+    eklenmesi yeterli (H1'e DOKUNULMAZ).
 29. **KISMEN KAPANDI (2026-08-19) — JSON-LD artık blog DIŞINDA da var,
     ama yalnızca sade bir `WebPage` (+`dateModified`) şeması, ZENGİN
     ürün/sektör-özel şema (`Product`/`Service`/`Article`) DEĞİL.**
