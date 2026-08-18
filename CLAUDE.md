@@ -24,7 +24,198 @@ Contact/404/SEO-erişilebilirlik denetim turlarının TAM anlatımı),
 
 ---
 
-## Proje Durumu (son güncelleme: 2026-08-19, 8. tur — Ana sayfa hero'su köklü revize edildi: tek-alanlı (yalnızca e-posta) form + yeni marka sloganı, 4 dilin hepsinde, henüz commit edilmedi)
+## Proje Durumu (son güncelleme: 2026-08-19, 13. tur — Widget boyu kısaltıldı + yanlara doğru genişletildi, henüz commit edilmedi)
+
+**🟢 Kullanıcı "dashboard çok aşağı doğru olmuş, boyu kısalt, yanlara
+doğru genişlet" dedi — bir önceki turda (12. tur) "Zaman Yönetimi"ne
+eklenen içerik widget'ı önemli ölçüde uzatmıştı (min-h 830px→1150px).**
+İki yönlü düzeltme:
+- **Genişlik:** `HomeProductPreview.astro`'nun dış `<section>`'ı
+  `max-w-7xl`(80rem/1280px)→`max-w-[88rem]`(1408px), tuvalin kendi
+  dolgusu `p-4 sm:p-8 lg:p-10`→`p-4 sm:p-6 lg:p-8`'e küçültüldü — Chrome'da
+  ölçülen gerçek çerçeve genişliği **~1136px→~1280px** (~%13 artış,
+  "biraz/azıcık" isteğine uygun ölçekte).
+- **Yükseklik:** `ProductPreviewWidget.tsx`'te "Zaman Yönetimi"nin YENİ
+  eklenen 4 blok grubu arasındaki boşluklar (`mt-4 lg:mt-6`→`mt-3
+  lg:mt-4`), TÜM bar-chart grafiklerinin yüksekliği (`h-44`→`h-36` —
+  hem yeni `AttendanceWeekCard`/`AverageHoursCard` HEM eski
+  `OvertimeSummaryCard`, tutarlılık için) ve `TrendKpiCard`/
+  `MiniTrendStatCard`'ın iç dolgusu (`p-4`→`p-3`, `p-3`→`p-2.5`)
+  küçültüldü — **içerik AZALTILMADI**, yalnızca daha kompakt yerleşti.
+  Chrome'da ölçülen doğal yükseklik **~1131px→~1021px**, paylaşılan
+  `min-h` buna göre **1150px→1040px**'e düşürüldü.
+
+**Kanıt:** `astro check` 0 hata (338 dosya), `astro build` 881 sayfa
+(temiz — bu turda da OneDrive `-Sude` çakışması 2 KEZ tekrarlandı,
+`dist` silinip yeniden build alınarak aşıldı, kod DEĞİŞMEDİ),
+`check-link-accessibility`/`check-heading-hierarchy`/
+`check-html-lang-attribute`/`check-json-ld` önceki bilinen temel çizgiyle
+BİREBİR aynı (sıfır regresyon). Chrome'da JS ile SAYISAL olarak
+doğrulandı: çerçeve genişliği 1136→1280px, panel yüksekliği 1150→1040px,
+yatay taşma yok (`scrollWidth` 1521 ≤ `innerWidth` 1536), konsol hatasız.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı (9/10/11/12/13. tur
+BİRLİKTE, henüz hiçbiri commit edilmedi).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 12. tur — "Zaman Yönetimi" sekmesine gerçek app.idenfit.com dashboard'unda olup widget'ta eksik olan KPI/istatistik/grafik kartları eklendi, henüz commit edilmedi)
+
+**🟢 Kullanıcı gerçek app.idenfit.com "Zaman Yönetimi" dashboard ekran
+görüntüsünü paylaşıp "burada olmayanlar da eklensin" dedi.** Ekran
+görüntüsündeki 4 öğe grubu widget'ta YOKTU, hepsi eklendi (`ProductPreviewWidget.tsx`,
+`TimeManagementTab`) — **eski içerik (Vardiya Devam Oranı/Fazla Mesai
+Özeti) KALDIRILMADI, yeni içeriğin ALTINA eklendi** (kullanıcı "eklensin"
+dedi, "değiştirilsin" değil):
+1. **3'lü trend KPI kartı** (`TrendKpiCard`, yeni) — Toplam Personel/
+   Bugün Devam Eden/Bekleyen İzin Talebi: renkli ikon + yukarı/aşağı
+   trend rozeti (yeşil/kırmızı, `TrendingUp`/`TrendingDown` ikonları
+   yeni eklendi) + büyük sayı + alt metin + mini alan (sparkline) grafiği
+   (`MiniAreaSparkline`, yeni — `useId` ile her SVG'nin kendi gradyan
+   id'si, aynı ekranda 7 kez tekrarlanan bir component için çakışma
+   önleniyor).
+2. **4'lü mini istatistik satırı** (`MiniTrendStatCard`, yeni) —
+   Devamsız/Geç Gelen/Erken Çıkan/Bugün İzinli: renkli nokta + büyük
+   sayı + sparkline.
+3. **"Devam Takibi"** (`AttendanceWeekCard`, yeni) — 7 günlük, 4
+   kategorili (Mevcut/Geç Gelen/İzinli/Erken Çıkan) yığılmış çubuk
+   grafiği, `OvertimeSummaryCard`'ın şube-bazlı TEKNİĞİNİN aynısı.
+4. **"Ortalama Çalışma Saati"** (`AverageHoursCard`, yeni) — haftalık,
+   2 seri (temel mesai + fazla mesai üst bindirme) yığılmış çubuk +
+   dekoratif "Tüm Şubeler" rozeti (`HRTECHTOOLS`/dil seçici panelleriyle
+   AYNI ilke — `aria-hidden`, gerçek bir dropdown AÇMIYOR).
+
+**TÜM yeni sayılar KURGUSAL** — dosya başı yorumundaki "gerçek çalışan/
+şirket verisi DEĞİL" ilkesiyle, gerçek ekran görüntüsündeki sayılar
+(78/4/86 vb., o an giriş yapılmış GERÇEK bir müşteri hesabına ait)
+KOPYALANMADI, aynı formatta/mertebede farklı örnek rakamlar üretildi.
+Renkler projenin KENDİ kurulu paletinden (`#3B82F6`/`#EF4444`/`#F59E0B`/
+`#8B5CF6`, `BRANCHES`/`LEAVE_STATS` vb.'de zaten kullanılan) — yeni bir
+renk İCAT EDİLMEDİ.
+
+**⚠️ Yan etki — sekme yüksekliği taşması, `min-h` güncellendi.** Chrome'da
+ölçüldü: "Zaman Yönetimi" artık ~1131px (önceki en uzun "Performans
+Yönetimi"nin 822px'ini aştı) — paylaşılan `min-h-[830px]` (tüm sekmelerin
+sabit yükseklik taşıdığı mekanizma, bkz. 2026-08-14/18 turları) 830px'ten
+**1150px'e** yükseltildi.
+
+**Kanıt:** `astro check` 0 hata (338 dosya), `astro build` 881 sayfa
+(temiz, `-Sude` kopyası yok — bu turda OneDrive çakışma sorunu 2 KEZ
+tekrarlandı, `dist` silinip yeniden build alınarak aşıldı, kod DEĞİŞMEDİ),
+`check-link-accessibility`/`check-heading-hierarchy`/
+`check-html-lang-attribute`/`check-json-ld` önceki bilinen temel çizgiyle
+BİREBİR aynı (sıfır regresyon). Chrome'da açık VE karanlık modda görsel
+doğrulandı (ilk karanlık mod ekran görüntüsünde kartlar YANLIŞLIKLA beyaz
+görünmüştü — `getComputedStyle()` ile GERÇEK arka plan rengi zaten doğru
+[koyu gri] olduğu doğrulandı, tekrar alınan ekran görüntüsünde de doğru
+göründü — geçici bir ekran görüntüsü/render gecikmesiydi, kod hatası
+DEĞİLDİ), panel yüksekliği ölçüldü (1150px, ~19px tampon), yatay taşma
+yok, konsol hatasız.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı (9/10/11/12. tur
+BİRLİKTE, henüz hiçbiri commit edilmedi).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 11. tur — Dış tuvale cam kenarlığı eklendi + widget sidebar/içerik renk tonları BİLİNÇLİ olarak yer değiştirdi, henüz commit edilmedi)
+
+**🟢 Kullanıcının 2 ayrı isteği tek turda uygulandı:**
+1. **"Kenarları şeffaf cam kenarlıklı olacak"** — `HomeProductPreview.astro`'nun
+   DIŞ tuvaline (gradyan zemin taşıyan `rounded-[2rem]` div) `ring-1
+   ring-white/50` eklendi — iç karttaki `ring-white/70`'ten biraz daha
+   soluk, iki katmanlı "cam" derinliği hissi veriyor (önceki turda yalnızca
+   İÇ karta kenarlık vardı, DIŞ tuval çıplaktı).
+2. **"Dashboardun sol paneli sağdakinden koyu olacak, renk tonları yer
+   değiştirecek"** — `ProductPreviewWidget.tsx`'in sidebar/içerik arka
+   plan renkleri BİLİNÇLİ olarak TERSİNE çevrildi:
+   - Açık mod: sidebar `bg-white`→`bg-menu-surface` (projenin KENDİ
+     mega-menü paneli tokeni, `#F2F2F2` — yeni bir renk İCAT EDİLMEDİ),
+     içerik `bg-[#F9FAFB]`→`bg-white`. Önceki ikili neredeyse ayırt
+     edilemeyecek kadar yakındı (`#FFFFFF` vs `#F9FAFB`) — artık BELİRGİN
+     bir kontrast var.
+   - Karanlık mod: AYNI ilke (sol her zaman sağdan koyu) tutarlılık için
+     buraya da uygulandı — sidebar `bg-gray-900`→`bg-gray-950` (daha
+     koyu), içerik `bg-gray-950`→`bg-gray-900` (daha açık). Önceki
+     sürümde bu ilişki TERSTİ (içerik sidebar'dan koyuydu).
+
+**Kanıt:** `astro check` 0 hata (338 dosya), `astro build` 881 sayfa
+(temiz, `-Sude` kopyası yok), `check-link-accessibility`/
+`check-heading-hierarchy`/`check-html-lang-attribute`/`check-json-ld`
+önceki bilinen temel çizgiyle BİREBİR aynı (sıfır regresyon). Chrome'da
+hem açık hem karanlık modda gerçek scroll + tıklamayla doğrulandı: dış
+tuvalin ince cam kenarlığı görünür, sidebar her iki modda da içerikten
+belirgin şekilde daha koyu, konsol hatasız.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı (9/10/11. tur
+BİRLİKTE, henüz hiçbiri commit edilmedi).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 10. tur — Ürün Önizleme widget'ının koyu kırmızı "kayık kart" backdrop katmanı TAMAMEN KALDIRILDI, henüz commit edilmedi)
+
+**🟢 Kullanıcı "koyu kırmızı olan yeri çıkar" dedi — bir önceki turda
+(9. tur) yalnızca gradyan yönü/kenarlık eklenmişti, `WidgetAccentBackdrop.astro`'nun
+ürettiği koyu kırmızı (#8A0000) kaydırılmış "kayık kart" katmanı hâlâ
+duruyordu.** Bu turda o katman TAMAMEN kaldırıldı — referans görüntüde
+böyle bir katman YOK, kart doğrudan yumuşak pembe gradyan zeminin
+üzerinde duruyor. `HomeProductPreview.astro`'dan `WidgetAccentBackdrop`
+import'u/kullanımı silindi, onu barındıran `group relative`/`relative
+z-10` sarmalayıcıları da (artık stacking için gerek kalmadığından)
+kaldırıldı. **Component'in TEK kullanım yeri burasıydı** (`grep` ile
+doğrulandı) — `src/components/WidgetAccentBackdrop.astro` dosyasının
+kendisi de projeden SİLİNDİ (ölü kod bırakılmadı).
+
+**⚠️ Doğrulama turunda BİLİNEN Vite bağımlılık önbelleği bozulmasıyla
+TEKRAR karşılaşıldı** (widget geçici olarak tamamen soluk/pembe göründü
+— `.reveal` scroll-animasyonunun henüz tamamlanmadığı bir an
+yakalanmıştı, gerçek bir hydration hatası DEĞİLDİ; `dev:clean` + gerçek
+scroll ile normal render doğrulandı).
+
+**Kanıt:** `astro check` 0 hata (338 dosya — bir dosya azaldı,
+`WidgetAccentBackdrop.astro` silindiği için), `astro build` 881 sayfa
+(temiz, `-Sude` kopyası yok), `check-link-accessibility`/
+`check-heading-hierarchy`/`check-html-lang-attribute`/`check-json-ld`
+önceki bilinen temel çizgiyle BİREBİR aynı (sıfır regresyon). Chrome'da
+widget'ın hem üst hem alt kenarında koyu kırmızı katmanın ARTIK
+GÖRÜNMEDİĞİ, kartın referans görüntüdeki gibi temiz/dış-çerçeveli
+göründüğü görsel olarak doğrulandı, konsol hatasız.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı (9. ve 10. tur
+BİRLİKTE, henüz hiçbiri commit edilmedi).
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 9. tur — Ürün Önizleme widget'ının arkaplan gradyanı kullanıcının yeni referans görüntüsüne göre simetrikleştirildi, henüz commit edilmedi)
+
+**🟢 Küçük, hedefli bir görsel düzeltme — `HomeProductPreview.astro`'nun
+widget arkasındaki "tuval" gradyanı ÜSTTEN başlayan tek yönlü bir radyal
+gradyandan (`radial-gradient(120% 100% at 50% 0%, ...)`, pembe yalnızca
+üstte) kullanıcının yeni referans görüntüsündeki SİMETRİK geçişe
+(`linear-gradient(to bottom, ...)`, pembe hem ÜST hem ALT kenarda, kartın
+oturduğu ORTA bölge beyaz) çevrildi.** Aynı 3 ton korundu
+(`#FFDCDC`/`#FFF3F3`/`#FFFFFF`, 2026-08-18'den beri kanıtlanmış) — yeni
+bir renk İCAT EDİLMEDİ, yalnızca gradyanın yönü/simetrisi değişti. Kart
+çerçevesine referanstaki ince/açık "cam" kenarlığını taklit eden bir
+`ring-1 ring-white/70` eklendi (önceki sürümde yalnızca gölge vardı).
+
+**⚠️ Doğrulama turunda BİLİNEN Vite bağımlılık önbelleği bozulmasıyla
+TEKRAR karşılaşıldı** (widget'ın tamamen katı kırmızı görünmesi —
+`WidgetAccentBackdrop`'ın arkasındaki katman hydrate olmayan widget'ın
+İÇİNDEN görünüyordu) — `npm run dev:clean` ile düzeldi, kod DEĞİŞMEDİ.
+
+**Kanıt:** `astro check` 0 hata, `astro build` 881 sayfa (temiz, `-Sude`
+kopyası yok), `check-link-accessibility`/`check-heading-hierarchy`/
+`check-html-lang-attribute`/`check-json-ld` önceki bilinen temel çizgiyle
+BİREBİR aynı (sıfır regresyon). Chrome'da gerçek scroll ile widget'ın
+TAMAMI (üst kenar pembe → kart beyaz → alt kenar pembe tekrar) görsel
+olarak doğrulandı, yatay taşma yok (`scrollWidth` ≤ `innerWidth`),
+konsol hatasız.
+
+**Kalan:** kullanıcının nihai onayı + commit kararı.
+
+---
+
+## Proje Durumu (son güncelleme: 2026-08-19, 8. tur — Ana sayfa hero'su köklü revize edildi: tek-alanlı (yalnızca e-posta) form + yeni marka sloganı, 4 dilin hepsinde, kullanıcı onayıyla commit edildi: 3b0fc1f)
 
 **🟢 Kullanıcının 2 referans görüntüsüne dayanan BİLİNÇLİ tasarım kararı
 — eski çok-alanlı (İsim/Telefon/Firma/E-posta) hero formu TAMAMEN
@@ -118,10 +309,8 @@ sayfanın e-posta alanının bu değerle OTOMATİK dolduğu (diğer alanlar boş
 kaldı) sayısal/görsel olarak teyit edildi. Konsol hatasız (hydration
 hatası yok).
 
-**Kalan:** kullanıcının nihai onayı + commit kararı. Bu turda commit
-YAPILMADI — `CLAUDE.md`/`src/components/HeroForm.tsx`/`HeroSection.astro`/
-`PresentationRequestPage.astro`/`src/i18n/{types,tr,en,nl,it}.ts` (M) +
-`src/components/HeroEmailCaptureForm.astro` (yeni) hâlâ working tree'de.
+**Kalan:** yok — kullanıcı onayıyla commit edilip GitHub'a push edildi
+(3b0fc1f).
 
 ---
 
