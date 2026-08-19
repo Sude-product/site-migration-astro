@@ -38,6 +38,12 @@ import {
   Zap,
   TrendingUp,
   TrendingDown,
+  ChevronLeft,
+  ChevronRight,
+  UserX,
+  AlertTriangle,
+  Circle,
+  CheckCircle2,
 } from 'lucide-react';
 import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
@@ -217,6 +223,27 @@ const APPROVAL_STATS: { label: string; count: number; color: string }[] = [
   { label: 'Reddedildi', count: 0, color: '#9CA3AF' },
 ];
 
+// 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İzin"
+// dashboard ekran görüntüsüyle karşılaştırılıp, o ekranda olup widget'ta
+// HENÜZ olmayan 4 öğe eklendi (Aylık İzin Trendi/Birim Bazlı İzin
+// Kullanımı/İzin Çakışma Uyarısı/En Çok İzin Kullanan Birimler) — eski
+// içerik (Türü Dağılımı/Onay Durumu Özeti) KALDIRILMADI, altına eklendi
+// ("Zaman Yönetimi"nin 12. tur'daki AYNI ilkesi). Birim isimleri gerçek
+// ekran görüntüsündeki müşteri hesabı adları ("idenfit"/"Arge Departmanı"
+// — o an giriş yapılmış GERÇEK bir müşteri hesabına ait) DEĞİL, widget'ın
+// KENDİ kurulu `BRANCHES` setinden (Merkez/Teknopark/Anadolu/Avrupa Şube,
+// `OvertimeSummaryCard`'da zaten kullanılıyor) türetildi — ikinci bir
+// isim seti İCAT EDİLMEDİ.
+const LEAVE_TREND_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+const LEAVE_TREND_DATA = [9, 6, 8, 7, 14, 29];
+
+const LEAVE_BY_BRANCH: { name: string; color: string; days: number; avgPerPerson: string }[] = [
+  { name: 'Merkez Şube', color: BRANCHES[0].color, days: 22, avgPerPerson: '2,1 gün' },
+  { name: 'Teknopark Şube', color: BRANCHES[1].color, days: 15, avgPerPerson: '1,6 gün' },
+  { name: 'Anadolu Şube', color: BRANCHES[2].color, days: 8, avgPerPerson: '1,2 gün' },
+  { name: 'Avrupa Şube', color: BRANCHES[3].color, days: 3, avgPerPerson: '0,8 gün' },
+];
+
 // --- "İnsan Kaynakları" sekmesi — kurgusal veri ---
 
 const HEADCOUNT_MONTHS = ['Eyl', 'Eki', 'Kas', 'Ara', 'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
@@ -228,6 +255,116 @@ const HR_EVENTS: { name: string; initials: string; avatarColor: string; descript
   { name: 'Zeynep Arslan', initials: 'ZA', avatarColor: '#F59E0B', description: '3. İş Yıldönümü — 18 Ağustos', emoji: '🏆' },
 ];
 
+// 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İnsan
+// Kaynakları" dashboard ekran görüntüsüyle karşılaştırılıp, o ekranda
+// olup widget'ta HENÜZ olmayan öğeler eklendi (Çalışan Devir Hızı/Onay
+// Bekleyen İşlemler/Takvim/Deneme Süresi Takibi/Sözleşme Takibi) — eski
+// içerik (Headcount Trendi/Doğum Günü & Yıldönümü) KALDIRILMADI.
+// **Bilinçli sınır:** ekran görüntüsünün en üstündeki, kesik/kırpılmış
+// bir donut grafiği (o an giriş yapılmış GERÇEK bir müşteri hesabına ait
+// "DLA GIDA"/"Delisan güvenlik firması"/"TEST" gibi gerçek firma adları
+// taşıyan bir dağılım) BİLEREK eklenmedi — hem gerçek müşteri verisi
+// içeriyor hem de kartın tam başlığı/türü görüntüde kırpılmış, güvenilir
+// şekilde yeniden üretilemez. Sayılar (37/17/%22.8 gibi) gerçek ekrandan
+// KOPYALANMADI, aynı formatta farklı kurgusal rakamlar üretildi.
+const TURNOVER_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+const TURNOVER_HIRED = [5, 6, 4, 8, 9, 10];
+const TURNOVER_LEFT = [2, 3, 2, 4, 3, 5];
+const TURNOVER_STATS: { label: string; value: string; color: string }[] = [
+  { label: 'İşe Giren', value: '42', color: '#10B981' },
+  { label: 'Ayrılan', value: '19', color: '#EF4444' },
+  { label: 'Devir Oranı', value: '%18.4', color: '#F59E0B' },
+];
+
+const PENDING_APPROVALS: {
+  icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
+  color: string;
+  label: string;
+  count: number;
+}[] = [
+  { icon: Wallet, color: '#10B981', label: 'Avans Talepleri', count: 2 },
+  { icon: Clock, color: '#8B5CF6', label: 'Fazla Mesai Talepleri', count: 1 },
+  { icon: GraduationCap, color: '#3B82F6', label: 'Eğitim Talepleri', count: 3 },
+  { icon: FileText, color: '#F59E0B', label: 'Evrak Talepleri', count: 0 },
+  { icon: UserX, color: '#EF4444', label: 'Eksik Kayıt Talepleri', count: 1 },
+];
+
+// Takvim — gerçek Ağustos 2026 takvimi (hafta PZT'den başlıyor, WP/idenfit
+// kaynağıyla AYNI yerleşim: 27 Tem – 6 Eyl arası 42 hücre/6 satır). Gün
+// isimleri/sıralaması UYDURMA değil, gerçek takvim matematiği — yalnızca
+// hangi günlerin "etkinlik" taşıdığı kurgusal. `isToday` gerçek oturumun
+// "bugün"üne (19 Ağustos 2026) denk getirildi, ekran görüntüsündeki 18'e
+// DEĞİL (o, ekran görüntüsünün alındığı ANA özgü).
+type CalendarEventType = 'birthday' | 'anniversary' | 'leave';
+const EVENT_DOT_COLORS: Record<CalendarEventType, string> = {
+  birthday: '#EC4899',
+  anniversary: '#10B981',
+  leave: '#EF4444',
+};
+const CALENDAR_WEEKDAYS = ['PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT', 'PAZ'];
+const CALENDAR_CELLS: { day: number; muted?: boolean; isToday?: boolean; events?: CalendarEventType[] }[] = [
+  { day: 27, muted: true },
+  { day: 28, muted: true },
+  { day: 29, muted: true },
+  { day: 30, muted: true },
+  { day: 31, muted: true },
+  { day: 1 },
+  { day: 2 },
+  { day: 3 },
+  { day: 4 },
+  { day: 5 },
+  { day: 6 },
+  { day: 7 },
+  { day: 8 },
+  { day: 9 },
+  { day: 10 },
+  { day: 11 },
+  { day: 12 },
+  { day: 13 },
+  { day: 14 },
+  { day: 15, events: ['anniversary'] },
+  { day: 16 },
+  { day: 17 },
+  { day: 18, events: ['anniversary'] },
+  { day: 19, isToday: true, events: ['birthday'] },
+  { day: 20 },
+  { day: 21 },
+  { day: 22 },
+  { day: 23 },
+  { day: 24 },
+  { day: 25 },
+  { day: 26, events: ['leave'] },
+  { day: 27 },
+  { day: 28 },
+  { day: 29 },
+  { day: 30 },
+  { day: 31 },
+  { day: 1, muted: true },
+  { day: 2, muted: true },
+  { day: 3, muted: true },
+  { day: 4, muted: true },
+  { day: 5, muted: true },
+  { day: 6, muted: true },
+];
+
+interface TrackingBoxData {
+  color: string;
+  bgLight: string;
+  count: number;
+  primaryLabel: string;
+  secondaryLabel: string;
+}
+const PROBATION_TRACKING: TrackingBoxData[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 2, primaryLabel: '2 Ay', secondaryLabel: '30 gün' },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 3, primaryLabel: '6 Ay', secondaryLabel: '180 gün' },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 1, primaryLabel: '1 Yıl', secondaryLabel: '365 gün' },
+];
+const CONTRACT_TRACKING: TrackingBoxData[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 1, primaryLabel: '30 gün', secondaryLabel: '' },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 2, primaryLabel: '60 gün', secondaryLabel: '' },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryLabel: '90 gün', secondaryLabel: '' },
+];
+
 // --- "Performans Yönetimi" sekmesi — kurgusal veri (2026-08-13, gerçek
 // app.idenfit.com 360° Değerlendirme liste görünümü referans alınarak). ---
 
@@ -236,6 +373,46 @@ const PERFORMANCE_EVALUATIONS: { name: string; initials: string; avatarColor: st
   { name: 'Q3 Ekip Liderleri Değerlendirmesi', initials: 'EL', avatarColor: '#10B981', period: '01 Eyl 2026 – 30 Eyl 2026' },
   { name: 'Yeni Yönetici Adayları Değerlendirmesi', initials: 'YA', avatarColor: '#F59E0B', period: '15 Ağu 2026 – 15 Eyl 2026' },
   { name: 'Saha Ekibi Performans Taraması', initials: 'SE', avatarColor: '#8B5CF6', period: '01 Ağu 2026 – 31 Ağu 2026' },
+];
+
+// 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com
+// "Performans Yönetimi > Proje Yönetimi > Görevlerim" ekran görüntüsünden
+// eklendi. Gerçek ekranda 5 durumun (Gecikmiş/Bugün/Yaklaşan/
+// Planlanmamış/Tamamlananlar) HEPSİ "0" idi (o an gerçekten boş bir hesap)
+// — widget'ın kurgusal/canlı-önizleme amacına uygun olması için farklı,
+// dolu kurgusal sayılar üretildi (gerçek ekrandan KOPYALANMADI). Gradyan
+// renkler widget'ın KENDİ kurulu paletinden (#EF4444/#F59E0B/#10B981/
+// #3B82F6/#8B5CF6, `HR_EVENTS`'te zaten kullanılan #EC4899 dahil) —
+// `#FBBF24`/`#34D399` bu paletteki amber/yeşilin yalnızca daha AÇIK
+// tonları (Tailwind'in aynı renk ailesindeki bir kademe komşusu), yeni
+// bir renk İCAT EDİLMEDİ.
+interface TaskStatData {
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  label: string;
+  value: number;
+  percent: number;
+  gradientFrom: string;
+  gradientTo: string;
+}
+const TASK_STATS: TaskStatData[] = [
+  { icon: AlertTriangle, label: 'GECİKMİŞ', value: 3, percent: 7, gradientFrom: '#EF4444', gradientTo: '#EC4899' },
+  { icon: Clock, label: 'BUGÜN', value: 5, percent: 12, gradientFrom: '#F59E0B', gradientTo: '#FBBF24' },
+  { icon: CalendarClock, label: 'YAKLAŞAN', value: 8, percent: 19, gradientFrom: '#10B981', gradientTo: '#34D399' },
+  { icon: Circle, label: 'PLANLANMAMIŞ', value: 2, percent: 5, gradientFrom: '#3B82F6', gradientTo: '#8B5CF6' },
+  { icon: CheckCircle2, label: 'TAMAMLANANLAR', value: 24, percent: 57, gradientFrom: '#3B82F6', gradientTo: '#10B981' },
+];
+
+interface MyTaskItem {
+  name: string;
+  project: string;
+  priority: string;
+  priorityColor: string;
+  dueDate: string;
+}
+const MY_TASKS: MyTaskItem[] = [
+  { name: 'Q3 360° değerlendirme formunu tamamla', project: 'Performans Değerlendirme', priority: 'Yüksek', priorityColor: '#EF4444', dueDate: '22 Ağu' },
+  { name: 'Ekip hedef check-in toplantısı hazırlığı', project: 'Hedef Check-in', priority: 'Orta', priorityColor: '#F59E0B', dueDate: '25 Ağu' },
+  { name: 'Yeni başlayanlar için OKR taslağı hazırla', project: 'OKR', priority: 'Düşük', priorityColor: '#10B981', dueDate: '29 Ağu' },
 ];
 
 // --- "Veri Analizi" sekmesi — kurgusal veri (2026-08-13). Tema:
@@ -254,6 +431,49 @@ const DEPARTMENT_ABSENTEEISM: { label: string; value: number }[] = [
 
 const ABSENTEEISM_TREND_MONTHS = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz'];
 const ABSENTEEISM_TREND_DATA = [4.2, 3.8, 5.1, 4.6, 3.9, 3.2];
+
+// 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "Veri
+// Analizi > Zaman" ve "Veri Analizi > Deneyim" alt sayfa ekran
+// görüntülerinden eklendi. Gerçek üründe "Veri Analizi" 6 alt sayfalı
+// AYRI bir bölüm (İzin/Deneyim/Envanter/Operasyon/İnsan Kaynakları/
+// Zaman) — widget'ın TEK sekmeli yapısına sığdırmak için 2 sayfanın öne
+// çıkan modülleri SEÇİLİP yoğunlaştırıldı (kullanıcı "diğer sayfaların
+// boyutlarına uyacak şekilde" dedi): "Zaman" alt sayfasındaki 4 AYRI
+// tam-boy grafik (Gelenler/Geç Gelenler/Erken Çıkanlar/Devamsızlık),
+// `TIME_MINI_STATS`'ın AYNI kompakt deseniyle TEK bir mini-istatistik
+// satırına birleştirildi — 4 ayrı kart eklemek bu sekmeyi diğerlerinden
+// çok daha uzun yapardı. Sayılar gerçek ekrandan KOPYALANMADI (o ekranda
+// "50" gibi bir aykırı değer vardı — muhtemelen toplu bir işlemden,
+// temsili değil), aynı formatta farklı kurgusal rakamlar üretildi.
+const ACTIVE_EMPLOYEE_TREND_WEEKS = ['06 Tem', '13 Tem', '20 Tem', '27 Tem', '03 Ağu', '10 Ağu', '17 Ağu'];
+const ACTIVE_EMPLOYEE_TREND_DATA = [64, 69, 67, 71, 73, 70, 76];
+
+const DAILY_MOVEMENTS: { color: string; value: string; label: string; sparkline: number[] }[] = [
+  { color: '#10B981', value: '6', label: 'Gelenler', sparkline: [3, 5, 4, 6, 5, 7, 6] },
+  { color: '#F59E0B', value: '2', label: 'Geç Gelenler', sparkline: [1, 3, 2, 4, 2, 3, 2] },
+  { color: '#8B5CF6', value: '1', label: 'Erken Çıkanlar', sparkline: [2, 1, 3, 1, 2, 1, 1] },
+  { color: '#EF4444', value: '3', label: 'Devamsızlık', sparkline: [5, 3, 4, 2, 6, 3, 3] },
+];
+
+// 2026-08-19 (2. tur, aynı gün) — kullanıcı "Veri Analizi diğer
+// modüllerden az duruyor, 1-2 grafik daha ekle" dedi: gerçek "Veri
+// Analizi > Zaman" ekran görüntüsündeki 4 tam-boy grafikten 2'si
+// (Gelenler/Geç Gelenler) `SimpleBarChart` ile tam detay kartı olarak da
+// eklendi — `DailyMovements`'ın AYNI kurgusal haftalık rakamları
+// (`sparkline` dizileri) yeniden kullanıldı, İKİNCİ bir veri seti
+// İCAT EDİLMEDİ (mini-özet ve tam grafik aynı haftayı gösteriyor,
+// tutarlı). Gün etiketleri gerçek takvim tarihleri (12-18 Ağustos 2026,
+// `HRCalendarCard`'ın "bugün"üyle [19 Ağustos] AYNI haftanın hemen
+// öncesi).
+const WEEK_DAY_LABELS_AUG = ['12 Ağu', '13 Ağu', '14 Ağu', '15 Ağu', '16 Ağu', '17 Ağu', '18 Ağu'];
+const NEW_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
+  label,
+  value: DAILY_MOVEMENTS[0].sparkline[i],
+}));
+const LATE_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
+  label,
+  value: DAILY_MOVEMENTS[1].sparkline[i],
+}));
 
 // --- Üst uygulama header'ının "Kısayollar" açılır paneli — kurgusal
 // veri (2026-08-13, PİLOT turu). 6 kısayol, kullanıcının referans
@@ -438,6 +658,62 @@ function LineChart({
   );
 }
 
+// İki serili çizgi grafiği ("Çalışan Devir Hızı"nın işe giren/ayrılan
+// karşılaştırması için, 2026-08-19) — `LineChart`'ın AYNI nokta/yol
+// hesaplama tekniğinin 2 seriye genelleştirilmiş hâli, eksen etiketleri
+// olmadan (iki serinin farklı ölçeklerini TEK bir sağ-eksende göstermek
+// yanıltıcı olurdu — `TrendKpiCard`'ın sparkline'ları gibi eksensiz/sade
+// tutuldu, gerçek sayılar zaten üstteki 3 istatistik kutusunda var).
+function DualLineChart({
+  dataA,
+  dataB,
+  labels,
+  colorA,
+  colorB,
+  dotFill = '#ffffff',
+}: {
+  dataA: number[];
+  dataB: number[];
+  labels: string[];
+  colorA: string;
+  colorB: string;
+  dotFill?: string;
+}) {
+  const { isDark } = useTheme();
+  const width = 600;
+  const height = 140;
+  const all = [...dataA, ...dataB];
+  const max = Math.max(...all);
+  const min = Math.min(...all, 0);
+  const range = max - min || 1;
+  const stepX = width / (dataA.length - 1);
+  const toPoints = (data: number[]) => data.map((v, i) => [i * stepX, height - ((v - min) / range) * height] as const);
+  const pointsA = toPoints(dataA);
+  const pointsB = toPoints(dataB);
+  const pathOf = (pts: readonly (readonly [number, number])[]) =>
+    pts.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+
+  return (
+    <div>
+      <svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" className="h-20 w-full overflow-visible" aria-hidden="true">
+        <path d={pathOf(pointsA)} fill="none" stroke={colorA} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d={pathOf(pointsB)} fill="none" stroke={colorB} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        {pointsA.map(([x, y], i) => (
+          <circle key={`a${i}`} cx={x} cy={y} r="3" fill={dotFill} stroke={colorA} strokeWidth="2" />
+        ))}
+        {pointsB.map(([x, y], i) => (
+          <circle key={`b${i}`} cx={x} cy={y} r="3" fill={dotFill} stroke={colorB} strokeWidth="2" />
+        ))}
+      </svg>
+      <div className={`mt-2 flex justify-between text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+        {labels.map((l) => (
+          <span key={l}>{l}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Tek seri, dolgu renkli sütun grafiği (Veri Analizi'nin departman kırılımı
 // için, 2026-08-13) — `OvertimeSummaryCard`'ın çok-şubeli/stacked
 // tekniğinin tek-serili sadeleştirilmiş hâli, aynı eksen/ölçekleme mantığı
@@ -595,7 +871,20 @@ function SectionMiniHeader({
   );
 }
 
-function WidgetCard({ title, subtitle, children }: { title: string; subtitle: string; children: ReactNode }) {
+function WidgetCard({
+  title,
+  subtitle,
+  headerRight,
+  children,
+}: {
+  title: string;
+  subtitle: string;
+  /** Başlığın sağında dekoratif bir öğe (ör. "Şube" filtre rozeti) —
+   * verilmezse hiçbir şey render edilmez, mevcut kartların tamamı BUNU
+   * kullanmadan çalışmaya devam ediyor. */
+  headerRight?: ReactNode;
+  children: ReactNode;
+}) {
   const { isDark } = useTheme();
   return (
     <div
@@ -603,8 +892,13 @@ function WidgetCard({ title, subtitle, children }: { title: string; subtitle: st
         isDark ? 'border-gray-700 bg-gray-800 hover:border-gray-600' : 'border-gray-200 bg-white hover:border-brand/25'
       }`}
     >
-      <h4 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h4>
-      <p className={`mt-1 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{subtitle}</p>
+      <div className="flex items-start justify-between gap-3">
+        <div>
+          <h4 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h4>
+          <p className={`mt-1 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{subtitle}</p>
+        </div>
+        {headerRight}
+      </div>
       <div className="mt-4">{children}</div>
     </div>
   );
@@ -984,6 +1278,111 @@ function ApprovalStatusCard() {
   );
 }
 
+// "Aylık İzin Trendi" — 6 aylık, mevcut paylaşılan `LineChart`
+// component'i (Headcount Trendi'yle AYNI teknik) yeşil renkle yeniden
+// kullanıldı, ikinci bir grafik motoru eklenmedi.
+function LeaveTrendCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard title="Aylık İzin Trendi" subtitle="Son 6 ay — kullanılan izin günü">
+      <LineChart data={LEAVE_TREND_DATA} labels={LEAVE_TREND_MONTHS} color="#10B981" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+    </WidgetCard>
+  );
+}
+
+// "Birim Bazlı İzin Kullanımı" — `ShiftAttendanceCard`'ın AYNI satır
+// deseni (etiket + oran çubuğu + değer), tek fark her şubenin KENDİ
+// `BRANCHES` rengini taşıması.
+function BranchLeaveUsageCard() {
+  const { isDark } = useTheme();
+  const maxDays = Math.max(...LEAVE_BY_BRANCH.map((b) => b.days));
+  return (
+    <WidgetCard title="Birim Bazlı İzin Kullanımı" subtitle="Bu ay — birim başına izin oranı">
+      <div className="space-y-4">
+        {LEAVE_BY_BRANCH.map((b) => (
+          <div
+            key={b.name}
+            className={`-m-2 flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
+          >
+            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>{b.name}</span>
+            <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
+              <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
+            </div>
+            <span className={`w-14 shrink-0 text-right text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+          </div>
+        ))}
+      </div>
+    </WidgetCard>
+  );
+}
+
+// "İzin Çakışma Uyarısı" — gerçek ekran görüntüsündeki BOŞ durumun
+// AYNISI ("İzin çakışması verisi yok") — bu bir uydurma veri DEĞİL,
+// referans üründe de o an gerçekten çakışan izin yoktu, boş-durum metni
+// birebir. Sağ üstteki "Şube" rozeti `AverageHoursCard`'ın "Tüm
+// Şubeler" rozetiyle AYNI ilke — `aria-hidden`, gerçek bir dropdown
+// AÇMIYOR, yalnızca görsel.
+function LeaveConflictCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard
+      title="İzin Çakışma Uyarısı"
+      subtitle="Aynı gün izinli olanlar"
+      headerRight={
+        <span
+          className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
+            isDark ? 'border-gray-700 text-gray-300' : 'border-gray-200 text-body'
+          }`}
+          aria-hidden="true"
+        >
+          Şube
+          <ChevronDown className="h-3 w-3" aria-hidden="true" />
+        </span>
+      }
+    >
+      <p className={`py-10 text-center text-sm ${isDark ? 'text-gray-500' : 'text-muted'}`}>İzin çakışması verisi yok</p>
+    </WidgetCard>
+  );
+}
+
+// "En Çok İzin Kullanan Birimler" — `LEAVE_BY_BRANCH`'in AYNI verisinin
+// azalan sırada, numaralı-rozet + oran çubuğu ile İKİNCİ bir
+// görselleştirmesi (gerçek referansta da `Birim Bazlı İzin Kullanımı`
+// ile AYNI 2 birim tekrar ediliyordu — iki farklı görsel biçim,
+// içerik tekrarı kasıtlı).
+function TopLeaveUnitsCard() {
+  const { isDark } = useTheme();
+  const sorted = [...LEAVE_BY_BRANCH].sort((a, b) => b.days - a.days);
+  const maxDays = sorted[0]?.days ?? 1;
+  return (
+    <WidgetCard title="En Çok İzin Kullanan Birimler" subtitle="Top 5 birim — bu ay">
+      <div className="space-y-3.5">
+        {sorted.map((b, i) => (
+          <div key={b.name} className="flex items-center gap-3">
+            <span
+              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
+              style={{ backgroundColor: b.color }}
+              aria-hidden="true"
+            >
+              {i + 1}
+            </span>
+            <div className="min-w-0 flex-1">
+              <div className="flex items-baseline justify-between gap-2">
+                <span className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-heading'}`}>{b.name}</span>
+                <span className={`shrink-0 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+              </div>
+              <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>Kişi başı ort: {b.avgPerPerson}</p>
+              <div className={`mt-1.5 h-2 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
+                <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </WidgetCard>
+  );
+}
+
 function LeaveManagementTab() {
   return (
     <div>
@@ -997,15 +1396,230 @@ function LeaveManagementTab() {
         <LeaveTypeDistributionCard />
         <ApprovalStatusCard />
       </div>
+      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+        <LeaveTrendCard />
+        <BranchLeaveUsageCard />
+      </div>
+      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+        <LeaveConflictCard />
+        <TopLeaveUnitsCard />
+      </div>
     </div>
   );
 }
 
+// "Toplam" rozeti — `AverageHoursCard`/`LeaveConflictCard`'ın AYNI dekoratif
+// filtre ilkesi (`aria-hidden`, gerçek bir dropdown AÇMIYOR), 2026-08-19.
 function HeadcountTrendCard() {
   const { isDark } = useTheme();
   return (
-    <WidgetCard title="Headcount Trendi" subtitle="12 aylık çalışan sayısı">
+    <WidgetCard
+      title="Headcount Trendi"
+      subtitle="12 aylık çalışan sayısı"
+      headerRight={
+        <span
+          className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
+            isDark ? 'border-gray-700 text-gray-300' : 'border-gray-200 text-body'
+          }`}
+          aria-hidden="true"
+        >
+          Toplam
+          <ChevronDown className="h-3 w-3" aria-hidden="true" />
+        </span>
+      }
+    >
       <LineChart data={HEADCOUNT_DATA} labels={HEADCOUNT_MONTHS} color="#3B82F6" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+    </WidgetCard>
+  );
+}
+
+// "Çalışan Devir Hızı" — 3 istatistik kutusu + `DualLineChart`, 2026-08-19.
+function TurnoverRateCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard title="Çalışan Devir Hızı" subtitle="Son 6 ay — işe alım vs ayrılma">
+      <div className="grid grid-cols-3 gap-2">
+        {TURNOVER_STATS.map((s) => (
+          <div
+            key={s.label}
+            className={`rounded-lg border p-2 text-center transition-colors ${isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'}`}
+          >
+            <p className="text-lg font-bold" style={{ color: s.color }}>
+              {s.value}
+            </p>
+            <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{s.label}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-2">
+        <DualLineChart
+          dataA={TURNOVER_HIRED}
+          dataB={TURNOVER_LEFT}
+          labels={TURNOVER_MONTHS}
+          colorA="#10B981"
+          colorB="#EF4444"
+          dotFill={isDark ? '#1F2937' : '#ffffff'}
+        />
+      </div>
+      <div className={`mt-2 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-2 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+        <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+          <span className="h-2 w-2 rounded-full bg-[#10B981]" aria-hidden="true" />
+          İşe Giren
+        </span>
+        <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+          <span className="h-2 w-2 rounded-full bg-[#EF4444]" aria-hidden="true" />
+          Ayrılan
+        </span>
+      </div>
+    </WidgetCard>
+  );
+}
+
+// "Onay Bekleyen İşlemler" — ikon+etiket+sayı satırları + alt toplam,
+// 2026-08-19.
+function PendingApprovalsCard() {
+  const { isDark } = useTheme();
+  const total = PENDING_APPROVALS.reduce((sum, p) => sum + p.count, 0);
+  return (
+    <WidgetCard title="Onay Bekleyen İşlemler" subtitle="Bekleyen onay talepleri">
+      <div className="space-y-0.5">
+        {PENDING_APPROVALS.map((p) => (
+          <div
+            key={p.label}
+            className={`flex items-center gap-2.5 rounded-lg p-1 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
+          >
+            <span
+              className="flex h-6 w-6 shrink-0 items-center justify-center rounded-lg"
+              style={{ backgroundColor: `${p.color}1A` }}
+              aria-hidden="true"
+            >
+              <p.icon className="h-3.5 w-3.5" style={{ color: p.color }} strokeWidth={2.5} />
+            </span>
+            <span className={`flex-1 text-sm ${isDark ? 'text-gray-200' : 'text-body'}`}>{p.label}</span>
+            <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{p.count}</span>
+          </div>
+        ))}
+      </div>
+      <div className={`mt-1.5 flex items-center justify-between border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Toplam Bekleyen</span>
+        <span className="text-sm font-bold text-brand">{total}</span>
+      </div>
+    </WidgetCard>
+  );
+}
+
+// "Takvim" — gerçek Ağustos 2026 ay görünümü, 2026-08-19. Nav okları
+// `AverageHoursCard`'ın "Tüm Şubeler" rozetiyle AYNI ilke — dekoratif,
+// `aria-hidden`, gerçekten ay DEĞİŞTİRMİYOR.
+function HRCalendarCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard
+      title="Takvim"
+      subtitle="Doğum günleri, yıldönümleri ve izinler"
+      headerRight={
+        <div className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded-md border ${isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 text-body'}`}
+          >
+            <ChevronLeft className="h-3 w-3" />
+          </span>
+          <span className={`text-xs font-medium whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Ağustos 2026</span>
+          <span
+            className={`flex h-6 w-6 items-center justify-center rounded-md border ${isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 text-body'}`}
+          >
+            <ChevronRight className="h-3 w-3" />
+          </span>
+        </div>
+      }
+    >
+      <div className="grid grid-cols-7 gap-0.5 text-center">
+        {CALENDAR_WEEKDAYS.map((w) => (
+          <span key={w} className={`pb-0.5 text-[9px] font-semibold ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+            {w}
+          </span>
+        ))}
+        {CALENDAR_CELLS.map((c, i) => (
+          <div
+            key={i}
+            className={`flex h-6 flex-col items-center justify-start gap-0.5 rounded-md text-[11px] leading-none ${
+              c.isToday
+                ? `border border-brand font-bold ${isDark ? 'text-white' : 'text-heading'}`
+                : c.muted
+                  ? isDark
+                    ? 'text-gray-600'
+                    : 'text-gray-300'
+                  : isDark
+                    ? 'text-gray-200'
+                    : 'text-body'
+            }`}
+          >
+            <span className="mt-0.5">{c.day}</span>
+            {c.events && (
+              <span className="flex gap-0.5" aria-hidden="true">
+                {c.events.map((e, j) => (
+                  <span key={j} className="h-1 w-1 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS[e] }} />
+                ))}
+              </span>
+            )}
+          </div>
+        ))}
+      </div>
+      <div className={`mt-1.5 flex flex-wrap gap-x-4 gap-y-1 border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+        <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.birthday }} aria-hidden="true" />
+          Doğum Günleri
+        </span>
+        <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.anniversary }} aria-hidden="true" />
+          Yıldönümleri
+        </span>
+        <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+          <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.leave }} aria-hidden="true" />
+          İzinler
+        </span>
+      </div>
+    </WidgetCard>
+  );
+}
+
+// "Deneme Süresi Takibi" / "Sözleşme Takibi" — dolgu renkli 3'lü kutu
+// satırı, 2026-08-19. İkisi de AYNI `TrackingBoxRow` deseniyle render
+// ediliyor (yalnızca veri/alt-etiket farklı).
+function TrackingBoxRow({ items }: { items: TrackingBoxData[] }) {
+  const { isDark } = useTheme();
+  return (
+    <div className="grid grid-cols-3 gap-2.5">
+      {items.map((item, i) => (
+        <div
+          key={i}
+          className={`rounded-xl p-2 text-center ${isDark ? 'border border-gray-700 bg-gray-900' : ''}`}
+          style={!isDark ? { backgroundColor: item.bgLight } : undefined}
+        >
+          <span className="mx-auto mb-0.5 block h-2 w-2 rounded-full" style={{ backgroundColor: item.color }} aria-hidden="true" />
+          <p className="text-lg font-bold" style={{ color: item.color }}>
+            {item.count}
+          </p>
+          <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-300' : 'text-body'}`}>{item.primaryLabel}</p>
+          {item.secondaryLabel && <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>{item.secondaryLabel}</p>}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ProbationTrackingCard() {
+  return (
+    <WidgetCard title="Deneme Süresi Takibi" subtitle="Deneme süresindeki çalışanlar">
+      <TrackingBoxRow items={PROBATION_TRACKING} />
+    </WidgetCard>
+  );
+}
+
+function ContractTrackingCard() {
+  return (
+    <WidgetCard title="Sözleşme Takibi" subtitle="Yenilenmesi gereken sözleşmeler">
+      <TrackingBoxRow items={CONTRACT_TRACKING} />
     </WidgetCard>
   );
 }
@@ -1014,16 +1628,16 @@ function BirthdayAnniversaryCard() {
   const { isDark } = useTheme();
   return (
     <WidgetCard title="Doğum Günü & Yıldönümü" subtitle="Bu hafta">
-      <div className="space-y-2.5">
+      <div className="space-y-1.5">
         {HR_EVENTS.map((event) => (
           <div
             key={event.name}
-            className={`flex items-center gap-3 rounded-lg border p-3 transition-colors ${
+            className={`flex items-center gap-2.5 rounded-lg border p-2 transition-colors ${
               isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'
             }`}
           >
             <span
-              className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
               style={{ backgroundColor: event.avatarColor }}
               aria-hidden="true"
             >
@@ -1033,7 +1647,7 @@ function BirthdayAnniversaryCard() {
               <p className={`truncate text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{event.name}</p>
               <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{event.description}</p>
             </div>
-            <span className="text-xl" aria-hidden="true">
+            <span className="text-lg" aria-hidden="true">
               {event.emoji}
             </span>
           </div>
@@ -1047,9 +1661,20 @@ function HumanResourcesTab() {
   return (
     <div>
       <SectionMiniHeader icon={Users} title="İnsan Kaynakları" href="/insan-kaynaklari-yonetimi-modulu/" />
-      <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+      <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
         <HeadcountTrendCard />
         <BirthdayAnniversaryCard />
+      </div>
+      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <TurnoverRateCard />
+        <PendingApprovalsCard />
+      </div>
+      <div className="mt-2">
+        <HRCalendarCard />
+      </div>
+      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <ProbationTrackingCard />
+        <ContractTrackingCard />
       </div>
     </div>
   );
@@ -1108,17 +1733,87 @@ function EvaluationRow({ evaluation }: { evaluation: (typeof PERFORMANCE_EVALUAT
   );
 }
 
+// "Görevlerim" 5'li durum rozeti — gradyanlı kart, gerçek referanstaki
+// aynı tasarım dili (ikon+etiket üstte, büyük sayı, alt yüzde çubuğu).
+function TaskStatCard({ icon: Icon, label, value, percent, gradientFrom, gradientTo }: TaskStatData) {
+  return (
+    <div
+      className="relative overflow-hidden rounded-xl p-3 pr-11 text-white shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}
+    >
+      <span className="absolute top-3 right-3 shrink-0 rounded-full bg-white/20 px-1.5 py-0.5 text-[10px] font-semibold">%{percent}</span>
+      <span className="flex items-start gap-1.5 text-[10px] leading-tight font-bold tracking-wide">
+        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
+        <span>{label}</span>
+      </span>
+      <p className="mt-1.5 text-xl font-bold">{value}</p>
+      <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/25">
+        <div className="h-full rounded-full bg-white/80" style={{ width: `${percent}%` }} />
+      </div>
+    </div>
+  );
+}
+
+function TaskStatsRow() {
+  return (
+    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5 lg:gap-3">
+      {TASK_STATS.map((s) => (
+        <TaskStatCard key={s.label} {...s} />
+      ))}
+    </div>
+  );
+}
+
+// "Görevlerim" listesi — gerçek referanstaki görev tablosunun kompakt bir
+// özeti (5 sütunlu tam tablo yerine, `PendingApprovalsCard`'ın AYNI
+// satır deseni — öncelik rengi + görev adı/proje + öncelik rozeti +
+// bitiş tarihi).
+function MyTasksCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard title="Görevlerim" subtitle="Tüm görevlerinizi tek bir yerden takip edin">
+      <div className="space-y-1">
+        {MY_TASKS.map((task) => (
+          <div
+            key={task.name}
+            className={`flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
+          >
+            <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: task.priorityColor }} aria-hidden="true" />
+            <div className="min-w-0 flex-1">
+              <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-heading'}`}>{task.name}</p>
+              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{task.project}</p>
+            </div>
+            <span
+              className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium"
+              style={{ backgroundColor: `${task.priorityColor}1A`, color: task.priorityColor }}
+            >
+              {task.priority}
+            </span>
+            <span className={`shrink-0 text-xs whitespace-nowrap ${isDark ? 'text-gray-400' : 'text-muted'}`}>{task.dueDate}</span>
+          </div>
+        ))}
+      </div>
+    </WidgetCard>
+  );
+}
+
 function PerformanceManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={Target} title="Performans Yönetimi" href="/calisan-performans-degerlendirme-sistemi-modulu/" />
-      <WidgetCard title="360° Değerlendirmeler" subtitle="Devam eden ve planlanan değerlendirme süreçleri">
-        <div className="space-y-4">
-          {PERFORMANCE_EVALUATIONS.map((evaluation) => (
-            <EvaluationRow key={evaluation.name} evaluation={evaluation} />
-          ))}
-        </div>
-      </WidgetCard>
+      <TaskStatsRow />
+      <div className="mt-3">
+        <MyTasksCard />
+      </div>
+      <div className="mt-3">
+        <WidgetCard title="360° Değerlendirmeler" subtitle="Devam eden ve planlanan değerlendirme süreçleri">
+          <div className="space-y-4">
+            {PERFORMANCE_EVALUATIONS.map((evaluation) => (
+              <EvaluationRow key={evaluation.name} evaluation={evaluation} />
+            ))}
+          </div>
+        </WidgetCard>
+      </div>
     </div>
   );
 }
@@ -1187,15 +1882,87 @@ function AbsenteeismTrendCard() {
   );
 }
 
+// "Aktif Çalışan Sayısı Trendi" — gerçek "Veri Analizi > Deneyim" alt
+// sayfasının başlık grafiği (2026-08-19). "Haftalık/Aylık" segmentli
+// rozeti `AverageHoursCard`/`HRCalendarCard`'ın AYNI dekoratif filtre
+// ilkesi (`aria-hidden`, gerçekten veri DEĞİŞTİRMİYOR).
+function ActiveEmployeeTrendCard() {
+  const { isDark } = useTheme();
+  return (
+    <WidgetCard
+      title="Aktif Çalışan Sayısı Trendi"
+      subtitle="Son 7 hafta"
+      headerRight={
+        <div
+          className={`flex shrink-0 items-center gap-1 rounded-full border p-0.5 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+          aria-hidden="true"
+        >
+          <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">Haftalık</span>
+          <span className={`px-2.5 py-1 text-xs font-medium ${isDark ? 'text-gray-400' : 'text-muted'}`}>Aylık</span>
+        </div>
+      }
+    >
+      <LineChart
+        data={ACTIVE_EMPLOYEE_TREND_DATA}
+        labels={ACTIVE_EMPLOYEE_TREND_WEEKS}
+        color="#FF0000"
+        dotFill={isDark ? '#1F2937' : '#ffffff'}
+      />
+    </WidgetCard>
+  );
+}
+
+// "Günlük Personel Hareketleri" — gerçek "Veri Analizi > Zaman" alt
+// sayfasındaki 4 grafiğin (Gelenler/Geç Gelenler/Erken Çıkanlar/
+// Devamsızlık) kompakt özeti, `TIME_MINI_STATS`'ın AYNI mini-kart
+// deseniyle (`MiniTrendStatCard` yeniden kullanıldı, ikinci bir
+// component YAZILMADI).
+function DailyMovementsRow() {
+  return (
+    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+      {DAILY_MOVEMENTS.map((stat) => (
+        <MiniTrendStatCard key={stat.label} {...stat} />
+      ))}
+    </div>
+  );
+}
+
+// "Çalışan Gelenler Sayısı" / "Çalışan Geç Gelenler Sayısı" — gerçek
+// "Veri Analizi > Zaman" alt sayfasındaki 4 tam-boy grafikten 2'sinin
+// tam detay hâli (`DailyMovementsRow`'un mini-özetini TAMAMLIYOR, aynı
+// haftanın verisi — içerik tekrarı değil, iki farklı görselleştirme
+// derinliği).
+function NewArrivalsCard() {
+  return (
+    <WidgetCard title="Çalışan Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
+      <SimpleBarChart data={NEW_ARRIVALS_WEEK} />
+    </WidgetCard>
+  );
+}
+
+function LateArrivalsCard() {
+  return (
+    <WidgetCard title="Çalışan Geç Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
+      <SimpleBarChart data={LATE_ARRIVALS_WEEK} />
+    </WidgetCard>
+  );
+}
+
 function DataAnalysisTab() {
   return (
     <div>
       <SectionMiniHeader icon={BarChart3} title="Veri Analizi" href="/hesaplama-araclari/" />
-      <div className="space-y-4">
+      <div className="space-y-3">
         <DateRangeCard />
-        <div className="grid gap-4 lg:grid-cols-2 lg:gap-6">
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
           <DepartmentAbsenteeismCard />
           <AbsenteeismTrendCard />
+        </div>
+        <ActiveEmployeeTrendCard />
+        <DailyMovementsRow />
+        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+          <NewArrivalsCard />
+          <LateArrivalsCard />
         </div>
         <div className="flex justify-end">
           <RecalculateButton />
@@ -1798,8 +2565,58 @@ export default function ProductPreviewWidget() {
               ~1131px'ten ~1021px'e indirildi (Chrome'da ölçüldü) — `min-h`
               buna göre 1150px'ten 1040px'e düşürüldü. Kısa sekmeler altta
               biraz boş alan bırakıyor — bilinçli bir ödün, "sabit boyut"
-              isteğiyle tutarlı. */}
-          <div key={activeTab} role="tabpanel" className="ppw-tab-enter min-h-[1040px]">
+              isteğiyle tutarlı. 2026-08-19 (2. tur, aynı gün) — "İzin"
+              sekmesine gerçek app.idenfit.com İzin dashboard'una göre 4
+              yeni kart eklenince (Aylık İzin Trendi/Birim Bazlı İzin
+              Kullanımı/İzin Çakışma Uyarısı/En Çok İzin Kullanan
+              Birimler, bkz. `LeaveManagementTab`) bu sekme YENİ en uzunu
+              oldu (~1047px, Zaman Yönetimi'nin ~1021px'ini az farkla
+              geçti) — `min-h` 1040px'ten 1065px'e yükseltildi. 2026-08-19
+              (3. tur, aynı gün) — "İnsan Kaynakları" sekmesine gerçek
+              app.idenfit.com İK dashboard'una göre 5 yeni kart eklenince
+              (Çalışan Devir Hızı/Onay Bekleyen İşlemler/Takvim/Deneme
+              Süresi Takibi/Sözleşme Takibi, bkz. `HumanResourcesTab`) bu
+              sekme AÇIK ARAYLA en uzunu oldu (~1459px, önceki rekor
+              İzin'in ~1047px'ini çok aştı — Takvim'in 6 satırlık ay
+              görünümü tek başına büyük yer kaplıyor) — `min-h` 1065px'ten
+              1480px'e yükseltildi. AYNI GÜN, 4. tur — kullanıcı "takvimi
+              küçült, sayfayı çok fazla büyütmüş" dedi: `HRCalendarCard`'ın
+              hücre yüksekliği (`h-11`→`h-7`), grid/legend boşlukları
+              (`gap-1`→`gap-0.5`, `mt-3 pt-3`→`mt-2 pt-2`) ve nav ok
+              butonları (`h-7 w-7`→`h-6 w-6`) küçültüldü — takvim kartının
+              kendi yüksekliği tek başına ~332px'e indi (Chrome'da
+              ölçüldü), sekmenin doğal yüksekliği 1459px'ten 1344px'e
+              düştü — `min-h` buna göre 1480px'ten 1365px'e düşürüldü.
+              AYNI GÜN, 5. tur — kullanıcı "diğer sekmelerde de aynı
+              yükseklik kontrolünü yap" dedi: her sekme kart-kart ölçüldü
+              (Zaman 1021/İzin 1047/Performans 822/Veri Analizi 565px) —
+              hiçbirinde takvim gibi TEK BİR aşırı şişmiş kart yoktu, ama
+              paylaşılan `min-h` (1365px) İnsan Kaynakları'na göre
+              belirlendiği için kısa sekmelerde Chrome'da ölçülüp
+              ekran görüntüsüyle doğrulanan ÇOK büyük boş alan oluşuyordu
+              (Performans'ta ~543px, Veri Analizi'nde ~800px). Kullanıcıya
+              soruldu, "İnsan Kaynakları'nı daha da küçült" seçildi — bu
+              kez YALNIZCA İK'ye özgü component'ler (paylaşılan `LineChart`
+              3 sekmede kullanıldığı için DOKUNULMADI): `BirthdayAnniversaryCard`
+              (avatar/satır dolgusu küçültüldü), `TurnoverRateCard`+`DualLineChart`
+              (grafik `h-24`→`h-20`, kutu dolgusu), `PendingApprovalsCard`
+              (ikon `h-7`→`h-6`, satır dolgusu), `TrackingBoxRow` ve
+              `HRCalendarCard`'ın kendisi (hücre `h-7`→`h-6`) bir kademe
+              daha sıkılaştırıldı + sekme içi satır boşlukları (`gap-4`→
+              `gap-3`, `mt-3/mt-4`→`mt-2`) tekilleştirildi — sekmenin
+              doğal yüksekliği 1344px'ten **1149px**'e düştü (toplamda
+              orijinal 1459px'ten -310px), `min-h` 1365px'ten 1165px'e
+              düşürüldü — diğer sekmelerdeki boş alan da orantılı olarak
+              azaldı. AYNI GÜN, 6. tur — "Performans Yönetimi"ne gerçek
+              app.idenfit.com "Görevlerim" ekran görüntüsüne göre 2 yeni
+              modül eklendi ("tüm sayfayı da oranla güzel dursun" —
+              `PerformanceManagementTab`): 5'li gradyanlı durum rozeti
+              (Gecikmiş/Bugün/Yaklaşan/Planlanmamış/Tamamlananlar,
+              `TaskStatsRow`) + kompakt "Görevlerim" listesi
+              (`MyTasksCard`, 3 örnek görev). Bu sekme YENİ en uzunu oldu
+              (~1195px, İnsan Kaynakları'nın ~1149px'ini az farkla geçti)
+              — `min-h` 1165px'ten 1215px'e yükseltildi. */}
+          <div key={activeTab} role="tabpanel" className="ppw-tab-enter min-h-[1215px]">
             {activeTab === 'zaman' && <TimeManagementTab />}
             {activeTab === 'izin' && <LeaveManagementTab />}
             {activeTab === 'ik' && <HumanResourcesTab />}
