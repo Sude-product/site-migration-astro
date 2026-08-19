@@ -60,6 +60,15 @@ uzantısı düzeltildi (ham baytlar WebP ama kaynak dosya `.jpg` adıyla
 paylaşılmıştı). 4 dilde gerçek çeviri `alt` metni (`FooterLabels.trustBadges`).
 Chrome'da görsel doğrulandı, `check-image-alt-text` 0 eksik.
 
+**🟢 Aynı gün (2026-08-19) hero (`HeroSection.astro`) SEKİZİNCİ tur —
+2-kolonlu düzen (sol metin/sağ kırmızı görsel paneli) tamamen kaldırıldı.**
+Kullanıcı isteğiyle: metin/form artık TEK KOLON, ortalanmış; kırmızı
+"dashboard" görsel paneli (görsel + `sideTitle`/`sideSubtitle`) aralarında
+`mt-12 lg:mt-16` boşluk bırakılarak sekmenin ALTINA taşındı, tam genişlik
+bant olarak. Önceki `grid-cols-2`/full-bleed sağ panel mimarisi (7 turun
+konusu olmuştu, arşivde) bilinçli olarak terk edildi. `astro check` 0
+hata, `astro build` 881 sayfa, Chrome'da masaüstü doğrulandı.
+
 **🟢 Aynı gün (2026-08-19) iki büyük ana sayfa değişikliği de commit
 edildi:**
 - **Sabit "Demo Talep Et" alt bar'ı** (`StickyDemoBar.astro`, kaynakta
