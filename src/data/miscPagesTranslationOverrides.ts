@@ -184,11 +184,15 @@ export const WHY_IDENFIT_IT_SECTIONS: ProductBlock[] = [
 // (Read tool) içeriği doğrulandı: idenfit çalışanlarının fotoğraflarından
 // oluşan kırmızı/siyah bir kolaj + "GREAT PEOPLE GREAT COMPANY"/"LATER IS
 // NEVER"/"YOU" marka sloganları.
+// ⚠️ GÜNCELLEME (2026-08-19): kullanıcının sağladığı yerel dosyaya
+// (`public/images/about-team-photo.jpg`, 4096×2235 — aynı kolaj görseli)
+// geçirildi, artık `wp-content/uploads` HOTLINK değil (Açık nokta #14'ün
+// bu tek görsel için kapanması).
 export const ABOUT_TEAM_PHOTO_IMAGE = {
-  url: 'https://idenfit.com/wp-content/uploads/2026/05/Group-1365418971.png',
+  url: '/images/about-team-photo.jpg',
   alt: 'idenfit çalışanlarının fotoğraflarından oluşan kolaj',
   width: 4096,
-  height: 2232,
+  height: 2235,
 };
 
 export const ABOUT_EN_SECTIONS: ProductBlock[] = [
