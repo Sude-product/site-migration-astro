@@ -30,6 +30,15 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-19)
 
+**🟢 Aynı gün (2026-08-19), ayrıca — Hakkımızda sayfasının ekip fotoğrafı
+(`ABOUT_TEAM_PHOTO_IMAGE`) `wp-content/uploads` hotlink'inden yerel
+`public/images/about-team-photo.jpg`'ye taşındı (kullanıcının sağladığı
+aynı kolaj görseli, 4096×2235 — Açık nokta #14'ün genel kapsamı dışında,
+tek seferlik bir istekle kapatıldı). TR/EN/IT'nin üçü de aynı sabiti
+paylaştığı için tek değişiklik yeterliydi. `astro check` 0 hata, `astro
+build` 881 sayfa, `check-image-alt-text` 0 eksik, Chrome'da TR+EN görsel
+doğrulandı (9087db0).**
+
 **🟢 Ana sayfa Ürün Önizleme widget'ı — 2026-08-19'da 6 turluk İKİNCİ bir
 genişletme serisi geçirdi (0c1e67a'dan SONRA, bu turda commit edildi).**
 2026-08-13→14'te 11/11 sekme + 9/9 header ikon paneli tamamlanıp ilk kez
