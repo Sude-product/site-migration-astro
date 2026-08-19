@@ -30,6 +30,24 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-19)
 
+**🟢 Aynı gün (2026-08-19), ayrıca — bağımlılık sağlığı denetimi +
+temizliği.** Kullanıcı "güvenlik açığı/kullanılamaz paket var mı"
+denetimi istedi: `npm run audit` 0 açık döndü, ama `npm ls --all`
+gerçek bir `node_modules`/lockfile drift'i ortaya çıkardı
+(`yargs-parser@21.1.1 invalid` — lockfile 22.0.0 istiyordu — + 5 öksüz
+`extraneous` paket, `playwright`/`playwright-core` dahil). Kullanıcı
+onayıyla: dev server durduruldu → `npm ci` (lockfile'la birebir temiz
+kurulum, drift tamamen giderildi) → `npm run dev:clean`. Ardından 4
+güvenli minor/patch paket güncellendi (`@astrojs/markdown-remark`
+7.2.2→7.2.4, `@astrojs/react` 6.0.2→6.0.4, `astro` 7.2.2→7.2.4,
+`lucide-react` 1.32.0→1.33.0 — `typescript` yine BİLİNÇLİ atlandı, major
+sıçrama). Her adımda `astro check`/`astro build`(881 sayfa)/`npm audit`
+tekrarlanıp 0 hata/0 açık doğrulandı, dev server temiz restart sonrası
+hydration hatasız (11 `astro-island`, log'da `TypeError`/`_jsxDEV` yok).
+Commit edilip push edildi (669e401). **Çalışma ağacı temiz, dev server
+şu an ayakta (`localhost:4321`) — bir sonraki oturum doğrudan devam
+edebilir, bekleyen bir adım yok.**
+
 **🟢 Aynı gün (2026-08-19), ayrıca — Hakkımızda sayfasının ekip fotoğrafı
 (`ABOUT_TEAM_PHOTO_IMAGE`) `wp-content/uploads` hotlink'inden yerel
 `public/images/about-team-photo.jpg`'ye taşındı (kullanıcının sağladığı
