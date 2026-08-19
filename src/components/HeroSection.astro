@@ -1,5 +1,6 @@
 ---
 import HeroEmailCaptureForm from './HeroEmailCaptureForm.astro';
+import ProductPreviewWidget from './ProductPreviewWidget.tsx';
 import { getTranslations } from '../i18n';
 import { HOME_HERO_IMAGE } from '../data/homeContent';
 import { getSupportRequestLocaleUrls } from '../data/supportRequestContent';
@@ -36,14 +37,14 @@ const CALL_URL = 'tel:02162950927';
 
 <!-- 2026-08-19 (SEKİZİNCİ tur) — kullanıcı iki-kolonlu (sol metin/sağ
      kırmızı görsel paneli) düzeni terk edip TEK KOLON istedi: metin/form
-     ortalanıp üstte, kırmızı "dashboard" görsel paneli aralarında boşluk
-     bırakılarak ALTA taşındı. Önceki `grid-cols-2`/full-bleed sağ panel
-     mimarisi (birden fazla turun konusu olmuştu) bu yüzden TAMAMEN
-     kaldırıldı — artık `<section>` doğrudan iki dikey blok içeriyor:
-     üstte ortalanmış metin/form, altında (aralarında `mt-12 lg:mt-16`
-     boşluk) tam-genişlik kırmızı görsel bandı. Görsel artık bir kolonun
-     "yarısını" doldurmuyor, kendi `max-w-2xl` sarmalayıcısı içinde
-     ortalanmış makul bir boyutta. -->
+     ortalanıp üstte, "dashboard" bölümü aralarında boşluk bırakılarak
+     ALTA taşındı. Önceki `grid-cols-2`/full-bleed sağ panel mimarisi
+     (birden fazla turun konusu olmuştu) bu yüzden TAMAMEN kaldırıldı —
+     artık `<section>` doğrudan iki dikey blok içeriyor: üstte ortalanmış
+     metin/form, altında (aralarında `mt-12 lg:mt-16` boşluk) dashboard
+     bölümü. DOKUZUNCU turda (aşağıda) bu alt blok TR'de statik görselden
+     GERÇEK/canlı `ProductPreviewWidget`'a çevrildi, EN/NL/IT hâlâ statik
+     görseli kullanıyor. -->
 <section class="bg-[#F8F8F8] py-12 lg:py-20">
 	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
 		<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
@@ -106,22 +107,57 @@ const CALL_URL = 'tel:02162950927';
 		</div>
 	</div>
 
-	<!-- Dashboard görsel paneli — artık hero metninin ALTINDA (2026-08-19,
-	     bkz. yukarıdaki tur notu), aralarında `mt-12 lg:mt-16` boşluk.
-	     Tam genişlik kırmızı bant, içerik kendi `max-w-2xl` sarmalayıcısında
-	     ortalanmış. -->
-	<div class="mt-12 flex flex-col items-center bg-brand px-6 py-10 text-center text-white lg:mt-16 lg:py-16">
-		<div class="mx-auto flex w-full max-w-2xl flex-col items-center">
-			<img
-				src={heroImage.url}
-				width={heroImage.width}
-				height={heroImage.height}
-				alt={t.hero.sideTitle}
-				class="w-full object-contain"
-				loading="eager"
-			/>
-			<h2 class="mt-5 text-2xl font-bold leading-[1.2] lg:text-[32px]">{t.hero.sideTitle}</h2>
-			<p class="mt-2 text-sm font-medium leading-[1.4] text-[#F8F8F8] lg:text-base">{t.hero.sideSubtitle}</p>
-		</div>
-	</div>
+	{
+		locale === 'tr' ? (
+			/* 2026-08-19 (DOKUZUNCU tur) — statik "dashboard" görseli yerine
+			   kullanıcı GERÇEK/canlı `ProductPreviewWidget`'ı istedi (aynı
+			   widget, `HomeProductPreview.astro`'da sayfanın aşağısında da
+			   kullanılıyor — o bölüm bilinçli olarak DOKUNULMADAN bırakıldı,
+			   kullanıcı "sonra karar verelim" dedi). Çerçeve/gradyan/sahte
+			   tarayıcı bar'ı `HomeProductPreview.astro` ile BİREBİR aynı
+			   (ikinci bir görsel dil İCAT EDİLMEDİ) — yalnızca dış sarmalayıcı
+			   burada `max-w-2xl` (metin genişliği) yerine `max-w-6xl` (widget'ın
+			   kendi grid içeriği için yeterli genişlik). Widget YALNIZCA TR'de
+			   (kurgusal veri + Türkçe etiketler taşıdığı için, bkz. CLAUDE.md
+			   §Açık noktalar — i18n kapsamı onay bekliyor); EN/NL/IT hero'su
+			   hâlâ statik görseli kullanıyor (aşağıdaki `else` dalı). */
+			<div class="mx-auto mt-12 w-full max-w-6xl px-4 sm:px-6 lg:mt-16 lg:px-8">
+				<div
+					class="rounded-[2rem] p-4 ring-1 ring-white/50 sm:p-6 lg:p-8"
+					style="background: linear-gradient(to bottom, #FFDCDC 0%, #FFF3F3 22%, #FFFFFF 50%, #FFF3F3 78%, #FFDCDC 100%);"
+				>
+					<div class="reveal overflow-hidden rounded-2xl shadow-[0_14px_50px_rgba(138,0,0,0.16)] ring-1 ring-white/70">
+						<div class="flex items-center gap-3 bg-[#1F2937] px-4 py-3 sm:px-6">
+							<div class="flex gap-1.5" aria-hidden="true">
+								<span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+								<span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+								<span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+							</div>
+							<span class="flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-center text-xs text-white/50">app.idenfit.com</span>
+						</div>
+						<ProductPreviewWidget client:visible />
+					</div>
+				</div>
+			</div>
+		) : (
+			/* Dashboard görsel paneli — hero metninin ALTINDA (2026-08-19,
+			   bkz. yukarıdaki tur notu), aralarında `mt-12 lg:mt-16` boşluk.
+			   Tam genişlik kırmızı bant, içerik kendi `max-w-2xl`
+			   sarmalayıcısında ortalanmış. */
+			<div class="mt-12 flex flex-col items-center bg-brand px-6 py-10 text-center text-white lg:mt-16 lg:py-16">
+				<div class="mx-auto flex w-full max-w-2xl flex-col items-center">
+					<img
+						src={heroImage.url}
+						width={heroImage.width}
+						height={heroImage.height}
+						alt={t.hero.sideTitle}
+						class="w-full object-contain"
+						loading="eager"
+					/>
+					<h2 class="mt-5 text-2xl font-bold leading-[1.2] lg:text-[32px]">{t.hero.sideTitle}</h2>
+					<p class="mt-2 text-sm font-medium leading-[1.4] text-[#F8F8F8] lg:text-base">{t.hero.sideSubtitle}</p>
+				</div>
+			</div>
+		)
+	}
 </section>

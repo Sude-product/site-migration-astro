@@ -62,12 +62,25 @@ Chrome'da görsel doğrulandı, `check-image-alt-text` 0 eksik.
 
 **🟢 Aynı gün (2026-08-19) hero (`HeroSection.astro`) SEKİZİNCİ tur —
 2-kolonlu düzen (sol metin/sağ kırmızı görsel paneli) tamamen kaldırıldı.**
-Kullanıcı isteğiyle: metin/form artık TEK KOLON, ortalanmış; kırmızı
-"dashboard" görsel paneli (görsel + `sideTitle`/`sideSubtitle`) aralarında
-`mt-12 lg:mt-16` boşluk bırakılarak sekmenin ALTINA taşındı, tam genişlik
-bant olarak. Önceki `grid-cols-2`/full-bleed sağ panel mimarisi (7 turun
-konusu olmuştu, arşivde) bilinçli olarak terk edildi. `astro check` 0
-hata, `astro build` 881 sayfa, Chrome'da masaüstü doğrulandı.
+Kullanıcı isteğiyle: metin/form artık TEK KOLON, ortalanmış; "dashboard"
+bölümü aralarında `mt-12 lg:mt-16` boşluk bırakılarak ALTINA taşındı.
+Önceki `grid-cols-2`/full-bleed sağ panel mimarisi (7 turun konusu
+olmuştu, arşivde) bilinçli olarak terk edildi.
+
+**🟢 Aynı gün (2026-08-19) DOKUZUNCU tur — hero'daki statik dashboard
+görseli TR'de GERÇEK/canlı `ProductPreviewWidget`'a çevrildi.** Kullanıcı
+"statik resim değil, yaptığımız canlı dashboard'u koy" dedi. TR hero'sunda
+artık `HomeProductPreview.astro` ile BİREBİR aynı çerçeve/gradyan/sahte
+tarayıcı bar'ı içinde gerçek/etkileşimli widget render ediliyor
+(`locale === 'tr'` koşullu, `max-w-6xl` sarmalayıcı). EN/NL/IT hâlâ
+statik görseli kullanıyor (widget TR-only pilot, bkz. Açık nokta —
+i18n kapsamı onay bekliyor). **BİLİNÇLİ AÇIK NOKTA:** sayfanın aşağısındaki
+mevcut "Panelinizde Sizi Neler Bekliyor?" bölümü (`HomeProductPreview`)
+AYNI widget'ı bir kez daha gösteriyor — kullanıcıya soruldu, "sonra
+karar verelim" dedi, bilerek DOKUNULMADI (iki widget aynı anda TR
+ana sayfasında var). `astro check` 0 hata, `astro build` 881 sayfa,
+Chrome'da hem hero widget'ının etkileşimi (sekme tıklama) hem EN
+fallback görseli doğrulandı.
 
 **🟢 Aynı gün (2026-08-19) iki büyük ana sayfa değişikliği de commit
 edildi:**
@@ -244,6 +257,11 @@ hâlâ geçerli.)*
     (popüler yazı listesi), `ContactPage.astro` (ofis kayıtları).
     `AboutPage`/`SecurityPage`'de bilinçli olarak H3 EKLENMEDİ (zorlama
     başlık olurdu, gerekçe kaydedildi).
+35. **KARAR BEKLİYOR — TR ana sayfasında `ProductPreviewWidget` artık İKİ
+    kez render ediliyor** (2026-08-19, DOKUZUNCU tur): hero'da (yeni) VE
+    sayfanın aşağısındaki "Panelinizde Sizi Neler Bekliyor?" bölümünde
+    (`HomeProductPreview.astro`, eski). Kullanıcıya soruldu, "sonra karar
+    verelim" dedi — aşağıdaki bölümü kaldırıp kaldırmama kararı BEKLİYOR.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
