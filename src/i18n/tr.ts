@@ -103,6 +103,12 @@ export const tr: Translations = {
     privacy: 'Gizlilik Politikası',
     kvkk: 'KVKK',
     paymentMethodsAlt: 'Güvenli ödeme yöntemleri: iyzico, Troy, Visa, Mastercard, American Express',
+    trustBadges: {
+      ssl: 'SSL Güvenlik Sertifikası',
+      iso: 'ISO 27001 Bilgi Güvenliği Yönetim Sistemi Sertifikası',
+      peryon: 'Peryön Üyeliği',
+      gdpr: 'GDPR Uyumluluğu',
+    },
   },
   mega: {
     urunler: {

@@ -101,6 +101,12 @@ export const nl: Translations = {
     privacy: 'Privacybeleid',
     kvkk: 'Gegevensbeschermingsverklaring',
     paymentMethodsAlt: 'Veilige betaalmethoden: iyzico, Troy, Visa, Mastercard, American Express',
+    trustBadges: {
+      ssl: 'SSL-beveiligingscertificaat',
+      iso: 'ISO 27001-certificering voor informatiebeveiliging',
+      peryon: 'Peryön (Turkse HR-vereniging) lidmaatschap',
+      gdpr: 'GDPR-naleving',
+    },
   },
   mega: {
     urunler: {

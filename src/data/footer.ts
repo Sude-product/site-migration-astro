@@ -99,3 +99,19 @@ export const FOOTER_APPS = [
 // dikey versiyon footer'da çok fazla dikey yer kaplayacağı için bilinçli
 // olarak yalnızca yatay/kompakt versiyon (her iki görünümde de) kullanıldı.
 export const FOOTER_PAYMENT_IMAGE = 'https://idenfit.com/wp-content/uploads/2025/07/Group-1365420300-2.webp';
+
+// Güven rozetleri şeridi (SSL/ISO 27001/Peryön/GDPR) — kullanıcının kendi
+// sağladığı 4 AYRI görsel (`public/images/trust-badge-*`, `demo-bar-avatar.jpg`'deki
+// AYNI ilke: wp-content/uploads hotlink değil, yerel dosya). Sıra
+// kullanıcının verdiği sırayla (SSL→ISO→Peryön→GDPR) — alfabetik/dosya
+// adı sırası DEĞİL. `iso27001.webp` uzantısı `.webp` ama kaynak dosya
+// `LOGO4.jpg` adıyla paylaşılmıştı — ham baytlar gerçekte WebP formatında
+// (magic number `RIFF...WEBP` ile doğrulandı), bu yüzden uzantı düzeltildi
+// (aksi halde sunucu `Content-Type: image/jpeg` döner ama tarayıcı WebP
+// baytlarını çözemezdi).
+export const TRUST_BADGE_LOGOS: { key: 'ssl' | 'iso' | 'peryon' | 'gdpr'; src: string }[] = [
+  { key: 'ssl', src: '/images/trust-badge-ssl.webp' },
+  { key: 'iso', src: '/images/trust-badge-iso27001.webp' },
+  { key: 'peryon', src: '/images/trust-badge-peryon.png' },
+  { key: 'gdpr', src: '/images/trust-badge-gdpr.png' },
+];

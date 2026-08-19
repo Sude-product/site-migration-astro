@@ -101,6 +101,12 @@ export const en: Translations = {
     privacy: 'Privacy Policy',
     kvkk: 'Data Protection Notice',
     paymentMethodsAlt: 'Secure payment methods: iyzico, Troy, Visa, Mastercard, American Express',
+    trustBadges: {
+      ssl: 'SSL Security Certificate',
+      iso: 'ISO 27001 Information Security Management System Certification',
+      peryon: 'Peryön (Turkish HR Association) Membership',
+      gdpr: 'GDPR Compliance',
+    },
   },
   mega: {
     urunler: {

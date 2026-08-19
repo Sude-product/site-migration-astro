@@ -27,6 +27,7 @@ import {
   FOOTER_SOCIAL,
   FOOTER_APPS,
   FOOTER_PAYMENT_IMAGE,
+  TRUST_BADGE_LOGOS,
 } from '../data/footer';
 
 const currentLocale = (Astro.currentLocale ?? 'tr') as Locale;
@@ -280,10 +281,25 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 			</div>
 		</div>
 
-		<!-- Alt bar: telif hakkı + yasal linkler -->
-		<div
-			class="mt-10 flex flex-col items-center gap-3 border-t border-white/10 pt-6 text-xs text-white/60 sm:flex-row sm:justify-between"
-		>
+		<!-- Alt bar: güven rozetleri + telif hakkı + yasal linkler — footer'ın
+		     kendi gri zemininin İÇİNDE (bir öncekinin aksine, footer'ın
+		     ALTINA taşan ayrı beyaz bir şerit DEĞİL). Rozetler kullanıcının
+		     verdiği sırayla (SSL→ISO→Peryön→GDPR); FOOTER_PAYMENT_IMAGE'in
+		     hemen üstteki `bg-white/95 rounded p-2` kartıyla AYNI ilke —
+		     çoğu beyaz/şeffaf zeminli bu logolar gri fonda çıplak
+		     bırakılırsa (özellikle opak beyaz kare olan SSL/ISO) tutarsız
+		     görünür, bu yüzden her biri kendi küçük beyaz kartında. -->
+		<div class="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-white/10 pt-6 sm:justify-start">
+			{
+				TRUST_BADGE_LOGOS.map((badge) => (
+					<div class="flex h-16 items-center rounded-lg bg-white/95 px-4 sm:h-[4.5rem]">
+						<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+					</div>
+				))
+			}
+		</div>
+
+		<div class="mt-6 flex flex-col items-center gap-3 pt-0 text-xs text-white/60 sm:flex-row sm:justify-between">
 			<p>{copyright}</p>
 			<ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
 				<li><a href={l(SPECIAL_HREFS.securityPolicy ?? 'sozlesme/gizlilik-ve-guvenlik-politikasi')} class="transition-colors hover:text-white">{t.footer.privacy}</a></li>
