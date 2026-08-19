@@ -71,10 +71,9 @@ olmuştu, arşivde) bilinçli olarak terk edildi.
 görseli TR'de GERÇEK/canlı `ProductPreviewWidget`'a çevrildi.** Kullanıcı
 "statik resim değil, yaptığımız canlı dashboard'u koy" dedi. TR hero'sunda
 artık `HomeProductPreview.astro` ile BİREBİR aynı çerçeve/gradyan/sahte
-tarayıcı bar'ı içinde gerçek/etkileşimli widget render ediliyor
-(`locale === 'tr'` koşullu). EN/NL/IT hâlâ
-statik görseli kullanıyor (widget TR-only pilot, bkz. Açık nokta —
-i18n kapsamı onay bekliyor). **BİLİNÇLİ AÇIK NOKTA:** sayfanın aşağısındaki
+tarayıcı bar'ı içinde gerçek/etkileşimli widget render ediliyor (o an
+`locale === 'tr'` koşuluyla YALNIZCA TR'de — ON BİRİNCİ turda, aşağıda,
+bu koşul kaldırılıp 4 dile genişletildi). **BİLİNÇLİ AÇIK NOKTA:** sayfanın aşağısındaki
 mevcut "Panelinizde Sizi Neler Bekliyor?" bölümü (`HomeProductPreview`)
 AYNI widget'ı bir kez daha gösteriyor — kullanıcıya soruldu, "sonra
 karar verelim" dedi, bilerek DOKUNULMADI (iki widget aynı anda TR
@@ -95,6 +94,22 @@ ile ORTAK, birden fazla turda özenle ayarlanmış) bilinçli olarak
 DOKUNULMADI — o değeri değiştirmek diğer kullanım yerini de etkilerdi.
 Chrome'da yatay taşma YOK (`scrollWidth` 1521 < viewport 1536)
 doğrulandı, `astro check` 0 hata, `astro build` 881 sayfa.
+
+**🟢 Aynı gün (2026-08-19) ON BİRİNCİ tur — canlı widget artık 4 dilin
+HEPSİNDE gösteriliyor, TR-only kısıtı KALDIRILDI.** Kullanıcı "diğer
+dillerde canlı dashboard görünmüyor, düzelt" dedi: DOKUZUNCU turdaki
+`locale === 'tr'` koşulu (widget/statik-görsel dallanması) tamamen
+kaldırıldı, widget artık koşulsuz render ediliyor. Statik
+`HOME_HERO_IMAGE`/`heroImage`/`sideTitle`/`sideSubtitle` dalı `HeroSection.astro`'dan
+KALDIRILDI (kullanılmayan import da temizlendi) — i18n şemasındaki
+`sideTitle`/`sideSubtitle` alanlarına dokunulmadı (başka yerde
+kullanılmıyorlar ama şema değişikliği bu turun kapsamı dışında).
+**Widget'ın içeriği hâlâ Türkçe** (kurgusal veri/etiketler) — bu artık
+BİLİNÇLİ bir kullanıcı kararı (i18n kapsamı sorusu fiilen kapandı, TR
+harici sayfalarda da Türkçe dashboard gösterme kararı verildi), Açık
+nokta olarak işaretlenmiyor. Chrome'da 4 dilin hepsinde widget'ın
+render edildiği + hydrate olduğu doğrulandı, `astro check` 0 hata,
+`astro build` 881 sayfa, `check-image-alt-text` 0 eksik (regresyon yok).
 
 **🟢 Aynı gün (2026-08-19) iki büyük ana sayfa değişikliği de commit
 edildi:**

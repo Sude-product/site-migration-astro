@@ -2,13 +2,11 @@
 import HeroEmailCaptureForm from './HeroEmailCaptureForm.astro';
 import ProductPreviewWidget from './ProductPreviewWidget.tsx';
 import { getTranslations } from '../i18n';
-import { HOME_HERO_IMAGE } from '../data/homeContent';
 import { getSupportRequestLocaleUrls } from '../data/supportRequestContent';
 import type { Locale } from '../data/nav';
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
-const heroImage = HOME_HERO_IMAGE[locale];
 // KVKK/Kullanım Koşulları onay metni (eski çok-alanlı `HeroForm`'un
 // `kvkkNotice` bloğu) — 2026-08-19'da form tek e-posta alanına
 // indirgenince artık burada RENDER EDİLMİYOR (yeni `HeroEmailCaptureForm`
@@ -41,10 +39,10 @@ const CALL_URL = 'tel:02162950927';
      ALTA taşındı. Önceki `grid-cols-2`/full-bleed sağ panel mimarisi
      (birden fazla turun konusu olmuştu) bu yüzden TAMAMEN kaldırıldı —
      artık `<section>` doğrudan iki dikey blok içeriyor: üstte ortalanmış
-     metin/form, altında (aralarında `mt-12 lg:mt-16` boşluk) dashboard
-     bölümü. DOKUZUNCU turda (aşağıda) bu alt blok TR'de statik görselden
-     GERÇEK/canlı `ProductPreviewWidget`'a çevrildi, EN/NL/IT hâlâ statik
-     görseli kullanıyor. -->
+     metin/form, altında (aralarında boşluk) dashboard bölümü. DOKUZUNCU
+     turda bu alt blok statik görselden GERÇEK/canlı
+     `ProductPreviewWidget`'a çevrildi (önce yalnızca TR'de, ON BİRİNCİ
+     turda — aşağıda — 4 dilin hepsine genişletildi). -->
 <section class="bg-[#F8F8F8] py-12 lg:py-20">
 	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
 		<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
@@ -107,68 +105,38 @@ const CALL_URL = 'tel:02162950927';
 		</div>
 	</div>
 
-	{
-		locale === 'tr' ? (
-			/* 2026-08-19 (DOKUZUNCU tur) — statik "dashboard" görseli yerine
-			   kullanıcı GERÇEK/canlı `ProductPreviewWidget`'ı istedi (aynı
-			   widget, `HomeProductPreview.astro`'da sayfanın aşağısında da
-			   kullanılıyor — o bölüm bilinçli olarak DOKUNULMADAN bırakıldı,
-			   kullanıcı "sonra karar verelim" dedi). Çerçeve/gradyan/sahte
-			   tarayıcı bar'ı `HomeProductPreview.astro` ile BİREBİR aynı
-			   (ikinci bir görsel dil İCAT EDİLMEDİ). Widget YALNIZCA TR'de
-			   (kurgusal veri + Türkçe etiketler taşıdığı için, bkz. CLAUDE.md
-			   §Açık noktalar — i18n kapsamı onay bekliyor); EN/NL/IT hero'su
-			   hâlâ statik görseli kullanıyor (aşağıdaki `else` dalı).
-			   2026-08-19, ONUNCU tur — kullanıcı "yana doğru biraz daha
-			   genişlet, boyundan azıcık eksilt, çok aşağı doğru duruyor"
-			   dedi: dış sarmalayıcı `max-w-6xl`(72rem)'den
-			   `HomeProductPreview.astro` ile AYNI, zaten kanıtlanmış
-			   `max-w-[88rem]` değerine genişletildi (ikinci bir genişlik
-			   değeri İCAT EDİLMEDİ) — widget'ın kendi sidebar+içerik grid'i
-			   fluid olduğu için bu genişleme içeriği de orantılı genişletip
-			   daha "yatay" bir dashboard görünümü veriyor. Üstteki boşluk
-			   (`mt-12 lg:mt-16`→`mt-8 lg:mt-10`) ve çerçeve dolgusu (`p-4
-			   sm:p-6 lg:p-8`→`p-3 sm:p-5 lg:p-6`) küçültülerek toplam
-			   yükseklikten "azıcık" düşüldü — widget'ın kendi iç `min-h`'i
-			   (paylaşılan, `HomeProductPreview` ile ORTAK, birden fazla
-			   turda özenle ayarlanmış) BİLİNÇLİ olarak DOKUNULMADI. */
-			<div class="mx-auto mt-8 w-full max-w-[88rem] px-4 sm:px-6 lg:mt-10 lg:px-8">
-				<div
-					class="rounded-[2rem] p-3 ring-1 ring-white/50 sm:p-5 lg:p-6"
-					style="background: linear-gradient(to bottom, #FFDCDC 0%, #FFF3F3 22%, #FFFFFF 50%, #FFF3F3 78%, #FFDCDC 100%);"
-				>
-					<div class="reveal overflow-hidden rounded-2xl shadow-[0_14px_50px_rgba(138,0,0,0.16)] ring-1 ring-white/70">
-						<div class="flex items-center gap-3 bg-[#1F2937] px-4 py-3 sm:px-6">
-							<div class="flex gap-1.5" aria-hidden="true">
-								<span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
-								<span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
-								<span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
-							</div>
-							<span class="flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-center text-xs text-white/50">app.idenfit.com</span>
-						</div>
-						<ProductPreviewWidget client:visible />
+	<!-- 2026-08-19 (ON BİRİNCİ tur) — kullanıcı "diğer dillerde canlı
+	     dashboard görünmüyor, düzelt" dedi: DOKUZUNCU turdaki `locale ===
+	     'tr'` koşulu (widget'ı yalnızca TR'ye sınırlayan, statik görseli
+	     EN/NL/IT'ye bırakan dal) TAMAMEN kaldırıldı — artık widget 4 dilde
+	     de aynı şekilde render ediliyor. Widget'ın kendi içeriği hâlâ
+	     Türkçe (kurgusal veri/etiketler, bkz. CLAUDE.md §Açık noktalar —
+	     i18n kapsamı onayı) ama bu artık BİLİNÇLİ bir kullanıcı kararı,
+	     ertelenmiş bir eksiklik değil. Statik `HOME_HERO_IMAGE`/
+	     `heroImage`/`sideTitle`/`sideSubtitle` dalı ARTIK KULLANILMIYOR,
+	     kaldırıldı (import da temizlendi) — i18n şemasındaki
+	     `sideTitle`/`sideSubtitle` alanları başka hiçbir yerde
+	     kullanılmadığı için dokunulmadan bırakıldı (şema değişikliği bu
+	     turun kapsamı DIŞINDA). Çerçeve/gradyan/sahte tarayıcı bar'ı
+	     `HomeProductPreview.astro` ile BİREBİR aynı (ikinci bir görsel dil
+	     İCAT EDİLMEDİ). Genişlik/yükseklik ayarları (ONUNCU tur) aynen
+	     korundu. -->
+	<div class="mx-auto mt-8 w-full max-w-[88rem] px-4 sm:px-6 lg:mt-10 lg:px-8">
+		<div
+			class="rounded-[2rem] p-3 ring-1 ring-white/50 sm:p-5 lg:p-6"
+			style="background: linear-gradient(to bottom, #FFDCDC 0%, #FFF3F3 22%, #FFFFFF 50%, #FFF3F3 78%, #FFDCDC 100%);"
+		>
+			<div class="reveal overflow-hidden rounded-2xl shadow-[0_14px_50px_rgba(138,0,0,0.16)] ring-1 ring-white/70">
+				<div class="flex items-center gap-3 bg-[#1F2937] px-4 py-3 sm:px-6">
+					<div class="flex gap-1.5" aria-hidden="true">
+						<span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+						<span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
 					</div>
+					<span class="flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-center text-xs text-white/50">app.idenfit.com</span>
 				</div>
+				<ProductPreviewWidget client:visible />
 			</div>
-		) : (
-			/* Dashboard görsel paneli — hero metninin ALTINDA (2026-08-19,
-			   bkz. yukarıdaki tur notu), aralarında `mt-12 lg:mt-16` boşluk.
-			   Tam genişlik kırmızı bant, içerik kendi `max-w-2xl`
-			   sarmalayıcısında ortalanmış. */
-			<div class="mt-12 flex flex-col items-center bg-brand px-6 py-10 text-center text-white lg:mt-16 lg:py-16">
-				<div class="mx-auto flex w-full max-w-2xl flex-col items-center">
-					<img
-						src={heroImage.url}
-						width={heroImage.width}
-						height={heroImage.height}
-						alt={t.hero.sideTitle}
-						class="w-full object-contain"
-						loading="eager"
-					/>
-					<h2 class="mt-5 text-2xl font-bold leading-[1.2] lg:text-[32px]">{t.hero.sideTitle}</h2>
-					<p class="mt-2 text-sm font-medium leading-[1.4] text-[#F8F8F8] lg:text-base">{t.hero.sideSubtitle}</p>
-				</div>
-			</div>
-		)
-	}
+		</div>
+	</div>
 </section>
