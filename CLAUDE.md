@@ -72,7 +72,7 @@ görseli TR'de GERÇEK/canlı `ProductPreviewWidget`'a çevrildi.** Kullanıcı
 "statik resim değil, yaptığımız canlı dashboard'u koy" dedi. TR hero'sunda
 artık `HomeProductPreview.astro` ile BİREBİR aynı çerçeve/gradyan/sahte
 tarayıcı bar'ı içinde gerçek/etkileşimli widget render ediliyor
-(`locale === 'tr'` koşullu, `max-w-6xl` sarmalayıcı). EN/NL/IT hâlâ
+(`locale === 'tr'` koşullu). EN/NL/IT hâlâ
 statik görseli kullanıyor (widget TR-only pilot, bkz. Açık nokta —
 i18n kapsamı onay bekliyor). **BİLİNÇLİ AÇIK NOKTA:** sayfanın aşağısındaki
 mevcut "Panelinizde Sizi Neler Bekliyor?" bölümü (`HomeProductPreview`)
@@ -81,6 +81,20 @@ karar verelim" dedi, bilerek DOKUNULMADI (iki widget aynı anda TR
 ana sayfasında var). `astro check` 0 hata, `astro build` 881 sayfa,
 Chrome'da hem hero widget'ının etkileşimi (sekme tıklama) hem EN
 fallback görseli doğrulandı.
+
+**🟢 Aynı gün (2026-08-19) ONUNCU tur — hero'daki canlı widget yana
+doğru genişletildi, boyu bir miktar kısaltıldı.** Kullanıcı "yana doğru
+biraz daha genişlet, boyundan azıcık eksilt, çok aşağı doğru duruyor"
+dedi: dış sarmalayıcı `max-w-6xl`(1152px)'ten `HomeProductPreview.astro`
+ile AYNI, zaten kanıtlanmış `max-w-[88rem]`(1408px) değerine genişletildi
+(genişlik 1088px→1344px, +%23.5) — widget'ın kendi grid'i fluid olduğu
+için içerik de orantılı genişledi. Üst boşluk (`mt-16`→`mt-10`) ve
+çerçeve dolgusu (`p-8`→`p-6`) küçültülerek yükseklik 1514.6px→1453px'e
+indi (-%4). Widget'ın PAYLAŞILAN iç `min-h`'ine (`HomeProductPreview`
+ile ORTAK, birden fazla turda özenle ayarlanmış) bilinçli olarak
+DOKUNULMADI — o değeri değiştirmek diğer kullanım yerini de etkilerdi.
+Chrome'da yatay taşma YOK (`scrollWidth` 1521 < viewport 1536)
+doğrulandı, `astro check` 0 hata, `astro build` 881 sayfa.
 
 **🟢 Aynı gün (2026-08-19) iki büyük ana sayfa değişikliği de commit
 edildi:**
