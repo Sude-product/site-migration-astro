@@ -30,6 +30,23 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-20)
 
+**🟢 2026-08-20, ayrıca — HRTech Alliance partner bölümü ana sayfadan
+kaldırıldı (4 dil).** Kullanıcı isteğiyle `HrtechSection.astro`
+("Tüm İK İhtiyaçları İçin Tek Noktadan Çözüm") ve 4 locale
+`index.astro`'daki kullanımı kaldırıldı; artık kullanılmayan i18n
+`hrtech` çeviri blokları (`HomeHrtechLabels` tipi dahil) +
+`homeContent.ts`'teki `HRTECH_ALLIANCE_URL`/`HRTECH_LOGO_URL`/
+`HOME_HRTECH_IMAGE` export'ları da temizlendi (a5dab4b). `astro check`
+0 hata (336 dosya), `astro build` 881 sayfa, `check-image-alt-text` 0
+eksik, Chrome'da TR ana sayfasında SSS'ten (Sıkça Sorulan Sorular)
+doğrudan footer'a geçtiği doğrulandı. **Yan bulgu (aksiyon alınmadı,
+kapsam dışı bırakıldı):** `check-heading-hierarchy.mjs` ana sayfanın
+4 dilinde de `H1→H3` seviye atlaması raporluyor (hero H1'inden hemen
+sonra Ürün Önizleme widget'ının `SectionMiniHeader`'ı H3 kullanıyor,
+aralarında H2 yok) — bu turdan ÖNCE de aynı şekilde vardı (`git stash`
+ile doğrulandı, Hrtech kaldırmayla İLGİSİZ, önceden fark edilmemiş bir
+bulgu). Bkz. Açık nokta #36.
+
 **🟢 2026-08-20 — Ürün Önizleme widget'ının dış boyutu Personio
 referansına göre kısaltıldı + TR ana sayfasındaki tekrarlı ikinci widget
 kaldırıldı, Açık nokta #35 KAPANDI.** Kullanıcı Personio.com'un ana
@@ -341,6 +358,13 @@ hâlâ geçerli.)*
     Karar verildi: hero'daki widget tek başına yeterli, alt bölüm
     (`HomeProductPreview.astro`) ve kullanımı tamamen kaldırıldı
     (bfa6c15).
+36. **YENİ (2026-08-20) — Ana sayfanın 4 dilinde de `H1→H3` başlık
+    seviye atlaması var** (`check-heading-hierarchy.mjs` bulgusu, HRTech
+    bölümü kaldırılırken tesadüfen fark edildi, o kaldırmayla İLGİSİZ,
+    önceden de vardı). Hero H1'inden hemen sonra `ProductPreviewWidget`
+    içindeki `SectionMiniHeader` H3 kullanıyor, aralarında H2 yok.
+    Düzeltme kapsam dışı bırakıldı (yalnızca fark edildi), ayrı bir
+    karar/tur bekliyor.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -363,7 +387,9 @@ turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli
 - **2026-08-20:** Ürün Önizleme widget'ının dış boyutu Personio
   referansına göre kısaltıldı (paylaşımlı `min-h`→sabit `max-h`+iç
   scroll) + TR ana sayfasındaki tekrarlı ikinci widget kaldırıldı, Açık
-  nokta #35 kapandı — bkz. yukarıdaki "Güncel durum".
+  nokta #35 kapandı. Ayrıca HRTech Alliance partner bölümü ana
+  sayfadan (4 dil) kaldırıldı, yan bulgu olarak Açık nokta #36 açıldı
+  — bkz. yukarıdaki "Güncel durum".
 - **2026-08-19:** SEO/GEO denetim turu — bkz. yukarıdaki "Bugünkü
   SEO/GEO turu özeti". Ayrıca: sabit "Demo Talep Et" alt bar'ı (yeni
   özellik), hero'nun tek-alanlı forma + yeni marka sloganına köklü
