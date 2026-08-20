@@ -30,6 +30,21 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-20)
 
+**🟢 2026-08-20, ayrıca — "Kullanıcı Dostu Panel" bölümündeki 2.
+lead-capture form kaldırıldı (4 dil).** Kullanıcı ekran görüntüsü
+paylaşıp "başvuru butonunu kaldır, dashboard ve açıklama kalsın" dedi:
+`PanelFeatureSection.astro`'daki `HeroForm.tsx` reuse'u (İsim/Telefon/
+Firma/Email + "Hemen Başvur" formu, hero'daki ile aynı alanlara sahipti)
+tamamen kaldırıldı — dashboard görseli (sol) + başlık/açıklama/checklist
+(sağ, "Anlık Bilgiler/Hatırlatmalar/Gerçek Zamanlı Monitör") aynen kaldı.
+Artık kullanılmayan `HomePanelLabels.formHeading`/`formSubmit` i18n
+alanları da 4 dilde temizlendi (4f3b880). `astro check` 0 hata, `astro
+build` 881 sayfa, `check-image-alt-text`/`check-link-accessibility` 0
+eksik, Chrome'da TR ana sayfasında görsel doğrulandı (form yok, geri
+kalan içerik sağlam). **Not:** bu turda da dev server aynı bilinen Vite
+modül-runner hatasını verdi (`npm run dev:clean` ile düzeldi, kodla
+ilgisiz — bkz. bir önceki maddedeki aynı not).
+
 **🟢 2026-08-20, ayrıca — "Neden idenfit?" videosu + 4'lü özellik kartı
 yazıları canlı idenfit.com'a göre büyütüldü.** Kullanıcı iki ekran
 görüntüsü paylaşıp "puntoyu büyüt" + "videoyu ana sitedekine benzer
@@ -408,8 +423,9 @@ turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli
   nokta #35 kapandı. Ayrıca HRTech Alliance partner bölümü ana
   sayfadan (4 dil) kaldırıldı, yan bulgu olarak Açık nokta #36 açıldı.
   Ayrıca "Neden idenfit?" videosu + 4'lü özellik kartı yazıları canlı
-  idenfit.com'da ölçülen gerçek px değerlerine göre büyütüldü — bkz.
-  yukarıdaki "Güncel durum".
+  idenfit.com'da ölçülen gerçek px değerlerine göre büyütüldü, ve
+  "Kullanıcı Dostu Panel" bölümündeki 2. lead-capture form kaldırıldı
+  — bkz. yukarıdaki "Güncel durum".
 - **2026-08-19:** SEO/GEO denetim turu — bkz. yukarıdaki "Bugünkü
   SEO/GEO turu özeti". Ayrıca: sabit "Demo Talep Et" alt bar'ı (yeni
   özellik), hero'nun tek-alanlı forma + yeni marka sloganına köklü
