@@ -2551,72 +2551,26 @@ export default function ProductPreviewWidget() {
 
         <div className={`flex-1 p-4 sm:p-6 lg:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           <AppHeaderBar />
-          {/* Sekmeler arası GEÇİŞTE widget çerçevesinin boyu değişmesin diye
-              (2026-08-14, kullanıcı geri bildirimi — "bazen büyüyor bazen
-              küçülüyor") — sekmelerin gerçek yüksekliği Chrome'da ölçülüp
-              en uzununa göre bir taban (`min-h`) verildi.
-              2026-08-19 — "Zaman Yönetimi" sekmesine gerçek app.idenfit.com
-              ekran görüntüsündeki eksik KPI/istatistik/grafik kartları
-              eklenince (bkz. `TimeManagementTab`) bu sekme ARTIK en uzunu
-              oldu, `min-h` 830px'ten 1150px'e yükseltilmişti. AYNI GÜN,
-              3. tur — kullanıcı "çok aşağı doğru olmuş, boyu kısalt" dedi:
-              o sekmenin İÇ boşlukları/grafik yükseklikleri küçültülüp
-              (bkz. `TimeManagementTab`/`h-36` grafikleri) doğal yüksekliği
-              ~1131px'ten ~1021px'e indirildi (Chrome'da ölçüldü) — `min-h`
-              buna göre 1150px'ten 1040px'e düşürüldü. Kısa sekmeler altta
-              biraz boş alan bırakıyor — bilinçli bir ödün, "sabit boyut"
-              isteğiyle tutarlı. 2026-08-19 (2. tur, aynı gün) — "İzin"
-              sekmesine gerçek app.idenfit.com İzin dashboard'una göre 4
-              yeni kart eklenince (Aylık İzin Trendi/Birim Bazlı İzin
-              Kullanımı/İzin Çakışma Uyarısı/En Çok İzin Kullanan
-              Birimler, bkz. `LeaveManagementTab`) bu sekme YENİ en uzunu
-              oldu (~1047px, Zaman Yönetimi'nin ~1021px'ini az farkla
-              geçti) — `min-h` 1040px'ten 1065px'e yükseltildi. 2026-08-19
-              (3. tur, aynı gün) — "İnsan Kaynakları" sekmesine gerçek
-              app.idenfit.com İK dashboard'una göre 5 yeni kart eklenince
-              (Çalışan Devir Hızı/Onay Bekleyen İşlemler/Takvim/Deneme
-              Süresi Takibi/Sözleşme Takibi, bkz. `HumanResourcesTab`) bu
-              sekme AÇIK ARAYLA en uzunu oldu (~1459px, önceki rekor
-              İzin'in ~1047px'ini çok aştı — Takvim'in 6 satırlık ay
-              görünümü tek başına büyük yer kaplıyor) — `min-h` 1065px'ten
-              1480px'e yükseltildi. AYNI GÜN, 4. tur — kullanıcı "takvimi
-              küçült, sayfayı çok fazla büyütmüş" dedi: `HRCalendarCard`'ın
-              hücre yüksekliği (`h-11`→`h-7`), grid/legend boşlukları
-              (`gap-1`→`gap-0.5`, `mt-3 pt-3`→`mt-2 pt-2`) ve nav ok
-              butonları (`h-7 w-7`→`h-6 w-6`) küçültüldü — takvim kartının
-              kendi yüksekliği tek başına ~332px'e indi (Chrome'da
-              ölçüldü), sekmenin doğal yüksekliği 1459px'ten 1344px'e
-              düştü — `min-h` buna göre 1480px'ten 1365px'e düşürüldü.
-              AYNI GÜN, 5. tur — kullanıcı "diğer sekmelerde de aynı
-              yükseklik kontrolünü yap" dedi: her sekme kart-kart ölçüldü
-              (Zaman 1021/İzin 1047/Performans 822/Veri Analizi 565px) —
-              hiçbirinde takvim gibi TEK BİR aşırı şişmiş kart yoktu, ama
-              paylaşılan `min-h` (1365px) İnsan Kaynakları'na göre
-              belirlendiği için kısa sekmelerde Chrome'da ölçülüp
-              ekran görüntüsüyle doğrulanan ÇOK büyük boş alan oluşuyordu
-              (Performans'ta ~543px, Veri Analizi'nde ~800px). Kullanıcıya
-              soruldu, "İnsan Kaynakları'nı daha da küçült" seçildi — bu
-              kez YALNIZCA İK'ye özgü component'ler (paylaşılan `LineChart`
-              3 sekmede kullanıldığı için DOKUNULMADI): `BirthdayAnniversaryCard`
-              (avatar/satır dolgusu küçültüldü), `TurnoverRateCard`+`DualLineChart`
-              (grafik `h-24`→`h-20`, kutu dolgusu), `PendingApprovalsCard`
-              (ikon `h-7`→`h-6`, satır dolgusu), `TrackingBoxRow` ve
-              `HRCalendarCard`'ın kendisi (hücre `h-7`→`h-6`) bir kademe
-              daha sıkılaştırıldı + sekme içi satır boşlukları (`gap-4`→
-              `gap-3`, `mt-3/mt-4`→`mt-2`) tekilleştirildi — sekmenin
-              doğal yüksekliği 1344px'ten **1149px**'e düştü (toplamda
-              orijinal 1459px'ten -310px), `min-h` 1365px'ten 1165px'e
-              düşürüldü — diğer sekmelerdeki boş alan da orantılı olarak
-              azaldı. AYNI GÜN, 6. tur — "Performans Yönetimi"ne gerçek
-              app.idenfit.com "Görevlerim" ekran görüntüsüne göre 2 yeni
-              modül eklendi ("tüm sayfayı da oranla güzel dursun" —
-              `PerformanceManagementTab`): 5'li gradyanlı durum rozeti
-              (Gecikmiş/Bugün/Yaklaşan/Planlanmamış/Tamamlananlar,
-              `TaskStatsRow`) + kompakt "Görevlerim" listesi
-              (`MyTasksCard`, 3 örnek görev). Bu sekme YENİ en uzunu oldu
-              (~1195px, İnsan Kaynakları'nın ~1149px'ini az farkla geçti)
-              — `min-h` 1165px'ten 1215px'e yükseltildi. */}
-          <div key={activeTab} role="tabpanel" className="ppw-tab-enter min-h-[1215px]">
+          {/* Sekme yüksekliği stratejisi DEĞİŞTİ (2026-08-20, kullanıcı
+              isteği — Personio.com'un ana sayfasındaki dashboard mockup'ıyla
+              karşılaştırma sonrası: "dış boyut benzer olsun, daha kısa ve
+              anasayfada gezinirken rahat okunsun"). ESKİ yaklaşım (paylaşılan
+              `min-h`, en uzun sekmeye göre — 6 turluk ayar geçmişi
+              `git log`/eski yorum arşivinde) widget'ı toplam ~1453px dış
+              yüksekliğe çıkarıyordu (Personio'nun ölçülen ~870px'ine göre
+              ~1.7x). Artık sekme içeriği SABİT bir `max-h` + `overflow-y-auto`
+              içinde — header/sidebar HER ZAMAN tam görünür kalıyor (kaydırma
+              alanı dışında), yalnızca kart listesi gerektiğinde kendi
+              içinde kayıyor. Bu, kısa sekmelerdeki (Veri Analizi ~565px)
+              eski "büyük boş alan" sorununu da kendiliğinden çözüyor —
+              artık içerik kendi doğal yüksekliğinde durup taşmıyorsa hiç
+              kaymıyor. Hiçbir kart/veri KALDIRILMADI, yalnızca dış çerçeve
+              sabitlendi. */}
+          <div
+            key={activeTab}
+            role="tabpanel"
+            className="ppw-tab-enter max-h-[620px] overflow-y-auto pr-1"
+          >
             {activeTab === 'zaman' && <TimeManagementTab />}
             {activeTab === 'izin' && <LeaveManagementTab />}
             {activeTab === 'ik' && <HumanResourcesTab />}
