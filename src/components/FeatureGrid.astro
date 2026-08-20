@@ -31,6 +31,12 @@ import { getTranslations } from '../i18n';
 const t = getTranslations(Astro.currentLocale ?? 'tr');
 const { featureGrid } = t.home;
 ---
+<!-- 2026-08-20 — kullanıcı "yazılardaki puntoyu büyüt" dedi: kart
+     başlığı/açıklaması canlı idenfit.com'da ölçüldü (`getComputedStyle`,
+     "Zaman ve İzin Yönetimi" kartı) — başlık 24px/600/leading 29px
+     (önceki `text-lg`=18px'ten büyük), açıklama 16px/400/leading 20px
+     (önceki `text-sm`=14px'ten büyük). Kaynağın kesin px değerleri
+     BİREBİR kullanıldı, en yakın Tailwind adımına yuvarlanmadı. -->
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
   <div class="mx-auto max-w-3xl text-center">
@@ -50,8 +56,8 @@ const { featureGrid } = t.home;
         <path d="M42.883 54.2687C52.4884 54.2687 60.284 46.473 60.284 36.8676C60.284 27.2622 52.4884 19.4666 42.883 19.4666C33.2776 19.4666 25.4819 27.2622 25.4819 36.8676" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M49.3394 42.4011L43.945 39.1819C43.0054 38.625 42.2397 37.2851 42.2397 36.1889V29.0544" stroke="#FF0000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
-      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.timeLeave.title}</h3>
-      <p class="mt-2 text-sm text-body">{featureGrid.timeLeave.text}</p>
+      <h3 class="mt-4 text-[24px] leading-[29px] font-semibold text-heading">{featureGrid.timeLeave.title}</h3>
+      <p class="mt-2 text-[16px] leading-[20px] text-body">{featureGrid.timeLeave.text}</p>
     </div>
 
     <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
@@ -67,8 +73,8 @@ const { featureGrid } = t.home;
         <path d="M40.0007 39.9993C45.0633 39.9993 49.1673 35.8953 49.1673 30.8327C49.1673 25.7701 45.0633 21.666 40.0007 21.666C34.938 21.666 30.834 25.7701 30.834 30.8327C30.834 35.8953 34.938 39.9993 40.0007 39.9993Z" stroke="#8BB956" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M55.7486 58.3333C55.7486 51.2383 48.6903 45.5 40.0003 45.5C31.3103 45.5 24.252 51.2383 24.252 58.3333" stroke="#8BB956" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
-      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.performance.title}</h3>
-      <p class="mt-2 text-sm text-body">{featureGrid.performance.text}</p>
+      <h3 class="mt-4 text-[24px] leading-[29px] font-semibold text-heading">{featureGrid.performance.title}</h3>
+      <p class="mt-2 text-[16px] leading-[20px] text-body">{featureGrid.performance.text}</p>
     </div>
 
     <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
@@ -90,8 +96,8 @@ const { featureGrid } = t.home;
         <path d="M40.6284 43.457C41.8856 44.7142 43.9347 44.7142 45.2044 43.457" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
         <path d="M48.624 43.457C49.8812 44.7142 51.9303 44.7142 53.2 43.457" stroke="#F5AD1F" stroke-width="2" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"></path>
       </svg>
-      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.employeeExperience.title}</h3>
-      <p class="mt-2 text-sm text-body">{featureGrid.employeeExperience.text}</p>
+      <h3 class="mt-4 text-[24px] leading-[29px] font-semibold text-heading">{featureGrid.employeeExperience.title}</h3>
+      <p class="mt-2 text-[16px] leading-[20px] text-body">{featureGrid.employeeExperience.text}</p>
     </div>
 
     <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
@@ -114,8 +120,8 @@ const { featureGrid } = t.home;
         <path d="M61.0739 39.1196H56.7652C56.2561 39.1196 55.8389 39.5368 55.8389 40.046C55.8389 40.5551 56.2561 40.9723 56.7652 40.9723H61.0739C61.5831 40.9723 62.0003 40.5551 62.0003 40.046C62.0003 39.5368 61.5831 39.1196 61.0739 39.1196Z" fill="#772BAE"></path>
         <path d="M51.9029 29.116C52.1339 29.116 52.3649 29.024 52.5511 28.8378L55.5611 25.8278C55.9311 25.4578 55.9311 24.8544 55.5611 24.5315C55.191 24.1614 54.5876 24.1614 54.2647 24.5315L51.257 27.4967C50.887 27.8667 50.887 28.4701 51.257 28.7931C51.4409 29.024 51.6742 29.116 51.9052 29.116H51.9029Z" fill="#772BAE"></path>
       </svg>
-      <h3 class="mt-4 text-lg font-semibold text-heading">{featureGrid.analytics.title}</h3>
-      <p class="mt-2 text-sm text-body">{featureGrid.analytics.text}</p>
+      <h3 class="mt-4 text-[24px] leading-[29px] font-semibold text-heading">{featureGrid.analytics.title}</h3>
+      <p class="mt-2 text-[16px] leading-[20px] text-body">{featureGrid.analytics.text}</p>
     </div>
   </div>
 </section>
