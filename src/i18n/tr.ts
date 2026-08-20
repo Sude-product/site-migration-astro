@@ -384,11 +384,6 @@ export const tr: Translations = {
         jobTitle: 'HAVAİST - Kurumsal İletişim Yöneticisi',
       },
     },
-    hrtech: {
-      title: 'Tüm İK İhtiyaçları İçin Tek Noktadan Çözüm',
-      text:
-        'Hrtech-Alliance, İnsan Kaynakları süreçlerini kolaylaştırmak ve sadeleştirmek için tasarlanmış son teknoloji bir İK platformudur. Idenfit uygulaması üzerinden erişilebilen Hrtech-Alliance, önde gelen İK teknoloji sağlayıcılarını bir araya getirerek, İK profesyonellerine zaman ve maliyet tasarrufu sağlayan birleşik bir çözüm sunar.',
-    },
     faq: {
       viewAllLink: 'Tüm Soruları Görüntüleyin',
     },

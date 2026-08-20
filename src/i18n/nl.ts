@@ -376,11 +376,6 @@ export const nl: Translations = {
         jobTitle: 'HAVAİST - Manager Bedrijfscommunicatie',
       },
     },
-    hrtech: {
-      title: 'Eén-lokale oplossing voor al uw HR-behoeften',
-      text:
-        'Hrtech-Alliance is een next-generation HR-platform, ontworpen om HR-processen te vereenvoudigen en te stroomlijnen. Hrtech-Alliance is toegankelijk via de Idenfit-app en brengt toonaangevende aanbieders van HR-technologie samen, zodat we HR-professionals een geïntegreerde oplossing bieden die tijd bespaart en kosten verlaagt.',
-    },
     faq: {
       viewAllLink: 'Bekijk Alle Vragen',
     },

@@ -143,14 +143,3 @@ export const TESTIMONIAL_PEOPLE = {
   },
 } satisfies Record<string, TestimonialPerson>;
 
-// HRTech Alliance partner vurgusu — dış link 4 dilde aynı (kaynakta da
-// öyle). Görsel TR/IT'de aynı, EN/NL kendi farklı görsellerini kullanıyor.
-export const HRTECH_ALLIANCE_URL = 'https://www.hrtech-alliance.com/';
-export const HRTECH_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/09/hr-tech.svg';
-
-export const HOME_HRTECH_IMAGE: Record<Locale, LocaleImage> = {
-  tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/img5-1-1-657x1024.webp', width: 657, height: 1024 },
-  en: { url: 'https://idenfit.com/wp-content/uploads/2025/10/img5-1-1-641x1024.png', width: 641, height: 1024 },
-  nl: { url: 'https://idenfit.com/wp-content/uploads/2025/12/Group-1365420297-641x1024.png', width: 641, height: 1024 },
-  it: { url: 'https://idenfit.com/wp-content/uploads/2025/09/img5-1-1-657x1024.webp', width: 657, height: 1024 },
-};

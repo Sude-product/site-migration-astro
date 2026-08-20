@@ -486,12 +486,6 @@ export interface HomeTestimonialsLabels {
   emreOzcan: HomeTestimonialItemLabels;
 }
 
-/** GRUP 3 — HRTech Alliance partner vurgusu (dış link, 4 dilde aynı). */
-export interface HomeHrtechLabels {
-  title: string;
-  text: string;
-}
-
 /** Ana sayfa SSS (FAQ) bölümü (2026-08-12) — bkz. `HomeFaqSection.astro`.
  * Bölüm başlığı YENİDEN bir çeviri gerektirmiyor, `footer.links.general.faq`
  * ("Sıkça Sorulan Sorular") doğrudan yeniden kullanılıyor — burada yalnızca
@@ -511,7 +505,6 @@ export interface HomeLabels {
   panel: HomePanelLabels;
   suprema: HomeSupremaLabels;
   testimonials: HomeTestimonialsLabels;
-  hrtech: HomeHrtechLabels;
   faq: HomeFaqLabels;
 }
 
