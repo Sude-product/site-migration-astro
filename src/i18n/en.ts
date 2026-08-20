@@ -354,8 +354,6 @@ export const en: Translations = {
       text:
         'Idenfit provides you with a clean, simple, and intuitive interface to access all HR data in one place throughout the employee lifecycle. The dynamic dashboard is designed to let you easily add new modules as your business evolves.',
       features: ['Real-Time Insights', 'Reminders', 'Live Monitoring'],
-      formHeading: 'Apply now for an online demo!',
-      formSubmit: 'Get Started',
       imageAlt: 'idenfit user-friendly dashboard screenshot',
     },
     suprema: {

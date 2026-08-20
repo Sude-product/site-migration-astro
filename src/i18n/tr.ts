@@ -357,8 +357,6 @@ export const tr: Translations = {
       text:
         'idenfit, sade, net ve kullanımı kolay özellikleriyle insan kaynakları yönetimi boyunca elde edilen tüm verileri aynı panelde bulmanızı sağlar. Dinamik panel, farklı modüller içerisine eklemeler yapmanıza olanak tanıyacak şekilde tasarlanmıştır.',
       features: ['Anlık Bilgiler', 'Hatırlatmalar', 'Gerçek Zamanlı Monitör'],
-      formHeading: 'Online tanıtım için hemen başvurun!',
-      formSubmit: 'Hemen Başvur',
       imageAlt: 'idenfit kullanıcı dostu panel ekran görüntüsü',
     },
     suprema: {

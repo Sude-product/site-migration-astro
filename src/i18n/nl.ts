@@ -349,8 +349,6 @@ export const nl: Translations = {
       text:
         'Idenfit biedt een overzichtelijke, eenvoudige en intuïtieve interface waarmee alle HR-data op één plek geraadpleegd kan worden. Gedurende de gehele hire-to-retire cyclus kan de medewerker geadministreerd worden met onze HR core. Het dashboard is gebouwd voor de admin en naar persoonlijke voorkeur in te stellen.',
       features: ['Realtime Inzichten', 'Herinneringen', 'Live Monitoring'],
-      formHeading: 'Vraag nu een online demo aan!',
-      formSubmit: 'Aan de Slag',
       imageAlt: 'idenfit gebruiksvriendelijk dashboard screenshot',
     },
     suprema: {

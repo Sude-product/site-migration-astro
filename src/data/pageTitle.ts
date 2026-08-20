@@ -107,11 +107,12 @@ const GENERIC_CTA_TEXTS = new Set([
   'Direct Aanvragen',
   'Apply Now',
   'Aanmelden',
-  // `HeroForm.tsx`'in submit butonu — `t.hero.formSubmit`/`t.home.panel.formSubmit`
-  // (site genelinde 4 form: Hero/Panel/İletişim/Online Sunum Talebi, HER
-  // BİRİ AYNI metni taşıyor) — NL/IT'nin kendi metni yukarıdakilerden
-  // FARKLI (ayrı bir i18n anahtarı), aynı "tekrarlayan/jenerik" mantığıyla
-  // buraya eklendi.
+  // `HeroForm.tsx`'in submit butonu — `t.hero.formSubmit` (site genelinde
+  // 3 form: Hero/İletişim/Online Sunum Talebi, HER BİRİ AYNI metni taşıyor
+  // — 2026-08-20'de kaldırılan "Kullanıcı Dostu Panel" formu 4. bir
+  // kullanıcıydı) — NL/IT'nin kendi metni yukarıdakilerden FARKLI (ayrı
+  // bir i18n anahtarı), aynı "tekrarlayan/jenerik" mantığıyla buraya
+  // eklendi.
   'Nu Aanvragen',
   'Inizia Ora',
 ]);

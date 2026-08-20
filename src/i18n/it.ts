@@ -355,8 +355,6 @@ export const it: Translations = {
       text:
         "Idenfit ti permette di trovare tutti i dati ottenuti durante la gestione delle risorse umane in un unico pannello, grazie alle sue funzionalità semplici, chiare e facili da usare. Il pannello dinamico è progettato per consentire integrazioni all'interno di diversi moduli.",
       features: ['Informazioni Istantanee', 'Promemoria', 'Monitoraggio in Tempo Reale'],
-      formHeading: 'Richiedi subito una demo online!',
-      formSubmit: 'Invia Richiesta',
       imageAlt: 'screenshot del pannello intuitivo idenfit',
     },
     suprema: {

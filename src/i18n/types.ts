@@ -441,17 +441,14 @@ export interface HomeEfficiencyLabels {
   imageAlt: string;
 }
 
-/** GRUP 2 — "Kullanıcı Dostu Panel" + hero'yla aynı alanlara sahip 2. form. */
+/** GRUP 2 — "Kullanıcı Dostu Panel" (2026-08-20: 2. lead-capture formu
+ * kullanıcı isteğiyle kaldırıldı, yalnızca görsel + açıklama/checklist
+ * kaldı). */
 export interface HomePanelLabels {
   title: string;
   text: string;
   /** İkon listesi (3 öğe — Anlık Bilgiler/Hatırlatmalar/Gerçek Zamanlı Monitör). */
   features: [string, string, string];
-  /** Formun üstündeki küçük başlık ("Online tanıtım için hemen başvurun!"). */
-  formHeading: string;
-  /** Bu forma özel submit metni — hero'nun `cta.requestDemo`/`hero.formSubmit`'inden
-   * FARKLI (kaynakta da öyle, ör. EN hero "Apply Now" ama panel "Get Started"). */
-  formSubmit: string;
   imageAlt: string;
 }
 

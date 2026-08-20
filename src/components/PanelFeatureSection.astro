@@ -1,23 +1,16 @@
 ---
 // "Kullanıcı Dostu Panel" — bkz. docs/homepage-sections-report.md §8.
-// Hero'daki İLE AYNI form alanlarına sahip 2. bir lead-capture form
-// içeriyor — `HeroForm.tsx` doğrudan yeniden kullanıldı (yeni bir form
-// component'i yazılmadı), yalnızca `idPrefix="panel"` ile input/label
-// id'lerinin hero formuyla ÇAKIŞMASI önlendi (aynı sayfada 2 form olduğu
-// için, bkz. HeroForm.tsx'teki yorum). Bu form sayfanın altında olduğu
-// için `client:visible` kullanıldı (hero'nun `client:load`'ının aksine —
-// ilk ekranda değil, performans için gecikmeli hydrate).
-import HeroForm from './HeroForm.tsx';
+// 2026-08-20: bu bölümdeki 2. lead-capture formu (hero'dakiyle aynı
+// alanlara sahip `HeroForm.tsx` reuse'u) kullanıcı isteğiyle kaldırıldı
+// — dashboard görseli + açıklama/checklist metni kaldı, form YOK artık.
 import { getTranslations } from '../i18n';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
-import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
 import type { Locale } from '../data/nav';
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const { panel } = t.home;
 const image = HOME_PANEL_IMAGE[locale];
-const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
 ---
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
@@ -58,32 +51,6 @@ const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
           ))
         }
       </ul>
-
-      <div class="mt-8 max-w-md rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm">
-        <h3 class="text-lg font-semibold text-heading">{panel.formHeading}</h3>
-        <div class="mt-4">
-          <HeroForm
-            client:visible
-            idPrefix="panel"
-            labels={{
-              name: t.hero.formName,
-              phone: t.hero.formPhone,
-              phoneError: t.hero.formPhoneError,
-              phoneCountryLabel: t.hero.formPhoneCountryLabel,
-              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
-              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
-              company: t.hero.formCompany,
-              email: t.hero.formEmail,
-              submit: panel.formSubmit,
-              kvkkNotice: t.hero.kvkkNotice,
-            }}
-            locale={locale}
-            kvkkHref={kvkkHref}
-            termsHref={termsHref}
-            ctaKeyword={panel.title}
-          />
-        </div>
-      </div>
     </div>
   </div>
 </section>
