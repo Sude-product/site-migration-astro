@@ -30,6 +30,24 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-20)
 
+**🟢 2026-08-20, ayrıca — "Neden idenfit?" videosu + 4'lü özellik kartı
+yazıları canlı idenfit.com'a göre büyütüldü.** Kullanıcı iki ekran
+görüntüsü paylaşıp "puntoyu büyüt" + "videoyu ana sitedekine benzer
+şekilde büyüt" dedi; canlı sitede `getComputedStyle`/`getBoundingClientRect`
+ile ölçüldü: video 788.8px (1536px viewport, bizimki `max-w-2xl`=672px'e
+sıkışmıştı), kart başlığı 24px/600/leading 29px (bizimki `text-lg`=18px),
+kart açıklaması 16px/400/leading 20px (bizimki `text-sm`=14px).
+`VideoSection.astro`'da `max-w-2xl` kaldırılıp video dış `max-w-3xl`
+konteynerini (768px, canlıya %2.6 farkla yakın) dolduruyor;
+`FeatureGrid.astro`'nun 4 kartında ölçülen kesin px değerleri birebir
+uygulandı (6cd430c). `astro check` 0 hata, `astro build` 881 sayfa,
+`check-image-alt-text` 0 eksik, Chrome'da TR ana sayfasında görsel
+doğrulandı (video belirgin şekilde büyüdü, kart yazıları okunaklı
+büyüklükte). **Not:** dev server bu turda bir Vite modül-runner hatası
+verdi (`node/module-runner.js`, "undefined is not a function") —
+kodla ilgisizdi, `npm run dev:clean` ile düzeldi (kalıcı çözüm zaten
+CLAUDE.md'de belgeli).
+
 **🟢 2026-08-20, ayrıca — HRTech Alliance partner bölümü ana sayfadan
 kaldırıldı (4 dil).** Kullanıcı isteğiyle `HrtechSection.astro`
 ("Tüm İK İhtiyaçları İçin Tek Noktadan Çözüm") ve 4 locale
@@ -388,8 +406,10 @@ turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli
   referansına göre kısaltıldı (paylaşımlı `min-h`→sabit `max-h`+iç
   scroll) + TR ana sayfasındaki tekrarlı ikinci widget kaldırıldı, Açık
   nokta #35 kapandı. Ayrıca HRTech Alliance partner bölümü ana
-  sayfadan (4 dil) kaldırıldı, yan bulgu olarak Açık nokta #36 açıldı
-  — bkz. yukarıdaki "Güncel durum".
+  sayfadan (4 dil) kaldırıldı, yan bulgu olarak Açık nokta #36 açıldı.
+  Ayrıca "Neden idenfit?" videosu + 4'lü özellik kartı yazıları canlı
+  idenfit.com'da ölçülen gerçek px değerlerine göre büyütüldü — bkz.
+  yukarıdaki "Güncel durum".
 - **2026-08-19:** SEO/GEO denetim turu — bkz. yukarıdaki "Bugünkü
   SEO/GEO turu özeti". Ayrıca: sabit "Demo Talep Et" alt bar'ı (yeni
   özellik), hero'nun tek-alanlı forma + yeni marka sloganına köklü
