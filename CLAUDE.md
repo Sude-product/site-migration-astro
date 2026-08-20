@@ -28,7 +28,29 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-19)
+## Güncel durum (son güncelleme: 2026-08-20)
+
+**🟢 2026-08-20 — Ürün Önizleme widget'ının dış boyutu Personio
+referansına göre kısaltıldı + TR ana sayfasındaki tekrarlı ikinci widget
+kaldırıldı, Açık nokta #35 KAPANDI.** Kullanıcı Personio.com'un ana
+sayfasındaki dashboard mockup'ıyla karşılaştırıp "dış boyut benzer olsun,
+daha kısa ve anasayfada gezinirken rahat okunsun" dedi: sekme içeriği
+stratejisi paylaşımlı `min-h`'ten (6 turluk ayar geçmişi, dış yükseklik
+~1453px) **sabit `max-h-[620px]` + `overflow-y-auto`'ya** çevrildi —
+header/sidebar her zaman tam görünür kalıyor, yalnızca kart listesi
+gerektiğinde kendi içinde kayıyor (`ProductPreviewWidget.tsx`); hiçbir
+kart/veri kaldırılmadı. Ardından, hero'daki canlı widget artık tek başına
+yeterli görüldüğü için sayfanın aşağısındaki tekrarlı "Panelinizde Sizi
+Neler Bekliyor?" bölümü (`HomeProductPreview.astro`) ve `index.astro`'daki
+kullanımı tamamen kaldırıldı — Açık nokta #35'in bekleyen kararı bu turda
+verildi (aşağı bölüm kaldırıldı, hero'daki kaldı). Sayfa akışı
+FeatureGrid'den doğrudan EfficiencySection'a geçiyor, aradaki divider
+metni korunduğu için geçiş sorunsuz. `astro check` 0 hata (337 dosya),
+`astro build` 881 sayfa, `check-image-alt-text` 0 eksik, Chrome'da
+TR ana sayfasında görsel doğrulandı (widget'ın iç kaydırması header/
+sidebar'ı etkilemiyor, widget'tan sonra tekrar YOK). Commit edildi
+(a85929d resize, bfa6c15 kaldırma). **Çalışma ağacı temiz, bekleyen
+commit YOK.**
 
 **🟢 Aynı gün (2026-08-19), ayrıca — bağımlılık sağlığı denetimi +
 temizliği.** Kullanıcı "güvenlik açığı/kullanılamaz paket var mı"
@@ -313,11 +335,12 @@ hâlâ geçerli.)*
     (popüler yazı listesi), `ContactPage.astro` (ofis kayıtları).
     `AboutPage`/`SecurityPage`'de bilinçli olarak H3 EKLENMEDİ (zorlama
     başlık olurdu, gerekçe kaydedildi).
-35. **KARAR BEKLİYOR — TR ana sayfasında `ProductPreviewWidget` artık İKİ
-    kez render ediliyor** (2026-08-19, DOKUZUNCU tur): hero'da (yeni) VE
-    sayfanın aşağısındaki "Panelinizde Sizi Neler Bekliyor?" bölümünde
-    (`HomeProductPreview.astro`, eski). Kullanıcıya soruldu, "sonra karar
-    verelim" dedi — aşağıdaki bölümü kaldırıp kaldırmama kararı BEKLİYOR.
+35. **KAPANDI (2026-08-20) — TR ana sayfasında `ProductPreviewWidget`
+    İKİ kez render ediliyordu** (2026-08-19, DOKUZUNCU tur: hero'da VE
+    sayfanın aşağısındaki "Panelinizde Sizi Neler Bekliyor?" bölümünde).
+    Karar verildi: hero'daki widget tek başına yeterli, alt bölüm
+    (`HomeProductPreview.astro`) ve kullanımı tamamen kaldırıldı
+    (bfa6c15).
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -337,6 +360,10 @@ bakılabilir (nadiren gerekir): `docs/claude-md-archive-2026-08-18.md`
 (2026-07-21→08-06), `-07-31.md`, `-07-28.md`, `-07-23.md`. İlgili
 turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli).
 
+- **2026-08-20:** Ürün Önizleme widget'ının dış boyutu Personio
+  referansına göre kısaltıldı (paylaşımlı `min-h`→sabit `max-h`+iç
+  scroll) + TR ana sayfasındaki tekrarlı ikinci widget kaldırıldı, Açık
+  nokta #35 kapandı — bkz. yukarıdaki "Güncel durum".
 - **2026-08-19:** SEO/GEO denetim turu — bkz. yukarıdaki "Bugünkü
   SEO/GEO turu özeti". Ayrıca: sabit "Demo Talep Et" alt bar'ı (yeni
   özellik), hero'nun tek-alanlı forma + yeni marka sloganına köklü
