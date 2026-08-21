@@ -32,6 +32,26 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-21)
 
+**🟡 2026-08-21, en son — git commit'leri yerelde hazır, push BEKLİYOR
+(remote yok).** Bu oturumda yapılan tüm işler (az locale genişletmeleri,
+az görsel URL Unicode NFD/NFC bug düzeltmesi, site-geneli link/görsel
+denetimi ile bulunan `/az/faq/`+`/nl/blog/` kırık route'ları, ana sayfa
+SSS bölümü tasarımı + az çevirisi, "Manuel Süreçlerden Kurtulun"
+şeridinin yuvarlatılması, `/donanim/`'daki "çekirdek platform"
+görselinin kırmızı zemin düzeltmesi, canlı dashboard'un üst şeridinin
+beyazlatılması + çizgi grafik taşma düzeltmesi) commit edildi, çalışma
+ağacı TEMİZ (`git status` doğrulandı). **Ama repo'nun hiç remote'u YOK**
+— `git init` bu oturumda SIFIRDAN yapılmıştı (proje daha önce hiç git
+altında değildi), bir GitHub/GitLab adresi hiç eklenmedi. Kullanıcı
+"pushla" dediğinde bu netleşti — kullanıcı remote URL'i vermek yerine
+"sonra yaparız" dedi, push ERTELENDİ. **Sıradaki adım (kullanıcı devam
+ettiğinde):** kullanıcıdan remote URL iste (veya kendisi ekleyeceğini
+söylerse bekle), `git remote add origin <url>` + `git push -u origin
+master`. En son commit: `e428869` ("Whiten dashboard browser-chrome
+bar, fix chart line overflow"). Tam commit geçmişi için `git log
+--oneline` çalıştırılabilir — bu not listeyi TEKRARLAMIYOR, güncel
+`git log` her zaman otoriter kaynak.
+
 **🟢 2026-08-21, en son — Azerbaycan dili (az) 5. locale olarak eklendi,
 Faz 0+1 (altyapı + ana sayfa) tamamlandı.** Kullanıcı isteğiyle mevcut
 tr(varsayılan)/en/nl/it'nin yanına gerçek/profesyonel Azerice çeviriyle
