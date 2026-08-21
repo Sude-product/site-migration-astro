@@ -623,10 +623,21 @@ function LineChart({
   const max = Math.max(...data);
   const min = Math.min(...data);
   const range = max - min || 1;
-  const stepX = width / (data.length - 1);
-  const points = data.map((v, i) => [i * stepX, height - ((v - min) / range) * height] as const);
+  // `pad` (2026-08-21, kullanıcı bulgusu — "çizgi kayması/taşması") —
+  // noktalar önceden TAM x=0/x=width ve y=0/y=height'ta duruyordu; `r=3` +
+  // `strokeWidth=2` dairesi + `overflow-visible` birleşince son nokta
+  // kartın sağ/üst/alt kenarından TAŞIYORDU (canlı taramada görüldü).
+  // Çizim alanı her yönden `pad` kadar içeri çekilerek dairelerin
+  // TAMAMEN viewBox içinde kalması sağlandı — `overflow-visible` yine de
+  // gerekli (hover/vurgu için ileride büyüyebilecek noktalar), ama artık
+  // gerçekten taşan bir şey yok.
+  const pad = 6;
+  const stepX = (width - pad * 2) / (data.length - 1);
+  const points = data.map(
+    (v, i) => [pad + i * stepX, pad + (height - pad * 2) - ((v - min) / range) * (height - pad * 2)] as const
+  );
   const linePath = points.map(([x, y], i) => `${i === 0 ? 'M' : 'L'}${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
-  const areaPath = `${linePath} L${width},${height} L0,${height} Z`;
+  const areaPath = `${linePath} L${width - pad},${height} L${pad},${height} Z`;
   const yTicks = [max, Math.round((max + min) / 2), min];
 
   return (
@@ -693,8 +704,11 @@ function DualLineChart({
   const max = Math.max(...all);
   const min = Math.min(...all, 0);
   const range = max - min || 1;
-  const stepX = width / (dataA.length - 1);
-  const toPoints = (data: number[]) => data.map((v, i) => [i * stepX, height - ((v - min) / range) * height] as const);
+  // `pad` — `LineChart`'ın AYNI taşma düzeltmesi (bkz. onun yorumu).
+  const pad = 6;
+  const stepX = (width - pad * 2) / (dataA.length - 1);
+  const toPoints = (data: number[]) =>
+    data.map((v, i) => [pad + i * stepX, pad + (height - pad * 2) - ((v - min) / range) * (height - pad * 2)] as const);
   const pointsA = toPoints(dataA);
   const pointsB = toPoints(dataB);
   const pathOf = (pts: readonly (readonly [number, number])[]) =>
