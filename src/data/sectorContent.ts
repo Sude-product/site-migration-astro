@@ -248,6 +248,7 @@ export function getSectorContent(trSlug: string, locale: Locale) {
 const SECTOR_META_DESCRIPTION_OVERRIDES: Partial<Record<string, Partial<Record<Locale, string>>>> = {
   'perakende-sektoru-ik-cozumleri': {
     tr: "idenfit, perakende sektöründeki köklü firma ve KOBİ'lerin PDKS, izin/zaman yönetimi, işe alım ve personel eğitimi süreçlerini tek platformda birleştirir.",
+    az: 'idenfit, pərakəndə sektorunda PDKS, icazə & vaxt idarəçiliyi, işə qəbul və personal təlimi proseslərini tək platformada birləşdirir.',
   },
   'guvenlik-sektoru-ik-cozumleri': {
     tr: 'Güvenlik sektöründe yetişmiş personel yönetimi idenfit ile kolaylaşır — PDKS, vardiya planlama ve İK süreçlerini tek platformda yönetin.',
@@ -259,18 +260,10 @@ const SECTOR_META_DESCRIPTION_OVERRIDES: Partial<Record<string, Partial<Record<L
     tr: 'Genç nüfusla büyüyen eğitim sektöründe idenfit, yetenek keşfi, işe alım ve İK süreçlerinizi kolaylaştırarak rekabet avantajı sağlar.',
     nl: 'In de competitieve onderwijssector helpt Idenfit u de juiste talenten te vinden en HR-processen efficiënt te beheren.',
     en: 'High competition in education makes finding the right talent and managing HR processes challenging — idenfit helps you stay ahead.',
+    az: 'Gənc əhali ilə böyüyən təhsil sektorunda idenfit, istedad kəşfi, işə qəbul və İK proseslərinizi asanlaşdıraraq rəqabət üstünlüyü təmin edir.',
   },
   'tesis-yonetimi-ik-cozumleri': {
     nl: 'De facilitair beheerindustrie groeit snel — Idenfit helpt u HR en personeel systematisch te beheren binnen deze sector.',
-  },
-  // az (2026-08-21) — hero.text 70 karakterden kısa kaldığı sektörler için
-  // TR/EN/NL'deki AYNI desen: sektörün kendi whyIdenfit temasından
-  // sentezlenmiş, kopya çeviri olmayan bir açıklama.
-  'perakende-sektoru-ik-cozumleri': {
-    az: 'idenfit, pərakəndə sektorunda PDKS, icazə & vaxt idarəçiliyi, işə qəbul və personal təlimi proseslərini tək platformada birləşdirir.',
-  },
-  'egitim-sektoru-ik-cozumleri': {
-    az: 'Gənc əhali ilə böyüyən təhsil sektorunda idenfit, istedad kəşfi, işə qəbul və İK proseslərinizi asanlaşdıraraq rəqabət üstünlüyü təmin edir.',
   },
 };
 

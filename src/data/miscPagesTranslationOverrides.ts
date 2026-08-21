@@ -62,7 +62,7 @@ export const SECURITY_IT_OVERRIDE: SecurityItem[] = [
   { title: 'Politica sui Cookie e Informativa sui Cookie', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/cookie_policy_and_cookie_clarification_text.pdf' },
   { title: 'Modulo di Richiesta del Titolare dei Dati', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Veri_Sahibi_Basvuru_Formu_v2EN.pdf' },
   { title: 'Informativa per Dipendenti e Candidati ai Sensi della Normativa sui Dati Personali', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_Calisan_ve_Calisan_Adayi_Aydinlatma_Metni_v3EN.pdf' },
-  { title: 'Informativa per i Partner Commerciali in Materia di Dati Personali', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_İs_Ortagi_Aydinlatma_Metni_v3-EN.pdf' },
+  { title: 'Informativa per i Partner Commerciali in Materia di Dati Personali', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_İs_Ortagi_Aydinlatma_Metni_v3-EN.pdf' },
 ];
 
 export const GLOBAL_BRAND_IT_HERO: ProductBlock = {

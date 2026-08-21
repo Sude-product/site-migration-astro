@@ -258,7 +258,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Təlim İdarəçiliyi Modulu',
       text: 'idenfit ilə müəssisə daxili və xarici təlim prosesi & nəticələrini problemsiz idarə edirsiniz.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim1@2x.png', alt: 'Eğitim1@2x', width: 1076, height: 1339 },
+      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim1@2x.png', alt: 'Eğitim1@2x', width: 1076, height: 1339 },
     },
     sections: [
       {
@@ -266,7 +266,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>İşçilərin həqiqətən fiziki iştirak tələb edən təlimlərə qatılıb-qatılmadığının izlənməsi,</p>\n<ul class="list gray"><li>Fiziki təlimlərə və ya saha təlimlərinə qatılım beacon və gps texnologiyaları ilə mobil cihaz üzərindən nəzarət oluna bilər.</li><li>Qatılımlar sistem üzərində sessiya kimi müəyyən saatlarda təyin edilə bilər və bu vəziyyətdə mobil cihaz üzərindən daxil edilən saatlar və məlumatlar da real zamanlı olacaq.</li></ul>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim2@2x.webp', alt: 'Eğitim2@2x', width: 1115, height: 1336 },
+        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim2@2x.webp', alt: 'Eğitim2@2x', width: 1115, height: 1336 },
       },
       {
         title: 'Təlimlərinizi idenfit ilə planlayın!',
@@ -368,14 +368,14 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Əsas vəsaitləri rəqəmsal mühitə daşıyın, nəzarəti asanlaşdırın!',
       text: 'Müəssisənizin sahib olduğu bütün əsas vəsaitləri tək bir paneldə izləmək istəyirsiniz? idenfit Əmlak İdarəçiliyi Modulu, əsas vəsaitlərinizi rəqəmsallaşdıraraq qeydiyyat, izləmə və idarəçilik proseslərini sadələşdirir.',
       ctaText: '', ctaUrl: '',
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/hero-demirbaş-tr.png', alt: 'hero demirbaş tr', width: 1137, height: 1260 },
+      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/hero-demirbaş-tr.png', alt: 'hero demirbaş tr', width: 1137, height: 1260 },
     },
     sections: [
       {
         title: 'idenfit Əmlak Modulu ilə:',
         text:
           '<ul class="list gray"><li>Müəssisənizin sistemdə qeydiyyatlı bütün əsas vəsaitlərini modul üzərindən təyin edə bilərsiniz.</li><li>Hər bir əsas vəsait üçün əmlak təyinatları asanlıqla edilə bilər.</li><li>Əsas vəsaitlərin satın alınma tarixləri, zəmanət müddətləri, seriya nömrələri və model məlumatları sistemə daxil edilə bilər.</li><li>Bütün bu məlumatlar zaman damğası ilə qeyd altına alınır, geriyə dönük izlənə bilənlik təmin edilir.</li><li>Əsas səhifədən Əmlak sekmesinə klikləyərək bütün detallara ani çata bilərsiniz.</li></ul><p>Bu modul, əmlak idarəçiliyini həm şəffaf, həm də səmərəli hala gətirərək vaxta qənaət təmin edir. İster kiçik miqyaslı, ister böyük miqyaslı bir müəssisə olun, rəqəmsallaşdırılmış əsas vəsait izləməsi ilə prosesi təminat altına alırsınız.</p>',
-        ctaText: '', ctaUrl: '', image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/web-demirbaş-tr.png', alt: 'web demirbaş tr', width: 1092, height: 1032 },
+        ctaText: '', ctaUrl: '', image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/web-demirbaş-tr.png', alt: 'web demirbaş tr', width: 1092, height: 1032 },
       },
     ],
     faq: [],
@@ -385,13 +385,13 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Sənədlər Modulu',
       text: 'Ortaq girişə açıq, anonim sənədləri işçilərinizin istifadəsinə təqdim edin.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar1@2x.webp', alt: 'dokümanlar1@2x', width: 1220, height: 1332 },
+      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar1@2x.webp', alt: 'dokümanlar1@2x', width: 1220, height: 1332 },
     },
     sections: [
       {
         title: 'Anonim sənədlər üçün sənədlər modulu!',
         text: '', ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar2@2x.webp', alt: 'dokümanlar2@2x', width: 1129, height: 731 },
+        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar2@2x.webp', alt: 'dokümanlar2@2x', width: 1129, height: 731 },
       },
       {
         title: 'Sənədləri asanlıqla yükləyin!',
@@ -412,7 +412,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Sağlamlıq Modulu',
       text: 'Sağlamlıq laqeyd yanaşılmır, işçilərinizin sağlamlığından xəbərdar olun! idenfit sağlamlıq modulu, işçilərinizin sağlamlıq vəziyyətlərini və varsa xüsusi şərtlərini asanlıqla izləyə bilməyinizə və məlumatlar istiqamətində qeyri-adi baş verə biləcək vəziyyətləri idarə etməyinizə kömək edir.',
       ctaText: '', ctaUrl: '',
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik1@2x.png', alt: 'sağlik1@2x', width: 889, height: 1281 },
+      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik1@2x.png', alt: 'sağlik1@2x', width: 889, height: 1281 },
     },
     sections: [
       {
@@ -420,7 +420,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>Əksər müəssisə, işə qəbul edərkən işçilərindən sağlamlıq hesabatı, xüsusi vəziyyət hesabatı kimi qurum təsdiqli sənədlər tələb edə bilər. Bəzən də işlənilən vəzifənin tələb etdiyi vəziyyətlərdə işçilərin keçirdiyi əməliyyatlar, müntəzəm istifadə etdiyi dərmanlar, varsa allergiya məlumatlarının da müəssisəyə bildirilməsi tələb edilə bilər.</p>\n<p>Sağlamlıq məlumatları, işçilərin icazələri istiqamətində sistemə daxil edilib, ola biləcək hər hansı bir sağlamlıq probleminidə, təcili vəziyyətlərdə şəxsə uyğun müdaxilə məqsədilə istifadə edilir.</p>',
         ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik3@2x.png', alt: 'sağlik3@2x', width: 952, height: 1261 },
+        image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik3@2x.png', alt: 'sağlik3@2x', width: 952, height: 1261 },
       },
       {
         title: 'İşçilərinizin sağlamlıq məlumatlarını asanlıqla izləyin!',
@@ -473,13 +473,13 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Şirkət təqvimi',
       text: 'Müəssisə daxili tədbirləri, görüşləri və xatırlatmaları idenfit şirkət təqvimi üzərində yaradaraq komandanızla paylaşın!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.1@2x.png', alt: 'şirket tak.1@2x', width: 1016, height: 1168 },
+      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.1@2x.png', alt: 'şirket tak.1@2x', width: 1016, height: 1168 },
     },
     sections: [
       {
         title: 'Tədbir Yaradın',
         text: '', ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.webp', alt: 'şirket tak', width: 1019, height: 820 },
+        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.webp', alt: 'şirket tak', width: 1019, height: 820 },
       },
       {
         title: 'Vaxtı İdarə Edin',
