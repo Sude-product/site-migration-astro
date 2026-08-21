@@ -32,7 +32,7 @@ const homeHref = getRelativeLocaleUrl(locale, '');
 const blogHref = getRelativeLocaleUrl(locale, 'blog');
 const contactHref = getRelativeLocaleUrl(locale, getContactSlug(locale) ?? 'iletisim');
 const pricingHref = getRelativeLocaleUrl(locale, getPricingSlug(locale) ?? 'fiyatlar');
-const faqHref = getRelativeLocaleUrl(locale, getFaqSlug(locale) ?? getFaqSlug('en') ?? 'sss');
+const faqHref = getRelativeLocaleUrl(locale, getFaqSlug(locale) ?? getFaqSlug(locale === 'az' ? 'tr' : 'en') ?? 'sss');
 
 const title = buildIdenfitTitle(nf.pageTitle, locale);
 ---

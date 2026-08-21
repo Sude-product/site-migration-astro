@@ -225,6 +225,13 @@ export default defineConfig({
     // düzeltildi.
     '/nl/hesaplama-araclari': '/hesaplama-araclari',
     '/nl/ik-dijital-olgunluk-testi': '/ik-dijital-olgunluk-testi',
+    // 2026-08-21: `audit-analyze.mjs` ile bulundu — KARAR 2'nin ÜÇÜNCÜ
+    // TR-only sayfası olan Blog, yukarıdaki iki kardeşiyle (Hesaplama
+    // Araçları/İK Dijital Olgunluk Testi) AYNI "nl:'en'+en:'tr' zinciri
+    // statik build'de çalışmıyor" bug'ına sahipti ama o turda eklenmesi
+    // unutulmuştu — `/nl/blog/` sessizce 404 veriyordu (dist'te hiç dosya
+    // üretilmemiş), ~42 NL sayfasındaki footer/mega-menü linkini kırıyordu.
+    '/nl/blog': '/blog',
     // 2026-08-17: hreflang denetim turunda bulundu — SSS'nin TR bare slug'ı
     // (`sss`) EN/IT'nin `faq`'ından FARKLI, bu yüzden otomatik `fallback:
     // {nl:'en'}` mekanizması `/nl/sss/`'i var olmayan `/en/sss/`'e düşürüp

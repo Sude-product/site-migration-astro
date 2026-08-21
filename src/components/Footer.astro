@@ -56,7 +56,10 @@ const SPECIAL_HREFS: Partial<Record<string, string>> = {
   // düzeltmesiyle (2026-07-24) ayrıştırıldı, bkz. CLAUDE.md.
   securityPolicy: getPrivacySecuritySlug(currentLocale) ?? 'sozlesme/gizlilik-ve-guvenlik-politikasi',
   globalBrand: getGlobalBrandSlug(currentLocale) ?? 'hedef-global-marka',
-  faq: getFaqSlug(currentLocale) ?? getFaqSlug('en') ?? 'sss',
+  // az'ın `i18n.fallback` hedefi 'tr' (en değil, bkz. astro.config.mjs) —
+  // EN'in slug'ına ('faq') düşmek `/az/faq/` için var olmayan bir fallback
+  // hedefi arıyordu (TR'nin gerçek slug'ı `sss`), stub hiç üretilmiyordu.
+  faq: getFaqSlug(currentLocale) ?? getFaqSlug(currentLocale === 'az' ? 'tr' : 'en') ?? 'sss',
   advantages: getWhyIdenfitSlug(currentLocale) ?? 'neden-idenfit',
   consumerRights: getLegalSlug(CONSUMER_RIGHTS_TR_SLUG, currentLocale) ?? 'sozlesme/tuketici-haklari',
   distanceSalesAgreement: getLegalSlug(DISTANCE_SALES_TR_SLUG, currentLocale) ?? 'sozlesme/mesafeli-satis-sozlesmesi',

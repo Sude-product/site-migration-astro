@@ -254,8 +254,15 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
 
   // SSS sayfası da hub'larla aynı sınıf: NL'de kaynakta hiç yok, EN'in
   // slug'ına ('faq') düşülüyor ki `i18n.fallback` otomatik redirect'i
-  // tetiklensin (bkz. `faqContent.ts`, `src/pages/sss.astro`).
-  const faqHref = () => getFaqSlug(locale) ?? getFaqSlug('en') ?? 'sss';
+  // tetiklensin (bkz. `faqContent.ts`, `src/pages/sss.astro`). AZ'de de
+  // kaynakta hiç yok, AMA az'ın `astro.config.mjs`teki `i18n.fallback`
+  // hedefi NL'inki (`en`) gibi DEĞİL, `tr` — bu yüzden EN'in slug'ına
+  // ('faq') düşmek YANLIŞ statik hedef üretiyordu: `/az/faq/` için
+  // fallback stub'ı TR'nin GERÇEK slug'ı olan `sss`'i değil, var olmayan
+  // bare `faq`'ı arıyor, hiçbir stub üretilmiyor → tüm az sayfalarındaki
+  // mega-menü SSS linki kırıktı (audit-analyze.mjs ile bulundu, 2026-08-21).
+  // Düzeltme: az için TR'nin slug'ına düşülüyor (fallback hedefiyle tutarlı).
+  const faqHref = () => getFaqSlug(locale) ?? getFaqSlug(locale === 'az' ? 'tr' : 'en') ?? 'sss';
 
   // İletişim ve Hedef Global Marka NL'de de GERÇEK içerikle var (bkz.
   // miscPagesContent.ts — İletişim'in NL slug'ı `mededelingen`, WP'nin
