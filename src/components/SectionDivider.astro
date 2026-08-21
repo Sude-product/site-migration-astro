@@ -20,11 +20,13 @@
 // ⚠️ DÜZELTME (2026-08-21, kullanıcı talebi): kaynaktan bilinçli bir
 // sapma — tam genişlik/keskin köşeli şerit, sitenin geri kalanındaki
 // yuvarlak köşeli kart diliyle (bkz. `HomeFaqSection.astro`'nun
-// `rounded-2xl` kartları) uyumsuz/sert duruyordu. Diğer ana sayfa
-// bölümleriyle AYNI `max-w-7xl` konteynerine alınıp (bkz. `FeatureGrid.
-// astro`) şerit artık viewport kenarına değil kendi yuvarlak köşeli
-// kutusuna sahip — 195px'lik sabit masaüstü padding'i de bu yüzden
-// anlamını yitirdi, konteynerin kendi padding'iyle değiştirildi.
+// `rounded-2xl` kartları) uyumsuz/sert duruyordu. İlk denemede `max-w-7xl`
+// konteynerine alınıp köşeler yuvarlatıldı — ama kullanıcı şeridin
+// UZUNLUĞUNUN (kaynaktaki gibi viewport kenarına değen tam genişlik)
+// KORUNMASINI istedi, yalnızca köşelerin yumuşamasını. Bu yüzden konteyner
+// tamamen KALDIRILDI — şerit yine tam genişlikte/viewport kenarına değiyor,
+// `rounded-2xl` doğrudan bu tam-genişlik `<section>`'ın kendisinde (köşeler
+// kenara değse de görünür şekilde yuvarlanıyor, sağa/sola margin GEREKMEZ).
 interface Props {
   text: string;
 }
@@ -32,8 +34,6 @@ interface Props {
 const { text } = Astro.props;
 ---
 
-<section class="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
-  <div class="rounded-2xl bg-brand px-6 py-5 text-center sm:rounded-3xl sm:px-12 sm:py-7 lg:px-20">
-    <h2 class="text-2xl font-normal leading-[29px] text-white lg:text-4xl lg:leading-[42px]">{text}</h2>
-  </div>
+<section class="rounded-2xl bg-brand px-6 py-[18px] text-center sm:rounded-3xl lg:px-[195px] lg:py-[17px]">
+  <h2 class="text-2xl font-normal leading-[29px] text-white lg:text-4xl lg:leading-[42px]">{text}</h2>
 </section>

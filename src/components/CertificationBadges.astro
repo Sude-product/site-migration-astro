@@ -13,6 +13,16 @@
 // `border-radius:10px`, padding'li bir kutu İÇİNDE gösterildiği görüldü —
 // ilk implementasyon bu kutuyu atlayıp ikonları çıplak zeminde + opacity-80
 // ile soluk göstermişti.
+//
+// DÜZELTME (2026-08-21, kullanıcı bulgusu): rozetler kaynağa göre KÜÇÜK
+// duruyordu. idenfit.com'da bu 7 ikon (`icon5`..`icon11`) canlı DOM'da
+// ölçüldü — masaüstünde (1536px) DAHİ mobil (400px) ile TAMAMEN AYNI
+// piksel yükseklikte (41-90px arası, hiç responsive KÜÇÜLTME/büyütme
+// yok). Bizim önceki `h-8 sm:h-10` (32/40px) kaynağın ortalama ~60px'inin
+// yaklaşık yarısıydı — `h-10 sm:h-14`'e (40/56px) çıkarıldı, kaynağın
+// TEK sabit boyutunu birebir kopyalamak yerine (bizim object-contain +
+// tek-yükseklik deseni farklı en-boy oranlı 7 ikonu zaten tutarlı
+// gösteriyor) sitenin genel responsive ilkesiyle uyumlu kaldı.
 import { getTranslations } from '../i18n';
 import { CERTIFICATION_BADGE_URLS } from '../data/homeContent';
 
@@ -34,7 +44,7 @@ const { certifications } = t.home;
   >
     {
       CERTIFICATION_BADGE_URLS.map((url) => (
-        <img src={url} alt="" loading="lazy" class="h-8 w-auto object-contain sm:h-10" />
+        <img src={url} alt="" loading="lazy" class="h-10 w-auto object-contain sm:h-14" />
       ))
     }
   </div>
