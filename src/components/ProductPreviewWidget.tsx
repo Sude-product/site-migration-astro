@@ -115,6 +115,13 @@ const TABS: TabDef[] = [
   { key: 'egitim-akademisi', label: 'Eğitim Akademisi', icon: GraduationCap, enabled: false },
 ];
 
+// Otomatik sekme gezinmesi (2026-08-20, kullanıcı isteği — Personio.com'un
+// ana sayfasındaki canlı dashboard gibi widget'ın kendi kendine gezinmesi)
+// yalnızca FONKSİYONEL sekmeler arasında döngü yapıyor — "Yakında" rozetli/
+// pasif dolgu sekmeler (Bordro/İşe Alım vb.) zaten tıklanamaz durumda,
+// otomatik gezinme de bunları atlıyor.
+const ENABLED_TABS = TABS.filter((t) => t.enabled);
+
 // --- "Zaman Yönetimi" sekmesi — kurgusal veri ---
 
 const SHIFTS: { label: string; percent: number }[] = [
@@ -2484,14 +2491,45 @@ function AppHeaderBar() {
   );
 }
 
+// Sekmeler arası bekleme süresi (ms) — kullanıcının her sekmeyi okumasına
+// yetecek kadar (`TestimonialCarousel.tsx`nin 6sn'lik otomatik geçişiyle
+// AYNI değer, projede zaten kanıtlanmış bir süre).
+const AUTO_TAB_INTERVAL_MS = 6000;
+
 export default function ProductPreviewWidget() {
   const [activeTab, setActiveTab] = useState<TabKey>('zaman');
   const [isDark, setIsDark] = useState(false);
+  const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
+
+  // Otomatik sekme gezinmesi — widget hover/focus edilince VEYA
+  // `prefers-reduced-motion` tercih edilmişse durur (`TestimonialCarousel.tsx`
+  // ile AYNI erişilebilirlik ilkesi). Kullanıcının elle bir sekmeye
+  // tıklaması bu döngüyü DURDURMUYOR — yalnızca o andan itibaren kaldığı
+  // yerden devam ediyor (bilinçli: "kendi kendine gezinen" bir demo bir
+  // tıklamada kalıcı olarak duracaksa amacına aykırı olurdu).
+  useEffect(() => {
+    if (autoPaused) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const timer = setInterval(() => {
+      setActiveTab((current) => {
+        const currentIndex = ENABLED_TABS.findIndex((t) => t.key === current);
+        const nextIndex = (currentIndex + 1) % ENABLED_TABS.length;
+        return ENABLED_TABS[nextIndex].key;
+      });
+    }, AUTO_TAB_INTERVAL_MS);
+    return () => clearInterval(timer);
+  }, [autoPaused]);
 
   return (
     <ThemeContext.Provider value={{ isDark, toggle }}>
-      <div className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}>
+      <div
+        className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+        onMouseEnter={() => setAutoPaused(true)}
+        onMouseLeave={() => setAutoPaused(false)}
+        onFocus={() => setAutoPaused(true)}
+        onBlur={() => setAutoPaused(false)}
+      >
         {/* Gerçek sidebar düzeni (2026-08-13, kullanıcı geri bildirimi —
             gönderdiği app.idenfit.com sidebar ekran görüntüsü referans
             alınarak: "modüller idenfit yazısının yanında olmalı, altında
