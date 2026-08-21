@@ -4,10 +4,20 @@ import type { ProductBlock } from '../data/productContent';
 interface Props {
   section: ProductBlock;
   reverse?: boolean;
+  /** `'brand'` — düz kırmızı (`bg-brand`) zemin üzerine BEYAZ ikon/illüstrasyon
+   * grafiği için (bkz. `donanim.astro`'nun `id: 'platform'` bölümü, kaynakta
+   * TÜM bölüm — görsel + metin — kırmızı zeminde, görsel şeffaf/beyaz çizgi
+   * sanatı, düz sayfa zemininde beyaz-üstüne-beyaz görünmez oluyordu). Görsel
+   * için `rounded-2xl` KALDIRILIYOR (kaynakta kart/foto değil, zemine
+   * karışan bir illüstrasyon — köşe yuvarlama yanlış bir "kart" izlenimi
+   * verir), başlık/metin beyaza dönüyor. Verilmezse (varsayılan) davranış
+   * DEĞİŞMEDİ. */
+  variant?: 'default' | 'brand';
 }
 
-const { section, reverse = false } = Astro.props;
+const { section, reverse = false, variant = 'default' } = Astro.props;
 const { title, text, ctaText, ctaUrl, image } = section;
+const onBrand = variant === 'brand';
 ---
 
 <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -20,24 +30,35 @@ const { title, text, ctaText, ctaUrl, image } = section;
           loading="lazy"
           width={image.width}
           height={image.height}
-          class="w-full rounded-2xl object-cover"
+          class={onBrand ? 'w-full object-contain' : 'w-full rounded-2xl object-cover'}
         />
       </div>
     )
   }
   <div class={image ? (reverse ? 'lg:order-1' : 'lg:order-2') : ''}>
-    <h2 class="h2-section text-heading" set:html={title} />
+    <h2 class:list={['h2-section', onBrand ? 'text-white' : 'text-heading']} set:html={title} />
     {
       text && (
         <div
-          class="mt-4 text-body [&_li]:mb-1 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_strong]:font-semibold [&_strong]:text-heading [&_ul]:list-disc [&_ul]:pl-5"
+          class:list={[
+            'mt-4 [&_li]:mb-1 [&_p]:mb-3 [&_p:last-child]:mb-0 [&_ul]:list-disc [&_ul]:pl-5',
+            onBrand
+              ? 'text-white/90 [&_strong]:font-semibold [&_strong]:text-white'
+              : 'text-body [&_strong]:font-semibold [&_strong]:text-heading',
+          ]}
           set:html={text}
         />
       )
     }
     {
       ctaText && ctaUrl && (
-        <a href={ctaUrl} class="mt-4 inline-flex items-center text-sm font-semibold text-brand hover:underline">
+        <a
+          href={ctaUrl}
+          class:list={[
+            'mt-4 inline-flex items-center text-sm font-semibold hover:underline',
+            onBrand ? 'text-white' : 'text-brand',
+          ]}
+        >
           {ctaText}
         </a>
       )

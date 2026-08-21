@@ -165,10 +165,22 @@ const heroCtaText =
       const effectiveSection = ctaOverride
         ? { ...section, ctaText: ctaOverride.ctaText, ctaUrl: ctaOverride.ctaUrl ?? section.ctaUrl }
         : section;
+      // `id === 'platform'` — YALNIZCA `hardwareContent.ts`/`donanim.astro`'nun
+      // "Donanım çekirdek platform" bölümü (kaynakta doğrulandı, canlı sitede
+      // bu TEK bölüm düz kırmızı `bg-brand` zeminde + beyaz illüstrasyon/metin,
+      // diğer hiçbir ürün/hub sayfasında bu id kullanılmıyor — bkz.
+      // `ProductSectionBlock.astro`'nun `variant` prop yorumu). Düz `bg-white`
+      // zeminde render edilince görselin beyaz çizgi sanatı görünmez oluyordu
+      // (2026-08-21, kullanıcı bulgusu).
+      const isBrandSection = section.id === 'platform';
       return (
-        <section id={section.id} class={i % 2 === 1 ? 'bg-brand-light' : ''}>
+        <section id={section.id} class={isBrandSection ? 'bg-brand' : i % 2 === 1 ? 'bg-brand-light' : ''}>
           <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-            <ProductSectionBlock section={effectiveSection} reverse={i % 2 === 1} />
+            <ProductSectionBlock
+              section={effectiveSection}
+              reverse={i % 2 === 1}
+              variant={isBrandSection ? 'brand' : 'default'}
+            />
           </div>
         </section>
       );
