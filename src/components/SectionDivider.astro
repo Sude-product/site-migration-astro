@@ -16,6 +16,15 @@
 // `padding:17px 195px`, `≤1024px`'te `padding:18px 24px` + font 36px/42px
 // satır yüksekliği → 24px/29px'e düşüyor. `max-w-4xl mx-auto` tamamen
 // kaldırılıp bu ölçülen padding değerleriyle değiştirildi.
+//
+// ⚠️ DÜZELTME (2026-08-21, kullanıcı talebi): kaynaktan bilinçli bir
+// sapma — tam genişlik/keskin köşeli şerit, sitenin geri kalanındaki
+// yuvarlak köşeli kart diliyle (bkz. `HomeFaqSection.astro`'nun
+// `rounded-2xl` kartları) uyumsuz/sert duruyordu. Diğer ana sayfa
+// bölümleriyle AYNI `max-w-7xl` konteynerine alınıp (bkz. `FeatureGrid.
+// astro`) şerit artık viewport kenarına değil kendi yuvarlak köşeli
+// kutusuna sahip — 195px'lik sabit masaüstü padding'i de bu yüzden
+// anlamını yitirdi, konteynerin kendi padding'iyle değiştirildi.
 interface Props {
   text: string;
 }
@@ -23,8 +32,8 @@ interface Props {
 const { text } = Astro.props;
 ---
 
-<section class="bg-brand">
-  <div class="px-6 py-[18px] text-center lg:px-[195px] lg:py-[17px]">
+<section class="mx-auto max-w-7xl px-4 py-2 sm:px-6 lg:px-8">
+  <div class="rounded-2xl bg-brand px-6 py-5 text-center sm:rounded-3xl sm:px-12 sm:py-7 lg:px-20">
     <h2 class="text-2xl font-normal leading-[29px] text-white lg:text-4xl lg:leading-[42px]">{text}</h2>
   </div>
 </section>
