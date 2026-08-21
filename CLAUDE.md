@@ -28,7 +28,129 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-20)
+## Güncel durum (son güncelleme: 2026-08-21)
+
+**🟢 2026-08-21 — Ürün Önizleme widget'ına (hero'daki canlı dashboard)
+otomatik sekme gezinmesi eklendi, bir önceki oturumdan yarım kalan iş
+tamamlandı.** `ProductPreviewWidget.tsx`'e, Personio.com'un ana
+sayfasındaki gibi widget'ın kendi kendine sekmeler arası gezinmesi
+eklendi — yalnızca FONKSİYONEL 5 sekme arasında (Zaman Yönetimi/İzin/
+İnsan Kaynakları/Performans Yönetimi/Veri Analizi) 6 saniyede bir döngü
+yapıyor, "Yakında" rozetli pasif sekmeler atlanıyor. Desen projede zaten
+kanıtlanmış `TestimonialCarousel.tsx`'in otomatik geçiş mantığıyla
+BİREBİR aynı: hover/focus'ta duraklıyor (`onMouseEnter`/`onMouseLeave`/
+`onFocus`/`onBlur`), `prefers-reduced-motion` tercih edilmişse hiç
+başlamıyor, aynı 6000ms aralığı kullanıyor. Kullanıcının elle bir
+sekmeye tıklaması döngüyü DURDURMUYOR — yalnızca kaldığı yerden devam
+ediyor (bilinçli: "kendi kendine gezinen" bir demo bir tıklamada kalıcı
+duracaksa amacına aykırı olur). `astro check` 0 hata (339 dosya),
+`astro build` 881 sayfa, `check-image-alt-text`/`check-link-accessibility`
+0 eksik. **Çalışma ağacı temiz DEĞİL** — bu turun + bir önceki oturumun
+Müşteri Hikayeleri carousel'inin (aşağıdaki madde) hepsi hâlâ commit
+edilmeyi bekliyor.
+
+**🟢 2026-08-21, ayrıca — kullanıcı "müşteri deneyimleri kartları yok"
+dedi, kök neden bulunup düzeltildi.** İlk `dev:clean` bu turda `astro
+build` İLE ARAYA GİRİNCE (dev server açıkken build çalıştırılıp dist/
+üretildi) yeniden bozulmuş — Chrome konsolunda tam CLAUDE.md'nin zaten
+belgelediği bilinen hata: `TypeError: _jsxDEV is not a function`
+(`CustomerStoryCarousel.tsx`+`YoutubeClickToPlay.tsx`'te). Sonuç: SSR
+HTML'i (`curl` ile doğrulandı) kartların TAM içeriğini taşıyordu ama
+React hydration'da island'ın içi TAMAMEN boşalıyordu (`innerHTML.length
+0`) — `.reveal` sarmalayıcı görünür/opaklığı doğruydu, sorun scroll-reveal
+DEĞİLDİ, saf hydration çökmesiydi. İKİNCİ bir `npm run dev:clean`
+(bu kez `astro build` araya girmeden) sorunu kalıcı çözdü, `astro dev
+logs`'ta `_jsxDEV` hatası bir daha çıkmadı, Chrome'da 5 kartın hepsi
+(Civil video, Yatsan/Beyaz Fırın alıntı, Tuğba/Beyaz Fırın video-2)
+doğru render olduğu doğrulandı, konsol hatasız. **Yeni ders (mevcut
+Vite önbellek kuralına ek):** `astro build` dev server AÇIKKEN
+çalıştırılırsa da aynı `_jsxDEV` bozulmasını tetikleyebiliyor — build
+sonrası dev server'a dönülüyorsa MUTLAKA `npm run dev:clean` ile
+yeniden başlatılmalı (bu zaten CLAUDE.md'nin §Development bölümünde
+yazılıydı, ama bu turda pratikte doğrulandı/pekiştirildi).
+
+**🟢 2026-08-20, ayrıca — Ana sayfaya, hero'daki dashboard widget'ının
+HEMEN ALTINA, Personio tarzı bir "Müşteri Hikayeleri" carousel'i eklendi
+(4 dil).** Önce keşif yapıldı: `/musteriler/`'in `CUSTOMER_STORIES`'inde
+5 gerçek hikaye (+ Civil'in ayrı ikinci bloğu) olduğu, ama istenen video/
+istatistik kart başlığı formatındaki ("Firma X'in Y sorununu Z%
+azalttığını izleyin") somut sonuç cümlesinin hiçbir veride bulunmadığı
+tespit edildi — kullanıcı onayıyla **nötr başlık** kullanıldı (uydurma
+yüzde yok, KARAR 1). Ayrıca yalnızca `CUSTOMER_LOGO_MARQUEE`'de GERÇEK
+logosu olan firmalar dahil edildi — Femaş/Doğ-Ser'in logosu yok,
+kullanıcı onayıyla bu turda **hariç tutuldu**. Sonuç: 3 kart, 3 farklı
+tip — Civil (video, ikincil blok/Mustafa Yıldıran), Yatsan (alıntı/
+Müzeyyen Kıran Mergen), Tuğba Kuruyemiş (istatistik). Kart metni
+YENİDEN YAZILMADI — mevcut `customerStories.ts`/i18n'in
+`customerStories` şemasından aynen yeniden kullanıldı, yalnızca 2 yeni
+nötr başlık cümlesi + carousel UI metni (`home.customerCarousel`, 4 dil)
+eklendi. "Devamını Oku" `/musteriler/#<anchor>`'a gidiyor —
+`CustomerStoryRow.astro`'ya yeni `id` prop'u eklenip
+`CustomerStoriesPage.astro`'da her bloğa (`story.key`/`${story.key}
+-secondary`) atandı. Video kartı mevcut `YoutubeClickToPlay.tsx`'i
+DEĞİŞİKLİKSİZ yeniden kullanıyor. Yeni dosyalar: `customerStoryCarousel.ts`
+(locale-bağımsız kart tanımı), `CustomerStoryCarousel.tsx` (React,
+`client:visible`, native `scroll-snap` + ok butonları — kartlar TÜRE
+göre farklı yükseklik taşıdığı için `TestimonialCarousel.tsx`'in sabit
+panel yükseklikli grid-stack tekniği DEĞİL), `CustomerStoryCarouselSection.astro`
+(sarmalayıcı). `astro check` 0 hata (341 dosya), `astro build` 881
+sayfa, `check-image-alt-text`/`check-link-accessibility` 0 eksik,
+Chrome'da 4 dilin hepsinde (TR/EN/NL/IT) görsel doğrulandı — video
+tıkla-oynat çalışıyor, "Devamını Oku" doğru bloğa scroll ediyor, konsol
+hatasız. **Bilinçli açık nokta:** yalnızca 3 kart var (carousel'in
+"sonsuz döngü" hissi için ince — istenirse Femaş/Doğ-Ser'e logo
+bulunup eklenebilir, ayrı bir karar).
+
+**Aynı gün, dördüncü tur — Beyaz Fırın'a AYRICA bir video kartı eklendi
+(5. carousel kartı).** Kullanıcının paylaştığı YouTube linki (`ru4gVy9-sOQ`)
+Civil'in video kartıyla AYNI desende (`YoutubeClickToPlay`, gerçek
+`maxresdefault.jpg` thumbnail + tıkla-oynat) yeni bir karta çevrildi —
+Beyaz Fırın artık carousel'de 2 kez var (video + alıntı), ikisi de
+`/musteriler/#beyazFirin`'e gidiyor (o blok yalnızca alıntıyı gösteriyor,
+video ayrıca embed edilmedi). **2 teknik düzeltme gerekti:** (1)
+`CustomerStoryCarouselSection.astro`'nun `base.key`'i önceden yalnızca
+`storyKey`'di — aynı firmanın 2. kartı eklenince React key çakışması
+oluşurdu, `${storyKey}-${type}`'a çevrildi; (2) video başlığı önceden
+TÜM video kartları için sabit `cc.civilVideo.headline` kullanıyordu
+(yalnızca 1 video kartı olduğu için fark edilmemişti) — `storyKey`'e
+göre başlık seçen bir `VIDEO_HEADLINES` haritasına çevrildi. Yeni i18n
+anahtarı `home.customerCarousel.beyazFirinVideo.headline` (4 dil, nötr
+başlık — Civil'inkiyle aynı kalıp). `astro check` 0 hata, `astro build`
+881 sayfa, erişilebilirlik script'leri 0 eksik, Chrome'da DOM üzerinden
+(`querySelector`) 5 kartın da doğru sırada/içerikte render olduğu +
+video kartının gerçekten oynatıldığı doğrulandı.
+
+**Aynı gün, üçüncü tur — Beyaz Fırın 4. carousel/Müşteriler kartı olarak
+eklendi + kartlar tekrar büyütüldü.** Kullanıcı gerçek bir alıntı (Nuri
+Sütlüoğlu, İnsan Kaynakları Müdürü) + 2 gerçek fotoğraf (kendi portresi +
+Beyaz Fırın'ın Moi şubesi vitrin fotoğrafı, ikisi de `public/images/`'e
+yerelleştirildi) paylaştı. Kapsam: (1) `CustomerStoryLabels.employeeCount`
+opsiyonel yapıldı (Beyaz Fırın'da çalışan sayısı YOK, uydurulmadı — KARAR
+1) + `CustomerStoriesPage.astro`'nun stats-oluşturma mantığı buna göre
+korundu; (2) `/musteriler/` sayfasına Doğ-Ser/Tuğba'yla aynı desende
+(yalnızca alıntı) YENİ bir blok eklendi (`customerStories.ts` + 4 dil
+i18n); (3) carousel'e 4. kart (alıntı tipi) eklendi. **Yan bulgu:**
+Tuğba Kuruyemiş kartının "Devamını Oku" anchor'ı yanlışlıkla kebab-case
+(`tugba-kuruyemis`) yazılmıştı, sayfadaki gerçek id camelCase
+(`tugbaKuruyemis`) — bu turda fark edilip düzeltildi. Kullanıcı AYRICA
+"kartların boyutları ve puntoları biraz daha büyüsün" dedi — 420px→480px,
+tüm iç yazı boyutları bir kademe daha büyütüldü (üçüncü size-up turu).
+`astro check` 0 hata, `astro build` 881 sayfa, `check-image-alt-text`/
+`check-link-accessibility` 0 eksik (2 kez doğrulandı), Chrome'da TR'de
+4. kart + "Devamını Oku"nun doğru anchor'a (`#beyazFirin`) gittiği + yeni
+Müşteriler bloğu görsel doğrulandı.
+
+**Aynı gün, ikinci tur — kartlar büyütüldü + tonu hero widget'ıyla
+eşleştirildi.** Kullanıcı "daha büyük canlı ve arka planının tonu bizim
+isteğimize uyacak şekilde" dedi: kart genişliği 340px→420px, iç boşluk/
+yazı boyutları büyütüldü (istatistik sayısı `text-3xl`→`text-5xl`), ve
+ÜÇ kart tipinin de arka planı — önceki turda video/alıntı beyaz, yalnızca
+istatistik pembeydi (tutarsız) — hero'daki dashboard widget'ının
+ÇERÇEVESİYLE (`HeroSection.astro`, `#FFDCDC→#FFF3F3→#FFFFFF→#FFF3F3→#FFDCDC`
+gradyanı) AYNI kırmızı tonlu gradyan ailesine (`CustomerStoryCarousel.tsx`'in
+`CARD_BG_GRADIENT` sabiti) çevrildi + hover'da hafif kalkma efekti eklendi.
+`astro check` 0 hata, `astro build` 881 sayfa, `check-image-alt-text`/
+`check-link-accessibility` 0 eksik, Chrome'da TR'de görsel doğrulandı.
 
 **🟢 2026-08-20, ayrıca — "Kullanıcı Dostu Panel" bölümündeki 2.
 lead-capture form kaldırıldı (4 dil).** Kullanıcı ekran görüntüsü
