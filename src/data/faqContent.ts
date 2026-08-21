@@ -153,10 +153,58 @@ const HOME_FAQ_INDICES: Record<FaqLocale, number[]> = {
   it: [0, 5, 6, 11, 12, 14, 23],
 };
 
+// az (2026-08-21, kullanıcı bulgusu — "azerice seçince ingilizce geliyor"):
+// az, 90 sorunun TAMAMININ çevrildiği bir `FaqLocale` DEĞİL (`/sss/`
+// sayfasının kendisi hâlâ bilinçli olarak kapsam dışı, TR/EN/IT dışındaki
+// diller EN'e düşer) — ama ana sayfa yalnızca bu 7 seçilmiş soruyu
+// gösteriyor, bunları elle çevirmek 90 sorunun tamamını çevirmekten çok
+// daha küçük bir iş. TR'nin `HOME_FAQ_INDICES.tr` sırasındaki AYNI 7 soru,
+// TR kaynaktan profesyonel Azerice çeviri (`i18n/az.ts`'teki AYNI çeviri
+// ilkesi, kopya/otomatik çeviri değil).
+const HOME_FAQ_AZ: FaqItem[] = [
+  {
+    question: 'idenfit nədir?',
+    answer:
+      '<p>idenfit, insan resursları idarəçiliyinə bütöv bir yanaşma gətirən bulud əsaslı, istifadəçi dostu insan resursları və işçi qüvvəsi proqram təminatıdır. İnsan resursları departamentlərinin vaxta qənaət etməsini təmin edərək, dəyər yaradan işlərin ortaya çıxmasına zəmin hazırlayır. Bütün insan resursları proseslərini idenfit ilə başdan-sona tək bir platforma altında idarə edə bilərsiniz.</p>',
+  },
+  {
+    question: 'idenfit İK proseslərindəki manual işləri azaldıb, işlərin rəqəmsal aparılmasına imkan verirmi?',
+    answer:
+      '<p>idenfit bütün insan resursları proseslərini bulud saxlanması, biometrik imza, onlayn sənədləşdirmə kimi funksiyalarla rəqəmsallaşdıraraq, İK departamentlərini lazımsız kağız işlərindən və manual iş yükündən qurtarır.</p>',
+  },
+  {
+    question: 'Modul qiymətləndirilməsi necə tətbiq olunur?',
+    answer:
+      '<p>İstifadə etdiyiniz modullar ayrı-ayrılıqda qiymətləndirilir, birdən çox modul istifadə etdiyiniz halda müəssisənizə xüsusi endirimlər tətbiq olunur.</p>',
+  },
+  {
+    question: 'İdenfit’i hansı müəssisələr istifadə edə bilər? Kiçik ölçülü şirkətlər üçün uyğundurmu?',
+    answer:
+      '<p>idenfit parametrik və dinamik strukturu ilə kiçik ölçülü müəssisələrdən böyük ölçülü müəssisələrə qədər xidmət göstərə bilər. Əməkdaş sayına uyğun həllər mövcuddur.</p>',
+  },
+  {
+    question: 'Müqavilə müddəti minimum neçə ay olaraq planlaşdırılır?',
+    answer: '<p>Müqavilə müddəti minimum 12 ay olaraq planlaşdırılır.</p>',
+  },
+  {
+    question: 'Quraşdırma prosesi necədir? Yerində quraşdırma tələb olunurmu?',
+    answer:
+      '<p>Adınıza açılan hesabla idenfit İK proqram təminatından dərhal istifadə etməyə başlaya bilərsiniz. Biometrik cihaz quraşdırılması istisna olmaqla, yerində quraşdırma tələb edən bir mərhələ yoxdur.</p>',
+  },
+  {
+    question: 'idenfit şəxsi məlumatların qorunması qanunvericiliyinə uyğun bir proqram təminatıdırmı?',
+    answer:
+      '<p>idenfit şəxsi məlumatların qorunması qaydalarına uyğun fəaliyyət göstərir. Ətraflı məlumat üçün müvafiq səhifəmizi ziyarət edə bilərsiniz.</p>',
+  },
+];
+
 /** Ana sayfa SSS bölümü için 7 seçilmiş soru — NL için kendi verisi
  * olmadığından (bkz. dosya başındaki yorum) EN'in AYNI 7 sorusuna düşer
- * (`getFaqLocaleUrls()`/`getFaqSlug()` ile AYNI NL→EN ilkesi). */
+ * (`getFaqLocaleUrls()`/`getFaqSlug()` ile AYNI NL→EN ilkesi). az için ise
+ * gerçek çeviri var (yukarıdaki `HOME_FAQ_AZ`) — `/sss/` sayfasının
+ * tamamından FARKLI olarak burada EN fallback YOK. */
 export function getHomeFaqItems(locale: Locale): FaqItem[] {
+  if (locale === 'az') return HOME_FAQ_AZ;
   const effectiveLocale: FaqLocale = isFaqLocale(locale) ? locale : 'en';
   const indices = HOME_FAQ_INDICES[effectiveLocale];
   const items = DATA.faq[effectiveLocale] ?? [];
