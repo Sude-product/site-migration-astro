@@ -303,6 +303,14 @@ export const tr: Translations = {
         name: 'Nevzat Atmaca',
       },
     },
+    beyazFirin: {
+      quote: {
+        text:
+          'idenfit, bizim isteklerimizin bile önünde hizmet sundu ve bizi bu konuda geliştirdi. En önemli özelliklerinden biri, taleplerimizin karşılık bulması. İş hayatından gelen tüm talepler değerlendirilip program yeniden revize ediliyor, buradaki gelişim gerçekten çok hızlı.',
+        name: 'Nuri Sütlüoğlu',
+        role: 'İnsan Kaynakları Müdürü',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -381,6 +389,16 @@ export const tr: Translations = {
           'idenfit ile ilk tanıştığımızda beni en çok etkileyen şey, idenfit\'in pratikliği ve farklı disiplinleri aynı platformda birleştirebilmesiydi. Arayüzünün sadeliği, çalışanlarımızın hızla adapte olabileceği bir sistem olduğunu gösteriyordu. Özellikle vardiyalı ve yoğun operasyon yürüten bizim gibi şirketler için, "çalışan dostu bir dijital çözüm" görmek çok kıymetliydi.',
         jobTitle: 'HAVAİST - Kurumsal İletişim Yöneticisi',
       },
+    },
+    customerCarousel: {
+      title: 'Müşteri Hikayeleri',
+      intro: 'idenfit ile İK süreçlerini dönüştüren firmalardan gerçek deneyimler.',
+      prevLabel: 'Önceki hikaye',
+      nextLabel: 'Sonraki hikaye',
+      readMoreLabel: 'Devamını Oku',
+      civilVideo: { headline: "Civil'in idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
+      tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş, idenfit ile İK süreçlerini tek panelden yönetiyor' },
+      beyazFirinVideo: { headline: "Beyaz Fırın'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
     },
     faq: {
       viewAllLink: 'Tüm Soruları Görüntüleyin',

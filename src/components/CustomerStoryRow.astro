@@ -9,6 +9,9 @@ import YoutubeClickToPlay from './YoutubeClickToPlay.tsx';
 import { STAT_ICONS, type StoryMedia } from '../data/customerStories';
 
 interface Props {
+  /** Ana sayfanın "Müşteri Hikayeleri" carousel'indeki "Devamını Oku"
+   * linkinin hedef anchor'ı (2026-08-20) — bkz. `customerStoryCarousel.ts`. */
+  id?: string;
   mediaSide: 'left' | 'right';
   media: StoryMedia;
   /** Yalnızca bir müşterinin İLK (ana) bloğunda gösterilir. */
@@ -23,7 +26,7 @@ interface Props {
   revealDelayMs?: number;
 }
 
-const { mediaSide, media, companyName, description, quote, quotePhotoUrl, stats, videoPlayLabel, revealDelayMs = 0 } = Astro.props;
+const { id, mediaSide, media, companyName, description, quote, quotePhotoUrl, stats, videoPlayLabel, revealDelayMs = 0 } = Astro.props;
 ---
 
 <!-- 2026-07-28 (dördüncü tur): kartlar büyütüldü — kullanıcı isteği,
@@ -34,8 +37,9 @@ const { mediaSide, media, companyName, description, quote, quotePhotoUrl, stats,
      Görsel hover'ı (`hover:scale-105`, altta) korunuyor — büyüyen kartla
      birlikte hâlâ çalışıyor, dokunulmadı. -->
 <div
+	id={id}
 	class:list={[
-		'reveal flex flex-col gap-10 py-12 lg:items-center lg:gap-20 lg:py-20',
+		'reveal flex scroll-mt-28 flex-col gap-10 py-12 lg:items-center lg:gap-20 lg:py-20',
 		mediaSide === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse',
 	]}
 	style={`transition-delay: ${revealDelayMs}ms`}

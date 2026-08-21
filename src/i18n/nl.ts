@@ -295,6 +295,14 @@ export const nl: Translations = {
         name: 'Nevzat Atmaca',
       },
     },
+    beyazFirin: {
+      quote: {
+        text:
+          'idenfit leverde een service die zelfs vooruitliep op onze eigen wensen, en heeft ons hierin verder ontwikkeld. Een van de belangrijkste kenmerken is dat onze verzoeken daadwerkelijk worden opgevolgd. Alle verzoeken die uit de dagelijkse praktijk komen, worden geëvalueerd en het programma wordt daarop aangepast — de ontwikkeling hierin gaat werkelijk heel snel.',
+        name: 'Nuri Sütlüoğlu',
+        role: 'HR-manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -373,6 +381,16 @@ export const nl: Translations = {
           "Wat mij het meest opviel toen we Idenfit voor het eerst leerden kennen, was de praktische toepasbaarheid en de mogelijkheid om verschillende functies op één platform te bundelen. De eenvoudige interface maakte duidelijk dat onze medewerkers zich snel konden aanpassen. Voor bedrijven zoals het onze, die werken met intensieve en ploegenroosters, was het zien van een echt 'medewerkersvriendelijke digitale oplossing' van onschatbare waarde.",
         jobTitle: 'HAVAİST - Manager Bedrijfscommunicatie',
       },
+    },
+    customerCarousel: {
+      title: 'Klantverhalen',
+      intro: 'Echte ervaringen van bedrijven die hun HR-processen transformeren met idenfit.',
+      prevLabel: 'Vorig verhaal',
+      nextLabel: 'Volgend verhaal',
+      readMoreLabel: 'Lees meer',
+      civilVideo: { headline: 'Bekijk hoe Civil zijn HR-processen transformeerde met idenfit' },
+      tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş beheert zijn HR-processen vanuit één paneel met idenfit' },
+      beyazFirinVideo: { headline: 'Bekijk hoe Beyaz Fırın zijn HR-processen transformeerde met idenfit' },
     },
     faq: {
       viewAllLink: 'Bekijk Alle Vragen',

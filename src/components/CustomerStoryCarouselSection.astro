@@ -1,0 +1,86 @@
+---
+// Ana sayfanın hero'sundaki dashboard widget'ının HEMEN ALTINDAKİ "Müşteri
+// Hikayeleri" carousel'i (2026-08-20) — bkz. `customerStoryCarousel.ts`'in
+// başındaki kapsam notu. Bu dosya yalnızca SARMALAYICI: locale-bağımsız kart
+// tanımlarını (`CUSTOMER_CAROUSEL_CARDS`) i18n metniyle birleştirip
+// `CustomerStoryCarousel.tsx`'e (React, `client:visible`) geçiriyor.
+import CustomerStoryCarousel from './CustomerStoryCarousel.tsx';
+import type { CustomerCarouselCardData, VideoCardData, QuoteCardData, StatCardData } from './CustomerStoryCarousel.tsx';
+import { CUSTOMER_CAROUSEL_CARDS } from '../data/customerStoryCarousel';
+import { getTranslations } from '../i18n';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const cc = t.home.customerCarousel;
+const cs = t.customerStories;
+const musterilerHref = getRelativeLocaleUrl(locale, 'musteriler');
+
+// Her video kartının kendi nötr başlığı var (`storyKey`'e göre) — birden
+// fazla video kartı olabildiği için (Civil + Beyaz Fırın, 2026-08-20)
+// `cc.civilVideo.headline`'ı SABİT kullanmak artık YANLIŞ olurdu.
+const VIDEO_HEADLINES: Partial<Record<string, string>> = {
+  civil: cc.civilVideo.headline,
+  beyazFirin: cc.beyazFirinVideo.headline,
+};
+
+const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): CustomerCarouselCardData => {
+  const base = {
+    // Aynı firmanın (Beyaz Fırın) hem video hem alıntı kartı olabildiği
+    // için (2026-08-20) `storyKey` tek başına artık BENZERSİZ değil —
+    // React `key` çakışmasını önlemek için `type` de eklendi.
+    key: `${card.storyKey}-${card.type}`,
+    companyName: card.companyName,
+    logoUrl: card.logo.url,
+    logoWidth: card.logo.width,
+    logoHeight: card.logo.height,
+    readMoreLabel: cc.readMoreLabel,
+    readMoreHref: `${musterilerHref}#${card.anchorId}`,
+  };
+
+  if (card.type === 'video') {
+    const videoCard: VideoCardData = {
+      ...base,
+      type: 'video',
+      videoUrl: card.videoUrl,
+      headline: VIDEO_HEADLINES[card.storyKey] ?? '',
+      playLabel: cs.videoPlayLabel,
+    };
+    return videoCard;
+  }
+
+  if (card.type === 'quote') {
+    const labels = cs[card.storyKey];
+    const quoteCard: QuoteCardData = {
+      ...base,
+      type: 'quote',
+      quoteText: labels.quote?.text ?? '',
+      personName: labels.quote?.name,
+      personRole: labels.quote?.role,
+      photoUrl: card.quotePhotoUrl,
+    };
+    return quoteCard;
+  }
+
+  const labels = cs[card.storyKey];
+  const statCard: StatCardData = {
+    ...base,
+    type: 'stat',
+    headline: cc.tugbaKuruyemis.headline,
+    primaryStat: labels.employeeCount ?? '',
+    secondaryStat: labels.secondaryStat,
+  };
+  return statCard;
+});
+---
+
+<section class="mx-auto max-w-[88rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="reveal">
+    <h2 class="h2-section text-heading">{cc.title}</h2>
+    <p class="mt-4 max-w-2xl text-body">{cc.intro}</p>
+  </div>
+  <div class="reveal mt-8" style="transition-delay: 100ms">
+    <CustomerStoryCarousel client:visible cards={cards} regionLabel={cc.title} prevLabel={cc.prevLabel} nextLabel={cc.nextLabel} />
+  </div>
+</section>

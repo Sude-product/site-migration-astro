@@ -344,11 +344,13 @@ export interface CustomerStoryLabels {
   /** Şirket tanıtım paragrafı — Femaş/Civil/Yatsan'da var. Doğ-Ser/Tuğba
    * Kuruyemiş'te YOK (tek içerikleri `quote`). */
   description?: string;
-  employeeCount: string;
+  /** Beyaz Fırın'da YOK (2026-08-20) — kullanıcı yalnızca bir alıntı
+   * paylaştı, çalışan sayısı uydurulmadı (KARAR 1). */
+  employeeCount?: string;
   /** "X mağaza/şube/lokasyon" — yalnızca bazılarında var. */
   secondaryStat?: string;
-  /** Ana bloktaki isimli alıntı — Yatsan/Doğ-Ser/Tuğba'da var (ikincisi
-   * ikisinde TEK içerik budur). */
+  /** Ana bloktaki isimli alıntı — Yatsan/Doğ-Ser/Tuğba/Beyaz Fırın'da var
+   * (Doğ-Ser/Tuğba/Beyaz Fırın'da TEK içerik budur). */
   quote?: CustomerStoryQuoteLabels;
 }
 
@@ -375,6 +377,7 @@ export interface CustomerStoriesLabels {
   yatsan: CustomerStoryLabels;
   dogSer: CustomerStoryLabels;
   tugbaKuruyemis: CustomerStoryLabels;
+  beyazFirin: CustomerStoryLabels;
 }
 
 /** Ana sayfanın hero-altı bölümleri (bkz. `docs/homepage-sections-report.md`)
@@ -492,6 +495,33 @@ export interface HomeFaqLabels {
   viewAllLink: string;
 }
 
+/** Ana sayfanın hero'sundaki dashboard widget'ının HEMEN ALTINDA, Personio
+ * tarzı bir "Müşteri Hikayeleri" carousel'i (2026-08-20). `/musteriler/`
+ * sayfasının `TestimonialSection`'daki 2 tanıktan (İsmail Ünal/Emre Özcan)
+ * FARKLI, `customerStories.ts`'teki hikayelerden 3'ünün (Civil-ikincil/
+ * Yatsan/Tuğba Kuruyemiş) 3 farklı kart tipinde (video/alıntı/istatistik)
+ * yeniden sunumu — bilinçli olarak yalnızca marquee'de gerçek logosu OLAN
+ * firmalarla sınırlandırıldı (Femaş/Doğ-Ser'in logosu yok, kapsam dışı
+ * bırakıldı). Kartların firma adı/logo/foto/video gibi dile bağlı OLMAYAN
+ * alanları `src/data/customerStoryCarousel.ts`'de; alıntı/istatistik metni
+ * zaten var olan `customerStories` şemasından yeniden kullanılıyor, burada
+ * yalnızca video ve istatistik kartının NÖTR başlık cümlesi (uydurma
+ * yüzde/sonuç iddiası YOK, KARAR 1) tutulur. */
+export interface HomeCustomerCarouselLabels {
+  title: string;
+  intro: string;
+  prevLabel: string;
+  nextLabel: string;
+  readMoreLabel: string;
+  civilVideo: { headline: string };
+  tugbaKuruyemis: { headline: string };
+  /** Beyaz Fırın'ın ALINTI kartından (`beyazFirin`, `customerStories`
+   * şemasında) AYRI bir VİDEO kartı (2026-08-20, kullanıcı YouTube linkini
+   * paylaşıp "bunu da kart yap" dedi) — aynı firmanın carousel'de 2 kartı
+   * var (video + alıntı), ikisi de `/musteriler/#beyazFirin`'e gidiyor. */
+  beyazFirinVideo: { headline: string };
+}
+
 export interface HomeLabels {
   logoStrip: HomeLogoStripLabels;
   dividers: HomeDividerLabels;
@@ -502,6 +532,7 @@ export interface HomeLabels {
   panel: HomePanelLabels;
   suprema: HomeSupremaLabels;
   testimonials: HomeTestimonialsLabels;
+  customerCarousel: HomeCustomerCarouselLabels;
   faq: HomeFaqLabels;
 }
 

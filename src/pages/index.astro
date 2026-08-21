@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HeroSection from '../components/HeroSection.astro';
+import CustomerStoryCarouselSection from '../components/CustomerStoryCarouselSection.astro';
 import LogoStrip from '../components/LogoStrip.astro';
 import SectionDivider from '../components/SectionDivider.astro';
 import VideoSection from '../components/VideoSection.astro';
@@ -25,6 +26,7 @@ const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)
 
 <BaseLayout title={title} description={t.hero.description}>
 	<HeroSection />
+	<CustomerStoryCarouselSection />
 	<LogoStrip />
 	<SectionDivider text={t.home.dividers.afterLogos} />
 	<VideoSection />

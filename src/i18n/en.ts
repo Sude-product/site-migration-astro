@@ -300,6 +300,14 @@ export const en: Translations = {
         name: 'Nevzat Atmaca',
       },
     },
+    beyazFirin: {
+      quote: {
+        text:
+          'idenfit delivered service that was even ahead of our own requests, and helped us grow in this regard. One of its most important features is that our requests actually get acted on. Every request coming from day-to-day business is evaluated and the program gets revised accordingly — the pace of improvement here is genuinely very fast.',
+        name: 'Nuri Sütlüoğlu',
+        role: 'Human Resources Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -378,6 +386,16 @@ export const en: Translations = {
           "What impressed me most when we first met Idenfit was its practicality and ability to bring different functions together on a single platform. Its simple interface made it clear that our employees could adapt quickly. For companies like ours, operating with intensive and shift-based schedules, seeing a truly 'employee-friendly digital solution' was invaluable.",
         jobTitle: 'HAVAİST - Corporate Communications Manager',
       },
+    },
+    customerCarousel: {
+      title: 'Customer Stories',
+      intro: 'Real experiences from companies transforming their HR processes with idenfit.',
+      prevLabel: 'Previous story',
+      nextLabel: 'Next story',
+      readMoreLabel: 'Read more',
+      civilVideo: { headline: 'Watch how Civil transformed its HR processes with idenfit' },
+      tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş manages its HR processes from a single panel with idenfit' },
+      beyazFirinVideo: { headline: 'Watch how Beyaz Fırın transformed its HR processes with idenfit' },
     },
     faq: {
       viewAllLink: 'View All Questions',

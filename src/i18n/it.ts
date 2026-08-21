@@ -301,6 +301,14 @@ export const it: Translations = {
         name: 'Nevzat Atmaca',
       },
     },
+    beyazFirin: {
+      quote: {
+        text:
+          'idenfit ha offerto un servizio addirittura in anticipo rispetto alle nostre stesse richieste, e ci ha fatto crescere su questo fronte. Una delle caratteristiche più importanti è che le nostre richieste trovano davvero risposta. Tutte le richieste che arrivano dall\'attività quotidiana vengono valutate e il programma viene rivisto di conseguenza: il ritmo di miglioramento qui è davvero molto veloce.',
+        name: 'Nuri Sütlüoğlu',
+        role: 'Responsabile Risorse Umane',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -379,6 +387,16 @@ export const it: Translations = {
           'Quando abbiamo conosciuto Idenfit, la cosa che mi ha colpito di più è stata la sua praticità e la capacità di combinare diverse discipline sulla stessa piattaforma. La semplicità dell\'interfaccia indicava un sistema a cui i nostri dipendenti potevano adattarsi rapidamente. Soprattutto per le aziende come la nostra che gestiscono operazioni intense e su turni, è stato prezioso trovare una "soluzione digitale employee-friendly".',
         jobTitle: 'HAVAİST - Responsabile Comunicazione Aziendale',
       },
+    },
+    customerCarousel: {
+      title: 'Storie dei Clienti',
+      intro: 'Esperienze reali di aziende che trasformano i propri processi HR con idenfit.',
+      prevLabel: 'Storia precedente',
+      nextLabel: 'Storia successiva',
+      readMoreLabel: 'Leggi di più',
+      civilVideo: { headline: 'Guarda come Civil ha trasformato i propri processi HR con idenfit' },
+      tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş gestisce i processi HR da un unico pannello con idenfit' },
+      beyazFirinVideo: { headline: 'Guarda come Beyaz Fırın ha trasformato i propri processi HR con idenfit' },
     },
     faq: {
       viewAllLink: 'Visualizza Tutte le Domande',

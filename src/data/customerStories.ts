@@ -39,7 +39,7 @@
 // taraf, özel isimler). Açıklama/alıntı METNİ `src/i18n/*.ts`'in
 // `customerStories` şemasında (dile göre değişir).
 
-export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis';
+export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis' | 'beyazFirin';
 
 export interface StoryMedia {
   image?: string;
@@ -113,6 +113,22 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     mediaSide: 'left',
     media: { image: 'https://idenfit.com/wp-content/uploads/2025/08/dogser@2x.png' },
     quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
+  },
+  {
+    // 2026-08-20: kullanıcının doğrudan sağladığı 2 gerçek fotoğraf —
+    // mağaza görseli (`moi.jpg`, Beyaz Fırın'ın kendi resmi sitesinden
+    // kullanıcının indirdiği Moi şubesi fotoğrafı) + Nuri Sütlüoğlu'nun
+    // portresi. İkisi de `public/images/`'e yerelleştirildi (About sayfası
+    // ekip fotoğrafıyla AYNI hotlink-yerine-yerel ilke, bkz. CLAUDE.md).
+    // Çalışan sayısı/mağaza sayısı gibi bir istatistik PAYLAŞILMADI —
+    // uydurulmadı (KARAR 1), bu yüzden `employeeCount` bilinçli olarak
+    // BOŞ bırakıldı (`CustomerStoryLabels.employeeCount` bu yüzden
+    // opsiyonel yapıldı, bkz. i18n/types.ts).
+    key: 'beyazFirin',
+    name: 'Beyaz Fırın',
+    mediaSide: 'right',
+    media: { image: '/images/customer-beyaz-firin-moi-magaza.jpg' },
+    quotePhotoUrl: '/images/customer-beyaz-firin-nuri-sutluoglu.jpg',
   },
 ];
 

@@ -83,12 +83,13 @@ const title = buildIdenfitTitle(cs.heroTitle.replace('\n', ' '), locale);
       CUSTOMER_STORIES.map((story, i) => {
         const labels = cs[story.key];
         const stats = [
-          { icon: 'employee' as const, label: labels.employeeCount },
+          ...(labels.employeeCount ? [{ icon: 'employee' as const, label: labels.employeeCount }] : []),
           ...(labels.secondaryStat ? [{ icon: 'branch' as const, label: labels.secondaryStat }] : []),
         ];
         return (
           <>
             <CustomerStoryRow
+              id={story.key}
               mediaSide={story.mediaSide}
               media={story.media}
               companyName={story.name}
@@ -101,6 +102,7 @@ const title = buildIdenfitTitle(cs.heroTitle.replace('\n', ' '), locale);
             />
             {story.secondary && (
               <CustomerStoryRow
+                id={`${story.key}-secondary`}
                 mediaSide={story.secondary.mediaSide}
                 media={story.secondary.media}
                 quote={cs.civilSecondary.quote}
