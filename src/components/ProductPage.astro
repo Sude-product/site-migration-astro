@@ -1,0 +1,212 @@
+---
+// Ürün/modül sayfası (Bordro, PDKS, İzin vb.) — idenfit.com'un gerçek
+// `page` post type içeriğinden (bkz. `src/data/productContent.ts`,
+// `reference/wordpress-export/products.json`, `scripts/extract-products.mjs`).
+// Sektör sayfalarıyla aynı desen: BaseLayout + per-sayfa gerçek locale
+// URL'leri (dil değiştirici düzeltmesi) + CTA URL'lerinin kendi route
+// şemamıza göre yeniden çözülmesi.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProductSectionBlock from './ProductSectionBlock.astro';
+import LastUpdated from './LastUpdated.astro';
+import { getTranslations } from '../i18n';
+import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
+import type { getProductContent } from '../data/productContent';
+import type { Locale } from '../data/nav';
+
+/** Bölüm-seviyesi CTA override'ı (2026-08-12, Puantaj sayfası — bkz.
+ * `sectionCtaOverrides` prop yorumu). `ctaUrl` opsiyonel: yalnızca
+ * kaynakta o bölümün HİÇ CTA'sı yoktu (boş `ctaText`/`ctaUrl`) ve YENİ
+ * bir CTA ekleniyorsa gerekir; kaynakta zaten bir CTA varsa (yalnızca
+ * metni değişiyorsa) verilmeyebilir, mevcut `ctaUrl` korunur. */
+interface SectionCtaOverride {
+  ctaText: string;
+  ctaUrl?: string;
+}
+
+interface Props {
+  content: NonNullable<ReturnType<typeof getProductContent>>;
+  pageTitle: string;
+  localeUrls: Partial<Record<Locale, string>>;
+  /** hreflang için GERÇEK içeriği olan locale listesi — bkz.
+   * `BaseLayout.astro`'daki `hreflangLocales` prop yorumu. Standart ürün/
+   * modül sayfalarının HEPSİ için (`getProductLocaleUrls()` alias'lamaz,
+   * `SLUG_INDEX`'te gerçekten VAR olan locale'leri döner) verilmezse
+   * VARSAYILAN (LOCALES, hepsi) doğru — yalnızca Demirbaş/Seyahat (TR+EN)/
+   * Puantaj (TR) gibi GERÇEKTEN kısıtlı sayfalar bunu elle geçirmeli. */
+  hreflangLocales?: Locale[];
+  /** Meta description override — `hero.text` bazı sayfalarda 70 karakterden
+   * kısa çıkıyor (2026-08-10 denetimi, bkz. CLAUDE.md); verilmezse eski
+   * `hero.text` davranışına düşer (`SecurityPage.astro` ile AYNI opt-in
+   * desen — mevcut ürün/modül sayfalarının çoğu zaten 70+ karakter,
+   * DOKUNULMADI). */
+  description?: string;
+  /** `<title>` override — `buildIdenfitTitle(pageTitle, locale)` bazı
+   * sayfalarda (`pageTitle` ÇOK UZUN, ör. Donanım'ın İngilizce/İtalyanca/
+   * Felemenkçe hero cümlesi) 60 karakteri aşan bir sonuç üretebilir;
+   * otomatik kırpma güvenli olmadığı için bu durumlarda çağıran sayfa
+   * elle kısa bir başlık geçirir (2026-08-10 title uzunluk denetimi). */
+  title?: string;
+  /** CTA anchor text override (2026-08-12, CTA/anchor text optimizasyonu —
+   * bkz. `pageTitle.ts`'in `buildCtaAnchorText()` yorumu). Hero CTA'sı
+   * (`hero.ctaText`) jenerik bir metinse (`isGenericCtaText()`) varsayılan
+   * olarak `pageTitle` anahtar kelime olarak kullanılır; `pageTitle`
+   * kendisi uzun bir tanıtım cümlesiyse (ör. Donanım/Demirbaş) bu prop'la
+   * daha kısa, elle seçilmiş bir anahtar kelime geçirilebilir — `title`
+   * override'ıyla AYNI kurulmuş desen (keşif turunda 150 sayfadan yalnızca
+   * 5'inin buna ihtiyacı olduğu doğrulandı). */
+  ctaKeyword?: string;
+  /** Tam CTA metni override'ı (2026-08-12, kullanıcı kararı — Puantaj
+   * sayfası) — `ctaKeyword`'den FARKI: `ctaKeyword` yalnızca kaynak metin
+   * jenerikse devreye girer ve şablonlu ("{keyword} için Başvur") bir
+   * sonuç üretir; bu prop VERİLDİĞİNDE kaynağın jenerik olup olmadığına
+   * BAKMAKSIZIN, şablonsuz/VERBATİM bu metni gösterir. Kullanıcı kararıyla
+   * her sayfada anlamlı ama şablona uymayan (ör. "Zaman Yönetimine
+   * Başlayın" gibi "Başlayın" fiilini koruyan) bir metin gerektiğinde
+   * kullanılır — `title`/`description`/`ctaKeyword` override'larıyla AYNI
+   * ilke, yalnızca en üst öncelikli. */
+  ctaTextOverride?: string;
+  /** Bölüm-seviyesi CTA override'ları (2026-08-12, Puantaj sayfası —
+   * kullanıcı kararıyla, hero'daki AYNI jenerik "Başlayın" metninin
+   * SECTION seviyesinde de tekrar ettiği bulundu). Anahtar = `content.sections`
+   * dizisindeki 0-tabanlı index. Hero'nun `ctaTextOverride`'ından FARKI:
+   * bu, tek bir sayfada BİRDEN FAZLA section'ı AYRI AYRI (farklı metin/
+   * gerekirse yeni bir CTA linki) hedefleyebiliyor — `SectionCtaOverride`
+   * tipine bkz. */
+  sectionCtaOverrides?: Record<number, SectionCtaOverride>;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. GERÇEK WP `modified` tarihi verilmezse (kaynakta
+   * yoksa/sentetik bir sayfaysa) hiçbir şey render edilmez, uydurulmaz. */
+  modified?: Date;
+}
+
+const {
+  content,
+  pageTitle,
+  localeUrls,
+  hreflangLocales,
+  description: descriptionOverride,
+  title: titleOverride,
+  ctaKeyword,
+  ctaTextOverride,
+  sectionCtaOverrides,
+  modified,
+} = Astro.props;
+// SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
+// biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
+// Not: kaynakta bazı sayfalarda SSS başka bir modülle yanlış eşleşmiş
+// olabilir (PDKS örneği) — bu bilinçli olarak düzeltilmiyor, aynen
+// gösteriliyor.
+const { hero, sections, faq } = content;
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const description = descriptionOverride ?? hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
+const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ctaKeyword`/
+// `ctaTextOverride` prop yorumları. Kaynak zaten benzersiz/anlamlı bir
+// metin taşıyorsa (jenerik listede yoksa) hiç DOKUNULMAZ.
+const heroCtaText =
+  ctaTextOverride ?? (hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText);
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  hreflangLocales={hreflangLocales}
+  image={hero.image?.url}
+  dateModified={modified?.toISOString()}
+>
+  <!-- Hero -->
+  <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1
+          class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl"
+          set:html={hero.title}
+        />
+        {hero.text && <p class="mt-5 max-w-xl text-lg text-body" set:html={hero.text} />}
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+            >
+              {heroCtaText}
+            </a>
+          )
+        }
+      </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="eager"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- İçerik blokları (veri kaynaklı, sabit sayı değil — sırayla alternatif zeminle) -->
+  {
+    sections.map((section, i) => {
+      // Bölüm-seviyesi CTA override'ı (2026-08-12) — bkz. `sectionCtaOverrides`
+      // prop yorumu. Kaynakta o bölümün HİÇ CTA'sı yoksa (`ctaUrl` boş)
+      // override'ın kendi `ctaUrl`'i kullanılır (yeni bir CTA EKLENMİŞ olur);
+      // zaten bir CTA varsa yalnızca metni değişir, mevcut `ctaUrl` KORUNUR.
+      const ctaOverride = sectionCtaOverrides?.[i];
+      const effectiveSection = ctaOverride
+        ? { ...section, ctaText: ctaOverride.ctaText, ctaUrl: ctaOverride.ctaUrl ?? section.ctaUrl }
+        : section;
+      return (
+        <section id={section.id} class={i % 2 === 1 ? 'bg-brand-light' : ''}>
+          <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+            <ProductSectionBlock section={effectiveSection} reverse={i % 2 === 1} />
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <!-- SSS -->
+  {
+    faq.length > 0 && (
+      <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
+        <div class="mt-6 divide-y divide-gray-100">
+          {faq.map((item) => (
+            <details class="group py-4">
+              <summary class="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
+                <h3 class="m-0 text-base font-semibold text-heading">{item.question}</h3>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 12 12"
+                  fill="none"
+                  aria-hidden="true"
+                  class="h-3 w-3 shrink-0 transition-transform group-open:rotate-180"
+                >
+                  <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </summary>
+              <div class="mt-3 text-sm text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={item.answer} />
+            </details>
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+       kararıyla CTA'nın hemen altından sayfanın EN ALTINA taşındı (dikkat
+       çekmeyen, ama gerçek içerik sayfasında hâlâ var olan bir konum). -->
+  <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+    <LastUpdated date={modified} locale={locale} />
+  </div>
+</BaseLayout>

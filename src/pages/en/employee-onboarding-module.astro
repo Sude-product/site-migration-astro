@@ -1,0 +1,18 @@
+---
+// Aşama 2 — onaylı 5 modülden biri (Onboarding). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'onboarding-modulu';
+const content = getProductContent(trSlug, 'en')!;
+const pageTitle = getProductPageTitle(trSlug, 'en');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
+// hero.text 51 karakter (meta description denetimi, 2026-08-10) — sayfanın
+// kendi gövde metnindeki gerçek temalardan (e-signatures, welcome emails,
+// day-1 engagement) türetildi.
+const description =
+  "idenfit's onboarding module streamlines paperwork, e-signatures and welcome emails, helping new hires feel engaged from day one.";
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} modified={modified} />

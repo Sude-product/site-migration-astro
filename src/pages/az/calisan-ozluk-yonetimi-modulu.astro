@@ -1,0 +1,13 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'calisan-ozluk-yonetimi-modulu-2';
+const content = getProductContent(trSlug, 'az')!;
+const pageTitle = getProductPageTitle(trSlug, 'az');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'az');
+const ctaKeyword = 'Şəxsi Fayl';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

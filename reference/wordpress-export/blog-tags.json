@@ -1,0 +1,776 @@
+[
+  {
+    "id": 1138,
+    "slug": "2026-gelir-vergisi-tr",
+    "name": "2026 gelir vergisi",
+    "count": 1
+  },
+  {
+    "id": 1136,
+    "slug": "2026-gelir-vergisi",
+    "name": "2026 gelir vergisi",
+    "count": 0
+  },
+  {
+    "id": 1154,
+    "slug": "2026-sgk-primleri",
+    "name": "2026 sgk primleri",
+    "count": 1
+  },
+  {
+    "id": 1150,
+    "slug": "2026-sgk-primleri-sgk-sgk-primi-hesaplama-sgk-matrah-sgk-prim-oranlari-bordro-sgk",
+    "name": "2026 sgk primleri sgk sgk primi hesaplama sgk matrah sgk prim oranları bordro sgk",
+    "count": 0
+  },
+  {
+    "id": 284,
+    "slug": "bordro-dagitimi",
+    "name": "bordro dağıtımı",
+    "count": 0
+  },
+  {
+    "id": 394,
+    "slug": "bordro-dagitimi-tr",
+    "name": "bordro dağıtımı",
+    "count": 1
+  },
+  {
+    "id": 1064,
+    "slug": "bordro-onay-sureci-tr",
+    "name": "bordro onay süreci",
+    "count": 1
+  },
+  {
+    "id": 1054,
+    "slug": "bordro-onay-sureci",
+    "name": "bordro onay süreci",
+    "count": 0
+  },
+  {
+    "id": 1067,
+    "slug": "bordro-yonetimi-tr",
+    "name": "bordro yönetimi",
+    "count": 1
+  },
+  {
+    "id": 1048,
+    "slug": "bordro-yonetimi",
+    "name": "bordro yönetimi",
+    "count": 0
+  },
+  {
+    "id": 396,
+    "slug": "bordro-yonetimi-webinari-tr",
+    "name": "bordro yönetimi webinarı",
+    "count": 1
+  },
+  {
+    "id": 286,
+    "slug": "bordro-yonetimi-webinari",
+    "name": "bordro yönetimi webinarı",
+    "count": 0
+  },
+  {
+    "id": 398,
+    "slug": "bordrolama-tr",
+    "name": "bordrolama",
+    "count": 1
+  },
+  {
+    "id": 288,
+    "slug": "bordrolama",
+    "name": "bordrolama",
+    "count": 0
+  },
+  {
+    "id": 258,
+    "slug": "calisan-aidiyeti",
+    "name": "çalışan aidiyeti",
+    "count": 0
+  },
+  {
+    "id": 424,
+    "slug": "calisan-aidiyeti-tr",
+    "name": "çalışan aidiyeti",
+    "count": 1
+  },
+  {
+    "id": 260,
+    "slug": "calisan-bagliligi",
+    "name": "çalışan bağlılığı",
+    "count": 0
+  },
+  {
+    "id": 426,
+    "slug": "calisan-bagliligi-tr",
+    "name": "çalışan bağlılığı",
+    "count": 1
+  },
+  {
+    "id": 1042,
+    "slug": "calisan-deneyimi",
+    "name": "çalışan deneyimi",
+    "count": 1
+  },
+  {
+    "id": 384,
+    "slug": "calisan-etkinligi-tr",
+    "name": "çalışan etkinliği",
+    "count": 1
+  },
+  {
+    "id": 300,
+    "slug": "calisan-etkinligi",
+    "name": "çalışan etkinliği",
+    "count": 0
+  },
+  {
+    "id": 262,
+    "slug": "calisan-sadakati",
+    "name": "çalışan sadakati",
+    "count": 0
+  },
+  {
+    "id": 412,
+    "slug": "calisan-sadakati-tr",
+    "name": "çalışan sadakati",
+    "count": 2
+  },
+  {
+    "id": 1040,
+    "slug": "chro",
+    "name": "CHRO",
+    "count": 1
+  },
+  {
+    "id": 290,
+    "slug": "datassist",
+    "name": "datassist",
+    "count": 0
+  },
+  {
+    "id": 400,
+    "slug": "datassist-tr",
+    "name": "datassist",
+    "count": 1
+  },
+  {
+    "id": 1052,
+    "slug": "dijital-bordro",
+    "name": "dijital bordro",
+    "count": 0
+  },
+  {
+    "id": 1070,
+    "slug": "dijital-bordro-tr",
+    "name": "dijital bordro",
+    "count": 1
+  },
+  {
+    "id": 230,
+    "slug": "dijital-donusum",
+    "name": "dijital dönüşüm",
+    "count": 0
+  },
+  {
+    "id": 342,
+    "slug": "dijital-donusum-tr",
+    "name": "dijital dönüşüm",
+    "count": 13
+  },
+  {
+    "id": 358,
+    "slug": "dijital-ik-tr",
+    "name": "dijital ik",
+    "count": 17
+  },
+  {
+    "id": 232,
+    "slug": "dijital-ik",
+    "name": "dijital ik",
+    "count": 0
+  },
+  {
+    "id": 1058,
+    "slug": "dijital-ik-2",
+    "name": "dijital İK",
+    "count": 0
+  },
+  {
+    "id": 1032,
+    "slug": "dijital-ik-donusumustratejik-ik-yonetimi",
+    "name": "dijital İK dönüşümüstratejik İK yönetimi",
+    "count": 0
+  },
+  {
+    "id": 1046,
+    "slug": "dijital-ik-yonetimi",
+    "name": "dijital IK yönetimi",
+    "count": 1
+  },
+  {
+    "id": 368,
+    "slug": "dijital-insan-kaynaklari-tr",
+    "name": "Dijital insan kaynakları",
+    "count": 1
+  },
+  {
+    "id": 234,
+    "slug": "dijital-insan-kaynaklari",
+    "name": "Dijital insan kaynakları",
+    "count": 0
+  },
+  {
+    "id": 304,
+    "slug": "disc-testi",
+    "name": "DISC Testi",
+    "count": 0
+  },
+  {
+    "id": 380,
+    "slug": "disc-testi-tr",
+    "name": "DISC Testi",
+    "count": 1
+  },
+  {
+    "id": 386,
+    "slug": "egitim-ve-gelisim-tr",
+    "name": "eğitim ve gelişim",
+    "count": 1
+  },
+  {
+    "id": 302,
+    "slug": "egitim-ve-gelisim",
+    "name": "eğitim ve gelişim",
+    "count": 0
+  },
+  {
+    "id": 388,
+    "slug": "egitim-ve-gelisim-zirvesi-tr",
+    "name": "eğitim ve gelişim zirvesi",
+    "count": 2
+  },
+  {
+    "id": 294,
+    "slug": "egitim-ve-gelisim-zirvesi",
+    "name": "eğitim ve gelişim zirvesi",
+    "count": 0
+  },
+  {
+    "id": 264,
+    "slug": "ek-calisma",
+    "name": "ek çalışma",
+    "count": 0
+  },
+  {
+    "id": 414,
+    "slug": "ek-calisma-tr",
+    "name": "ek çalışma",
+    "count": 1
+  },
+  {
+    "id": 214,
+    "slug": "etiket-tr",
+    "name": "etiket",
+    "count": 0
+  },
+  {
+    "id": 206,
+    "slug": "etiket",
+    "name": "etiket",
+    "count": 0
+  },
+  {
+    "id": 204,
+    "slug": "etiketetikettttest",
+    "name": "etiket|etikettt|test",
+    "count": 0
+  },
+  {
+    "id": 208,
+    "slug": "etikettt",
+    "name": "etikettt",
+    "count": 0
+  },
+  {
+    "id": 216,
+    "slug": "etikettt-tr",
+    "name": "etikettt",
+    "count": 0
+  },
+  {
+    "id": 266,
+    "slug": "fazla-calisma",
+    "name": "fazla çalışma",
+    "count": 0
+  },
+  {
+    "id": 416,
+    "slug": "fazla-calisma-tr",
+    "name": "fazla çalışma",
+    "count": 1
+  },
+  {
+    "id": 418,
+    "slug": "fazla-mesai-tr",
+    "name": "fazla mesai",
+    "count": 1
+  },
+  {
+    "id": 268,
+    "slug": "fazla-mesai",
+    "name": "fazla mesai",
+    "count": 0
+  },
+  {
+    "id": 270,
+    "slug": "fazla-mesai-nedir",
+    "name": "fazla mesai nedir",
+    "count": 0
+  },
+  {
+    "id": 420,
+    "slug": "fazla-mesai-nedir-tr",
+    "name": "fazla mesai nedir",
+    "count": 1
+  },
+  {
+    "id": 272,
+    "slug": "fazla-mesai-uygulamasi",
+    "name": "fazla mesai uygulaması",
+    "count": 0
+  },
+  {
+    "id": 422,
+    "slug": "fazla-mesai-uygulamasi-tr",
+    "name": "fazla mesai uygulaması",
+    "count": 1
+  },
+  {
+    "id": 1141,
+    "slug": "gelir-vergisi-tr",
+    "name": "gelir vergisi",
+    "count": 1
+  },
+  {
+    "id": 1134,
+    "slug": "gelir-vergisi",
+    "name": "gelir vergisi",
+    "count": 0
+  },
+  {
+    "id": 1044,
+    "slug": "hr-teknolojileri",
+    "name": "HR teknolojileri",
+    "count": 1
+  },
+  {
+    "id": 338,
+    "slug": "idenfit-ik-tr",
+    "name": "idenfit ik",
+    "count": 24
+  },
+  {
+    "id": 236,
+    "slug": "idenfit-ik",
+    "name": "idenfit ik",
+    "count": 0
+  },
+  {
+    "id": 1038,
+    "slug": "ik-analitigi",
+    "name": "İK analitiği",
+    "count": 1
+  },
+  {
+    "id": 1073,
+    "slug": "ik-otomasyonu-tr",
+    "name": "İK otomasyonu",
+    "count": 1
+  },
+  {
+    "id": 1060,
+    "slug": "ik-otomasyonu",
+    "name": "İK otomasyonu",
+    "count": 0
+  },
+  {
+    "id": 274,
+    "slug": "ik-webinar",
+    "name": "İK webinar",
+    "count": 0
+  },
+  {
+    "id": 402,
+    "slug": "ik-webinar-tr",
+    "name": "İK webinar",
+    "count": 3
+  },
+  {
+    "id": 238,
+    "slug": "insan-kaynaklari",
+    "name": "insan kaynakları",
+    "count": 0
+  },
+  {
+    "id": 340,
+    "slug": "insan-kaynaklari-tr",
+    "name": "insan kaynakları",
+    "count": 29
+  },
+  {
+    "id": 322,
+    "slug": "izin",
+    "name": "izin",
+    "count": 0
+  },
+  {
+    "id": 344,
+    "slug": "izin-tr",
+    "name": "izin",
+    "count": 1
+  },
+  {
+    "id": 324,
+    "slug": "izin-yonetimi",
+    "name": "izin yönetimi",
+    "count": 0
+  },
+  {
+    "id": 346,
+    "slug": "izin-yonetimi-tr",
+    "name": "izin yönetimi",
+    "count": 1
+  },
+  {
+    "id": 306,
+    "slug": "kisilik-analizi",
+    "name": "Kişilik Analizi",
+    "count": 0
+  },
+  {
+    "id": 382,
+    "slug": "kisilik-analizi-tr",
+    "name": "Kişilik Analizi",
+    "count": 1
+  },
+  {
+    "id": 374,
+    "slug": "kobi-dijital-ik-tr",
+    "name": "KOBİ Dijital İK",
+    "count": 1
+  },
+  {
+    "id": 308,
+    "slug": "kobi-dijital-ik",
+    "name": "KOBİ Dijital İK",
+    "count": 0
+  },
+  {
+    "id": 376,
+    "slug": "kobi-ik-tr",
+    "name": "KOBİ İK",
+    "count": 1
+  },
+  {
+    "id": 310,
+    "slug": "kobi-ik",
+    "name": "KOBİ İK",
+    "count": 0
+  },
+  {
+    "id": 390,
+    "slug": "kurumsal-akademi-tr",
+    "name": "kurumsal akademi",
+    "count": 2
+  },
+  {
+    "id": 296,
+    "slug": "kurumsal-akademi",
+    "name": "kurumsal akademi",
+    "count": 0
+  },
+  {
+    "id": 1050,
+    "slug": "maas-ve-bordro-surecleri",
+    "name": "maaş ve bordro süreçleri",
+    "count": 0
+  },
+  {
+    "id": 1076,
+    "slug": "maas-ve-bordro-surecleri-tr",
+    "name": "maaş ve bordro süreçleri",
+    "count": 1
+  },
+  {
+    "id": 1062,
+    "slug": "maas-yonetimi",
+    "name": "maaş yönetimi",
+    "count": 0
+  },
+  {
+    "id": 1079,
+    "slug": "maas-yonetimi-tr",
+    "name": "maaş yönetimi",
+    "count": 1
+  },
+  {
+    "id": 1082,
+    "slug": "maas-zammi-tr",
+    "name": "maaş zammı",
+    "count": 1
+  },
+  {
+    "id": 1056,
+    "slug": "maas-zammi",
+    "name": "maaş zammı",
+    "count": 0
+  },
+  {
+    "id": 316,
+    "slug": "mesai-takibi",
+    "name": "mesai takibi",
+    "count": 0
+  },
+  {
+    "id": 350,
+    "slug": "mesai-takibi-tr",
+    "name": "mesai takibi",
+    "count": 1
+  },
+  {
+    "id": 318,
+    "slug": "mesai-takip",
+    "name": "mesai takip",
+    "count": 0
+  },
+  {
+    "id": 352,
+    "slug": "mesai-takip-tr",
+    "name": "mesai takip",
+    "count": 1
+  },
+  {
+    "id": 320,
+    "slug": "mesai-takip-sistemi",
+    "name": "mesai takip sistemi",
+    "count": 0
+  },
+  {
+    "id": 354,
+    "slug": "mesai-takip-sistemi-tr",
+    "name": "mesai takip sistemi",
+    "count": 1
+  },
+  {
+    "id": 240,
+    "slug": "mobil-ik",
+    "name": "mobil ik",
+    "count": 0
+  },
+  {
+    "id": 370,
+    "slug": "mobil-ik-tr",
+    "name": "mobil ik",
+    "count": 0
+  },
+  {
+    "id": 372,
+    "slug": "mobil-insan-kaynaklari-tr",
+    "name": "mobil insan kaynakları",
+    "count": 0
+  },
+  {
+    "id": 242,
+    "slug": "mobil-insan-kaynaklari",
+    "name": "mobil insan kaynakları",
+    "count": 0
+  },
+  {
+    "id": 276,
+    "slug": "odul-yonetimi",
+    "name": "ödül yönetimi",
+    "count": 0
+  },
+  {
+    "id": 404,
+    "slug": "odul-yonetimi-tr",
+    "name": "ödül yönetimi",
+    "count": 1
+  },
+  {
+    "id": 278,
+    "slug": "odullendirme",
+    "name": "ödüllendirme",
+    "count": 0
+  },
+  {
+    "id": 406,
+    "slug": "odullendirme-tr",
+    "name": "ödüllendirme",
+    "count": 1
+  },
+  {
+    "id": 280,
+    "slug": "performans-yonetimi",
+    "name": "performans yönetimi",
+    "count": 0
+  },
+  {
+    "id": 408,
+    "slug": "performans-yonetimi-tr",
+    "name": "performans yönetimi",
+    "count": 2
+  },
+  {
+    "id": 282,
+    "slug": "performans-zirvesi",
+    "name": "performans zirvesi",
+    "count": 0
+  },
+  {
+    "id": 410,
+    "slug": "performans-zirvesi-tr",
+    "name": "performans zirvesi",
+    "count": 1
+  },
+  {
+    "id": 356,
+    "slug": "puantaj-hesaplama-tr",
+    "name": "puantaj hesaplama",
+    "count": 3
+  },
+  {
+    "id": 292,
+    "slug": "puantaj-hesaplama",
+    "name": "puantaj hesaplama",
+    "count": 0
+  },
+  {
+    "id": 1144,
+    "slug": "sgk",
+    "name": "sgk",
+    "count": 1
+  },
+  {
+    "id": 1158,
+    "slug": "sgk-matrah",
+    "name": "sgk matrah",
+    "count": 1
+  },
+  {
+    "id": 1160,
+    "slug": "sgk-prim-oranlari",
+    "name": "sgk prim oranları",
+    "count": 1
+  },
+  {
+    "id": 1156,
+    "slug": "sgk-primi-hesaplama",
+    "name": "sgk primi hesaplama",
+    "count": 1
+  },
+  {
+    "id": 1152,
+    "slug": "sgk-primleri",
+    "name": "sgk primleri",
+    "count": 1
+  },
+  {
+    "id": 428,
+    "slug": "sgk-uygulamalari-tr",
+    "name": "sgk uygulamaları",
+    "count": 1
+  },
+  {
+    "id": 254,
+    "slug": "sgk-uygulamalari",
+    "name": "sgk uygulamaları",
+    "count": 0
+  },
+  {
+    "id": 256,
+    "slug": "sosyal-guvenlik-kanunu",
+    "name": "sosyal güvenlik kanunu",
+    "count": 0
+  },
+  {
+    "id": 430,
+    "slug": "sosyal-guvenlik-kanunu-tr",
+    "name": "sosyal güvenlik kanunu",
+    "count": 1
+  },
+  {
+    "id": 1034,
+    "slug": "stratejik-ik-yonetimi",
+    "name": "stratejik İK yönetimi",
+    "count": 1
+  },
+  {
+    "id": 218,
+    "slug": "test-tr",
+    "name": "test",
+    "count": 0
+  },
+  {
+    "id": 210,
+    "slug": "test",
+    "name": "test",
+    "count": 0
+  },
+  {
+    "id": 220,
+    "slug": "test2",
+    "name": "test2",
+    "count": 0
+  },
+  {
+    "id": 222,
+    "slug": "test3",
+    "name": "test3",
+    "count": 0
+  },
+  {
+    "id": 1036,
+    "slug": "veri-odakli-ik",
+    "name": "veri odaklı İK",
+    "count": 1
+  },
+  {
+    "id": 314,
+    "slug": "yetenek-yonetimi",
+    "name": "yetenek yönetimi",
+    "count": 0
+  },
+  {
+    "id": 360,
+    "slug": "yetenek-yonetimi-tr",
+    "name": "yetenek yönetimi",
+    "count": 1
+  },
+  {
+    "id": 326,
+    "slug": "yillik-izin",
+    "name": "yıllık izin",
+    "count": 0
+  },
+  {
+    "id": 348,
+    "slug": "yillik-izin-tr",
+    "name": "yıllık izin",
+    "count": 1
+  },
+  {
+    "id": 392,
+    "slug": "yuksekbilgili-tr",
+    "name": "yüksekbilgili",
+    "count": 2
+  },
+  {
+    "id": 298,
+    "slug": "yuksekbilgili",
+    "name": "yüksekbilgili",
+    "count": 0
+  }
+]

@@ -1,0 +1,79 @@
+---
+// Destek Talebi (`/destek-talebi/`) — idenfit.com'da tam genişlik kırmızı
+// zemin + ortada beyaz, yuvarlak köşeli (30px) bir kart içinde form
+// (2026-07-27'de canlı sitede Playwright ile ölçüldü: kart bg
+// `rgb(255,255,255)`, hero zemin `rgb(255,0,0)`, `box-shadow:4px 8px 40px
+// rgba(0,0,0,.2)`). Formun altında (kartın DIŞINDA, sayfanın beyaz
+// zemininde) "SSS'yi ziyaret et" bloğu var — bkz. `supportRequestContent.ts`.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SupportRequestForm from './SupportRequestForm.tsx';
+import LastUpdated from './LastUpdated.astro';
+import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
+import {
+  getSupportFaqHref,
+  getSupportRequestLocaleUrls,
+  getSupportRequestModifiedDate,
+  type SupportRequestContent,
+} from '../data/supportRequestContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: SupportRequestContent;
+}
+
+const { content } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+const faqHref = getSupportFaqHref(locale);
+const title = buildIdenfitTitle(content.pageTitle, locale);
+// ⚠️ BULUNAN BUG (2026-08-17, hreflang turu) — bu component `localeUrls`'i
+// HİÇ BaseLayout'a geçirmiyordu, Header'ın dil değiştiricisi bu sayfada
+// generic (yanlış, "aynı slug" varsayan) fallback'e düşüyordu — oysa
+// `getSupportRequestLocaleUrls()` (doğru per-locale slug'ları döndüren
+// fonksiyon) zaten `HeroSection.astro`'da kullanılıyordu, buraya hiç
+// bağlanmamıştı. Düzeltildi. NL'de kaynak sayfa yok (aynı fonksiyon NL'i
+// EN'e alias'lıyor) — hreflang bu yüzden yalnızca gerçek 3 dili bildiriyor.
+const localeUrls = getSupportRequestLocaleUrls();
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`.
+const modified = getSupportRequestModifiedDate(locale);
+---
+
+<BaseLayout
+	title={title}
+	description={content.description.replace(/\n/g, ' ')}
+	localeUrls={localeUrls}
+	hreflangLocales={['tr', 'en', 'it']}
+	dateModified={modified?.toISOString()}
+>
+	<section class="relative overflow-hidden bg-brand px-4 py-16 sm:px-6 lg:py-24">
+		<div class="mx-auto max-w-3xl rounded-[30px] bg-surface p-8 shadow-[4px_8px_40px_0_rgba(0,0,0,0.2)] sm:p-12">
+			<h1 class="text-center text-3xl font-bold text-brand sm:text-4xl">{content.pageTitle}</h1>
+			<p class="mx-auto mt-4 max-w-xl whitespace-pre-line text-center text-sm leading-relaxed text-body">
+				{content.description}
+			</p>
+
+			<div class="mt-8">
+				<SupportRequestForm
+					client:load
+					labels={{ ...content.formLabels, kvkkNotice: content.kvkkNotice }}
+					locale={locale}
+					kvkkHref={kvkkHref}
+					termsHref={termsHref}
+				/>
+			</div>
+		</div>
+	</section>
+
+	<section class="mx-auto max-w-3xl px-4 py-12 text-center sm:px-6">
+		<p class="whitespace-pre-line text-sm leading-relaxed text-body">{content.afterFormText}</p>
+		<a href={faqHref} class="mt-4 inline-block text-sm font-semibold text-brand hover:underline">
+			{content.faqButtonText}
+		</a>
+		<!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+		     kararıyla açıklamanın hemen altından sayfanın EN ALTINA taşındı. -->
+		<div class="mt-8">
+			<LastUpdated date={modified} locale={locale} />
+		</div>
+	</section>
+</BaseLayout>

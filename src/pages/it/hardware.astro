@@ -1,0 +1,19 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle, getHardwareModifiedDate } from '../../data/hardwareContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
+
+const content = { ...getHardwareContent('it')!, faq: [] };
+const modified = getHardwareModifiedDate('it');
+// `pageTitle` (H1 için hâlâ kullanılıyor) kaynağın hero cümlesi — `<title>`
+// etiketinde 79 karaktere çıkıp 60 sınırını aşıyordu (2026-08-10 title
+// uzunluk denetimi). `<title>` için kısa, gerçek bir başlık kullanıldı.
+const pageTitle = getHardwarePageTitle('it');
+const title = buildIdenfitTitle('Integrazioni Hardware', 'it');
+const localeUrls = getHardwareLocaleUrls();
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu) — `title`
+// override'ıyla AYNI kısa/gerçek isim, CTA anchor text'i için de kullanılıyor.
+const ctaKeyword = 'Integrazioni Hardware';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

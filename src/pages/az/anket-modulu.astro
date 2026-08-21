@@ -1,0 +1,17 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'anket-modulu';
+const content = getProductContent(trSlug, 'az')!;
+const pageTitle = getProductPageTitle(trSlug, 'az');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'az');
+// hero.text 69 karakter (meta description denetimi) — sayfanın kendi gövde
+// metnindeki gerçek temalardan (özel sorgu/rəy formaları, departament
+// əsaslı nəticələr) türetildi.
+const description =
+  'idenfit sorğu modulu ilə xüsusi sorğu və rəy formaları yaradın, departament əsaslı işçi rəylərini toplayın və sürətli qərarlar alın.';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} modified={modified} />

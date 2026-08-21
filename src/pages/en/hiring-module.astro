@@ -1,0 +1,15 @@
+---
+// Aşama 2 — onaylı 5 modülden biri (İşe Alım/ATS). Bkz. CLAUDE.md.
+// NOT: Kaynak içerik henüz İngilizce'ye çevrilmemiş — Türkçe metin aynen
+// duruyor (kaynak sitenin kendi eksiği, bkz. CLAUDE.md).
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'ise-alim-modulu';
+const content = getProductContent(trSlug, 'en')!;
+const pageTitle = getProductPageTitle(trSlug, 'en');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

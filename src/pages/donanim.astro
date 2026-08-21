@@ -1,0 +1,28 @@
+---
+// Donanım sayfası — TEK sayfa (5 ayrı modül DEĞİL), farklı donanım/teknoloji
+// türleri (Biyometrik, Bluetooth, RFID, GPRS, Turnikeler, Onaylı Markalar)
+// birer bölüm olarak art arda sıralanıyor, anchor id'lerle (#rfid gibi)
+// atlanabiliyor. İçerik şekli (hero + N blok, SSS yok) ürün sayfalarıyla
+// birebir aynı olduğu için `ProductPage.astro` yeniden kullanıldı (bkz.
+// `hardwareContent.ts`, `ProductBlock.id` anchor desteği).
+import ProductPage from '../components/ProductPage.astro';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle, getHardwareModifiedDate } from '../data/hardwareContent';
+
+const content = { ...getHardwareContent('tr')!, faq: [] };
+const pageTitle = getHardwarePageTitle('tr');
+const localeUrls = getHardwareLocaleUrls();
+const modified = getHardwareModifiedDate('tr');
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu turunun devamı) —
+// `pageTitle` (hero'nun tanıtım cümlesi, "Farklı donanımlara entegre
+// tanımlama sistemleri") 59 karakterle `ctaKeyword` denetiminin 60'lık
+// eşiğinin TEKNİK OLARAK altında kaldığı için önceki turda override
+// ALMAMIŞTI — ama sonuç CTA butonu için hâlâ uzun bir CÜMLE, kısa bir
+// anahtar kelime DEĞİL (`en/nl/it/hardware.astro`'nun `<title>` için
+// zaten aldığı "Hardware & Device Integrations"/"Hardware-integraties"/
+// "Integrazioni Hardware" kısa başlıklarıyla AYNI mantık, yalnızca TR
+// eşik altında kaldığı için atlanmıştı). Kullanıcı talimatıyla TR'ye de
+// kısa/gerçek bir anahtar kelime eklendi (H1 DEĞİŞMEDİ, yalnızca CTA).
+const ctaKeyword = 'Donanım Entegrasyonu';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

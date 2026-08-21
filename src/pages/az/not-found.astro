@@ -1,0 +1,14 @@
+---
+// Astro'nun `404.astro` dosya adına verdiği ÖZEL muamele (bkz. kök
+// `src/pages/404.astro`'nun yorumu) `i18n.fallback` mekanizmasıyla
+// çakışıyor — `src/pages/az/404.astro` adında bir dosya oluşturulduğunda
+// Astro onu normal bir AZ sayfası olarak DEĞİL, TR'nin `/404.html`
+// route'unun "eksik AZ karşılığı" sanıp otomatik redirect stub'una
+// çeviriyordu (aynı sınıf bug, bkz. `en/not-found.astro`'nun yorumu,
+// 2026-08-11'de bulundu). Çözüm: locale'e özel 404 içeriği "404" adı
+// OLMAYAN normal bir sayfada (`not-found.astro`) tutulup
+// `public/_redirects`'in `/az/* /az/not-found/ 404` kuralıyla bağlanıyor.
+import NotFoundPage from '../../components/NotFoundPage.astro';
+---
+
+<NotFoundPage />

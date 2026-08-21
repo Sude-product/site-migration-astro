@@ -1,0 +1,68 @@
+---
+// Aşama 3 (kısım 2) — Puantaj (Şema E, KARAR 3 gereği ayrıca ele alındı). Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate, localizeCtaUrl } from '../data/productContent';
+
+const trSlug = 'puantaj-takip-programi-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
+// `ctaTextOverride` (2026-08-12, kullanıcı kararı, bu turda GÜNCELLENDİ) —
+// önceki turda hero bu metni ("Zaman Yönetimine Başlayın") taşıyordu; bu
+// turda kullanıcı SAYFADA "Başlayın" metnini taşıyan TOPLAM 4 CTA olduğunu
+// (hero + 3 section) fark edip her birine sayfa/section içeriğine özel bir
+// metin verdi. "Zaman Yönetimine Başlayın" artık Section 1'e ("Zaman
+// Yönetimi" — başlığıyla TAM eşleşiyor) taşındı; hero artık TÜM sayfanın
+// konusunu özetleyen daha genel bir metin taşıyor ("Puantaj Takip
+// Programı" modülünün kendi adı — `donanim.astro`'nun `ctaKeyword`'ü
+// gibi kısa bir override yerine burada da `ctaTextOverride` kullanıldı
+// çünkü "Puantaj Takibine Başlayın" da `ctaKeyword`'ün "{X} için Başvur"
+// şablonuna UYMUYOR, "Başlayın" fiilini koruyor). H1 DEĞİŞMEDİ.
+const ctaTextOverride = 'Puantaj Takibine Başlayın';
+// `sectionCtaOverrides` (2026-08-12, YENİ mekanizma — bkz. `ProductPage.astro`)
+// — `content.sections` 0-tabanlı index'e göre:
+//   0: "Zaman Yönetimi"              → hero'dan taşınan metin
+//   2: "Yıllık Takvim"               → kaynakta CTA'sı HİÇ YOKTU (boş
+//      ctaText/ctaUrl) — kullanıcı kararıyla YENİ bir CTA ekleniyor,
+//      hedef diğer tüm CTA'larla AYNI (Online Sunum Talebi, `localizeCtaUrl()`
+//      ile AYNI şekilde çözülüyor — ham WP URL'i elle YAZILMADI, mevcut
+//      CTA'ların KULLANDIĞI AYNI ham kaynak string'i geçirilip aynı
+//      fonksiyondan geçiriliyor).
+//   1: "Akıllı Vardiya Yönetimi"     → Section 0'ın ("Zaman Yönetimi" →
+//      "Zaman Yönetimine Başlayın") AYNI grameriyle tutarlı ("X Yönetimi"
+//      → "X Yönetimine Başlayın") — kullanıcının "Akıllı Vardiyaya
+//      Başlayın" örneğinden farklı olarak "Yönetimi" kelimesi KORUNDU,
+//      kardeş bölümle (0) aynı kalıbı taşısın diye.
+//   3: "Vardiya Takvimi"             → "Takvim" kelime benzerliğiyle en
+//      yakın eşleşen bölüm (kullanıcı kararı).
+// (4/5: "Molalar"/"Canlı ve Tarihsel Monitörler" hâlâ CTA'sız — bu turda
+// ELE ALINMADI, ayrı bir karar.)
+const demoUrl = localizeCtaUrl('https://idenfit.com/request-online-presentation/', 'tr');
+const sectionCtaOverrides = {
+  0: { ctaText: 'Zaman Yönetimine Başlayın' },
+  1: { ctaText: 'Akıllı Vardiya Yönetimine Başlayın' },
+  2: { ctaText: 'Yıllık Takvime Başlayın', ctaUrl: demoUrl },
+  3: { ctaText: 'Vardiya Yönetimine Başlayın' },
+};
+---
+
+<!-- ⚠️ BULUNAN BUG (2026-08-17, hreflang doğrulama script'inde yakalandı) —
+     ilk denemede burada `hreflangLocales={['tr']}` vardı (dosya adlarına
+     bakarak "Puantaj'ın EN/NL/IT'si yok" varsayıldı — TAM OLARAK CLAUDE.md'nin
+     uyardığı "slug değil, gerçek veriye güven" hatası). Gerçekte
+     `en/time-attendance-module.astro`/`nl/tijdregistratie.astro`/
+     `it/modulo-gestione-presenze.astro` ÜÇÜ DE `trSlug='puantaj-takip-programi-modulu'`
+     kullanıyor — yani Puantaj'ın GERÇEK 4/4 dili var, yalnızca dosya adları
+     "time-attendance"/"tijdregistratie" gibi PDKS'i çağrıştırıyor (PDKS
+     `pdks-modulu.astro` TAMAMEN AYRI bir aile). Override KALDIRILDI —
+     varsayılan (LOCALES, `localeUrls`'un kendi anahtarlarıyla filtrelenir)
+     doğru sonucu zaten veriyor. -->
+<ProductPage
+  content={content}
+  pageTitle={pageTitle}
+  ctaTextOverride={ctaTextOverride}
+  sectionCtaOverrides={sectionCtaOverrides}
+  localeUrls={localeUrls}
+  modified={modified}
+/>

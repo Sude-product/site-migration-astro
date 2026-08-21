@@ -1,0 +1,11 @@
+---
+import HubPage from '../../components/HubPage.astro';
+import { getHubContent, getHubLocaleUrls, getHubPageTitle } from '../../data/hubContent';
+
+const trSlug = 'insan-kaynaklari-isgucu-yonetimi';
+const content = getHubContent(trSlug, 'az')!;
+const pageTitle = getHubPageTitle(trSlug, 'az');
+const localeUrls = getHubLocaleUrls(trSlug);
+---
+
+<HubPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} hreflangLocales={['tr', 'en', 'it', 'az']} />

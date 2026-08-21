@@ -1,0 +1,130 @@
+---
+// Müşteriler sayfasının TEK bir müşteri bloğu — 2026-07-27 (ikinci tur)
+// tamamen yeniden yazıldı. Önceki turun 3-kolonlu kart grid'i idenfit.com/musteriler/
+// ile GERÇEKTEN karşılaştırılınca (Playwright, kademeli scroll) yanlış
+// çıktı — kaynak dönüşümlü (zigzag) tek-kolonlu bir dizilim kullanıyor,
+// görseller dairesel, videolar tıkla-oynat. Detaylı gerekçe için bkz.
+// `customerStories.ts`'in başındaki revizyon notu ve CLAUDE.md.
+import YoutubeClickToPlay from './YoutubeClickToPlay.tsx';
+import { STAT_ICONS, type StoryMedia } from '../data/customerStories';
+
+interface Props {
+  /** Ana sayfanın "Müşteri Hikayeleri" carousel'indeki "Devamını Oku"
+   * linkinin hedef anchor'ı (2026-08-20) — bkz. `customerStoryCarousel.ts`. */
+  id?: string;
+  mediaSide: 'left' | 'right';
+  media: StoryMedia;
+  /** Yalnızca bir müşterinin İLK (ana) bloğunda gösterilir. */
+  companyName?: string;
+  /** Femaş/Civil/Yatsan'da var; Doğ-Ser/Tuğba Kuruyemiş'te yok (tek
+   * içerikleri `quote`). */
+  description?: string;
+  quote?: { text: string; name?: string; role?: string };
+  quotePhotoUrl?: string;
+  stats?: { icon: keyof typeof STAT_ICONS; label: string }[];
+  videoPlayLabel: string;
+  revealDelayMs?: number;
+}
+
+const { id, mediaSide, media, companyName, description, quote, quotePhotoUrl, stats, videoPlayLabel, revealDelayMs = 0 } = Astro.props;
+---
+
+<!-- 2026-07-28 (dördüncü tur): kartlar büyütüldü — kullanıcı isteği,
+     `CustomerStoriesPage.astro`'nun konteynerini `max-w-7xl`'e genişletmesiyle
+     birlikte. Dikey boşluk (`py-10/14` → `py-12/20`) ve satırlar arası boşluk
+     (`gap-8/16` → `gap-10/20`) orantılı büyütüldü, medya kutusu da
+     (`max-w-sm`→`max-w-md`, `lg:w-2/5`→`lg:w-[45%]`) biraz genişledi.
+     Görsel hover'ı (`hover:scale-105`, altta) korunuyor — büyüyen kartla
+     birlikte hâlâ çalışıyor, dokunulmadı. -->
+<div
+	id={id}
+	class:list={[
+		'reveal flex scroll-mt-28 flex-col gap-10 py-12 lg:items-center lg:gap-20 lg:py-20',
+		mediaSide === 'left' ? 'lg:flex-row' : 'lg:flex-row-reverse',
+	]}
+	style={`transition-delay: ${revealDelayMs}ms`}
+>
+	{/* ⚠️ DÜZELTME (2026-08-04): medya sütunu `lg:w-[45%]` — 2026-07-28'de
+	    kartlar büyütülürken eyeball tahminiyle seçilmiş bir değerdi.
+	    Element-ID doğrulamalı (`d82235f`/`25d8e19`) canlı sayfa ölçümü
+	    kaynağın GERÇEKTEN `--width:50%` kullandığını gösterdi (metin
+	    sütunuyla TAM eşit pay) — `lg:w-1/2`'ye düzeltildi. Bir önceki turda
+	    metin boyutları büyütüldüğü için (14→16px, 24→36px vb.) video artık
+	    yanındaki metne göre küçük duruyordu; bu düzeltme hem kaynağa sadakat
+	    hem kullanıcının "video/yazı aynı boyda olsun" isteğini birlikte
+	    çözüyor. */}
+	{/* ⚠️ DÜZELTME (2026-08-04, 2. tur): %50 (kaynağın gerçek ölçülen değeri,
+	    yukarıdaki yorum) kullanıcıya hâlâ küçük geldi — "biraz daha büyüt"
+	    isteğiyle BİLİNÇLİ olarak kaynağın ötesine, %60'a çıkarıldı (metin
+	    sütunu `flex-1` olduğu için otomatik %40'a küçülüyor). */}
+	<div class="mx-auto w-full max-w-md shrink-0 lg:mx-0 lg:w-3/5">
+		{
+			media.video ? (
+				// ⚠️ DÜZELTME (2026-08-04): kaynağın video widget'ı (element-ID
+				// doğrulamalı, `--video-aspect-ratio:1.77777` = 16:9) `aspect-[4/3]`
+				// DEĞİL — dördüncü turun "rounded-rectangle" bulgusu doğruydu ama
+				// ORAN yanlış ölçülmüştü (muhtemelen o zamanki düşük çözünürlüklü
+				// `hqdefault.jpg`'nin kendi 4:3 şeklinden yanılgıya düşülmüş).
+				// `aspect-video` (16:9) + köşe yarıçapı `14px` (ölçülen gerçek
+				// değer, `rounded-2xl`=16px değil) + kaynağın gerçek gölgesi.
+				<div class="aspect-video w-full overflow-hidden rounded-[14px] shadow-[0_5px_15px_rgba(0,0,0,0.3)]">
+					<YoutubeClickToPlay client:visible videoUrl={media.video} title={companyName ?? ''} playLabel={videoPlayLabel} />
+				</div>
+			) : media.image ? (
+				// Görsel: kaynakta DAİRESEL kırpılmış (aspect-video dikdörtgen
+				// DEĞİL) — 2026-07-27'de canlı sitede doğrulandı.
+				<div class="aspect-square w-full overflow-hidden rounded-full shadow-sm">
+					<img src={media.image} alt={companyName ?? ''} loading="lazy" class="h-full w-full object-cover transition-transform duration-500 ease-out hover:scale-105" />
+				</div>
+			) : null
+		}
+	</div>
+
+	{/* ⚠️ DÜZELTME (2026-08-04): tüm metin bloklarının font/renk'i element-ID
+	    doğrulamalı (`7b97210`/`cde8e8d`/`0102f56`/`0d64e32`/`ca3481a`/
+	    `.elementor-image-box-title`) canlı sayfayla karşılaştırıldı, HEPSİNDE
+	    sapma bulundu: firma adı `font-bold`(700) değil 500, `sm:text-3xl`
+	    (30px) değil sabit 36px; açıklama/quote `text-body`(#333333) DEĞİL
+	    `text-muted`(#808080, `--e-global-color-629b0de` ile birebir) +
+	    14px değil 16px + quote İTALİK DEĞİL (kaynakta `font-style` hiç
+	    yok); quote yazarının adı `text-heading`(neredeyse siyah) DEĞİL yine
+	    `text-muted`, 12px değil 18px/700; rolü de 12px değil 18px/500;
+	    istatistik etiketi (`.elementor-image-box-title`) 14px değil 23px/500. */}
+	<div class="flex-1">
+		{companyName && <h2 class="text-2xl font-medium leading-[28px] text-brand lg:text-[36px] lg:leading-[42px]">{companyName}</h2>}
+
+		{description && <p class="mt-4 whitespace-pre-line text-base leading-[22px] text-muted">{description}</p>}
+
+		{
+			quote && (
+				<blockquote class={description ? 'mt-6 border-l-2 border-brand/20 pl-4' : ''}>
+					<p class="whitespace-pre-line text-base leading-[22px] text-muted">{quote.text}</p>
+					{(quote.name || quote.role) && (
+						<div class="mt-3 flex items-center gap-2.5">
+							{quotePhotoUrl && (
+								<img src={quotePhotoUrl} alt={quote.name ?? quote.role} loading="lazy" class="h-10 w-10 shrink-0 rounded-full object-cover" />
+							)}
+							<div class="text-base leading-[25px]">
+								{quote.name && <p class="font-bold text-muted">{quote.name}</p>}
+								{quote.role && <p class="font-medium text-muted">{quote.role}</p>}
+							</div>
+						</div>
+					)}
+				</blockquote>
+			)
+		}
+
+		{
+			stats && stats.length > 0 && (
+				<div class="mt-5 flex flex-wrap gap-x-6 gap-y-2">
+					{stats.map((s) => (
+						<div class="inline-flex items-center gap-2 text-[23px] font-medium leading-[32px] text-heading">
+							<img src={STAT_ICONS[s.icon]} alt="" aria-hidden="true" loading="lazy" class="h-6 w-6" />
+							{s.label}
+						</div>
+					))}
+				</div>
+			)
+		}
+	</div>
+</div>

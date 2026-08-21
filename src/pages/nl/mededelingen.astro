@@ -1,0 +1,15 @@
+---
+// NOT: Bu, kaynak sitenin `link` alanına göre NL İletişim sayfasının
+// GERÇEK slug'ı — WP `title`/görünen slug "mededeling" ("duyuru") olsa da
+// ACF içeriği tam ve gerçek bir İletişim sayfası (bkz. CLAUDE.md — bu,
+// page-inventory'nin "NL İletişim sayfası kaynakta yok" tespitini
+// GEÇERSİZ kılan bir düzeltme: sayfa var, yalnızca WP'de yanlış/kafa
+// karıştırıcı bir slug'a kaydedilmiş).
+import ContactPage from '../../components/ContactPage.astro';
+import { getContactContent, getContactLocaleUrls } from '../../data/miscPagesContent';
+
+const content = getContactContent('nl')!;
+const localeUrls = getContactLocaleUrls();
+---
+
+<ContactPage content={content} localeUrls={localeUrls} />

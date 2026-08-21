@@ -1,0 +1,12 @@
+---
+import PresentationRequestPage from '../../components/PresentationRequestPage.astro';
+import { getPresentationContent, getPresentationModifiedDate } from '../../data/miscPagesContent';
+
+const content = getPresentationContent('nl')!;
+// NL içeriği TAMAMEN bizim çevirimiz (`PRESENTATION_NL_OVERRIDE`) — ham WP
+// modified tarihi yok, `getPresentationModifiedDate` bu locale için bilerek
+// `undefined` döner (uydurma tarih YOK, bkz. `LastUpdated.astro`).
+const modified = getPresentationModifiedDate('nl');
+---
+
+<PresentationRequestPage content={content} modified={modified} />

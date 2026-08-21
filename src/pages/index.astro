@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import HeroSection from '../components/HeroSection.astro';
+import CustomerStoryCarouselSection from '../components/CustomerStoryCarouselSection.astro';
+import LogoStrip from '../components/LogoStrip.astro';
+import SectionDivider from '../components/SectionDivider.astro';
+import VideoSection from '../components/VideoSection.astro';
+import FeatureGrid from '../components/FeatureGrid.astro';
+import EfficiencySection from '../components/EfficiencySection.astro';
+import PanelFeatureSection from '../components/PanelFeatureSection.astro';
+import SupremaSection from '../components/SupremaSection.astro';
+import CertificationBadges from '../components/CertificationBadges.astro';
+import TestimonialSection from '../components/TestimonialSection.astro';
+import HomeFaqSection from '../components/HomeFaqSection.astro';
+import StickyDemoBar from '../components/StickyDemoBar.astro';
+import { getTranslations } from '../i18n';
+import { truncateAtWord } from '../data/metaDescription';
+
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+// `t.hero.title` görünür hero başlığıyla PAYLAŞILAN, canlı siteyle
+// doğrulanmış gerçek metin — `<title>` etiketi 60'ı aşarsa yalnızca BURADA
+// (`truncateAtWord`, kelime ortasından kesmiyor) kırpılıyor, `HeroSection.astro`'nun
+// GÖRÜNÜR H1'i DEĞİŞMİYOR (2026-08-10 title uzunluk denetimi).
+const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)}`;
+---
+
+<BaseLayout title={title} description={t.hero.description}>
+	<HeroSection />
+	<CustomerStoryCarouselSection />
+	<LogoStrip />
+	<SectionDivider text={t.home.dividers.afterLogos} />
+	<VideoSection />
+	<FeatureGrid />
+	<SectionDivider text={t.home.dividers.afterFeatures} />
+	<EfficiencySection />
+	<PanelFeatureSection />
+	<SupremaSection />
+	<CertificationBadges />
+	<TestimonialSection />
+	<HomeFaqSection />
+	<StickyDemoBar />
+	<script src="../scripts/scroll-reveal.js"></script>
+</BaseLayout>

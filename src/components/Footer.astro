@@ -1,0 +1,310 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n';
+import { getFaqSlug } from '../data/faqContent';
+import {
+  getContactSlug,
+  getSecuritySlug,
+  getPrivacySecuritySlug,
+  getGlobalBrandSlug,
+  getWhyIdenfitSlug,
+  getLegalSlug,
+  getAboutSlug,
+  getKvkkSlug,
+  CONSUMER_RIGHTS_TR_SLUG,
+  DISTANCE_SALES_TR_SLUG,
+} from '../data/miscPagesContent';
+import { getPricingSlug } from '../data/pricingContent';
+import { getProductSlug } from '../data/productContent';
+import { getHardwareSlug } from '../data/hardwareContent';
+import IdenfitLogo from './icons/IdenfitLogo.tsx';
+import type { Locale } from '../data/nav';
+import {
+  FOOTER_ABOUT_LINKS,
+  FOOTER_PRODUCT_LINKS,
+  FOOTER_GENERAL_LINKS,
+  FOOTER_CONTACT,
+  FOOTER_SOCIAL,
+  FOOTER_APPS,
+  FOOTER_PAYMENT_IMAGE,
+  TRUST_BADGE_LOGOS,
+} from '../data/footer';
+
+const currentLocale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(currentLocale);
+const l = (slug: string) => getRelativeLocaleUrl(currentLocale, slug);
+
+// Bu sayfaların gerçek per-locale slug'ı, `FOOTER_ABOUT_LINKS`/
+// `FOOTER_GENERAL_LINKS`'teki (dil-nötr, tek TR slug varsayan) sabit
+// slug'dan FARKLI — ör. İletişim EN'de `contact`, IT'de `contatti`. Bu
+// eşleme, ilgili `key`'e sahip linkler için generic `l(item.slug)` yerine
+// kullanılıyor (bkz. aşağıdaki render — ÜRÜNLER mega-menüsünde kurulan
+// aynı desen, `navigation.ts`'teki `contactHref()`/`globalBrandHref()` vb.).
+const SPECIAL_HREFS: Partial<Record<string, string>> = {
+  story: getAboutSlug(currentLocale) ?? 'hakkimizda',
+  kvkk: getKvkkSlug(currentLocale) ?? 'kisisel-verilerin-korunmasi',
+  pricing: getPricingSlug(currentLocale) ?? 'fiyatlar',
+  contact: getContactSlug(currentLocale) ?? 'iletisim',
+  // About kolonundaki "Güvenlik" — 6 hukuki belgeye link veren LİSTE
+  // sayfası (`SecurityPage.astro`/`getSecurityMeta()`).
+  security: getSecuritySlug(currentLocale) ?? 'guvenlik',
+  // GENEL kolonundaki "Gizlilik ve Güvenlik Politikası" — yukarıdaki
+  // `security`'den TAMAMEN AYRI bir sayfa: gerçek paragraf içerikli bir
+  // gizlilik politikası MAKALESİ (`sozlesme/gizlilik-ve-guvenlik-politikasi`,
+  // `LegalContent`/`content_block`). Önceki bir turda bu ikisi yanlışlıkla
+  // aynı sayfa sanılıp buraya da `getSecuritySlug()` bağlanmıştı — kullanıcı
+  // düzeltmesiyle (2026-07-24) ayrıştırıldı, bkz. CLAUDE.md.
+  securityPolicy: getPrivacySecuritySlug(currentLocale) ?? 'sozlesme/gizlilik-ve-guvenlik-politikasi',
+  globalBrand: getGlobalBrandSlug(currentLocale) ?? 'hedef-global-marka',
+  faq: getFaqSlug(currentLocale) ?? getFaqSlug('en') ?? 'sss',
+  advantages: getWhyIdenfitSlug(currentLocale) ?? 'neden-idenfit',
+  consumerRights: getLegalSlug(CONSUMER_RIGHTS_TR_SLUG, currentLocale) ?? 'sozlesme/tuketici-haklari',
+  distanceSalesAgreement: getLegalSlug(DISTANCE_SALES_TR_SLUG, currentLocale) ?? 'sozlesme/mesafeli-satis-sozlesmesi',
+};
+
+// ÜRÜNLER kolonu — `FOOTER_PRODUCT_LINKS`'teki `slug` çoğunlukla
+// `products.json`'ın trSlug'ıyla birebir aynı, ama Özlük Dosyası'nın
+// gerçek trSlug'ı `-2` sonekli (bkz. `productContent.ts`/`navigation.ts`'teki
+// aynı not — WP'nin ham `slug` alanından türedi). Donanım ayrı bir ürün
+// sayfası değil, kendi slug fonksiyonuna sahip (`hardwareContent.ts`).
+// Mega-menünün `productHref()`/`hardwareHref()` (`navigation.ts`) ile aynı
+// desen — önceden bu kolon hâlâ generic `l(item.slug)` kullanıyordu, bu
+// yüzden EN/NL/IT'de 8 linkten 7'si 404 veriyordu.
+const PRODUCT_TR_SLUG_OVERRIDES: Partial<Record<string, string>> = {
+  'calisan-ozluk-yonetimi-modulu': 'calisan-ozluk-yonetimi-modulu-2',
+};
+const productFooterHref = (slug: string) => {
+  if (slug === 'donanim') return l(getHardwareSlug(currentLocale) ?? 'donanim');
+  const trSlug = PRODUCT_TR_SLUG_OVERRIDES[slug] ?? slug;
+  return l(getProductSlug(trSlug, currentLocale) ?? slug);
+};
+
+const year = new Date().getFullYear();
+const copyright = t.footer.copyright.replace('{year}', String(year));
+
+// Sosyal ikonlar — lucide-react marka logosu içermediği için (yalnızca jenerik
+// arayüz ikonları var) statik .astro içinde inline SVG olarak tutuluyor;
+// bu şekilde hiçbir client JS gönderilmiyor (mimari kuralımıza uygun).
+// `export`: İletişim sayfası (2026-08-11, KARAR 2) AYNI 7 platformu +
+// AYNI ikon path'lerini sayfa içinde de gösteriyor — Footer'daki tek
+// kaynaktan yeniden kullanılıyor, ikinci bir path seti YAZILMADI.
+export const SOCIAL_ICON_PATHS: Record<string, { viewBox: string; path: string }> = {
+  linkedin: {
+    viewBox: '0 0 24 24',
+    path:
+      'M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.225 0z',
+  },
+  x: {
+    viewBox: '0 0 24 24',
+    path:
+      'M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z',
+  },
+  instagram: {
+    viewBox: '0 0 24 24',
+    path:
+      'M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z',
+  },
+  youtube: {
+    viewBox: '0 0 24 24',
+    path:
+      'M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z',
+  },
+  facebook: {
+    viewBox: '0 0 512 512',
+    path:
+      'M504 256C504 119 393 8 256 8S8 119 8 256c0 123.78 90.69 226.38 209.25 245V327.69h-63V256h63v-54.64c0-62.15 37-96.48 93.67-96.48 27.14 0 55.52 4.84 55.52 4.84v61h-31.28c-30.8 0-40.41 19.12-40.41 38.73V256h68.78l-11 71.69h-57.78V501C413.31 482.38 504 379.78 504 256z',
+  },
+  pinterest: {
+    viewBox: '0 0 496 512',
+    path:
+      'M496 256c0 137-111 248-248 248-25.6 0-50.2-3.9-73.4-11.1 10.1-16.5 25.2-43.5 30.8-65 3-11.6 15.4-59 15.4-59 8.1 15.4 31.7 28.5 56.8 28.5 74.8 0 128.7-68.8 128.7-154.3 0-81.9-66.9-143.2-152.9-143.2-107 0-163.9 71.8-163.9 150.1 0 36.4 19.4 81.7 50.3 96.1 4.7 2.2 7.2 1.2 8.3-3.3.8-3.4 5-20.3 6.9-28.1.6-2.5.3-4.7-1.7-7.1-10.1-12.5-18.3-35.3-18.3-56.6 0-54.7 41.4-107.6 112-107.6 60.9 0 103.6 41.5 103.6 100.9 0 67.1-33.9 113.6-78 113.6-24.3 0-42.6-20.1-36.7-44.8 7-29.5 20.5-61.3 20.5-82.6 0-19-10.2-34.9-31.4-34.9-24.9 0-44.9 25.7-44.9 60.2 0 22 7.4 36.8 7.4 36.8s-24.5 103.8-29 123.2c-5 21.4-3 51.6-.9 71.2C65.4 450.9 0 361.1 0 256 0 119 111 8 248 8s248 111 248 248z',
+  },
+  medium: {
+    viewBox: '0 0 448 512',
+    path:
+      'M0 32v448h448V32H0zm372.2 106.1l-24 23c-2.1 1.6-3.1 4.2-2.7 6.7v169.3c-.4 2.6.6 5.2 2.7 6.7l23.5 23v5.1h-118V367l24.3-23.6c2.4-2.4 2.4-3.1 2.4-6.7V199.8l-67.6 171.6h-9.1L125 199.8v115c-.7 4.8 1 9.7 4.4 13.2l31.6 38.3v5.1H71.2v-5.1l31.6-38.3c3.4-3.5 4.9-8.4 4.1-13.2v-133c.4-3.7-1-7.3-3.8-9.8L75 138.1V133h87.3l67.4 148L289 133.1h83.2v5z',
+  },
+};
+
+// Uygulama mağazası ikonları (Apple/Android) — SOCIAL_ICON_PATHS'ten AYRI
+// tutuluyor çünkü kaynakta birden fazla `<path>` alt-elemanı içeriyorlar
+// (tek bir `d` stringine sıkıştırılamıyor).
+const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
+  apple: {
+    viewBox: '0 0 512 512',
+    paths: [
+      'M185.255,512c-76.201-0.439-139.233-155.991-139.233-235.21c0-129.404,97.075-157.734,134.487-157.734c16.86,0,34.863,6.621,50.742,12.48c11.104,4.087,22.588,8.306,28.975,8.306c3.823,0,12.832-3.589,20.786-6.738c16.963-6.753,38.071-15.146,62.651-15.146c0.044,0,0.103,0,0.146,0c18.354,0,74.004,4.028,107.461,54.272l7.837,11.777l-11.279,8.511c-16.113,12.158-45.513,34.336-45.513,78.267c0,52.031,33.296,72.041,49.292,81.665c7.061,4.248,14.37,8.628,14.37,18.208c0,6.255-49.922,140.566-122.417,140.566c-17.739,0-30.278-5.332-41.338-10.034c-11.191-4.761-20.845-8.862-36.797-8.862c-8.086,0-18.311,3.823-29.136,7.881C221.496,505.73,204.752,512,185.753,512H185.255z',
+      'M351.343,0c1.888,68.076-46.797,115.304-95.425,112.342C247.905,58.015,304.54,0,351.343,0z',
+    ],
+  },
+  android: {
+    viewBox: '0 0 512.034 512.034',
+    paths: [
+      'M362.684,192.034H149.35c-5.888,0-10.667,4.779-10.667,10.667v170.667c0,25.771,18.347,47.296,42.667,52.267v54.4c0,17.643,14.357,32,32,32c17.643,0,32-14.357,32-32v-53.333h21.333v53.333c0,17.643,14.357,32,32,32s32-14.357,32-32v-54.4c24.32-4.949,42.667-26.496,42.667-52.267V202.701C373.35,196.792,368.572,192.034,362.684,192.034z',
+      'M311.846,56.845l17.984-41.963c2.325-5.419-0.192-11.669-5.611-13.995c-5.355-2.347-11.691,0.171-13.995,5.611l-17.984,41.984c-11.413-3.712-23.573-5.781-36.203-5.781c-12.629,0-24.789,2.069-36.203,5.781L201.809,6.498c-2.304-5.44-8.64-7.979-13.995-5.611c-5.419,2.325-7.915,8.597-5.589,13.995l17.984,41.963c-36.629,19.883-61.525,58.688-61.525,103.189c0,5.888,4.779,10.667,10.667,10.667h213.333c5.888,0,10.667-4.779,10.667-10.667C373.35,115.533,348.454,76.728,311.846,56.845z M213.35,128.034c-5.888,0-10.667-4.779-10.667-10.667s4.779-10.667,10.667-10.667s10.667,4.779,10.667,10.667S219.238,128.034,213.35,128.034z M298.684,128.034c-5.888,0-10.667-4.779-10.667-10.667s4.779-10.667,10.667-10.667s10.667,4.779,10.667,10.667S304.572,128.034,298.684,128.034z',
+      'M426.684,192.034c-17.643,0-32,14.357-32,32v106.667c0,17.643,14.357,32,32,32c17.643,0,32-14.357,32-32V224.034C458.684,206.392,444.327,192.034,426.684,192.034z',
+      'M85.35,192.034c-17.643,0-32,14.357-32,32v106.667c0,17.643,14.357,32,32,32c17.643,0,32-14.357,32-32V224.034C117.35,206.392,102.993,192.034,85.35,192.034z',
+    ],
+  },
+};
+---
+
+<footer class="bg-footer-bg text-white">
+	<div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+		<div class="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
+			<!-- Kolon 1: marka + iletişim + sosyal medya -->
+			<div>
+				<a href={l('')} class="inline-block text-white" aria-label="idenfit">
+					<IdenfitLogo className="h-8 w-auto" />
+				</a>
+				<p class="mt-4 text-sm leading-relaxed text-white/70">{FOOTER_CONTACT.address}</p>
+				<a href={FOOTER_CONTACT.phoneHref} class="mt-2 block text-sm text-white/70 transition-colors hover:text-white">
+					{FOOTER_CONTACT.phoneLabel}
+				</a>
+				<a href={FOOTER_CONTACT.emailHref} class="mt-1 block text-sm text-white/70 transition-colors hover:text-white">
+					{FOOTER_CONTACT.emailLabel}
+				</a>
+
+				<ul class="mt-5 flex flex-wrap items-center gap-3">
+					{
+						FOOTER_SOCIAL.map((social) => {
+							const icon = SOCIAL_ICON_PATHS[social.platform];
+							return (
+								<li>
+									<a
+										href={social.href}
+										target="_blank"
+										rel="noopener noreferrer nofollow"
+										aria-label={social.label}
+										class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
+									>
+										<svg width="16" height="16" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
+											<path d={icon.path} />
+										</svg>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+
+				<!-- Uygulama mağazası ikonları — kaynakta sosyal ikonların hemen
+				     altında, aynı stilde ayrı bir satır. -->
+				<ul class="mt-3 flex items-center gap-3">
+					{
+						FOOTER_APPS.map((app) => {
+							const icon = APP_ICON_PATHS[app.platform];
+							return (
+								<li>
+									<a
+										href={app.href}
+										target="_blank"
+										rel="noopener noreferrer"
+										aria-label={app.label}
+										class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
+									>
+										<svg width="14" height="14" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
+											{icon.paths.map((d) => (
+												<path d={d} />
+											))}
+										</svg>
+									</a>
+								</li>
+							);
+						})
+					}
+				</ul>
+			</div>
+
+			<!-- Kolon 2: HAKKINDA -->
+			<div>
+				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.about}</h3>
+				<ul class="mt-4 flex flex-col gap-2.5">
+					{
+						FOOTER_ABOUT_LINKS.map((item) => (
+							<li>
+								<a
+									href={l(SPECIAL_HREFS[item.key] ?? item.slug)}
+									class="text-sm text-white/70 transition-colors hover:text-white"
+								>
+									{t.footer.links.about[item.key]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<!-- Kolon 3: ÜRÜNLER -->
+			<div>
+				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.products}</h3>
+				<ul class="mt-4 flex flex-col gap-2.5">
+					{
+						FOOTER_PRODUCT_LINKS.map((item) => (
+							<li>
+								<a href={productFooterHref(item.slug)} class="text-sm text-white/70 transition-colors hover:text-white">
+									{t.footer.links.products[item.key]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<!-- Kolon 4: GENEL -->
+			<div>
+				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.general}</h3>
+				<ul class="mt-4 flex flex-col gap-2.5">
+					{
+						FOOTER_GENERAL_LINKS.map((item) => (
+							<li>
+								<a
+									href={l(SPECIAL_HREFS[item.key] ?? item.slug)}
+									class="text-sm text-white/70 transition-colors hover:text-white"
+								>
+									{t.footer.links.general[item.key]}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+
+				<!-- Ödeme yöntemi rozetleri — kaynakta GENEL kolonunun sağında ayrı
+				     bir bölüm; buraya (kolonun altına) eklenmesi kullanıcının "sağ
+				     tarafta" tarifiyle örtüşüyor, 5 kolonlu bir grid'e geçmeden. -->
+				<img
+					src={FOOTER_PAYMENT_IMAGE}
+					alt={t.footer.paymentMethodsAlt}
+					loading="lazy"
+					class="mt-6 h-auto w-full max-w-[220px] rounded bg-white/95 p-2"
+				/>
+			</div>
+		</div>
+
+		<!-- Alt bar: güven rozetleri + telif hakkı + yasal linkler — footer'ın
+		     kendi gri zemininin İÇİNDE (bir öncekinin aksine, footer'ın
+		     ALTINA taşan ayrı beyaz bir şerit DEĞİL). Rozetler kullanıcının
+		     verdiği sırayla (SSL→ISO→Peryön→GDPR); FOOTER_PAYMENT_IMAGE'in
+		     hemen üstteki `bg-white/95 rounded p-2` kartıyla AYNI ilke —
+		     çoğu beyaz/şeffaf zeminli bu logolar gri fonda çıplak
+		     bırakılırsa (özellikle opak beyaz kare olan SSL/ISO) tutarsız
+		     görünür, bu yüzden her biri kendi küçük beyaz kartında. -->
+		<div class="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-white/10 pt-6 sm:justify-start">
+			{
+				TRUST_BADGE_LOGOS.map((badge) => (
+					<div class="flex h-16 items-center rounded-lg bg-white/95 px-4 sm:h-[4.5rem]">
+						<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+					</div>
+				))
+			}
+		</div>
+
+		<div class="mt-6 flex flex-col items-center gap-3 pt-0 text-xs text-white/60 sm:flex-row sm:justify-between">
+			<p>{copyright}</p>
+			<ul class="flex flex-wrap items-center gap-x-5 gap-y-2">
+				<li><a href={l(SPECIAL_HREFS.securityPolicy ?? 'sozlesme/gizlilik-ve-guvenlik-politikasi')} class="transition-colors hover:text-white">{t.footer.privacy}</a></li>
+				<li><a href={l(SPECIAL_HREFS.kvkk ?? 'kisisel-verilerin-korunmasi')} class="transition-colors hover:text-white">{t.footer.kvkk}</a></li>
+			</ul>
+		</div>
+	</div>
+</footer>

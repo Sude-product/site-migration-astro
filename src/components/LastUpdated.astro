@@ -1,0 +1,26 @@
+---
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. CLAUDE.md.
+// Yalnızca GERÇEK, kaynaktan gelen bir `modified` tarihi varsa render eder
+// — `date` verilmezse hiçbir şey basmaz (uydurma/varsayılan tarih YOK,
+// bkz. CLAUDE.md'deki kalıcı ilke). Görünür `<time datetime>` etiketi
+// hem insan hem GEO/arama motoru tarayıcıları için okunabilir.
+import { formatLocalizedDate } from '../data/dates';
+import { getTranslations } from '../i18n';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  date?: Date;
+  locale: Locale;
+}
+
+const { date, locale } = Astro.props;
+const t = getTranslations(locale);
+---
+
+{
+  date && (
+    <p class="text-sm text-muted">
+      {t.common.lastUpdated}: <time datetime={date.toISOString()}>{formatLocalizedDate(date, locale)}</time>
+    </p>
+  )
+}

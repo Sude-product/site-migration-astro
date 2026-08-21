@@ -1,0 +1,14 @@
+---
+import LegalPage from '../../components/LegalPage.astro';
+import { getLegalContent, getLegalLocaleUrls, getLegalModifiedDate, CONSUMER_RIGHTS_TR_SLUG } from '../../data/miscPagesContent';
+
+const content = getLegalContent(CONSUMER_RIGHTS_TR_SLUG, 'tr')!;
+const localeUrls = getLegalLocaleUrls(CONSUMER_RIGHTS_TR_SLUG);
+const modified = getLegalModifiedDate(CONSUMER_RIGHTS_TR_SLUG, 'tr');
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// bkz. `LegalPage.astro`'daki kök neden yorumu (ham içerik-truncation bug'ı).
+const description =
+  'idenfit müşterisi olarak sahip olduğunuz tüketici haklarını, iade/cayma koşullarını ve şikayet süreçlerini bu sözleşme metninde inceleyin.';
+---
+
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

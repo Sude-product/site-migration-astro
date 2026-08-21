@@ -1,0 +1,70 @@
+---
+// Suprema donanım-partner vurgusu — bkz. docs/homepage-sections-report.md
+// §9. Kaynak sitede logo/görsel `/suprema/` (TR/EN) veya `/it/dispositivi-suprema/`
+// (IT) gibi sayfalara linkliydi — bunların `content.rendered`'ı BOŞ (bkz.
+// CLAUDE.md "Suprema sayfalarının content.rendered'ı boş" notu), hâlâ
+// migrate edilmedi. Bunun yerine link artık gerçekten var olan `/donanim/`
+// sayfasına gidiyor (kullanıcı kararı) — o sayfa zaten Suprema'yı "Onaylı
+// Markalar" bölümünde marka olarak listeliyor (bkz. `hardwareContent.ts`).
+//
+// Kaynakta (idenfit.com, post-9.css) bu bölüm tam genişlikte açık gri
+// (#EDEDED) bir bant + üstte/altta "tilt" (eğik kesim) shape divider ile
+// çevrili (2026-07-24 doğrulandı: `.elementor-element-c831f91`,
+// `id="section-tilt"`, `shape_divider_top/bottom: "tilt"`, divider
+// yüksekliği 20px, dolgu rengi Elementor varsayılanı beyaz — aynı
+// `M0,6V0h1000v100L0,6z` path'i üstte ve altta 180° döndürülerek
+// kullanılıyor). Kaynağın kendi custom CSS'i bu divider'ı
+// `max-width:1024px`'te (`lg` breakpoint'iyle birebir örtüşüyor)
+// `display:none` yapıyor — yalnızca masaüstünde görünür, o yüzden burada
+// da `hidden lg:block`.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n';
+import { SUPREMA_LOGO_URL, HOME_SUPREMA_IMAGE } from '../data/homeContent';
+import { getHardwareSlug } from '../data/hardwareContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { suprema } = t.home;
+const image = HOME_SUPREMA_IMAGE[locale];
+const href = getRelativeLocaleUrl(locale, getHardwareSlug(locale) ?? 'donanim');
+---
+
+<section class="relative overflow-hidden bg-[#EDEDED]">
+  <div class="pointer-events-none absolute inset-x-0 top-0 hidden h-5 lg:block" aria-hidden="true">
+    <svg viewBox="0 0 1000 100" preserveAspectRatio="none" class="h-full w-full">
+      <path class="fill-white" d="M0,6V0h1000v100L0,6z" />
+    </svg>
+  </div>
+
+  <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <a href={href} class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wide text-muted">
+          {suprema.partnerLabel}
+        </a>
+        <a href={href} class="mt-2 block w-fit">
+          <img src={SUPREMA_LOGO_URL} alt="Suprema" loading="lazy" class="h-8 w-auto object-contain" />
+        </a>
+        <h2 class="h2-section mt-5 text-heading">{suprema.title}</h2>
+        <p class="mt-4 text-body">{suprema.text}</p>
+      </div>
+      <a href={href} class="reveal block">
+        <img
+          src={image.url}
+          alt={suprema.title}
+          loading="lazy"
+          width={image.width}
+          height={image.height}
+          class="w-full rounded-2xl object-cover"
+        />
+      </a>
+    </div>
+  </div>
+
+  <div class="pointer-events-none absolute inset-x-0 bottom-0 hidden h-5 rotate-180 lg:block" aria-hidden="true">
+    <svg viewBox="0 0 1000 100" preserveAspectRatio="none" class="h-full w-full">
+      <path class="fill-white" d="M0,6V0h1000v100L0,6z" />
+    </svg>
+  </div>
+</section>

@@ -1,0 +1,53 @@
+{
+  "_source": "reference/wordpress-export/pages.json (id 22563, network YOK)",
+  "_note": "Yalnızca metin içeriği (başlık/ikon/not). Form alanları + hesaplama formülleri elle src/data/calculatorDefinitions.ts'e taşındı — bkz. dosya başındaki not.",
+  "_fetchedAt": "2026-07-23T11:49:22.415Z",
+  "slug": "hesaplama-araclari",
+  "link": "https://idenfit.com/hesaplama-araclari/",
+  "hero": {
+    "title": "İnsan Kaynakları İçin Akıllı Hesaplama Araçları",
+    "text": "Fazla mesai, kıdem, ihbar ve daha fazlasını tek sayfada, doğru ve zahmetsizce hesaplayın."
+  },
+  "tools": [
+    {
+      "title": "Maaş Zammı Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-maas-zammi.svg",
+      "note": "Maaş zammı, belirli bir dönem sonunda çalışanın ücretinde yapılan artıştır."
+    },
+    {
+      "title": "Yemek Ücreti Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-yemek-ucreti.svg",
+      "note": "Hesaplama, %15 gelir vergisi dilimi esas alınarak yapılır."
+    },
+    {
+      "title": "Fazla Mesai Ücreti Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-fazla-mesai.svg",
+      "note": "Haftalık çalışma süresi 45 saati aştığında, aşan kısım fazla mesai kapsamında değerlendirilir."
+    },
+    {
+      "title": "Gelir Vergisi Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-gelir-vergisi.svg",
+      "note": null
+    },
+    {
+      "title": "İhbar Süresi ve Tazminatı Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-ihbar-suresi.svg",
+      "note": "Kümülatif gelir vergisi matrahını bilmiyorsanız alanı boş bırakabilirsiniz. Boş bırakıldığında hesaplama %15 vergi dilimine göre yapılır."
+    },
+    {
+      "title": "İşveren Maliyeti Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-isveren-maliyeti.svg",
+      "note": "Hesaplama, çalışana ödenen brüt ücret esas alınarak yapılır. Yol, yemek gibi yan haklar ve diğer ek kalemler dahil edilmez."
+    },
+    {
+      "title": "Kurumlar Vergisi Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-kurumlar-vergisi.svg",
+      "note": "Kurumlar vergisi, bir hesap dönemi boyunca elde edilen kurum kazancı (safi kazanç) üzerinden hesaplanır."
+    },
+    {
+      "title": "Kıdem Tazminatı Hesaplama",
+      "icon": "https://idenfit.com/wp-content/uploads/2025/12/accordion-kidem-tazminati.svg",
+      "note": "Kıdem tazminatı, iş ilişkisi sona erdiğinde mevzuatta belirtilen şartları sağlayan çalışanlara işveren tarafından ödenen tazminattır."
+    }
+  ]
+}

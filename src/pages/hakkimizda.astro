@@ -1,0 +1,10 @@
+---
+import AboutPage from '../components/AboutPage.astro';
+import { getAboutContent, getAboutLocaleUrls, getAboutTitle } from '../data/miscPagesContent';
+
+const content = getAboutContent('tr')!;
+const pageTitle = getAboutTitle('tr');
+const localeUrls = getAboutLocaleUrls();
+---
+
+<AboutPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

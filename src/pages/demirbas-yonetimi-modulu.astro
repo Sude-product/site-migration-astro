@@ -1,0 +1,34 @@
+---
+// 2026-08-05: kapsamlı URL denetimiyle bulunan, önceki modül migrasyon
+// turlarında kaçırılmış bir modül. Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
+
+const trSlug = 'demirbas-yonetimi-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const modified = getProductModifiedDate(trSlug, 'tr');
+// `pageTitle` (H1 için hâlâ kullanılıyor) kaynağın gerçek hero cümlesi
+// ("Demirbaşları dijital ortama taşıyın, kontrolü kolaylaştırın!") — bu,
+// `<title>` etiketinde 70 karaktere çıkıp 60 sınırını aşıyordu (2026-08-10
+// title uzunluk denetimi). `<title>` için modülün kısa, gerçek adından
+// ayrı bir başlık üretildi (H1 DEĞİŞMEDİ).
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const title = buildIdenfitTitle('Demirbaş Yönetimi Modülü', 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu) — `pageTitle`
+// (hero'nun tanıtım cümlesi) `<title>` için de aynı sebeple kısaltılmıştı
+// (yukarıya bakın), CTA anchor text'i için de AYNI kısa/gerçek modül adı
+// kullanılıyor.
+const ctaKeyword = 'Demirbaş Yönetimi Modülü';
+---
+
+<ProductPage
+	content={content}
+	pageTitle={pageTitle}
+	title={title}
+	ctaKeyword={ctaKeyword}
+	localeUrls={localeUrls}
+	hreflangLocales={['tr', 'en']}
+	modified={modified}
+/>

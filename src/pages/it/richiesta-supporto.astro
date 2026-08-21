@@ -1,0 +1,8 @@
+---
+import SupportRequestPage from '../../components/SupportRequestPage.astro';
+import { getSupportRequestContent } from '../../data/supportRequestContent';
+
+const content = getSupportRequestContent('it')!;
+---
+
+<SupportRequestPage content={content} />

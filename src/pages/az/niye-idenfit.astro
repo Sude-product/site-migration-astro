@@ -1,0 +1,17 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getWhyIdenfitContent, getWhyIdenfitLocaleUrls, getWhyIdenfitTitle, getWhyIdenfitMetaDescription } from '../../data/miscPagesContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
+
+const content = { ...getWhyIdenfitContent('az')!, faq: [] };
+// `pageTitle` (H1 için hâlâ kullanılıyor, uzun hero cümlesi) `<title>`
+// etiketinde 90 karaktere çıkıyordu (title uzunluk denetimi) — IT'deki
+// AYNI çözüm: `<title>` için sitede zaten kullanılan gerçek kısa başlık.
+const pageTitle = getWhyIdenfitTitle('az');
+const title = buildIdenfitTitle('Niyə İdenfit?', 'az');
+const localeUrls = getWhyIdenfitLocaleUrls();
+const description = getWhyIdenfitMetaDescription('az');
+const ctaKeyword = 'Niyə İdenfit';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} description={description} />

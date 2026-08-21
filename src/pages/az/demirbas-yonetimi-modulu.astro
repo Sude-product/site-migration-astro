@@ -1,0 +1,23 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
+
+const trSlug = 'demirbas-yonetimi-modulu';
+const content = getProductContent(trSlug, 'az')!;
+const modified = getProductModifiedDate(trSlug, 'az');
+const pageTitle = getProductPageTitle(trSlug, 'az');
+const title = buildIdenfitTitle('Əmlak İdarəçiliyi Modulu', 'az');
+const localeUrls = getProductLocaleUrls(trSlug);
+const ctaKeyword = 'Əmlak İdarəçiliyi Modulu';
+---
+
+<ProductPage
+	content={content}
+	pageTitle={pageTitle}
+	title={title}
+	ctaKeyword={ctaKeyword}
+	localeUrls={localeUrls}
+	hreflangLocales={['tr', 'en', 'az']}
+	modified={modified}
+/>

@@ -1,0 +1,30 @@
+---
+// Ana sayfada iki içerik bloğu arasına serpiştirilen ayraç başlığı (bkz.
+// docs/homepage-sections-report.md §3/§6). DÜZELTME (2026-07-22): kaynak
+// sitenin gerçek CSS'i (post-9.css) incelendiğinde bunun düz koyu metin
+// DEĞİL, tam genişlikte marka kırmızısı (--e-global-color-uicore_accent,
+// bizim `bg-brand`) zeminli, beyaz, 36px/font-weight:400 bir banner
+// olduğu görüldü — ilk implementasyon bunu düz `text-heading` başlık
+// olarak yanlış yapmıştı.
+//
+// ⚠️ DÜZELTME (2026-08-04): kullanıcı şeridin/metnin kaynağa göre BÜYÜK
+// göründüğünü bildirdi. Kök neden: `max-w-4xl`(896px) sabit kutusu metni
+// gereğinden dar bir alana sıkıştırıp 2 satıra sardırıyordu (şeridi
+// yapay olarak yükseltiyordu) — kaynakta (`post-9.css`, container
+// `4351fc8`) genişlik bir max-width DEĞİL, viewport'a göre yatay padding
+// ile kontrol ediliyor: masaüstünde (`min-width:1024px` taban kural)
+// `padding:17px 195px`, `≤1024px`'te `padding:18px 24px` + font 36px/42px
+// satır yüksekliği → 24px/29px'e düşüyor. `max-w-4xl mx-auto` tamamen
+// kaldırılıp bu ölçülen padding değerleriyle değiştirildi.
+interface Props {
+  text: string;
+}
+
+const { text } = Astro.props;
+---
+
+<section class="bg-brand">
+  <div class="px-6 py-[18px] text-center lg:px-[195px] lg:py-[17px]">
+    <h2 class="text-2xl font-normal leading-[29px] text-white lg:text-4xl lg:leading-[42px]">{text}</h2>
+  </div>
+</section>

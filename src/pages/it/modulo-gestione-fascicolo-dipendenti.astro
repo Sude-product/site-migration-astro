@@ -1,0 +1,13 @@
+---
+// Aşama 3 (kısım 1) — 7 temiz modülden biri (Zimmet). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'zimmet-yonetimi-modulu';
+const content = getProductContent(trSlug, 'it')!;
+const pageTitle = getProductPageTitle(trSlug, 'it');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'it');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

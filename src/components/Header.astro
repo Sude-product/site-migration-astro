@@ -1,0 +1,262 @@
+---
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { computeGenericLocaleUrls } from '../i18n/localeUrls';
+import LanguageSwitcher from './LanguageSwitcher.tsx';
+import MarqueeBar from './MarqueeBar.tsx';
+import MobileMenu from './MobileMenu.tsx';
+import MegaMenu from './MegaMenu.tsx';
+import { NAV_ITEMS, type Locale } from '../data/nav';
+import {
+  buildMegaMenus,
+  type MegaMenuContent,
+  type MegaMenuColumn,
+  type MegaMenuLink,
+} from '../data/navigation';
+import { getTranslations } from '../i18n';
+import { getWhyIdenfitSlug } from '../data/miscPagesContent';
+import { getPricingSlug } from '../data/pricingContent';
+import IdenfitLogo from './icons/IdenfitLogo.tsx';
+
+interface Props {
+  /**
+   * Sayfaya özel dil URL eşlemesi — yalnızca aynı slug'ın locale'ler
+   * arasında FARKLI olduğu sayfalar (ör. sektör sayfaları, bkz.
+   * `SectorPage.astro`) için gerekli. Genel "aynı slug + locale prefix"
+   * mantığı bu sayfalarda yanlış/var olmayan URL üretir. Verilmezse (çoğu
+   * sayfada olduğu gibi) aşağıdaki otomatik hesaplanan eşleme kullanılır.
+   */
+  localeUrls?: Partial<Record<Locale, string>>;
+}
+
+const { localeUrls: localeUrlsOverride } = Astro.props as Props;
+
+const currentLocale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(currentLocale);
+const ui = t.headerUi;
+const MEGA_MENUS = buildMegaMenus(t.mega, currentLocale);
+
+// Aktif yolun dil önekini soyutla → diğer dillerdeki eşdeğer URL'leri üret.
+// (localeUrlsOverride verilmişse bu sayfa-özel değerler önceliklidir.)
+// Hesaplama `../i18n/localeUrls.ts`'e taşındı (2026-08-17) — `BaseLayout.astro`'nun
+// hreflang üretimi de AYNI mantığı paylaşıyor.
+const genericLocaleUrls = computeGenericLocaleUrls(Astro.url.pathname);
+const localeUrls = { ...genericLocaleUrls, ...localeUrlsOverride };
+
+const l = (slug: string) => getRelativeLocaleUrl(currentLocale, slug);
+// `l()` bir slug'a `#anchor` sonu eklenmişse (ör. Donanım sayfasının
+// `donanim#rfid` gibi bölüm linkleri) fragment'ı da yol gibi işleyip
+// SONUNA trailing slash ekliyor (`/donanim#rfid/`) — bu, tarayıcının
+// `getElementById('rfid/')` araması yapmasına yol açıp anchor scroll'unu
+// KIRAR (bkz. CLAUDE.md "Donanım sayfası"). `l()`'den önce path/fragment
+// ayrılıp fragment ham haliyle sona ekleniyor.
+const lWithHash = (slug: string) => {
+  const hashIndex = slug.indexOf('#');
+  if (hashIndex === -1) return l(slug);
+  return `${l(slug.slice(0, hashIndex))}${slug.slice(hashIndex)}`;
+};
+// "Neden idenfit"/"Fiyatlar" üst menü linkleri de per-locale slug
+// gerektiriyor (bkz. mega-menü KURUMSAL'daki `contactHref()`/`globalBrandHref()`
+// ile aynı sınıf düzeltme) — diğer NAV_ITEMS öğeleri (ürünler/sektörler/
+// kurumsal/keşfet) zaten mega-menü tetikleyicisi, kendi `href`'i
+// kullanılmıyor.
+const NAV_SLUG_OVERRIDES: Partial<Record<string, (locale: Locale) => string | undefined>> = {
+  'neden-idenfit': getWhyIdenfitSlug,
+  fiyatlar: getPricingSlug,
+};
+const homeHref = l('');
+
+// Dış (mutlak) linkler locale-prefix'lenmez (ör. PDF raporlar); site-local
+// slug'lar `lWithHash()` ile aktif dile göre çözülür (anchor fragment'ı
+// koruyarak).
+const resolveLink = (link: MegaMenuLink) => ({
+  label: link.label,
+  href: link.external ? link.href : lWithHash(link.href),
+  icon: link.icon,
+  overview: link.overview,
+  description: link.description,
+});
+
+const resolveColumn = (col: MegaMenuColumn) => {
+  if (col.type === 'links') {
+    return { ...col, links: col.links.map(resolveLink) };
+  }
+  if (col.type === 'sublist') {
+    return { ...col, href: col.external ? col.href : lWithHash(col.href) };
+  }
+  // 'cards' — kart hedefleri (PDF vb.) daima mutlak dış URL'dir, dokunulmaz.
+  return col;
+};
+
+const resolveMegaMenu = (content: MegaMenuContent) => ({
+  intro: content.intro
+    ? {
+        title: content.intro.title,
+        description: content.intro.description,
+        linkLabel: content.intro.linkLabel,
+        linkHref: content.intro.linkHref ? l(content.intro.linkHref) : undefined,
+      }
+    : undefined,
+  columns: content.columns.map(resolveColumn),
+  promo: content.promo ? { ...content.promo, ctaHref: l(content.promo.ctaHref) } : undefined,
+  promoCard: content.promoCard
+    ? { ...content.promoCard, href: content.promoCard.external ? content.promoCard.href : l(content.promoCard.href) }
+    : undefined,
+});
+
+// Her nav öğesi için mega-menü içeriği (varsa) burada BİR KEZ çözülüp hem
+// masaüstü (<MegaMenu>) hem mobil (<MobileMenu>) tarafından paylaşılıyor —
+// önceden yalnızca masaüstü döngüsü içinde hesaplanıyordu, mobil menü
+// mega-menü verisini hiç görmüyordu (bkz. site denetim raporu, madde 3:
+// mobilde ÜRÜNLER/SEKTÖRLER/KURUMSAL/KEŞFET var olmayan `/urunler/` vb.
+// sayfalara giden düz linklerdi).
+const navItems = NAV_ITEMS.map((item) => {
+  const megaContent = MEGA_MENUS[item.slug];
+  return {
+    slug: item.slug,
+    label: t.nav[item.key],
+    href: l(NAV_SLUG_OVERRIDES[item.slug]?.(currentLocale) ?? item.slug),
+    mega: megaContent ? resolveMegaMenu(megaContent) : undefined,
+  };
+});
+---
+
+<header class="sticky top-0 z-40 isolate w-full border-b border-gray-100 bg-surface/95 will-change-transform">
+	<!-- ⚠️ 2026-07-31 — `backdrop-blur` KALICI OLARAK KALDIRILDI (geri
+	     GETİRİLMEDİ). Playwright'ın Chrome trace/rAF frame-timing ölçümüyle
+	     kök neden KESİN olarak `backdrop-blur` çıktı — sticky bir elemanın
+	     arkasını her scroll frame'inde yeniden örneklemesi pahalı: ortalama
+	     frame süresi 19.68ms'den (60fps bütçesi: 16.67ms, %17.4 frame
+	     "jank" — >32ms) `backdrop-blur` kaldırılınca 16.71ms'e (%0.2 jank)
+	     düştü — `will-change:transform`'u KALDIRMAK tek başına HİÇBİR fark
+	     yaratmadı (ayrıca ölçüldü), yani asıl suçlu blur'du. Kaynak sitede
+	     (idenfit.com) de zaten `backdrop-filter` hiç kullanılmıyor. `bg-surface/95`
+	     (%95 opak) korunuyor. `scripts/verify-navbar-jank.mjs`.
+
+	     Marquee'nin scroll'da gizlenip gösterilmesi (aşağıya bkz.) daha
+	     önce (aynı gün, bu değişiklikten ÖNCE) TAMAMEN kaldırılmıştı — 3
+	     düzeltme turu titremeyi gideremediği için. Kullanıcı marquee'nin
+	     GERÇEKTEN gizlenmesini istediğini netleştirince GERİ GETİRİLDİ.
+	     Önceki 3 denemenin hepsi `backdrop-blur` HÂLÂ VARKEN yapılmıştı —
+	     sticky+backdrop-filter+layout-değişikliği üçlüsü asıl jank
+	     kaynağıydı (bkz. yukarıdaki not). `backdrop-blur` artık YOK,
+	     bu yüzden aynı `grid-template-rows` tekniği bu kez ölçülüp
+	     (frame-timing, yalnızca CLS değil) DOĞRULANDI — bkz.
+	     `scripts/verify-marquee-scroll.mjs`. -->
+	<!-- Duyuru barı: `#marquee-wrap` — scroll'a göre gösterip gizlemenin
+	     mekanizması (bkz. `src/scripts/marquee-scroll.js`): `grid-template-rows`
+	     1fr↔0fr geçişi (modern "smooth height animasyonu" tekniği), React
+	     DEĞİL vanilla JS ile (React re-render'larının jank'a yol açması,
+	     2026-07-28). İçindeki `<div>` `overflow-hidden` olmadan grid satırı
+	     0'a inince taşan içerik görünür kalır. `contain-layout contain-paint`:
+	     içerideki reflow'un dışarı sızmasını engelliyor + komşu alanların
+	     yeniden boyanma kapsamını daraltıyor. -->
+	<div id="marquee-wrap" class="grid contain-layout contain-paint will-change-transform transition-[grid-template-rows] duration-250 ease-in-out motion-reduce:transition-none" style="grid-template-rows: 1fr;">
+		<div class="overflow-hidden">
+			<MarqueeBar />
+		</div>
+	</div>
+	<!-- 2026-08-11 — konteyner düzeltmesi: `mx-auto max-w-7xl` (1280px,
+	     ortalanan) kaynakla UYUŞMUYORDU — canlı `<header>` element-ID
+	     doğrulamalı ölçüldü, gerçek davranış `width:100%; padding:0 100px`
+	     (max-width KAPAĞI YOK, `mx-auto` ORTALAMA YOK). Önceki `max-w-7xl
+	     mx-auto` 1536px viewport'ta logoyu x≈152'de başlatıyordu (gerçek
+	     x=100) — Contact/Legal sayfalarında bulunan AYNI "tek katmanlı
+	     max-width+mx-auto, padding'in üstüne biniyor" bug sınıfı, bkz.
+	     ContactPage.astro yorumu. Header'da iç içe max-width KATMANI da
+	     GEREKMİYOR (ölçülen `maxWidth:100%` — kaynak çok geniş ekranlarda
+	     bile yeniden ortalamıyor, sabit 100px kenar boşluğu sürüyor). -->
+	<div class="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-[100px]">
+		<!-- Sol: logo (idenfit.com'un gerçek logotype'ı, bkz. IdenfitLogo.tsx).
+		     2026-07-28 (YEDİNCİ tur, KONU 1): `h-8`(32px) kaynaktan KÜÇÜKMÜŞ —
+		     canlı HTML'de logo widget'ının gerçek element ID'si (`87adeaf`)
+		     bulunup `post-9695.css`'te arandı: `.elementor-element-87adeaf
+		     img{width:136px;height:50px;}` — GERÇEK render boyutu 50px yükseklik
+		     (136px genişlik, SVG'nin kendi 98:36 oranıyla birebir tutarlı,
+		     `w-auto` otomatik doğru hesaplıyor). Bu, kullanıcının "ince/farklı
+		     harf aralığına sahip duruyor" izleniminin kök nedeniydi — logo bir
+		     FONT değil (elle vektörleştirilmiş SVG, bkz. IdenfitLogo.tsx'in
+		     kendi yorumu), yani font-family/letter-spacing kavramları
+		     uygulanmıyor; sorun tamamen RENDER BOYUTUYDU (32px→50px, %56 fark).
+		     Yıldızın panel içi konumu (viewBox'ın sağ-üst köşesi, x≈85.5–98/
+		     y≈1.3–13.3) tek bir SVG içinde tutulduğu için boyutla orantılı
+		     büyüdü, ayrıca dokunulmadı. -->
+		<a href={homeHref} class="shrink-0 text-heading" aria-label={ui.brandHome}>
+			<IdenfitLogo className="h-[50px] w-auto" />
+		</a>
+
+		<!-- Orta: navigasyon (masaüstü, lg ve üstü) -->
+		<!-- ⚠️ 2026-07-31 — ayrı üst-seviye "BLOG" linki kaldırıldı (bkz.
+		     nav.ts). Kalan 7 öğe arası `gap-4`(16px)→`gap-8`(32px): kaynağın
+		     canlı `post-9695.css`'inden ölçülen gerçek değer — her nav linki
+		     `padding-left:16px;padding-right:16px` taşıyor (gap DEĞİL,
+		     link'in kendi padding'i), yani komşu iki link arası GERÇEK
+		     mesafe 16+16=32px. Dikey `padding-top/bottom:26px` bilinçli
+		     olarak UYGULANMADI (bizim `h-16` header'ımızla çakışır, bkz.
+		     logo yorumu). -->
+		<nav class="hidden lg:block" aria-label={ui.mainNav}>
+			<ul class="flex items-center gap-8">
+				{
+					navItems.map((item) => {
+						if (item.mega) {
+							return (
+								<MegaMenu
+									client:load
+									label={item.label}
+									intro={item.mega.intro}
+									columns={item.mega.columns}
+									promo={item.mega.promo}
+									promoCard={item.mega.promoCard}
+								/>
+							);
+						}
+						return (
+							<li>
+								<a
+									href={item.href}
+									class="nav-link-text"
+								>
+									{item.label}
+								</a>
+							</li>
+						);
+					})
+				}
+			</ul>
+		</nav>
+
+		<!-- Sağ: giriş + CTA + dil -->
+		<div class="flex items-center gap-2 sm:gap-3">
+			<a
+				href="https://app.idenfit.com/"
+				class="hidden text-sm font-medium text-heading transition-colors hover:text-brand sm:inline-block"
+			>
+				{t.cta.login}
+			</a>
+			<a
+				href={l('online-sunum-talebi')}
+				class="btn-cta-solid hidden sm:inline-flex"
+			>
+				{t.cta.requestDemo}
+			</a>
+
+			<!-- Masaüstü dil değiştirici (lg ve üstü) -->
+			<div class="hidden lg:block">
+				<LanguageSwitcher client:load currentLocale={currentLocale} urls={localeUrls} />
+			</div>
+
+			<!-- Mobil / tablet: açılır-kapanır menü (lg altı) -->
+			<MobileMenu
+				client:load
+				navItems={navItems}
+				login={{ label: t.cta.login, href: 'https://app.idenfit.com/' }}
+				demo={{ label: t.cta.requestDemo, href: l('online-sunum-talebi') }}
+				currentLocale={currentLocale}
+				localeUrls={localeUrls}
+				labels={{ open: ui.openMenu, close: ui.closeMenu, nav: ui.mainNav }}
+			/>
+		</div>
+	</div>
+</header>
+
+<script src="../scripts/marquee-scroll.js"></script>
+

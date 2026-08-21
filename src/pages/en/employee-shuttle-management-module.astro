@@ -1,0 +1,13 @@
+---
+// Aşama 3 (kısım 1) — 7 temiz modülden biri (Servis/Shuttle). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'personel-servisi-yonetimi-modulu';
+const content = getProductContent(trSlug, 'en')!;
+const pageTitle = getProductPageTitle(trSlug, 'en');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

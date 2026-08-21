@@ -1,0 +1,35 @@
+---
+// "Verimliliği Ölçen 5 Soru" — bkz. docs/homepage-sections-report.md §7.
+//
+// BULUNAN VERİ HATASI (düzeltildi, bkz. homeContent.ts): kaynak sitede
+// IT bu bölümde TR'nin ekran görüntüsünü `alt="efficiency tr"` ile
+// kullanıyordu (canlı idenfit.com/it/'de hâlâ böyle — kaynağın kendi
+// hatası). Artık EN'in görseli + gerçek İtalyanca alt metni kullanılıyor.
+import { getTranslations } from '../i18n';
+import { HOME_EFFICIENCY_IMAGE } from '../data/homeContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { efficiency } = t.home;
+const image = HOME_EFFICIENCY_IMAGE[locale];
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+    <div class="order-2 lg:order-1">
+      <img
+        src={image.url}
+        alt={efficiency.imageAlt}
+        loading="lazy"
+        width={image.width}
+        height={image.height}
+        class="reveal w-full rounded-2xl object-cover"
+      />
+    </div>
+    <div class="order-1 lg:order-2">
+      <h2 class="h2-section text-heading">{efficiency.title}</h2>
+      <p class="mt-4 text-body">{efficiency.text}</p>
+    </div>
+  </div>
+</section>

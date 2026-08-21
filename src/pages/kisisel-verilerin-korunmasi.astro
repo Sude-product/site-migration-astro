@@ -1,0 +1,23 @@
+---
+import LegalPage from '../components/LegalPage.astro';
+import { getKvkkContent, getKvkkLocaleUrls, getKvkkModifiedDate } from '../data/miscPagesContent';
+
+const content = getKvkkContent('tr')!;
+const localeUrls = getKvkkLocaleUrls();
+// "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`.
+const modified = getKvkkModifiedDate('tr');
+// Meta description (2026-08-10, meta description uzunluk denetimi) —
+// önceki davranış (`content.contentHtml`'in ilk 160 karakteri) ham şirket
+// ünvanı/adres bloğunu gösteriyordu, bkz. `LegalPage.astro`'daki kök neden
+// yorumu.
+const description =
+  "idenfit'in kişisel verilerinizi hangi amaçlarla topladığını, işlediğini ve KVKK kapsamındaki haklarınızı bu aydınlatma metninde öğrenin.";
+---
+
+<LegalPage
+	content={content}
+	localeUrls={localeUrls}
+	description={description}
+	hreflangLocales={['tr', 'en', 'it']}
+	modified={modified}
+/>

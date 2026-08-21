@@ -1,0 +1,10 @@
+---
+import ThankYouPage from '../components/ThankYouPage.astro';
+import { getThankYouContent, getThankYouLocaleUrls, getThankYouModifiedDate } from '../data/thankYouContent';
+
+const content = getThankYouContent('tr')!;
+const localeUrls = getThankYouLocaleUrls();
+const modified = getThankYouModifiedDate('tr');
+---
+
+<ThankYouPage content={content} localeUrls={localeUrls} modified={modified} />

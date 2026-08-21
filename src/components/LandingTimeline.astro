@@ -1,0 +1,49 @@
+---
+// "3 Adımda idenfit" — süreci anlatan yatay zaman çizgisi (2026-08-07).
+// 3 adımın metni bu SAYFADA ZATEN yazılmış/onaylı temaları yeniden
+// anlatıyor, yeni bir iddia YOK: Adım 1 "48 saat" (hero alt açıklaması +
+// istatistik şeridiyle AYNI rakam), Adım 2 "Excel toplu veri aktarımı"
+// (`LandingBentoGrid`'deki "Toplu İşlem Esnekliği" kartıyla AYNI), Adım 3
+// "canlı panel" (`LandingDashboardPreview`in "Canlı Devam Takibi"
+// bölümüyle AYNI tema). Bağlayıcı ok ikonları `FeatureGrid.astro`'nun
+// ("+"/"=" ikonlu) `grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr]` desenini
+// birebir izliyor (yalnızca 3 adım için kısaltılmış hâli).
+import { Rocket, UploadCloud, LayoutDashboard, ArrowRight, type LucideIcon } from 'lucide-react';
+
+interface Step {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+const STEPS: Step[] = [
+  { icon: Rocket, title: '1. Kaydolun', text: 'Hesabınızı açın — kurulum 48 saat içinde tamamlanır.' },
+  { icon: UploadCloud, title: '2. Verilerinizi Aktarın', text: 'Excel ile toplu veri aktarımıyla çalışan bilgilerinizi sisteme yükleyin.' },
+  { icon: LayoutDashboard, title: '3. Yönetmeye Başlayın', text: 'Canlı panelden giriş-çıkış, izin ve bordro süreçlerini anlık yönetin.' },
+];
+---
+
+<section class="bg-surface py-16 lg:py-24">
+  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+    <h2 class="reveal h2-section text-center text-heading">3 Adımda idenfit</h2>
+
+    <div class="mt-12 grid grid-cols-1 gap-8 lg:grid-cols-[1fr_auto_1fr_auto_1fr] lg:items-start lg:gap-4">
+      {
+        STEPS.map((step, i) => [
+          <div class="reveal flex flex-col items-center text-center" style={`transition-delay: ${i * 120}ms`}>
+            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-brand text-white">
+              <step.icon className="h-7 w-7" aria-hidden="true" />
+            </div>
+            <h3 class="mt-4 text-lg font-semibold text-heading">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-body">{step.text}</p>
+          </div>,
+          i < STEPS.length - 1 && (
+            <div class="hidden items-center justify-center lg:flex" aria-hidden="true">
+              <ArrowRight className="h-6 w-6 text-brand" aria-hidden="true" />
+            </div>
+          ),
+        ])
+      }
+    </div>
+  </div>
+</section>

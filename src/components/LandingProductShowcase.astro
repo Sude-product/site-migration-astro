@@ -1,0 +1,62 @@
+---
+// Gerçek ürün paneli — büyük, öne çıkan görsel bölüm (2026-08-07). Ana
+// sayfanın "Kullanıcı Dostu Panel" bölümündeki (`PanelFeatureSection.astro`)
+// AYNI gerçek ekran görüntüsü (`HOME_PANEL_IMAGE`, gerçek WP medya, kaynak:
+// `home-efficiency` DEĞİL — `pnl-img-*.webp`) + AYNI onaylı başlık/metin/
+// imageAlt (`t.home.panel`) yeniden kullanıldı — yeni bir pazarlama iddiası
+// YAZILMADI.
+//
+// Kırmızı zemin `bg-brand` (#FF0000, ana sayfa hero'sunun AYNI flat
+// kırmızı paneliyle birebir aynı ton, bkz. `HeroSection.astro`) — KONU 1
+// (renk uyumu, "cesur/doygun kırmızı") ile aynı ilke.
+//
+// Tarayıcı çerçevesi (sahte sekme çubuğu, gerçek ekosistem hostname'i
+// `app.idenfit.com` — bkz. CLAUDE.md §Mimari "CTA URL çözümleme",
+// uydurma bir alan adı DEĞİL) + hafif 3D perspektif + yavaş süzülme
+// animasyonu (`.landing-float`, `global.css`) EKLENDİ — kaynakta yok,
+// bilinçli yeni sunum katmanı. `prefers-reduced-motion` ile durduruluyor.
+import { HOME_PANEL_IMAGE } from '../data/homeContent';
+import { getTranslations } from '../i18n';
+
+const locale = 'tr';
+const t = getTranslations(locale);
+const { panel } = t.home;
+const image = HOME_PANEL_IMAGE[locale];
+---
+
+<section class="relative overflow-hidden bg-brand py-20 lg:py-28">
+  <div class="mx-auto max-w-5xl px-6 text-center lg:px-8">
+    <h2 class="reveal h2-section text-white">{panel.title}</h2>
+    <p class="reveal mx-auto mt-4 max-w-2xl text-white/85" style="transition-delay: 80ms">{panel.text}</p>
+
+    <ul class="reveal mt-6 flex flex-wrap items-center justify-center gap-3" style="transition-delay: 140ms">
+      {
+        panel.features.map((feature) => (
+          <li class="rounded-full bg-white/15 px-4 py-1.5 text-sm font-medium text-white">{feature}</li>
+        ))
+      }
+    </ul>
+
+    <div class="reveal relative mt-14" style="--reveal-y: 32px; transition-delay: 200ms">
+      {/* Dekoratif glow — görselin arkasında, derinlik hissi için. */}
+      <div class="pointer-events-none absolute inset-0 mx-auto h-full w-[85%] rounded-full bg-white/10 blur-3xl" aria-hidden="true" />
+
+      <div class="landing-float relative mx-auto max-w-3xl overflow-hidden rounded-xl shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)]">
+        <div class="flex items-center gap-1.5 bg-[#2b2b2b] px-4 py-3" aria-hidden="true">
+          <span class="h-2.5 w-2.5 rounded-full bg-[#ff5f57]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#febc2e]"></span>
+          <span class="h-2.5 w-2.5 rounded-full bg-[#28c840]"></span>
+          <span class="ml-3 flex-1 truncate rounded-md bg-white/10 px-3 py-1 text-left text-xs text-white/50">app.idenfit.com</span>
+        </div>
+        <img
+          src={image.url}
+          width={image.width}
+          height={image.height}
+          alt={panel.imageAlt}
+          loading="lazy"
+          class="w-full object-cover"
+        />
+      </div>
+    </div>
+  </div>
+</section>

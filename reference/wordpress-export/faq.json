@@ -1,0 +1,945 @@
+{
+  "_source": "https://idenfit.com/wp-json/wp/v2/faq + wp/v2/faq-category (custom post type, pages.json export'una dahil değildi)",
+  "_fetchedAt": "2026-07-22T10:37:20.341Z",
+  "_note": "idenfit.com'un canlı /sss/ (ve /en/faq/, /it/faq/) sayfaları bu CPT'den besleniyor — sayfanın kendi ACF question_N/answer_N alanları boş/kullanılmıyor. NL hiç yok (dil bazında sistemik boşluk, diğer birçok sayfada görülen örüntüyle tutarlı).",
+  "trSlug": "sss",
+  "localeSlugs": {
+    "tr": "sss",
+    "en": "faq",
+    "it": "faq"
+  },
+  "categories": {
+    "tr": [
+      {
+        "id": 158,
+        "slug": "genel-tr",
+        "name": "Genel",
+        "count": 6
+      },
+      {
+        "id": 160,
+        "slug": "odeme",
+        "name": "Ödeme",
+        "count": 5
+      },
+      {
+        "id": 162,
+        "slug": "kurulum-ve-sozlesme",
+        "name": "Kurulum ve Sözleşme",
+        "count": 8
+      },
+      {
+        "id": 164,
+        "slug": "musteri-deneyimi-merkezi",
+        "name": "Müşteri Deneyimi Merkezi",
+        "count": 4
+      },
+      {
+        "id": 166,
+        "slug": "data-guvenligi",
+        "name": "Data Güvenliği",
+        "count": 5
+      },
+      {
+        "id": 168,
+        "slug": "uyelik-ve-cayma-hakki",
+        "name": "Üyelik ve Cayma Hakkı",
+        "count": 2
+      }
+    ],
+    "en": [
+      {
+        "id": 170,
+        "slug": "general-info",
+        "name": "General Info",
+        "count": 5
+      },
+      {
+        "id": 173,
+        "slug": "pricing-payment",
+        "name": "Pricing &amp; Payment",
+        "count": 6
+      },
+      {
+        "id": 175,
+        "slug": "setup-contract",
+        "name": "Setup &amp; Contract",
+        "count": 8
+      },
+      {
+        "id": 177,
+        "slug": "customer-service-support",
+        "name": "Customer Service &amp; Support",
+        "count": 4
+      },
+      {
+        "id": 179,
+        "slug": "data-security",
+        "name": "Data Security",
+        "count": 5
+      },
+      {
+        "id": 181,
+        "slug": "subscription-cancellation-policy",
+        "name": "Subscription &amp; Cancellation Policy",
+        "count": 2
+      }
+    ],
+    "it": [
+      {
+        "id": 1085,
+        "slug": "informazioni-generali",
+        "name": "Informazioni Generali",
+        "count": 5
+      },
+      {
+        "id": 1091,
+        "slug": "prezzi-pagamenti",
+        "name": "Prezzi e Pagamenti",
+        "count": 6
+      },
+      {
+        "id": 1093,
+        "slug": "configurazione-contratto",
+        "name": "Configurazione e Contratto",
+        "count": 8
+      },
+      {
+        "id": 1095,
+        "slug": "servizio-clienti-supporto",
+        "name": "Servizio Clienti e Supporto",
+        "count": 4
+      },
+      {
+        "id": 1097,
+        "slug": "sicurezza-dati",
+        "name": "Sicurezza dei Dati",
+        "count": 5
+      },
+      {
+        "id": 1099,
+        "slug": "abbonamento-politica-cancellazione",
+        "name": "Abbonamento e Politica di Cancellazione",
+        "count": 2
+      }
+    ]
+  },
+  "faq": {
+    "tr": [
+      {
+        "id": 12585,
+        "slug": "test",
+        "link": "https://idenfit.com/blog/faq/test/",
+        "question": "idenfit nedir?",
+        "answer": "<p>idenfit, insan kaynakları yönetimine, bütüncül bir yaklaşım getiren bulut tabanlı, kullanıcı dostu bir insan kaynakları ve iş gücü yazılımıdır. İnsan kaynakları departmanlarının, zamandan tasarruf etmesini sağlayarak, değer yaratan işlerin ortaya çıkmasına zemin hazırlar. Tüm insan kaynakları süreçlerini idenfit ile uçtan uca tek bir platform altında yönetebilirsiniz.<br></p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12596,
+        "slug": "idenfit-yazilim-olarak-piyasadaki-pdks-cihaz-ve-donanimlara-entegre-olabilir-mi",
+        "link": "https://idenfit.com/blog/faq/idenfit-yazilim-olarak-piyasadaki-pdks-cihaz-ve-donanimlara-entegre-olabilir-mi/",
+        "question": "idenfit yazılım olarak piyasadaki PDKS cihaz ve donanımlara entegre olabilir mi?",
+        "answer": "<p>idenfit çekirdek yapısı, piyasadaki birçok cihaz markası ile uyumlu olarak çalışır. Markasız ve esnek yapısı sayesinde, önceden satın aldığınız ya da elinizde bulunan ana cihazlarla uyum sorunu olmaksızın tam entegre olur.<br></p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12598,
+        "slug": "idenfitte-fiyat-politikasi-neye-gore-belirleniyor",
+        "link": "https://idenfit.com/blog/faq/idenfitte-fiyat-politikasi-neye-gore-belirleniyor/",
+        "question": "Idenfit’te fiyat politikası neye göre belirleniyor?",
+        "answer": "<p>Ödemeleriniz her ay sistemde kayıtlı personel sayınız göz önüne alınarak (personel sayısı* &#8230;. TL ) olarak belirlenir. Başka bir deyişle, sistem ödemeleriniz her ay sistemde kayıtlı personel sayınız göz önüne alınarak, personel başına belirlenen ücretin personel sayısıyla çarpılması ile hesaplanarak faturalandırılır. Personel sayınız arttıkça, personel başı ücretlendirmede belirlenen paketler doğrultusunda indirime gidilir.<br></p>",
+        "categoryId": 160,
+        "categorySlug": "odeme"
+      },
+      {
+        "id": 12662,
+        "slug": "idenfit-ile-saha-personellerinin-home-office-calisan-personellerin-takibi-yapilabilir-mi",
+        "link": "https://idenfit.com/blog/faq/idenfit-ile-saha-personellerinin-home-office-calisan-personellerin-takibi-yapilabilir-mi/",
+        "question": "idenfit ile saha personellerinin/home office çalışan personellerin takibi yapılabilir mi?",
+        "answer": "<p>idenfit biyometrik cihazlar ile entegrasyonun yanı sıra personel giriş &#8211; çıkış bildirimlerinin mobil uygulama aracılığı ile iletilmesini sağlar. Mobil uygulamada birden fazla doğrulama yöntemi mevcuttur (beacon, gps, wifi, QR &#8230;). Böylece herhangi bir donanım yatırımı yapmaksızın tüm zaman süreçlerinizi idenfit ile yönetebilirsiniz.<br></p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12664,
+        "slug": "idenfit-ik-sureclerindeki-manuel-isleri-azaltip-isleri-dijitalden-yurutmeye-olanak-saglar-mi",
+        "link": "https://idenfit.com/blog/faq/idenfit-ik-sureclerindeki-manuel-isleri-azaltip-isleri-dijitalden-yurutmeye-olanak-saglar-mi/",
+        "question": "idenfit İK süreçlerindeki manuel işleri azaltıp, işleri dijitalden yürütmeye olanak sağlar mı?",
+        "answer": "<p>idenfit tüm insan kaynakları süreçlerini bulut depolama, biyometrik imza, online dokümantasyon gibi özellikleriyle dijitale taşıyarak, İK departmanlarını gereksiz kağıt işlerinden ve manuel iş yükünden kurtarır.<br></p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12665,
+        "slug": "bu-cihaz-size-ait-degildir-uyarisi-ve-cozumu",
+        "link": "https://idenfit.com/blog/faq/bu-cihaz-size-ait-degildir-uyarisi-ve-cozumu/",
+        "question": "Bu Cihaz Size Ait Değildir” Uyarısı Ve Çözümü",
+        "answer": "<p>İdenfit uygulamasına, ilk giriş yaptığınız telefonun seri numarası ile kayıt yaparsınız. Telefon değiştirme veya uygulamayı silip yeniden yükleme durumunda “bu cihaz size ait değildir.” hatasını alırsınız.</p>\n\n\n\n<p>Çözüm olarak şirketinizin insan kaynakları departmanına başvurup yönetici panelinden çoklu cihaz girişine izin vermesini talep etmeniz gerekmektedir. Ya da cihazınızın seri numara kaydını tekrar girmelisiniz.</p>\n\n\n\n<p>İdenfit ekibinin firmanızın database’ine bağlanması ve duruma müdahale etmesi, KVKK açısından mümkün değildir.</p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12666,
+        "slug": "idenfit-mobil-uygulama-izinlerini-neden-istiyor",
+        "link": "https://idenfit.com/blog/faq/idenfit-mobil-uygulama-izinlerini-neden-istiyor/",
+        "question": "İdenfit Mobil Uygulama İzinlerini Neden İstiyor?",
+        "answer": "<p><strong>Kamera:&nbsp;</strong>İdenfit uygulamasında “kamera izni”, işe giriş &#8211; çıkış işleminizi QR ile yapmanız istendiğinde, özel durumlar karşısında veya doküman olarak fotoğrafa ihtiyaç duyulduğunda gerekli bir izin türüdür. Örneğin; işe giriş &#8211; çıkışınızda fotoğraf çekme seçeneği aktif ise kamera kullanımı için izin alınması zorunludur/gereklidir.</p>\n\n\n\n<p><strong>Ses kayıt:</strong>&nbsp;Ses kayıt izni, kamera kullanımınız için gerekli olan bir izindir ve herhangi özel bir ses kayıt işlemi gerçekleşmemektedir.</p>\n\n\n\n<p><strong>Konum:</strong>&nbsp;İdenfit uygulamasında, giriş-çıkış işleminizi GPS ile gerçekleştirebilmeniz için konum iznine ihtiyaç vardır.</p>\n\n\n\n<p><strong>Telefon Çağrı:</strong>&nbsp;İdenfit uygulaması üzerinden iletişim menüsündeki kişileri arayabilmeniz için gerekli olan izin türüdür.</p>\n\n\n\n<p><strong>Dosya Erişim:</strong>&nbsp;İdenfit uygulama kimliği oluşturulması ve doküman işlemleri (arama, ekleme, silme) için gerekli olan izin türüdür.</p>\n\n\n\n<p><strong>Bluetooth:</strong>&nbsp;İdenfit ile giriş-çıkış işleminizi yaparken Beacon veya JAN kullanmanız durumunda veya “İç Mekan İzleme” hizmeti için gerekli olan izindir.</p>\n\n\n\n<p><strong>NFC İzni:</strong>&nbsp;Uygulama üzerinden giriş-çıkış işleminizi NFC ile yapabilmeniz için gerekli olan izin türüdür.</p>\n\n\n\n<p>İdenfit tüm bu izinleri uygulama kullanımı için talep eder. İdenfit’in mobil cihazınızda herhangi bir içeriğe müdahale etmesi KVKK açısından mümkün değildir.</p>",
+        "categoryId": 158,
+        "categorySlug": "genel-tr"
+      },
+      {
+        "id": 12667,
+        "slug": "modul-ucretlendirmeleri-nasil-uygulaniyor",
+        "link": "https://idenfit.com/blog/faq/modul-ucretlendirmeleri-nasil-uygulaniyor/",
+        "question": "Modül ücretlendirmeleri nasıl uygulanıyor?",
+        "answer": "<p>Kullanmış olduğunuz modüller ayrı ayrı ücretlendirilmekte olup birden fazla modül kullanmanız halinde işletmenize özel indirimler uygulanmaktadır.</p>",
+        "categoryId": 160,
+        "categorySlug": "odeme"
+      },
+      {
+        "id": 12668,
+        "slug": "kullanilan-sure-ve-calisan-sayisi-kadar-odeme-yapiliyor-mu",
+        "link": "https://idenfit.com/blog/faq/kullanilan-sure-ve-calisan-sayisi-kadar-odeme-yapiliyor-mu/",
+        "question": "Kullanılan süre ve çalışan sayısı kadar ödeme yapılıyor mu?",
+        "answer": "<p>Evet. idenfit ile kullandığınız süre kadar ve çalışan sayısı kadar ödeme yaparsınız.<br></p>",
+        "categoryId": 160,
+        "categorySlug": "odeme"
+      },
+      {
+        "id": 12669,
+        "slug": "aylik-ucrete-ek-olarak-aylik-ekstra-maliyet-var-mi",
+        "link": "https://idenfit.com/blog/faq/aylik-ucrete-ek-olarak-aylik-ekstra-maliyet-var-mi/",
+        "question": "Aylık ücrete ek olarak aylık ekstra maliyet var mı?",
+        "answer": "<p>Belirlenen ücret haricinde sürpriz bir maliyetle karşılaşmazsınız.</p>",
+        "categoryId": 160,
+        "categorySlug": "odeme"
+      },
+      {
+        "id": 12670,
+        "slug": "poc-surecinde-kredi-karti-bilgilerini-vermek-gerekli-mi",
+        "link": "https://idenfit.com/blog/faq/poc-surecinde-kredi-karti-bilgilerini-vermek-gerekli-mi/",
+        "question": "PoC sürecinde kredi kartı bilgilerini vermek gerekli mi?",
+        "answer": "<p>Hayır. Sunum talep ettiğinizde ya da deneme süresinde kredi kartı bilgilerinizi vermeniz gerekmez.<br><br></p>",
+        "categoryId": 160,
+        "categorySlug": "odeme"
+      },
+      {
+        "id": 12671,
+        "slug": "idenfiti-hangi-isletmeler-kullanabilir-kucuk-olcekli-sirketlere-uygun-mudur",
+        "link": "https://idenfit.com/blog/faq/idenfiti-hangi-isletmeler-kullanabilir-kucuk-olcekli-sirketlere-uygun-mudur/",
+        "question": "Idenfit’i hangi işletmeler kullanabilir? Küçük ölçekli şirketlere uygun mudur?",
+        "answer": "<p>idenfit parametrik ve dinamik yapısı ile küçük ölçekli işletmelerden büyük ölçekli işletmelere kadar hizmet verebilir. Çalışan sayısına uygun çözümler mevcuttur.<br></p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12672,
+        "slug": "sozlesme-suresi-en-az-kac-ay-olarak-planlanir",
+        "link": "https://idenfit.com/blog/faq/sozlesme-suresi-en-az-kac-ay-olarak-planlanir/",
+        "question": "Sözleşme süresi en az kaç ay olarak planlanır?",
+        "answer": "<p>Sözleşme süresi en az 12 ay olarak planlanır.</p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12673,
+        "slug": "planlarimin-ve-personel-sayisinin-degismesi-durumunda-farkli-modulleri-ek-olarak-alabilir-miyim",
+        "link": "https://idenfit.com/blog/faq/planlarimin-ve-personel-sayisinin-degismesi-durumunda-farkli-modulleri-ek-olarak-alabilir-miyim/",
+        "question": "Planlarımın ve personel sayısının değişmesi durumunda farklı modülleri ek olarak alabilir miyim?",
+        "answer": "<p>Değişen ihtiyaçlarınız doğrultusunda bağımsız modüllerimizi mevcut kullandığınız hizmete dilediğiniz zaman ek olarak alabilirsiniz.</p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12674,
+        "slug": "kurulum-sureci-nasildir-yerinde-kurulum-gerekir-mi",
+        "link": "https://idenfit.com/blog/faq/kurulum-sureci-nasildir-yerinde-kurulum-gerekir-mi/",
+        "question": "Kurulum süreci nasıldır? Yerinde kurulum gerekir mi?",
+        "answer": "<p>Adınıza açılan hesap ile idenfit İK yazılımını kullanmaya anında başlayabilirsiniz.Biyometrik cihaz kurulumu dışında yerinde kurulum gerektiren bir aşaması yoktur.<br></p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12675,
+        "slug": "kurulum-surecinde-ve-egitimde-isletmemizle-ilgilenecek-bir-yetkili-atanacak-mi",
+        "link": "https://idenfit.com/blog/faq/kurulum-surecinde-ve-egitimde-isletmemizle-ilgilenecek-bir-yetkili-atanacak-mi/",
+        "question": "Kurulum sürecinde ve eğitimde işletmemizle ilgilenecek bir yetkili atanacak mı?",
+        "answer": "<p>Evet. İşletmenize özel atanmış proje yöneticisi sektörel ihtiyaçlarınızdan kullanım sürecinin başlatılmasına, sonrasında yazılım kullanımı hakkında ilk eğitim ve satış sonrası desteğe kadar ihtiyacınız olduğu her alanda size yol gösterecektir.<br></p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12676,
+        "slug": "kurulum-ve-ilk-egitim-ucreti-var-midir",
+        "link": "https://idenfit.com/blog/faq/kurulum-ve-ilk-egitim-ucreti-var-midir/",
+        "question": "Kurulum ve ilk eğitim ücreti var mıdır?",
+        "answer": "<p>Hesap açılmasından ve kullanıcı eğitiminden ücret alınmaz.</p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12677,
+        "slug": "kullandigimiz-biyometrik-cozumler-ile-entegre-calisir-mi",
+        "link": "https://idenfit.com/blog/faq/kullandigimiz-biyometrik-cozumler-ile-entegre-calisir-mi/",
+        "question": "Kullandığımız biyometrik çözümler ile entegre çalışır mı?",
+        "answer": "<p>idenfit kullanmakta olduğunuz biyometrik cihazların yeni nesil olması ve SDK’larının tarafımıza iletilmesi koşulu ile mevcut birçok cihazlarınız ile entegre çalışabilen bir yazılımdır.<br></p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12678,
+        "slug": "hangi-biyometrik-markalar-cihazlar-idenfit-yazilimiyla-entegre-olabilir",
+        "link": "https://idenfit.com/blog/faq/hangi-biyometrik-markalar-cihazlar-idenfit-yazilimiyla-entegre-olabilir/",
+        "question": "Hangi biyometrik markalar/cihazlar idenfit yazılımıyla entegre olabilir?",
+        "answer": "<p>Suprema, Zkteco, Bab<br><br></p>",
+        "categoryId": 162,
+        "categorySlug": "kurulum-ve-sozlesme"
+      },
+      {
+        "id": 12694,
+        "slug": "idenfit-musteri-deneyimi-merkezine-nasil-ve-hangi-kanallar-araciligiyla-ulasabilirim",
+        "link": "https://idenfit.com/blog/faq/idenfit-musteri-deneyimi-merkezine-nasil-ve-hangi-kanallar-araciligiyla-ulasabilirim/",
+        "question": "idenfit Müşteri Deneyimi Merkezine nasıl ve hangi kanallar aracılığıyla ulaşabilirim?",
+        "answer": "<p>idenfit Müşteri Deneyimi Merkezine support@idenfit.com mail adresinden ulaşabilirsiniz.<br><br><br></p>",
+        "categoryId": 164,
+        "categorySlug": "musteri-deneyimi-merkezi"
+      },
+      {
+        "id": 12695,
+        "slug": "idenfit-musteri-deneyimi-merkezine-ilettigim-talebim-ne-kadar-surede-cevaplanir",
+        "link": "https://idenfit.com/blog/faq/idenfit-musteri-deneyimi-merkezine-ilettigim-talebim-ne-kadar-surede-cevaplanir/",
+        "question": "idenfit müşteri deneyimi merkezine ilettiğim talebim ne kadar sürede cevaplanır?",
+        "answer": "<p>Talepleriniz aciliyet durumuna göre sınıflandırılır ve sözleşmenizde yer alan cevap ve çözüm sürelerine (SLA) göre yanıtlandırılır. Müşterilerimizin taleplerini en kısa sürede yanıtlandırma hedefiyle hareket edilmektedir.<br></p>",
+        "categoryId": 164,
+        "categorySlug": "musteri-deneyimi-merkezi"
+      },
+      {
+        "id": 12696,
+        "slug": "idenfitten-alacagim-destek-ucretli-midir",
+        "link": "https://idenfit.com/blog/faq/idenfitten-alacagim-destek-ucretli-midir/",
+        "question": "idenfit&#8217;ten alacağım destek ücretli midir?",
+        "answer": "<p>idenfit Müşteri Deneyimi Merkezi&#8217;ne support@idenfit.com aracılığıyla iletilen destek talepleri ücretsizdir.<br></p>",
+        "categoryId": 164,
+        "categorySlug": "musteri-deneyimi-merkezi"
+      },
+      {
+        "id": 12697,
+        "slug": "sozlesme-sonrasi-destek-taleplerim-nasil-karsilanacak",
+        "link": "https://idenfit.com/blog/faq/sozlesme-sonrasi-destek-taleplerim-nasil-karsilanacak/",
+        "question": "Sözleşme sonrası destek taleplerim nasıl karşılanacak?",
+        "answer": "<p>Hesabınızın aktifleştirilmesi ile destek talepleriniz müşteri deneyimi ekibimiz tarafından karşılanacaktır. Geliştirme talepleriniz ise, Teknoloji ekibimiz tarafından değerlendirilerek iş planına alınacaktır.<br><br></p>",
+        "categoryId": 164,
+        "categorySlug": "musteri-deneyimi-merkezi"
+      },
+      {
+        "id": 12698,
+        "slug": "idenfit-kvkkya-uygun-bir-yazilim-midir",
+        "link": "https://idenfit.com/blog/faq/idenfit-kvkkya-uygun-bir-yazilim-midir/",
+        "question": "idenfit KVKK’ya uygun bir yazılım mıdır?",
+        "answer": "<p>idenfit KVKK kurallarına uygun olarak faaliyet göstermektedir. Daha fazla bilgi için KVKK sayfamızı ziyaret edebilirsiniz.<br></p>",
+        "categoryId": 166,
+        "categorySlug": "data-guvenligi"
+      },
+      {
+        "id": 12699,
+        "slug": "sistemde-bulunan-verilerin-guvenligini-nasil-sagliyorsunuz",
+        "link": "https://idenfit.com/blog/faq/sistemde-bulunan-verilerin-guvenligini-nasil-sagliyorsunuz/",
+        "question": "Sistemde bulunan verilerin güvenliğini nasıl sağlıyorsunuz?",
+        "answer": "<p>Sistemde bulunan ve KVKK değeri taşıyan her bilginin güvenliğini sağlamak amacı ile bu bilgiler anonimleştirilmiş olarak sistemde saklanmaktadır. Ayrıca sistem her kullanıcıya lisansının açılması ile otomatik olarak kullanıcı adı ve şifre gönderimi sağlar. Kullanıcı sisteme ilk aktif giriş yaptığı anda sistemin iletmiş olduğu şifresini değiştirme ekranı ile karşılaşır ve sisteme girişinde kendi oluşturduğu şifre ile sistem kullanımını başlatır.</p>\n\n\n\n<p>Bunun yanında idenfit KVKK danışmanlığı almakta olup, gerekli tüm kontroller danışman firma aracılığı ile kanunsal yükümlülükler çerçevesinde kontrol edilmektedir.</p>\n\n\n\n<p>Ayrıca işletmeniz ile çalışılmaya başlandığı anda gizlilik sözleşmesi imzalanır böylece her iki tarafın hak ve yükümlülüklerini güvence altına alınır.</p>",
+        "categoryId": 166,
+        "categorySlug": "data-guvenligi"
+      },
+      {
+        "id": 12700,
+        "slug": "idenfitte-verilere-kimlerin-erisim-izni-bulunuyor",
+        "link": "https://idenfit.com/blog/faq/idenfitte-verilere-kimlerin-erisim-izni-bulunuyor/",
+        "question": "Idenfit’te verilere kimlerin erişim izni bulunuyor?",
+        "answer": "<p>idenfit üzerinde dilediğiniz şekilde yetkilendirme yapabilir, kimlerin uygulamanın ne kadarını görebileceğine kendiniz karar verebilirsiniz.</p>\n\n\n\n<p>Verileriniz 2048-Bit SSL sertifikası ile korunur.</p>",
+        "categoryId": 166,
+        "categorySlug": "data-guvenligi"
+      },
+      {
+        "id": 12701,
+        "slug": "veriler-bulut-sistemde-nerede-tutuluyor-ve-sistem-yedeklemesi-hangi-sunucular-uzerinde-yapiliyor",
+        "link": "https://idenfit.com/blog/faq/veriler-bulut-sistemde-nerede-tutuluyor-ve-sistem-yedeklemesi-hangi-sunucular-uzerinde-yapiliyor/",
+        "question": "Veriler bulut sistemde nerede tutuluyor ve sistem yedeklemesi hangi sunucular üzerinde yapılıyor?",
+        "answer": "<p>idenfit ile çalışmaya başladığınız andan itibaren Amazon sunucularında işletmeniz adına alan kiralanır, tüm veriler Amazon sunucularında tutulur ve tüm yedeklemeniz amazon sunucuları üzerinden gerçekleşir.<br></p>",
+        "categoryId": 166,
+        "categorySlug": "data-guvenligi"
+      },
+      {
+        "id": 12702,
+        "slug": "idenfitin-sahip-oldugu-belgeler-nelerdir",
+        "link": "https://idenfit.com/blog/faq/idenfitin-sahip-oldugu-belgeler-nelerdir/",
+        "question": "Idenfit’in sahip olduğu belgeler nelerdir?",
+        "answer": "<p>idenfit ISO 9001 ve 27001 belgelerine sahiptir.</p>",
+        "categoryId": 166,
+        "categorySlug": "data-guvenligi"
+      },
+      {
+        "id": 12703,
+        "slug": "uyeligimi-nasil-yenileyebilirim",
+        "link": "https://idenfit.com/blog/faq/uyeligimi-nasil-yenileyebilirim/",
+        "question": "Üyeliğimi nasıl yenileyebilirim?",
+        "answer": "<p>Yıllık anlaşmanın sonunda, proje sorumluları sözleşme bitimine 1 ay kala yenileme talebinizi alır.</p>",
+        "categoryId": 168,
+        "categorySlug": "uyelik-ve-cayma-hakki"
+      },
+      {
+        "id": 12704,
+        "slug": "uyeligimi-nasil-iptal-edebilirim",
+        "link": "https://idenfit.com/blog/faq/uyeligimi-nasil-iptal-edebilirim/",
+        "question": "Üyeliğimi nasıl iptal edebilirim?",
+        "answer": "<p>Üyeliğinizi dilediğiniz zaman iptal edebilirsiniz.</p>",
+        "categoryId": 168,
+        "categorySlug": "uyelik-ve-cayma-hakki"
+      }
+    ],
+    "en": [
+      {
+        "id": 12712,
+        "slug": "what-is-idenfit",
+        "link": "https://idenfit.com/en/blog/faq/what-is-idenfit/",
+        "question": "What is Idenfit?",
+        "answer": "<p>Idenfit is a new generation, cloud-based human resources and workforce management software enables you to manage your employees and operations in the most efficient way under a single platform.</p>",
+        "categoryId": 170,
+        "categorySlug": "general-info"
+      },
+      {
+        "id": 12789,
+        "slug": "can-i-import-current-employee-datas-into-idenfits-cloud-based-system",
+        "link": "https://idenfit.com/en/blog/faq/can-i-import-current-employee-datas-into-idenfits-cloud-based-system/",
+        "question": "Can I import current employee datas into Idenfit’s cloud based system?",
+        "answer": "<p>Yes. Provided they are in the form of excel tables, currently existing employee datas like the big data, absences or payroll, can be imported into Idenfit during setup.</p>",
+        "categoryId": 170,
+        "categorySlug": "general-info"
+      },
+      {
+        "id": 12790,
+        "slug": "can-idenfit-software-be-integrated-into-different-hardwares-and-devices-in-the-market",
+        "link": "https://idenfit.com/en/blog/faq/can-idenfit-software-be-integrated-into-different-hardwares-and-devices-in-the-market/",
+        "question": "Can Idenfit software be integrated into different hardwares and devices in the market?",
+        "answer": "<p>Idenfit’s core hardware is designed to integrated with multiple devices. Idenfit core hardware allows you to use any devices with any brand on the market and also guarantees you accuracy, security, availability, ease of use, full integration to devices, user acceptance, usability, cost effectiveness and hygiene issue.<br></p>",
+        "categoryId": 170,
+        "categorySlug": "general-info"
+      },
+      {
+        "id": 12791,
+        "slug": "does-idenfit-allow-users-to-track-employees-whether-they-are-working-remotely-or-working-in-the-field",
+        "link": "https://idenfit.com/en/blog/faq/does-idenfit-allow-users-to-track-employees-whether-they-are-working-remotely-or-working-in-the-field/",
+        "question": "Does Idenfit allow users to track employees whether they are working remotely or working in the field?",
+        "answer": "<p>Idenfit touch- free identification technologies provide real-time identification and track of your employees by using systems such as biometric, gps, beacon, rfid and nfc. Idenfit software supports wide range of biometric devices, including fingerprint readers, iris scanners, Web and IP cameras.</p>",
+        "categoryId": 170,
+        "categorySlug": "general-info"
+      },
+      {
+        "id": 12792,
+        "slug": "how-does-idenfit-help-me-run-hr-management-paperless",
+        "link": "https://idenfit.com/en/blog/faq/how-does-idenfit-help-me-run-hr-management-paperless/",
+        "question": "How does Idenfit help me run HR management paperless?",
+        "answer": "<p>Idenfit helps you get rid of paperwork with digital packets, e-signatures, digital forms, cloud storage and more.<br><br></p>",
+        "categoryId": 170,
+        "categorySlug": "general-info"
+      },
+      {
+        "id": 12793,
+        "slug": "how-much-does-idenfit-cost",
+        "link": "https://idenfit.com/en/blog/faq/how-much-does-idenfit-cost/",
+        "question": "How much does Idenfit cost?",
+        "answer": "<p>Idenfit offers a subscription-based model with competitive prices that can be tailored according to your business needs. You can check the pricing page.</p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12794,
+        "slug": "what-is-pricing-policy-for-each-modules",
+        "link": "https://idenfit.com/en/blog/faq/what-is-pricing-policy-for-each-modules/",
+        "question": "What is pricing policy for each modules?",
+        "answer": "<p>Each modules have a list pricing but if you sign up for longer terms there will be discounted prices for your enterprise.<br></p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12795,
+        "slug": "can-i-pay-per-person",
+        "link": "https://idenfit.com/en/blog/faq/can-i-pay-per-person/",
+        "question": "Can I pay per person?",
+        "answer": "<p>Yes, you can. You can also choose the package that suits you from different package contents according to the number of employees and your business needs.<br></p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12796,
+        "slug": "is-there-any-additional-cost-when-paying-monthly-bill",
+        "link": "https://idenfit.com/en/blog/faq/is-there-any-additional-cost-when-paying-monthly-bill/",
+        "question": "Is there any additional cost when paying monthly bill?",
+        "answer": "<p>There is no additional cost.<br></p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12797,
+        "slug": "do-i-need-to-register-add-a-credit-card-while-requesting-a-free-user-demo",
+        "link": "https://idenfit.com/en/blog/faq/do-i-need-to-register-add-a-credit-card-while-requesting-a-free-user-demo/",
+        "question": "Do I need to register/add a credit card while requesting a free user demo ?",
+        "answer": "<p>No need to add credit card while requesting a free user demo.<br></p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12798,
+        "slug": "how-long-does-the-trial-version-work-when-will-i-receive-bill-for-the-first-payment",
+        "link": "https://idenfit.com/en/blog/faq/how-long-does-the-trial-version-work-when-will-i-receive-bill-for-the-first-payment/",
+        "question": "How long does the trial version work? When will I receive bill for the first payment?",
+        "answer": "<p>You can request the trial version by filling in the form or calling us and you can start using free trial for 14 days. If both sides agree and sign a contract, your first payment bill will be delivered to you at the end of the first month after you start using the system.<br><br></p>",
+        "categoryId": 173,
+        "categorySlug": "pricing-payment"
+      },
+      {
+        "id": 12799,
+        "slug": "who-does-idenfit-serve",
+        "link": "https://idenfit.com/en/blog/faq/who-does-idenfit-serve/",
+        "question": "Who does Idenfit serve?",
+        "answer": "<p>Idenfit serves SMEs as well as many international companies.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12800,
+        "slug": "what-is-the-minimum-amount-of-time-that-a-contract-can-be-signed",
+        "link": "https://idenfit.com/en/blog/faq/what-is-the-minimum-amount-of-time-that-a-contract-can-be-signed/",
+        "question": "What is the minimum amount of time that a contract can be signed?",
+        "answer": "<p>The contract period is at least 12 months.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12801,
+        "slug": "can-i-purchase-additional-modules-incase-my-business-evolves-or-employee-numbers-change",
+        "link": "https://idenfit.com/en/blog/faq/can-i-purchase-additional-modules-incase-my-business-evolves-or-employee-numbers-change/",
+        "question": "Can I purchase additional modules incase my business evolves or employee numbers change?",
+        "answer": "<p>Yes, you can always purchase other modules separately and add to your current package.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12802,
+        "slug": "what-is-the-setup-process-like",
+        "link": "https://idenfit.com/en/blog/faq/what-is-the-setup-process-like/",
+        "question": "What is the setup process like?",
+        "answer": "<p>Your contact person accompanies you by telephone and through short Webinar / Screen-sharing sessions as Idenfit sets up your system.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12803,
+        "slug": "during-the-set-up-period-will-i-be-assigned-a-fixed-contact-person",
+        "link": "https://idenfit.com/en/blog/faq/during-the-set-up-period-will-i-be-assigned-a-fixed-contact-person/",
+        "question": "During the set-up period, will I be assigned a fixed contact person?",
+        "answer": "<p>Yes. As a new user, you will be assigned a fixed contact person from Idenfit who will support you during the setup process and help you through training.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12804,
+        "slug": "is-there-any-setup-and-training-fee",
+        "link": "https://idenfit.com/en/blog/faq/is-there-any-setup-and-training-fee/",
+        "question": "Is there any setup and training fee?",
+        "answer": "<p>No, there is no fee for setup and training.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12805,
+        "slug": "is-idenfit-integrated-with-biometric-devices",
+        "link": "https://idenfit.com/en/blog/faq/is-idenfit-integrated-with-biometric-devices/",
+        "question": "Is Idenfit integrated with biometric devices?",
+        "answer": "<p>Yes, Idenfit is integrated with many biometric devices on the market.<br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12806,
+        "slug": "which-brands-and-biometric-devices-is-idenfit-integrated-with",
+        "link": "https://idenfit.com/en/blog/faq/which-brands-and-biometric-devices-is-idenfit-integrated-with/",
+        "question": "Which brands and biometric devices is Idenfit integrated with?",
+        "answer": "<p>Suprema, Anviz, Impinj, Virdi, Invixium, Hikvision, Hid, Nedap, Dahua, Kaba, Zucchetti, Kelieo, Isgus, ZKTeco, Safran, Bab.<br><br></p>",
+        "categoryId": 175,
+        "categorySlug": "setup-contract"
+      },
+      {
+        "id": 12807,
+        "slug": "how-can-i-reach-idenfits-customer-service",
+        "link": "https://idenfit.com/en/blog/faq/how-can-i-reach-idenfits-customer-service/",
+        "question": "How can I reach Idenfit’s customer service?",
+        "answer": "<p>Our customer service will be happy to assist you via phone (0850 308 1878) or email (hello@idenfit.com) or chatbot depending on your chosen subscription.<br><br><br></p>",
+        "categoryId": 177,
+        "categorySlug": "customer-service-support"
+      },
+      {
+        "id": 12808,
+        "slug": "how-long-does-it-take-for-me-to-get-an-answer-when-i-call-or-write-your-customer-support-team",
+        "link": "https://idenfit.com/en/blog/faq/how-long-does-it-take-for-me-to-get-an-answer-when-i-call-or-write-your-customer-support-team/",
+        "question": "How long does it take for me to get an answer when I call or write your customer support team?",
+        "answer": "<p>In most cases you will receive a reply within 5 minutes after sending your email request or call.<br></p>",
+        "categoryId": 177,
+        "categorySlug": "customer-service-support"
+      },
+      {
+        "id": 12811,
+        "slug": "will-i-be-charged-when-i-get-support-from-customer-service",
+        "link": "https://idenfit.com/en/blog/faq/will-i-be-charged-when-i-get-support-from-customer-service/",
+        "question": "Will I be charged when I get support from customer service?",
+        "answer": "<p>No, every Idenfit subscription type includes unlimited customer support via e-mail and/or telephone without fee.<br></p>",
+        "categoryId": 177,
+        "categorySlug": "customer-service-support"
+      },
+      {
+        "id": 12812,
+        "slug": "how-will-i-get-training-support-after-signing-the-deal",
+        "link": "https://idenfit.com/en/blog/faq/how-will-i-get-training-support-after-signing-the-deal/",
+        "question": "How will I get training support after signing the deal?",
+        "answer": "<p>You will get free training session after the contract is signed. As a new client, you will receive a fixed contact person from Idenfit who will support you during the setup process and accompany you through onboarding process individually or with whatsapp group support.<br><br></p>",
+        "categoryId": 177,
+        "categorySlug": "customer-service-support"
+      },
+      {
+        "id": 12814,
+        "slug": "is-idenfit-compliant-with-gdpr-and-local-labor-laws",
+        "link": "https://idenfit.com/en/blog/faq/is-idenfit-compliant-with-gdpr-and-local-labor-laws/",
+        "question": "Is Idenfit compliant with GDPR and Local Labor Laws?",
+        "answer": "<p>Yes, Idenfit is compliant with the Labor Laws and tax regulations in Turkey and GDPR Europe. This provides you the flexibility that you need to manage HR main workload in an automated way while ensuring compliance with local HR-related laws and regulations.<br></p>",
+        "categoryId": 179,
+        "categorySlug": "data-security"
+      },
+      {
+        "id": 12816,
+        "slug": "how-secure-is-idenfit",
+        "link": "https://idenfit.com/en/blog/faq/how-secure-is-idenfit/",
+        "question": "How secure is Idenfit?",
+        "answer": "<p>All information is encrypted in transit and sensitive fields are encrypted at rest.<br></p>",
+        "categoryId": 179,
+        "categorySlug": "data-security"
+      },
+      {
+        "id": 12817,
+        "slug": "who-can-have-permission-to-access-to-datas-on-idenfit",
+        "link": "https://idenfit.com/en/blog/faq/who-can-have-permission-to-access-to-datas-on-idenfit/",
+        "question": "Who can have permission to access to datas on Idenfit?",
+        "answer": "<p>You decide to define which sections and functions each employee is able to access, view and edit. So, you can define specific roles and assign them to individual employees or employee groups.</p>\n\n\n\n<p>Your data is kept secure with 2048-Bit SSL certificate.</p>",
+        "categoryId": 179,
+        "categorySlug": "data-security"
+      },
+      {
+        "id": 12818,
+        "slug": "wheres-my-data-housed-and-backup",
+        "link": "https://idenfit.com/en/blog/faq/wheres-my-data-housed-and-backup/",
+        "question": "Where’s my data housed and backup?",
+        "answer": "<p>All information is encrypted in transit, and sensitive fields are encrypted. All the data is stored and backed-up in Amazon Web Services.<br></p>",
+        "categoryId": 179,
+        "categorySlug": "data-security"
+      },
+      {
+        "id": 12820,
+        "slug": "what-certifications-does-idenfit-have",
+        "link": "https://idenfit.com/en/blog/faq/what-certifications-does-idenfit-have/",
+        "question": "What certifications does Idenfit have ?",
+        "answer": "<p>Idenfit has ISO 9001 and 27001 certifications.</p>",
+        "categoryId": 179,
+        "categorySlug": "data-security"
+      },
+      {
+        "id": 12822,
+        "slug": "how-can-i-renew-my-contract",
+        "link": "https://idenfit.com/en/blog/faq/how-can-i-renew-my-contract/",
+        "question": "How can I renew my contract?",
+        "answer": "<p>One month before the termination of your annual contract, your assigned project manager will contact you to get your renewal application.<br></p>",
+        "categoryId": 181,
+        "categorySlug": "subscription-cancellation-policy"
+      },
+      {
+        "id": 12823,
+        "slug": "how-can-i-cancel-my-subscription",
+        "link": "https://idenfit.com/en/blog/faq/how-can-i-cancel-my-subscription/",
+        "question": "How can I cancel my subscription?",
+        "answer": "<p>You can cancel your subscription anytime you want.</p>",
+        "categoryId": 181,
+        "categorySlug": "subscription-cancellation-policy"
+      }
+    ],
+    "it": [
+      {
+        "id": 23559,
+        "slug": "cose-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/cose-idenfit/",
+        "question": "Cos&#8217;è Idenfit?",
+        "answer": "<p>Idenfit è un software di nuova generazione basato su cloud per la gestione delle risorse umane e della forza lavoro che ti permette di gestire i tuoi dipendenti e le operazioni nel modo più efficiente possibile in un&#8217;unica piattaforma.</p>",
+        "categoryId": 1085,
+        "categorySlug": "informazioni-generali"
+      },
+      {
+        "id": 23560,
+        "slug": "quanto-costa-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/quanto-costa-idenfit/",
+        "question": "Quanto costa Idenfit?",
+        "answer": "<p>Idenfit offre un modello basato su abbonamento con prezzi competitivi che possono essere adattati in base alle esigenze della tua azienda. Puoi controllare la pagina dei prezzi.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23568,
+        "slug": "posso-importare-i-dati-attuali-dei-dipendenti-nel-sistema-cloud-di-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/posso-importare-i-dati-attuali-dei-dipendenti-nel-sistema-cloud-di-idenfit/",
+        "question": "Posso importare i dati attuali dei dipendenti nel sistema cloud di Idenfit?",
+        "answer": "<p>Sì. Purché siano in formato tabelle excel, i dati esistenti dei dipendenti come anagrafiche, assenze o buste paga possono essere importati in Idenfit durante la configurazione.</p>\n\n\n\n<p></p>",
+        "categoryId": 1085,
+        "categorySlug": "informazioni-generali"
+      },
+      {
+        "id": 23569,
+        "slug": "il-software-idenfit-puo-essere-integrato-con-diversi-hardware-e-dispositivi-presenti-sul-mercato",
+        "link": "https://idenfit.com/it/blog/faq/il-software-idenfit-puo-essere-integrato-con-diversi-hardware-e-dispositivi-presenti-sul-mercato/",
+        "question": "Il software Idenfit può essere integrato con diversi hardware e dispositivi presenti sul mercato?",
+        "answer": "<p>L&#8217;hardware principale di Idenfit è progettato per integrarsi con più dispositivi. L&#8217;hardware principale di Idenfit ti consente di utilizzare qualsiasi dispositivo di qualsiasi marca sul mercato e garantisce anche accuratezza, sicurezza, disponibilità, facilità d&#8217;uso, integrazione completa ai dispositivi, accettazione da parte dell&#8217;utente, usabilità, convenienza e igiene.</p>",
+        "categoryId": 1085,
+        "categorySlug": "informazioni-generali"
+      },
+      {
+        "id": 23571,
+        "slug": "idenfit-consente-agli-utenti-di-tracciare-i-dipendenti-sia-che-lavorino-da-remoto-sia-sul-campo",
+        "link": "https://idenfit.com/it/blog/faq/idenfit-consente-agli-utenti-di-tracciare-i-dipendenti-sia-che-lavorino-da-remoto-sia-sul-campo/",
+        "question": "Idenfit consente agli utenti di tracciare i dipendenti sia che lavorino da remoto sia sul campo?",
+        "answer": "<p>Le tecnologie di identificazione touch-free di Idenfit forniscono identificazione e tracciamento in tempo reale dei tuoi dipendenti utilizzando sistemi come biometrici, GPS, beacon, RFID e NFC. Il software Idenfit supporta un&#8217;ampia gamma di dispositivi biometrici, inclusi lettori di impronte digitali, scanner dell&#8217;iride, Web e telecamere IP.</p>",
+        "categoryId": 1085,
+        "categorySlug": "informazioni-generali"
+      },
+      {
+        "id": 23572,
+        "slug": "come-mi-aiuta-idenfit-a-gestire-le-risorse-umane-senza-carta",
+        "link": "https://idenfit.com/it/blog/faq/come-mi-aiuta-idenfit-a-gestire-le-risorse-umane-senza-carta/",
+        "question": "Come mi aiuta Idenfit a gestire le risorse umane senza carta?",
+        "answer": "<p>Idenfit ti aiuta a liberarti delle pratiche burocratiche con pacchetti digitali, firme elettroniche, moduli digitali, archiviazione cloud e altro ancora.</p>",
+        "categoryId": 1085,
+        "categorySlug": "informazioni-generali"
+      },
+      {
+        "id": 23573,
+        "slug": "qual-e-la-politica-dei-prezzi-per-ogni-modulo",
+        "link": "https://idenfit.com/it/blog/faq/qual-e-la-politica-dei-prezzi-per-ogni-modulo/",
+        "question": "Qual è la politica dei prezzi per ogni modulo?",
+        "answer": "<p>Ogni modulo ha un prezzo di listino, ma se ti iscrivi per periodi più lunghi ci saranno prezzi scontati per la tua azienda.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23574,
+        "slug": "posso-pagare-per-persona",
+        "link": "https://idenfit.com/it/blog/faq/posso-pagare-per-persona/",
+        "question": "Posso pagare per persona?",
+        "answer": "<p>Sì, puoi. Puoi anche scegliere il pacchetto che fa per te tra diversi contenuti dei pacchetti in base al numero di dipendenti e alle esigenze della tua azienda.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23575,
+        "slug": "ci-sono-costi-aggiuntivi-quando-pago-la-fattura-mensile",
+        "link": "https://idenfit.com/it/blog/faq/ci-sono-costi-aggiuntivi-quando-pago-la-fattura-mensile/",
+        "question": "Ci sono costi aggiuntivi quando pago la fattura mensile?",
+        "answer": "<p>Non ci sono costi aggiuntivi.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23576,
+        "slug": "devo-registrare-aggiungere-una-carta-di-credito-mentre-richiedo-una-demo-utente-gratuita",
+        "link": "https://idenfit.com/it/blog/faq/devo-registrare-aggiungere-una-carta-di-credito-mentre-richiedo-una-demo-utente-gratuita/",
+        "question": "Devo registrare/aggiungere una carta di credito mentre richiedo una demo utente gratuita?",
+        "answer": "<p>Non è necessario aggiungere una carta di credito mentre si richiede una demo utente gratuita.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23577,
+        "slug": "quanto-dura-la-versione-di-prova-quando-ricevero-la-fattura-per-il-primo-pagamento",
+        "link": "https://idenfit.com/it/blog/faq/quanto-dura-la-versione-di-prova-quando-ricevero-la-fattura-per-il-primo-pagamento/",
+        "question": "Quanto dura la versione di prova? Quando riceverò la fattura per il primo pagamento?",
+        "answer": "<p>Puoi richiedere la versione di prova compilando il modulo o chiamandoci e puoi iniziare a utilizzare la prova gratuita per 14 giorni. Se entrambe le parti concordano e firmano un contratto, la tua prima fattura di pagamento ti sarà consegnata alla fine del primo mese dopo aver iniziato a utilizzare il sistema.</p>",
+        "categoryId": 1091,
+        "categorySlug": "prezzi-pagamenti"
+      },
+      {
+        "id": 23578,
+        "slug": "a-chi-si-rivolge-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/a-chi-si-rivolge-idenfit/",
+        "question": "A chi si rivolge Idenfit?",
+        "answer": "<p>Idenfit serve PMI così come molte aziende internazionali.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23579,
+        "slug": "qual-e-la-durata-minima-per-la-firma-di-un-contratto",
+        "link": "https://idenfit.com/it/blog/faq/qual-e-la-durata-minima-per-la-firma-di-un-contratto/",
+        "question": "Qual è la durata minima per la firma di un contratto?",
+        "answer": "<p>Il periodo contrattuale è di almeno 12 mesi.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23580,
+        "slug": "posso-acquistare-moduli-aggiuntivi-nel-caso-in-cui-la-mia-attivita-evolva-o-il-numero-di-dipendenti-cambi",
+        "link": "https://idenfit.com/it/blog/faq/posso-acquistare-moduli-aggiuntivi-nel-caso-in-cui-la-mia-attivita-evolva-o-il-numero-di-dipendenti-cambi/",
+        "question": "Posso acquistare moduli aggiuntivi nel caso in cui la mia attività evolva o il numero di dipendenti cambi?",
+        "answer": "<p>Sì, puoi sempre acquistare altri moduli separatamente e aggiungerli al tuo pacchetto attuale.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23581,
+        "slug": "come-il-processo-di-configurazione",
+        "link": "https://idenfit.com/it/blog/faq/come-il-processo-di-configurazione/",
+        "question": "Com&#8217;è il processo di configurazione?",
+        "answer": "<p>La tua persona di contatto ti accompagna telefonicamente e tramite brevi sessioni di Webinar / condivisione schermo mentre Idenfit configura il tuo sistema.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23582,
+        "slug": "durante-il-periodo-di-configurazione-mi-verra-assegnata-una-persona-di-contatto-fissa",
+        "link": "https://idenfit.com/it/blog/faq/durante-il-periodo-di-configurazione-mi-verra-assegnata-una-persona-di-contatto-fissa/",
+        "question": "Durante il periodo di configurazione, mi verrà assegnata una persona di contatto fissa?",
+        "answer": "<p>Sì. Come nuovo utente, ti verrà assegnata una persona di contatto fissa da Idenfit che ti supporterà durante il processo di configurazione e ti aiuterà durante la formazione.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23583,
+        "slug": "ce-una-tassa-di-configurazione-e-formazione",
+        "link": "https://idenfit.com/it/blog/faq/ce-una-tassa-di-configurazione-e-formazione/",
+        "question": "C&#8217;è una tassa di configurazione e formazione?",
+        "answer": "<p>No, non c&#8217;è alcuna tassa per la configurazione e la formazione.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23584,
+        "slug": "idenfit-e-integrato-con-dispositivi-biometrici",
+        "link": "https://idenfit.com/it/blog/faq/idenfit-e-integrato-con-dispositivi-biometrici/",
+        "question": "Idenfit è integrato con dispositivi biometrici?",
+        "answer": "<p>Sì, Idenfit è integrato con molti dispositivi biometrici sul mercato.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23585,
+        "slug": "con-quali-marchi-e-dispositivi-biometrici-e-integrato-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/con-quali-marchi-e-dispositivi-biometrici-e-integrato-idenfit/",
+        "question": "Con quali marchi e dispositivi biometrici è integrato Idenfit?",
+        "answer": "<p>Suprema, Anviz, Impinj, Virdi, Invixium, Hikvision, Hid, Nedap, Dahua, Kaba, Zucchetti, Kelieo, Isgus, ZKTeco, Safran, Bab.</p>",
+        "categoryId": 1093,
+        "categorySlug": "configurazione-contratto"
+      },
+      {
+        "id": 23586,
+        "slug": "come-posso-contattare-il-servizio-clienti-di-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/come-posso-contattare-il-servizio-clienti-di-idenfit/",
+        "question": "Come posso contattare il servizio clienti di Idenfit?",
+        "answer": "<p>Il nostro servizio clienti sarà lieto di assisterti via telefono (0850 308 1878) o email (hello@idenfit.com) o chatbot a seconda dell&#8217;abbonamento scelto.</p>\n\n\n\n<p></p>",
+        "categoryId": 1095,
+        "categorySlug": "servizio-clienti-supporto"
+      },
+      {
+        "id": 23587,
+        "slug": "quanto-tempo-ci-vuole-per-ricevere-una-risposta-quando-chiamo-o-scrivo-al-vostro-team-di-supporto-clienti",
+        "link": "https://idenfit.com/it/blog/faq/quanto-tempo-ci-vuole-per-ricevere-una-risposta-quando-chiamo-o-scrivo-al-vostro-team-di-supporto-clienti/",
+        "question": "Quanto tempo ci vuole per ricevere una risposta quando chiamo o scrivo al vostro team di supporto clienti?",
+        "answer": "<p>Nella maggior parte dei casi riceverai una risposta entro 5 minuti dall&#8217;invio della tua richiesta via email o dalla chiamata.</p>",
+        "categoryId": 1095,
+        "categorySlug": "servizio-clienti-supporto"
+      },
+      {
+        "id": 23588,
+        "slug": "mi-verra-addebitato-un-costo-quando-ricevo-supporto-dal-servizio-clienti",
+        "link": "https://idenfit.com/it/blog/faq/mi-verra-addebitato-un-costo-quando-ricevo-supporto-dal-servizio-clienti/",
+        "question": "Mi verrà addebitato un costo quando ricevo supporto dal servizio clienti?",
+        "answer": "<p>No, ogni tipo di abbonamento Idenfit include supporto clienti illimitato via e-mail e/o telefono senza costi aggiuntivi.</p>",
+        "categoryId": 1095,
+        "categorySlug": "servizio-clienti-supporto"
+      },
+      {
+        "id": 23589,
+        "slug": "come-ricevero-supporto-per-la-formazione-dopo-aver-firmato-laccordo",
+        "link": "https://idenfit.com/it/blog/faq/come-ricevero-supporto-per-la-formazione-dopo-aver-firmato-laccordo/",
+        "question": "Come riceverò supporto per la formazione dopo aver firmato l&#8217;accordo?",
+        "answer": "<p>Riceverai una sessione di formazione gratuita dopo la firma del contratto. Come nuovo cliente, riceverai una persona di contatto fissa da Idenfit che ti supporterà durante il processo di configurazione e ti accompagnerà attraverso il processo di onboarding individualmente o con supporto tramite gruppo whatsapp.</p>",
+        "categoryId": 1095,
+        "categorySlug": "servizio-clienti-supporto"
+      },
+      {
+        "id": 23590,
+        "slug": "idenfit-e-conforme-al-gdpr-e-alle-leggi-locali-sul-lavoro",
+        "link": "https://idenfit.com/it/blog/faq/idenfit-e-conforme-al-gdpr-e-alle-leggi-locali-sul-lavoro/",
+        "question": "Idenfit è conforme al GDPR e alle leggi locali sul lavoro?",
+        "answer": "<p>Sì, Idenfit è conforme alle leggi sul lavoro e alle normative fiscali in Turchia e al GDPR Europa. Questo ti offre la flessibilità di cui hai bisogno per gestire il carico di lavoro principale delle risorse umane in modo automatizzato garantendo al contempo la conformità con le leggi e le normative locali relative alle risorse umane.</p>",
+        "categoryId": 1097,
+        "categorySlug": "sicurezza-dati"
+      },
+      {
+        "id": 23591,
+        "slug": "quanto-e-sicuro-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/quanto-e-sicuro-idenfit/",
+        "question": "Quanto è sicuro Idenfit?",
+        "answer": "<p>Tutte le informazioni sono crittografate durante il transito e i campi sensibili sono crittografati a riposo.</p>",
+        "categoryId": 1097,
+        "categorySlug": "sicurezza-dati"
+      },
+      {
+        "id": 23592,
+        "slug": "chi-puo-avere-il-permesso-di-accedere-ai-dati-su-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/chi-puo-avere-il-permesso-di-accedere-ai-dati-su-idenfit/",
+        "question": "Chi può avere il permesso di accedere ai dati su Idenfit?",
+        "answer": "<p>Decidi tu quali sezioni e funzioni ogni dipendente può accedere, visualizzare e modificare. Quindi, puoi definire ruoli specifici e assegnarli a singoli dipendenti o gruppi di dipendenti. I tuoi dati sono tenuti al sicuro con certificato SSL a 2048 bit.</p>",
+        "categoryId": 1097,
+        "categorySlug": "sicurezza-dati"
+      },
+      {
+        "id": 23593,
+        "slug": "dove-sono-ospitati-e-salvati-i-miei-dati",
+        "link": "https://idenfit.com/it/blog/faq/dove-sono-ospitati-e-salvati-i-miei-dati/",
+        "question": "Dove sono ospitati e salvati i miei dati?",
+        "answer": "<p>Tutte le informazioni sono crittografate durante il transito e i campi sensibili sono crittografati. Tutti i dati sono archiviati e salvati in Amazon Web Services.</p>",
+        "categoryId": 1097,
+        "categorySlug": "sicurezza-dati"
+      },
+      {
+        "id": 23594,
+        "slug": "quali-certificazioni-possiede-idenfit",
+        "link": "https://idenfit.com/it/blog/faq/quali-certificazioni-possiede-idenfit/",
+        "question": "Quali certificazioni possiede Idenfit?",
+        "answer": "<p>Idenfit possiede le certificazioni ISO 9001 e 27001.</p>",
+        "categoryId": 1097,
+        "categorySlug": "sicurezza-dati"
+      },
+      {
+        "id": 23595,
+        "slug": "come-posso-rinnovare-il-mio-contratto",
+        "link": "https://idenfit.com/it/blog/faq/come-posso-rinnovare-il-mio-contratto/",
+        "question": "Come posso rinnovare il mio contratto?",
+        "answer": "<p>Un mese prima della scadenza del tuo contratto annuale, il project manager assegnato ti contatterà per ottenere la tua richiesta di rinnovo.</p>",
+        "categoryId": 1099,
+        "categorySlug": "abbonamento-politica-cancellazione"
+      },
+      {
+        "id": 23596,
+        "slug": "come-posso-cancellare-il-mio-abbonamento",
+        "link": "https://idenfit.com/it/blog/faq/come-posso-cancellare-il-mio-abbonamento/",
+        "question": "Come posso cancellare il mio abbonamento?",
+        "answer": "<p>Puoi cancellare il tuo abbonamento in qualsiasi momento tu voglia.</p>",
+        "categoryId": 1099,
+        "categorySlug": "abbonamento-politica-cancellazione"
+      }
+    ]
+  }
+}

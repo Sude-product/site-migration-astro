@@ -1,0 +1,1172 @@
+{
+  "_source": "reference/wordpress-export/pages.json (yerel export, `page` post type)",
+  "_fetchedAt": "2026-07-21T14:37:46.995Z",
+  "_note": "Hub/dizin sayfaları — hero + tanıtım bloğu + ürün tile grid + (varsa) SSS. NL kaynakta yok (KARAR 2 gereği o dil atlandı).",
+  "hubs": [
+    {
+      "trSlug": "insan-kaynaklari-yonetimi-modulu",
+      "locales": {
+        "tr": {
+          "id": 10112,
+          "slug": "insan-kaynaklari-yonetimi-modulu",
+          "link": "https://idenfit.com/insan-kaynaklari-yonetimi-modulu/",
+          "title": "İnsan Kaynakları",
+          "hero": {
+            "title": "İnsan Kaynakları Modülleri",
+            "text": "idenfit insan kaynakları yazılımıyla, özlük dosyası tutmadan işe alıma, performanstan eğitim planlamaya insan kaynakları ile ilgili tüm işleri tek platformdan yönetin.",
+            "ctaText": "Hemen Başvur",
+            "ctaUrl": "https://idenfit.com/tr/online-sunum-talep-et/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/07/hr-banner-en@2x.webp",
+              "alt": "hr banner en@2x",
+              "width": 1122,
+              "height": 905
+            }
+          },
+          "intro": {
+            "title": "Tek Yazılımla 360° İnsan Kaynakları Yönetimi",
+            "text": "<p>idenfit, insan kaynakları yönetimine bütüncül bir yaklaşım getiren insan kaynakları yazılımıyla, özlük dosyası tutmaktan işe alıma, performans değerlendirmeden eğitim planlamaya kadar insan kaynaklarının alanına giren tüm iş ve işlemleri tek bir platform altında yönetmenizi sağlar.</p>\n<p>idenfit kullanırken ek yazılım ya da programlara fazladan yatırım yapmanıza gerek kalmaz. Tek yazılımla tüm işleri bulut platformdan yönetirken, zamandan ve operasyon maliyetlerinden tasarruf edersiniz.</p>\n"
+          },
+          "tiles": [
+            {
+              "key": "1",
+              "title": "işe alım",
+              "text": "<p>idenfit işe alım modülüyle İK departmanı olarak, işe alım sürecini oluşturan açık pozisyonların belirlenmesi ve arayışın farklı kanallarda paylaşılması, özgeçmiş havuzlarının oluşturulması, bu özgeçmişlerin hangi kanaldan geldiğinin belirlenmesi, hangi departmanın bu alıma ihtiyaç duyduğunun tespiti, olumlu adayların bir sonraki sürece geçirilmesi ya da olumsuz adayların blackliste alınması gibi çok kademeli işlerin altından kolaylıkla kalkarsınız.</p>\n",
+              "ctaText": "daha fazlası > ",
+              "ctaUrl": "https://idenfit.com/tr/ise-alim-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/hiring.svg",
+                "alt": "hiring",
+                "width": 118,
+                "height": 127
+              }
+            },
+            {
+              "key": "2",
+              "title": "onboarding",
+              "text": "<p>idenfit onboarding modülüyle, çalışanların işe başlamasından itibaren aynı ya da farklı departmanların yapması gereken; kişisel sistem girişlerinin tanımlanması, access yetkilendirmelerinin yapılması, e-mail hesaplarının açılması, yemek kartı &amp; telefon hattı gibi hakların tanımlanması gibi işlemler sisteme adım adım tanımlanabilir. Yapılacak işleri, her çalışan için ayrı ayrı manuel girmek yerine departman bazlı tanımlayıp takip edilebilirsiniz. Böylece, yöneticiler sistemin tümünü görerek yapılan işlemleri çekip onaylayabilirler.</p>\n",
+              "ctaText": "daha fazlası > ",
+              "ctaUrl": "https://idenfit.com/tr/onboarding-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/onboarding.svg",
+                "alt": "onboarding",
+                "width": 141,
+                "height": 127
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "özlük dosyası",
+              "text": "<p>idenfit özlük dosyası modülüyle, çalışana ait; iş sözleşmesi, işe alım ve izin evrakları, finansal belgeler, çalışma süresince aldığı evraklar, görevlendirme ve mesai formları gibi tüm resmi belge ve kayıtlar online sistemde biyometrik imza ile doğrulanmış olarak saklanabilir. KVKK (Kişisel Verileri Koruma Kanunu) kuralları gereğince çalışanların kişisel bilgileri sistemde, çalışan çıkarları doğrultusunda anonimleştirilmiş olarak tutulur. Özlük dosyalarının dijital ortamda KVKK’ya uygun olarak oluşturulması hem işveren hem de insan kaynakları departmanı çalışanları için güvenlik, zaman &amp; maliyet tasarrufu sağlar.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/calisan-ozluk-yonetimi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/personal-file.svg",
+                "alt": "personal file",
+                "width": 160,
+                "height": 95
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "evraklar",
+              "text": "<p>idenfit evrak modülüyle çalışanlarınızın resmi belge ve evraklarını sistemde hızlıca oluşturup güvenle saklayabilirsiniz. Kişilere özel, yeni evrak tipi oluşturabilirsiniz. Evrakları oluşturduktan sonra evrak tipine, personele göre ya da şubeye göre filtreleyebilir ve dilediğiniz evrakları kolayca bulabilirsiniz.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/papers.svg",
+                "alt": "papers",
+                "width": 124,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "dokümanlar",
+              "text": "<p>idenfit, dokümanlar modülü işletme içinde tüm çalışanların erişimine açık yazılı belge ve dokümanları sisteme yüklemenize olanak sağlar. idenfit dokümanlar modülüyle, işletme içinde anonim olarak tutulmak istenen (şirket iç tüzüğü, sözleşme örnekleri, eğitim dokümanları&#8230;) doküman ve belgeler sisteme yüklenebilir, görüntülenebilir ve indirilebilir.. Dokümanlar, doküman listesi ve doküman tipleri altında gruplandırılabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/dokuman-yonetim-sistemi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/documents.svg",
+                "alt": "documents",
+                "width": 156,
+                "height": 126
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "eğitimler",
+              "text": "<p>idenfit eğitim yönetimi modülüyle,işletme içi ve dışı eğitimler planlanabilir. Eğitimler kategorilere ayrılabilir ve raporlanabilir. Sisteme eğitimci, katılımcı ve eğitim içeriği tanımlanabilir.eğitimler yüklenebilir. Eğitim bildirimleri mobil üzerinden çalışanlara gönderilebilir. idenfit eğitim yönetimi modülüyle işletme içi ve dışı eğitimler planlanabilir. Eğitimler kategorilere ayrılabilir ve raporlanabilir.Sisteme eğitimci, katılımcı ve eğitim içeriği tanımlanabilir. Eğitim bildirimleri mobil üzerinden çalışanlara gönderilebilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/calisan-egitim-yonetimi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/trainings.svg",
+                "alt": "trainings",
+                "width": 176,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "zimmet yönetimi",
+              "text": "<p>idenfit zimmetler modülüyle, demirbaşların veriliş tarihleri ve geri alınması gereken tarihler sisteme girilebilir. Demirbaşların geri teslim edildiği tarihler de ayrıca sisteme ve takipleri sağlanabilir. Zimmet atanan kişi ve tarihler üzerinden raporlama alınabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/zimmet-yonetimi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/debit-ticket.svg",
+                "alt": "debit ticket",
+                "width": 150,
+                "height": 139
+              }
+            },
+            {
+              "key": "2_copy6",
+              "title": "performans",
+              "text": "<p>idenfit performans yönetimi modülünde, performans şablon seçimiyle, panele hedef (kpi) ve yetkinlikler (competence) tanımlayabilirsiniz. Yetkinlikler kısmına kurumsal, mesleki, sosyal, liderlik, organizasyon becerisi gibi dilediğiniz kadar farklı grupta yetkinlik, aynı şekilde hedefleriniz kısmına departmanınızın belirlediği ( satış hedefleri, müşteri memnuniyeti&#8230;) hedefleri farklı başlıklar altında tanımlayabilirsiniz. Performans değerlemesi birebir yapılabileceği gibi; çalışanın astı, kendisi, eşiti ve üstü tarafından değerlendirilme imkanı sunarak performans değerlemesini 360 derece yapabilirsiniz</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/calisan-performans-degerlendirme-sistemi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/performance.svg",
+                "alt": "performance",
+                "width": 178,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy7",
+              "title": "harcamalar",
+              "text": "<p>idenfit harcamalar modülüyle, harcamaları; harcama tipleri, avanslar ve harcırah başlıkları altında kategorize ederek yönetebilirsiniz. İşletme içinde veya dışında yapılan tüm harcamalar, giderler gerçek zamanlı olarak sisteme kaydedilir ve düzenli olarak takip edilebilir. Çalışan ya da departman bazlı harcamalar, makbuz, fatura yada fiş fotoğraflarının çekilip sisteme yüklenmesiyle mobilden yönetilebilir. Yapılan harcamalarla ilgili belgeler yetkililere ulaştırılıp onayları alınabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/masraf-yonetimi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/expense_en.svg",
+                "alt": "expense en",
+                "width": 138,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy8",
+              "title": "sağlık",
+              "text": "<p>idenfit sağlık modülüyle, çalışanlardan alınacak olan yazılı izin ya da kendi istekleri dahilinde o kişilere ilişkin sağlık durumları ve geçmişleri, geçirilen ameliyatlar, düzenli kullanılan ilaçlar gibi veriler sisteme işlenebilir. Gerekli durumlarda bu kişilere yapılacak müdahalelerin uygunluğu açısından, bu veriler kayıt altında tutulabilir. Çalışanların sağlık durumları, kullandıkları ilaçlar, sağlıkla ilgili özel durumları, kısacası tüm sağlık geçmiş bilgileri sistemde tutulabilir ve acil müdahalede bu verilerden yararlanılabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/isyeri-saglik-yonetimi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/health.svg",
+                "alt": "health",
+                "width": 198,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy9",
+              "title": "mesajlar",
+              "text": "<p>idenfit mesajlar modülüyle, görüşme notları ve önemli gelişmeler anında ekiple paylaşılabilir. Sms, e-mail, uygulama bildirimi formatındaki mesajlar departman bazlı tüm çalışanlara toplu olarak ya da filtreleme özelliği ile sadece seçilen çalışanlara gönderilebilir. İşletmeyle ilgili veya genel olarak tüm bildirimler, eş zamanlı olarak sistem üzerinden toplu duyuru niteliğinde gönderilebilir. Ofis içinde ya da dışında bulunan çalışanlarla etkili biçimde ve zaman kaybı olmaksızın iletişim kurulması hedeflenir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/ofis-ici-mesajlasma-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/messages.svg",
+                "alt": "messages",
+                "width": 145,
+                "height": 129
+              }
+            },
+            {
+              "key": "2_copy10",
+              "title": "notlar",
+              "text": "<p>idenfit notlar modülüyle, sistemde, işletmeyle ya da kişiyle ilgili notlar oluşturulabilir. İlgili kişi ve tarih bazlı notlar girilebilir. İçerik ve önem derecesi gibi bilgiler yanında gerekirse doküman eklenebilir. Notlar anonim olarak değil oluşturan kişiye özeldir ve sadece o kişi tarafından görüntülenebilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/notlar-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/notes.svg",
+                "alt": "notes",
+                "width": 143,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy11",
+              "title": "geri bildirim",
+              "text": "<p>idenfit geri bildirim modülüyle, daha mutlu bir işletme için çalışan memnuniyeti gerçek verilerle ölçülür. Çalışanların sisteme girdiği cevaplar analiz ve rapor halinde detaylı olarak görüntülenebilir. Zaman bazlı olarak karşılaştırma (geçen ay ya da geçen hafta&#8230;) yapılabilir. İşletmede hangi alanlar ya da konular çalışanları memnun ediyor ya da hangilerinde iyileştirme yapılmalı gibi konular, veriler ışığında değerlendirilebilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/organizasyonel-geri-bildirim-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/feedback.svg",
+                "alt": "feedback",
+                "width": 193,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy12",
+              "title": "anket",
+              "text": "<p>idenfit anket modülüyle yöneticiler, soruları ve cevap seçeneklerini istedikleri gibi oluşturabilirler. Anketi topluca yapabilecekleri gibi sadece belli departmanlara da uygulayabilirler. Böylece işletme içinde departman bazlı ya da toplu kararları yansıtan sonuçlar alınabilir. Anket sonucu çıkan veriler geniş kapsamlı raporlanabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/anket-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/survey.svg",
+                "alt": "survey",
+                "width": 206,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy13",
+              "title": "offboarding",
+              "text": "<p>idenfit offboarding modülüyle işe alım sürecinde olduğu gibi bir çalışanın işten çıkması durumunda da oluşan tüm süreç, herhangi bir aksaklık yaşanmadan sistem üzerinden yönetilebilir. Tüm departmanlar eş zamanlı olarak, süreci devam eden ve tamamlanan işlerden tek panel sayesinde hızla haberdar olur. Raporlama özelliği sayesinde işten çıkış oranları hesaplanabilir ve iyileştirme konusunda gerekli düzenlemeler yapılabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/offboarding-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/offboarding.svg",
+                "alt": "offboarding",
+                "width": 157,
+                "height": 136
+              }
+            },
+            {
+              "key": "2_copy14",
+              "title": "Bordrolar modülü, bir takım ERP programlarıyla çift taraflı entegre çalışabilir",
+              "text": "<p>idenfit bordrolar modülüyle, çalışanların bordroları insan kaynakları menüsünden, evraklar altında görüntülenebilir. Ay bazında tüm bordrolar sisteme yüklenebilir. Bordrolor modülü, tüm ERP programlarıyla çift taraflı entegre olarak çalışır.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/payroll_en.svg",
+                "alt": "payroll en",
+                "width": 192,
+                "height": 123
+              }
+            },
+            {
+              "key": "2_copy15",
+              "title": "servis",
+              "text": "<p>idenfit servisler modülüyle, mavi yaka, beyaz yaka, farklı vardiya servisleri gibi çok sayıda servis kategorisi barından işletme çalışanları, hangi servisi hangi şoförün kullandığını, şoförün telefon numarasını, aracın modeli ve plakasını, servis güzergahını &#8211; aracın harita üzerinden hangi duraklardan, ne zaman geçtiği &#8211; gibi bilgileri detaylı olarak olarak sistem üzerinden görebilirler.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/shuttle.svg",
+                "alt": "shuttle",
+                "width": 230,
+                "height": 130
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "İnsan kaynakları yazılımı nedir?",
+              "answer": "<p><span style=\"font-weight: 400;\">İnsan kaynakları yazılımı, işe alım, özlük dosyası, performans ve eğitim gibi tüm İK süreçlerini dijital ortamda yönetme imkanı sağlayan bulut tabanlı çözümdür.</span></p>\n"
+            },
+            {
+              "question": "İnsan kaynakları yönetimi programı idenfit nasıl avantajlar sunuyor?",
+              "answer": "<p><span style=\"font-weight: 400;\">idenfit, insan kaynakları yönetimi programı olarak tüm İK işlerini tek platformda toplar, ek yazılım ihtiyacını ortadan kaldırır ve maliyet avantajı sağlar.</span></p>\n"
+            },
+            {
+              "question": "İnsan kaynakları yönetim yazılımı neden önemlidir?",
+              "answer": "<p><span style=\"font-weight: 400;\">Çünkü bordrodan izin takibine, işe alımdan offboarding’e kadar  tüm süreçlerde insan kaynakları yönetim yazılımı kullanmak süreçleri hızlandırır ve güvenli hale getirir.</span></p>\n"
+            },
+            {
+              "question": "Bulut insan kaynakları yazılımı avantajı nedir?",
+              "answer": "<p><span style=\"font-weight: 400;\">idenfit bulut insan kaynakları yazılımı ile verilere her yerden erişebilir, KVKK uyumlu güvenli veri depolama yapabilir ve iş sürekliliğini sağlayabilirsiniz.</span></p>\n"
+            },
+            {
+              "question": "En iyi insan kaynakları yazılımı nasıl seçilir?",
+              "answer": "<p><span style=\"font-weight: 400;\">En iyi insan kaynakları yazılımı, tüm insan kaynakları modüllerini tek platformda sunan, ölçeklenebilir ve kullanıcı dostu olan çözümdür. </span></p>\n"
+            },
+            {
+              "question": "İnsan kaynakları yazılım programları arasında idenfit’in farkı nedir?",
+              "answer": "<p><span style=\"font-weight: 400;\">idenfit, işe alım, onboarding, performans, eğitim, özlük dosyası, harcama, zimmet ve bordro gibi tüm insan kaynakları yazılım programları modüllerini tek bir çatı altında toplar.</span></p>\n"
+            }
+          ]
+        },
+        "en": {
+          "id": 10410,
+          "slug": "human-resources-management-modules",
+          "link": "https://idenfit.com/en/human-resources-management-modules/",
+          "title": "Human Resources Management Modules",
+          "hero": {
+            "title": "Human Resources Management Modules",
+            "text": "Idenfit cloud based,\r\nhuman resources and workforce management software brings a holistic approach to human resources processes and it helps you to review and manage hr processes all in one place.",
+            "ctaText": "Get Started",
+            "ctaUrl": "https://idenfit.com/request-online-presentation/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/07/hr-banner-en@2x.webp",
+              "alt": "hr banner en@2x",
+              "width": 1122,
+              "height": 905
+            }
+          },
+          "intro": null,
+          "tiles": [
+            {
+              "key": "1",
+              "title": "hiring",
+              "text": "<p>Idenfit hiring module makes the whole hiring process easy and stress-free for the company as well as for the possible candidates. Idenfit’s automated solutions and easy to use dashboard allows your hr department to recruit, screen, track, hire, and complete employee verification of the best talents to build a more engaged and productive workforce.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/hiring-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/hiring.svg",
+                "alt": "hiring",
+                "width": 118,
+                "height": 127
+              }
+            },
+            {
+              "key": "2",
+              "title": "onboarding",
+              "text": "<p>Idenfit onboarding module helps users to complete paperwork quickly for more meaningful introductions, let you gather electronic signatures with customizable pre-boarding packages, and make it smooth to prepare new employees up in advance with welcome e-mails and IT checklists. Users can be sure that the onboarding process is well organized and efficient with Idenfit that it helps to keep their positive brand image and reputation.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-onboarding-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/onboarding.svg",
+                "alt": "onboarding",
+                "width": 141,
+                "height": 127
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "employee information",
+              "text": "<p>Idenfit employee information module allows companies to centralize confidential employee information and define access permissions to authorized managers to ensure that employee information is both secure and accessible. All confidential employee information and records beside documents such as employment contract, leave approvals, financial papers, overtime forms can be stored online and verified with a biometric signature.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-file-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/personal-file.svg",
+                "alt": "personal file",
+                "width": 160,
+                "height": 95
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "papers",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit papers module helps ysers to store employees’ official papers safe and secure. Users can upload and keep employee’s official papers as well as create &amp; add paper types for various official papers and filter them by name, department or type.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/papers.svg",
+                "alt": "papers",
+                "width": 124,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "documents",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit document module helps you to upload and store corporate documents including certificate of incorporation, memorandum of association, bylaws and any other corporate documents relating to the incorporation, ownership or management of an entity. You can manage and categorize corporate documents and give employees access to reach and share them with their team or department.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/hr-document-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/documents.svg",
+                "alt": "documents",
+                "width": 156,
+                "height": 126
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "trainings",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit cloud-based employee training module helps you to plan, assign, track and score training courses based on the direct feedback of your employees and you can have instant insight about the efficiency of your training and development sessions.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-training-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/trainings.svg",
+                "alt": "trainings",
+                "width": 176,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "assets",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit asset module helps you to add all the fixture information of your company and then users can assign the debits easily to the selected employees. Also users can enter the guarantee terms and the product edition number to track the assets accurately.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-records-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/debit-ticket.svg",
+                "alt": "debit ticket",
+                "width": 150,
+                "height": 139
+              }
+            },
+            {
+              "key": "2_copy6",
+              "title": "performance",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit performance appraisal allows you to measure the individual staff and team performance effectively with KPI and competences. You can have an insight about their contribution on every objectives as well as organizational level. By using Idenfit performance appraisal, you can easily measure each task completion and how effective the task is done. You can also monitor which skills are essential to complete the tasks and finally you can review the quality of task completion. Idenfit helps the employees to get performance review and quality rating from their managers for every task completed.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/performance-management/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/performance.svg",
+                "alt": "performance",
+                "width": 178,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy7",
+              "title": "expenses",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit expenses module helps users to manage spendings firmly! Employees can upload the expense proof by taking a photo of the bill and send it to the assigned manager on the expenses module.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/expense-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/expense_en.svg",
+                "alt": "expense en",
+                "width": 138,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy8",
+              "title": "health",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit health module allows users to manage data such as health status and history, prescribed medicines, previous surgeries of the employees can be add into the system within the scope of a written permission to be obtained from the employees.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-health-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/health.svg",
+                "alt": "health",
+                "width": 198,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy9",
+              "title": "messages",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit message module helps users to share important information and interview messages with the team. Messages can be sent as a short message, email or notification and also users can send the messages to the selected team or people.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-internal-communication-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/messages.svg",
+                "alt": "messages",
+                "width": 145,
+                "height": 129
+              }
+            },
+            {
+              "key": "2_copy10",
+              "title": "notes",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit notes module allows users to create notes for the department or an individual employee. Users can enter notes and assign them to the selected person.Notes can only be created and edited by the owner so they cannot be seen anonymously.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/notes-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/notes.svg",
+                "alt": "notes",
+                "width": 143,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy11",
+              "title": "feedback",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit feedback module allows employees to show their daily moods with smileys and send them as feedback to their team or managers. On the other hand managers can add questions and customized answers to get feedback from employees. Managers can monitor the results of the each employee or team feedback and manage the results efficiently.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-feedback-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/feedback.svg",
+                "alt": "feedback",
+                "width": 193,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy12",
+              "title": "survey",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit survey module is an essential component to learn employee opinions to provide a picture of your organization&#8217;s needs. Surveys can be used to get employee opinions on a variety of issues such as the company&#8217;s success in communicating its mission to employees, corporate social responsibilities or local issues such as quality of the working environment.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-surveys-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/survey.svg",
+                "alt": "survey",
+                "width": 206,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy13",
+              "title": "offboarding",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit allows you to plan and implement stress-free offboarding firmly with checklists to ensure compliance and automation to help you focus on the person, not the transaction. Idenfit sends automatic notifications to admins, managers, and others so users can be sure that all process is checked and employee departure is secure, helpful and thoughtful.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-offboarding-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/offboarding.svg",
+                "alt": "offboarding",
+                "width": 157,
+                "height": 136
+              }
+            },
+            {
+              "key": "2_copy14",
+              "title": "payroll integration",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit payroll Integration delivers 360° integration from most major payroll vendors directly to the recordkeeping platform. Idenfit payroll system is connected to time and attendance tracking, employee database and other hr information systems, the information can be moved back and forth on the platform without the need for double data entry.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/payroll_en.svg",
+                "alt": "payroll en",
+                "width": 192,
+                "height": 123
+              }
+            },
+            {
+              "key": "2_copy15",
+              "title": "shuttle",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit shuttle module help companies to manage their shuttle shifts for different departments and locations while making employees informed about the vehicle, arrival and departure time, driver and their communication information and the shuttle route. It is a very efficient module for the companies which have many shifts for different departments and locations.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/shuttle.svg",
+                "alt": "shuttle",
+                "width": 230,
+                "height": 130
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "What is human resources software?",
+              "answer": "<p><span style=\"font-weight: 400;\">Human resources software is a cloud-based solution that enables you to digitally manage all HR processes such as recruitment, personnel files, performance, and training.</span></p>\n"
+            },
+            {
+              "question": "What advantages does the idenfit human resources management program offer?",
+              "answer": "<p><span style=\"font-weight: 400;\">As a human resources management program, idenfit brings all HR tasks together on a single platform, eliminates the need for additional software, and provides cost efficiency.</span></p>\n"
+            },
+            {
+              "question": "Why is human resources management software important?",
+              "answer": "<p><span style=\"font-weight: 400;\">Because using HR management software for every process — from payroll and leave tracking to recruitment and offboarding — accelerates workflows and ensures security.</span></p>\n"
+            },
+            {
+              "question": "What are the advantages of cloud-based HR software?",
+              "answer": "<p><span style=\"font-weight: 400;\">With idenfit’s cloud-based HR software, you can access data anytime, anywhere, securely store information in compliance with GDPR, and ensure business continuity.</span></p>\n"
+            },
+            {
+              "question": "How to choose the best HR software?",
+              "answer": "<p><span style=\"font-weight: 400;\">The best HR software is one that offers all HR modules on a single platform, is scalable, and user-friendly.</span></p>\n"
+            },
+            {
+              "question": "What makes idenfit different among HR software programs?",
+              "answer": "<p><span style=\"font-weight: 400;\">idenfit unifies all HR modules — including recruitment, onboarding, performance, training, personnel files, expenses, asset management, and payroll — under one roof.</span></p>\n"
+            }
+          ]
+        },
+        "it": {
+          "id": 23785,
+          "slug": "moduli-gestione-risorse-umane",
+          "link": "https://idenfit.com/it/moduli-gestione-risorse-umane/",
+          "title": "Human Resources Management Modules_IT",
+          "hero": {
+            "title": "Human Resources Management Modules",
+            "text": "Idenfit cloud based,\r\nhuman resources and workforce management software brings a holistic approach to human resources processes and it helps you to review and manage hr processes all in one place.",
+            "ctaText": "Get Started",
+            "ctaUrl": "https://idenfit.com/request-online-presentation/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/07/hr-banner-en@2x.webp",
+              "alt": "hr banner en@2x",
+              "width": 1122,
+              "height": 905
+            }
+          },
+          "intro": null,
+          "tiles": [
+            {
+              "key": "1",
+              "title": "hiring",
+              "text": "<p>Idenfit hiring module makes the whole hiring process easy and stress-free for the company as well as for the possible candidates. Idenfit’s automated solutions and easy to use dashboard allows your hr department to recruit, screen, track, hire, and complete employee verification of the best talents to build a more engaged and productive workforce.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/hiring-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/hiring.svg",
+                "alt": "hiring",
+                "width": 118,
+                "height": 127
+              }
+            },
+            {
+              "key": "2",
+              "title": "onboarding",
+              "text": "<p>Idenfit onboarding module helps users to complete paperwork quickly for more meaningful introductions, let you gather electronic signatures with customizable pre-boarding packages, and make it smooth to prepare new employees up in advance with welcome e-mails and IT checklists. Users can be sure that the onboarding process is well organized and efficient with Idenfit that it helps to keep their positive brand image and reputation.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-onboarding-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/onboarding.svg",
+                "alt": "onboarding",
+                "width": 141,
+                "height": 127
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "employee information",
+              "text": "<p>Idenfit employee information module allows companies to centralize confidential employee information and define access permissions to authorized managers to ensure that employee information is both secure and accessible. All confidential employee information and records beside documents such as employment contract, leave approvals, financial papers, overtime forms can be stored online and verified with a biometric signature.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-file-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/personal-file.svg",
+                "alt": "personal file",
+                "width": 160,
+                "height": 95
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "papers",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit papers module helps ysers to store employees’ official papers safe and secure. Users can upload and keep employee’s official papers as well as create &amp; add paper types for various official papers and filter them by name, department or type.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/papers.svg",
+                "alt": "papers",
+                "width": 124,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "documents",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit document module helps you to upload and store corporate documents including certificate of incorporation, memorandum of association, bylaws and any other corporate documents relating to the incorporation, ownership or management of an entity. You can manage and categorize corporate documents and give employees access to reach and share them with their team or department.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/hr-document-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/documents.svg",
+                "alt": "documents",
+                "width": 156,
+                "height": 126
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "trainings",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit cloud-based employee training module helps you to plan, assign, track and score training courses based on the direct feedback of your employees and you can have instant insight about the efficiency of your training and development sessions.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-training-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/trainings.svg",
+                "alt": "trainings",
+                "width": 176,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "assets",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit asset module helps you to add all the fixture information of your company and then users can assign the debits easily to the selected employees. Also users can enter the guarantee terms and the product edition number to track the assets accurately.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-records-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/debit-ticket.svg",
+                "alt": "debit ticket",
+                "width": 150,
+                "height": 139
+              }
+            },
+            {
+              "key": "2_copy6",
+              "title": "performance",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit performance appraisal allows you to measure the individual staff and team performance effectively with KPI and competences. You can have an insight about their contribution on every objectives as well as organizational level. By using Idenfit performance appraisal, you can easily measure each task completion and how effective the task is done. You can also monitor which skills are essential to complete the tasks and finally you can review the quality of task completion. Idenfit helps the employees to get performance review and quality rating from their managers for every task completed.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/performance-management/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/performance.svg",
+                "alt": "performance",
+                "width": 178,
+                "height": 124
+              }
+            },
+            {
+              "key": "2_copy7",
+              "title": "expenses",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit expenses module helps users to manage spendings firmly! Employees can upload the expense proof by taking a photo of the bill and send it to the assigned manager on the expenses module.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/expense-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/expense_en.svg",
+                "alt": "expense en",
+                "width": 138,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy8",
+              "title": "health",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit health module allows users to manage data such as health status and history, prescribed medicines, previous surgeries of the employees can be add into the system within the scope of a written permission to be obtained from the employees.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-health-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/health.svg",
+                "alt": "health",
+                "width": 198,
+                "height": 120
+              }
+            },
+            {
+              "key": "2_copy9",
+              "title": "messages",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit message module helps users to share important information and interview messages with the team. Messages can be sent as a short message, email or notification and also users can send the messages to the selected team or people.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-internal-communication-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/messages.svg",
+                "alt": "messages",
+                "width": 145,
+                "height": 129
+              }
+            },
+            {
+              "key": "2_copy10",
+              "title": "notes",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit notes module allows users to create notes for the department or an individual employee. Users can enter notes and assign them to the selected person.Notes can only be created and edited by the owner so they cannot be seen anonymously.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/notes-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/notes.svg",
+                "alt": "notes",
+                "width": 143,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy11",
+              "title": "feedback",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit feedback module allows employees to show their daily moods with smileys and send them as feedback to their team or managers. On the other hand managers can add questions and customized answers to get feedback from employees. Managers can monitor the results of the each employee or team feedback and manage the results efficiently.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-feedback-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/feedback.svg",
+                "alt": "feedback",
+                "width": 193,
+                "height": 130
+              }
+            },
+            {
+              "key": "2_copy12",
+              "title": "survey",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit survey module is an essential component to learn employee opinions to provide a picture of your organization&#8217;s needs. Surveys can be used to get employee opinions on a variety of issues such as the company&#8217;s success in communicating its mission to employees, corporate social responsibilities or local issues such as quality of the working environment.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-surveys-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/survey.svg",
+                "alt": "survey",
+                "width": 206,
+                "height": 131
+              }
+            },
+            {
+              "key": "2_copy13",
+              "title": "offboarding",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit allows you to plan and implement stress-free offboarding firmly with checklists to ensure compliance and automation to help you focus on the person, not the transaction. Idenfit sends automatic notifications to admins, managers, and others so users can be sure that all process is checked and employee departure is secure, helpful and thoughtful.</p>\n</div>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/employee-offboarding-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/offboarding.svg",
+                "alt": "offboarding",
+                "width": 157,
+                "height": 136
+              }
+            },
+            {
+              "key": "2_copy14",
+              "title": "payroll integration",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit payroll Integration delivers 360° integration from most major payroll vendors directly to the recordkeeping platform. Idenfit payroll system is connected to time and attendance tracking, employee database and other hr information systems, the information can be moved back and forth on the platform without the need for double data entry.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/payroll_en.svg",
+                "alt": "payroll en",
+                "width": 192,
+                "height": 123
+              }
+            },
+            {
+              "key": "2_copy15",
+              "title": "shuttle",
+              "text": "<div class=\"hr-card-text\">\n<p>Idenfit shuttle module help companies to manage their shuttle shifts for different departments and locations while making employees informed about the vehicle, arrival and departure time, driver and their communication information and the shuttle route. It is a very efficient module for the companies which have many shifts for different departments and locations.</p>\n</div>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/07/shuttle.svg",
+                "alt": "shuttle",
+                "width": 230,
+                "height": 130
+              }
+            }
+          ],
+          "faq": [
+            {
+              "question": "What is human resources software?",
+              "answer": "<p><span style=\"font-weight: 400;\">Human resources software is a cloud-based solution that enables you to digitally manage all HR processes such as recruitment, personnel files, performance, and training.</span></p>\n"
+            },
+            {
+              "question": "What advantages does the idenfit human resources management program offer?",
+              "answer": "<p><span style=\"font-weight: 400;\">As a human resources management program, idenfit brings all HR tasks together on a single platform, eliminates the need for additional software, and provides cost efficiency.</span></p>\n"
+            },
+            {
+              "question": "Why is human resources management software important?",
+              "answer": "<p><span style=\"font-weight: 400;\">Because using HR management software for every process — from payroll and leave tracking to recruitment and offboarding — accelerates workflows and ensures security.</span></p>\n"
+            },
+            {
+              "question": "What are the advantages of cloud-based HR software?",
+              "answer": "<p><span style=\"font-weight: 400;\">With idenfit’s cloud-based HR software, you can access data anytime, anywhere, securely store information in compliance with GDPR, and ensure business continuity.</span></p>\n"
+            },
+            {
+              "question": "How to choose the best HR software?",
+              "answer": "<p><span style=\"font-weight: 400;\">The best HR software is one that offers all HR modules on a single platform, is scalable, and user-friendly.</span></p>\n"
+            },
+            {
+              "question": "What makes idenfit different among HR software programs?",
+              "answer": "<p><span style=\"font-weight: 400;\">idenfit unifies all HR modules — including recruitment, onboarding, performance, training, personnel files, expenses, asset management, and payroll — under one roof.</span></p>\n"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "trSlug": "insan-kaynaklari-isgucu-yonetimi",
+      "locales": {
+        "tr": {
+          "id": 12951,
+          "slug": "insan-kaynaklari-isgucu-yonetimi",
+          "link": "https://idenfit.com/insan-kaynaklari-isgucu-yonetimi/",
+          "title": "İş Gücü Yönetimi",
+          "hero": {
+            "title": "İşgücü Yönetimi",
+            "text": "idenfit iş gücü yönetimiyle, zaman ve vardiya yönetimini, izin ve puantaj hesaplamalarını en etkili şekilde yaparken zamandan ve maliyetten tasarruf edin.",
+            "ctaText": "Hemen Başvur",
+            "ctaUrl": "https://idenfit.com/tr/online-sunum-talep-et/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-banner-en@2x.png",
+              "alt": "workforce banner en@2x",
+              "width": 1453,
+              "height": 795
+            }
+          },
+          "intro": {
+            "title": "Verimli İşgücü <br>Planlama & Yönetimi",
+            "text": "<p>idenfit, zaman ve vardiya yönetimini, izin ve puantaj hesaplamalarını en kolay ve etkili şekilde yapmanızı<br />\nsağlayan yazılımıyla iş gücü yönetiminizi daha verimli şekilde planlamanızı sağlar. idenfit personel devam<br />\nkontrol sistemiyle çalışanların işe giriş-çıkış bilgilerini, izin, vardiya, mola kayıtlarını ve fazla mesailerini<br />\nkayıt altında tutabilir, kayıtları rapor çıktıları olarak alabilir, onay süreçlerini ve puantaj takibini kolaylıkla<br />\nyönetebilirsiniz.</p>\n"
+          },
+          "tiles": [
+            {
+              "key": "1",
+              "title": "puantaj takibi",
+              "text": "<p>idenfit zaman yönetimi, manuel işlemleri azaltarak puantaj takibinin baştan sona sorunsuz bir akış içinde yapılmasını sağlayacak şekilde tasarlanmıştır. idenfit yalnızca puantaj takibi yapmakla kalmayıp puantaj için gerekli ham bilgiyi mobil, tablet uygulamaları veya biyometrik ve RFID okuyucular aracılığıyla alır, verileri sisteme online olarak otomatik aktarır ve bu verileri bulut sunucularda yedekler. idenfit personel devam kontrol sistemiyle (PDKS) çalışanların işe giriş-çıkış bilgilerini, izin, vardiya, mola kayıtlarını ve fazla mesailerini kayıt altında tutabilir, rapor çıktıları alabilir, onay süreçlerini ve puantaj takibini kolaylıkla yönetirsiniz.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/puantaj-takip-programi-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-timekeeping.svg",
+                "alt": "workforce timekeeping",
+                "width": 140,
+                "height": 136
+              }
+            },
+            {
+              "key": "2",
+              "title": "izin yönetimi",
+              "text": "<p>idenfit izin yönetiminde dilediğiniz kısıt ve koşullarda izin tipleri tanımlayabilirsiniz. Resmi tatilleri ve özel izinleri aynı anda yönetebilirsiniz. idenfit çalışanların ihtiyacı olan hastalık izni, annelik izni veya evlilik izni gibi farklı tiplerde, sınırsız izin tahakkuku ve izin devretme işlemini destekler ve size özel izin kırılımlarıyla izin tipini detaylandırmanızı sağlayacak platform sunar. idenfit çalışanlarınızın talep ettiği tüm izin tiplerini tek bir takvimde birleştirerek, yıllık, aylık ve haftalık görebilmenizi sağlar. Onay verilmesi gereken izinlerde, kademeli onay süreçlerini idenfit ile oluşturabilirsiniz.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/yillik-izin-takip-programi/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-leave.svg",
+                "alt": "workforce leave",
+                "width": 181,
+                "height": 133
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "vardiyalar",
+              "text": "<p>idenfit akıllı vardiya yönetimiyle çalışan programları, vardiyaları, kayıp saatleri ve molaları tek bir panel üzerinden görüntülenebilir ve efektif olarak yönetilebilir. Akıllı vardiya yönetiminde, vardiyalar sabit ve esnek vardiya olarak kategorize edilebilir. Bir çalışana aynı gün içerisinde birden fazla dönüşümlü vardiya ataması yapılabilir. Böylece çalışan durumuna ya da saatine göre kendisine atanan vardiyalardan birini seçerek iş gününü sorunsuz tamamlayabilir. Kayıtlar personel vardiya giriş ve çıkışını yaptığında otomatik olarak alınır.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-shifts-1.svg",
+                "alt": "workforce shifts 1",
+                "width": 203,
+                "height": 132
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "şirket takvimi",
+              "text": "<p>Panel yetkilileri bütün önemli randevu, toplantı ve katılanılacak etkinlikleri idenfit şirket takvimine kaydederek hem toplu halde günlük, haftalık ve aylık planlamayı tek ekranda görerek rahatlıkla yapabilirler. Ayrıca hatırlatıcı ve bildirim özelliklerini tanımlayarak zaman yönetimini daha verimli yapabilirler. İşletme içi planlamalar, toplantılar, hatırlatmalar ya da kısa notlar idenfit şirket takvimi üzerinde oluşturularak ekiple de paylaşılabilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://idenfit.com/tr/kurumsal-takvim-modulu/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-calendar.svg",
+                "alt": "workforce calendar",
+                "width": 153,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "güvenlik",
+              "text": "<p>idenfit güvenlik tur kontrol sistemi Guard ile yöneticiler hangi personelin, hangi turda olduğunu, eksik atılan turları, yarım kalan turları gerçek zamanlı olarak görebilir. Böylelikle sahadaki tüm olaylardan haberdar olabilir, olayları anlık olarak takip eder ve yönetirler. Yöneticiler sistemde sınırsız ve ayrıntılı tur oluşturabilir ve istedikleri kadar çalışan ekleyebilir ve genel çalışan takibini yapabilir. Tüm akışların anlık olarak takip edilebildiği monitör ekranından çalışan giriş-çıkış kayıtları ve mesai çizelgesi görülebilir.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://www.workmana.com/tr/guard/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-guard.svg",
+                "alt": "workforce guard",
+                "width": 158,
+                "height": 122
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "görev",
+              "text": "<p>idenfit görev yazılımı Task ile görev planlama, planlanan görevlerin takibi ve değerlendirme aşamalarını hem web hem de mobil üzerinden gerçekleştirebilirsiniz. Oluşturulan görevlerin kim tarafından, ne zaman ve ne kadar sürede yapılacağını belirleyebilir ve bu görevlerin beklenen sürelerde yapılıp yapılmadığını takip edebilirsiniz. Yöneticiler mesaj alanı üzerinden çalışanları ile iletişim kurabilir, çalışanlar da bas-konuş sistemi ile kendi aralarında kolaylıkla iletişim kurabilirler.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://www.workmana.com/tr/task/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-task.svg",
+                "alt": "workforce task",
+                "width": 178,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "denetim",
+              "text": "<p>idenfit denetim yazılımı Audit ile denetimin tüm aşamalarını hızla ve kolaylıkla tamamlayabilir ve raporlayabilirsiniz. Audit ile denetimi 5 temel aşamada bitirebilirsiniz. Denetim notları oluşturabilir ve sisteme kaydedebilirsiniz. Değerlendirme kategorileri ve her kategori için soru veya soru grupları oluşturabilirsiniz. Yerine getirilen göreve ve çalışana puan verebilirsiniz. Ayrıca denetim raporları oluşturabilirsiniz.</p>\n",
+              "ctaText": "daha fazlası >",
+              "ctaUrl": "https://www.workmana.com/tr/audit/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-audit.svg",
+                "alt": "workforce audit",
+                "width": 182,
+                "height": 120
+              }
+            }
+          ],
+          "faq": []
+        },
+        "en": {
+          "id": 16188,
+          "slug": "workforce-management",
+          "link": "https://idenfit.com/en/human-resources-workforce-management-module/",
+          "title": "Workforce Management",
+          "hero": {
+            "title": "Workforce Management",
+            "text": "Schedule shifts and track your employee working hours, absenteeism and leaves accurately with Idenfit workforce management.",
+            "ctaText": "Get Started",
+            "ctaUrl": "https://idenfit.com/request-online-presentation/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-banner-en@2x.png",
+              "alt": "workforce banner en@2x",
+              "width": 1453,
+              "height": 795
+            }
+          },
+          "intro": {
+            "title": "Workforce Management",
+            "text": "<p>idenfit workforce management is the platform for scheduling shifts, clocking in &amp; out, calculating time off and track leaves accurately. It is in full compliance with labor law. It helps users assign tasks to the right person with the right skill at the right time, ensuring that staff are optimally positioned in order to meet demand. It allows users to track employees daily performance and quickly pinpoint areas of improvement while supplying secure datas about time &amp; attendance.</p>\n"
+          },
+          "tiles": [
+            {
+              "key": "1",
+              "title": "time & attendance",
+              "text": "<p>Idenfit helps you to plan your employees’ schedules in minutes and manage time off, availability and shift trade requests. You can track employee hours, avoid exceeding budgets and scheduling overtime, also reduce absenteeism and late arrivals, and handle unexpected changes without any pain. Idenfit time and attendance management module is a perfect choice for multi-location offices. Employee shift planning on Idenfit gives you all the insight you need to plan conflict-free shifts in minutes. From one platform, you can keep track of the shifts and see all shift planning on calendar with coloured and fun design.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/time-attendance-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-timekeeping.svg",
+                "alt": "workforce timekeeping",
+                "width": 140,
+                "height": 136
+              }
+            },
+            {
+              "key": "2",
+              "title": "leave",
+              "text": "<p>Idenfit leave management system allows you to stop all time-off abuses and implement company-wide leave policy. You can add your own leave types, make exceptions for individual employees and groups for using leave requests and approval. Idenfit let users monitor leave requests and approvals annually, monthly and weekly. You can review any leave requests on the user-friendly dashboard, add a new one or edit it. It is also possible to define and add leave types to systems for the users.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/leave-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-leave.svg",
+                "alt": "workforce leave",
+                "width": 181,
+                "height": 133
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "shift planning",
+              "text": "<p>Idenfit helps you to plan your employees’ shifts in minutes and manage time off, availability and shift trade requests. You can track employee hours, avoid exceeding budgets and scheduling overtime, also reduce absenteeism and late arrivals, and handle unexpected changes without any pain. Smart shift management lets your employees choose for shifts they would like to work by scheduling available shifts for them with Idenfit. You can either allow employees pick the shifts on the first-come, first-served basis or approve the applicants yourself.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-shifts-1.svg",
+                "alt": "workforce shifts 1",
+                "width": 203,
+                "height": 132
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "company calendar",
+              "text": "<p>Time-management and scheduling is easier with Idenfit company calendar. Admins can create meetings, notifications, events or notes, get reminders about upcoming activities, so users always know what’s next. Calendar is designed for teams, so it’s easy to share your schedule with others and create multiple calendars that teams can use together.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/corporate-calender-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-calendar.svg",
+                "alt": "workforce calendar",
+                "width": 153,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "guard",
+              "text": "<p>With the Idenfit security tour control system, managers can see which staff is on which tour, missing laps, unfinished laps in real time. Thus, they can be aware of all the events in the field, follow and manage the events instantly. Managers can create unlimited and detailed tours in the system, add as many employees as they want, and follow up general employees. Entry-exit records and working schedule can be viewed on the monitor screen, where all flows can be monitored instantly.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/guard/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-guard.svg",
+                "alt": "workforce guard",
+                "width": 158,
+                "height": 122
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "task",
+              "text": "<p><span data-mce-type=\"bookmark\" style=\"display: inline-block; width: 0px; overflow: hidden; line-height: 0;\" class=\"mce_SELRES_start\">﻿</span>With Idenfit Task, you can perform task planning, tracking and evaluation of planned tasks both on the web and mobile. You can determine who, when and how long the created tasks will be performed and you can follow whether these tasks are performed in the expected times. With Idenfit Task, employees can view the general task list assigned to the team they are affiliated to, they can view the tasks assigned to them specially, and take a date based task from the general task list.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/task/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-task.svg",
+                "alt": "workforce task",
+                "width": 178,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "audit",
+              "text": "<p>Idenfit Audit is designed to control all task processes in real time, to check if tasks are performed on-site and on time. With the Idenfit Audit software, you can quickly and easily complete and report all stages of the audit. You can view the defined audit forms and audit reports in the menu according to the desired category under &#8220;audit report&#8221;, &#8220;detailed audit report&#8221;, &#8220;employee based audit report&#8221; and &#8220;integration records&#8221; and print them out as reports.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/audit/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-audit.svg",
+                "alt": "workforce audit",
+                "width": 182,
+                "height": 120
+              }
+            }
+          ],
+          "faq": []
+        },
+        "it": {
+          "id": 23803,
+          "slug": "modulo-gestione-risorse-umane-forza-lavoro",
+          "link": "https://idenfit.com/it/modulo-gestione-risorse-umane-forza-lavoro/",
+          "title": "Workforce Management_IT",
+          "hero": {
+            "title": "Workforce Management",
+            "text": "Schedule shifts and track your employee working hours, absenteeism and leaves accurately with Idenfit workforce management.",
+            "ctaText": "Get Started",
+            "ctaUrl": "https://idenfit.com/request-online-presentation/",
+            "image": {
+              "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-banner-en@2x.png",
+              "alt": "workforce banner en@2x",
+              "width": 1453,
+              "height": 795
+            }
+          },
+          "intro": {
+            "title": "Workforce Management",
+            "text": "idenfit workforce management is the platform for scheduling shifts, clocking in &amp; out, calculating time off and track leaves accurately. It is in full compliance with labor law. It helps users assign tasks to the right person with the right skill at the right time, ensuring that staff are optimally positioned in order to meet demand. It allows users to track employees daily performance and quickly pinpoint areas of improvement while supplying secure datas about time &amp; attendance."
+          },
+          "tiles": [
+            {
+              "key": "1",
+              "title": "time & attendance",
+              "text": "<p>Idenfit helps you to plan your employees’ schedules in minutes and manage time off, availability and shift trade requests. You can track employee hours, avoid exceeding budgets and scheduling overtime, also reduce absenteeism and late arrivals, and handle unexpected changes without any pain. Idenfit time and attendance management module is a perfect choice for multi-location offices. Employee shift planning on Idenfit gives you all the insight you need to plan conflict-free shifts in minutes. From one platform, you can keep track of the shifts and see all shift planning on calendar with coloured and fun design.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/time-attendance-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-timekeeping.svg",
+                "alt": "workforce timekeeping",
+                "width": 140,
+                "height": 136
+              }
+            },
+            {
+              "key": "2",
+              "title": "leave",
+              "text": "<p>Idenfit leave management system allows you to stop all time-off abuses and implement company-wide leave policy. You can add your own leave types, make exceptions for individual employees and groups for using leave requests and approval. Idenfit let users monitor leave requests and approvals annually, monthly and weekly. You can review any leave requests on the user-friendly dashboard, add a new one or edit it. It is also possible to define and add leave types to systems for the users.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/leave-management-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-leave.svg",
+                "alt": "workforce leave",
+                "width": 181,
+                "height": 133
+              }
+            },
+            {
+              "key": "2_copy",
+              "title": "shift planning",
+              "text": "<p>Idenfit helps you to plan your employees’ shifts in minutes and manage time off, availability and shift trade requests. You can track employee hours, avoid exceeding budgets and scheduling overtime, also reduce absenteeism and late arrivals, and handle unexpected changes without any pain. Smart shift management lets your employees choose for shifts they would like to work by scheduling available shifts for them with Idenfit. You can either allow employees pick the shifts on the first-come, first-served basis or approve the applicants yourself.</p>\n",
+              "ctaText": "",
+              "ctaUrl": "",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-shifts-1.svg",
+                "alt": "workforce shifts 1",
+                "width": 203,
+                "height": 132
+              }
+            },
+            {
+              "key": "2_copy2",
+              "title": "company calendar",
+              "text": "<p>Time-management and scheduling is easier with Idenfit company calendar. Admins can create meetings, notifications, events or notes, get reminders about upcoming activities, so users always know what’s next. Calendar is designed for teams, so it’s easy to share your schedule with others and create multiple calendars that teams can use together.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://idenfit.com/corporate-calender-module/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-calendar.svg",
+                "alt": "workforce calendar",
+                "width": 153,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy3",
+              "title": "guard",
+              "text": "<p>With the Idenfit security tour control system, managers can see which staff is on which tour, missing laps, unfinished laps in real time. Thus, they can be aware of all the events in the field, follow and manage the events instantly. Managers can create unlimited and detailed tours in the system, add as many employees as they want, and follow up general employees. Entry-exit records and working schedule can be viewed on the monitor screen, where all flows can be monitored instantly.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/guard/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-guard.svg",
+                "alt": "workforce guard",
+                "width": 158,
+                "height": 122
+              }
+            },
+            {
+              "key": "2_copy4",
+              "title": "task",
+              "text": "<p><span data-mce-type=\"bookmark\" style=\"display: inline-block; width: 0px; overflow: hidden; line-height: 0;\" class=\"mce_SELRES_start\">﻿</span>With Idenfit Task, you can perform task planning, tracking and evaluation of planned tasks both on the web and mobile. You can determine who, when and how long the created tasks will be performed and you can follow whether these tasks are performed in the expected times. With Idenfit Task, employees can view the general task list assigned to the team they are affiliated to, they can view the tasks assigned to them specially, and take a date based task from the general task list.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/task/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-task.svg",
+                "alt": "workforce task",
+                "width": 178,
+                "height": 115
+              }
+            },
+            {
+              "key": "2_copy5",
+              "title": "audit",
+              "text": "<p>Idenfit Audit is designed to control all task processes in real time, to check if tasks are performed on-site and on time. With the Idenfit Audit software, you can quickly and easily complete and report all stages of the audit. You can view the defined audit forms and audit reports in the menu according to the desired category under &#8220;audit report&#8221;, &#8220;detailed audit report&#8221;, &#8220;employee based audit report&#8221; and &#8220;integration records&#8221; and print them out as reports.</p>\n",
+              "ctaText": "find out more >",
+              "ctaUrl": "https://www.workmana.com/en/audit/",
+              "image": {
+                "url": "https://idenfit.com/wp-content/uploads/2025/08/workforce-audit.svg",
+                "alt": "workforce audit",
+                "width": 182,
+                "height": 120
+              }
+            }
+          ],
+          "faq": []
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getGlobalBrandContent, getGlobalBrandLocaleUrls, getGlobalBrandTitle } from '../../data/miscPagesContent';
+
+const content = { ...getGlobalBrandContent('en')!, faq: [] };
+const pageTitle = getGlobalBrandTitle('en');
+const localeUrls = getGlobalBrandLocaleUrls();
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} />

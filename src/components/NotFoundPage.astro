@@ -1,0 +1,71 @@
+---
+// 404 sayfası (2026-08-11) — `src/pages/404.astro` (TR) + `en/nl/it/404.astro`
+// tarafından çağrılır. Astro'nun `404.astro` dosya adını ÖZEL olarak
+// tanıdığı ve `<dizin>/404.html` (index.html DEĞİL, trailingSlash
+// ayarından BAĞIMSIZ) ürettiği konvansiyona uyar — bu, Cloudflare
+// Pages'in dizin-bazlı 404 çözümlemesiyle (her dizin seviyesinde
+// `404.html` arar, bulamazsa üst dizine çıkar) birleşince `/en/*` altında
+// kaybolan bir sayfa `en/404.html`'i, `/nl/*` altında `nl/404.html`'i vb.
+// otomatik servis eder.
+//
+// `noindex` KASITLI true — 404 durumu zaten arama motorlarınca
+// indekslenmez ama meta etiketi ek bir güvenlik katmanı (bkz. CLAUDE.md
+// Açık nokta #27, "noindex sayfa" sayımı bu 4 sayfayla güncellenmeli).
+//
+// Popüler sayfa linklerinin METİNLERİ burada YAZILMADI — mevcut
+// `footer.links.*` çevirileri (Blog/İletişim/Fiyatlar/SSS) yeniden
+// kullanıldı, içerik tekrarı yok.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n';
+import { buildIdenfitTitle } from '../data/pageTitle';
+import { getContactSlug } from '../data/miscPagesContent';
+import { getPricingSlug } from '../data/pricingContent';
+import { getFaqSlug } from '../data/faqContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const nf = t.notFound;
+
+const homeHref = getRelativeLocaleUrl(locale, '');
+const blogHref = getRelativeLocaleUrl(locale, 'blog');
+const contactHref = getRelativeLocaleUrl(locale, getContactSlug(locale) ?? 'iletisim');
+const pricingHref = getRelativeLocaleUrl(locale, getPricingSlug(locale) ?? 'fiyatlar');
+const faqHref = getRelativeLocaleUrl(locale, getFaqSlug(locale) ?? getFaqSlug('en') ?? 'sss');
+
+const title = buildIdenfitTitle(nf.pageTitle, locale);
+---
+
+<BaseLayout title={title} description={nf.metaDescription} noindex={true}>
+	<section class="mx-auto flex max-w-3xl flex-col items-center px-4 py-20 text-center sm:px-6 lg:py-28">
+		<!-- Kaynağın (idenfit.com) gerçek 404 sayfasından — dürbünle bakan
+		     illüstrasyon, tema asset'i (`wp-content/themes/vault/`, medya
+		     kütüphanesi DEĞİL, bu yüzden diğer görsellerden farklı bir
+		     yol). 2026-08-11'de canlı `idenfit.com/<var-olmayan-url>/`
+		     ziyaret edilip bulundu, uydurulmadı. Dekoratif (hemen altındaki
+		     H1 zaten anlamı taşıyor). -->
+		<img
+			src="https://idenfit.com/wp-content/themes/vault/assets/img/bg-404.png"
+			alt=""
+			loading="lazy"
+			width="534"
+			height="534"
+			class="h-48 w-48 sm:h-64 sm:w-64"
+		/>
+		<p class="mt-6 text-7xl font-bold text-brand sm:text-8xl" aria-hidden="true">404</p>
+		<h1 class="mt-4 text-2xl font-bold text-heading sm:text-3xl">{nf.heading}</h1>
+		<p class="mt-4 max-w-xl text-body">{nf.description}</p>
+		<a href={homeHref} class="btn-cta-solid mt-8">{nf.backHomeButton}</a>
+
+		<div class="mt-12 w-full border-t border-gray-100 pt-8">
+			<p class="text-sm font-semibold uppercase tracking-wide text-muted">{nf.popularLinksTitle}</p>
+			<ul class="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
+				<li><a href={blogHref} class="text-sm font-semibold text-brand hover:underline">{t.footer.links.about.blog}</a></li>
+				<li><a href={contactHref} class="text-sm font-semibold text-brand hover:underline">{t.footer.links.about.contact}</a></li>
+				<li><a href={pricingHref} class="text-sm font-semibold text-brand hover:underline">{t.footer.links.general.pricing}</a></li>
+				<li><a href={faqHref} class="text-sm font-semibold text-brand hover:underline">{t.footer.links.general.faq}</a></li>
+			</ul>
+		</div>
+	</section>
+</BaseLayout>

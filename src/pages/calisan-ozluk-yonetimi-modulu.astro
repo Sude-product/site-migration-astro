@@ -1,0 +1,18 @@
+---
+// Aşama 3 (kısım 1) — 7 temiz modülden biri (Özlük Dosyası). Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
+
+const trSlug = 'calisan-ozluk-yonetimi-modulu-2';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
+// `ctaKeyword` (2026-08-12, CTA/anchor text optimizasyonu — kullanıcı
+// tercihi) — otomatik üretilen "Özlük dosyası modülü için Başvur"
+// (pageTitle="Özlük dosyası modülü") yerine kullanıcının tercih ettiği
+// daha kısa/sade "Özlük Dosyası için Başvur". H1 DEĞİŞMEDİ.
+const ctaKeyword = 'Özlük Dosyası';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

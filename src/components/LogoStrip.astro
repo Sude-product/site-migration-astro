@@ -1,0 +1,61 @@
+---
+// Müşteri logo şeridi — idenfit.com ana sayfasından (bkz.
+// docs/homepage-sections-report.md §2). 7 gerçek müşteri logosu
+// (`src/data/homeContent.ts`, 4 dilde aynı — WP medya kütüphanesinde
+// dile göre ayrı logo yok) + tek bir başlık cümlesi.
+import { getTranslations } from '../i18n';
+import { CUSTOMER_LOGOS } from '../data/homeContent';
+
+interface Props {
+  /** `true` ise statik wrap-grid yerine sürekli kayan bir marquee render
+   * eder (2026-08-10, `/demo` landing page talebi). Varsayılan `false` —
+   * 4 ana sayfa (`tr`/`en`/`nl`/`it`) kullanımını DEĞİŞTİRMEZ, opt-in.
+   * Teknik `CustomerLogoMarquee.astro` ile AYNI, kanıtlanmış desen
+   * (`animate-marquee` utility, 2x tekrar eden `sequence`, `width`/
+   * `height`'lı `<img>` — CLS/jump bug'ı için elzem, bkz. o dosyadaki
+   * kök-neden notu) — ayrı bir component açmak yerine buraya opt-in prop
+   * olarak eklendi (kod tekrarı yok, homepage'in davranışı korunuyor). */
+  animated?: boolean;
+}
+
+const { animated = false } = Astro.props;
+const t = getTranslations(Astro.currentLocale ?? 'tr');
+// 7 logo × ~6s/logo — `CustomerLogoMarquee.astro`'nun Müşteriler
+// sayfasındaki 14 logo/84s'lik GERÇEK, kaynaktan ölçülmüş hızıyla (bkz. o
+// dosyadaki "SÜRE" notu) AYNI per-logo temposu, farklı logo sayısına
+// ölçeklendi — yeni bir tahmin DEĞİL.
+const sequence = animated ? [...CUSTOMER_LOGOS, ...CUSTOMER_LOGOS] : CUSTOMER_LOGOS;
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+  <p class="mx-auto max-w-2xl text-center text-base font-medium text-body">
+    {t.home.logoStrip.caption}
+  </p>
+  {
+    animated ? (
+      <div class="reveal group relative left-1/2 right-1/2 mt-8 w-screen -mx-[50vw] overflow-hidden py-2" role="region" aria-label="Müşteri logoları">
+        <div
+          class="flex w-max items-center gap-x-14 whitespace-nowrap will-change-transform animate-marquee group-hover:[animation-play-state:paused] motion-reduce:animate-none"
+          style="animation-duration: 42s;"
+        >
+          {sequence.map((logo, i) => (
+            <img
+              src={logo.url}
+              alt={i >= CUSTOMER_LOGOS.length ? '' : logo.name}
+              aria-hidden={i >= CUSTOMER_LOGOS.length ? 'true' : undefined}
+              width={logo.width}
+              height={logo.height}
+              class="h-10 w-auto shrink-0 object-contain sm:h-12"
+            />
+          ))}
+        </div>
+      </div>
+    ) : (
+      <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+        {CUSTOMER_LOGOS.map((logo) => (
+          <img src={logo.url} alt={logo.name} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+        ))}
+      </div>
+    )
+  }
+</section>

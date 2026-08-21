@@ -1,0 +1,161 @@
+---
+// Sayfa altına sabitlenen "demo talep et" promosyon bar'ı — 2026-08-19,
+// kullanıcının kendi referans ekran görüntüsüne dayanan BİLİNÇLİ YENİ bir
+// özellik (kaynak WP sitesinde karşılığı YOK — `KURUMSAL` mega-menüsündeki
+// promo kart/ana sayfa dashboard widget'ı ile AYNI ilke, bkz. CLAUDE.md).
+// Şu an yalnızca TR ana sayfasına eklendi (kullanıcı kararı) — site geneli
+// DEĞİL, `FloatingContactButtons.astro`'nun aksine yalnızca `index.astro`
+// import ediyor.
+//
+// Kapatma ikonu: referans görüntüdeki kırmızı X yerine, kullanıcı isteğiyle
+// idenfit logosunun KENDİ yıldızı kullanıldı — `IdenfitLogo.tsx`'in kaynak
+// SVG'sindeki son/bağımsız path (marka rengiyle sabit yıldız aksanı,
+// `var(--color-brand)`) birebir buraya taşındı, viewBox yalnızca o path'in
+// bounding box'ını kapsayacak şekilde daraltıldı (`85 1 13 13`) — ikinci
+// bir path/kaynak İCAT EDİLMEDİ.
+//
+// Fotoğraf: kullanıcının kendi paylaştığı gerçek, yüksek çözünürlüklü
+// dosya (2026-08-19) — `public/images/demo-bar-avatar.jpg`. WP kaynağında
+// karşılığı yok (bkz. yukarıdaki "bilinçli yeni özellik" notu), bu yüzden
+// `wp-content/uploads` yerine yeni bir `public/images/` klasöründe.
+//
+// Boyut (2026-08-19, kullanıcı geri bildirimi — "şu an çok büyük"):
+// ilk sürüm `max-w-3xl` + `h-16` avatar + `text-lg` kullanıyordu, kaynağın
+// kendi referans görüntüsündeki KOMPAKT orana göre belirgin büyüktü —
+// tüm ölçüler (konteyner genişliği, avatar, yazı tipi, buton dolgusu)
+// bir kademe küçültüldü.
+//
+// Görünürlük (2026-08-19, kullanıcı isteği — "sayfayı aşağı kaydırırken
+// görünsün"): bar artık sayfa yüklenir yüklenmez GÖRÜNMÜYOR — `data-state`
+// özniteliğiyle 3 durum yönetiliyor ("bekliyor" [varsayılan, gizli] →
+// "visible" [`SHOW_AFTER_PX` eşiği aşılınca] → "dismissed" [kapatma
+// tıklamasından sonra, kalıcı]). Kapatma animasyonu ARTIK ayrı bir
+// Tailwind class'ı (`translate-y-[150%]`) DEĞİL, aynı `data-state` CSS
+// kuralının bir parçası — iki ayrı transform kaynağının ÇAKIŞMASI
+// (aşağıdan kayarak gelme İLE kapanırken aşağı kayma AYNI ANDA farklı
+// mekanizmalarla yönetilseydi) önlenmiş oldu. Kaydırma algılama basit bir
+// `scroll` dinleyicisi (`{ passive: true }`, eşik aşılınca dinleyici
+// KALDIRILIYOR — sürekli çalışan bir maliyet yok) — `scroll-reveal.js`'in
+// `IntersectionObserver`'ı burada uygun DEĞİL (bu bar `position:fixed`
+// olduğu için kendi "viewport'a girişini" gözlemlemenin bir anlamı yok,
+// sayfanın KAYDIRILMASI izlenmesi gerekiyor).
+//
+// Hover efekti (aynı gün, kullanıcı isteği): kart, projede zaten yaygın
+// olan "hover'da hafif yukarı kalkma + gölge artışı" ilkesiyle (`WidgetCard`/
+// `EvaluationRow` ile AYNI dil, bkz. CLAUDE.md) — kapatma butonu/CTA
+// butonunun KENDİ hover'ları zaten vardı, bu YENİ olan kartın TAMAMININ
+// hover'ı.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const demoHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+---
+
+<div
+  id="sticky-demo-bar"
+  class="fixed inset-x-0 bottom-0 z-40 flex justify-center px-4 pb-4 sm:px-6"
+>
+  <div class="relative w-full max-w-md">
+    <button
+      type="button"
+      id="sticky-demo-bar-close"
+      aria-label="Kapat"
+      class="absolute -top-2.5 -left-2.5 z-10 flex h-6 w-6 items-center justify-center rounded-full border-2 border-brand bg-white shadow-sm transition-transform hover:scale-110"
+    >
+      <svg viewBox="85 1 13 13" class="h-3 w-3" aria-hidden="true">
+        <path
+          d="M95.0963 13.2725C94.9391 13.2725 94.7844 13.2209 94.6529 13.1436L91.7629 11.3724L88.8729 13.1436C88.5867 13.3266 88.2232 13.3008 87.9345 13.1178C87.6483 12.909 87.5168 12.5712 87.5968 12.2335L88.3779 8.92588L85.7999 6.71391C85.5395 6.47931 85.4363 6.14158 85.5395 5.80386C85.6426 5.46613 85.9288 5.25731 86.2691 5.23153L89.6798 4.94536L90.9817 1.82077C91.1106 1.50882 91.4252 1.3 91.7629 1.3C92.1006 1.3 92.4126 1.50882 92.544 1.82077L93.846 4.94536L97.2309 5.23153C97.5687 5.25731 97.8548 5.49191 97.9605 5.80386C98.0636 6.14158 97.9605 6.48188 97.7001 6.71391L95.1479 8.92588L95.929 12.2335C96.0064 12.5712 95.8775 12.9115 95.5913 13.1178C95.4624 13.2209 95.2794 13.2751 95.0963 13.2751V13.2725Z"
+          fill="var(--color-brand)"
+        />
+      </svg>
+    </button>
+
+    <div
+      class="flex flex-col items-center gap-2 rounded-xl border-2 border-brand bg-white p-2.5 shadow-[0_6px_20px_rgba(0,0,0,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)] sm:flex-row sm:gap-3 sm:p-3"
+    >
+      <img
+        src="/images/demo-bar-avatar.jpg"
+        alt="idenfit ekibinden bir temsilci"
+        width="96"
+        height="96"
+        class="h-11 w-11 shrink-0 rounded-full object-cover"
+      />
+
+      <p class="flex-1 text-center text-xs leading-snug font-bold text-heading sm:text-left">
+        İK Yönetiminde Devrim:<br />
+        <span class="text-brand">Ücretsiz İdenfit Mikro Paket</span>
+      </p>
+
+      <a
+        href={demoHref}
+        class="btn-cta-solid flex shrink-0 items-center gap-1 px-3.5 py-2 text-xs whitespace-nowrap"
+      >
+        Demo Talep Et
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var STORAGE_KEY = 'idenfit-demo-bar-dismissed';
+    var SHOW_AFTER_PX = 400;
+    var bar = document.getElementById('sticky-demo-bar');
+    var closeBtn = document.getElementById('sticky-demo-bar-close');
+    if (!bar || !closeBtn) return;
+
+    if (sessionStorage.getItem(STORAGE_KEY) === '1') {
+      bar.setAttribute('data-state', 'dismissed');
+      return;
+    }
+
+    closeBtn.addEventListener('click', function () {
+      bar.setAttribute('data-state', 'dismissed');
+      sessionStorage.setItem(STORAGE_KEY, '1');
+    });
+
+    function onScroll() {
+      if (window.scrollY > SHOW_AFTER_PX) {
+        bar.setAttribute('data-state', 'visible');
+        window.removeEventListener('scroll', onScroll);
+      }
+    }
+    // Sayfa zaten kaydırılmış açılırsa (ör. bir çapa linkiyle gelindiyse)
+    // dinleyici hiç tetiklenmeden bar sonsuza kadar gizli kalmasın diye
+    // ilk durumu da kontrol ediyoruz.
+    onScroll();
+    if (bar.getAttribute('data-state') !== 'visible') {
+      window.addEventListener('scroll', onScroll, { passive: true });
+    }
+  })();
+</script>
+
+<style>
+  #sticky-demo-bar {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+    transition:
+      opacity 400ms ease-out,
+      transform 400ms ease-out;
+  }
+  #sticky-demo-bar[data-state='visible'] {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  #sticky-demo-bar[data-state='dismissed'] {
+    opacity: 0;
+    transform: translateY(24px);
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #sticky-demo-bar {
+      transition: none;
+    }
+  }
+</style>

@@ -1,0 +1,16 @@
+---
+import LegalPage from '../../../components/LegalPage.astro';
+import { getLegalContent, getLegalLocaleUrls, getLegalModifiedDate, DISTANCE_SALES_TR_SLUG } from '../../../data/miscPagesContent';
+
+// Kaynağın kendi IT WP title'ı "Distance Sales Contract_IT" — İngilizce +
+// anlamsız "_IT" soneki (2026-08-10 title uzunluk denetiminde bulundu,
+// `PRIVACY_SECURITY_IT_TITLE`'daki AYNI kaynak hatası). Hem H1 hem
+// `<title>` için gerçek İtalyanca başlıkla değiştirildi.
+const content = { ...getLegalContent(DISTANCE_SALES_TR_SLUG, 'it')!, title: 'Contratto di Vendita a Distanza' };
+const localeUrls = getLegalLocaleUrls(DISTANCE_SALES_TR_SLUG);
+const modified = getLegalModifiedDate(DISTANCE_SALES_TR_SLUG, 'it');
+const description =
+  'Scopri i termini del Contratto di Vendita a Distanza di idenfit, il tuo diritto di recesso e le condizioni di pagamento.';
+---
+
+<LegalPage content={content} localeUrls={localeUrls} description={description} hreflangLocales={['tr', 'en', 'it']} modified={modified} />

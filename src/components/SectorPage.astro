@@ -1,0 +1,137 @@
+---
+// Sektör sayfası — idenfit.com'un gerçek `sectors` custom post type
+// içeriğinden (bkz. `src/data/sectorContent.ts`, `reference/wordpress-export/sectors.json`).
+// 4 dilde 12 sektörün tamamı bu TEK component'ten üretiliyor
+// (`src/pages/[sectorSlug].astro` + `en/nl/it` eşdeğerleri).
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectorFeatureCard from './SectorFeatureCard.astro';
+import LastUpdated from './LastUpdated.astro';
+import { getTranslations } from '../i18n';
+import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
+import type { getSectorContent } from '../data/sectorContent';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: NonNullable<ReturnType<typeof getSectorContent>>;
+  /** Bu sektörün 4 dildeki gerçek URL'leri — bkz. `getSectorLocaleUrls()`. */
+  localeUrls: Partial<Record<Locale, string>>;
+  /** Meta description override — `hero.text` bazı sektörlerde 70 karakterden
+   * kısa çıkıyor (2026-08-10 denetimi, bkz. CLAUDE.md); verilmezse eski
+   * `hero.text || whyIdenfit.text` davranışına düşer (`ProductPage.astro`/
+   * `SecurityPage.astro` ile AYNI opt-in desen). */
+  description?: string;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz.
+   * `LastUpdated.astro`. */
+  modified?: Date;
+}
+
+const { content, localeUrls, description: descriptionOverride, modified } = Astro.props;
+const { hero, whyIdenfit, features } = content;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+// `content.pageTitle` çoğu sektörde 50 karakterin altında (2026-08-10
+// title uzunluk denetimi, ör. "idenfit — Turizm" 16 karakter) —
+// `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
+const title = buildIdenfitTitle(content.pageTitle, locale);
+// CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ProductPage.astro`'daki
+// AYNI mantığın yorumu. Sektör sayfalarında `pageTitle` HER ZAMAN kısa
+// (sektör adı, ör. "Gıda Sektörü") olduğu için override prop'u GEREKMİYOR
+// — tamamen otomatik (keşif turunda 48/48 sektör sayfası 60 karakter
+// sınırının altında doğrulandı).
+const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(content.pageTitle, locale) : hero.ctaText;
+---
+
+<BaseLayout
+  title={title}
+  description={descriptionOverride ?? (hero.text || whyIdenfit.text)}
+  localeUrls={localeUrls}
+  image={hero.image?.url ?? whyIdenfit.image?.url}
+  dateModified={modified?.toISOString()}
+>
+  <!-- Hero -->
+  <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div>
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl">
+          {hero.title}
+        </h1>
+        {hero.text && <p class="mt-5 max-w-xl text-lg text-body">{hero.text}</p>}
+        {
+          hero.ctaText && hero.ctaUrl && (
+            <a
+              href={hero.ctaUrl}
+              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+            >
+              {heroCtaText}
+            </a>
+          )
+        }
+      </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="eager"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <!-- "Neden idenfit?" bloğu -->
+  {
+    whyIdenfit.title && (
+      <section class="bg-brand-light py-12 lg:py-20">
+        <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+            {whyIdenfit.image && (
+              <div class="order-2 flex items-center justify-center lg:order-1">
+                <img
+                  src={whyIdenfit.image.url}
+                  alt={whyIdenfit.image.alt}
+                  loading="lazy"
+                  width={whyIdenfit.image.width}
+                  height={whyIdenfit.image.height}
+                  class="w-full rounded-2xl object-cover"
+                />
+              </div>
+            )}
+            <div class="order-1 lg:order-2">
+              <h2 class="h2-section text-heading">{whyIdenfit.title}</h2>
+              <p class="mt-4 text-body">{whyIdenfit.text}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Modül vurgu blokları (2-4 arası, veri kaynaklı — sabit sayı değil).
+       "Few H2 subheadings" SEO bulgusu (2026-08-17) — kartlar zaten h3
+       (`SectorFeatureCard`) ama bu bölümün hiç sarmalayıcı h2'si yoktu,
+       whyIdenfit'in h2'sinden sonra "boşlukta" duruyordu. -->
+  {
+    features.length > 0 && (
+      <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <h2 class="h2-section text-heading">{t.sectorPage.modulesHeading}</h2>
+        <div class="mt-8 grid gap-8 sm:grid-cols-2">
+          {features.map((f) => (
+            <SectorFeatureCard {...f} />
+          ))}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- "No visible content dates" GEO bulgusu (2026-08-17) — kullanıcı
+       kararıyla CTA'nın hemen altından sayfanın EN ALTINA taşındı. -->
+  <div class="mx-auto max-w-7xl px-4 pb-8 sm:px-6 lg:px-8">
+    <LastUpdated date={modified} locale={locale} />
+  </div>
+</BaseLayout>

@@ -1,0 +1,18 @@
+---
+// Aşama 2.5 — şema çeşitliliği testi (Anket Modülü). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'anket-modulu';
+const content = getProductContent(trSlug, 'en')!;
+const pageTitle = getProductPageTitle(trSlug, 'en');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
+// hero.text 44 karakter (meta description denetimi, 2026-08-10) — sayfanın
+// kendi gövde metnindeki gerçek temalardan (özel anket/yorum formları,
+// departman bazlı sonuçlar) türetildi.
+const description =
+  'Create custom surveys and comment forms in idenfit, gather employee feedback by department, and turn results into fast decisions.';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} description={description} modified={modified} />

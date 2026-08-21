@@ -1,0 +1,45 @@
+---
+// İK hub sayfalarının (İnsan Kaynakları Modülleri, İşgücü Yönetimi) "ürün
+// tile grid"indeki tek bir kart — bkz. `src/data/hubContent.ts`.
+import type { HubTile } from '../data/hubContent';
+
+interface Props extends HubTile {
+  /** Başlık atlaması düzeltmesi (2026-08-13, "Başlık hiyerarşisi sıralı
+   * değil" SEO uyarısı — bkz. CLAUDE.md). Normalde `h3` (intro'nun H2'sinin
+   * ALTINDA nested) — ama `intro` verisi eksik bir hub/dilde (H2 hiç
+   * render edilmiyor) `HubPage.astro` burayı `h2`'ye düşürür, H1→H3
+   * atlamasını önler. */
+  headingLevel?: 'h2' | 'h3';
+}
+
+const { title, text, ctaText, ctaUrl, ctaExternal, image, headingLevel = 'h3' } = Astro.props;
+const Heading = headingLevel;
+---
+
+<div class="flex flex-col rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm">
+  {
+    image ? (
+      <img src={image.url} alt={image.alt} loading="lazy" class="h-12 w-12 object-contain" />
+    ) : (
+      <div class="flex h-12 w-12 items-center justify-center rounded-full bg-brand-light text-brand" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-6 w-6">
+          <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z" />
+        </svg>
+      </div>
+    )
+  }
+  <Heading class="mt-4 text-base font-semibold capitalize text-heading">{title}</Heading>
+  <div class="mt-2 flex-1 text-sm leading-relaxed text-body [&_p]:mb-2 [&_p:last-child]:mb-0" set:html={text} />
+  {
+    ctaText && ctaUrl && (
+      <a
+        href={ctaUrl}
+        target={ctaExternal ? '_blank' : undefined}
+        rel={ctaExternal ? 'noopener noreferrer' : undefined}
+        class="mt-4 inline-flex w-fit items-center text-sm font-semibold text-brand hover:underline"
+      >
+        {ctaText}
+      </a>
+    )
+  }
+</div>

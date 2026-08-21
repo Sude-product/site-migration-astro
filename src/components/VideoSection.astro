@@ -1,0 +1,88 @@
+---
+// Video bölümü — "Neden idenfit?" (bkz. docs/homepage-sections-report.md
+// §4). "Daha Fazla" linki Neden İdenfit sayfasına gidiyor — bu bölüm o
+// sayfa henüz kurulmadan yazılmıştı ve bare slug'ı hardcode etmişti; sayfa
+// sonradan gerçek içerikle kuruldu (bkz. `miscPagesContent.ts`) ama bu
+// link hiç güncellenmemişti, EN/NL/IT'de kırıktı (site denetim raporu
+// madde 5) — artık gerçek per-locale slug'a çözülüyor.
+//
+// BULUNAN VERİ HATASI (düzeltildi, bkz. homeContent.ts): kaynak sitede
+// IT, TR'nin (Türkçe) videosunu kullanıyordu — artık EN/NL ile aynı
+// (İngilizce) videoya çevrildi.
+//
+// ⚠️ DÜZELTME (2026-07-28, üçüncü tur) — İKİ gerçek hata bulundu ve
+// düzeltildi:
+// 1. Video kaynakta AUTOPLAY DEĞİL — canlı HTML'de video widget'ının
+//    `data-settings` alanı doğrulandı: `"show_image_overlay":"yes"`,
+//    `"lazy_load":"yes"` — Elementor'un "tıkla-oynat" davranışı (aynı
+//    `/musteriler/`'in video kartlarındaki gibi): sayfa yüklenince gerçek
+//    thumbnail + ortalanmış play butonu gösteriliyor, tıklayınca YouTube
+//    iframe'i yükleniyor. Önceki sürüm ham `<iframe>` kullanıyordu (bu
+//    TARAYICIDA autoplay YAPMIYORDU ama kullanıcı sayfa yüklenir
+//    yüklenmez "hazır" bir iframe görüyordu, kaynağın THUMBNAIL+play
+//    butonu deneyiminden farklıydı) — artık `YoutubeClickToPlay.tsx`
+//    (Müşteriler sayfasındaki AYNI component) yeniden kullanılıyor.
+// 2. Video kutusu kaynakta TAM GENİŞLİK DEĞİL — bir önceki turda "full-
+//    bleed görseller" isteği bu bölüme de (yanlışlıkla) uygulanmıştı.
+//    Canlı `post-9.css` incelenince video widget'ının kendi container'ının
+//    yalnızca `%80`'ini kapladığı (`width:80%;max-width:80%`), köşelerinin
+//    yuvarlatıldığı (`border-radius:10px`) ve yumuşak bir gölgesi olduğu
+//    (`box-shadow:0 4px 34px rgba(0,0,0,.1)`) görüldü — KOMPAKT bir video,
+//    edge-to-edge DEĞİL. Full-bleed kaldırıldı, kutu tekrar `max-w-3xl`
+//    içinde, köşeleri yuvarlak/gölgeli.
+//
+// 2026-07-30: Video thumbnail'i YouTube'un otomatik ürettiği kare DEĞİL,
+// kaynağın kendi "custom image overlay" illüstrasyonu (2 iç içe el-çizimi
+// kırmızı çember + 8 merkeze işaret eden ok + Elementor'ın kendi %50 opak
+// siyah daire/beyaz üçgen play butonu) — canlı ana sayfanın `content.rendered`
+// HTML'inde `data-settings.image_overlay` alanı (`attachment id 18137`,
+// `video-image-1.webp`) olarak BULUNDU, uydurma/tahmin DEĞİL. `uploads.zip`'ten
+// (`scripts/localize-images.mjs`) yerelleştirilip `YoutubeClickToPlay`'in
+// yeni `posterUrl` prop'una verildi — bileşenin varsayılan davranışı
+// (Müşteriler sayfasının gerçek YouTube thumbnail'leri) DEĞİŞMEDİ, bkz.
+// `YoutubeClickToPlay.tsx`.
+import { getRelativeLocaleUrl } from 'astro:i18n';
+import { getTranslations } from '../i18n';
+import { HOME_VIDEO_URLS } from '../data/homeContent';
+import { getWhyIdenfitSlug } from '../data/miscPagesContent';
+import type { Locale } from '../data/nav';
+import YoutubeClickToPlay from './YoutubeClickToPlay.tsx';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { video } = t.home;
+const ctaHref = getRelativeLocaleUrl(locale, getWhyIdenfitSlug(locale) ?? 'neden-idenfit');
+---
+
+<!-- DÜZELTME: video artık başlığın YANINDA değil, HEMEN ALTINDA ve
+     ortalanmış — ikisi de `max-w-3xl` içinde tek kolon olarak duruyor
+     (kaynağın kendi kompakt, tam-genişlik-olmayan boyutuyla tutarlı,
+     bkz. yukarıdaki not). -->
+<!-- 2026-08-20 — kullanıcı "video ana sitedekine benzer şekilde daha
+     büyük olsun" dedi: canlı idenfit.com'da (1536px viewport) video
+     genişliği 788.8px ölçüldü, bizimki `max-w-2xl` (672px) ile
+     sınırlıydı. `max-w-2xl` kaldırıldı — video artık dış `max-w-3xl`
+     (768px) konteynerinin TAMAMINI dolduruyor, canlının 788.8px'ine
+     %2.6 farkla (dış konteyner sabit rem birimli, kaynağın fluid
+     yüzde-tabanlı Elementor grid'i birebir taklit edilmedi). -->
+<section class="py-12 text-center lg:py-16">
+  <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
+    <h2 class="h2-section text-heading">{video.title}</h2>
+    <a
+      href={ctaHref}
+      aria-label={video.ctaAriaLabel}
+      class="mt-3 inline-flex items-center text-sm font-semibold text-brand hover:underline"
+    >
+      {video.ctaText}
+    </a>
+    <div class="reveal mx-auto mt-8 aspect-video w-full overflow-hidden rounded-2xl shadow-[0_4px_34px_rgba(0,0,0,0.1)]">
+      <YoutubeClickToPlay
+        client:visible
+        videoUrl={HOME_VIDEO_URLS[locale]}
+        title={video.videoTitle}
+        playLabel={video.playLabel}
+        posterUrl="/wp-content/uploads/2025/09/video-image-1.webp"
+      />
+    </div>
+  </div>
+</section>

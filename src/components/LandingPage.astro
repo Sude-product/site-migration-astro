@@ -1,0 +1,188 @@
+---
+// Landing Page (reklam trafiği, `/demo`) — Faz 6 öncelik #1 (bkz. CLAUDE.md).
+// Kapsam: kaynağın hiçbir sayfasından migrate edilmiyor (bespoke, WP kaynağı
+// yok). 2026-08-06'da pilot iskelet (başlık + fayda listesi + form Adım 1)
+// kuruldu; 2026-08-07'de gerçek ürün içeriğiyle zenginleştirildi (dashboard
+// önizlemesi, istatistik şeridi, bento grid, tasarruf hesaplayıcısı — bkz.
+// aşağıdaki bölüm yorumları). Form hâlâ yalnızca Adım 1 (ad soyad + e-posta)
+// — Adım 2 (telefon + şirket) ve gerçek backend bağlantısı BİLİNÇLİ olarak
+// bu turda da kurulmadı (Faz 2 TODO, `LandingRequestForm.tsx`'e dokunulmadı).
+//
+// Tasarım kararları (kullanıcı onaylı): mevcut marka paleti (kırmızı/gri/
+// siyah/beyaz). Sayfa `noindex` — yalnızca doğrudan/reklam trafiğine açık,
+// arama motorlarından gizli. Nav sadeleştirildi — `BaseLayout` (tam
+// mega-menü/footer) yerine `LandingLayout` (yalnızca logo+telefon / telif+2
+// hukuki link) kullanıyor, ziyaretçiyi formdan uzaklaştıracak link yok.
+import LandingLayout from '../layouts/LandingLayout.astro';
+import LandingPulseDecoration from './LandingPulseDecoration.tsx';
+import LandingRequestForm from './LandingRequestForm.tsx';
+import LandingSavingsCalculator from './LandingSavingsCalculator.tsx';
+import LandingProductShowcase from './LandingProductShowcase.astro';
+import LandingDashboardPreview from './LandingDashboardPreview.astro';
+import LandingStatStrip from './LandingStatStrip.astro';
+import LandingTimeline from './LandingTimeline.astro';
+import LandingBentoGrid from './LandingBentoGrid.astro';
+import LandingFeatureHighlights from './LandingFeatureHighlights.astro';
+import LogoStrip from './LogoStrip.astro';
+import { getTranslations } from '../i18n';
+import { getKvkkAndTermsHrefs } from '../data/miscPagesContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
+
+// TR-only pilot (KARAR 2 ile aynı ilke — kaynakta olmayan/bespoke içerik
+// için diğer dillere çeviri bu turda üretilmiyor). KVKK onay metni site
+// genelindeki formların (bkz. `HeroForm.tsx`) kullandığı AYNI, zaten
+// onaylı `t.hero.kvkkNotice` — yeni bir hukuki metin yazılmadı.
+const locale = 'tr';
+const t = getTranslations(locale);
+const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
+
+// Landing page hero'su artık kendi İngilizce metnini kullanıyor (kullanıcı
+// tarafından verildi, 2026-08-10) — ana sayfanın TR sloganı (`t.hero.title`)
+// artık BURADA kullanılmıyor. Sayfanın geri kalanı (form etiketleri,
+// dashboard paneli, istatistik şeridi, bento grid, "3 Adımda idenfit")
+// bilinçli olarak TÜRKÇE kalıyor — ekip nihai dil kararını (TR/EN/karışık)
+// verdiğinde tüm sayfa buna göre güncellenecek.
+const HERO_TITLE = 'People first. Everything else, simplified.';
+
+const HERO_SUBTITLE =
+  'Idenfit brings HR, workforce management, payroll and employee experience together—so your teams can focus on people, not processes.';
+
+// Fayda listesi — sitenin diğer bölümlerinde zaten kullanılan, doğrulanmış
+// ürün iddiaları/temaları yeniden ifade edildi (bkz. `t.home.featureGrid`/
+// `t.home.logoStrip`) — yeni/uydurulmuş bir pazarlama iddiası eklenmedi.
+const BENEFITS = [
+  'Bordro, izin ve puantaj süreçlerini tek platformda birleştirin',
+  'Adil ve ölçülebilir performans takibiyle ekiplerinizi güçlendirin',
+  'Veriyle desteklenen İK analitiğiyle doğru kararlar alın',
+  '1000’den fazla şirketin tercih ettiği dijital İK platformu',
+];
+
+// TR-only, noindex landing page — "idenfit — Ücretsiz Demo Talep Edin"
+// 34 karakterle 50 sınırının altındaydı (2026-08-10 title uzunluk denetimi).
+const LANDING_TITLE = buildIdenfitTitle('Ücretsiz Demo Talep Edin', 'tr');
+---
+
+<LandingLayout title={LANDING_TITLE} description="idenfit ile İK süreçlerinizi tek platformda dijitalleştirin. Ücretsiz demo talep edin.">
+  <section class="relative isolate overflow-hidden bg-surface">
+    <div class="mx-auto grid max-w-[1440px] items-center gap-y-10 px-6 py-12 lg:grid-cols-2 lg:gap-x-16 lg:px-[100px] lg:py-20">
+      {/* Sol kolon — başlık + alt açıklama + fayda listesi + tasarruf
+          hesaplayıcısı. */}
+      <div>
+        <h1 class="whitespace-pre-line text-3xl font-bold leading-tight text-heading lg:text-[40px] lg:leading-[48px]">
+          {HERO_TITLE}
+        </h1>
+        <p class="mt-4 text-base text-muted lg:text-lg">
+          {HERO_SUBTITLE}
+        </p>
+
+        <ul class="mt-8 space-y-4">
+          {
+            BENEFITS.map((benefit) => (
+              <li class="flex items-start gap-3">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  aria-hidden="true"
+                  class="mt-0.5 h-6 w-6 shrink-0 text-brand"
+                >
+                  <circle cx="12" cy="12" r="10" fill="currentColor" opacity="0.12" />
+                  <path d="M8 12.5l2.5 2.5L16 9.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <span class="text-base text-body">{benefit}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        {/* Etkileşimli tasarruf hesaplayıcısı — bkz. `LandingSavingsCalculator.tsx`
+            için formül/varsayım notu (kullanıcı onaylı basit varsayım). */}
+        <LandingSavingsCalculator client:visible />
+      </div>
+
+      {/* Sağ kolon — kırmızı dekoratif panel (nabız/halka animasyonu) + beyaz
+          form kartı (Online Sunum Talebi'nin "kırmızı zemin üzerinde beyaz
+          kart" deseniyle aynı ilke, bkz. `PresentationRequestPage.astro`). */}
+      <div class="relative isolate flex items-center justify-center overflow-hidden rounded-[20px] bg-brand px-6 py-12 lg:px-16 lg:py-20">
+        <LandingPulseDecoration client:visible />
+        <div id="landing-form" class="relative z-10 w-full max-w-md rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)]">
+          <h2 class="text-center text-2xl font-normal text-heading">Ücretsiz Demo Talep Edin</h2>
+          <p class="mt-2 mb-6 text-center text-sm text-muted">Bilgilerinizi bırakın, ekibimiz sizinle iletişime geçsin.</p>
+
+          <LandingRequestForm
+            client:load
+            idPrefix="landing"
+            locale={locale}
+            labels={{
+              fullName: t.hero.formName,
+              email: t.hero.formEmail,
+              phone: t.hero.formPhone,
+              phoneError: t.hero.formPhoneError,
+              phoneCountryLabel: t.hero.formPhoneCountryLabel,
+              phoneCountrySearchPlaceholder: t.hero.formPhoneCountrySearchPlaceholder,
+              phoneCountryNoResults: t.hero.formPhoneCountryNoResults,
+              company: t.hero.formCompany,
+              next: 'Devam Et',
+              back: 'Geri',
+              submit: 'Gönder',
+              kvkkNotice: t.hero.kvkkNotice,
+            }}
+            kvkkHref={kvkkHref}
+            termsHref={termsHref}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* Gerçek ürün paneli — büyük, bold kırmızı vitrin bölümü (2026-08-07,
+      bkz. `LandingProductShowcase.astro`). Hero'nun hemen ardından güçlü
+      bir görsel darbe; kırmızı-beyaz-kırmızı ritmi için StatStrip'ten
+      önce bir beyaz bölüm (Canlı Devam Takibi) araya giriyor. */}
+  <LandingProductShowcase />
+
+  {/* Görsel dashboard paneli — sol: kısa destekleyici metin, sağ: canlı
+      "Devam Takibi" önizleme kartı + bordro bildirimi (bkz.
+      `LandingDashboardPreview.astro`). */}
+  <section class="bg-surface py-16 lg:py-24">
+    <div class="mx-auto grid max-w-5xl items-center gap-10 px-6 lg:grid-cols-2 lg:gap-16 lg:px-8">
+      <div class="reveal">
+        <h2 class="h2-section text-heading">Canlı Devam Takibi</h2>
+        <p class="mt-4 text-body">
+          Giriş-çıkış, izin ve bordro süreçlerini tek ekrandan anlık izleyin — biyometrik/RFID cihazlardan gelen veriler otomatik işlenir, elle
+          takip gerekmez.
+        </p>
+      </div>
+      <div class="reveal flex flex-col items-center lg:items-end" style="transition-delay: 120ms">
+        <LandingDashboardPreview />
+      </div>
+    </div>
+  </section>
+
+  {/* İstatistik şeridi — scroll-triggered sayı sayma, bold kırmızı zemin
+      (bkz. `LandingStatStrip.astro`). */}
+  <LandingStatStrip />
+
+  {/* Hazır, doğrulanmış `LogoStrip.astro` (gerçek 7 müşteri logosu + zaten
+      onaylı "1000'den fazla mutlu müşteri..." metni, `t.home.logoStrip.caption`).
+      Ayrı "Civil, Femaş, Kellogg's ve 1000+ şirketin tercihi" satırı
+      kullanıcı talimatıyla kaldırıldı (2026-08-10) — LogoStrip'in kendi
+      caption'ı zaten aynı mesajı taşıyor, tekrar önlendi. `animated` prop'u
+      (2026-08-10, kullanıcı talimatıyla eklendi) logoları statik wrap-grid
+      yerine sürekli kayan bir marquee'ye çeviriyor — yalnızca `/demo`'ya
+      opt-in, 4 ana sayfa (`tr`/`en`/`nl`/`it`) hâlâ statik. */}
+  <LogoStrip animated />
+
+  {/* "3 Adımda idenfit" — süreç zaman çizgisi (2026-08-07, bkz.
+      `LandingTimeline.astro`). Bento grid'den ÖNCE — önce nasıl
+      çalıştığını, sonra tüm özellik setini anlatan bir akış. */}
+  <LandingTimeline />
+
+  {/* Öne çıkan özellikler — bento grid (6 gerçek modül, bkz. `LandingBentoGrid.astro`). */}
+  <LandingBentoGrid />
+
+  {/* Ek özellik vurguları — küçük ikon+metin şeridi (bkz. `LandingFeatureHighlights.astro`). */}
+  <LandingFeatureHighlights />
+</LandingLayout>
+
+<script src="../scripts/scroll-reveal.js"></script>

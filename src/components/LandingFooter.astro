@@ -1,0 +1,29 @@
+---
+// Landing Page (`/demo`) — minimal footer. `Footer.astro`'nun 4 kolonlu
+// tam yapısı YOK, yalnızca yasal zorunluluk (telif hakkı + KVKK + Gizlilik
+// ve Güvenlik Politikası) — kullanıcı kararı (bkz. CLAUDE.md 2026-08-06,
+// `LandingHeader.astro`'daki AYNI gerekçe: ziyaretçiyi formdan
+// uzaklaştıracak link yok).
+import { getTranslations } from '../i18n';
+import { getKvkkSlug, getPrivacySecuritySlug } from '../data/miscPagesContent';
+
+const locale = 'tr';
+const t = getTranslations(locale);
+const year = new Date().getFullYear();
+// `Footer.astro`'nun alt bar'ıyla AYNI desen: `t.footer.copyright`/
+// `.privacy`/`.kvkk` etiketleri + `getKvkkSlug`/`getPrivacySecuritySlug`
+// gerçek per-locale slug'ları — yeni metin yazılmadı.
+const copyright = t.footer.copyright.replace('{year}', String(year));
+const kvkkHref = `/${getKvkkSlug(locale) ?? 'kisisel-verilerin-korunmasi'}/`;
+const privacyHref = `/${getPrivacySecuritySlug(locale) ?? 'sozlesme/gizlilik-ve-guvenlik-politikasi'}/`;
+---
+
+<footer class="border-t border-black/5 bg-surface">
+  <div class="mx-auto flex max-w-7xl flex-col items-center justify-between gap-3 px-4 py-6 text-xs text-muted sm:flex-row sm:px-6 lg:px-8">
+    <p>{copyright}</p>
+    <ul class="flex items-center gap-4">
+      <li><a href={privacyHref} class="transition-colors hover:text-brand">{t.footer.privacy}</a></li>
+      <li><a href={kvkkHref} class="transition-colors hover:text-brand">{t.footer.kvkk}</a></li>
+    </ul>
+  </div>
+</footer>

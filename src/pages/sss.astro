@@ -1,0 +1,11 @@
+---
+// SSS sayfası — `faq` custom post type'ından (bkz. KARAR 2, CLAUDE.md,
+// scripts/fetch-faq.mjs). NL kaynakta hiç yok — ayrı bir `nl/faq.astro`
+// dosyası YOK, `astro.config.mjs`'in `i18n.fallback: { nl: 'en' }`
+// mekanizması `/nl/faq/` isteğini otomatik `/en/faq/`'e yönlendirir
+// (navigation.ts/footer.ts'teki NL href'i de bilerek 'faq' slug'ını
+// kullanıyor ki bu fallback tetiklensin).
+import FaqPage from '../components/FaqPage.astro';
+---
+
+<FaqPage />

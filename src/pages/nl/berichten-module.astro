@@ -1,0 +1,13 @@
+---
+// Aşama 3 (kısım 1) — 7 temiz modülden biri (Mesaj). Bkz. CLAUDE.md.
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'ofis-ici-mesajlasma-modulu';
+const content = getProductContent(trSlug, 'nl')!;
+const pageTitle = getProductPageTitle(trSlug, 'nl');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'nl');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

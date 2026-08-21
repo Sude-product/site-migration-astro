@@ -1,0 +1,13 @@
+---
+// Aşama 3 (kısım 1) — 7 temiz modülden biri (Doküman). Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
+
+const trSlug = 'dokuman-yonetim-sistemi-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

@@ -1,0 +1,37 @@
+---
+// Ek özellik vurguları — bento grid'in altında küçük bir ikon+metin şeridi
+// (2026-08-07, kullanıcı tarafından verilen içerik). Server-only lucide
+// ikonları, JS gönderilmiyor.
+import { Smartphone, ShieldCheck, BellRing, FileBarChart, type LucideIcon } from 'lucide-react';
+
+interface Highlight {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+const HIGHLIGHTS: Highlight[] = [
+  { icon: Smartphone, title: 'Mobil erişim', text: 'Modül bazlı yetkilendirme.' },
+  { icon: ShieldCheck, title: 'Veri güvenliği', text: 'Şifreli bordro + tek cihaz kaydı (mobil seri no eşleşmesi).' },
+  { icon: BellRing, title: 'Otomatik hatırlatıcılar', text: 'Doğum günü, işe başlama yıldönümü.' },
+  { icon: FileBarChart, title: 'Özel raporlama', text: 'Standart Excel/PDF + firmaya özel sorgular.' },
+];
+---
+
+<section class="bg-surface pb-16 lg:pb-24">
+  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        HIGHLIGHTS.map(({ icon: Icon, title, text }, i) => (
+          <div class="reveal flex items-start gap-3" style={`transition-delay: ${i * 80}ms`}>
+            <Icon className="mt-0.5 h-5 w-5 shrink-0 text-brand" aria-hidden="true" />
+            <div>
+              <h3 class="text-sm font-semibold text-heading">{title}</h3>
+              <p class="mt-1 text-xs leading-relaxed text-muted">{text}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

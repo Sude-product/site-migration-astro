@@ -1,0 +1,14 @@
+---
+// PİLOT — yalnızca PDKS modülü (Aşama 1). Diğer 88 ürün/modül sayfası
+// henüz route'lanmadı, onay bekliyor (bkz. CLAUDE.md).
+import ProductPage from '../../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+
+const trSlug = 'pdks-modulu';
+const content = getProductContent(trSlug, 'en')!;
+const pageTitle = getProductPageTitle(trSlug, 'en');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'en');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />

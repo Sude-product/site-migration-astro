@@ -1,0 +1,172 @@
+---
+// Blog listesi (sayfalanmış) — `src/pages/blog/index.astro` (sayfa 1) ve
+// `src/pages/blog/page/[page].astro` (2+) tarafından paylaşılan render
+// mantığı (PricingPage.astro'daki "veri sayfada, render component'te"
+// deseniyle aynı ilke).
+//
+// Düzen idenfit.com/blog/'un canlı HTML'i incelenerek güncellendi
+// (2026-07-24): kaynakta liste TEK KOLON (`uicore-col-lg-12`, yatay
+// kart — görsel solda/üstte + metin sağda) + sağda sabit genişlikte bir
+// sidebar (`uicore-sidebar-right`) var — önceki 3 kolonlu kart grid'i
+// (sidebar'sız tasarlanmıştı) bununla değiştirildi.
+//
+// Canlı/hover ince işçilik (2026-07-24, `uicore-blog.css` incelenerek):
+// kaynakta kart görseli `.uicore-zoom:hover .uicore-cover-img{transform:
+// scale(1.2)}` ile hover'da büyüyor (kart gövdesi/gölgesi SABİT kalıyor —
+// `uicore-float` sınıfı ana liste kartlarında YOK, yalnızca görsel
+// yakınlaşıyor) — burada da `group-hover:scale-110` ile aynı dil
+// uygulandı (kartın kendi `overflow-hidden`'ı zoom'u klipliyor), mevcut
+// `hover:shadow-md` (kart gövdesi) korundu. Görsel artık `aspect-[…]`
+// ile SABİT bir orana kırpılıyor (`object-cover`) — önceki `sm:h-auto`
+// kaynak görselin kendi doğal en-boy oranına bırakıyordu, bu da
+// yüklenen WP görsellerinin boyutuna göre karttan karta FARKLI/tutarsız
+// bir yükseklik üretiyordu (bulanıklık değil ama görsel tutarsızlık).
+// Scroll-triggered fade-up (`.reveal`, ana sayfadakiyle AYNI mekanizma
+// — bkz. `scroll-reveal.js`) + index bazlı hafif stagger eklendi.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import BlogSidebar from './BlogSidebar.astro';
+import {
+  estimateReadingMinutes,
+  formatBlogDate,
+  getPaginationItems,
+  type BlogPost,
+  type PaginatedResult,
+} from '../data/blogContent';
+
+interface Props {
+  result: PaginatedResult<BlogPost>;
+  allPosts: BlogPost[];
+}
+
+const {
+  result: { items, currentPage, totalPages, hasPrev, hasNext },
+  allPosts,
+} = Astro.props;
+
+const pageHref = (page: number) => (page <= 1 ? '/blog/' : `/blog/page/${page}/`);
+const pageItems = getPaginationItems(currentPage, totalPages);
+---
+
+<!-- Blog TR-only — bkz. `blog/[slug].astro`'daki AYNI yorum. -->
+<BaseLayout
+  title="idenfit Blog — İK, İnsan Kaynakları ve Dijitalleşme Yazıları"
+  description="İnsan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine idenfit'in blog yazıları."
+  hreflangLocales={['tr']}
+>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <h1 class="text-3xl font-bold tracking-tight text-heading sm:text-4xl">Blog</h1>
+    <p class="mt-3 max-w-2xl text-body">
+      İnsan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine güncel yazılar.
+    </p>
+
+    <div class="mt-10 flex flex-col gap-12 lg:flex-row lg:items-start">
+      <div class="min-w-0 flex-1">
+        {
+          items.length === 0 ? (
+            <p class="text-muted">Henüz yayınlanmış yazı yok.</p>
+          ) : (
+            <div class="flex flex-col gap-8">
+              {items.map((post, i) => (
+                <a
+                  href={`/blog/${post.data.slug}/`}
+                  class="reveal group flex flex-col gap-5 overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-shadow hover:shadow-md sm:flex-row"
+                  style={`transition-delay: ${Math.min(i, 6) * 60}ms`}
+                >
+                  {post.data.featuredImage && (
+                    <img
+                      src={post.data.featuredImage.url}
+                      alt={post.data.featuredImage.alt}
+                      loading="lazy"
+                      class="aspect-[16/9] w-full shrink-0 object-cover transition-transform duration-700 ease-out group-hover:scale-110 sm:aspect-[4/3] sm:w-56"
+                    />
+                  )}
+                  <div class="flex flex-1 flex-col gap-2 p-5 sm:pl-0">
+                    {post.data.categories[0] && (
+                      <span class="text-xs font-bold uppercase tracking-wide text-brand">
+                        {post.data.categories[0].name}
+                      </span>
+                    )}
+                    <h2 class="text-lg font-bold leading-snug text-heading transition-colors group-hover:text-brand">
+                      {post.data.title}
+                    </h2>
+                    <p class="line-clamp-3 text-sm text-muted">{post.data.excerpt}</p>
+                    <div class="mt-auto flex items-center gap-2 pt-2 text-xs text-muted">
+                      <time datetime={post.data.date.toISOString()}>{formatBlogDate(post.data.date)}</time>
+                      <span aria-hidden="true">·</span>
+                      <span>{estimateReadingMinutes(post.body ?? '')} dakikalık okuma</span>
+                    </div>
+                  </div>
+                </a>
+              ))}
+            </div>
+          )
+        }
+
+        {
+          totalPages > 1 && (
+            <nav class="mt-12 flex justify-center" aria-label="Sayfalama">
+              <ul class="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+                {hasPrev && (
+                  <li>
+                    <a
+                      href={pageHref(currentPage - 1)}
+                      aria-label="Önceki sayfa"
+                      class="flex h-8 w-8 items-center justify-center rounded-lg text-body transition-colors hover:bg-gray-100 hover:text-brand sm:h-9 sm:w-9"
+                    >
+                      <span aria-hidden="true">‹</span>
+                    </a>
+                  </li>
+                )}
+                {pageItems.map((item) =>
+                  item === 'dots' ? (
+                    <li>
+                      <span
+                        class="flex h-8 w-8 items-center justify-center text-sm text-muted sm:h-9 sm:w-9"
+                        aria-hidden="true"
+                      >
+                        …
+                      </span>
+                    </li>
+                  ) : item === currentPage ? (
+                    <li>
+                      <span
+                        aria-current="page"
+                        class="flex h-8 w-8 items-center justify-center rounded-lg border-2 border-brand bg-brand-light text-sm font-bold text-brand sm:h-9 sm:w-9"
+                      >
+                        {item}
+                      </span>
+                    </li>
+                  ) : (
+                    <li>
+                      <a
+                        href={pageHref(item)}
+                        class="flex h-8 w-8 items-center justify-center rounded-lg text-sm font-semibold text-body transition-colors hover:bg-gray-100 hover:text-brand sm:h-9 sm:w-9"
+                      >
+                        {item}
+                      </a>
+                    </li>
+                  ),
+                )}
+                {hasNext && (
+                  <li>
+                    <a
+                      href={pageHref(currentPage + 1)}
+                      aria-label="Sonraki sayfa"
+                      class="flex h-8 w-8 items-center justify-center rounded-lg text-body transition-colors hover:bg-gray-100 hover:text-brand sm:h-9 sm:w-9"
+                    >
+                      <span aria-hidden="true">›</span>
+                    </a>
+                  </li>
+                )}
+              </ul>
+            </nav>
+          )
+        }
+      </div>
+
+      <BlogSidebar allPosts={allPosts} />
+    </div>
+  </section>
+
+  <script src="../scripts/scroll-reveal.js"></script>
+</BaseLayout>

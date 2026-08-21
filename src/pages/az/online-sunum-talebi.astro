@@ -1,0 +1,9 @@
+---
+import PresentationRequestPage from '../../components/PresentationRequestPage.astro';
+import { getPresentationContent, getPresentationModifiedDate } from '../../data/miscPagesContent';
+
+const content = getPresentationContent('az')!;
+const modified = getPresentationModifiedDate('az');
+---
+
+<PresentationRequestPage content={content} modified={modified} />

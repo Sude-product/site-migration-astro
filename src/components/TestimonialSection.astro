@@ -1,0 +1,35 @@
+---
+// Testimonial bölümü — bkz. docs/homepage-sections-report.md §11.
+// `TestimonialCarousel.tsx` (React, ok butonlarıyla geçiş) sayfanın
+// altında olduğu için `client:visible` ile hydrate ediliyor.
+import TestimonialCarousel from './TestimonialCarousel.tsx';
+import { getTranslations } from '../i18n';
+import { TESTIMONIAL_PEOPLE } from '../data/homeContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { testimonials } = t.home;
+
+const items = [
+  { ...TESTIMONIAL_PEOPLE.ismailUnal, ...testimonials.ismailUnal },
+  { ...TESTIMONIAL_PEOPLE.emreOzcan, ...testimonials.emreOzcan },
+];
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+    <div>
+      <h2 class="h2-section text-heading">{testimonials.title}</h2>
+      <p class="mt-4 text-body">{testimonials.intro}</p>
+    </div>
+    <div class="reveal">
+      <TestimonialCarousel
+        client:visible
+        testimonials={items}
+        prevLabel={testimonials.prevLabel}
+        nextLabel={testimonials.nextLabel}
+      />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,641 @@
+{
+  "trSlug": "fiyatlar",
+  "locales": {
+    "tr": {
+      "id": 13382,
+      "slug": "fiyatlar",
+      "title": "Fiyatlar",
+      "modified": "2026-05-08T14:02:14",
+      "content": {
+        "pageTitle": "En değerli varlığınız insan kaynaklarını <br><b>verimli ve bütüncül yönetin!</b>",
+        "featuresTitle": "Özellikler",
+        "addonsTitle": "Eklentiler",
+        "packagesTitle": "Paketler",
+        "featureNames": [
+          "idenfit Akademi",
+          "HR AI Chatbot",
+          "Özel Geliştirme",
+          "Raporlama",
+          "Telefon/Çevrimiçi Destek",
+          "Çevrimiçi Ödeme",
+          "Uygulama Eğitimi",
+          "Toplu Aktarım"
+        ],
+        "addonNames": [
+          "Dijital İmza",
+          "OKR & Performans",
+          "AI İşe Alım",
+          "Bordro",
+          "LMS",
+          "Yan Haklar"
+        ],
+        "micro": {
+          "planTitle": "Mikro",
+          "employeeRange": "<b>1-25</b> Çalışan",
+          "modules": [
+            "Dijital Sicil (Mikro)",
+            "Zaman (1 Vardiya)",
+            "İzin"
+          ],
+          "price": "ÜCRETSİZ",
+          "priceSuffix": "",
+          "ctaText": "Hemen Başla",
+          "ctaUrl": "https://app.idenfit.com/register/micro/?lang=tr",
+          "features": {
+            "akademi": "x",
+            "chatbot": "x",
+            "ozelGelistirme": "x",
+            "raporlama": "5",
+            "destek": "Ücretsiz",
+            "odeme": "Self-Onboarding",
+            "egitim": "Hayır",
+            "topluAktarim": "x"
+          },
+          "addons": {
+            "dijitalImza": "x",
+            "okrPerformans": "x",
+            "aiIseAlim": "x",
+            "bordro": "x",
+            "lms": "x",
+            "yanHaklar": "x"
+          }
+        },
+        "sme": {
+          "planTitle": "KOBI",
+          "employeeRange": "<b>1-100</b> Çalışan",
+          "modules": [
+            "Dijital Sicil (Temel)",
+            "İzin",
+            "Avans",
+            "Zimmet",
+            "Doküman",
+            "Bordro Görüntüleme",
+            "Harcama"
+          ],
+          "price": "4.999",
+          "priceSuffix": "₺/aylık",
+          "ctaText": "Satın Al",
+          "ctaUrl": "https://app.idenfit.com/register/sme/?lang=tr",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Limitli",
+            "ozelGelistirme": "x",
+            "raporlama": "20",
+            "destek": "Opsiyonel",
+            "odeme": "Evet",
+            "egitim": "Online (120dk)",
+            "topluAktarim": "Evet"
+          },
+          "addons": {
+            "dijitalImza": "Opsiyonel (5 ₺)",
+            "okrPerformans": "Opsiyonel",
+            "aiIseAlim": "Opsiyonel",
+            "bordro": "Opsiyonel",
+            "lms": "Opsiyonel",
+            "yanHaklar": "Opsiyonel"
+          }
+        },
+        "pro": {
+          "planTitle": "Pro",
+          "employeeRange": "",
+          "modules": [
+            "Dijital Sicil (Pro)",
+            "Zaman",
+            "İzin",
+            "Puantaj",
+            "Konum Takibi",
+            "Evraklar"
+          ],
+          "modulesMore": [
+            "Veri Analizi",
+            "Bildirim Merkezi",
+            "Dokümanlar",
+            "Avanslar",
+            "Harcamalar",
+            "Harcama Yönetimi",
+            "Anket",
+            "Geri Bildirim",
+            "Görüş & Öneri",
+            "Etkinlikler",
+            "Sağlık",
+            "Mesajlar",
+            "Notlar",
+            "Onboarding-Offboarding",
+            "Bordro",
+            "Servisler",
+            "Eğitimler",
+            "Seyahat",
+            "Varlıklar ve Zimmetler",
+            "Araçlar",
+            "Yemek",
+            "Ziyaretçiler",
+            "Görevler",
+            "Donanım"
+          ],
+          "showMoreText": "Tüm Modülleri Gör",
+          "showLessText": "Tümünü Gizle",
+          "price": "9.990",
+          "priceSuffix": "₺/aylık'dan başlayan fiyatlar",
+          "ctaText": "Başvur",
+          "ctaUrl": "https://idenfit.com/tr/online-sunum-talep-et/",
+          "getQuoteText": "Sorunuz",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Full",
+            "ozelGelistirme": "Opsiyonel",
+            "raporlama": "50+",
+            "destek": "Opsiyonel",
+            "odeme": "Bize Ulaşın",
+            "egitim": "Online (300dk)",
+            "topluAktarim": "Evet"
+          },
+          "addons": {
+            "dijitalImza": "Opsiyonel (5 ₺)",
+            "okrPerformans": "Opsiyonel",
+            "aiIseAlim": "Opsiyonel",
+            "bordro": "Opsiyonel",
+            "lms": "Opsiyonel",
+            "yanHaklar": "Opsiyonel"
+          }
+        }
+      }
+    },
+    "en": {
+      "id": 13552,
+      "slug": "pricing",
+      "title": "Pricing",
+      "modified": "2026-03-26T07:37:59",
+      "content": {
+        "pageTitle": "Manage your most valuable asset, human resources, <br><b>efficiently and holistically!</b>",
+        "featuresTitle": "Packages",
+        "addonsTitle": "Add-ons",
+        "packagesTitle": "Packages",
+        "featureNames": [
+          "idenfit Academy",
+          "HR AI Chat Bot",
+          "Custom Development",
+          "Reporting Options",
+          "Phone/Online Support",
+          "Online Payment",
+          "Practical Training",
+          "Bulk Import"
+        ],
+        "addonNames": [
+          "Digital Signature",
+          "OKR & Performance",
+          "AI Recruitment",
+          "Payroll Management",
+          "LMS",
+          "Benefits & Extras"
+        ],
+        "micro": {
+          "planTitle": "Micro",
+          "employeeRange": "<b>1-25</b> Employees",
+          "modules": [
+            "Digital Profile (Micro)",
+            "Time (1 Shift)",
+            "Leave"
+          ],
+          "price": "FREE",
+          "priceSuffix": "",
+          "ctaText": "Get Started",
+          "ctaUrl": "https://app.idenfit.com/register/micro/?lang=en",
+          "features": {
+            "akademi": "x",
+            "chatbot": "x",
+            "ozelGelistirme": "x",
+            "raporlama": "5",
+            "destek": "Free",
+            "odeme": "Self-Onboarding",
+            "egitim": "No",
+            "topluAktarim": "x"
+          },
+          "addons": {
+            "dijitalImza": "x",
+            "okrPerformans": "x",
+            "aiIseAlim": "x",
+            "bordro": "x",
+            "lms": "x",
+            "yanHaklar": "x"
+          }
+        },
+        "sme": {
+          "planTitle": "SME",
+          "employeeRange": "<b>1-100</b> Employees",
+          "modules": [
+            "Digital Profile (Basic)",
+            "Leave",
+            "Payment",
+            "Assets",
+            "Documents",
+            "Payroll",
+            "Expenses"
+          ],
+          "price": "149",
+          "priceSuffix": "€/monthly",
+          "ctaText": "Buy Now",
+          "ctaUrl": "https://app.idenfit.com/register/sme/?lang=en",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Limited",
+            "ozelGelistirme": "x",
+            "raporlama": "20",
+            "destek": "+Premium Paid - Optional",
+            "odeme": "Yes",
+            "egitim": "Online (120min)",
+            "topluAktarim": "Yes"
+          },
+          "addons": {
+            "dijitalImza": "Optional",
+            "okrPerformans": "Optional",
+            "aiIseAlim": "Optional",
+            "bordro": "Optional",
+            "lms": "Optional",
+            "yanHaklar": "Optional"
+          }
+        },
+        "pro": {
+          "planTitle": "Pro",
+          "employeeRange": "",
+          "modules": [
+            "Digital Profile (Pro)",
+            "Time",
+            "Leave",
+            "Time Tracking",
+            "Geolocation",
+            "Documents"
+          ],
+          "modulesMore": [
+            "Data Analysis",
+            "Notification Center",
+            "Documents",
+            "Advance",
+            "Expenses",
+            "Expense Management",
+            "Survey",
+            "Feedback",
+            "Suggestion",
+            "Activity",
+            "Health",
+            "Message",
+            "Note",
+            "Record",
+            "Payroll Management",
+            "Service Line",
+            "Training",
+            "Travel",
+            "Assets and Receivables",
+            "Tools",
+            "Menu/Food",
+            "Visitors",
+            "Task Management",
+            "Hardware"
+          ],
+          "showMoreText": "Show All Modules",
+          "showLessText": "Hide All",
+          "price": "199",
+          "priceSuffix": "€/month – starting price",
+          "ctaText": "Apply Now",
+          "ctaUrl": "https://idenfit.com/request-online-presentation/",
+          "getQuoteText": "Request a Quote",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Full",
+            "ozelGelistirme": "Optional",
+            "raporlama": "50+",
+            "destek": "+Premium Paid - Optional",
+            "odeme": "Contact Us",
+            "egitim": "Online (300min)",
+            "topluAktarim": "Yes"
+          },
+          "addons": {
+            "dijitalImza": "Optional",
+            "okrPerformans": "Optional",
+            "aiIseAlim": "Optional",
+            "bordro": "Optional",
+            "lms": "Optional",
+            "yanHaklar": "Optional"
+          }
+        }
+      }
+    },
+    "nl": {
+      "id": 20536,
+      "slug": "prijzen",
+      "title": "prijzen",
+      "modified": "2026-03-26T07:45:19",
+      "content": {
+        "pageTitle": "Beheer uw meest waardevolle bezit, human resources, <br><b>efficiënt en holistisch!</b>",
+        "featuresTitle": "Pakketten",
+        "addonsTitle": "Add-ons",
+        "packagesTitle": "Pakketten",
+        "featureNames": [
+          "idenfit Academy",
+          "HR AI Chat Bot",
+          "Aangepaste Ontwikkeling",
+          "Rapportage Opties",
+          "Telefoon/Online Ondersteuning",
+          "Online Betaling",
+          "Praktijktraining",
+          "Bulk Import"
+        ],
+        "addonNames": [
+          "Digitale Handtekening",
+          "OKR & Prestaties",
+          "AI Werving",
+          "Loonadministratie",
+          "LMS",
+          "Voordelen & Extra's"
+        ],
+        "micro": {
+          "planTitle": "Micro",
+          "employeeRange": "<b>1-25</b> Werknemers",
+          "modules": [
+            "Digitaal Profiel (Micro)",
+            "Tijd (1 Shift)",
+            "Verlof"
+          ],
+          "price": "GRATIS",
+          "priceSuffix": "",
+          "ctaText": "Aan de slag",
+          "ctaUrl": "https://app.idenfit.com/register/micro/?lang=en",
+          "features": {
+            "akademi": "x",
+            "chatbot": "x",
+            "ozelGelistirme": "x",
+            "raporlama": "5",
+            "destek": "Gratis",
+            "odeme": "Zelf-Onboarding",
+            "egitim": "Nee",
+            "topluAktarim": "x"
+          },
+          "addons": {
+            "dijitalImza": "x",
+            "okrPerformans": "x",
+            "aiIseAlim": "x",
+            "bordro": "x",
+            "lms": "x",
+            "yanHaklar": "x"
+          }
+        },
+        "sme": {
+          "planTitle": "KMO",
+          "employeeRange": "<b>1-100</b> Werknemers",
+          "modules": [
+            "Digitaal Profiel (Basis)",
+            "Verlof",
+            "Betaling",
+            "Activa",
+            "Documenten",
+            "Loonstrook",
+            "Onkosten"
+          ],
+          "price": "149",
+          "priceSuffix": "€/maand",
+          "ctaText": "Koop Nu",
+          "ctaUrl": "https://app.idenfit.com/register/sme/?lang=en",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Beperkt",
+            "ozelGelistirme": "x",
+            "raporlama": "20",
+            "destek": "+Premium Betaald - Optioneel",
+            "odeme": "Ja",
+            "egitim": "Online (120min)",
+            "topluAktarim": "Ja"
+          },
+          "addons": {
+            "dijitalImza": "Optioneel",
+            "okrPerformans": "Optioneel",
+            "aiIseAlim": "Optioneel",
+            "bordro": "Optioneel",
+            "lms": "Optioneel",
+            "yanHaklar": "Optioneel"
+          }
+        },
+        "pro": {
+          "planTitle": "Pro",
+          "employeeRange": "",
+          "modules": [
+            "Digitaal Profiel (Pro)",
+            "Tijd",
+            "Verlof",
+            "Tijdregistratie",
+            "Geolocatie",
+            "Documenten"
+          ],
+          "modulesMore": [
+            "Gegevensanalyse",
+            "Notificatiecentrum",
+            "Documenten",
+            "Vooruitgang",
+            "Uitgaven",
+            "Uitgavenbeheer",
+            "Enquête",
+            "Feedback",
+            "Suggestie",
+            "Activiteit",
+            "Gezondheid",
+            "Bericht",
+            "Notitie",
+            "Record",
+            "Loonadministratie",
+            "Dienstenlijn",
+            "Training",
+            "Reizen",
+            "Activa en Vorderingen",
+            "Tools",
+            "Menu/Eten",
+            "Bezoekers",
+            "Taakbeheer",
+            "Hardware"
+          ],
+          "showMoreText": "Toon Alle Modules",
+          "showLessText": "Verberg Alles",
+          "price": "199",
+          "priceSuffix": "€/maand – startprijs",
+          "ctaText": "Aanvragen",
+          "ctaUrl": "https://idenfit.com/request-online-presentation/",
+          "getQuoteText": "Vraag een Offerte Aan",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Volledig",
+            "ozelGelistirme": "Optioneel",
+            "raporlama": "50+",
+            "destek": "+Premium Betaald - Optioneel",
+            "odeme": "Neem Contact Op",
+            "egitim": "Online (300min)",
+            "topluAktarim": "Ja"
+          },
+          "addons": {
+            "dijitalImza": "Optioneel",
+            "okrPerformans": "Optioneel",
+            "aiIseAlim": "Optioneel",
+            "bordro": "Optioneel",
+            "lms": "Optioneel",
+            "yanHaklar": "Optioneel"
+          }
+        }
+      }
+    },
+    "it": {
+      "id": 23480,
+      "slug": "prezzi",
+      "title": "Pricing_IT",
+      "modified": "2026-03-26T07:41:13",
+      "content": {
+        "pageTitle": "Manage your most valuable asset, human resources, <br><b>efficiently and holistically!</b>",
+        "featuresTitle": "Pacchetti",
+        "addonsTitle": "Componenti Aggiuntivi",
+        "packagesTitle": "Pacchetti",
+        "featureNames": [
+          "idenfit Academy",
+          "Chatbot AI per HR",
+          "Sviluppo Personalizzato",
+          "Opzioni di Reportistica",
+          "Supporto Telefonico/Online",
+          "Pagamento Online",
+          "Formazione Pratica",
+          "Importazione di Massa"
+        ],
+        "addonNames": [
+          "Firma Digitale",
+          "OKR & Performance",
+          "Reclutamento AI",
+          "Gestione Buste Paga",
+          "LMS",
+          "Benefit & Extra"
+        ],
+        "micro": {
+          "planTitle": "Micro",
+          "employeeRange": "<b>1-25</b> Dipendenti",
+          "modules": [
+            "Profilo Digitale (Micro)",
+            "Orario (1 Turno)",
+            "Ferie (Leave)"
+          ],
+          "price": "Gratis",
+          "priceSuffix": "",
+          "ctaText": "Invia Richiesta",
+          "ctaUrl": "https://app.idenfit.com/register/micro/?lang=it",
+          "features": {
+            "akademi": "x",
+            "chatbot": "x",
+            "ozelGelistirme": "x",
+            "raporlama": "5",
+            "destek": "Gratis",
+            "odeme": "Auto-inserimento",
+            "egitim": "No",
+            "topluAktarim": "x"
+          },
+          "addons": {
+            "dijitalImza": "x",
+            "okrPerformans": "x",
+            "aiIseAlim": "x",
+            "bordro": "x",
+            "lms": "x",
+            "yanHaklar": "x"
+          }
+        },
+        "sme": {
+          "planTitle": "PMI",
+          "employeeRange": "<b>1-100</b> Dipendenti",
+          "modules": [
+            "Profilo Digitale (Base)",
+            "Ferie",
+            "Pagamenti",
+            "Asset",
+            "Documenti",
+            "Buste Paga",
+            "Spese"
+          ],
+          "price": "149",
+          "priceSuffix": "€/mese",
+          "ctaText": "Acquista Ora",
+          "ctaUrl": "https://app.idenfit.com/register/sme/?lang=it",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Limitato",
+            "ozelGelistirme": "x",
+            "raporlama": "20",
+            "destek": "+Premium (Opzionale)",
+            "odeme": "Sì",
+            "egitim": "Online (120min)",
+            "topluAktarim": "Sì"
+          },
+          "addons": {
+            "dijitalImza": "Opzionale",
+            "okrPerformans": "Opzionale",
+            "aiIseAlim": "Opzionale",
+            "bordro": "Opzionale",
+            "lms": "Opzionale",
+            "yanHaklar": "Opzionale"
+          }
+        },
+        "pro": {
+          "planTitle": "Pro",
+          "employeeRange": "",
+          "modules": [
+            "Profilo Digitale (Pro)",
+            "Orario",
+            "Ferie",
+            "Tracciamento Orario",
+            "Geolocalizzazione",
+            "Documenti"
+          ],
+          "modulesMore": [
+            "Analisi Dati",
+            "Centro Notifiche",
+            "Documenti",
+            "Anticipi",
+            "Spese",
+            "Gestione Spese",
+            "Sondaggi",
+            "Feedback",
+            "Suggerimenti",
+            "Attività",
+            "Salute",
+            "Messaggi",
+            "Note",
+            "Record",
+            "Gestione Buste Paga",
+            "Linea di Servizio",
+            "Formazione",
+            "Viaggi",
+            "Asset e Crediti",
+            "Strumenti",
+            "Menu/Cibo",
+            "Visitatori",
+            "Gestione Attività",
+            "Hardware"
+          ],
+          "showMoreText": "Mostra tutti i moduli",
+          "showLessText": "Nascondi tutto",
+          "price": "199",
+          "priceSuffix": "€/mese e oltre",
+          "ctaText": "Richiedi Ora",
+          "ctaUrl": "https://idenfit.com/it/richiedi-presentazione-online/",
+          "getQuoteText": "Richiedi un preventivo",
+          "features": {
+            "akademi": "Video, Pdf",
+            "chatbot": "Completo",
+            "ozelGelistirme": "Opzionale",
+            "raporlama": "50+",
+            "destek": "+Premium (Opzionale)",
+            "odeme": "Contattaci",
+            "egitim": "Online (300min)",
+            "topluAktarim": "Sì"
+          },
+          "addons": {
+            "dijitalImza": "Opzionale",
+            "okrPerformans": "Opzionale",
+            "aiIseAlim": "Opzionale",
+            "bordro": "Opzionale",
+            "lms": "Opzionale",
+            "yanHaklar": "Opzionale"
+          }
+        }
+      }
+    }
+  }
+}

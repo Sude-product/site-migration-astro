@@ -1,0 +1,526 @@
+@import "tailwindcss";
+
+/*
+  idenfit.com tasarım sistemi — Tailwind v4 CSS-tabanlı config.
+  Renk paleti ve fontlar idenfit.com'un Elementor global kit'inden (kit 9561)
+  birebir alındı. NOT: Tailwind v4 `tailwind.config.mjs` KULLANMAZ; tema
+  token'ları burada `@theme` içinde tanımlanır ve otomatik olarak
+  `bg-brand`, `text-heading`, `font-sans` gibi utility'lere dönüşür.
+*/
+@theme {
+  /* Marka renkleri (kaynak: Elementor global kit) */
+  --color-brand: #ff0000;          /* primary/accent — CTA butonları */
+  --color-brand-light: #fff2f2;    /* açık kırmızı zemin (uicore_light) */
+  --color-secondary: #6f2c90;      /* ikincil mor (uicore_secondary) */
+
+  /* Metin renkleri */
+  --color-heading: #070707;        /* başlıklar: siyaha yakın koyu */
+  --color-body: #333333;           /* paragraf gövde metni (okunur koyu gri) */
+  --color-muted: #808080;          /* ikincil/meta metin: açık gri (kit değeri) */
+
+  /* Yüzey */
+  --color-surface: #ffffff;        /* arka plan: beyaz */
+
+  /* Mega-menü panel zemini — kaynakta (`#mega-menu` container,
+     idenfit.com'un canlı header'ı) GERÇEK arka plan `rgb(242,242,242)`,
+     Playwright ile computed style üzerinden doğrulandı (2026-07-27) —
+     düz beyazdan (`--color-surface`) hafifçe farklı, nötr açık gri;
+     panelin sayfanın beyaz zeminine karışıp "soğuk/düz" durmasını önlüyor. */
+  --color-menu-surface: #f2f2f2;
+
+  /* Marquee (duyuru barı) — kaynağın `.scrolling-banner`/`.scrolling-text`
+     kurallarından element-ID doğrulamalı ölçüldü (2026-08-11): zemin
+     `rgb(251,229,255)`, alt kenarlık `1.5px solid rgb(241,160,255)`, metin
+     rengi `rgb(217,0,255)` — önceki 3 değer de UYDURMAYDI (`text-brand`
+     kırmızısı dahil), hiçbiri kaynakla örtüşmüyordu. */
+  --color-marquee-bg: #fbe5ff;
+  --color-marquee-border: #f1a0ff;
+  --color-marquee-text: #d900ff;
+
+  /* Footer zemini — 2026-07-28 (dördüncü tur). Kaynağın footer template'i
+     (`<footer data-elementor-id="10095">` → `post-10095.css`) doğrulandı:
+     footer'ın en dıştaki container'ının (`elementor-element-e006d61`,
+     `<footer>`'ın DOĞRUDAN ilk çocuğu) arka planı `#949494` — soft/orta
+     ton bir gri, SİYAH DEĞİL (önceden `bg-heading`/#070707 — neredeyse
+     siyah — kullanılıyordu, yanlıştı). Metin rengi BEYAZ kalıyor (kaynağın
+     kendi başlık widget'ları `color:var(--e-global-color-uicore_white)`
+     kullanıyor, bu bilinçli/kaynaktan — dokunulmadı). */
+  --color-footer-bg: #949494;
+
+  /* Animasyonlar → `animate-marquee` utility'sine dönüşür. Kaynağın gerçek
+     `.scrolling-track{animation:30s linear infinite scroll-left}` süresi
+     LİTERAL kopyalanmadı — kaynağın döngü genişliği (2112px, `-50%`=1056px
+     kayma / 30s ≈ 35.2px/s) bizim `MarqueeBar.tsx`'in kasıtlı olarak çok
+     daha geniş yarı-kopyasından (bkz. `HALF_REPEAT` yorumu, ~3500px)
+     FARKLI — 30s'yi birebir kullanmak akış hızını yaklaşık 3 katına
+     çıkarırdı. Bunun yerine kaynağın GERÇEK piksel/saniye hızı (~35.2px/s)
+     korunup bizim genişliğimize göre süre hesaplandı (~100s) — görsel
+     "okuma temposu" kaynakla aynı, yalnızca döngü matematiği (bkz.
+     `@keyframes marquee` yorumu) güvenli genişlik için uzatıldı. */
+  --animate-marquee: marquee 100s linear infinite;
+
+  /* Tipografi */
+  --font-sans: "Quicksand", ui-sans-serif, system-ui, -apple-system,
+    "Segoe UI", Roboto, sans-serif;
+}
+
+/* Marquee: -50% kayma matematiği (0→-50%, içerik 2 kopya) her zaman
+   TEK BAŞINA yeterli değil — 2026-08-11'de bulunan gerçek kök neden:
+   -50%'lik kayma yalnızca HER YARIM KOPYA (tek `MODULES` döngüsü)
+   viewport genişliğine EŞİT VEYA DAHA GENİŞSE kusursuz. Önceki halde
+   bir yarı kopya yalnızca ~856px'ti (1536px viewport'ta) — kayma
+   ilerledikçe track'in kalan genişliği viewport'tan azaldığı an, döngü
+   sıfırlanana kadar zeminin (boş) görünmesi ("boşluk/duraklama" hissi)
+   kaçınılmazdı. Çözüm CSS'te değil `MarqueeBar.tsx`'te: her yarı artık
+   `MODULES` dizisini yeterince (4x) tekrarlıyor ki yarı-kopya genişliği
+   her gerçekçi masaüstü viewport'unu (~3400px'e kadar) aşsın — 2-kopya/
+   -50% matematiği DEĞİŞMEDİ, yalnızca her kopyanın kendi içeriği
+   büyütüldü. */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Global varsayılanlar */
+html {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface);
+  color: var(--color-body);
+}
+
+/* Scroll-triggered fade-up animasyonu (bkz. `src/scripts/scroll-reveal.js`)
+   — başlangıçta yalnızca ana sayfanın GRUP 1/2/3 bölümlerinde kullanılıyordu,
+   2026-07-24'te blog listesi/tekil yazı kartlarına da (`BlogListPage.astro`,
+   `blog/[slug].astro`) uygulandı. `.is-visible` sınıfı IntersectionObserver
+   ile eklenir; öğeye özel `style="transition-delay:…ms"` ile hafif bir
+   stagger (sırayla belirme) uygulanabilir. JS hiç çalışmazsa (nadiren) veya
+   `prefers-reduced-motion: reduce` açıksa içerik HER ZAMAN tam görünür
+   kalır — progressive enhancement, erişilebilirlik önceliklidir.
+   `--reveal-y` (2026-08-07 eklendi): varsayılan 16px'i DEĞİŞTİRMEDEN
+   (mevcut tüm site geneli kullanımlar birebir aynı kalıyor) landing
+   page'in "daha belirgin" iddiası için tek tek component'lerde inline
+   `style="--reveal-y: 28px"` ile override edilebilir bir kanca. */
+.reveal {
+  opacity: 0;
+  transform: translateY(var(--reveal-y, 16px));
+  transition:
+    opacity 500ms ease-out,
+    transform 500ms ease-out;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Hero panelinin dekoratif nabız/halka animasyonu (2026-08-07) — bkz.
+   `LandingPulseDecoration.tsx`. 3 halka staggered scale+opacity ile
+   merkezden dışa doğru büyüyüp solan bir "radar" döngüsü oluşturuyor —
+   yalnızca transform/opacity (layout tetiklemiyor, header flicker
+   dersinden). */
+@keyframes lp-ring-pulse {
+  0% {
+    transform: scale(0.55);
+    opacity: 0.85;
+  }
+  70% {
+    opacity: 0.12;
+  }
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+.lp-ring {
+  animation: lp-ring-pulse 2.4s ease-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-ring {
+    animation: none;
+    opacity: 0;
+  }
+}
+
+/* Ürün paneli görselinin yavaş yukarı-aşağı süzülme animasyonu
+   (2026-08-07, `LandingProductShowcase.astro`) — hafif 3D perspektif
+   tilt'i (`rotateX`/`rotateY`) animasyon boyunca SABİT tutuluyor, yalnızca
+   `translateY` değişiyor (tek transform içinde birleştirilmiş, layout
+   tetiklemiyor). */
+@keyframes landing-float {
+  0%,
+  100% {
+    transform: perspective(1400px) rotateX(2deg) rotateY(-3deg) translateY(0);
+  }
+  50% {
+    transform: perspective(1400px) rotateX(2deg) rotateY(-3deg) translateY(-14px);
+  }
+}
+.landing-float {
+  animation: landing-float 6s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .landing-float {
+    animation: none;
+  }
+}
+
+/* Kırmızı CTA butonları — tek merkezi sınıf (2026-07-28, kullanıcı isteği:
+   "muhtemelen tek bir ortak Button component'i... üzerinden yönetiliyordur"
+   — Tailwind v4'ün CSS-tabanlı yaklaşımıyla tutarlı, hem .astro hem .tsx
+   dosyalarında `class="btn-cta"`/`className="btn-cta"` ile aynı yerden
+   yönetilir). Önceki stil: dolu kırmızı zemin + beyaz metin + `rounded-md`.
+   Yeni stil: beyaz zemin + kırmızı metin/kalın kenarlık + tam yuvarlak
+   (`rounded-full`), hover'da dolgu/metin renkleri yer değiştirir. Boyut
+   (padding/font-size) HER kullanım yerinde kendi Tailwind utility'leriyle
+   (`px-*`/`py-*`/`text-*`) kalmaya devam ediyor — bu sınıf yalnızca renk/
+   kenarlık/şekil/geçişi yönetir. KAPSAM DIŞI (bilinçli): ikon-rozetleri
+   (ör. mega-menü/mobil menünün dairesel `bg-brand` ikon kutuları — metin
+   taşımıyor, CTA değil), Hero'nun kırmızı arka plan paneli, Footer'ın
+   sosyal medya ikonları, Destek Talebi'nin YEŞİL butonu (kaynakta bilinçli
+   istisna, dokunulmadı). */
+.btn-cta {
+  border-radius: 9999px;
+  border: 2px solid var(--color-brand);
+  background-color: var(--color-surface);
+  color: var(--color-brand);
+  /* Font değerleri (2026-07-28, üçüncü tur) — kaynağın GERÇEK global buton
+     stilinden (`kit-9561.css`, `.elementor-button` + `input[type=submit]`
+     vb. TÜM buton seçicileri birleştiren kural) doğrulandı: `font-family:
+     "Quicksand"`, `font-size:15px`, `font-weight:700`, `text-transform:None`,
+     `letter-spacing:0em`. Her çağrı yerinde ayrı ayrı `text-sm`/`font-semibold`
+     tekrarlamak yerine buraya taşındı — Tailwind v4'ün utility'leri
+     `@layer utilities` içinde olduğu için bu düz (layer'sız) kural her
+     zaman kazanır, çağrı yerlerindeki eski `text-*`/`font-*` sınıfları
+     zararsız/geçersiz kalır. */
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
+}
+.btn-cta:hover {
+  background-color: var(--color-brand);
+  color: var(--color-surface);
+}
+.btn-cta:disabled {
+  border-color: #d1d5db;
+  background-color: #e5e7eb;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* Hero formunun (+ paylaştığı PanelFeatureSection 2. formu/İletişim'in
+   'underline' varyantı) gönder butonu — 2026-08-03. Element-ID doğrulamalı
+   YENİ bulgu: `.btn-cta`'nın yukarıdaki 15px/700 değeri kaynağın kit CSS'inden
+   (post-9561.css) geliyordu, ama bu dosya canlı ana sayfanın <head>'inde HİÇ
+   link'li DEĞİL (doğrulandı, `curl` ile <link> listesi kontrol edildi) — yani
+   hiç uygulanmıyor. Gerçek kazanan kural, canlı sayfada FİİLEN yüklenen
+   `post-25148.css`'teki widget-özel override (`.elementor-element-43e32bd
+   .elementor-button`): font-size 21px (masaüstü, >1024px) / 18px (tablet,
+   768-1024px) / 16px (mobil, ≤767px), font-weight 500 — `.btn-cta`'dan
+   FARKLI. `.btn-cta` unlayered olduğu için Tailwind'in text- ve font-
+   utility'leri onu ezemiyor (bkz. yukarıdaki `.btn-cta` yorumu) — aynı
+   unlayered yaklaşımla, kaynak sırasında SONRA gelen bu ayrı class
+   font-size/font-weight'i güvenle override ediyor (diğer `.btn-cta`
+   özellikleri — renk/kenarlık/köşe/hover — dokunulmadan kalıyor). */
+.btn-cta-form {
+  font-size: 16px;
+  font-weight: 500;
+}
+@media (min-width: 768px) {
+  .btn-cta-form {
+    font-size: 18px;
+  }
+}
+@media (min-width: 1024px) {
+  .btn-cta-form {
+    font-size: 21px;
+  }
+}
+
+/* Header'ın "Online Sunum Talebi" butonu — 2026-07-28 (altıncı tur, KONU 3).
+   Kullanıcı bu butonun ekran görüntüsünde `.btn-cta`nın (beyaz zemin/kırmızı
+   çerçeve) kullanıldığını, ama gerçek sitede SOLID kırmızı dolgulu
+   olabileceğini bildirdi. Element-ID çapraz doğrulamasıyla (idenfit.com
+   canlı HTML → nav CTA widget'ının GERÇEK ID'si `57d3049` → `post-9695.css`
+   içinde bu ID'ye bağlı kural aranıp bulundu) KESİN sonuç: bu buton için
+   `post-9695.css`'te YALNIZCA boyut/gölge/köşe override'ı var
+   (`font-size:11px;font-weight:400;line-height:15px;box-shadow:4px 5px 5px
+   0px rgba(0,0,0,.2);border-radius:19px;padding:10px`), background-color/
+   color HİÇ override edilmemiş — yani global kit varsayılanından geliyor
+   (`uicore-global.css`, `.elementor-button{color:#FFF;background-color:
+   var(--e-global-color-uicore_primary)}` = SOLID KIRMIZI zemin + BEYAZ
+   metin). Kullanıcının şüphesi DOĞRU çıktı: `.btn-cta` (beyaz+kırmızı
+   çerçeve) yalnızca Hero FORMUNUN kendi gönder butonuna (widget `43e32bd`,
+   önceki turda AYRI doğrulanmış GERÇEK bir per-widget override) ait —
+   header'ın kendi butonu bambaşka, solid kırmızı. Bu yüzden AYRI bir sınıf:
+   `.btn-cta-solid` — yalnızca Header.astro'nun masaüstü "Online Sunum
+   Talebi" butonunda kullanılıyor. **Bilinçli tek sapma:** kaynağın
+   `:hover`/`:focus` kuralı arka planı AYNI kırmızıya tekrar atıyor (görünür
+   bir hover renk değişimi YOK, kaynağın kendi davranışı) — kullanılabilirlik
+   için hafif bir kaldırma/gölge artışı eklendi (renk DEĞİŞMİYOR, yalnızca
+   ince bir etkileşim ipucu, kaynaktan çelişen bir renk uydurulmadı). */
+.btn-cta-solid {
+  /* `display` BİLİNÇLİ olarak buraya YAZILMADI — bu düz/layer'sız kural
+     Tailwind v4'ün `@layer utilities` içindeki HER utility'yi ezer (bkz.
+     CLAUDE.md "Tailwind v4 CSS layering" notu); `display` burada olsaydı
+     çağrı yerindeki `hidden sm:inline-flex` (responsive görünürlük)
+     çalışmazdı. */
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: none;
+  background-color: var(--color-brand);
+  color: #ffffff;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 15px;
+  padding: 10px 10px;
+  box-shadow: 4px 5px 5px 0 rgba(0, 0, 0, 0.2);
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+.btn-cta-solid:hover,
+.btn-cta-solid:focus-visible {
+  transform: translateY(-1px);
+  box-shadow: 4px 7px 8px 0 rgba(0, 0, 0, 0.25);
+}
+
+/* Ana nav menü öğeleri (ÜRÜNLER, NEDEN IDENFIT, SEKTÖRLER, FİYATLAR,
+   MÜŞTERİLER, KURUMSAL, KEŞFET, BLOG) — 2026-07-28, DÖRDÜNCÜ düzeltme
+   turu. ⚠️ ÖNCEKİ İKİ TURDA GERÇEKTEN YANLIŞ CSS DOSYASI okunuyormuş —
+   `post-12302.css`'teki `.elementor-item{font-size:14px;...}` kuralı,
+   element ID'si (`5b6c029`, canlı HTML'deki gerçek nav widget'ı) o
+   dosyada HİÇ GEÇMİYOR — yani post-12302.css bu header'a değil, sitenin
+   BAŞKA bir bölümüne ait, tesadüfen aynı jenerik `.elementor-item`
+   class'ını kullanan bir template'miş. Bu turda `<header data-elementor-id=
+   "9695">` (canlı HTML'de doğrulanan GERÇEK header) → `post-9695.css`
+   içinde `elementor-element-5b6c029`'a (nav widget'ının kendi ID'si)
+   bağlı kural bulunup element ID eşleşmesiyle ÇAPRAZ DOĞRULANDI:
+     .elementor-9695 .elementor-element-5b6c029 .elementor-nav-menu .elementor-item
+       { font-size:13px; font-weight:500; }
+     .elementor-9695 .elementor-element-5b6c029 .elementor-nav-menu--main .elementor-item
+       { color:#C1272D; padding:26px 16px; }
+   Yani gerçek değerler: **13px** (14 değil), **weight 500** (400 değil),
+   **renk #C1272D** (kaynaktan sapmayla verilen `text-heading`/siyah DEĞİL
+   — bu turda ortaya çıktı ki iki tur önce kullanıcının "kırmızımsı"
+   izlenimi AslıNDA DOĞRUYMUŞ, o zaman yanlış dosyayı okuduğum için
+   "siyah" sonucuna varmıştım). `font-family` (Quicksand) değişmedi,
+   önceki turların doğrulaması hâlâ geçerli. Kaynağın kendi padding'i
+   (26px dikey/16px yatay, oldukça geniş bir tıklama alanı) header'ımızın
+   sabit `h-16` yüksekliğiyle çakışacağı için BURAYA taşınmadı — yalnızca
+   font özellikleri uygulandı. */
+.nav-link-text {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 500;
+  color: #c1272d;
+  transition: color 200ms ease;
+}
+/* `:hover`/`:focus-visible` de BURADA (Tailwind'in `hover:text-brand`
+   utility'si `@layer utilities` içinde olduğu için, layer'sız bu düz
+   kuralın rengini ASLA override edemezdi — hover efekti sessizce
+   çalışmaz olurdu). */
+.nav-link-text:hover,
+.nav-link-text:focus-visible {
+  color: var(--color-brand);
+}
+
+/* Bölüm başlıkları (H2) — site genelinde 13 component'te tekrarlanan
+   `text-2xl font-bold sm:text-3xl` (24px→30px) yerine (2026-07-28, üçüncü
+   tur). Kaynakta İKİ BAĞIMSIZ örnek (`post-9.css`, "Neden idenfit?" H2'si
+   VE FeatureGrid'in "Verimli İşletmeler..." H2'si) BİREBİR aynı değerlere
+   sahip çıktı — bu, sitedeki GERÇEK standart H2 stili (HRTech bölümünün
+   50px/mor H2'si özel bir renkli-istisna, temsili değil, dokunulmadı):
+   masaüstü `font-size:40px;font-weight:600;line-height:48px`, daha küçük
+   ekranlarda kaynağın kendi media query'sinde `font-size:34px;line-height:40px`.
+   Yalnızca boyut/ağırlık/satır yüksekliği burada — renk (`text-heading`)
+   ayrı bir Tailwind utility olarak yanında kalmaya devam ediyor. */
+.h2-section {
+  font-weight: 600;
+  font-size: 34px;
+  line-height: 40px;
+}
+@media (min-width: 1024px) {
+  .h2-section {
+    font-size: 40px;
+    line-height: 48px;
+  }
+}
+
+/* Ana sayfa interaktif "ürün önizleme" widget'ı (2026-08-13) — sekme
+   içeriği değiştiğinde (`ProductPreviewWidget.tsx`, `key={activeTab}`
+   remount'u) yumuşak bir fade+slide geçişi. `.reveal` ile AYNI ilke
+   (yalnızca `opacity`/`transform`, `prefers-reduced-motion`'da kapalı). */
+@keyframes ppwFadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.ppw-tab-enter {
+  animation: ppwFadeSlide 350ms ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ppw-tab-enter {
+    animation: none;
+  }
+}
+
+/* Landing Page tasarruf hesaplayıcısı — marka renkli `<input type="range">`
+   (2026-08-10). Tarayıcı varsayılan slider'ı tamamen `appearance:none` ile
+   sıfırlanıp track/thumb elle çizildi (WebKit + Firefox ayrı pseudo-element
+   gerektiriyor, tek bir prefiksiz kural yok). Dolu/boş track oranı
+   component'ten `--range-progress` custom property'siyle inline geliyor. */
+.lp-range {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 100%;
+  height: 8px;
+  border-radius: 9999px;
+  background: linear-gradient(
+    to right,
+    var(--color-brand) 0%,
+    var(--color-brand) var(--range-progress, 0%),
+    #e5e5e5 var(--range-progress, 0%),
+    #e5e5e5 100%
+  );
+  outline: none;
+  cursor: pointer;
+}
+.lp-range::-webkit-slider-thumb {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+.lp-range::-webkit-slider-thumb:hover,
+.lp-range::-webkit-slider-thumb:active {
+  transform: scale(1.15);
+}
+.lp-range::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  background: var(--color-brand);
+  border: 3px solid #ffffff;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  transition: transform 150ms ease;
+}
+.lp-range::-moz-range-thumb:hover,
+.lp-range::-moz-range-thumb:active {
+  transform: scale(1.15);
+}
+.lp-range::-moz-range-track {
+  background: transparent;
+}
+
+/* Paket eşiği (Mikro/KOBİ/Pro) geçildiğinde büyük sayı + rozete kısa bir
+   "seviye atladı" vurgusu (2026-08-10) — her slider notch'ında DEĞİL,
+   yalnızca tier değiştiğinde tetiklenir (component `key={tier}` remount'u
+   ile), aksi halde sürükleme sırasında rahatsız edici bir titreşim olurdu. */
+@keyframes lp-value-pulse {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.08);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.lp-value-pulse {
+  animation: lp-value-pulse 0.4s ease-out;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-value-pulse {
+    animation: none;
+  }
+}
+
+/* Hesaplayıcı kartının arka plan zenginliği (2026-08-10) — ince nokta-grid
+   dokusu + 3 süzülen İK ikonu (`LandingSavingsCalculator.tsx`). Projede
+   `--border` diye bir tema token'ı YOK (bkz. `@theme` bloğu yukarıda) —
+   kartın kendi input kenarlıklarında zaten kullanılan açık gri `#DDDDDD`
+   ile tutarlı tutuldu (uydurulmuş yeni bir renk değil). SVG inline data
+   URI ile tekrarlayan 18x18px nokta deseni — `LandingLayout.astro`'nun
+   sayfa geneli `radial-gradient` dokusundan BİLİNÇLİ olarak farklı bir
+   teknik (kullanıcı özellikle SVG pattern istedi), ikisi de aynı "boş
+   alanı zenginleştir" amacına hizmet ediyor. */
+.lp-calc-dots {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18'%3E%3Ccircle cx='9' cy='9' r='1.25' fill='%23DDDDDD'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  opacity: 0.45;
+}
+
+/* 3 süzülen ikon — farklı süre (3.5s/4s/5s) + farklı yön/genlik, aynı anda
+   hareket etmesinler diye (doğal/organik görünüm). Yalnızca `transform`
+   (layout tetiklemiyor, header flicker dersinden — bkz. `.landing-float`). */
+@keyframes lp-calc-float-a {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+@keyframes lp-calc-float-b {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(7px);
+  }
+}
+@keyframes lp-calc-float-c {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+.lp-calc-icon-a {
+  animation: lp-calc-float-a 3.5s ease-in-out infinite;
+}
+.lp-calc-icon-b {
+  animation: lp-calc-float-b 4s ease-in-out infinite;
+}
+.lp-calc-icon-c {
+  animation: lp-calc-float-c 5s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-calc-icon-a,
+  .lp-calc-icon-b,
+  .lp-calc-icon-c {
+    animation: none;
+  }
+}

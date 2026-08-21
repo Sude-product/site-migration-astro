@@ -1,0 +1,14 @@
+---
+import ProductPage from '../../components/ProductPage.astro';
+import { getHardwareContent, getHardwareLocaleUrls, getHardwarePageTitle, getHardwareModifiedDate } from '../../data/hardwareContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
+
+const content = { ...getHardwareContent('az')!, faq: [] };
+const modified = getHardwareModifiedDate('az');
+const pageTitle = getHardwarePageTitle('az');
+const title = buildIdenfitTitle('Avadanlıq və Cihaz İnteqrasiyaları', 'az');
+const localeUrls = getHardwareLocaleUrls();
+const ctaKeyword = 'Avadanlıq və Cihaz İnteqrasiyaları';
+---
+
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

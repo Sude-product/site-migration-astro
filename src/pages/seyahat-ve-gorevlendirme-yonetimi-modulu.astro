@@ -1,0 +1,14 @@
+---
+// 2026-08-05: kapsamlı URL denetimiyle bulunan, önceki modül migrasyon
+// turlarında kaçırılmış bir modül. Bkz. CLAUDE.md.
+import ProductPage from '../components/ProductPage.astro';
+import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../data/productContent';
+
+const trSlug = 'seyahat-ve-gorevlendirme-yonetimi-modulu';
+const content = getProductContent(trSlug, 'tr')!;
+const pageTitle = getProductPageTitle(trSlug, 'tr');
+const localeUrls = getProductLocaleUrls(trSlug);
+const modified = getProductModifiedDate(trSlug, 'tr');
+---
+
+<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} hreflangLocales={['tr', 'en']} modified={modified} />

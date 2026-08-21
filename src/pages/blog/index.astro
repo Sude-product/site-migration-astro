@@ -1,0 +1,9 @@
+---
+import BlogListPage from '../../components/BlogListPage.astro';
+import { getAllBlogPosts, paginate } from '../../data/blogContent';
+
+const allPosts = await getAllBlogPosts();
+const result = paginate(allPosts, 1);
+---
+
+<BlogListPage result={result} allPosts={allPosts} />
