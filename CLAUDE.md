@@ -32,7 +32,29 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-23)
 
-**🟢 2026-08-22/23, en son — Fiyatlar sayfası mobil görünümünde 3 ayrı
+**🟢 2026-08-23, en son — Online Sunum Talebi sayfası mobil görünümde
+2 turda düzeltildi (kullanıcının paylaştığı canlı site ekran
+görüntülerine göre).** (1) **Sıra değişikliği:** `PresentationRequestPage.astro`'da
+iki sütunlu grid (`sol: başlık+telefon+entegrasyonlar`, `sağ: form
+kartı`) mobilde her zaman DOM sırasıyla (sol önce) render ediliyordu —
+kaynağın mobil görünümünde form kartı ÖNCE, başlık/telefon/entegrasyonlar
+SONRA geliyor. DOM sırası değişmedi, yalnızca `order-2 lg:order-1` (sol
+sütun) / `order-1 lg:order-2` (form kartı) ile `lg` altında görsel sıra
+tersine çevrildi; eski mobil `min-h-[528px]` kaldırıldı (artık kırmızı
+şeridin üstünde değil, gereksiz boşluk yaratıyordu). (2) **Renk kontrastı
+bug'ı:** sıra değişikliği sonrası sol sütun artık kırmızı şerit yerine
+DÜZ BEYAZ zemine düşüyordu ama metin hâlâ `text-white` idi — beyaz
+zeminde beyaz yazı tamamen görünmezdi (kullanıcının ikinci ekran
+görüntüsüyle yakalandı). Başlık/madde işaretleri/"Hemen Ara"/telefon
+numarası `lg` altında koyu/marka kırmızısına çevrildi, `lg:` üzerinde
+(kolon hâlâ kırmızı şeridin üstünde) eski beyaz renkler AYNEN korundu;
+telefon ikonu artık `lg` altında kırmızı çemberli. Her iki turda da
+`astro check` 0 hata, `astro build` 927 sayfa, `check-link-accessibility`/
+`check-heading-hierarchy` sıfır yeni regresyon, mobil+masaüstü
+(iframe-viewport tekniğiyle) görsel doğrulama kullanıcının ekran
+görüntüleriyle birebir eşleşti.
+
+**🟢 2026-08-22/23, ayrıca — Fiyatlar sayfası mobil görünümünde 3 ayrı
 bulgu düzeltildi.** (1) **Boşluk bug'ı:** "1-25Çalışan" gibi bitişik
 görünen çalışan-sayısı metni — kök neden `<b>1-25</b> Çalışan` içeriğinin
 doğrudan bir `flex` konteynerin çocuğu olması (flexbox flex item'lar

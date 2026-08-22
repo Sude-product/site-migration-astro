@@ -72,8 +72,18 @@ const title = buildIdenfitTitle(content.formTitle, locale);
           içeriksiz olduğu için tam 600px sabit) — bkz. aşağıdaki sol kolon
           yorumu. `items-start`'a geri dönüldü. */}
       <div class="grid items-start gap-y-10 lg:grid-cols-2 lg:gap-x-0">
-        {/* Sol kolon — şeffaf, arkadaki kırmızı görünür. */}
-        <div>
+        {/* Sol kolon — şeffaf, arkadaki kırmızı görünür. **2026-08-22
+            DÜZELTME:** kullanıcının paylaştığı canlı site mobil ekran
+            görüntülerine göre, `lg` altında (mobil/tablet) bu kolon
+            (başlık+liste+telefon+entegrasyonlar) sağ kolonun (form kartı)
+            ALTINDA görünmeli — kaynağın mobil görünümünde form kartı
+            başlıksız/doğrudan sayfanın en üstünde, bu blok ise form +
+            müşteri logoları bölümünden SONRA geliyor. DOM sırası
+            değişmedi (masaüstü kaynak kodu/erişilebilirlik okuma sırası
+            aynı kalıyor), yalnızca `order-*` ile GÖRSEL sıra `lg` altında
+            tersine çevrildi; `lg:` üstünde `order-1`/`order-2` orijinal
+            (sol-sağ) düzeni geri getiriyor. */}
+        <div class="order-2 lg:order-1">
           {/* ⚠️ DÜZELTME (2026-08-04, 9. tur — KALICI ÇÖZÜM): "Entegre..."
               bloğu kırmızı şeridin (yukarıdaki `min-h-[600px]`, sabit —
               içeriksiz olduğu için asla uzamaz) HEMEN ALTINDA başlamalı,
@@ -83,25 +93,32 @@ const title = buildIdenfitTitle(content.formTitle, locale);
               şeridin bittiği noktaya kadar dolduran bir `min-height`
               verildi: masaüstü padding-top 120px + bu min-height (472px) +
               alttaki `mt-6`(24px) ≈ 616px ≈ kırmızı şeridin bittiği 600px +
-              16px küçük nefes payı. Mobilde padding-top 64px olduğu için
-              min-height daha büyük (528px) tutuldu, aynı ~616px hedefine
-              ulaşmak için. İçerik bu min-height'i AŞARSA (TR'de muhtemel)
-              min-height devre dışı kalır, doğal akış korunur — yalnızca
-              KISA içerik (EN/NL/IT gibi) için bir taban değeri. **Dürüst
-              sınır:** Chrome uzantısı/Playwright bu oturumda da
-              kullanılamadı, değerler element-ID ölçümü değil hesaplanmış
-              tahmin — kullanıcı görsel olarak doğrulamalı. */}
-          <div class="min-h-[528px] lg:min-h-[472px]">
+              16px küçük nefes payı. **2026-08-22:** bu hesap yalnızca `lg:`
+              için geçerli (sol kolon kırmızı şeridin ÜSTÜNDE/içinde
+              olduğunda) — mobilde artık bu kolon `order-2` ile ALTA
+              taşındığı için (kırmızı şeridin arkasında değil, formun
+              ALTINDAKİ beyaz zeminde), eski mobil `min-h-[528px]` değeri
+              KALDIRILDI; doğal içerik yüksekliği kullanılıyor. */}
+          <div class="lg:min-h-[472px]">
+          {/* ⚠️ DÜZELTME (2026-08-23): bu blok `text-white` renkleriyle
+              yazılmıştı çünkü ÖNCEDEN her zaman kırmızı şeridin ÜSTÜNDE
+              duruyordu. Bir önceki tur (`order-2`) mobilde bu bloğu formun
+              ALTINA, DÜZ BEYAZ zemine taşıdı — beyaz metin beyaz zeminde
+              tamamen görünmez hale geldi (kullanıcının paylaştığı ekran
+              görüntüsü, `lg` altında). Kaynağın kendi mobil görünümüne göre
+              renkler `lg` altında koyu/marka kırmızısına çevrildi, `lg:`
+              üzerinde (kolon hâlâ kırmızı şeridin üstünde) eski beyaz
+              renkler AYNEN korundu — masaüstü görünüm değişmedi. */}
           <h1
-            class="text-2xl font-bold leading-7 text-white lg:text-[36px] lg:leading-[43px]"
+            class="text-2xl font-bold leading-7 text-heading lg:text-[36px] lg:leading-[43px] lg:text-white"
             set:html={content.pageTitle}
           />
 
           <ul class="mt-6 space-y-2">
             {
               content.info.map((line: string) => (
-                <li class="flex items-center gap-2.5 text-base text-white">
-                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-white" aria-hidden="true" />
+                <li class="flex items-center gap-2.5 text-base text-body lg:text-white">
+                  <span class="h-1.5 w-1.5 shrink-0 rounded-full bg-brand lg:bg-white" aria-hidden="true" />
                   {line}
                 </li>
               ))
@@ -111,24 +128,26 @@ const title = buildIdenfitTitle(content.formTitle, locale);
           {
             content.phoneNumber && (
               <>
-                <p class="mt-8 text-[22px] leading-[30px] text-white lg:mt-[50px]">{content.callText}</p>
+                <p class="mt-8 text-[22px] leading-[30px] text-brand lg:mt-[50px] lg:text-white">{content.callText}</p>
                 <a
                   href={content.phoneNumberLink}
-                  class="mt-1 inline-flex items-center gap-3 text-2xl font-bold text-white transition-opacity hover:opacity-90"
+                  class="mt-1 inline-flex items-center gap-3 text-2xl font-bold text-brand transition-opacity hover:opacity-90 lg:text-white"
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="h-7 w-7 shrink-0 text-secondary"
-                    aria-hidden="true"
-                  >
-                    <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
-                  </svg>
+                  <span class="inline-flex items-center justify-center rounded-full border-2 border-brand p-1.5 lg:border-0 lg:p-0">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      class="h-5 w-5 shrink-0 text-brand lg:h-7 lg:w-7 lg:text-secondary"
+                      aria-hidden="true"
+                    >
+                      <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
+                    </svg>
+                  </span>
                   {content.phoneNumber}
                 </a>
               </>
@@ -164,8 +183,10 @@ const title = buildIdenfitTitle(content.formTitle, locale);
           }
         </div>
 
-        {/* Sağ kolon — TEK dolu beyaz kart (form + referanslar birlikte) */}
-        <div class="rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)] lg:px-[80px] lg:py-10">
+        {/* Sağ kolon — TEK dolu beyaz kart (form + referanslar birlikte).
+            `order-1 lg:order-2` — bkz. sol kolonun 2026-08-22 yorumu:
+            mobilde bu kart en ÜSTTE, `lg:`'de her zamanki gibi sağda. */}
+        <div class="order-1 rounded-[20px] bg-white p-8 shadow-[0_2px_5px_-1px_rgba(0,0,0,0.5)] lg:order-2 lg:px-[80px] lg:py-10">
           <h2 class="text-center text-2xl font-normal text-heading lg:text-[36px]">{content.formTitle}</h2>
           <p class="mt-2 mb-6 text-center text-sm text-muted">{content.formText}</p>
 
