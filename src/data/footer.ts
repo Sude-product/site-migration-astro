@@ -65,13 +65,20 @@ export const FOOTER_CONTACT = {
 // Sosyal medya — idenfit.com footer'ından gerçek URL'ler VE gerçek SIRA
 // (2026-07-24'te canlı `<footer>` yeniden incelenip düzeltildi — önceki
 // sürüm 5 platformu FARKLI bir sırayla listeliyordu ve Pinterest/Medium'u
-// hiç içermiyordu; kaynakta 7 platform var).
+// hiç içermiyordu; kaynakta 7 platform var). Bu liste `BaseLayout.astro`'nun
+// Organization JSON-LD `sameAs` alanı tarafından da AYNEN yeniden kullanılıyor
+// (2026-08-22) — sosyal linkler iki yerde ayrı ayrı tutulmuyor.
+// **2026-08-22 düzeltme:** LinkedIn href'i eski/artık geçerli olmayan
+// `/company/idenfit/` slug'ından kanonik `/company/idenfithr/`'e
+// güncellendi — eski slug hâlâ çalışıyordu ama LinkedIn tarafında 301 ile
+// yeni slug'a yönleniyordu (doğrulandı), `sameAs` bir yönlendirmeyi değil
+// sayfanın kendisini işaret etmeli.
 export const FOOTER_SOCIAL = [
   { platform: 'facebook', href: 'https://www.facebook.com/idenfit', label: 'Facebook' },
   { platform: 'youtube', href: 'https://www.youtube.com/channel/UCE-4lk4QsU71NfTI7vxPCJQ/', label: 'YouTube' },
   { platform: 'x', href: 'https://twitter.com/idenfit', label: 'X (Twitter)' },
   { platform: 'instagram', href: 'https://www.instagram.com/idenfitcom/', label: 'Instagram' },
-  { platform: 'linkedin', href: 'https://www.linkedin.com/company/idenfit/', label: 'LinkedIn' },
+  { platform: 'linkedin', href: 'https://www.linkedin.com/company/idenfithr/', label: 'LinkedIn' },
   { platform: 'pinterest', href: 'https://www.pinterest.com/idenfit', label: 'Pinterest' },
   { platform: 'medium', href: 'https://medium.com/@idenfit', label: 'Medium' },
 ] as const;

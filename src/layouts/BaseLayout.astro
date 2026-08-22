@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
+import { FOOTER_SOCIAL } from '../data/footer';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import type { Locale } from '../data/nav';
 
@@ -141,6 +142,28 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		{ogType === 'article' && articleModifiedTime && (
 			<meta property="article:modified_time" content={articleModifiedTime} />
 		)}
+
+		<!-- Organization JSON-LD (2026-08-22) — `sameAs`, idenfit'in gerçek/
+		     doğrulanmış sosyal medya profillerini işaret eder. Tek veri
+		     kaynağı `FOOTER_SOCIAL` (`data/footer.ts`) — sosyal linkler iki
+		     ayrı yerde bakımı gereken iki liste olarak TUTULMUYOR. Sayfa
+		     türünden bağımsız, HER sayfada basılır (kurum kimliği page-özel
+		     değildir) — `WebPage`/`BlogPosting` bloklarıyla birlikte var
+		     olabilir, Google birden fazla JSON-LD bloğunu aynı sayfada
+		     destekler. `url` yalnızca `Astro.site` tanımlıysa eklenir (bkz.
+		     `pageUrl`'in dosya başındaki AYNI ilkesi — prod domain Faz 2'ye
+		     kadar bağlanmadı, uydurma bir domain YAZILMADI). -->
+		<script
+			type="application/ld+json"
+			set:html={JSON.stringify({
+				'@context': 'https://schema.org',
+				'@type': 'Organization',
+				name: 'idenfit',
+				...(Astro.site ? { url: Astro.site.href } : {}),
+				sameAs: FOOTER_SOCIAL.map((s) => s.href),
+			})}
+			is:inline
+		/>
 
 		<!-- "No dateModified in structured data" GEO bulgusu (2026-08-19) —
 		     blog DIŞINDAKİ sayfalar için sade bir `WebPage` JSON-LD bloğu

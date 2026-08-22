@@ -32,7 +32,39 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-22)
 
-**🟢 2026-08-22, en son — Blog "zamirle başlayan bağımlı ilk paragraf"
+**🟢 2026-08-22, en son — Organization JSON-LD eklendi + `sameAs`'e
+LinkedIn dahil 7 gerçek sosyal profil bağlandı, site genelinde 926
+sayfada aktif.** Kullanıcı "LinkedIn'i sameAs'a ekle" dedi; keşifte
+projede hiç Organization/`sameAs` şeması OLMADIĞI görüldü (yalnızca
+sade `WebPage`/`BlogPosting` blokları vardı) — sıfırdan `BaseLayout.astro`'ya
+eklendi (`{name:'idenfit', sameAs:[...]}`, `Astro.site` tanımlıysa `url`
+de eklenir). **Beklenmedik bulgu:** `data/footer.ts`'teki (2026-07-24'te
+canlı siteden çıkarılmış, 7 platformluk gerçek) `FOOTER_SOCIAL`
+listesindeki LinkedIn href'i (`/company/idenfit/`) LinkedIn tarafında
+301 ile kanonik `/company/idenfithr/`'e yönleniyordu (WebFetch ile
+doğrulandı — hedef sayfa gerçek/aktif, 8.712 takipçi, idenfit.com'a
+bağlı). Kullanıcı onayıyla: (1) `footer.ts`'teki href kanonik adrese
+düzeltildi (footer'da GÖRÜNEN link de artık doğru), (2) yeni Organization
+bloğunun `sameAs`'i uydurma/yeni bir liste OLUŞTURMADAN `FOOTER_SOCIAL`'ı
+aynen yeniden kullanıyor — sosyal linkler tek kaynaktan geliyor, iki
+ayrı listeye bölünmedi. `astro check` 0 hata, `astro build` 927 sayfa,
+`check-json-ld.mjs`: 926/928 sayfada (önceden 788) `Organization` bloğu
++ mevcut `WebPage`(161)/`BlogPosting`(622)/`FAQPage`(5) YANINDA, 0
+geçersiz blok. **Kalan 2 sayfa netleştirildi (kasıtlı, eksik DEĞİL):**
+`admin/index.html` (Decap CMS'in kendi bundle'ladığı statik admin
+kabuğu — `BaseLayout` hiç kullanmıyor, zaten `noindex,nofollow`) ve
+`demo/index.html` (Landing Page — ayrı/minimal `LandingLayout.astro`,
+`noindex:true` varsayılanı, bu değişiklikten ÖNCE de hiç JSON-LD
+taşımıyordu — regresyon değil, önceden var olan kapsam dışı bırakma).
+İkisi de zaten noindex olduğu için SEO etkisi yok. `check-link-accessibility`/
+`check-heading-hierarchy` mevcut temel çizgiyle birebir aynı, sıfır yeni
+regresyon. `curl` ile ana sayfa/ürün sayfası/blog yazısında `sameAs`
+içinde temiz LinkedIn URL'i (`/posts/?feedView=all` gibi bir alt-görünüm
+YOK) + footer'daki güncellenmiş `<a href>` tek tek doğrulandı. Commit
+edildi — **push HÂLÂ BEKLİYOR** (repo'nun remote'u yok, bkz. aşağıdaki
+2026-08-21 notu — kullanıcıdan remote URL isteniyor).
+
+**🟢 2026-08-22, ayrıca — Blog "zamirle başlayan bağımlı ilk paragraf"
 denetimi TAMAMLANDI, 14/14 madde kapandı.** Kullanıcı isteğiyle blog +
 ürün/modül sayfalarında her H2/H3 başlığı altındaki İLK paragrafın
 "Bu/Bunlar/O" gibi bir zamirle başlayıp önceki cümleye/başlığa bağımlı
