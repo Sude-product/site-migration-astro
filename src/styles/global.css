@@ -324,6 +324,7 @@ html {
    sabit `h-16` yüksekliğiyle çakışacağı için BURAYA taşınmadı — yalnızca
    font özellikleri uygulandı. */
 .nav-link-text {
+  position: relative;
   font-family: var(--font-sans);
   font-size: 13px;
   font-weight: 500;
@@ -337,6 +338,23 @@ html {
 .nav-link-text:hover,
 .nav-link-text:focus-visible {
   color: var(--color-brand);
+}
+
+/* Aktif sayfa göstergesi — idenfit.com'da o an gezinilen nav öğesinin
+   altında kırmızı bir şerit beliriyor (2026-08-22, kullanıcının canlı
+   siteden gönderdiği referans görsel). `Header.astro` aktif öğeye
+   `nav-link-active` class'ını ekliyor (mega-menü tetikleyicileri için de
+   — o kategorinin ALTINDAKİ bir sayfadaysa, bkz. Header.astro'daki
+   `isPathActive`/kolon taraması). */
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -9px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: var(--color-brand);
 }
 
 /* Bölüm başlıkları (H2) — site genelinde 13 component'te tekrarlanan

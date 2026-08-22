@@ -171,6 +171,10 @@ export interface MegaMenuProps {
    * `promo`'dan (ÜRÜNLER'in büyük paneli) FARKLI, `ReportCard`'la aynı şekli
    * kullanan bağımsız bir alan (bkz. `navigation.ts` — `MegaMenuContent.promoCard`). */
   promoCard?: ResolvedReportCard;
+  /** true ise mevcut sayfa bu mega-menünün kategorisine ait bir sayfa —
+   * tetikleyici buton kırmızı alt çizgi alır (bkz. `global.css`'teki
+   * `.nav-link-active`, `Header.astro`'daki kolon taraması). */
+  isActive?: boolean;
 }
 
 const CLOSE_DELAY = 300;
@@ -430,7 +434,7 @@ function Column({ column }: { column: ResolvedColumn }) {
   );
 }
 
-export default function MegaMenu({ label, intro, columns, promo, promoCard }: MegaMenuProps) {
+export default function MegaMenu({ label, intro, columns, promo, promoCard, isActive }: MegaMenuProps) {
   const [open, setOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const rootRef = useRef<HTMLLIElement>(null);
@@ -519,7 +523,7 @@ export default function MegaMenu({ label, intro, columns, promo, promoCard }: Me
       aria-expanded={open}
       aria-controls={panelId}
       onClick={() => setOpen((v) => !v)}
-      className="nav-link-text flex items-center gap-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand"
+      className={`nav-link-text flex items-center gap-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand${isActive ? ' nav-link-active' : ''}`}
     >
       {label}
       <svg width="10" height="10" viewBox="0 0 12 12" fill="none" aria-hidden="true" className={`transition-transform ${open ? 'rotate-180' : ''}`}>

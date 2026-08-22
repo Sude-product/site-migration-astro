@@ -118,6 +118,33 @@ const navItems = NAV_ITEMS.map((item) => {
     mega: megaContent ? resolveMegaMenu(megaContent) : undefined,
   };
 });
+
+// Aktif sayfa göstergesi (2026-08-22, kullanıcının idenfit.com'dan
+// gönderdiği referans görsel — o an gezinilen nav öğesinin altında
+// kırmızı bir şerit). Sade linkler (Neden idenfit/Fiyatlar/Müşteriler)
+// için doğrudan `href` karşılaştırması yeterli; mega-menü tetikleyicileri
+// (ÜRÜNLER/SEKTÖRLER/KURUMSAL/KEŞFET) için mevcut sayfanın o kategoriye
+// ait bir alt sayfa olup olmadığı, ZATEN resolve edilmiş kolon linkleri
+// (`LinksColumn.links[].href`/`SublistColumn.href`) taranarak belirleniyor
+// — ayrı bir kategori eşleme dosyası GEREKMİYOR.
+const normalizePath = (p: string) => p.split('#')[0].split('?')[0].replace(/\/+$/, '') || '/';
+const currentPath = normalizePath(Astro.url.pathname);
+const isPathActive = (href: string) => normalizePath(href) === currentPath;
+
+const isMegaActive = (mega: ReturnType<typeof resolveMegaMenu>) =>
+  mega.columns.some((col) => {
+    // `resolveLink()` (bkz. yukarısı) dış/iç ayrımını `external` alanında
+    // DEĞİL, doğrudan üretilen `href`'te taşıyor (dış linkler mutlak
+    // `http(s)://` kalır) — kategori taraması bunu esas alıyor.
+    if (col.type === 'links') return col.links.some((link) => !/^https?:\/\//.test(link.href) && isPathActive(link.href));
+    if (col.type === 'sublist') return !col.external && isPathActive(col.href);
+    return false; // 'cards' — daima dış/PDF benzeri hedefler, kategori sayılmaz.
+  });
+
+const navItemsWithActive = navItems.map((item) => ({
+  ...item,
+  isActive: item.mega ? isMegaActive(item.mega) : isPathActive(item.href),
+}));
 ---
 
 <header class="sticky top-0 z-40 isolate w-full border-b border-gray-100 bg-surface/95 will-change-transform">
@@ -196,7 +223,7 @@ const navItems = NAV_ITEMS.map((item) => {
 		<nav class="hidden lg:block" aria-label={ui.mainNav}>
 			<ul class="flex items-center gap-8">
 				{
-					navItems.map((item) => {
+					navItemsWithActive.map((item) => {
 						if (item.mega) {
 							return (
 								<MegaMenu
@@ -206,6 +233,7 @@ const navItems = NAV_ITEMS.map((item) => {
 									columns={item.mega.columns}
 									promo={item.mega.promo}
 									promoCard={item.mega.promoCard}
+									isActive={item.isActive}
 								/>
 							);
 						}
@@ -213,7 +241,7 @@ const navItems = NAV_ITEMS.map((item) => {
 							<li>
 								<a
 									href={item.href}
-									class="nav-link-text"
+									class={`nav-link-text${item.isActive ? ' nav-link-active' : ''}`}
 								>
 									{item.label}
 								</a>
