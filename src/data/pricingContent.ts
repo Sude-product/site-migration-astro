@@ -62,6 +62,14 @@ export interface PricingContent {
   /** Pro kartının üstünde beliren Suprema donanım rozetinin metni (bkz.
    * `SUPREMA_BADGE_TEXT`). */
   supremaBadgeText: string;
+  /** Mobil/tablet (`lg` altı) — her kartın KENDİ Özellikler/Eklentiler
+   * listesini açıp kapatan `<details>` toggle metni (bkz.
+   * `MOBILE_DETAILS_TOGGLE` + `PricingPage.astro`'nun kart-içi accordion'u,
+   * 2026-08-22). Opsiyonel — `getPricingContent()` HER locale için bunu
+   * `MOBILE_DETAILS_TOGGLE`'dan koşulsuz doldurur, `PRICING_AZ_OVERRIDE`
+   * gibi elle yazılan literal'lerin bu alanı taşıması GEREKMEZ. */
+  mobileDetailsMoreText?: string;
+  mobileDetailsLessText?: string;
 }
 
 interface RawGroup {
@@ -94,6 +102,21 @@ const SUPREMA_BADGE_TEXT: Record<Locale, string> = {
   nl: 'Volledig Geïntegreerd',
   it: 'Completamente Integrato',
   az: 'AVADANLIQLARLA TAM İNTEQRASİYA',
+};
+
+// Mobil kart-içi "Özellikler/Eklentiler" accordion'unun aç/kapa metni
+// (2026-08-22, kullanıcının paylaştığı canlı site ekran görüntüsüne göre —
+// kaynağın `.mobile-only` akordeon HTML'i "Daha Fazla"/"Daha Az" TR metnini
+// kullanıyor). Bu metin `pricing.json`'da HİÇ yok — kaynağın mobil-only
+// bloğu ayrı bir PHP template parçası, standart extraction'a hiç
+// yakalanmadı (`SUPREMA_BADGE_TEXT` ile AYNI durum). EN/NL/IT/AZ gerçek/
+// profesyonel çeviri (KARAR 1) — kısa, standart UI ifadeleri.
+const MOBILE_DETAILS_TOGGLE: Record<Locale, { more: string; less: string }> = {
+  tr: { more: 'Daha Fazla', less: 'Daha Az' },
+  en: { more: 'Show More', less: 'Show Less' },
+  nl: { more: 'Toon Meer', less: 'Toon Minder' },
+  it: { more: 'Mostra di più', less: 'Mostra meno' },
+  az: { more: 'Daha Çox', less: 'Daha Az' },
 };
 
 // Fiyat güncellemesi (2026-08-18, kullanıcı talebi) — ham `pricing.json`
@@ -275,6 +298,8 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
     sme: { ...sme, price: SME_PRICE_OVERRIDE[locale] ?? sme.price },
     pro: { ...pro, price: PRO_QUOTE_TEXT[locale] ?? pro.price, priceSuffix: '' },
     supremaBadgeText: SUPREMA_BADGE_TEXT[locale],
+    mobileDetailsMoreText: MOBILE_DETAILS_TOGGLE[locale].more,
+    mobileDetailsLessText: MOBILE_DETAILS_TOGGLE[locale].less,
   };
 }
 

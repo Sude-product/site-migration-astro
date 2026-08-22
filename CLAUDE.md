@@ -30,9 +30,72 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-22)
+## Güncel durum (son güncelleme: 2026-08-23)
 
-**🟢 2026-08-22, en son — Organization JSON-LD eklendi + `sameAs`'e
+**🟢 2026-08-22/23, en son — Fiyatlar sayfası mobil görünümünde 3 ayrı
+bulgu düzeltildi.** (1) **Boşluk bug'ı:** "1-25Çalışan" gibi bitişik
+görünen çalışan-sayısı metni — kök neden `<b>1-25</b> Çalışan` içeriğinin
+doğrudan bir `flex` konteynerin çocuğu olması (flexbox flex item'lar
+arasındaki boşluğu yutuyordu), içerik tek bir `<span>`'e sarmalanarak
+düzeltildi (veri zaten doğruydu, hiç değişmedi). (2) **Suprema rozeti
+çakışması:** Pro kartının üstüne mutlak konumla (`-top-[50px]`) taşan
+rozet, kartlar mobilde tek sütuna indiğinde bir üstteki KOBİ kartıyla
+çakışıyordu — `lg` altında normal akışa (`relative`+`mb-4`) alındı,
+kaynağın gerçek mobil görünümüyle eşleşti. (3) **Satır taşması:**
+Özellikler/Eklentiler karşılaştırma tablosunda sabit `h-[42px]` satır
+yüksekliği, mobildeki dar sütunda (110px) 3 satıra sarmaya ihtiyaç duyan
+uzun etiketleri ("Telefon/Çevrimiçi Destek") sığdıramıyor, metin
+komşu satırlarla görsel olarak çakışıyordu — mobilde `h-16`'ya
+çıkarılıp `sm:h-[42px]`'e geri dönecek şekilde düzeltildi (DOM'da
+programatik olarak 0/56 satırın taştığı doğrulandı). **Ayrıca (kullanıcının
+ayrı ekran görüntüleriyle istediği büyük değişiklik):** mobil/tablette
+paylaşımlı yatay-kaydırmalı karşılaştırma tablosu YERİNE, kaynağın
+`.mobile-only` akordeon deseni (önceki bir turda BİLİNÇLİ kapsam dışı
+bırakılmıştı) uygulandı — her kartın kendi "Daha Fazla/Daha Az"
+`<details>` accordion'u (native HTML), kendi Özellikler+Eklentiler
+listesini tek sütun gösteriyor; paylaşımlı tablo artık yalnızca `lg:`.
+Toggle metni (`mobileDetailsMoreText`/`LessText`) `pricingContent.ts`'e
+`SUPREMA_BADGE_TEXT` ile AYNI desende eklendi — kaynakta hiç yoktu
+(mobil-only blok extraction'a hiç yakalanmamıştı), 4+1 dilin (tr/en/nl/it/az)
+hepsi için gerçek çeviri yazıldı (KARAR 1). Her turda `astro check` 0
+hata, `astro build` 927 sayfa, `check-link-accessibility`/
+`check-heading-hierarchy` sıfır yeni regresyon, mobil+masaüstü görsel
+doğrulama (iframe-viewport tekniği + DOM ölçümü) kullanıcının ekran
+görüntüleriyle eşleşti.
+
+**🟢 2026-08-23, ayrıca — "Missing viewport meta tag" SEO bulgusu
+incelendi, ZATEN KAPALI bulundu, kod değişikliği YAPILMADI.**
+`<meta name="viewport" content="width=device-width, initial-scale=1">`
+`BaseLayout.astro` (satır 116) VE `LandingLayout.astro`'da (satır 46)
+ZATEN vardı. `curl` ile 6 farklı sayfa türünde (ana sayfa/ürün/blog/EN
+locale/fiyatlar/Landing Page `/demo/`) gerçek HTML çıktısında tek tek
+doğrulandı. `dist/**/*.html` üzerinde tam site taraması (928 gerçek
+sayfa, redirect stub'ları hariç — ilk taramada stub'lar dahil edilince
+2186 "eksik" çıkmıştı, hepsi Astro'nun kendi framework-içi i18n-fallback
+`<meta refresh>` şablonu, Açık nokta #27'nin AYNI bilinen sınıfı, gerçek
+bir eksiklik DEĞİL): **0/928 sayfada eksik** — `/admin/` (Decap CMS
+kabuğu) dahil hepsinde mevcut. Bulgu muhtemelen `og:description`
+bulgusuyla AYNI kökenden (eski/güncel olmayan bir tarama). Kullanıcı
+onayıyla kapatıldı, kod değişikliği YOK.
+
+**🟢 2026-08-23, ayrıca — "Missing og:description" SEO bulgusu incelendi,
+ZATEN KAPALI bulundu, kod değişikliği YAPILMADI.** Kullanıcının bir SEO
+tarama aracından gelen bulgusu araştırıldı: `BaseLayout.astro` (satır
+134-138) ve `LandingLayout.astro` (satır 59-63) ikisi de `og:description`'ı
+2026-08-13'teki "og:image eksik" turunda EKLEMİŞTİ — hem `<meta
+name="description">` hem `og:description` AYNI `{description}` prop'unu
+kullanıyor (ayrı bir metin YAZILMADI, tek kaynaktan geliyor — kullanıcının
+önerdiği yaklaşım zaten uygulanmıştı). `dist/**/*.html` üzerinde script ile
+tam tarama (928 sayfa, redirect stub'ları hariç, diğer `check-*.mjs`'lerle
+AYNI desen): 927/928 sayfada `og:description` mevcut ve dolu, sıfır boş
+içerik. **Tek istisna: `admin/index.html`** (Decap CMS'in kendi bundle'ladığı
+statik admin panel kabuğu, `BaseLayout` kullanmıyor, zaten `noindex,
+nofollow`) — bir içerik sayfası değil, sosyal paylaşım/SEO ihtiyacı yok,
+bilinçli olarak dokunulmadı. Bulgu muhtemelen 2026-08-13 düzeltmesinden
+ÖNCEKİ eski bir tarama sonucu. Kullanıcı onayıyla kapatıldı, kod
+değişikliği YOK.
+
+**🟢 2026-08-22, ayrıca — Organization JSON-LD eklendi + `sameAs`'e
 LinkedIn dahil 7 gerçek sosyal profil bağlandı, site genelinde 926
 sayfada aktif.** Kullanıcı "LinkedIn'i sameAs'a ekle" dedi; keşifte
 projede hiç Organization/`sameAs` şeması OLMADIĞI görüldü (yalnızca

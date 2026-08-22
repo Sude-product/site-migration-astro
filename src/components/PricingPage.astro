@@ -130,9 +130,15 @@ const PLAN_BTN_CLASS =
                 {/* Suprema donanım rozeti — yalnızca Pro kartında, kaynağın
                     `.pro-logo`/`.suprema-text` kuralları kadar
                     (top:-50px/+13px, ortalanmış) kartın ÜSTÜNE taşan bir
-                    rozet. */}
+                    rozet — ama SADECE `lg:` (3 kart tek sırada yan yana)
+                    üzerinde. Kartlar `sm`/mobilde tek sütunda ALT ALTA
+                    dizildiği için `-top-[50px]` offset'i Pro'nun üstündeki
+                    KOBİ kartıyla ÇAKIŞIYORDU (idenfit.com'un kaynak mobil
+                    görünümünde rozet normal akışta, kartlar arasında kendi
+                    boşluğuyla duruyor — `lg:` altında biz de aynısını
+                    yapıyoruz: normal akış + `mb-4`). */}
                 {isPro && (
-                  <div class="pointer-events-none absolute inset-x-0 -top-[50px] flex flex-col items-center">
+                  <div class="pointer-events-none relative mb-4 flex flex-col items-center lg:absolute lg:inset-x-0 lg:-top-[50px] lg:mb-0">
                     <img
                       src="https://idenfit.com/wp-content/uploads/2025/08/suprema-logo.png"
                       alt="Suprema Logo"
@@ -147,10 +153,17 @@ const PLAN_BTN_CLASS =
                 )}
                 <h2 class="flex h-[46px] items-center text-[28px] font-bold text-heading lg:text-[38px]">{plan.planTitle}</h2>
                 {plan.employeeRange && (
-                  <p
-                    class="mb-2 flex h-10 items-center rounded border border-black/10 bg-white px-4 text-[18px] text-heading"
-                    set:html={plan.employeeRange}
-                  />
+                  <p class="mb-2 flex h-10 items-center rounded border border-black/10 bg-white px-4 text-[18px] text-heading">
+                    {/* `set:html` içeriği (`<b>1-25</b> Çalışan`) doğrudan bu
+                        flex konteynerin çocuğu olursa `<b>` elemanı ve ondan
+                        sonraki çıplak metin ayrı flex item'lara bölünüyor —
+                        flexbox flex item'lar ARASINDAKİ boşluğu görmezden
+                        geliyor ("1-25Çalışan" gibi bitişik görünüyordu).
+                        Tek bir `<span>` içine sarmalayınca içerik flex'in
+                        TEK çocuğu oluyor, boşluk kendi normal inline akışında
+                        korunuyor. */}
+                    <span set:html={plan.employeeRange} />
+                  </p>
                 )}
 
                 <ul class="mt-4 flex-1 space-y-1 pl-2 text-[18px] text-body">
@@ -192,6 +205,46 @@ const PLAN_BTN_CLASS =
                 >
                   {plan.ctaText}
                 </a>
+
+                {/* Mobil/tablet (`lg` altı) kart-içi Özellikler/Eklentiler
+                    accordion'u — 2026-08-22, kullanıcının paylaştığı canlı
+                    site ekran görüntülerine göre eklendi. Önceki tur
+                    BİLİNÇLİ olarak kaynağın `.mobile-only` akordeon HTML'ini
+                    ATLAYIP tek bir yatay-kaydırmalı karşılaştırma tablosunu
+                    (`data-row-group`) tüm breakpoint'lerde kullanmıştı —
+                    kullanıcı gerçek mobil görünümü referans gösterip bunun
+                    yerine HER kartın KENDİ tek-sütunlu listesini istedi. Bu
+                    yüzden aşağıdaki blok yalnızca `lg:hidden` (mobil/tablet),
+                    aşağıdaki paylaşımlı tablo ise yalnızca `lg:block`
+                    (masaüstü) — iki görünüm ASLA aynı anda render edilmiyor,
+                    veri kaynağı (FEATURE_KEYS/ADDON_KEYS + content.feature/
+                    addonNames + plan.features/addons) TEK, tekrar edilmiyor. */}
+                <details class="group mt-4 lg:hidden">
+                  <summary class="cursor-pointer list-none text-center text-sm font-medium text-[#e60000] underline transition-colors hover:text-[#b50000] hover:no-underline">
+                    <span class="group-open:hidden">{content.mobileDetailsMoreText}</span>
+                    <span class="hidden group-open:inline">{content.mobileDetailsLessText}</span>
+                  </summary>
+                  <div class="mt-4 border-t border-black/10 pt-4 text-left">
+                    <h3 class="text-base font-medium text-heading">{content.featuresTitle}</h3>
+                    <dl class="mt-2 divide-y divide-black/5 text-sm text-body">
+                      {FEATURE_KEYS.map((key, i) => (
+                        <div class="flex items-center justify-between gap-3 py-2">
+                          <dt class="text-heading">{content.featureNames[i]}</dt>
+                          <dd class="text-right">{plan.features[key]}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                    <h3 class="mt-4 text-base font-medium text-heading">{content.addonsTitle}</h3>
+                    <dl class="mt-2 divide-y divide-black/5 text-sm text-body">
+                      {ADDON_KEYS.map((key, i) => (
+                        <div class="flex items-center justify-between gap-3 py-2">
+                          <dt class="text-heading">{content.addonNames[i]}</dt>
+                          <dd class="text-right">{plan.addons[key]}</dd>
+                        </div>
+                      ))}
+                    </dl>
+                  </div>
+                </details>
               </div>
             ))
           }
@@ -200,16 +253,16 @@ const PLAN_BTN_CLASS =
 
       <!-- Özellik karşılaştırma bölümü — ⚠️ DÜZELTME (2026-08-04): `<table>`
            DEĞİL, kartlarla aynı görsel dili paylaşan kutulu sütunlar (bkz.
-           dosya başı yorumu). Sol isim sütunu masaüstünde 220px sabit;
-           mobilde/tablette isimler SOL'da sabit kalıp yalnızca değer
-           sütunları yatay kaydırılıyor (kaynağın ayrı akordeon HTML'inin
-           BİLİNÇLİ, onaylanmış bir alternatifi). -->
-      <div class="mt-16" data-row-group="feature">
+           dosya başı yorumu). Sol isim sütunu masaüstünde 220px sabit.
+           **YALNIZCA `lg:` (masaüstü)** — mobil/tablette bunun yerine her
+           kartın KENDİ `<details>` accordion'u kullanılıyor (yukarıda, bkz.
+           2026-08-22 yorumu); ikisi aynı anda göstermez, veri tekrarı yok. -->
+      <div class="mt-16 hidden lg:block" data-row-group="feature">
         <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.featuresTitle}</h2>
         <div class="mt-4 flex gap-3">
           <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
             {FEATURE_KEYS.map((_, i) => (
-              <div data-row-index={i} class="row-highlight flex h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.featureNames[i]}</div>
+              <div data-row-index={i} class="row-highlight flex h-16 sm:h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.featureNames[i]}</div>
             ))}
           </div>
           <div class="flex-1 overflow-x-auto">
@@ -221,7 +274,7 @@ const PLAN_BTN_CLASS =
                     class="pricing-col min-w-[110px] flex-1 rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
                   >
                     {FEATURE_KEYS.map((key, i) => (
-                      <div data-row-index={i} class="row-highlight flex h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
+                      <div data-row-index={i} class="row-highlight flex h-16 sm:h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
                         {plan.features[key]}
                       </div>
                     ))}
@@ -234,13 +287,14 @@ const PLAN_BTN_CLASS =
       </div>
 
       <!-- Eklenti karşılaştırma bölümü — aynı düzen + (kaynakta olduğu
-           gibi) altta her sütunun kendi CTA butonu. -->
-      <div class="mt-12" data-row-group="addon">
+           gibi) altta her sütunun kendi CTA butonu. **YALNIZCA `lg:`**,
+           yukarıdaki Özellikler bölümüyle AYNI ilke. -->
+      <div class="mt-12 hidden lg:block" data-row-group="addon">
         <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.addonsTitle}</h2>
         <div class="mt-4 flex gap-3">
           <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
             {ADDON_KEYS.map((_, i) => (
-              <div data-row-index={i} class="row-highlight flex h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.addonNames[i]}</div>
+              <div data-row-index={i} class="row-highlight flex h-16 sm:h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.addonNames[i]}</div>
             ))}
           </div>
           <div class="flex-1 overflow-x-auto">
@@ -252,7 +306,7 @@ const PLAN_BTN_CLASS =
                     class="pricing-col flex min-w-[110px] flex-1 flex-col rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
                   >
                     {ADDON_KEYS.map((key, i) => (
-                      <div data-row-index={i} class="row-highlight flex h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
+                      <div data-row-index={i} class="row-highlight flex h-16 sm:h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
                         {plan.addons[key]}
                       </div>
                     ))}
