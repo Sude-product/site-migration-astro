@@ -160,11 +160,11 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 				<a href={l('')} class="inline-block text-white" aria-label="idenfit">
 					<IdenfitLogo className="h-8 w-auto" />
 				</a>
-				<p class="mt-4 text-sm leading-relaxed text-white/70">{FOOTER_CONTACT.address}</p>
-				<a href={FOOTER_CONTACT.phoneHref} class="mt-2 block text-sm text-white/70 transition-colors hover:text-white">
+				<p class="mt-4 text-base leading-relaxed text-white/70">{FOOTER_CONTACT.address}</p>
+				<a href={FOOTER_CONTACT.phoneHref} class="mt-2 block text-base text-white/70 transition-colors hover:text-white">
 					{FOOTER_CONTACT.phoneLabel}
 				</a>
-				<a href={FOOTER_CONTACT.emailHref} class="mt-1 block text-sm text-white/70 transition-colors hover:text-white">
+				<a href={FOOTER_CONTACT.emailHref} class="mt-1 block text-base text-white/70 transition-colors hover:text-white">
 					{FOOTER_CONTACT.emailLabel}
 				</a>
 
@@ -206,7 +206,7 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 										aria-label={app.label}
 										class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
 									>
-										<svg width="14" height="14" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
+										<svg width="16" height="16" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
 											{icon.paths.map((d) => (
 												<path d={d} />
 											))}
@@ -221,14 +221,14 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 
 			<!-- Kolon 2: HAKKINDA -->
 			<div>
-				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.about}</h3>
+				<h3 class="text-lg font-bold tracking-wide text-white">{t.footer.columnTitles.about}</h3>
 				<ul class="mt-4 flex flex-col gap-2.5">
 					{
 						FOOTER_ABOUT_LINKS.map((item) => (
 							<li>
 								<a
 									href={l(SPECIAL_HREFS[item.key] ?? item.slug)}
-									class="text-sm text-white/70 transition-colors hover:text-white"
+									class="text-base text-white/70 transition-colors hover:text-white"
 								>
 									{t.footer.links.about[item.key]}
 								</a>
@@ -240,12 +240,12 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 
 			<!-- Kolon 3: ÜRÜNLER -->
 			<div>
-				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.products}</h3>
+				<h3 class="text-lg font-bold tracking-wide text-white">{t.footer.columnTitles.products}</h3>
 				<ul class="mt-4 flex flex-col gap-2.5">
 					{
 						FOOTER_PRODUCT_LINKS.map((item) => (
 							<li>
-								<a href={productFooterHref(item.slug)} class="text-sm text-white/70 transition-colors hover:text-white">
+								<a href={productFooterHref(item.slug)} class="text-base text-white/70 transition-colors hover:text-white">
 									{t.footer.links.products[item.key]}
 								</a>
 							</li>
@@ -256,14 +256,14 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 
 			<!-- Kolon 4: GENEL -->
 			<div>
-				<h3 class="text-sm font-bold tracking-wide text-white">{t.footer.columnTitles.general}</h3>
+				<h3 class="text-lg font-bold tracking-wide text-white">{t.footer.columnTitles.general}</h3>
 				<ul class="mt-4 flex flex-col gap-2.5">
 					{
 						FOOTER_GENERAL_LINKS.map((item) => (
 							<li>
 								<a
 									href={l(SPECIAL_HREFS[item.key] ?? item.slug)}
-									class="text-sm text-white/70 transition-colors hover:text-white"
+									class="text-base text-white/70 transition-colors hover:text-white"
 								>
 									{t.footer.links.general[item.key]}
 								</a>
@@ -271,27 +271,19 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 						))
 					}
 				</ul>
-
-				<!-- Ödeme yöntemi rozetleri — kaynakta GENEL kolonunun sağında ayrı
-				     bir bölüm; buraya (kolonun altına) eklenmesi kullanıcının "sağ
-				     tarafta" tarifiyle örtüşüyor, 5 kolonlu bir grid'e geçmeden. -->
-				<img
-					src={FOOTER_PAYMENT_IMAGE}
-					alt={t.footer.paymentMethodsAlt}
-					loading="lazy"
-					class="mt-6 h-auto w-full max-w-[220px] rounded bg-white/95 p-2"
-				/>
 			</div>
 		</div>
 
-		<!-- Alt bar: güven rozetleri + telif hakkı + yasal linkler — footer'ın
-		     kendi gri zemininin İÇİNDE (bir öncekinin aksine, footer'ın
-		     ALTINA taşan ayrı beyaz bir şerit DEĞİL). Rozetler kullanıcının
-		     verdiği sırayla (SSL→ISO→Peryön→GDPR); FOOTER_PAYMENT_IMAGE'in
-		     hemen üstteki `bg-white/95 rounded p-2` kartıyla AYNI ilke —
-		     çoğu beyaz/şeffaf zeminli bu logolar gri fonda çıplak
-		     bırakılırsa (özellikle opak beyaz kare olan SSL/ISO) tutarsız
-		     görünür, bu yüzden her biri kendi küçük beyaz kartında. -->
+		<!-- Alt bar: güven rozetleri + ödeme yöntemleri + telif hakkı + yasal
+		     linkler — footer'ın kendi gri zemininin İÇİNDE (bir öncekinin
+		     aksine, footer'ın ALTINA taşan ayrı beyaz bir şerit DEĞİL).
+		     Güven rozetleri kullanıcının verdiği sırayla (SSL→ISO→Peryön→GDPR),
+		     ödeme yöntemi rozeti (kullanıcı isteğiyle GENEL kolonundan buraya
+		     taşındı) AYNI satırda sağa hizalı (`sm:ml-auto`) — diğer
+		     logolarla aynı yükseklikte/kart stilinde. Çoğu beyaz/şeffaf
+		     zeminli bu logolar gri fonda çıplak bırakılırsa (özellikle opak
+		     beyaz kare olan SSL/ISO) tutarsız görünür, bu yüzden her biri
+		     kendi küçük beyaz kartında. -->
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-white/10 pt-6 sm:justify-start">
 			{
 				TRUST_BADGE_LOGOS.map((badge) => (
@@ -300,6 +292,14 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 					</div>
 				))
 			}
+			<div class="rounded bg-white/95 p-2 sm:ml-auto">
+				<img
+					src={FOOTER_PAYMENT_IMAGE}
+					alt={t.footer.paymentMethodsAlt}
+					loading="lazy"
+					class="h-auto w-full max-w-[220px] object-contain"
+				/>
+			</div>
 		</div>
 
 		<div class="mt-6 flex flex-col items-center gap-3 pt-0 text-xs text-white/60 sm:flex-row sm:justify-between">
