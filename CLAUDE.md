@@ -30,7 +30,46 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-21)
+## Güncel durum (son güncelleme: 2026-08-22)
+
+**🟢 2026-08-22, en son — Blog "zamirle başlayan bağımlı ilk paragraf"
+denetimi TAMAMLANDI, 14/14 madde kapandı.** Kullanıcı isteğiyle blog +
+ürün/modül sayfalarında her H2/H3 başlığı altındaki İLK paragrafın
+"Bu/Bunlar/O" gibi bir zamirle başlayıp önceki cümleye/başlığa bağımlı
+olup olmadığı denetlendi. **Kapsam (script ile TAM tarama, örneklem
+DEĞİL):** 23/23 ürün/modül sayfası (`reference/wordpress-export/products.json`
+TR, 55 bölüm başlığı + 97 SSS sorusu) — **sıfır bulgu**, bu sayfaların
+metni zaten konuyu ilk cümlede netleştiriyor; 618/618 legacy blog yazısı
+(`src/content/blog/posts.json`) — 42 aday paragraf/35 yazı bulundu, 10
+farklı yazıdan 14 tanesi seçilip kullanıcıya raporlandı, kullanıcı
+2 turda TEK TEK onayladı (11 madde ilk turda, kalan 3 madde — 7/12/14 —
+raporun ilk halinde markdown `**` kalın işaretleri karışıklık
+yarattığı için düz metin olarak yeniden sunulup ikinci turda onaylandı).
+4 pilot Markdown blog yazısı da elle okunup temiz bulundu. **Uygulama:**
+tüm 14 düzeltme yalnızca ilgili yazının `content` alanındaki mevcut
+`<p>` metni içinde yapıldı — hiçbir HTML etiketi eklenmedi/kaldırılmadı,
+yapı değişmedi. Script tabanlı uygulandı (`old→new` string eşleşmesi
+önce `--dry-run` ile her düzenlemenin ilgili yazıda TAM 1 kez geçtiği
+doğrulanıp, sonra gerçek dosyaya yazıldı) — 10 yazı etkilendi: 
+`2026-vergi-affi-hakkinda-bilmeniz-gerekenler` (1), 
+`2026-gunluk-yemek-ve-yol-ucreti-istisna-tutarlari` (3),
+`performans-degerlendirme-hatalari` (2), `performans-degerlendirme-sorulari` (1),
+`olum-izni` (1), `stratejik-yonetimde-benchmarking` (2),
+`insan-kaynaklari-gorevleri-nelerdir` (1), `2025-stajyer-maaslari` (1),
+`avans-yonetimi` (1), `is-arama-izni` (1). Mümkün olan yerlerde
+(6/14 madde) sitede zaten var olan gerçek rakamlar ilk cümleye
+eklendi — uydurma DEĞİL, aynı yazıda zaten geçen değerler: 300 TL/240 TL
+günlük yemek istisnası + bundan hesaplanan ~%25 artış, 3 gün/7 gün ölüm
+izni, %5 stajyer istihdam oranı, günde 2 saat + 28-112 saat iş arama
+izni. **Doğrulama (2 turda, her ikisinde de tekrarlandı):** `astro build`
+927 sayfa hatasız, `check-heading-hierarchy`/`check-link-accessibility`/
+`check-json-ld` mevcut bilinen temel çizgiyle birebir aynı (sıfır yeni
+regresyon — tek kalıcı bulgu ana sayfanın 4+1 dilindeki bilinen H1→H3
+atlaması, Açık nokta #36, bu turla ilgisiz), `curl` ile toplam 7 yazının
+10 paragrafında (14 madde, bazıları aynı yazıda) gerçek render edilmiş
+metin tek tek doğrulandı. **Çalışma ağacı temiz DEĞİL** — yalnızca
+`src/content/blog/posts.json` değişti, commit kullanıcı onayı
+bekliyor (bu oturumda commit YAPILMADI, yalnızca istenirse).
 
 **🟡 2026-08-21, en son — git commit'leri yerelde hazır, push BEKLİYOR
 (remote yok).** Bu oturumda yapılan tüm işler (az locale genişletmeleri,
