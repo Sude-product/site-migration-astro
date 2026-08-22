@@ -178,7 +178,7 @@ const PLAN_BTN_CLASS =
                   </details>
                 )}
 
-                <p class="mt-3 flex items-end gap-1 pl-[10px]">
+                <p class={`mt-3 flex items-end gap-1 ${plan.priceSuffix ? 'pl-[10px]' : 'justify-center'}`}>
                   <span class="text-[38px] font-medium leading-none text-heading">{plan.price}</span>
                   {plan.priceSuffix && <span class="pb-0.5 text-base font-normal text-muted">{plan.priceSuffix}</span>}
                 </p>
@@ -204,12 +204,12 @@ const PLAN_BTN_CLASS =
            mobilde/tablette isimler SOL'da sabit kalıp yalnızca değer
            sütunları yatay kaydırılıyor (kaynağın ayrı akordeon HTML'inin
            BİLİNÇLİ, onaylanmış bir alternatifi). -->
-      <div class="mt-16">
+      <div class="mt-16" data-row-group="feature">
         <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.featuresTitle}</h2>
         <div class="mt-4 flex gap-3">
           <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
             {FEATURE_KEYS.map((_, i) => (
-              <div class="flex h-[42px] items-center text-sm text-heading sm:text-base lg:text-[18px]">{content.featureNames[i]}</div>
+              <div data-row-index={i} class="row-highlight flex h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.featureNames[i]}</div>
             ))}
           </div>
           <div class="flex-1 overflow-x-auto">
@@ -220,8 +220,8 @@ const PLAN_BTN_CLASS =
                     data-plan-col="feature"
                     class="pricing-col min-w-[110px] flex-1 rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
                   >
-                    {FEATURE_KEYS.map((key) => (
-                      <div class="flex h-[42px] items-center justify-center text-center text-sm text-body sm:text-base lg:text-[18px]">
+                    {FEATURE_KEYS.map((key, i) => (
+                      <div data-row-index={i} class="row-highlight flex h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
                         {plan.features[key]}
                       </div>
                     ))}
@@ -235,12 +235,12 @@ const PLAN_BTN_CLASS =
 
       <!-- Eklenti karşılaştırma bölümü — aynı düzen + (kaynakta olduğu
            gibi) altta her sütunun kendi CTA butonu. -->
-      <div class="mt-12">
+      <div class="mt-12" data-row-group="addon">
         <h2 class="text-2xl font-medium text-heading lg:text-[34px]">{content.addonsTitle}</h2>
         <div class="mt-4 flex gap-3">
           <div class="w-[110px] shrink-0 pt-1.5 sm:w-[160px] lg:w-[220px]">
             {ADDON_KEYS.map((_, i) => (
-              <div class="flex h-[42px] items-center text-sm text-heading sm:text-base lg:text-[18px]">{content.addonNames[i]}</div>
+              <div data-row-index={i} class="row-highlight flex h-[42px] items-center rounded px-2 text-sm text-heading transition-colors sm:text-base lg:text-[18px]">{content.addonNames[i]}</div>
             ))}
           </div>
           <div class="flex-1 overflow-x-auto">
@@ -251,8 +251,8 @@ const PLAN_BTN_CLASS =
                     data-plan-col="addon"
                     class="pricing-col flex min-w-[110px] flex-1 flex-col rounded-[10px] border-[1.5px] bg-white px-2 py-1.5 transition-colors sm:min-w-[140px] lg:min-w-0"
                   >
-                    {ADDON_KEYS.map((key) => (
-                      <div class="flex h-[42px] items-center justify-center text-center text-sm text-body sm:text-base lg:text-[18px]">
+                    {ADDON_KEYS.map((key, i) => (
+                      <div data-row-index={i} class="row-highlight flex h-[42px] items-center justify-center rounded text-center text-sm text-body transition-colors sm:text-base lg:text-[18px]">
                         {plan.addons[key]}
                       </div>
                     ))}
@@ -312,6 +312,14 @@ const PLAN_BTN_CLASS =
   .pricing-plan-title.is-active {
     border-color: #e60000;
     box-shadow: 0 2px 4px rgba(230, 0, 0, 0.15);
+  }
+  /* Satır hover vurgulaması (idenfit.com'un Özellikler/Eklentiler
+     tablosundaki sarı şerit) — isim etiketi + her plan sütunundaki
+     karşılık gelen hücre `data-row-index` ile eşleşip
+     `pricing-interactivity.js` tarafından AYNI ANDA `.is-row-hovered`
+     class'ını alıyor, tek bir kesintisiz şerit izlenimi veriyor. */
+  .row-highlight.is-row-hovered {
+    background-color: #fdf3d6;
   }
   .sticky-plan-titles {
     display: none;

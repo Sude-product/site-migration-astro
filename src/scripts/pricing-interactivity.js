@@ -1,11 +1,34 @@
 // Fiyatlar sayfası (`/fiyatlar/` vb.) — kartlar/Özellikler/Eklentiler
-// arasında senkronize "seçili plan" vurgulaması + sticky plan başlıkları.
-// Kaynağın `pricing-tr.js`'indeki `activateColumn()`/sticky-bar mantığının
-// vanilla JS karşılığı (2026-08-04, kullanıcı onayıyla — React/hydration
-// gerekmez, `marquee-scroll.js` ile aynı ilke). KAPSAM DIŞI (bilinçli,
-// kaynakta olsa da bu turda istenmedi): çalışan-sayısına göre dinamik
-// fiyat hesaplama (`proOptions`/`smeOptions`) ve satır hover vurgulaması.
+// arasında senkronize "seçili plan" vurgulaması + sticky plan başlıkları +
+// satır hover vurgulaması. Kaynağın `pricing-tr.js`'indeki
+// `activateColumn()`/`highlightRow()`/sticky-bar mantığının vanilla JS
+// karşılığı (2026-08-04, kullanıcı onayıyla — React/hydration gerekmez,
+// `marquee-scroll.js` ile aynı ilke). KAPSAM DIŞI (bilinçli, kaynakta olsa
+// da bu turda istenmedi): çalışan-sayısına göre dinamik fiyat hesaplama
+// (`proOptions`/`smeOptions`).
 const pricingCards = Array.from(document.querySelectorAll('[data-plan-card]'));
+
+// Satır hover vurgulaması — Özellikler/Eklentiler bölümlerinin her biri
+// (`[data-row-group]`) kendi isim etiketi + N plan sütunundaki karşılık
+// gelen hücreyi `data-row-index` ile eşleştirip aynı anda `.is-row-hovered`
+// class'ını veriyor (kaynağın `highlightRow()`'u — tek satırı isim
+// sütunundan sağdaki tüm plan sütunlarına kadar tek bir şerit gibi
+// vurguluyor, kutulu-sütun düzenimizde bunun karşılığı).
+document.querySelectorAll('[data-row-group]').forEach((section) => {
+  const rows = new Map();
+  section.querySelectorAll('[data-row-index]').forEach((cell) => {
+    const index = cell.dataset.rowIndex;
+    if (!rows.has(index)) rows.set(index, []);
+    rows.get(index).push(cell);
+  });
+  rows.forEach((cells) => {
+    const toggle = (on) => cells.forEach((cell) => cell.classList.toggle('is-row-hovered', on));
+    cells.forEach((cell) => {
+      cell.addEventListener('mouseenter', () => toggle(true));
+      cell.addEventListener('mouseleave', () => toggle(false));
+    });
+  });
+});
 
 if (pricingCards.length) {
   const featureCols = Array.from(document.querySelectorAll('[data-plan-col="feature"]'));
