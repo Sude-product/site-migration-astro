@@ -32,7 +32,27 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-23)
 
-**🟢 2026-08-23, en son — Online Sunum Talebi sayfası mobil görünümde
+**🟢 2026-08-23, en son — "No Speakable markup" GEO bulgusu için blog
+yazılarına `SpeakableSpecification` eklendi (622 yazı, tek şablon).**
+Kullanıcı kapsam/fayda tartışmasını ("Google'ın Speakable desteği
+pratikte ABD'deki onaylı haber yayıncılarıyla sınırlı — fayda düşük ama
+risk sıfır") onayladıktan sonra `blog/[slug].astro`'daki mevcut
+`BlogPosting` JSON-LD'sine `speakable: {'@type':'SpeakableSpecification',
+cssSelector:['#post-title','.post-content > p:first-of-type']}` eklendi.
+İki küçük, salt işaretleme amaçlı hook eklendi (görsel etki YOK): `<h1>`'e
+`id="post-title"`, içerik sarmalayıcı `<div>`'e (zaten var olan Tailwind
+utility class'larına ek) `post-content` class'ı. Yalnızca blog'a eklendi
+— Speakable semantik olarak Article/BlogPosting içindir, ürün/sektör
+sayfalarının `WebPage` şemasına eklenmedi. `astro check` 0 hata, `astro
+build` 927 sayfa, `check-json-ld.mjs`: 622 `BlogPosting` bloğunun hepsi
+hâlâ geçerli (0 geçersiz — doğrulayıcı bilinmeyen ek alanları
+reddetmiyor), `check-link-accessibility`/`check-heading-hierarchy`
+mevcut temel çizgiyle birebir aynı. Kullanıcıya 3 farklı yazıda (1 göç
+etmiş Markdown + 2 legacy JSON) `curl` ile gerçek JSON-LD çıktısı +
+`.post-content > p:first-of-type`'ın gerçekten ilk paragrafa denk
+geldiği gösterilip onaylandı.
+
+**🟢 2026-08-23, ayrıca — Online Sunum Talebi sayfası mobil görünümde
 2 turda düzeltildi (kullanıcının paylaştığı canlı site ekran
 görüntülerine göre).** (1) **Sıra değişikliği:** `PresentationRequestPage.astro`'da
 iki sütunlu grid (`sol: başlık+telefon+entegrasyonlar`, `sağ: form
