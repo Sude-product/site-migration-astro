@@ -32,7 +32,21 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-24, en son — "Low readiness for Google AI Overviews/Perplexity/Gemini" bulgu ailesi 3 ayrı turda ele alındı.**
+**🟡 2026-08-24, en son — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
+`curl` ile `dist/index.html`'de tekrar doğrulandı: LinkedIn `sameAs`'te
+(`linkedin.com/company/idenfithr/`, kanonik adres, bkz. 2026-08-22 notu).
+`check-meta-description-length.mjs`: 927/928 sayfa tamam, tek istisna
+bilinen `admin/index.html` (Decap CMS kabuğu, kasıtlı kapsam dışı, bkz.
+2026-08-23 notu). `check-title-length.mjs`: `<title>` etiketi HİÇBİR
+sayfada eksik DEĞİL (0/928) ama **UZUNLUK optimizasyonu hâlâ tamamlanmadı
+— 409 sayfa (220 kısa, 189 uzun) bekliyor**, bu YENİ bir bulgu değil,
+zaten takip edilen Açık nokta #28'in aynısı (kademeli iş, 31/622 blog
+yazısı tamamlanmıştı). **Sonuç: sameAs + meta description tamamen kapalı,
+title UZUNLUĞU kapalı DEĞİL** — bulgunun tamamı "kapandı" diye
+raporlanmadı, yalnızca doğrulanan 2 alt-parça kapalı işaretlendi, title
+uzunluğu Açık nokta #28'in kapsamında kalmaya devam ediyor.
+
+**🟢 2026-08-24, ayrıca — "Low readiness for Google AI Overviews/Perplexity/Gemini" bulgu ailesi 3 ayrı turda ele alındı.**
 1. **Author attribution** — `BlogPosting.author` artık kaynakta gerçek
    ad-soyadı olan 2 yazar için (`Neslihan Gültekin` 24 yazı, `Ayşegül
    Topçu` 1 yazı) `Person`, geri kalanı (jenerik "idenfit editör" + WP
