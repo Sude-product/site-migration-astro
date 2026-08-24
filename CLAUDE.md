@@ -30,9 +30,63 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-23)
+## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-23, en son — "No Speakable markup" GEO bulgusu için blog
+**🟢 2026-08-24, en son — "Few data points/statistics" GEO bulgusu için
+3 blog yazısındaki rakamsız iddiaya, AYNI yazı içinde zaten var olan
+gerçek istatistik eklendi (`pdks-nedir`, `dijital-ik`,
+`ise-alim-surecinde-yapay-zeka-kullanimi`).** Kullanıcı isteğiyle önce
+keşif yapıldı (kod yazılmadan): 4 Markdown blog yazısının tamamı +
+`posts.json`'daki 618 legacy yazının geneli rakamsız genel-geçer iddia
+kalıpları için tarandı ("önemli ölçüde", "çoğu şirket", "zamandan
+tasarruf sağlar" vb.), + `reference/wordpress-export/products.json`'daki
+**21 ürün/modül sayfası grubunun TAMAMI** aynı kalıplarla tarandı.
+**Kalıcı disiplin (KARAR 1'in bir uzantısı — paragraf alıntılanabilirliği
+turunda uygulanan aynı kural):** hiçbir uydurma rakam eklenmedi, yalnızca
+AYNI yazı içinde zaten geçen gerçek kaynaklı istatistikler (Deloitte/IDC/
+Gartner) ilgili rakamsız cümleye taşındı. **Genel bulgu — kalıcı not:**
+ürün/modül sayfalarında bu sorun neredeyse YOK (21 sayfa grubunun
+tamamı tarandı, yalnızca 2 eşleşme çıktı — `notlar-modulu`/
+`demirbas-yonetimi-modulu`, ikisinde de sayfa+SSS'i tek tek kontrol
+edilip hiç destekleyici rakam bulunamadığı için DOKUNULMADI); ürün
+kopyası özellik-açıklaması ağırlıklı, istatistik iddiası taşımıyor.
+Sorun büyük ölçüde blog içeriğinde yoğunlaşıyor. Kullanıcıya ayrıca 6
+aday daha raporlandı (`hr-yazilimi-isletmenize-nasil-fayda-saglar`,
+`2025-ik-teknolojisi-trendleri`, `hibrit-calisma-modeli-nedir`,
+`turnover-rate-nedir-nasil-hesaplanir`, `calisma-hayatinin-yeni-aktorleri-z-kusagi`
++ yukarıdaki 2 ürün sayfası) — hepsinde ya hiç rakam yoktu ya da var
+olan rakam konuyla eşleşmiyordu (ör. Z kuşağı demografi rakamları
+"verimlilik artışı" iddiasını değil, tamamen farklı bir konuyu
+destekliyordu — zorlama eşleştirme yapılmadı), kullanıcı onayıyla
+DOKUNULMADI. `astro check` 0 hata (378 dosya), `astro build` 927 sayfa,
+`check-link-accessibility` 0 bulgu, `check-json-ld` 0 geçersiz blok (622
+`BlogPosting` dahil), `check-heading-hierarchy` yalnızca bilinen 5 ana
+sayfa H1→H3 atlaması (Açık nokta #36, bu turla tamamen ilgisiz) — sıfır
+yeni regresyon. `dist/blog/*/index.html` üzerinde `grep` ile 3 yazının
+da render edilmiş metninde yeni cümleler tek tek doğrulandı. **Çalışma
+ağacı temiz DEĞİL** — yalnızca `src/content/blog/posts.json` değişti,
+commit kullanıcı onayı bekliyor.
+
+**🟡 2026-08-23, ayrıca — Bu bilgisayarda (ikinci cihaz) push edilmemiş
+commit'ler var, remote hâlâ bağlı değil.** Kullanıcı "bugünlük burada
+duruyoruz, push'u yarın çözeceğiz" dedi. `git log e374cfd..HEAD`
+(`e374cfd` — bu cihazdaki son bilinen ortak nokta) şu an **5 commit**
+gösteriyor: `058db79` (blog paragraf düzeltmeleri), `8ad3673`
+(Organization JSON-LD + LinkedIn), `3528dcb` (Fiyatlar sayfası mobil
+düzeltmeleri), `70941c6` (Online Sunum Talebi mobil sıra+renk
+düzeltmesi), `a84f216` (Speakable markup) — kullanıcının kendi
+saydığı "3 commit" muhtemelen yalnızca ilk/son üçünü hatırlıyordu, tam
+liste burada. `git remote -v` BOŞ (bu oturumda da hiç remote
+eklenmedi, bkz. 2026-08-21 notu — aynı durum hâlâ devam ediyor).
+**Yarın kalıcı bir senkronizasyon çözümü belirlenecek** (muhtemel
+seçenekler: bu cihaza remote eklenip push edilir; ya da "birinci
+cihaz"daki repo referans alınıp oradan senkronize edilir — hangisinin
+kaynak-doğru kabul edileceği kullanıcıyla netleşmeli). **Çalışma ağacı
+TEMİZ**, bekleyen değişiklik yok — yalnızca push bekliyor. Güncel
+`git log` her zaman otoriter kaynak, bu not listeyi tekrar
+ETMİYOR.
+
+**🟢 2026-08-23, ayrıca — "No Speakable markup" GEO bulgusu için blog
 yazılarına `SpeakableSpecification` eklendi (622 yazı, tek şablon).**
 Kullanıcı kapsam/fayda tartışmasını ("Google'ın Speakable desteği
 pratikte ABD'deki onaylı haber yayıncılarıyla sınırlı — fayda düşük ama
