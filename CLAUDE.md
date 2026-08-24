@@ -30,6 +30,75 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
+## ⚠️ KRİTİK — İKİ BAĞIMSIZ GIT GEÇMİŞİ, BİRLEŞTİRME BEKLİYOR (2026-08-24'te tespit edildi)
+
+**Durum:**
+- `origin/master` (GitHub'daki gerçek repo) ile bu bilgisayarın
+  (`degisikliklerim-2-bilgisayar-2` dalı) hiçbir ortak commit atası
+  yok — `git merge-base master origin/master` boş döndü, `git diff
+  origin/master...degisikliklerim-2-bilgisayar-2` `fatal: no merge
+  base` verdi. İki tamamen bağımsız `git init` geçmişi.
+- `origin/master`: Türkçe commit mesajları, 2026-08-20/21'e kadar —
+  dashboard carousel + otomatik sekme gezinmesi çalışması dahil,
+  bugünkü SEO/GEO turu YOK (az dili rollout'undan bile ÖNCEKİ bir
+  snapshot).
+- `degisikliklerim-2-bilgisayar-2`: İngilizce commit mesajları,
+  bugünkü SEO/GEO turunun TAMAMI dahil (H2→soru dönüşümü, breadcrumb,
+  author schema, `<cite>` atıfları, veri noktaları, Speakable
+  markup vb.) — muhtemelen carousel/otomatik-gezinme çalışması bu
+  dalda YOK.
+- `git diff origin/master degisikliklerim-2-bilgisayar-2 --stat`
+  (ortak geçmişten bağımsız, düz ağaç karşılaştırması): **116 dosya
+  farklı, +4802/-370 satır.**
+- **HİÇBİR merge/rebase denenmedi, yalnızca kontrol edildi.** Her iki
+  taraf da GitHub'da güvende duruyor, hiçbir veri kaybı riski yok.
+
+**Yarınki plan:**
+1. Her iki tarafın TAM olarak hangi dosyaları/özellikleri içerdiğinin
+   net bir listesini çıkar (özellikle: `origin/master`'daki
+   carousel/otomatik-gezinme kodu, `degisikliklerim-2-bilgisayar-2`'deki
+   bugünkü SEO/GEO değişiklikleri).
+2. Kullanıcıya bu listeyi sun, hangi tarafın "temel" alınacağına
+   (veya elle, dosya bazında birleştirme mi yapılacağına) karar
+   verdir.
+3. `git merge --allow-unrelated-histories` ile dikkatli, kontrollü
+   bir birleştirme yap — çakışma çıkarsa dosya dosya kullanıcıyla
+   netleştir.
+4. Birleştirme sonrası TÜM regresyon testlerini çalıştır, hem
+   carousel/otomatik-gezinme hem bugünkü SEO/GEO işlerinin ikisinin
+   de sağlam olduğunu doğrula.
+
+**Bu iş bitene kadar HİÇBİR otomatik/tahmine dayalı merge yapılmayacak.**
+
+---
+
+## Yarın için plan (2026-08-25, kullanıcı notu 2026-08-24'te düşüldü)
+
+1. **Blog CMS (Decap CMS) — kalan adımlar:**
+   - IT'ye GitHub OAuth App onayının durumu soruldu (2026-08-24).
+   - Onaylandıysa: Client ID/Secret alınıp kendi Cloudflare Pages
+     Functions tabanlı OAuth token-exchange endpoint'imiz kurulacak
+     (tahmini 1-2 saat, Netlify'ın paylaşılan servisi KULLANILMAYACAK).
+   - Site en azından bir Cloudflare Pages test URL'sine (`xxx.pages.dev`)
+     deploy edilecek (tahmini 1-2 saat, ilk deploy olduğu için
+     konfigürasyon sürprizleri çıkabilir).
+   - Marketing ekibinden erişecek kişiler netleştirilip GitHub
+     hesapları Sude-product organizasyonuna eklenecek.
+   - Uçtan uca test edilecek.
+2. **Açık nokta #28 (Title tag uzunluk optimizasyonu) — 409 sayfa
+   kaldı** (220 kısa, 189 uzun; blog'da 622'den yalnızca 31'i
+   tamamlanmıştı):
+   - **Yöntem: örneklem + toplu onay (tek tek DEĞİL)** — Claude Code
+     tüm önerileri hazırlayacak, kullanıcı 20-30 örneği inceleyip
+     kurala güvenirse kalanını toplu onaylayacak.
+   - Tahmini süre: tek gün içinde tamamlanabilir.
+3. **İki bağımsız git geçmişinin birleştirilmesi** — yukarıdaki
+   "⚠️ KRİTİK" bölümüne bkz., artık basit bir "3 commit push" işi
+   DEĞİL, dikkatli/kontrollü bir `--allow-unrelated-histories` merge
+   süreci gerekiyor.
+
+---
+
 ## Güncel durum (son güncelleme: 2026-08-24)
 
 **🟡 2026-08-24, en son — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
