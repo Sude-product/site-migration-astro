@@ -32,7 +32,23 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-24, en son — "İdenfit ile Fark Yaratanlar" carousel'i çok
+**🟢 2026-08-24, en son — İki küçük son-dokunuş değişikliği.**
+1. **Hero başlığı (`t.hero.headline`, sadece TR):** "Önce insan. Gerisi
+   kolaylaşsın." → "Önce İnsan gerisi bizde." Kullanıcının açık isteği
+   üzerine YALNIZCA `src/i18n/tr.ts` değişti — EN/NL/IT/AZ dosyaları
+   bilinçli olarak DOKUNULMADI (curl ile 5 dilin de anasayfa H1'i
+   karşılaştırılıp doğrulandı).
+2. **Carousel altı boşluk daraltıldı** (`CustomerStoryCarouselSection.astro`):
+   kullanıcının paylaştığı ekran görüntüsünde ok butonları ile altındaki
+   logo şeridi arasında fazla boşluk vardı — üst boşluk (widget'tan ayrım
+   için) korunup yalnızca `pb-*` azaltıldı (`py-12/py-16` → `pt-12 pb-4
+   lg:pt-16 lg:pb-6`).
+
+`astro check` 0 hata, `astro build` 927 sayfa, link/heading regresyon
+sıfır yeni sorun (bilinen 5 H1→H3 taban çizgisi hariç), Chrome'da görsel
+doğrulama yapıldı.
+
+**🟢 2026-08-24, ayrıca — "İdenfit ile Fark Yaratanlar" carousel'i çok
 turlu bir revizyon serisinden geçti (Personio referansı derinleşti +
 eski `TestimonialSection` widget'ı tamamen bu carousel'e taşındı).**
 Sıralı özet:
@@ -89,8 +105,7 @@ Sıralı özet:
 Her adımda `astro check` 0 hata, `astro build` 927 sayfa,
 `check-link-accessibility`/`check-heading-hierarchy`/`check-image-alt-text`
 sıfır yeni regresyon, Chrome'da görsel doğrulama tekrarlandı (Personio.com
-canlı referansıyla da karşılaştırıldı). **Çalışma ağacı temiz DEĞİL** —
-commit kullanıcı onayı bekliyor.
+canlı referansıyla da karşılaştırıldı). Commit: `a3dc41b`.
 
 **🟢 2026-08-24, ayrıca — Hero bölümüne (`HeroSection.astro`, 5 dilin
 paylaştığı TEK component) Personio referanslı yumuşak kırmızı alt-ton

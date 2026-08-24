@@ -105,7 +105,11 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
 });
 ---
 
-<section class="mx-auto max-w-[88rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+<!-- Alt boşluk (2026-08-24, kullanıcı isteği) — carousel'in ok
+     butonlarıyla altındaki `LogoStrip`'in kendi üst boşluğu (`py-12`)
+     TOPLAMDA fazla boş alan yaratıyordu; üst boşluk (widget'tan ayrım
+     için) korunup yalnızca alt boşluk daraltıldı. -->
+<section class="mx-auto max-w-[88rem] px-4 pt-12 pb-4 sm:px-6 lg:px-8 lg:pt-16 lg:pb-6">
   <div class="reveal text-center">
     <h2 class="h2-section text-brand">{cc.title}</h2>
     <p class="mx-auto mt-4 max-w-2xl text-body">{cc.intro}</p>

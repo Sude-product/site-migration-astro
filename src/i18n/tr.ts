@@ -31,7 +31,7 @@ export const tr: Translations = {
       'PDKS\'den performans yönetimine, yapay zeka destekli işe alım ve izin takibinden zimmet ve varlık yönetimine kadar tüm İK tek bir platformdan yönetin.',
     // 2026-08-19, kullanıcının verdiği yeni marka sloganı — bkz. types.ts'in
     // headline/subheadline yorumu (SEO'yu bozmadan ayrı tutuldu).
-    headline: 'Önce insan. Gerisi kolaylaşsın.',
+    headline: 'Önce İnsan gerisi bizde.',
     subheadline:
       'idenfit; İK, iş gücü yönetimi, bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz süreçlerle değil, insanla ilgilensin.',
     emailPlaceholder: 'Şirket E-postanız',
