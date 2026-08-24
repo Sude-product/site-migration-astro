@@ -300,6 +300,22 @@ export const az: Translations = {
         role: 'İnsan Resursları Müdiri',
       },
     },
+    emreOzcan: {
+      quote: {
+        text:
+          'idenfit ilə ilk tanışdığımızda məni ən çox təsirləndirən şey, idenfit\'in praktikliyi və fərqli sahələri eyni platformada birləşdirə bilməsi idi. İnterfeysinin sadəliyi, işçilərimizin sürətlə adaptasiya ola biləcəyi bir sistem olduğunu göstərirdi. Xüsusilə növbəli və yoğun əməliyyat aparan bizim kimi şirkətlər üçün, "işçi dostu rəqəmsal həll" görmək çox dəyərli idi.',
+        name: 'Emre Özcan',
+        role: 'Korporativ Əlaqələr Meneceri',
+      },
+    },
+    ismailUnal: {
+      quote: {
+        text:
+          "idenfit, xüsusilə davamiyyət proseslərini başdan-başa qura bilməsi, istifadəçi dostu interfeysi və İK'nın fərqli ehtiyaclarına tək tətbiq üzərindən təqdim etdiyi çoxtərəfli həllərlə bizim üçün seçilən bir seçim oldu.",
+        name: 'İsmail Ünal',
+        role: 'People & Culture Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -386,6 +402,7 @@ export const az: Translations = {
       nextLabel: 'Növbəti hekayə',
       readMoreLabel: 'Daha Çox Oxu',
       civilVideo: { headline: 'Civil-in idenfit ilə İK proseslərini necə transformasiya etdiyini izləyin' },
+      femasVideo: { headline: 'Femaş-ın idenfit ilə İK proseslərini necə transformasiya etdiyini izləyin' },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş idenfit ilə İK proseslərini tək paneldən idarə edir' },
       beyazFirinVideo: { headline: 'Beyaz Fırının idenfit ilə İK proseslərini necə transformasiya etdiyini izləyin' },
     },

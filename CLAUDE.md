@@ -32,7 +32,97 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-24, en son — "No BreadcrumbList schema" GEO/SEO bulgusu
+**🟢 2026-08-24, en son — "İdenfit ile Fark Yaratanlar" carousel'i çok
+turlu bir revizyon serisinden geçti (Personio referansı derinleşti +
+eski `TestimonialSection` widget'ı tamamen bu carousel'e taşındı).**
+Sıralı özet:
+1. **Video kartları arka planda sessiz/otomatik döngüye çevrildi.**
+   Kullanıcı Civil/Beyaz Fırın/Femaş videoları için gerçek YouTube
+   linkleri + döngü saniye aralıkları verdi (Femaş 18-32sn, Beyaz Fırın
+   5-10sn, Civil 20-24sn). `VideoCarouselCard.loopStart/loopEnd`
+   (opsiyonel) verilmiş kartlar artık tıkla-oynat DEĞİL — sayfa
+   yüklenir yüklenmez `autoplay=1&mute=1&loop=1&playlist=<id>&start=
+   <s>&end=<e>` embed parametreleriyle o aralıkta sessiz döngüde
+   oynuyor, kart TAMAMEN görünmez bir `<a target="_blank">` ile
+   kaplanıp tıklanınca gerçek `youtube.com/watch?v=<id>` sayfasına
+   gidiyor (`BackgroundLoopVideo`, `CustomerStoryCarousel.tsx`) — DOM
+   inceleme + gerçek tıklama testiyle (yeni sekme açıldığı) doğrulandı.
+2. **Femaş yeni bir kart olarak eklendi** — kullanıcının sağladığı
+   gerçek logo (`logo-white.png` → `public/images/customer-femas-logo.png`).
+3. **HAVAİST (Emre Özcan) ve Zsa Zsa Zsu (İsmail Ünal) carousel'e
+   eklendi** — eski (ayrı) ana sayfa `TestimonialSection` widget'ından
+   TAŞINDI (aynı gerçek alıntı metni `home.testimonials`'dan, ikinci
+   kez YAZILMADI). Bu ikisinin `/musteriler/` sayfasında gerçek bir
+   hedefi olmadığı için "Devamını Oku" bu 2 kartta hiç render edilmiyor
+   (`readMoreLabel`/`readMoreHref` artık opsiyonel).
+4. **`TestimonialSection` ("Geliştirilebilir Çalışan Deneyimi") ana
+   sayfanın 5 dilinin (TR/EN/NL/IT/AZ) hepsinden KALDIRILDI** — içeriği
+   madde 3'e taşındığı için tekrar gerekmiyordu. Component dosyaları
+   (`TestimonialSection.astro`/`TestimonialCarousel.tsx`) bilinçli
+   olarak SİLİNMEDİ (yalnızca kullanım kaldırıldı, kullanıcı dosya
+   silmeyi istemedi).
+5. **Doğ-Ser Makina (Cem Çolak alıntısı) hem carousel'e HEM
+   `/musteriler/` sayfasına eklendi.** Logosu kaynağın kendi CANLI
+   sitesinden (dog-ser.com/assets/img/dog-ser-logo.png) çekilip
+   yerelleştirildi. HAVAİST/Zsa Zsa Zsu de AYNI turda `/musteriler/`
+   sayfasına gerçek birer blok olarak eklendi — alıntı metni ikinci kez
+   yazılmadı, `customerStories` i18n şemasına (5 dil) `home.testimonials`
+   ile BİREBİR aynı metin kopyalandı (yalnızca `role` alanı şirket adı
+   önekinden ayrıldı, "Devamını Oku" için gereken).
+6. **Kart-içi düzeltme:** HAVAİST/Zsa Zsa Zsu'nun `/musteriler/`
+   bloklarında BÜYÜK dairesel görsel önce kişi portresiydi (tutarsız,
+   diğer bloklar şirket fotoğrafı kullanıyor) — kullanıcının paylaştığı
+   gerçek şirket fotoğrafları (otobüs/mağaza) ana medya oldu, portreler
+   diğer bloklarla AYNI desende küçük alıntı-yazarı rozetine taşındı.
+7. **Sıralama** iki kez güncellendi: önce "1 video 1 yazı" sonra
+   kullanıcı iki yeni yazı kartı eklenince "1 video 2 yazı" istedi —
+   şu an: Civil(video)→Yatsan→HAVAİST→Beyaz Fırın(video)→Tuğba→
+   Zsa Zsa Zsu→Femaş(video)→Beyaz Fırın(yazı)→Doğ-Ser.
+8. **Renk rotasyonu** da iki kez güncellendi: kırmızı/beyaz/gri →
+   GRİ/BEYAZ/KIRMIZI (kullanıcı isteği), "kırmızı" gerçek marka
+   kırmızısı (`bg-brand`).
+9. **İdenfit yıldızı** (`IdenfitStar.tsx`, `IdenfitLogo.tsx`'in son
+   path'inden izole edilmiş kırpılmış viewBox) her kartın sağ üst
+   köşesinde yavaşça dönüyor (`idenfit-star-spin`, `prefers-reduced-motion`'da
+   duruyor).
+
+Her adımda `astro check` 0 hata, `astro build` 927 sayfa,
+`check-link-accessibility`/`check-heading-hierarchy`/`check-image-alt-text`
+sıfır yeni regresyon, Chrome'da görsel doğrulama tekrarlandı (Personio.com
+canlı referansıyla da karşılaştırıldı). **Çalışma ağacı temiz DEĞİL** —
+commit kullanıcı onayı bekliyor.
+
+**🟢 2026-08-24, ayrıca — Hero bölümüne (`HeroSection.astro`, 5 dilin
+paylaştığı TEK component) Personio referanslı yumuşak kırmızı alt-ton
+eklendi.** Kullanıcı ekran görüntüsünde üst bölümü (başlık/form/CTA)
+işaretleyip "Personio web sayfası tasarımına benzer" bir alt-ton istedi
+— Personio.com canlı incelendi (dashboard mockup'ının ALTINDAN yükselip
+metne doğru sızan yumuşak mor parıltı deseni). Düz `bg-[#F8F8F8]`
+yerine, HEMEN ALTINDAKİ widget çerçevesinin ZATEN kullandığı AYNI
+kırmızı ton ailesinden (`#FFDCDC→#FFF3F3→#FFFFFF`) radyal bir gradyan
+(`radial-gradient(120% 90% at 50% 100%, ...)`) — yeni bir renk İCAT
+EDİLMEDİ, widget'ın gradyanıyla kesintisiz birleşiyor. `astro check` 0
+hata, `astro build` 927 sayfa, `check-link-accessibility`/
+`check-heading-hierarchy` sıfır yeni regresyon, Chrome'da görsel
+doğrulandı.
+
+**🟢 2026-08-24, ayrıca — Ürün/modül sayfalarındaki bölüm-seviyesi
+("Başlayın" vb.) CTA linkleri düz metin linkinden gerçek butona
+çevrildi.** Kullanıcı "sadece link görünümünden yuvarlak kenarlı kırmızı
+çerçeveli butona çevir" dedi. `ProductSectionBlock.astro`'daki CTA'lar
+(`text-brand hover:underline` — düz metin) hero'nun ZATEN kullandığı
+`.btn-cta` sınıfına (yuvarlak, 2px kırmızı çerçeve, beyaz zemin, hover'da
+dolgulu kırmızıya döner — `global.css`) geçirildi, yalnızca
+`px-6 py-2.5` ile hero'dan (`px-8 py-3`) biraz daha küçük/ikincil boyut
+verildi. Bu component yalnızca `ProductPage.astro` tarafından kullanıldığı
+için (21 ürün/modül grubu × dil) değişiklik SİTE GENELİNDE tüm ürün
+sayfalarının bölüm CTA'larını kapsıyor — tek component değişikliği.
+`astro check` 0 hata, `astro build` 927 sayfa, `check-link-accessibility`/
+`check-heading-hierarchy` sıfır yeni regresyon, Chrome'da (`pdks-modulu`,
+"Satış Ekibi İle Görüşün" butonu) görsel doğrulandı. **Çalışma ağacı
+temiz DEĞİL** — commit kullanıcı onayı bekliyor.
+
+**🟢 2026-08-24, ayrıca — "No BreadcrumbList schema" GEO/SEO bulgusu
 KAPANDI: hem görünür breadcrumb şeridi hem BreadcrumbList JSON-LD, tüm
 sitede (19 şablon) canlı.** Keşif: hiçbir sayfa türünde hiyerarşik bir
 breadcrumb YOKTU (blog'daki `← Blog` yalnızca geri-linkiydi, hiyerarşi

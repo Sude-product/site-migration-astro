@@ -38,8 +38,18 @@
 // Bu dosya yalnızca dile bağlı OLMAYAN yapıyı tutar (görsel/video URL'leri,
 // taraf, özel isimler). Açıklama/alıntı METNİ `src/i18n/*.ts`'in
 // `customerStories` şemasında (dile göre değişir).
+//
+// GÜNCELLEME (2026-08-24, kullanıcı isteği): `emreOzcan`/`ismailUnal` —
+// eski (ayrı) ana sayfa `TestimonialSection` widget'ından bu sayfaya da
+// TAŞINDI (aynı gerçek alıntı metni, `home.testimonials` şemasıyla
+// birebir aynı — ikinci kez YAZILMADI). `media.image` kullanıcının
+// paylaştığı gerçek şirket fotoğrafları (HAVAİST otobüsü/Zsa Zsa Zsu
+// mağazası); kişi portreleri (`TESTIMONIAL_PEOPLE`, `homeContent.ts`)
+// diğer tüm bloklarla (Yatsan/Doğ-Ser/Beyaz Fırın) AYNI desende küçük
+// alıntı-yazarı rozetine (`quotePhotoUrl`) yerleştirildi.
+import { TESTIMONIAL_PEOPLE } from './homeContent';
 
-export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis' | 'beyazFirin';
+export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis' | 'beyazFirin' | 'emreOzcan' | 'ismailUnal';
 
 export interface StoryMedia {
   image?: string;
@@ -129,6 +139,29 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     mediaSide: 'right',
     media: { image: '/images/customer-beyaz-firin-moi-magaza.jpg' },
     quotePhotoUrl: '/images/customer-beyaz-firin-nuri-sutluoglu.jpg',
+  },
+  {
+    // 2026-08-24 — kullanıcı isteği: eski (ayrı) ana sayfa `TestimonialSection`
+    // widget'ındaki 2 tanık (bkz. dosya başı yorumu) bu sayfaya da eklendi.
+    // 2026-08-24 (ikinci tur): kullanıcının paylaştığı gerçek HAVAİST
+    // fotoğrafı (durak/otobüs) ana medya oldu — Emre Özcan'ın portresi
+    // artık diğer bloklarla (Yatsan/Doğ-Ser/Beyaz Fırın) AYNI desende
+    // küçük alıntı-yazarı rozetine (`quotePhotoUrl`) taşındı.
+    key: 'emreOzcan',
+    name: 'HAVAİST',
+    mediaSide: 'left',
+    media: { image: '/images/customer-havaist.jpg' },
+    quotePhotoUrl: TESTIMONIAL_PEOPLE.emreOzcan.photoUrl,
+  },
+  {
+    // 2026-08-24 (ikinci tur): kullanıcının paylaştığı gerçek Zsa Zsa Zsu
+    // mağaza fotoğrafı ana medya oldu — İsmail Ünal'ın portresi de AYNI
+    // şekilde küçük alıntı-yazarı rozetine taşındı.
+    key: 'ismailUnal',
+    name: 'Zsa Zsa Zsu',
+    mediaSide: 'right',
+    media: { image: '/images/customer-zsazsazsu.jpg' },
+    quotePhotoUrl: TESTIMONIAL_PEOPLE.ismailUnal.photoUrl,
   },
 ];
 

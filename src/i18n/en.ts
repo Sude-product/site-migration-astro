@@ -309,6 +309,22 @@ export const en: Translations = {
         role: 'Human Resources Manager',
       },
     },
+    emreOzcan: {
+      quote: {
+        text:
+          "What impressed me most when we first met Idenfit was its practicality and ability to bring different functions together on a single platform. Its simple interface made it clear that our employees could adapt quickly. For companies like ours, operating with intensive and shift-based schedules, seeing a truly 'employee-friendly digital solution' was invaluable.",
+        name: 'Emre Özcan',
+        role: 'Corporate Communications Manager',
+      },
+    },
+    ismailUnal: {
+      quote: {
+        text:
+          'Idenfit stood out for us with its ability to design end-to-end timekeeping processes, its user-friendly interface, and its versatile solutions that meet different HR needs through a single application.',
+        name: 'İsmail Ünal',
+        role: 'People & Culture Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -395,6 +411,7 @@ export const en: Translations = {
       nextLabel: 'Next story',
       readMoreLabel: 'Read more',
       civilVideo: { headline: 'Watch how Civil transformed its HR processes with idenfit' },
+      femasVideo: { headline: 'Watch how Femaş transformed its HR processes with idenfit' },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş manages its HR processes from a single panel with idenfit' },
       beyazFirinVideo: { headline: 'Watch how Beyaz Fırın transformed its HR processes with idenfit' },
     },

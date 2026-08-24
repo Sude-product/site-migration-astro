@@ -312,6 +312,22 @@ export const tr: Translations = {
         role: 'İnsan Kaynakları Müdürü',
       },
     },
+    emreOzcan: {
+      quote: {
+        text:
+          'idenfit ile ilk tanıştığımızda beni en çok etkileyen şey, idenfit\'in pratikliği ve farklı disiplinleri aynı platformda birleştirebilmesiydi. Arayüzünün sadeliği, çalışanlarımızın hızla adapte olabileceği bir sistem olduğunu gösteriyordu. Özellikle vardiyalı ve yoğun operasyon yürüten bizim gibi şirketler için, "çalışan dostu bir dijital çözüm" görmek çok kıymetliydi.',
+        name: 'Emre Özcan',
+        role: 'Kurumsal İletişim Yöneticisi',
+      },
+    },
+    ismailUnal: {
+      quote: {
+        text:
+          'idenfit, özellikle puantaj süreçlerini uçtan uca kurgulayabilmesi, kullanıcı dostu arayüzü ve İK\'nın farklı ihtiyaçlarına tek uygulama üzerinden sunduğu çok yönlü çözümlerle bizim için öne çıkan bir tercih oldu.',
+        name: 'İsmail Ünal',
+        role: 'People & Culture Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -392,12 +408,13 @@ export const tr: Translations = {
       },
     },
     customerCarousel: {
-      title: 'Müşteri Hikayeleri',
+      title: 'İDENFİT İLE FARK YARATANLAR',
       intro: 'idenfit ile İK süreçlerini dönüştüren firmalardan gerçek deneyimler.',
       prevLabel: 'Önceki hikaye',
       nextLabel: 'Sonraki hikaye',
       readMoreLabel: 'Devamını Oku',
       civilVideo: { headline: "Civil'in idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
+      femasVideo: { headline: "Femaş'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş, idenfit ile İK süreçlerini tek panelden yönetiyor' },
       beyazFirinVideo: { headline: "Beyaz Fırın'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
     },

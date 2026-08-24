@@ -383,6 +383,14 @@ export interface CustomerStoriesLabels {
   dogSer: CustomerStoryLabels;
   tugbaKuruyemis: CustomerStoryLabels;
   beyazFirin: CustomerStoryLabels;
+  /** 2026-08-24 — eski (ayrı) `TestimonialSection` widget'ından (ana sayfa)
+   * taşınan 2 tanık, artık `/musteriler/` sayfasında da GERÇEK birer blok
+   * olarak var. Alıntı metni/unvan `home.testimonials.emreOzcan/ismailUnal`
+   * ile BİREBİR AYNI (ikinci kez YAZILMADI, kopyalandı) — yalnızca `role`
+   * alanı şirket adı önekinden ayrıldı (`"HAVAİST - X"` → yalnızca `"X"`,
+   * çünkü şirket adı bu sayfada zaten ayrı bir H2 olarak gösteriliyor). */
+  emreOzcan: CustomerStoryLabels;
+  ismailUnal: CustomerStoryLabels;
 }
 
 /** Ana sayfanın hero-altı bölümleri (bkz. `docs/homepage-sections-report.md`)
@@ -519,6 +527,11 @@ export interface HomeCustomerCarouselLabels {
   nextLabel: string;
   readMoreLabel: string;
   civilVideo: { headline: string };
+  /** Femaş'ın carousel'deki VİDEO kartı (2026-08-24, kullanıcı YouTube
+   * linki + 18-32sn arka plan döngü aralığı paylaştı) — `/musteriler/`
+   * sayfasındaki asıl medyasıyla AYNI video (`customerStories.ts`'in
+   * `femas.media.video`'su ile birebir aynı URL). */
+  femasVideo: { headline: string };
   tugbaKuruyemis: { headline: string };
   /** Beyaz Fırın'ın ALINTI kartından (`beyazFirin`, `customerStories`
    * şemasında) AYRI bir VİDEO kartı (2026-08-20, kullanıcı YouTube linkini

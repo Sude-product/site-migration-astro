@@ -310,6 +310,22 @@ export const it: Translations = {
         role: 'Responsabile Risorse Umane',
       },
     },
+    emreOzcan: {
+      quote: {
+        text:
+          'Quando abbiamo conosciuto Idenfit, la cosa che mi ha colpito di più è stata la sua praticità e la capacità di combinare diverse discipline sulla stessa piattaforma. La semplicità dell\'interfaccia indicava un sistema a cui i nostri dipendenti potevano adattarsi rapidamente. Soprattutto per le aziende come la nostra che gestiscono operazioni intense e su turni, è stato prezioso trovare una "soluzione digitale employee-friendly".',
+        name: 'Emre Özcan',
+        role: 'Responsabile Comunicazione Aziendale',
+      },
+    },
+    ismailUnal: {
+      quote: {
+        text:
+          "Idenfit è diventata per noi una scelta vincente, in particolare per la sua capacità di strutturare i processi di rilevazione presenze end-to-end, per la sua interfaccia user-friendly e per le soluzioni versatili che offre per le diverse esigenze HR tramite un'unica applicazione.",
+        name: 'İsmail Ünal',
+        role: 'People & Culture Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -396,6 +412,7 @@ export const it: Translations = {
       nextLabel: 'Storia successiva',
       readMoreLabel: 'Leggi di più',
       civilVideo: { headline: 'Guarda come Civil ha trasformato i propri processi HR con idenfit' },
+      femasVideo: { headline: 'Guarda come Femaş ha trasformato i propri processi HR con idenfit' },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş gestisce i processi HR da un unico pannello con idenfit' },
       beyazFirinVideo: { headline: 'Guarda come Beyaz Fırın ha trasformato i propri processi HR con idenfit' },
     },

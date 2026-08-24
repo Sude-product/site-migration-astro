@@ -10,7 +10,6 @@ import EfficiencySection from '../../components/EfficiencySection.astro';
 import PanelFeatureSection from '../../components/PanelFeatureSection.astro';
 import SupremaSection from '../../components/SupremaSection.astro';
 import CertificationBadges from '../../components/CertificationBadges.astro';
-import TestimonialSection from '../../components/TestimonialSection.astro';
 import HomeFaqSection from '../../components/HomeFaqSection.astro';
 import { getTranslations } from '../../i18n';
 import { truncateAtWord } from '../../data/metaDescription';
@@ -34,7 +33,6 @@ const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)
 	<PanelFeatureSection />
 	<SupremaSection />
 	<CertificationBadges />
-	<TestimonialSection />
 	<HomeFaqSection />
 	<script src="../../scripts/scroll-reveal.js"></script>
 </BaseLayout>

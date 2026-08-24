@@ -7,6 +7,7 @@
 import CustomerStoryCarousel from './CustomerStoryCarousel.tsx';
 import type { CustomerCarouselCardData, VideoCardData, QuoteCardData, StatCardData } from './CustomerStoryCarousel.tsx';
 import { CUSTOMER_CAROUSEL_CARDS } from '../data/customerStoryCarousel';
+import { TESTIMONIAL_PEOPLE } from '../data/homeContent';
 import { getTranslations } from '../i18n';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from '../data/nav';
@@ -22,8 +23,18 @@ const musterilerHref = getRelativeLocaleUrl(locale, 'musteriler');
 // `cc.civilVideo.headline`'ı SABİT kullanmak artık YANLIŞ olurdu.
 const VIDEO_HEADLINES: Partial<Record<string, string>> = {
   civil: cc.civilVideo.headline,
+  femas: cc.femasVideo.headline,
   beyazFirin: cc.beyazFirinVideo.headline,
 };
+
+// 2026-08-24 — eski (ayrı) `TestimonialSection` widget'ından taşınan 2
+// tanık (İsmail Ünal/Emre Özcan) `customerStories` şemasında DEĞİL,
+// `home.testimonials`'da yaşıyor (`TESTIMONIAL_PEOPLE`'daki isim/fotoyla
+// birlikte) — bu tip guard, hangi kaynaktan okunacağını ayırt eder.
+type HomeTestimonialKey = 'emreOzcan' | 'ismailUnal';
+function isHomeTestimonialKey(key: string): key is HomeTestimonialKey {
+  return key === 'emreOzcan' || key === 'ismailUnal';
+}
 
 const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): CustomerCarouselCardData => {
   const base = {
@@ -35,8 +46,12 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
     logoUrl: card.logo.url,
     logoWidth: card.logo.width,
     logoHeight: card.logo.height,
-    readMoreLabel: cc.readMoreLabel,
-    readMoreHref: `${musterilerHref}#${card.anchorId}`,
+    // `anchorId` yoksa (emreOzcan/ismailUnal — `/musteriler/`'de gerçek
+    // bir hedefleri yok) "Devamını Oku" hiç render edilmez (bkz.
+    // `CustomerStoryCarousel.tsx`'in `CardBase` yorumu) — uydurma bir
+    // link ÜRETİLMEZ.
+    readMoreLabel: card.anchorId ? cc.readMoreLabel : undefined,
+    readMoreHref: card.anchorId ? `${musterilerHref}#${card.anchorId}` : undefined,
   };
 
   if (card.type === 'video') {
@@ -46,11 +61,26 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
       videoUrl: card.videoUrl,
       headline: VIDEO_HEADLINES[card.storyKey] ?? '',
       playLabel: cs.videoPlayLabel,
+      loopStart: card.loopStart,
+      loopEnd: card.loopEnd,
     };
     return videoCard;
   }
 
   if (card.type === 'quote') {
+    if (isHomeTestimonialKey(card.storyKey)) {
+      const testimonial = t.home.testimonials[card.storyKey];
+      const person = TESTIMONIAL_PEOPLE[card.storyKey];
+      const quoteCard: QuoteCardData = {
+        ...base,
+        type: 'quote',
+        quoteText: testimonial.quote,
+        personName: person.name,
+        personRole: testimonial.jobTitle,
+        photoUrl: person.photoUrl,
+      };
+      return quoteCard;
+    }
     const labels = cs[card.storyKey];
     const quoteCard: QuoteCardData = {
       ...base,
@@ -76,9 +106,9 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
 ---
 
 <section class="mx-auto max-w-[88rem] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-  <div class="reveal">
-    <h2 class="h2-section text-heading">{cc.title}</h2>
-    <p class="mt-4 max-w-2xl text-body">{cc.intro}</p>
+  <div class="reveal text-center">
+    <h2 class="h2-section text-brand">{cc.title}</h2>
+    <p class="mx-auto mt-4 max-w-2xl text-body">{cc.intro}</p>
   </div>
   <div class="reveal mt-8" style="transition-delay: 100ms">
     <CustomerStoryCarousel client:visible cards={cards} regionLabel={cc.title} prevLabel={cc.prevLabel} nextLabel={cc.nextLabel} />

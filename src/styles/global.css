@@ -542,3 +542,24 @@ html {
     animation: none;
   }
 }
+
+/* Müşteri Hikayeleri carousel'inin (CustomerStoryCarousel.tsx) kart
+   köşesindeki idenfit yıldızı — 2026-08-24, kullanıcı isteği: "hareketli
+   olacak şekilde yerleştir". Yavaş/sürekli bir dönüş — `.lp-calc-icon-*`
+   ile AYNI ilke, `prefers-reduced-motion`'da durur. */
+@keyframes idenfit-star-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.idenfit-star-spin {
+  animation: idenfit-star-spin 7s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .idenfit-star-spin {
+    animation: none;
+  }
+}

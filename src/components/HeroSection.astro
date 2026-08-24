@@ -43,7 +43,15 @@ const CALL_URL = 'tel:02162950927';
      turda bu alt blok statik görselden GERÇEK/canlı
      `ProductPreviewWidget`'a çevrildi (önce yalnızca TR'de, ON BİRİNCİ
      turda — aşağıda — 4 dilin hepsine genişletildi). -->
-<section class="bg-[#F8F8F8] py-12 lg:py-20">
+<!-- Arka plan alt-tonu (2026-08-24, kullanıcı isteği: "Personio web
+     sayfası tasarımına benzer" — dashboard widget'ının HEMEN ALTINDA
+     başlayan yumuşak bir renk parıltısının, metin/form bölümüne doğru
+     yukarı sızması). Düz `#F8F8F8` yerine, widget çerçevesinin KENDİ
+     gradyanıyla (`#FFDCDC→#FFF3F3→#FFFFFF`, hemen aşağıda) AYNI kırmızı
+     tonu ailesinden radyal bir geçiş — yeni bir renk İCAT EDİLMEDİ,
+     sitenin zaten kullandığı ton yeniden kullanıldı. Merkez alt-ortada
+     (widget'a en yakın nokta) en yoğun, yukarı doğru beyaza sönümleniyor. -->
+<section class="py-12 lg:py-20" style="background: radial-gradient(120% 90% at 50% 100%, #FFDCDC 0%, #FFF3F3 40%, #FFFFFF 75%);">
 	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
 		<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
 		     (`post-25148.css`, `.elementor-element-0c8eb2b`/`4ec6dae`) —

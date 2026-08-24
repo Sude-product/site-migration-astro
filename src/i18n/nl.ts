@@ -304,6 +304,22 @@ export const nl: Translations = {
         role: 'HR-manager',
       },
     },
+    emreOzcan: {
+      quote: {
+        text:
+          "Wat mij het meest opviel toen we Idenfit voor het eerst leerden kennen, was de praktische toepasbaarheid en de mogelijkheid om verschillende functies op één platform te bundelen. De eenvoudige interface maakte duidelijk dat onze medewerkers zich snel konden aanpassen. Voor bedrijven zoals het onze, die werken met intensieve en ploegenroosters, was het zien van een echt 'medewerkersvriendelijke digitale oplossing' van onschatbare waarde.",
+        name: 'Emre Özcan',
+        role: 'Manager Bedrijfscommunicatie',
+      },
+    },
+    ismailUnal: {
+      quote: {
+        text:
+          'Idenfit viel voor ons op door de mogelijkheid om end-to-end tijdregistratieprocessen te ontwerpen, de gebruiksvriendelijke interface en de veelzijdige oplossingen die inspelen op verschillende HR-behoeften via één applicatie.',
+        name: 'İsmail Ünal',
+        role: 'People & Culture Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -390,6 +406,7 @@ export const nl: Translations = {
       nextLabel: 'Volgend verhaal',
       readMoreLabel: 'Lees meer',
       civilVideo: { headline: 'Bekijk hoe Civil zijn HR-processen transformeerde met idenfit' },
+      femasVideo: { headline: 'Bekijk hoe Femaş zijn HR-processen transformeerde met idenfit' },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş beheert zijn HR-processen vanuit één paneel met idenfit' },
       beyazFirinVideo: { headline: 'Bekijk hoe Beyaz Fırın zijn HR-processen transformeerde met idenfit' },
     },

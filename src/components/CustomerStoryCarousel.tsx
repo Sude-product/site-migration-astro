@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import YoutubeClickToPlay from './YoutubeClickToPlay';
+import IdenfitStar from './icons/IdenfitStar';
 
 interface CardBase {
   key: string;
@@ -8,8 +9,11 @@ interface CardBase {
   logoUrl: string;
   logoWidth: number;
   logoHeight: number;
-  readMoreLabel: string;
-  readMoreHref: string;
+  /** İkisi de VERİLMEZSE (2026-08-24, eski `TestimonialSection`'dan
+   * taşınan tanıklar — `/musteriler/`'de gerçek bir hedef sayfaları yok)
+   * "Devamını Oku" hiç render edilmez, uydurma bir link YOK. */
+  readMoreLabel?: string;
+  readMoreHref?: string;
 }
 
 export interface VideoCardData extends CardBase {
@@ -17,6 +21,12 @@ export interface VideoCardData extends CardBase {
   videoUrl: string;
   headline: string;
   playLabel: string;
+  /** Arka planda otomatik/sessiz döngü aralığı (saniye) — bkz.
+   * `customerStoryCarousel.ts`'in `VideoCarouselCard.loopStart/loopEnd`
+   * yorumu. İkisi de verilmişse `VideoCard` tıkla-oynat YERİNE sürekli
+   * oynayan bir arka plan videosu render eder. */
+  loopStart?: number;
+  loopEnd?: number;
 }
 
 export interface QuoteCardData extends CardBase {
@@ -47,28 +57,64 @@ export interface CustomerStoryCarouselProps {
 // butonlu carousel (2026-08-20). `TestimonialCarousel.tsx`'in aksine kartlar
 // TÜRE göre farklı içerik/boyut taşıdığı için (video/alıntı/istatistik) sabit
 // panel yükseklikli grid-stack DEĞİL, native `scroll-snap` ile yatay kaydırma
-// kullanılıyor — her kart kendi doğal yüksekliğinde kalabiliyor.
+// kullanılıyor.
 //
-// DÜZELTME (2026-08-20, kullanıcı isteği: "daha büyük canlı ve arka planının
-// tonu bizim isteğimize uyacak şekilde"): kartlar büyütüldü (340→420px) +
-// arka plan, hero'daki dashboard widget'ının ÇERÇEVESİYLE (`HeroSection.astro`,
-// `linear-gradient(#FFDCDC→#FFF3F3→#FFFFFF→#FFF3F3→#FFDCDC)`) AYNI kırmızı
-// tonlu gradyan ailesine çevrildi — widget'ın HEMEN ALTINDAki bu carousel'in
-// üç kart tipi de artık aynı marka tonunu paylaşıyor (önceki turda video/
-// alıntı beyaz, yalnızca istatistik pembe idi — tutarsızdı).
-//
-// DÜZELTME (2026-08-20, İKİNCİ tur — Beyaz Fırın kartı eklenirken aynı
-// mesajda gelen "kartların boyutları ve puntoları biraz daha büyüsün"
-// isteği): 420→480px + tüm iç yazı boyutları bir kademe daha büyütüldü.
+// DÜZELTME (2026-08-24, kullanıcı isteği — Personio.com referansı): video
+// kartı artık küçük/dolgulu bir aspect-video kutusu DEĞİL, kaynak görselin
+// TAMAMI kartın arka planını dolduruyor (tam-kaplama), başlık/"Devamını
+// Oku"/logo görselin ÜZERİNE bindirilmiş beyaz metin olarak konumlanıyor
+// (Personio'nun video kartı deseniyle birebir). Ayrıca kartlar artık TEK
+// bir soluk pembe-gradyan yerine index'e göre kırmızı/beyaz/gri arasında
+// DÖNÜYOR (`CARD_VARIANTS`) — "kırmızı" artık gerçek marka kırmızısı
+// (`bg-brand`, önceki turun soluk `#FFDCDC` tonundan ÇOK daha belirgin).
+// idenfit'in gerçek logo yıldızı (`IdenfitStar`, `IdenfitLogo.tsx`'ten
+// izole edildi) her kartın sağ üst köşesinde yavaşça dönerek ("hareketli")
+// duruyor.
 const CARD_SCROLL_AMOUNT = 512;
-const CARD_BG_GRADIENT = 'linear-gradient(160deg, #FFFFFF 0%, #FFF3F3 55%, #FFDCDC 100%)';
+const CARD_HEIGHT = 'h-[520px]';
 const CARD_SHADOW = 'shadow-[0_10px_34px_rgba(138,0,0,0.12)]';
 
-function CardLogo({ url, width, height, alt }: { url: string; width: number; height: number; alt: string }) {
-  return <img src={url} alt={alt} width={width} height={height} loading="lazy" className="h-8 w-auto object-contain opacity-80" />;
+type CardVariant = 'red' | 'white' | 'gray';
+// Kartlar bu sırayla DÖNGÜYE giriyor (index % 3) — kullanıcı isteği
+// (2026-08-24, GÜNCELLENDİ): "gri beyaz kırmızı şeklinde olsun".
+const CARD_VARIANTS: CardVariant[] = ['gray', 'white', 'red'];
+
+const VARIANT_STYLES: Record<CardVariant, { bg: string; heading: string; body: string; muted: string; star: string; scrimFrom: string }> = {
+  red: { bg: 'bg-brand', heading: 'text-white', body: 'text-white', muted: 'text-white/75', star: 'text-white', scrimFrom: 'from-black/70' },
+  white: { bg: 'bg-surface', heading: 'text-heading', body: 'text-body', muted: 'text-muted', star: 'text-brand', scrimFrom: 'from-black/75' },
+  gray: { bg: 'bg-menu-surface', heading: 'text-heading', body: 'text-body', muted: 'text-muted', star: 'text-brand', scrimFrom: 'from-black/75' },
+};
+
+function CardStar({ tone }: { tone: string }) {
+  return (
+    <span className={`idenfit-star-spin pointer-events-none absolute right-5 top-5 z-10 ${tone}`} aria-hidden="true">
+      <IdenfitStar className="h-6 w-6 drop-shadow-[0_1px_3px_rgba(0,0,0,0.25)]" />
+    </span>
+  );
 }
 
-function ReadMoreLink({ href, label }: { href: string; label: string }) {
+function CardLogo({ url, width, height, alt }: { url: string; width: number; height: number; alt: string }) {
+  // Firma logoları (`civil-2-1.svg` vb.) kendi İÇİNDE opak beyaz bir zemin
+  // taşıyor (kaynağın kendi dosyası, `<rect fill="white">`) — bu yüzden
+  // koyu kartlarda (kırmızı varyant/video scrim'i) ayrıca bir `invert`
+  // filtresi GEREKMİYOR: logo zaten kendi beyaz "rozet" zemininde net
+  // görünüyor. Önceki denemede `brightness-0 invert` bu beyaz zemini de
+  // tersine çevirip logoyu tamamen görünmez (düz beyaz kutu) yapmıştı.
+  return <img src={url} alt={alt} width={width} height={height} loading="lazy" className="h-8 w-auto object-contain opacity-90" />;
+}
+
+function ReadMoreLink({ href, label, tone }: { href: string; label: string; tone: 'brand' | 'white' }) {
+  if (tone === 'white') {
+    return (
+      <a
+        href={href}
+        className="group/link inline-flex items-center gap-1.5 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-black/55"
+      >
+        {label}
+        <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover/link:translate-x-1" />
+      </a>
+    );
+  }
   return (
     <a href={href} className="group/link mt-6 inline-flex items-center gap-1.5 text-lg font-semibold text-brand">
       {label}
@@ -77,63 +123,121 @@ function ReadMoreLink({ href, label }: { href: string; label: string }) {
   );
 }
 
-function VideoCard({ card }: { card: VideoCardData }) {
+// Arka planda sessiz/otomatik döngüde oynayan YouTube videosu (2026-08-24,
+// kullanıcı isteği — Femaş'ın videosu, 18-32sn aralığı). YouTube'un
+// "tek videoyu belirli bir aralıkta döngüye sokma" tekniği: `loop=1` +
+// `playlist=<AYNI video ID>` (YouTube'un kendi API kısıtı — `loop` tek
+// başına çalışmaz, `playlist` parametresi video ID'siyle eşleşmeli) +
+// `start`/`end`. `mute=1` hem tarayıcıların otomatik oynatma politikası
+// GEREĞİ zorunlu hem kullanıcının "sessiz modda" isteğiyle örtüşüyor.
+// Video, kartın TAMAMINI dolduracak şekilde (16:9 oranı korunarak,
+// `aspect-video`+`h-full`+ortalanmış) büyütülüp taşan kısımlar
+// `overflow-hidden` ile kırpılıyor — dar/portre kart oranında bile
+// letterbox (siyah şerit) OLMAZ. `pointer-events-none` iframe'in kendi
+// oynatıcı arayüzüyle etkileşimi engeller; kartın TAMAMINI kaplayan
+// görünmez `<a>` tıklamayı GERÇEK YouTube izleme sayfasına yönlendirir
+// (kullanıcı isteği: "tıklayınca da o videoya gidecek youtube üzerinde").
+function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; start: number; end: number; title: string }) {
+  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${start}&end=${end}&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3`;
   return (
-    <div
-      className={`flex h-full flex-col rounded-[1.75rem] p-7 ring-1 ring-white/70 transition-transform duration-300 hover:-translate-y-1 ${CARD_SHADOW}`}
-      style={{ background: CARD_BG_GRADIENT }}
-    >
-      <div className="aspect-video w-full overflow-hidden rounded-[16px] shadow-[0_5px_15px_rgba(0,0,0,0.2)]">
-        <YoutubeClickToPlay videoUrl={card.videoUrl} title={card.companyName} playLabel={card.playLabel} />
+    <div className="absolute inset-0 overflow-hidden bg-black">
+      <div className="absolute left-1/2 top-1/2 aspect-video h-full -translate-x-1/2 -translate-y-1/2">
+        <iframe
+          src={embedSrc}
+          title={title}
+          loading="lazy"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          className="pointer-events-none h-full w-full"
+        />
       </div>
-      <p className="mt-6 flex-1 text-lg leading-relaxed text-body">{card.headline}</p>
-      <div className="mt-3 flex items-center justify-between">
-        <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
-      </div>
-      <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} />
+      <a
+        href={`https://www.youtube.com/watch?v=${videoId}`}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label={title}
+        className="absolute inset-0"
+      />
     </div>
   );
 }
 
-function QuoteCard({ card }: { card: QuoteCardData }) {
+function VideoCard({ card, variant }: { card: VideoCardData; variant: CardVariant }) {
+  const v = VARIANT_STYLES[variant];
+  // 2026-08-24, kullanıcı isteği — `loopStart`/`loopEnd` verilmiş kartlar
+  // (Femaş) artık tıkla-oynat DEĞİL, sayfa yüklenir yüklenmez sessiz +
+  // otomatik döngüde oynayan bir arka plan videosu; tıklanınca gerçek
+  // YouTube izleme sayfasına gider. Bu iki alan verilmemiş kartlar
+  // (Civil/Beyaz Fırın — döngü saniyeleri henüz paylaşılmadı) eski
+  // tıkla-oynat davranışını AYNEN korur.
+  const hasLoop = card.loopStart != null && card.loopEnd != null;
+  const videoId = card.videoUrl.split('/').pop() ?? '';
   return (
     <div
-      className={`flex h-full flex-col rounded-[1.75rem] p-8 ring-1 ring-white/70 transition-transform duration-300 hover:-translate-y-1 ${CARD_SHADOW}`}
-      style={{ background: CARD_BG_GRADIENT }}
+      className={`group relative ${CARD_HEIGHT} overflow-hidden rounded-[1.75rem] ring-1 ring-white/70 transition-transform duration-300 hover:-translate-y-1 ${CARD_SHADOW}`}
     >
+      <div className="absolute inset-0">
+        {hasLoop ? (
+          <BackgroundLoopVideo videoId={videoId} start={card.loopStart!} end={card.loopEnd!} title={card.companyName} />
+        ) : (
+          <YoutubeClickToPlay videoUrl={card.videoUrl} title={card.companyName} playLabel={card.playLabel} />
+        )}
+      </div>
+      {/* Üst/alt karartma — video görseli üzerindeki beyaz metnin okunabilirliği için. */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/70 to-transparent" />
+      <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t ${v.scrimFrom} to-transparent`} />
+      <CardStar tone="text-white" />
+      <p className="pointer-events-none absolute left-6 right-16 top-6 text-lg font-semibold leading-snug text-white">{card.headline}</p>
+      <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-3">
+        {card.readMoreHref && card.readMoreLabel && (
+          <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="white" />
+        )}
+        <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
+      </div>
+    </div>
+  );
+}
+
+function QuoteCard({ card, variant }: { card: QuoteCardData; variant: CardVariant }) {
+  const v = VARIANT_STYLES[variant];
+  return (
+    <div
+      className={`relative flex ${CARD_HEIGHT} flex-col rounded-[1.75rem] p-8 ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1 ${v.bg} ${CARD_SHADOW}`}
+    >
+      <CardStar tone={v.star} />
       {card.photoUrl && (
         <img src={card.photoUrl} alt="" loading="lazy" className="h-20 w-20 rounded-full object-cover ring-2 ring-white" />
       )}
       <blockquote className="mt-6 flex-1">
-        <p className="line-clamp-6 text-lg leading-relaxed text-body">&ldquo;{card.quoteText}&rdquo;</p>
+        <p className={`line-clamp-6 text-lg leading-relaxed ${v.body}`}>&ldquo;{card.quoteText}&rdquo;</p>
       </blockquote>
       {(card.personName || card.personRole) && (
         <div className="mt-6">
-          {card.personName && <p className="text-lg font-bold text-heading">{card.personName}</p>}
-          {card.personRole && <p className="text-base text-muted">{card.personRole}</p>}
+          {card.personName && <p className={`text-lg font-bold ${v.heading}`}>{card.personName}</p>}
+          {card.personRole && <p className={`text-base ${v.muted}`}>{card.personRole}</p>}
         </div>
       )}
       <div className="mt-6 flex items-center justify-between">
         <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
       </div>
-      <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} />
+      {card.readMoreHref && card.readMoreLabel && <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" />}
     </div>
   );
 }
 
-function StatCard({ card }: { card: StatCardData }) {
+function StatCard({ card, variant }: { card: StatCardData; variant: CardVariant }) {
+  const v = VARIANT_STYLES[variant];
   return (
     <div
-      className={`flex h-full flex-col rounded-[1.75rem] p-8 ring-1 ring-white/70 transition-transform duration-300 hover:-translate-y-1 ${CARD_SHADOW}`}
-      style={{ background: CARD_BG_GRADIENT }}
+      className={`relative flex ${CARD_HEIGHT} flex-col rounded-[1.75rem] p-8 ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1 ${v.bg} ${CARD_SHADOW}`}
     >
-      <p className="text-6xl font-bold leading-tight text-brand">{card.primaryStat}</p>
-      {card.secondaryStat && <p className="mt-2 text-2xl font-medium text-heading">{card.secondaryStat}</p>}
-      <p className="mt-6 flex-1 text-lg leading-relaxed text-body">{card.headline}</p>
+      <CardStar tone={v.star} />
+      <p className={`text-6xl font-bold leading-tight ${variant === 'red' ? 'text-white' : 'text-brand'}`}>{card.primaryStat}</p>
+      {card.secondaryStat && <p className={`mt-2 text-2xl font-medium ${v.heading}`}>{card.secondaryStat}</p>}
+      <p className={`mt-6 flex-1 text-lg leading-relaxed ${v.body}`}>{card.headline}</p>
       <div className="mt-6 flex items-center justify-between">
         <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
       </div>
-      <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} />
+      {card.readMoreHref && card.readMoreLabel && <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" />}
     </div>
   );
 }
@@ -198,13 +302,16 @@ export default function CustomerStoryCarousel({ cards, regionLabel, prevLabel, n
         }}
         className="flex snap-x snap-mandatory gap-10 overflow-x-auto pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
-        {cards.map((card) => (
-          <div key={card.key} className="w-[360px] shrink-0 snap-start sm:w-[480px]">
-            {card.type === 'video' && <VideoCard card={card} />}
-            {card.type === 'quote' && <QuoteCard card={card} />}
-            {card.type === 'stat' && <StatCard card={card} />}
-          </div>
-        ))}
+        {cards.map((card, i) => {
+          const variant = CARD_VARIANTS[i % CARD_VARIANTS.length];
+          return (
+            <div key={card.key} className="w-[360px] shrink-0 snap-start sm:w-[480px]">
+              {card.type === 'video' && <VideoCard card={card} variant={variant} />}
+              {card.type === 'quote' && <QuoteCard card={card} variant={variant} />}
+              {card.type === 'stat' && <StatCard card={card} variant={variant} />}
+            </div>
+          );
+        })}
       </div>
 
       {cards.length > 1 && (

@@ -52,13 +52,7 @@ const onBrand = variant === 'brand';
     }
     {
       ctaText && ctaUrl && (
-        <a
-          href={ctaUrl}
-          class:list={[
-            'mt-4 inline-flex items-center text-sm font-semibold hover:underline',
-            onBrand ? 'text-white' : 'text-brand',
-          ]}
-        >
+        <a href={ctaUrl} class="btn-cta mt-4 inline-flex items-center justify-center px-6 py-2.5 text-sm font-semibold">
           {ctaText}
         </a>
       )
