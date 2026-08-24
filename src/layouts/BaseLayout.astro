@@ -1,12 +1,25 @@
 ---
 import '../styles/global.css';
+import { getRelativeLocaleUrl } from 'astro:i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 import { FOOTER_SOCIAL } from '../data/footer';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
+import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
+
+/** Breadcrumb'ın "Ana Sayfa" SONRASI kısmı — 2026-08-24, "No BreadcrumbList
+ * schema" GEO bulgusu. `href` verilmezse (son öğe = mevcut sayfa) hem
+ * görsel breadcrumb'ta tıklanamaz düz metin olarak, hem JSON-LD'de mevcut
+ * sayfanın kendi URL'i olarak render edilir. `label` çağıran sayfanın
+ * ZATEN sahip olduğu gerçek başlıktan (`content.title`/`pageTitle`/
+ * `hero.title` vb.) gelmeli — burada yeni bir metin İCAT EDİLMEZ. */
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
 
 interface Props {
   title?: string;
@@ -65,6 +78,12 @@ interface Props {
    * gerçek `modified` verisi olmayan sayfa türleri) hiçbir JSON-LD
    * ÜRETİLMEZ. ISO 8601 string bekleniyor. */
   dateModified?: string;
+  /** "No BreadcrumbList schema" GEO bulgusu (2026-08-24) — bkz.
+   * `BreadcrumbItem` yorumu. "Ana Sayfa" SONRASI iz; verilmezse (ana
+   * sayfa, 404, Landing Page gibi) hiçbir breadcrumb render edilmez —
+   * `dateModified`/`LastUpdated` ile AYNI "yalnızca gerçek veri varsa"
+   * ilkesi. */
+  breadcrumb?: BreadcrumbItem[];
 }
 
 const {
@@ -78,10 +97,22 @@ const {
   articlePublishedTime,
   articleModifiedTime,
   dateModified,
+  breadcrumb,
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
 const lang = Astro.currentLocale ?? 'tr';
+const t = getTranslations(lang as Locale);
+
+// Breadcrumb — "Ana Sayfa" BaseLayout tarafından otomatik eklenir, çağıran
+// sayfa yalnızca kendi izini geçirir (tek kaynaktan besleme, `Header.astro`
+// ile AYNI `getRelativeLocaleUrl()` deseni). `noindex` sayfalarda (404,
+// Landing Page) zaten `breadcrumb` prop'u hiç geçirilmiyor.
+const breadcrumbTrail: BreadcrumbItem[] =
+  breadcrumb && breadcrumb.length > 0
+    ? [{ label: t.common.home, href: getRelativeLocaleUrl(lang, '') }, ...breadcrumb]
+    : [];
+const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
 
 // OG/Twitter görseli — sayfaya özgü verilmemişse ana sayfanın dashboard
 // mockup'ına (locale'e göre — NL kendi farklı görselini kullanıyor, bkz.
@@ -187,6 +218,29 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			/>
 		)}
 
+		<!-- BreadcrumbList JSON-LD (2026-08-24, "No BreadcrumbList schema" GEO
+		     bulgusu) — GÖRÜNÜR breadcrumb şeridiyle (bkz. `<body>` içinde
+		     `breadcrumbTrail`) AYNI veriden üretilir, ikinci bir kaynak İCAT
+		     EDİLMEZ. Son öğenin `item`'ı mevcut sayfanın kendi URL'i (`href`
+		     verilmemiş demek "buradasınız" demek) — Google'ın rehberi son
+		     öğede `item`'ı opsiyonel sayıyor ama eklemek de geçerli/tutarlı. -->
+		{breadcrumbTrail.length > 0 && (
+			<script
+				type="application/ld+json"
+				set:html={JSON.stringify({
+					'@context': 'https://schema.org',
+					'@type': 'BreadcrumbList',
+					itemListElement: breadcrumbTrail.map((item, i) => ({
+						'@type': 'ListItem',
+						position: i + 1,
+						name: item.label,
+						item: toAbsoluteUrl(item.href ?? Astro.url.pathname),
+					})),
+				})}
+				is:inline
+			/>
+		)}
+
 		<!-- Twitter Card — Open Graph ile AYNI veriyi paylaşıyor, ayrı veri
 		     TOPLANMADI (kullanıcı kararı). -->
 		<meta name="twitter:card" content="summary_large_image" />
@@ -217,6 +271,32 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 	<body class="min-h-screen bg-surface text-body font-sans antialiased">
 		<Header localeUrls={localeUrls} />
 		<main>
+			<!-- Görünür breadcrumb (2026-08-24, "No BreadcrumbList schema" GEO
+			     bulgusu) — yukarıdaki JSON-LD AYNI `breadcrumbTrail`'den üretilir,
+			     yapılandırılmış veri yalnızca görünen içeriği yansıtır (Google'ın
+			     kuralı + projenin OG tarihleri/Speakable'da zaten uyguladığı AYNI
+			     ilke). Son öğe tıklanamaz düz metin (`aria-current="page"`) —
+			     mevcut sayfa. -->
+			{breadcrumbTrail.length > 0 && (
+				<nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+					<ol class="flex flex-wrap items-center gap-1.5 text-xs text-muted">
+						{breadcrumbTrail.map((item, i) => (
+							<li class="flex items-center gap-1.5">
+								{i > 0 && <span aria-hidden="true">/</span>}
+								{item.href && i < breadcrumbTrail.length - 1 ? (
+									<a href={item.href} class="hover:text-brand hover:underline">
+										{item.label}
+									</a>
+								) : (
+									<span aria-current="page" class="text-body">
+										{item.label}
+									</span>
+								)}
+							</li>
+						))}
+					</ol>
+				</nav>
+			)}
 			<slot />
 		</main>
 		<Footer />

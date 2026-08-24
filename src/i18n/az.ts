@@ -5,6 +5,7 @@ import type { Translations } from './types';
 export const az: Translations = {
   common: {
     lastUpdated: 'Son yenilənmə',
+    home: 'Əsas səhifə',
   },
   nav: {
     products: 'MƏHSULLAR',

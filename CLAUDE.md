@@ -32,7 +32,83 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-24, en son — "Few data points/statistics" GEO bulgusu için
+**🟢 2026-08-24, en son — "No BreadcrumbList schema" GEO/SEO bulgusu
+KAPANDI: hem görünür breadcrumb şeridi hem BreadcrumbList JSON-LD, tüm
+sitede (19 şablon) canlı.** Keşif: hiçbir sayfa türünde hiyerarşik bir
+breadcrumb YOKTU (blog'daki `← Blog` yalnızca geri-linkiydi, hiyerarşi
+değil). Kaynak WP sitesindeki blog sidebar breadcrumb widget'ı
+(`docs/remaining-work-report.md` madde 2) `/category/...` arşiv sayfaları
+olmadığı için bilinçli olarak migrate edilmemişti — kullanıcıya iki
+kapsam sorusu soruldu, ikisinde de önerilen seçenek onaylandı: (1)
+**2 seviyeli hiyerarşi** — Ana Sayfa > [Sayfa Başlığı]; **blog istisna**
+Ana Sayfa > Blog > [Yazı Başlığı] (yalnızca `/blog/` gerçek/tıklanabilir
+bir sayfa olduğu için) — "Ürünler"/"Sektörler" gibi gerçek bir landing
+sayfası olmayan ara segmentler EKLENMEDİ (kırık/işlevsiz link
+üretmemek için, kaynaktaki AYNI gerekçe); (2) **görünür + JSON-LD
+birlikte** — yalnızca görünmez veri Google'ın "yapılandırılmış veri
+görüneni yansıtmalı" kuralına aykırı olurdu. **Mimari:** `BaseLayout.astro`'ya
+tek bir `breadcrumb?: BreadcrumbItem[]` prop'u eklendi ("Ana Sayfa"
+SONRASI iz) — "Ana Sayfa" (`common.home`, 5 dilde yeni çeviri: Ana
+Sayfa/Home/Startpagina/Home/Əsas səhifə) + `getRelativeLocaleUrl()`
+BaseLayout içinde OTOMATİK ekleniyor, çağıran sayfa yalnızca kendi
+izini geçiriyor — tek kaynaktan besleme (`dateModified`/OG tarihleriyle
+AYNI ilke). Görünür `<nav aria-label="Breadcrumb">` H1'in hemen üstünde,
+JSON-LD AYNI `breadcrumbTrail`'den üretiliyor (ikinci bir veri kaynağı
+YOK). **19 şablon** güncellendi: `ProductPage`/`SectorPage`/
+`blog/[slug].astro`/`BlogListPage` (pilot, kullanıcı onayı sonrası) +
+`AboutPage`/`ContactPage`/`FaqPage`/`HubPage`/`LegalPage`/`PricingPage`/
+`CustomerStoriesPage`/`SecurityPage`/`SupportRequestPage`/`ThankYouPage`/
+`PresentationRequestPage`/`CalculatorsPage`/`HrMaturityTestPage` — her
+birinde breadcrumb leaf etiketi YENİ bir metin İCAT EDİLMEDEN, sayfanın
+ZATEN sahip olduğu gerçek başlıktan (`content.title`/`pageTitle`/
+component'in kendi `title` prop'undan, bazılarında footer/mega-menü
+etiketinden — ör. Fiyatlar için `footer.links.general.pricing`="Fiyatlar
+ve Modüller", SSS için `footer.links.general.faq`="Sıkça Sorulan
+Sorular") türetildi. `ProductPage`/`blog/[slug].astro` PAYLAŞIMLI
+component/template olduğu için (89 ürün sayfası × dil / 622 blog yazısı)
+"pilot" fiilen TÜM o şablon türüne yayıldı — kullanıcıya bu mimari
+gerçek AÇIKÇA bildirildi, onay sonrası kalan 15 şablona geçildi. NotFoundPage/
+LandingPage (`/demo`, `noindex`) bilinçli olarak breadcrumb'sız bırakıldı.
+**Doğrulama:** `astro check` 0 hata (378 dosya), `astro build` 927 sayfa,
+`check-link-accessibility` 0 bulgu, `check-json-ld` **916 BreadcrumbList
+bloğu, 0 geçersiz** (622 blog + ~294 diğer sayfa), `check-heading-hierarchy`
+yalnızca bilinen 5 ana sayfa H1→H3 atlaması (Açık nokta #36, ilgisiz) —
+sıfır regresyon. `dist/**/*.html`'de TR/EN karışık örneklem (ürün/sektör/
+hub/hukuki/blog listesi/Fiyatlar/SSS/Hakkımızda/Güvenlik/Hesaplama
+Araçları/İK Olgunluk Testi) tek tek `grep` ile hem görsel `<nav>` hem
+JSON-LD doğrulandı — EN'de "Home"+`/en/` doğru locale-aware çalışıyor.
+`npm run dev:clean` ile temiz restart + Chrome'da canlı görsel doğrulama
+yapıldı.
+
+**Aynı gün, ayrı bir bulgu — `puantaj-takip-programi-modulu` TR sayfasının
+H1'i canlı idenfit.com ile UYUŞMUYORDU, düzeltildi.** Kullanıcı iki
+sayfayı (localhost + idenfit.com) yan yana görüp tutarsızlık bildirdi.
+Kök neden: WP'nin `product_tit` ACF alanı ("Zaman ve Devamsızlık
+Yönetimi") `extract-products.mjs` tarafından `hero.title`'a DOĞRU
+eşlenmişti, ama canlı sayfanın Elementor başlık widget'ı bu alana değil
+elle girilmiş sabit bir metne bağlı — gerçek `<h1>` (`curl` ile
+doğrulandı) "Puantaj Takip Modülü". (WP'nin post `title` alanı da
+"Puantaj Takibi Modülü" — üçüncü, yine farklı bir varyant; kaynağın
+kendi iç tutarsızlığı.) EN locale'de (`time-attendance-module`) bu üç
+alan BİRBİRİYLE TUTARLI çıktı (`wp-json` ile doğrulandı) — bulgu
+yalnızca TR'ye özgü, düzeltme yalnızca TR'ye uygulandı. **Uygulama:**
+`productTranslationOverrides.ts`'e `puantaj-takip-programi-modulu.tr.hero`
+override'ı eklendi — yalnızca `title` düzeltildi, `text`/`ctaText`/
+`ctaUrl`/`image` ham `products.json`'daki `hero` alanıyla BİREBİR AYNI
+(override mekanizması tam blok değişimi gerektiriyor). Sayfanın 4 CTA
+metnini kişiselleştiren önceki karar (2026-08-12, `ctaTextOverride`/
+`sectionCtaOverrides`, "Puantaj Takibine Başlayın" vb.) BİLİNÇLİ VE
+AYRI bir karardı — bu turda dokunulmadı, yalnızca H1/`<title>`/breadcrumb
+etkileyen `hero.title` düzeltildi. `astro check` 0 hata, `astro build`
+927 sayfa, `check-link-accessibility`/`check-json-ld`/`check-heading-hierarchy`
+sıfır yeni regresyon, `dist/puantaj-takip-programi-modulu/index.html`'de
+H1/`<title>`/breadcrumb'ın hepsi "Puantaj Takip Modülü" gösterdiği
+doğrulandı, Chrome'da görsel olarak da canlı sayfayla eşleştiği
+onaylandı. **Çalışma ağacı temiz DEĞİL** — bu turun tüm değişiklikleri
+(BaseLayout/i18n/15+ component + Puantaj override) commit edilmeyi
+bekliyor.
+
+**🟢 2026-08-24, ayrıca — "Few data points/statistics" GEO bulgusu için
 3 blog yazısındaki rakamsız iddiaya, AYNI yazı içinde zaten var olan
 gerçek istatistik eklendi (`pdks-nedir`, `dijital-ik`,
 `ise-alim-surecinde-yapay-zeka-kullanimi`).** Kullanıcı isteğiyle önce

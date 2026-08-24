@@ -48,7 +48,13 @@ const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnc
 const tileHeadingLevel = intro && intro.title ? 'h3' : 'h2';
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} hreflangLocales={hreflangLocales}>
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  hreflangLocales={hreflangLocales}
+  breadcrumb={[{ label: pageTitle }]}
+>
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">

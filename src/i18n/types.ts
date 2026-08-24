@@ -7,6 +7,11 @@
  * bulgusu, 2026-08-17). */
 export interface CommonLabels {
   lastUpdated: string;
+  /** Breadcrumb'ın ilk seviyesi ("Ana Sayfa"/"Home") — 2026-08-24,
+   * "No BreadcrumbList schema" GEO bulgusu. `notFound.backHomeButton`
+   * bir buton cümlesi ("Ana Sayfaya Dön"), bu ise düz bir isim tamlaması
+   * ("Ana Sayfa") — breadcrumb'ta ayrı bir alan gerekti. */
+  home: string;
 }
 
 export interface NavLabels {

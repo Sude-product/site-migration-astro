@@ -3,6 +3,7 @@ import type { Translations } from './types';
 export const nl: Translations = {
   common: {
     lastUpdated: 'Laatst bijgewerkt',
+    home: 'Startpagina',
   },
   nav: {
     products: 'PRODUCTEN',

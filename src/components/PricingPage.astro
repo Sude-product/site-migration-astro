@@ -41,6 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LastUpdated from './LastUpdated.astro';
 import { getPricingMetaDescription, type PricingContent, type PricingPlan } from '../data/pricingContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
+import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -53,6 +54,7 @@ interface Props {
 
 const { content, localeUrls, modified } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
 // `pageTitle` (H1 için hâlâ kullanılıyor) TR'de meta description için 1
 // karakter kısaydı (2026-08-10 denetimi) — bkz. `getPricingMetaDescription()`.
 const description = getPricingMetaDescription(locale) ?? content.pageTitle.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -76,7 +78,13 @@ const PLAN_BTN_CLASS =
   'pricing-btn mt-3 flex h-[54px] w-full items-center justify-center rounded-[10px] px-4 text-center text-base font-semibold transition-colors';
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} dateModified={modified?.toISOString()}>
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  dateModified={modified?.toISOString()}
+  breadcrumb={[{ label: t.footer.links.general.pricing }]}
+>
   <section class="bg-[#f8f8f8] py-12 lg:py-16">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
       {/* ⚠️ DÜZELTME (2026-08-04): tüm başlık `font-bold` (700) uygulanmıştı —

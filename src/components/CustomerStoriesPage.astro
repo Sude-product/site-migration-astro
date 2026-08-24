@@ -20,10 +20,11 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const cs = t.customerStories;
 const ctaHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
-const title = buildIdenfitTitle(cs.heroTitle.replace('\n', ' '), locale);
+const breadcrumbLabel = cs.heroTitle.replace('\n', ' ');
+const title = buildIdenfitTitle(breadcrumbLabel, locale);
 ---
 
-<BaseLayout title={title} description={cs.heroDescription}>
+<BaseLayout title={title} description={cs.heroDescription} breadcrumb={[{ label: breadcrumbLabel }]}>
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
       {/* ⚠️ DÜZELTME (2026-08-04): element-ID doğrulamalı (`d214071`/`b7cc083`,

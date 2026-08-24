@@ -43,7 +43,13 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const title = buildIdenfitTitle(pageTitle, locale);
 ---
 
-<BaseLayout title={title} description={description} localeUrls={localeUrls} image={hero.image?.url}>
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  image={hero.image?.url}
+  breadcrumb={[{ label: pageTitle }]}
+>
   <!-- Hero — küçük alıntı-tarzı başlık, ürün sayfalarının büyük H1'i DEĞİL. -->
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
     <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">

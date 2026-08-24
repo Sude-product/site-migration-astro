@@ -47,6 +47,7 @@ const heroCtaText = hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnc
   localeUrls={localeUrls}
   image={hero.image?.url ?? whyIdenfit.image?.url}
   dateModified={modified?.toISOString()}
+  breadcrumb={[{ label: content.pageTitle }]}
 >
   <!-- Hero -->
   <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">

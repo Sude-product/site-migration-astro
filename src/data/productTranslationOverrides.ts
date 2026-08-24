@@ -932,6 +932,30 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
   // karışık çeviri — Şirket Takvimi'nde görülen örüntünün bir tekrarı);
   // FAQ'ın 5 çifti de tamamen EN kopyasıydı. Hepsi düzeltildi.
   'puantaj-takip-programi-modulu': {
+    // TR: kaynağın kendi ACF alanı (`product_tit`) canlı sayfada GÖRÜNMÜYOR
+    // (2026-08-24 bulgusu). `extract-products.mjs` bu alanı `hero.title`'a
+    // doğru eşlemişti ("Zaman ve Devamsızlık Yönetimi") ama canlı
+    // idenfit.com/puantaj-takip-programi-modulu/'nin gerçek `<h1>`'i
+    // (`curl` ile doğrulandı) TAMAMEN FARKLI bir metin: "Puantaj Takip
+    // Modülü" — Elementor'daki başlık widget'ı bu sayfada ACF alanına değil,
+    // elle girilmiş sabit metne bağlı (WP'nin kendi post `title` alanı da
+    // "Puantaj Takibi Modülü" — birbirine yakın ama YİNE farklı bir üçüncü
+    // varyant, kaynağın kendi iç tutarsızlığı). Yalnızca `title` düzeltildi;
+    // `text`/`ctaText`/`ctaUrl`/`image` ham `products.json`'daki `hero`
+    // alanıyla BİREBİR AYNI (bu override tam blok değişimi gerektiriyor,
+    // bkz. `getProductContent()`) — `ctaText`'in görünen değeri zaten ayrı
+    // bir mekanizmayla (`puantaj-takip-programi-modulu.astro`'nun
+    // `ctaTextOverride`'ı) yönetiliyor, burada yalnızca buton'un
+    // render edilmesi için gereken truthy değer korundu.
+    tr: {
+      hero: {
+        title: 'Puantaj Takip Modülü',
+        text: '<p>Şirketinizin büyüklüğünden bağımsız olarak, Idenfit çalışanlarınızın çalışma vardiyalarını kolayca planlamanızı sağlar.</p>\n<p>Idenfit, çalışanlarınızın programlarını sadece birkaç dakika içinde planlamanıza ve izin, uygunluk ve vardiya değişikliği taleplerini yönetmenize yardımcı olur. Çalışanların çalıştığı saatleri takip edebilir, bütçe aşımını ve fazla mesaiyi önleyebilir, devamsızlık ve geç kalmaları azaltabilir ve beklenmedik değişiklikleri sorunsuz bir şekilde yönetebilirsiniz. Idenfit’in zaman ve devamsızlık yönetim modülü, çok lokasyonlu ofisler için mükemmel bir seçimdir.</p>\n<p>Idenfit’in masaüstü kontrol paneli ve mobil uygulaması, çalışanların vardiyalarını platformda kolayca yönetmelerini sağlar; vardiyalarının başlangıç ve bitiş zamanlarını kaydederek. Ara verme sürelerini manuel olarak girmenize gerek yoktur; bu otomatik olarak gerçekleşir.</p>\n',
+        ctaText: 'Başlayın',
+        ctaUrl: 'https://idenfit.com/request-online-presentation/',
+        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/1@2x.webp', alt: '1@2x', width: 1038, height: 1403 },
+      },
+    },
     it: {
       sections: [
         {

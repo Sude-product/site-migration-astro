@@ -56,7 +56,12 @@ const description = getPresentationMetaDescription(locale) ?? content.pageTitle.
 const title = buildIdenfitTitle(content.formTitle, locale);
 ---
 
-<BaseLayout title={title} description={description} dateModified={modified?.toISOString()}>
+<BaseLayout
+  title={title}
+  description={description}
+  dateModified={modified?.toISOString()}
+  breadcrumb={[{ label: content.formTitle }]}
+>
   <section class="relative isolate overflow-hidden">
     {/* f04cc27 — bkz. yukarıdaki dosya başı yorumu. */}
     <div

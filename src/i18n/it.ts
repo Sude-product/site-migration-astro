@@ -3,6 +3,7 @@ import type { Translations } from './types';
 export const it: Translations = {
   common: {
     lastUpdated: 'Ultimo aggiornamento',
+    home: 'Home',
   },
   nav: {
     products: 'PRODOTTI',

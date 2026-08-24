@@ -4,6 +4,7 @@ import type { Translations } from './types';
 export const tr: Translations = {
   common: {
     lastUpdated: 'Son güncelleme',
+    home: 'Ana Sayfa',
   },
   nav: {
     products: 'ÜRÜNLER',
