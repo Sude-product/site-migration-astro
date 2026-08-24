@@ -203,6 +203,24 @@ function buildExcerpt(cleanedHtml) {
   return `${truncated.slice(0, truncated.lastIndexOf(' '))}…`;
 }
 
+// JSON-LD `BlogPosting.author` için (2026-08-24, "No author attribution"
+// GEO bulgusu). Kaynağın `yoast_head_json.author`'ı 6 farklı yazar taşıyor
+// ama 4'ü ya jenerik ("idenfit editör", 544 yazı) ya da WP kullanıcı adı
+// formatında (`gozen.yesil`/`doruk.gulsever`/`furkan.ergelmis`, toplam 53
+// yazı) — kullanıcı kararıyla bunlar için gerçek bir görünen ad UYDURULMUYOR,
+// eşlemede yer almayan her yazar `[slug].astro`'daki `Organization`
+// fallback'ine düşer. Yalnızca burada listelenen 2 yazarın (24+1 yazı) gerçek
+// ad-soyadı var — büyük/küçük harf düzeltmesi dışında (kaynakta ikisi de
+// tutarsız yazılmış) isim İCAT EDİLMEDİ.
+const AUTHOR_DISPLAY_NAMES = {
+  'neslihan gültekin': 'Neslihan Gültekin',
+  'Aysegul Topcu': 'Ayşegül Topçu',
+};
+
+function resolveAuthorName(yoastAuthor) {
+  return AUTHOR_DISPLAY_NAMES[yoastAuthor];
+}
+
 function resolveTerms(ids, termsById) {
   const seenNames = new Set();
   const resolved = [];
@@ -282,6 +300,7 @@ for (const slug of slugs) {
     featuredImage: resolveFeaturedImage(post.featured_media, title),
     categories: resolveTerms(post.categories, categoryById),
     tags: resolveTerms(post.tags, tagById),
+    authorName: resolveAuthorName(post.yoast_head_json?.author),
     content,
   });
 

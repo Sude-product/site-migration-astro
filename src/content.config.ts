@@ -88,6 +88,16 @@ const blogSchema = z.object({
   // DEĞİŞMEDEN çalışmaya devam ediyor.
   categories: z.array(z.string()).transform((slugs) => slugs.map((slug) => ({ slug, name: CATEGORY_LABELS[slug] ?? slug }))),
   tags: z.array(z.string()).default([]),
+  // JSON-LD `BlogPosting.author` için (2026-08-24, "No author attribution"
+  // GEO bulgusu). Yalnızca kaynağın (WP `yoast_head_json.author`) GERÇEK bir
+  // ad-soyad taşıdığı yazılarda dolu (bkz. `extract-blog-posts.mjs`
+  // `AUTHOR_DISPLAY_NAMES`) — kullanıcı kararıyla WP kullanıcı adı formatındaki
+  // (`gozen.yesil` gibi) ve jenerik "idenfit editör" yazılarda BOŞ bırakılıyor,
+  // bunlar `[slug].astro`'da mevcut `Organization` fallback'ine düşüyor.
+  // KASITLI OLARAK sayfada görünür bir "Yazar: X" satırı YOK — yalnızca
+  // görünmez JSON-LD alanı (kullanıcı kararı, yazar ismi ekranda hiç
+  // görünmesin).
+  authorName: z.string().optional(),
 });
 
 const BLOG_DIR = './src/content/blog';

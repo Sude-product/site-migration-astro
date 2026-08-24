@@ -11,6 +11,7 @@ featuredImage:
 categories:
   - guncel-bilgiler-tr
 tags: []
+authorName: Neslihan Gültekin
 ---
 
 Bir çalışanın performansında düşüş görülmesi, çoğu şirkette ya anlık geri bildirimlerle geçiştiriliyor ya da sorun büyüdükten sonra disiplin gündemiyle ele alınıyor. Oysa performans iyileştirme planı, bu iki uç yaklaşımın arasında yer alan daha yapıcı bir yöntem sunar. Amaç yalnızca performans düşüklüğünü kayıt altına almak değil, çalışanın neyi, neden ve hangi destekle geliştireceğini netleştirmektir.

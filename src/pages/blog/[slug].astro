@@ -30,7 +30,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { title, metaTitle, date, excerpt, featuredImage, categories, modifiedDate } = post.data;
+const { title, metaTitle, date, excerpt, featuredImage, categories, modifiedDate, authorName } = post.data;
 const { Content } = await render(post);
 
 const allPosts = await getAllBlogPosts();
@@ -64,6 +64,13 @@ const IDENFIT_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/07/idenfit
 // düşülüyor — uydurma bir görsel DEĞİL, zaten `publisher.logo` için
 // kullanılan AYNI gerçek, barındırılan dosya.
 //
+// `author` (2026-08-24, "No author attribution" GEO bulgusu) — sabit
+// `Organization` yerine, kaynakta GERÇEK bir ad-soyad varsa (`authorName`,
+// bkz. `content.config.ts`) `Person` kullanılıyor; yoksa (yazının ~96%'ı —
+// jenerik "idenfit editör" veya WP kullanıcı adı formatındaki bylines,
+// kullanıcı kararıyla isim GÖSTERİLMİYOR) mevcut `Organization` fallback'i
+// aynen korunuyor.
+//
 // `speakable` (2026-08-23, "No Speakable markup" GEO bulgusu) — Google'ın
 // Speakable desteği pratikte esas olarak ABD'deki onaylı haber
 // yayıncılarıyla sınırlı kaldı, genel bir sıralama/zengin-sonuç sinyali
@@ -83,7 +90,7 @@ const jsonLd = {
   image: featuredImage?.url ?? IDENFIT_LOGO_URL,
   datePublished: date.toISOString(),
   dateModified: (modifiedDate ?? date).toISOString(),
-  author: { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
+  author: authorName ? { '@type': 'Person', name: authorName } : { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
   publisher: {
     '@type': 'Organization',
     name: 'idenfit',

@@ -11,6 +11,7 @@ featuredImage:
 categories:
   - guncel-bilgiler
 tags: []
+authorName: Neslihan Gültekin
 ---
 
 Yaz ayları geldiğinde izin yönetimi birçok şirket için teknik bir takvim konusu olmaktan çıkar ve doğrudan operasyonel dayanıklılık başlığına dönüşür. Temmuz ve ağustos döneminde aynı ekipten birden fazla kişinin aynı tarihlere yönelmesi, yıllık izin planını sadece bireysel tercih meselesi olmaktan çıkarır. İzin talepleri doğru yönetilmediğinde müşteri deneyimi, teslim süreleri, vardiya dengesi ve ekip içi iş yükü aynı anda etkilenir.
