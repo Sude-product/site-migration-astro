@@ -32,7 +32,45 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ## Güncel durum (son güncelleme: 2026-08-24)
 
-**🟢 2026-08-24, en son — İki küçük son-dokunuş değişikliği.**
+**🟢 2026-08-24, en son — "Low readiness for Google AI Overviews/Perplexity/Gemini" bulgu ailesi 3 ayrı turda ele alındı.**
+1. **Author attribution** — `BlogPosting.author` artık kaynakta gerçek
+   ad-soyadı olan 2 yazar için (`Neslihan Gültekin` 24 yazı, `Ayşegül
+   Topçu` 1 yazı) `Person`, geri kalanı (jenerik "idenfit editör" + WP
+   kullanıcı-adı-formatlı 3 yazar, kullanıcı kararıyla isim
+   UYDURULMADI) `Organization` fallback'inde. Görünür byline YOK
+   (bilinçli karar). `content.config.ts`'e yeni `authorName?: string`
+   alanı, `extract-blog-posts.mjs`'e kalıcı `AUTHOR_DISPLAY_NAMES`
+   çözünürleştirmesi eklendi. (4369088)
+2. **4 blog H2 başlığı soru formatına çevrildi** (anlamı zorlamadan,
+   yalnızca doğal soru-cevap yapısına uygun olanlar seçildi):
+   `bulut-tabanli-insan-kaynaklari-yazilimi`, `ik-ekibiniz`,
+   `is-sagligi-ve-guvenligi`, `gida-sektorunde-insan-kaynaklari-yonetimi`.
+   (4369088)
+3. **35 dış kaynak atfı `<cite>` ile işaretlendi** (19 blog yazısı,
+   Deloitte/Gartner/PwC/IDC/McKinsey/EY/Michael Page/KPMG/Statista/World
+   Economic Forum/Harvard Business Review/Randstad/LinkedIn/Forbes) —
+   `<blockquote>` KULLANILMADI (kaynaklar paraphrase edilmiş, birebir
+   alıntı değil — `<blockquote>` yanlış semantik + telif açısından
+   yanıltıcı olurdu). Yalnızca kurum adı etiketlendi, iyelik eki/rapor
+   adı/kısaltma dışarıda kaldı. Özel durumlar: KPMG'nin bitişik
+   `<sup>` dipnotu, Statista/LinkedIn'in zaten `<a>` içinde olması (cite
+   linkin İÇİNE sarmalandı), aynı paragrafta 2 kez geçen Deloitte/Forbes
+   (ikisi de işaretlendi). `blog/[slug].astro`'nun içerik sarmalayıcısına
+   `[&_cite]:not-italic` eklendi (tarayıcının varsayılan italic
+   stilini nötrler — "görsel stil değişmeyecek" kullanıcı şartı).
+   (6d5a6bf)
+4. **"Low readiness for Google Gemini" — doğrulama, kod değişikliği
+   YOK.** `Organization.sameAs`'teki YouTube linki (`FOOTER_SOCIAL`'dan,
+   2026-08-22 LinkedIn turunda kurulan 7 platformluk listeden) `curl`
+   ile `dist/index.html`'de doğrulandı — zaten mevcut. Wikipedia/Wikidata
+   linkleri hâlâ yok — bkz. Açık nokta #38 (dış bağımlılık, idenfit'in
+   bir Wikipedia sayfası yok, biz tek taraflı oluşturamayız).
+5. Her turda `astro check` 0 hata, `astro build` 927 sayfa,
+   `check-heading-hierarchy`/`check-json-ld`/`check-link-accessibility`
+   sıfır yeni regresyon (yalnızca bilinen 5 H1→H3 temel çizgisi),
+   `dist/**/*.html`'de `curl`/`grep` ile tek tek doğrulandı.
+
+**🟢 2026-08-24, ayrıca — İki küçük son-dokunuş değişikliği.**
 1. **Hero başlığı (`t.hero.headline`, sadece TR):** "Önce insan. Gerisi
    kolaylaşsın." → "Önce İnsan gerisi bizde." Kullanıcının açık isteği
    üzerine YALNIZCA `src/i18n/tr.ts` değişti — EN/NL/IT/AZ dosyaları
@@ -1055,6 +1093,16 @@ hâlâ geçerli.)*
     9 sayfa ailesi için gerçek az çevirisi istenirse (özellikle SSS'nin 90
     sorusu ve hukuki metinlerin uzunluğu nedeniyle) ayrı, büyük bir tur
     olarak ele alınmalı.
+38. **DIŞ BAĞIMLILIK, AKSİYON GEREKMİYOR (2026-08-24) — Organization
+    JSON-LD'de Wikipedia/Wikidata `sameAs` girdisi yok.** "Low readiness
+    for Google Gemini" bulgusunun bir parçası — YouTube dahil 7 sosyal
+    profil zaten `sameAs`'te (`curl` ile doğrulandı, bkz. Güncel durum).
+    Wikipedia/Wikidata farklı: idenfit'in bir Wikipedia sayfası YOK,
+    Wikipedia'nın kendi notability/editoryal kurallarına tabi olduğu
+    için biz kod tarafında tek taraflı bir sayfa oluşturamayız/link
+    ekleyemeyiz (varsa uydurma bir URL olurdu). Şirket gerçekten bir
+    Wikipedia sayfası edinirse `data/footer.ts`'teki `FOOTER_SOCIAL`
+    deseniyle `sameAs`'e eklenebilir — o zamana kadar kapsam dışı.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
