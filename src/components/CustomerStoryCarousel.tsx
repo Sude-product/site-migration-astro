@@ -159,12 +159,49 @@ function ReadMoreLink({ href, label, tone, variant }: { href: string; label: str
   );
 }
 
+// YouTube IFrame Player API'nin GERÇEK yükleme durumunu tüm kartlar
+// arasında PAYLAŞAN tek bir promise (2026-08-25, `loop=1&playlist=<aynı
+// video>` + `start`/`end` yöntemi terk edilince eklendi — bkz.
+// `BackgroundLoopVideo` yorumu). Script yalnızca BİR KEZ enjekte edilir;
+// `window.onYouTubeIframeAPIReady` zaten başka bir kod tarafından
+// tanımlanmışsa (bu sayfada aynı anda birden fazla döngülü video kartı
+// var) ZİNCİRLENİR, üzerine YAZILMAZ.
+let youtubeApiPromise: Promise<void> | null = null;
+function loadYoutubeIframeApi(): Promise<void> {
+  if (typeof window === 'undefined') return Promise.resolve();
+  const w = window as unknown as { YT?: { Player: unknown }; onYouTubeIframeAPIReady?: () => void };
+  if (w.YT?.Player) return Promise.resolve();
+  if (!youtubeApiPromise) {
+    youtubeApiPromise = new Promise((resolve) => {
+      const previous = w.onYouTubeIframeAPIReady;
+      w.onYouTubeIframeAPIReady = () => {
+        previous?.();
+        resolve();
+      };
+      const script = document.createElement('script');
+      script.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(script);
+    });
+  }
+  return youtubeApiPromise;
+}
+
 // Arka planda sessiz/otomatik döngüde oynayan YouTube videosu (2026-08-24,
-// kullanıcı isteği — Femaş'ın videosu, 18-32sn aralığı). YouTube'un
-// "tek videoyu belirli bir aralıkta döngüye sokma" tekniği: `loop=1` +
-// `playlist=<AYNI video ID>` (YouTube'un kendi API kısıtı — `loop` tek
-// başına çalışmaz, `playlist` parametresi video ID'siyle eşleşmeli) +
-// `start`/`end`. `mute=1` hem tarayıcıların otomatik oynatma politikası
+// kullanıcı isteği — Femaş'ın videosu, 18-32sn aralığı).
+//
+// DÜZELTME (2026-08-25, kullanıcı bulgusu — "istediğim aralıkta
+// durmuyor, sürekli tekrarlanan bir döngü gibi olsun"): önceki
+// `loop=1&playlist=<AYNI video ID>` + `start`/`end` URL parametresi
+// yöntemi YouTube'un KENDİ bilinen kısıtı yüzünden güvenilmezdi —
+// `end`'e ulaşınca döngü çoğu zaman `start`'a DEĞİL, videonun en
+// BAŞINA (0. saniye) dönüyordu, bu yüzden zamanla seçilen "yazısız"
+// aralığın dışına (rahatsız edici alt-yazı/pazarlama metni olan
+// bölümlere) kayıyordu. Artık gerçek YouTube IFrame Player API
+// (`YT.Player`) kullanılıyor: oynatıcı hazır olunca `start`'a
+// `seekTo` ile atlanıyor, sonra her 500ms'de `getCurrentTime()`
+// kontrol edilip `end`'e ulaşıldığında YENİDEN `start`'a `seekTo`
+// yapılıyor — döngü artık ASLA `[start, end]` aralığının dışına
+// çıkmıyor. `mute=1` hem tarayıcıların otomatik oynatma politikası
 // GEREĞİ zorunlu hem kullanıcının "sessiz modda" isteğiyle örtüşüyor.
 // Video, kartın TAMAMINI dolduracak şekilde (16:9 oranı korunarak,
 // `aspect-video`+`h-full`+ortalanmış) büyütülüp taşan kısımlar
@@ -174,17 +211,54 @@ function ReadMoreLink({ href, label, tone, variant }: { href: string; label: str
 // görünmez `<a>` tıklamayı GERÇEK YouTube izleme sayfasına yönlendirir
 // (kullanıcı isteği: "tıklayınca da o videoya gidecek youtube üzerinde").
 function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; start: number; end: number; title: string }) {
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&start=${start}&end=${end}&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1&iv_load_policy=3`;
+  const containerRef = useRef<HTMLDivElement>(null);
+  const frameId = useRef(`yt-loop-${videoId}-${Math.random().toString(36).slice(2)}`).current;
+
+  useEffect(() => {
+    let player: { getCurrentTime: () => number; seekTo: (s: number, allowSeekAhead: boolean) => void; mute: () => void; playVideo: () => void; destroy: () => void } | null = null;
+    let intervalId: ReturnType<typeof setInterval> | null = null;
+    let cancelled = false;
+
+    loadYoutubeIframeApi().then(() => {
+      if (cancelled || !containerRef.current) return;
+      const YT = (window as unknown as { YT: { Player: new (el: HTMLElement, opts: Record<string, unknown>) => typeof player } }).YT;
+      player = new YT.Player(containerRef.current, {
+        videoId,
+        playerVars: {
+          autoplay: 1,
+          mute: 1,
+          controls: 0,
+          modestbranding: 1,
+          playsinline: 1,
+          rel: 0,
+          disablekb: 1,
+          iv_load_policy: 3,
+          start,
+        },
+        events: {
+          onReady: (e: { target: NonNullable<typeof player> }) => {
+            e.target.mute();
+            e.target.playVideo();
+            intervalId = setInterval(() => {
+              if (e.target.getCurrentTime() >= end) e.target.seekTo(start, true);
+            }, 500);
+          },
+        },
+      });
+    });
+
+    return () => {
+      cancelled = true;
+      if (intervalId) clearInterval(intervalId);
+      player?.destroy();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [videoId, start, end]);
+
   return (
     <div className="absolute inset-0 overflow-hidden bg-black">
       <div className="absolute left-1/2 top-1/2 aspect-video h-full -translate-x-1/2 -translate-y-1/2">
-        <iframe
-          src={embedSrc}
-          title={title}
-          loading="lazy"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          className="pointer-events-none h-full w-full"
-        />
+        <div ref={containerRef} id={frameId} title={title} className="pointer-events-none h-full w-full" />
       </div>
       <a
         href={`https://www.youtube.com/watch?v=${videoId}`}

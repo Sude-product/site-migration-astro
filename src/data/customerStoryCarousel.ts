@@ -87,12 +87,12 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     anchorId: 'civil-secondary',
     videoUrl: 'https://youtu.be/-MxZWA99a20',
     // DÜZELTME (2026-08-25, kullanıcı bulgusu: "yazılar kesiliyor") —
-    // 20-24sn ("Harun Binali" alt-yazısı) ve ardından denenen 15-19sn
-    // aralıklarının İKİSİNDE de rahatsız edici yazı kalmıştı. Kullanıcı
-    // kendi izleyip 34-50sn aralığını BİZZAT verdi — bu turda saniye
-    // seçimi elle doğrulanmadı, doğrudan kullanıcı kararı uygulandı.
-    loopStart: 34,
-    loopEnd: 50,
+    // 20-24sn, 15-19sn ve 34-50sn aralıklarının HEPSİNDE rahatsız edici
+    // yazı kalmıştı. Kullanıcı kendi izleyip 41-59sn aralığını BİZZAT
+    // verdi (son/güncel karar) — bu turda saniye seçimi elle
+    // doğrulanmadı, doğrudan kullanıcı kararı uygulandı.
+    loopStart: 41,
+    loopEnd: 59,
   },
   {
     type: 'quote',
