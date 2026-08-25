@@ -46,12 +46,15 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
     logoUrl: card.logo.url,
     logoWidth: card.logo.width,
     logoHeight: card.logo.height,
-    // `anchorId` yoksa (emreOzcan/ismailUnal — `/musteriler/`'de gerçek
-    // bir hedefleri yok) "Devamını Oku" hiç render edilmez (bkz.
-    // `CustomerStoryCarousel.tsx`'in `CardBase` yorumu) — uydurma bir
-    // link ÜRETİLMEZ.
-    readMoreLabel: card.anchorId ? cc.readMoreLabel : undefined,
-    readMoreHref: card.anchorId ? `${musterilerHref}#${card.anchorId}` : undefined,
+    // "Devamını Oku" ARTIK HER kartta var (2026-08-25, kullanıcı isteği) —
+    // `anchorId` varsa `/musteriler/`'deki ilgili bloğa (`#anchorId`) gider,
+    // yoksa (emreOzcan/ismailUnal — o sayfada kendilerine ait bir blok yok)
+    // düz `/musteriler/`'e gider. Önceki turda anchorId yoksa link HİÇ
+    // render edilmiyordu — kullanıcı artık tutarlılık için tümünde
+    // istiyor, uydurma bir ANCHOR eklenmedi, yalnızca sayfanın kendisine
+    // yönlendiriliyor.
+    readMoreLabel: cc.readMoreLabel,
+    readMoreHref: card.anchorId ? `${musterilerHref}#${card.anchorId}` : musterilerHref,
   };
 
   if (card.type === 'video') {

@@ -873,7 +873,12 @@ function SectionMiniHeader({
 }: {
   icon: ComponentType<{ className?: string }>;
   title: string;
-  href: string;
+  // Opsiyonel (2026-08-25, kullanıcı isteği) — "Veri Analizi" sekmesi
+  // artık BAĞLANMIYOR: kullanıcı "zaten web sitesinden giriliyor, app
+  // içinde göstermeye gerek yok" dedi (`/hesaplama-araclari/`'a
+  // yönlendiriyordu). `href` verilmezse "Detaya Git →" hiç render
+  // edilmez.
+  href?: string;
 }) {
   const { isDark } = useTheme();
   return (
@@ -882,12 +887,14 @@ function SectionMiniHeader({
         <Icon className="h-5 w-5 text-brand" aria-hidden="true" />
         <h3 className={`text-base font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{title}</h3>
       </div>
-      <a
-        href={href}
-        className="shrink-0 rounded-full bg-brand-light px-4 py-1.5 text-sm font-semibold whitespace-nowrap text-brand transition-all hover:bg-brand hover:text-white hover:shadow-[0_2px_8px_rgba(255,0,0,0.35)]"
-      >
-        Detaya Git →
-      </a>
+      {href && (
+        <a
+          href={href}
+          className="shrink-0 rounded-full bg-brand-light px-4 py-1.5 text-sm font-semibold whitespace-nowrap text-brand transition-all hover:bg-brand hover:text-white hover:shadow-[0_2px_8px_rgba(255,0,0,0.35)]"
+        >
+          Detaya Git →
+        </a>
+      )}
     </div>
   );
 }
@@ -1972,7 +1979,7 @@ function LateArrivalsCard() {
 function DataAnalysisTab() {
   return (
     <div>
-      <SectionMiniHeader icon={BarChart3} title="Veri Analizi" href="/hesaplama-araclari/" />
+      <SectionMiniHeader icon={BarChart3} title="Veri Analizi" />
       <div className="space-y-3">
         <DateRangeCard />
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">

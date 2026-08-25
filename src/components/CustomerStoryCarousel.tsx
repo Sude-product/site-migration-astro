@@ -9,9 +9,12 @@ interface CardBase {
   logoUrl: string;
   logoWidth: number;
   logoHeight: number;
-  /** İkisi de VERİLMEZSE (2026-08-24, eski `TestimonialSection`'dan
-   * taşınan tanıklar — `/musteriler/`'de gerçek bir hedef sayfaları yok)
-   * "Devamını Oku" hiç render edilmez, uydurma bir link YOK. */
+  /** "Devamını Oku" (2026-08-25, kullanıcı isteği — HER kartta olmalı) —
+   * çağıran taraf (`CustomerStoryCarouselSection.astro`) artık bunu HER
+   * karta dolduruyor: gerçek bir `/musteriler/` bloğu olan kartlarda o
+   * bloğa (`#anchorId`), olmayanlarda (eski `TestimonialSection`'dan
+   * taşınan 2 tanık) düz `/musteriler/`'e. Yine de opsiyonel bırakıldı
+   * (savunmacı `&&` kontrolü — çağıran taraf boş string geçirmez). */
   readMoreLabel?: string;
   readMoreHref?: string;
 }
@@ -93,30 +96,63 @@ function CardStar({ tone }: { tone: string }) {
   );
 }
 
-function CardLogo({ url, width, height, alt }: { url: string; width: number; height: number; alt: string }) {
+// Kart içeriği (alıntı uzunluğu, kişi bilgisi, ikincil istatistik var/yok)
+// karta göre değişince logo normal akışta FARKLI bir yükseklikte kalıyordu
+// (2026-08-25, kullanıcı bulgusu: "bazıları dolda durunca hoş görünmüyor")
+// — artık akıştan çıkarılıp her kartın (relative konumlu) sağ-alt köşesine
+// MUTLAK konumla sabitleniyor, içerik miktarından bağımsız olarak.
+function CardLogo({
+  url,
+  width,
+  height,
+  alt,
+  offset = 'p-6',
+}: {
+  url: string;
+  width: number;
+  height: number;
+  alt: string;
+  offset?: 'p-6' | 'p-8';
+}) {
   // Firma logoları (`civil-2-1.svg` vb.) kendi İÇİNDE opak beyaz bir zemin
   // taşıyor (kaynağın kendi dosyası, `<rect fill="white">`) — bu yüzden
   // koyu kartlarda (kırmızı varyant/video scrim'i) ayrıca bir `invert`
   // filtresi GEREKMİYOR: logo zaten kendi beyaz "rozet" zemininde net
   // görünüyor. Önceki denemede `brightness-0 invert` bu beyaz zemini de
   // tersine çevirip logoyu tamamen görünmez (düz beyaz kutu) yapmıştı.
-  return <img src={url} alt={alt} width={width} height={height} loading="lazy" className="h-8 w-auto object-contain opacity-90" />;
+  return (
+    <img
+      src={url}
+      alt={alt}
+      width={width}
+      height={height}
+      loading="lazy"
+      className={`absolute ${offset === 'p-8' ? 'bottom-8 right-8' : 'bottom-6 right-6'} h-8 w-auto object-contain opacity-90`}
+    />
+  );
 }
 
-function ReadMoreLink({ href, label, tone }: { href: string; label: string; tone: 'brand' | 'white' }) {
+function ReadMoreLink({ href, label, tone, variant }: { href: string; label: string; tone: 'brand' | 'white'; variant?: CardVariant }) {
   if (tone === 'white') {
+    // 2026-08-25, kullanıcı isteği — arka plandaki siyah/40 "hap" zemini
+    // (video üzerinde sarmalanmış görünüyordu) kaldırıldı, düz metin
+    // oldu. Alttaki `scrimFrom` gradyanı (video karartma katmanı) zaten
+    // okunabilirliği sağlıyor — üstteki `headline`'ın da hiç zemini yok.
     return (
-      <a
-        href={href}
-        className="group/link inline-flex items-center gap-1.5 rounded-full bg-black/40 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm transition-colors hover:bg-black/55"
-      >
+      <a href={href} className="group/link inline-flex items-center gap-1.5 text-sm font-semibold text-white">
         {label}
         <ArrowRight size={16} aria-hidden="true" className="transition-transform duration-200 group-hover/link:translate-x-1" />
       </a>
     );
   }
+  // Kırmızı varyant kartında (`bg-brand`) `text-brand` görünmez olurdu
+  // (kırmızı üstünde kırmızı) — 2026-08-25, "Devamını Oku" HER kartta
+  // zorunlu hale gelince fark edildi. `primaryStat`/`heading` metninin
+  // AYNI kuralını izliyor (bkz. `StatCard`'daki `variant === 'red' ?
+  // 'text-white' : 'text-brand'` deseni).
+  const color = variant === 'red' ? 'text-white' : 'text-brand';
   return (
-    <a href={href} className="group/link mt-6 inline-flex items-center gap-1.5 text-lg font-semibold text-brand">
+    <a href={href} className={`group/link mt-6 inline-flex items-center gap-1.5 text-lg font-semibold ${color}`}>
       {label}
       <ArrowRight size={18} aria-hidden="true" className="transition-transform duration-200 group-hover/link:translate-x-1" />
     </a>
@@ -187,12 +223,12 @@ function VideoCard({ card, variant }: { card: VideoCardData; variant: CardVarian
       <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t ${v.scrimFrom} to-transparent`} />
       <CardStar tone="text-white" />
       <p className="pointer-events-none absolute left-6 right-16 top-6 text-lg font-semibold leading-snug text-white">{card.headline}</p>
-      <div className="absolute inset-x-6 bottom-6 flex items-end justify-between gap-3">
+      <div className="absolute inset-x-6 bottom-6 flex items-end">
         {card.readMoreHref && card.readMoreLabel && (
           <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="white" />
         )}
-        <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
       </div>
+      <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
     </div>
   );
 }
@@ -216,10 +252,12 @@ function QuoteCard({ card, variant }: { card: QuoteCardData; variant: CardVarian
           {card.personRole && <p className={`text-base ${v.muted}`}>{card.personRole}</p>}
         </div>
       )}
-      <div className="mt-6 flex items-center justify-between">
-        <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
-      </div>
-      {card.readMoreHref && card.readMoreLabel && <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" />}
+      {card.readMoreHref && card.readMoreLabel && (
+        <div className="pr-16">
+          <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" variant={variant} />
+        </div>
+      )}
+      <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} offset="p-8" />
     </div>
   );
 }
@@ -234,10 +272,12 @@ function StatCard({ card, variant }: { card: StatCardData; variant: CardVariant 
       <p className={`text-6xl font-bold leading-tight ${variant === 'red' ? 'text-white' : 'text-brand'}`}>{card.primaryStat}</p>
       {card.secondaryStat && <p className={`mt-2 text-2xl font-medium ${v.heading}`}>{card.secondaryStat}</p>}
       <p className={`mt-6 flex-1 text-lg leading-relaxed ${v.body}`}>{card.headline}</p>
-      <div className="mt-6 flex items-center justify-between">
-        <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
-      </div>
-      {card.readMoreHref && card.readMoreLabel && <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" />}
+      {card.readMoreHref && card.readMoreLabel && (
+        <div className="pr-16">
+          <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="brand" variant={variant} />
+        </div>
+      )}
+      <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} offset="p-8" />
     </div>
   );
 }

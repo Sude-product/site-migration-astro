@@ -86,9 +86,13 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     logo: { url: '/wp-content/uploads/2025/11/civil-2-1.svg', width: 100, height: 50 },
     anchorId: 'civil-secondary',
     videoUrl: 'https://youtu.be/-MxZWA99a20',
-    // 2026-08-24, kullanıcı isteği — arka plan döngü aralığı.
-    loopStart: 20,
-    loopEnd: 24,
+    // DÜZELTME (2026-08-25, kullanıcı bulgusu: "yazılar kesiliyor") —
+    // 20-24sn ("Harun Binali" alt-yazısı) ve ardından denenen 15-19sn
+    // aralıklarının İKİSİNDE de rahatsız edici yazı kalmıştı. Kullanıcı
+    // kendi izleyip 34-50sn aralığını BİZZAT verdi — bu turda saniye
+    // seçimi elle doğrulanmadı, doğrudan kullanıcı kararı uygulandı.
+    loopStart: 34,
+    loopEnd: 50,
   },
   {
     type: 'quote',
@@ -124,9 +128,12 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     logo: { url: '/wp-content/uploads/2025/11/beyaz-firin-2-1.svg', width: 100, height: 50 },
     anchorId: 'beyazFirin',
     videoUrl: 'https://youtu.be/ru4gVy9-sOQ',
-    // 2026-08-24, kullanıcı isteği — arka plan döngü aralığı.
-    loopStart: 5,
-    loopEnd: 10,
+    // DÜZELTME (2026-08-25, kullanıcı bulgusu) — 5-10sn ("Yüzyıllık
+    // Marka" rozeti + "Nuri Sütlüoğlu" alt-yazısı) ve ardından denenen
+    // 25-30sn aralıklarının İKİSİNDE de rahatsız edici yazı kalmıştı.
+    // Kullanıcı kendi izleyip 46sn-1dk15sn (75sn) aralığını BİZZAT verdi.
+    loopStart: 46,
+    loopEnd: 75,
   },
   {
     type: 'stat',
@@ -164,8 +171,13 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     logo: { url: '/images/customer-femas-logo.png', width: 200, height: 32 },
     anchorId: 'femas',
     videoUrl: 'https://youtu.be/cakFopJJ-pE',
-    loopStart: 18,
-    loopEnd: 32,
+    // DÜZELTME (2026-08-25, kullanıcı bulgusu) — 18-32sn ("Figen
+    // Orhanoğlu" alt-yazısı + "Bulut Tabanlı"/"Hızlı Kurulum" pazarlama
+    // kelimeleri) ve ardından denenen 50-54sn aralıklarının İKİSİNDE de
+    // rahatsız edici yazı kalmıştı. Kullanıcı kendi izleyip 37-55sn
+    // aralığını BİZZAT verdi.
+    loopStart: 37,
+    loopEnd: 55,
   },
   {
     type: 'quote',
