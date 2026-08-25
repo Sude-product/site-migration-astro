@@ -991,7 +991,7 @@ function WidgetCard({
   const { isDark } = useTheme();
   return (
     <div
-      className={`rounded-xl border p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow duration-200 hover:shadow-[0_6px_20px_rgba(0,0,0,0.09)] ${
+      className={`overflow-hidden rounded-xl border p-5 shadow-[0_2px_10px_rgba(0,0,0,0.04)] transition-shadow duration-200 hover:shadow-[0_6px_20px_rgba(0,0,0,0.09)] ${
         isDark ? 'border-gray-700 bg-gray-800 hover:border-gray-600' : 'border-gray-200 bg-white hover:border-brand/25'
       }`}
     >
@@ -2711,7 +2711,7 @@ export default function ProductPreviewWidget() {
           </nav>
         </div>
 
-        <div className={`flex-1 p-4 sm:p-6 lg:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className={`min-w-0 flex-1 p-4 sm:p-6 lg:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           <AppHeaderBar />
           {/* Sekme yüksekliği stratejisi DEĞİŞTİ (2026-08-20, kullanıcı
               isteği — Personio.com'un ana sayfasındaki dashboard mockup'ıyla
