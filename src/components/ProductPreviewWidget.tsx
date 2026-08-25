@@ -42,8 +42,7 @@ import {
   ChevronRight,
   UserX,
   AlertTriangle,
-  Circle,
-  CheckCircle2,
+  Flag,
 } from 'lucide-react';
 import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
@@ -372,54 +371,130 @@ const CONTRACT_TRACKING: TrackingBoxData[] = [
   { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryLabel: '90 gün', secondaryLabel: '' },
 ];
 
-// --- "Performans Yönetimi" sekmesi — kurgusal veri (2026-08-13, gerçek
-// app.idenfit.com 360° Değerlendirme liste görünümü referans alınarak). ---
+// --- "Performans Yönetimi" sekmesi — kurgusal veri (2026-08-25, kullanıcının
+// paylaştığı gerçek app.idenfit.com Hedefler (OKR)/KPI liste görünümü
+// referans alınarak, önceki 360°-Değerlendirme-ağırlıklı içeriğin YERİNE
+// geçti). Renkler widget'ın KENDİ kurulu paletinden (#EF4444/#F59E0B/
+// #10B981/#3B82F6/#8B5CF6/#EC4899) — yeni bir renk İCAT EDİLMEDİ.
 
-const PERFORMANCE_EVALUATIONS: { name: string; initials: string; avatarColor: string; period: string }[] = [
-  { name: '2026 Yıl Sonu 360° Değerlendirmesi', initials: 'YS', avatarColor: '#3B82F6', period: '01 Ara 2026 – 31 Ara 2026' },
-  { name: 'Q3 Ekip Liderleri Değerlendirmesi', initials: 'EL', avatarColor: '#10B981', period: '01 Eyl 2026 – 30 Eyl 2026' },
-  { name: 'Yeni Yönetici Adayları Değerlendirmesi', initials: 'YA', avatarColor: '#F59E0B', period: '15 Ağu 2026 – 15 Eyl 2026' },
-  { name: 'Saha Ekibi Performans Taraması', initials: 'SE', avatarColor: '#8B5CF6', period: '01 Ağu 2026 – 31 Ağu 2026' },
+const PERFORMANCE_KPI_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string; label: string }[] = [
+  { icon: Target, color: '#EF4444', value: '5', label: 'Aktif KPI' },
+  { icon: TrendingUp, color: '#3B82F6', value: '%29', label: 'Ortalama İlerleme' },
+  { icon: AlertTriangle, color: '#F59E0B', value: '3', label: 'Riskli / Beklenen Altı' },
+  { icon: Clock, color: '#8B5CF6', value: '3', label: 'Check-in Bekleyen' },
 ];
 
-// 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com
-// "Performans Yönetimi > Proje Yönetimi > Görevlerim" ekran görüntüsünden
-// eklendi. Gerçek ekranda 5 durumun (Gecikmiş/Bugün/Yaklaşan/
-// Planlanmamış/Tamamlananlar) HEPSİ "0" idi (o an gerçekten boş bir hesap)
-// — widget'ın kurgusal/canlı-önizleme amacına uygun olması için farklı,
-// dolu kurgusal sayılar üretildi (gerçek ekrandan KOPYALANMADI). Gradyan
-// renkler widget'ın KENDİ kurulu paletinden (#EF4444/#F59E0B/#10B981/
-// #3B82F6/#8B5CF6, `HR_EVENTS`'te zaten kullanılan #EC4899 dahil) —
-// `#FBBF24`/`#34D399` bu paletteki amber/yeşilin yalnızca daha AÇIK
-// tonları (Tailwind'in aynı renk ailesindeki bir kademe komşusu), yeni
-// bir renk İCAT EDİLMEDİ.
-interface TaskStatData {
-  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
-  label: string;
-  value: number;
-  percent: number;
-  gradientFrom: string;
-  gradientTo: string;
-}
-const TASK_STATS: TaskStatData[] = [
-  { icon: AlertTriangle, label: 'GECİKMİŞ', value: 3, percent: 7, gradientFrom: '#EF4444', gradientTo: '#EC4899' },
-  { icon: Clock, label: 'BUGÜN', value: 5, percent: 12, gradientFrom: '#F59E0B', gradientTo: '#FBBF24' },
-  { icon: CalendarClock, label: 'YAKLAŞAN', value: 8, percent: 19, gradientFrom: '#10B981', gradientTo: '#34D399' },
-  { icon: Circle, label: 'PLANLANMAMIŞ', value: 2, percent: 5, gradientFrom: '#3B82F6', gradientTo: '#8B5CF6' },
-  { icon: CheckCircle2, label: 'TAMAMLANANLAR', value: 24, percent: 57, gradientFrom: '#3B82F6', gradientTo: '#10B981' },
-];
-
-interface MyTaskItem {
+interface GoalItem {
   name: string;
-  project: string;
-  priority: string;
-  priorityColor: string;
-  dueDate: string;
+  scope: string;
+  category: string;
+  period: string;
+  keyResultCount: number;
+  percent: number;
+  status: string;
+  statusColor: string;
+  avatars: { initials: string; color: string }[];
 }
-const MY_TASKS: MyTaskItem[] = [
-  { name: 'Q3 360° değerlendirme formunu tamamla', project: 'Performans Değerlendirme', priority: 'Yüksek', priorityColor: '#EF4444', dueDate: '22 Ağu' },
-  { name: 'Ekip hedef check-in toplantısı hazırlığı', project: 'Hedef Check-in', priority: 'Orta', priorityColor: '#F59E0B', dueDate: '25 Ağu' },
-  { name: 'Yeni başlayanlar için OKR taslağı hazırla', project: 'OKR', priority: 'Düşük', priorityColor: '#10B981', dueDate: '29 Ağu' },
+const PERFORMANCE_GOALS: GoalItem[] = [
+  {
+    name: 'Yıllık ciroyu %20 artırmak',
+    scope: 'Şirket',
+    category: 'Finansal Hedefler',
+    period: '2026 H2',
+    keyResultCount: 3,
+    percent: 31,
+    status: 'Riskli',
+    statusColor: '#EF4444',
+    avatars: [
+      { initials: 'DT', color: '#3B82F6' },
+      { initials: 'SA', color: '#8B5CF6' },
+    ],
+  },
+  {
+    name: 'Yeni pazarlara açılmak',
+    scope: 'Takım',
+    category: 'Sales',
+    period: '2026 H2',
+    keyResultCount: 2,
+    percent: 44,
+    status: 'Yolunda',
+    statusColor: '#10B981',
+    avatars: [
+      { initials: 'GR', color: '#F59E0B' },
+      { initials: 'AT', color: '#EC4899' },
+    ],
+  },
+  {
+    name: 'Yeni nesil mobil deneyimi hayata geçirmek',
+    scope: 'Şirket',
+    category: 'Ürün Geliştirme',
+    period: '2026 H2',
+    keyResultCount: 5,
+    percent: 52,
+    status: 'Yolunda',
+    statusColor: '#10B981',
+    avatars: [
+      { initials: 'DT', color: '#3B82F6' },
+      { initials: 'GR', color: '#10B981' },
+    ],
+  },
+  {
+    name: 'Marka bilinirliğini artırmak',
+    scope: 'Takım',
+    category: 'Marketing',
+    period: '2026 H2',
+    keyResultCount: 2,
+    percent: 12,
+    status: 'Beklenen Altı',
+    statusColor: '#F59E0B',
+    avatars: [
+      { initials: 'AC', color: '#EF4444' },
+      { initials: 'IK', color: '#3B82F6' },
+    ],
+  },
+];
+
+// Yukarıdaki "Riskli" hedefin ("Yıllık ciroyu %20 artırmak") anahtar sonuç
+// kırılımı — kullanıcının paylaştığı ilerleme çubuğu + "takvime göre
+// beklenen %" karşılaştırma tasarımını temsil ediyor. Tüm 4 hedef için
+// TEKRARLANMADI (widget'ın kompakt dengesini bozmamak için tek örnek).
+interface KeyResultItem {
+  name: string;
+  lastCheckIn: string;
+  status: string;
+  statusColor: string;
+  currentValueLabel: string;
+  currentPercent: number;
+  startLabel: string;
+  endLabel: string;
+  expectedPercent: number;
+  pace: 'ahead' | 'behind';
+}
+const GOAL_KEY_RESULTS: KeyResultItem[] = [
+  {
+    name: 'Yeni müşteri kazanımı',
+    lastCheckIn: '20 Ağu',
+    status: 'Yolunda',
+    statusColor: '#10B981',
+    currentValueLabel: '26 müşteri',
+    currentPercent: 65,
+    startLabel: '0 müşteri',
+    endLabel: '40 müşteri',
+    expectedPercent: 55,
+    pace: 'ahead',
+  },
+  {
+    name: 'Ortalama sipariş tutarı',
+    lastCheckIn: '18 Ağu',
+    status: 'Riskli',
+    statusColor: '#EF4444',
+    currentValueLabel: '155 ₺',
+    currentPercent: 31,
+    startLabel: '0 ₺',
+    endLabel: '500 ₺',
+    expectedPercent: 42,
+    pace: 'behind',
+  },
 ];
 
 // --- "Veri Analizi" sekmesi — kurgusal veri (2026-08-13). Tema:
@@ -1708,120 +1783,138 @@ function HumanResourcesTab() {
   );
 }
 
-// 360° Değerlendirme liste satırı — avatar+ad, Dönem/Süre, 3 eylem butonu
-// (yeşil/mor/kırmızı, kullanıcının gönderdiği referans ekran görüntüsündeki
-// renk sırası). Butonlar TAMAMEN dekoratif (AppHeaderBar'daki AYNI ilke —
-// bu bir pazarlama mockup'ı, gerçek bir değerlendirme akışı YOK), bu yüzden
-// `aria-hidden` ile ekran okuyucudan gizleniyor.
-// 2026-08-18 — kullanıcının "dashboardı genişlet" isteğiyle isim/dönem/
-// butonlar yan yana tek satıra sıkıştırılan `sm:flex-row` düzeni KALDIRILDI:
-// widget'ın gerçek konteyner genişliği (sidebar + sayfa dolgusu düşülünce)
-// Tailwind'in viewport tabanlı breakpoint'lerinden HER ZAMAN dar kaldığı
-// için (`sm`/`xl` viewport'ta tetikleniyor ama konteyner genişliği ayrı bir
-// şey) satır her genişlikte YIĞIN/dikey kalıyor — isimlerin agresif
-// kırpılması (ör. "2026 Yıl Sonu 360° Değe...") bu şekilde kalıcı olarak
-// önlendi, `truncate` yalnızca bir güvenlik ağı olarak kaldı.
-function EvaluationRow({ evaluation }: { evaluation: (typeof PERFORMANCE_EVALUATIONS)[number] }) {
+// Tek değerli ilerleme halkası (Hedefler/KPI satırı için) — `DonutChart`'ın
+// AYNI SVG tekniği (strokeDasharray + -rotate-90), tek segment + gri track.
+function GoalProgressRing({ percent, color }: { percent: number; color: string }) {
+  const { isDark } = useTheme();
+  const radius = 15.5;
+  const circumference = 2 * Math.PI * radius;
+  const dash = (Math.min(percent, 100) / 100) * circumference;
+  return (
+    <div className="relative h-14 w-14 shrink-0">
+      <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
+        <circle cx="18" cy="18" r={radius} fill="none" stroke={isDark ? '#374151' : '#F3F4F6'} strokeWidth="3.5" />
+        <circle
+          cx="18"
+          cy="18"
+          r={radius}
+          fill="none"
+          stroke={color}
+          strokeWidth="3.5"
+          strokeDasharray={`${dash} ${circumference - dash}`}
+          strokeLinecap="round"
+        />
+      </svg>
+      <div className="absolute inset-0 flex items-center justify-center">
+        <span className={`text-[11px] font-bold ${isDark ? 'text-white' : 'text-heading'}`}>%{percent}</span>
+      </div>
+    </div>
+  );
+}
+
+// Hedef/KPI liste satırı — kullanıcının paylaştığı gerçek app.idenfit.com
+// Hedefler (OKR)/KPI ekran görüntüsünden (filtre çubuğu/arama/genişleyebilir
+// anahtar sonuçlar/Check-in butonları BİLİNÇLİ olarak sadeleştirildi —
+// diğer sekmelerin AYNI dekoratif-özet ilkesi, gerçek bir OKR akışı YOK).
+function GoalRow({ goal }: { goal: GoalItem }) {
   const { isDark } = useTheme();
   return (
     <div
-      className={`flex flex-col gap-3 rounded-lg border p-4 transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(0,0,0,0.07)] ${
+      className={`flex flex-wrap items-center gap-4 rounded-lg border p-4 transition-shadow duration-200 hover:shadow-[0_4px_14px_rgba(0,0,0,0.07)] ${
         isDark ? 'border-gray-700 hover:border-gray-600' : 'border-gray-100 hover:border-gray-200'
       }`}
     >
-      <div className="flex min-w-0 items-center gap-3">
+      <GoalProgressRing percent={goal.percent} color={goal.statusColor} />
+      <div className="min-w-0 flex-1">
+        <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{goal.name}</p>
+        <div className="mt-1.5 flex flex-wrap items-center gap-1.5">
+          <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-body'}`}>
+            {goal.scope}
+          </span>
+          <span className={`rounded-full px-2.5 py-0.5 text-[11px] font-medium ${isDark ? 'bg-gray-700 text-gray-300' : 'bg-gray-100 text-body'}`}>
+            {goal.category}
+          </span>
+          <span className={`text-[11px] ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+            {goal.period} · {goal.keyResultCount} anahtar sonuç
+          </span>
+        </div>
+      </div>
+      <div className="flex shrink-0 flex-col items-end gap-2">
         <span
-          className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-xs font-semibold text-white"
-          style={{ backgroundColor: evaluation.avatarColor }}
-          aria-hidden="true"
+          className="rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap"
+          style={{ backgroundColor: `${goal.statusColor}1A`, color: goal.statusColor }}
         >
-          {evaluation.initials}
+          {goal.status}
         </span>
-        <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{evaluation.name}</p>
-      </div>
-      <div className="shrink-0">
-        <p className={`text-[11px] font-medium tracking-wide uppercase ${isDark ? 'text-gray-500' : 'text-muted'}`}>Dönem / Süre</p>
-        <p className={`mt-0.5 text-xs font-medium ${isDark ? 'text-gray-300' : 'text-body'}`}>{evaluation.period}</p>
-      </div>
-      <div className="flex shrink-0 flex-wrap gap-2" aria-hidden="true">
-        <span
-          className="rounded-full px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105"
-          style={{ backgroundColor: '#289C0F' }}
-        >
-          Değerlendirmeyi Başlat
-        </span>
-        <span className="rounded-full bg-secondary px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105">
-          Önizleme
-        </span>
-        <span className="rounded-full bg-brand px-3 py-1.5 text-xs font-semibold whitespace-nowrap text-white transition-transform hover:scale-105">
-          Kopya Oluştur
-        </span>
-      </div>
-    </div>
-  );
-}
-
-// "Görevlerim" 5'li durum rozeti — gradyanlı kart, gerçek referanstaki
-// aynı tasarım dili (ikon+etiket üstte, büyük sayı, alt yüzde çubuğu).
-function TaskStatCard({ icon: Icon, label, value, percent, gradientFrom, gradientTo }: TaskStatData) {
-  return (
-    <div
-      className="relative overflow-hidden rounded-xl p-3 pr-11 text-white shadow-[0_4px_14px_rgba(0,0,0,0.12)] transition-transform duration-200 hover:-translate-y-0.5"
-      style={{ background: `linear-gradient(135deg, ${gradientFrom}, ${gradientTo})` }}
-    >
-      <span className="absolute top-3 right-3 shrink-0 rounded-full bg-white/20 px-1.5 py-0.5 text-[10px] font-semibold">%{percent}</span>
-      <span className="flex items-start gap-1.5 text-[10px] leading-tight font-bold tracking-wide">
-        <Icon className="mt-0.5 h-3.5 w-3.5 shrink-0" strokeWidth={2.5} aria-hidden="true" />
-        <span>{label}</span>
-      </span>
-      <p className="mt-1.5 text-xl font-bold">{value}</p>
-      <div className="mt-1.5 h-1 overflow-hidden rounded-full bg-white/25">
-        <div className="h-full rounded-full bg-white/80" style={{ width: `${percent}%` }} />
-      </div>
-    </div>
-  );
-}
-
-function TaskStatsRow() {
-  return (
-    <div className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 lg:grid-cols-5 lg:gap-3">
-      {TASK_STATS.map((s) => (
-        <TaskStatCard key={s.label} {...s} />
-      ))}
-    </div>
-  );
-}
-
-// "Görevlerim" listesi — gerçek referanstaki görev tablosunun kompakt bir
-// özeti (5 sütunlu tam tablo yerine, `PendingApprovalsCard`'ın AYNI
-// satır deseni — öncelik rengi + görev adı/proje + öncelik rozeti +
-// bitiş tarihi).
-function MyTasksCard() {
-  const { isDark } = useTheme();
-  return (
-    <WidgetCard title="Görevlerim" subtitle="Tüm görevlerinizi tek bir yerden takip edin">
-      <div className="space-y-1">
-        {MY_TASKS.map((task) => (
-          <div
-            key={task.name}
-            className={`flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
-          >
-            <span className="h-2 w-2 shrink-0 rounded-full" style={{ backgroundColor: task.priorityColor }} aria-hidden="true" />
-            <div className="min-w-0 flex-1">
-              <p className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-heading'}`}>{task.name}</p>
-              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{task.project}</p>
-            </div>
+        <div className="flex -space-x-2" aria-hidden="true">
+          {goal.avatars.map((a) => (
             <span
-              className="shrink-0 rounded-full px-2 py-0.5 text-[11px] font-medium"
-              style={{ backgroundColor: `${task.priorityColor}1A`, color: task.priorityColor }}
+              key={a.initials}
+              className={`flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-semibold text-white ring-2 ${isDark ? 'ring-gray-800' : 'ring-white'}`}
+              style={{ backgroundColor: a.color }}
             >
-              {task.priority}
+              {a.initials}
             </span>
-            <span className={`shrink-0 text-xs whitespace-nowrap ${isDark ? 'text-gray-400' : 'text-muted'}`}>{task.dueDate}</span>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </WidgetCard>
+    </div>
+  );
+}
+
+// Anahtar sonuç satırı — ikon rozeti + ad/son check-in + durum rozeti,
+// alt kısımda ilerleme çubuğu (başlangıç/hedef değer etiketli) + "takvime
+// göre beklenen %" karşılaştırması (yön okuyla renkli).
+function KeyResultRow({ kr }: { kr: KeyResultItem }) {
+  const { isDark } = useTheme();
+  const PaceIcon = kr.pace === 'ahead' ? TrendingUp : TrendingDown;
+  const paceColor = kr.pace === 'ahead' ? '#10B981' : '#EF4444';
+  const paceLabel = kr.pace === 'ahead' ? 'planın önünde' : 'planın gerisinde';
+  return (
+    <div className={`rounded-lg border p-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div className="flex items-start gap-2.5">
+          <span
+            className="mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-md"
+            style={{ backgroundColor: `${kr.statusColor}1A` }}
+            aria-hidden="true"
+          >
+            <Flag className="h-3.5 w-3.5" style={{ color: kr.statusColor }} strokeWidth={2.5} />
+          </span>
+          <div>
+            <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{kr.name}</p>
+            <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+              Son check-in: {kr.lastCheckIn} · {kr.status}
+            </p>
+          </div>
+        </div>
+        <span
+          className="shrink-0 rounded-full px-3 py-1 text-xs font-semibold whitespace-nowrap"
+          style={{ backgroundColor: `${kr.statusColor}1A`, color: kr.statusColor }}
+        >
+          {kr.status}
+        </span>
+      </div>
+      <div className="mt-3">
+        <div className={`h-2.5 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
+          <div className="h-full rounded-full" style={{ width: `${kr.currentPercent}%`, backgroundColor: kr.statusColor }} />
+        </div>
+        <div className={`mt-1 flex justify-between text-[11px] ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+          <span>{kr.startLabel}</span>
+          <span>{kr.endLabel}</span>
+        </div>
+      </div>
+      <p className={`mt-2 flex flex-wrap items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-body'}`}>
+        <span>
+          Güncel: <strong className={isDark ? 'text-white' : 'text-heading'}>{kr.currentValueLabel} (%{kr.currentPercent})</strong>
+        </span>
+        <span className={isDark ? 'text-gray-600' : 'text-gray-300'}>|</span>
+        <span className="inline-flex items-center gap-1 font-medium" style={{ color: paceColor }}>
+          <PaceIcon className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
+          Takvime göre beklenen %{kr.expectedPercent} — {paceLabel}
+        </span>
+      </p>
+    </div>
   );
 }
 
@@ -1829,15 +1922,25 @@ function PerformanceManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={Target} title="Performans Yönetimi" href="/calisan-performans-degerlendirme-sistemi-modulu/" />
-      <TaskStatsRow />
-      <div className="mt-3">
-        <MyTasksCard />
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+        {PERFORMANCE_KPI_STATS.map((stat) => (
+          <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
+        ))}
       </div>
       <div className="mt-3">
-        <WidgetCard title="360° Değerlendirmeler" subtitle="Devam eden ve planlanan değerlendirme süreçleri">
-          <div className="space-y-4">
-            {PERFORMANCE_EVALUATIONS.map((evaluation) => (
-              <EvaluationRow key={evaluation.name} evaluation={evaluation} />
+        <WidgetCard title="Hedefler (OKR) / KPI" subtitle="Şirket, takım ve bireysel hedeflerin ilerleme durumu">
+          <div className="space-y-3">
+            {PERFORMANCE_GOALS.map((goal) => (
+              <GoalRow key={goal.name} goal={goal} />
+            ))}
+          </div>
+        </WidgetCard>
+      </div>
+      <div className="mt-3">
+        <WidgetCard title="Anahtar Sonuçlar" subtitle="“Yıllık ciroyu %20 artırmak” hedefinin ilerleme detayı">
+          <div className="space-y-3">
+            {GOAL_KEY_RESULTS.map((kr) => (
+              <KeyResultRow key={kr.name} kr={kr} />
             ))}
           </div>
         </WidgetCard>
@@ -1849,8 +1952,8 @@ function PerformanceManagementTab() {
 // "Verileri Hesapla" — dekoratif kırmızı buton (Veri Analizi sekmesinde
 // 2 kez kullanılıyor: tarih aralığı kontrolünün yanında + grafiklerin
 // altında bir "yeniden hesapla" kısayolu olarak, referans ekran
-// görüntüsündeki AYNI tekrar deseni). `EvaluationRow`'un dekoratif eylem
-// butonlarıyla AYNI ilke — gerçek bir hesaplama işlevi YOK, mockup.
+// görüntüsündeki AYNI tekrar deseni). `GoalRow`'un durum rozetiyle AYNI
+// ilke — gerçek bir hesaplama işlevi YOK, mockup.
 function RecalculateButton() {
   return (
     <span
