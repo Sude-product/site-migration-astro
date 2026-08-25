@@ -21,9 +21,15 @@ interface Props {
    * hub ailesi tarafından paylaşılıyor (`getHubLocaleUrls()` NL'i EN'e
    * alias'lıyor, hreflang için güvenilmez) — çağıran sayfa geçirmeli. */
   hreflangLocales?: Locale[];
+  /** `<title>` override — `buildIdenfitTitle(pageTitle, locale)` bazı
+   * dillerde (`pageTitle` uzun, ör. IT hub) 60 karakteri aşabilir; otomatik
+   * kırpma güvenli olmadığı için çağıran sayfa elle kısa bir başlık
+   * geçirir (`ProductPage.astro`'daki AYNI desen, bkz. Açık nokta #28,
+   * 2026-08-25). */
+  title?: string;
 }
 
-const { content, pageTitle, localeUrls, hreflangLocales } = Astro.props;
+const { content, pageTitle, localeUrls, hreflangLocales, title: titleOverride } = Astro.props;
 const { hero, intro, tiles, faq } = content;
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
@@ -31,7 +37,7 @@ const t = getTranslations(locale);
 const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
 // `pageTitle` bazı hub sayfalarında 50 karakterin altında (2026-08-10
 // title uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
-const title = buildIdenfitTitle(pageTitle, locale);
+const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
 // CTA/anchor text optimizasyonu (2026-08-12) — bkz. `ProductPage.astro`'daki
 // AYNI mantığın yorumu. Tamamen otomatik — 2 hub grubunun (6 sayfa) hiçbiri
 // 60 karakter sınırını aşmıyor (keşif turunda doğrulandı), override

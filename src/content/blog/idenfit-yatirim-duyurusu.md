@@ -1,6 +1,7 @@
 ---
 slug: idenfit-yatirim-duyurusu
 title: İnsan Kaynakları Teknolojilerinde Lider İdenfit, Stratejik Yatırımlarla Küresel Büyüme Yolculuğunda Düğmeye Bastığını Duyurdu!
+metaTitle: idenfit'ten Yeni Yatırım ve Büyüme Duyurusu
 date: '2024-10-02T09:30:00'
 excerpt: İnsan kaynakları ve iş gücü yönetiminde yenilikçi çözümleriyle öne çıkan İdenfit , şubat ayında başarıyla tamamladığı yatırım turunun ardından şimdi de bir ara…
 featuredImage:

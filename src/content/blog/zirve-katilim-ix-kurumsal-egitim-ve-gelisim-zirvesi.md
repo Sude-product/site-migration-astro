@@ -1,6 +1,7 @@
 ---
 slug: zirve-katilim-ix-kurumsal-egitim-ve-gelisim-zirvesi
 title: 'Zirve Katılım: IX. Kurumsal Eğitim ve Gelişim Zirvesi'
+metaTitle: 'Zirve Katılım: Eğitim ve Gelişim Zirvesi'
 date: '2024-01-05T08:52:14'
 excerpt: idenfit , Yüksekbilgili Eğitim ve Vedubox işbirliğinde gerçekleştirilen bu zirvede, proaktif Öğrenme ve Geliştirme kültürünün oluşturulmasına, en son…
 featuredImage: null

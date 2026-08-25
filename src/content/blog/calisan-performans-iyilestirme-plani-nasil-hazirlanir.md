@@ -1,6 +1,7 @@
 ---
 slug: calisan-performans-iyilestirme-plani-nasil-hazirlanir
 title: Çalışan Performans İyileştirme Planı Nasıl Hazırlanır?
+metaTitle: Çalışan Performans İyileştirme Planı Rehberi
 date: '2026-07-03T15:18:47'
 excerpt: Bir çalışanın performansında düşüş görülmesi, çoğu şirkette ya anlık geri bildirimlerle geçiştiriliyor ya da sorun büyüdükten sonra disiplin gündemiyle ele…
 featuredImage:

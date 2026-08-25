@@ -1,6 +1,7 @@
 ---
 slug: yaz-aylarinda-yillik-izin-yogunlugunu-yonetmenin-yollari
 title: Yaz Aylarında Yıllık İzin Yoğunluğunu Yönetmenin Yolları
+metaTitle: Yaz Aylarında Yıllık İzin Yoğunluğu Yönetimi
 date: '2026-07-11T08:06:33'
 excerpt: Yaz ayları geldiğinde izin yönetimi birçok şirket için teknik bir takvim konusu olmaktan çıkar ve doğrudan operasyonel dayanıklılık başlığına dönüşür. Temmuz…
 featuredImage:

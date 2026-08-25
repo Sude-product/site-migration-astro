@@ -75,13 +75,8 @@ geçmiş var.
    - Marketing ekibinden erişecek kişiler netleştirilip GitHub
      hesapları Sude-product organizasyonuna eklenecek.
    - Uçtan uca test edilecek.
-2. **Açık nokta #28 (Title tag uzunluk optimizasyonu) — 409 sayfa
-   kaldı** (220 kısa, 189 uzun; blog'da 622'den yalnızca 31'i
-   tamamlanmıştı):
-   - **Yöntem: örneklem + toplu onay (tek tek DEĞİL)** — Claude Code
-     tüm önerileri hazırlayacak, kullanıcı 20-30 örneği inceleyip
-     kurala güvenirse kalanını toplu onaylayacak.
-   - Tahmini süre: tek gün içinde tamamlanabilir.
+2. ~~Açık nokta #28 (Title tag uzunluk optimizasyonu)~~ — 2026-08-25'te
+   kapandı, yukarıdaki madde 28'e bkz.
 3. ~~İki bağımsız git geçmişinin birleştirilmesi~~ — 2026-08-25'te
    çözüldü, yukarıdaki "✅ ÇÖZÜLDÜ" bölümüne bkz.
 
@@ -1068,16 +1063,35 @@ hâlâ geçerli.)*
     framework-içi redirect şablonu, bizim kodumuzda düzeltilecek bir şey
     yok). SEO araçlarında "çok fazla noindex/lang-eksik sayfa" uyarısı
     tetikleyebilir ama gerçek sorun değil.
-28. **DEVAM EDİYOR (kademeli) — Blog yazılarının `<title>` uzunluğu.
-    31/622 yazı tamamlandı** (`stratejik-yaklasimi` pilot + 30 yazı
-    2026-08-19'da "Title tag too short" GEO turunda), **220 kısa + 189
-    uzun (409 toplam) hâlâ bekliyor.** Altyapı hazır —
-    `content.config.ts`'in `blogSchema`'sındaki `metaTitle?: string`
-    alanı, `posts.json`'da ilgili yazıya eklenince H1/JSON-LD
-    `headline`'ı DEĞİŞTİRMEDEN yalnızca `<title>`'ı değiştiriyor. Devam
-    için: `node scripts/check-title-length.mjs` çıktısının `blog/` ile
-    başlayan satırları başlangıç noktası, her yazının GERÇEK içeriği
-    okunup konuyla ilgili elle bir uzatma/kısaltma yazılmalı.
+28. **KAPANDI (2026-08-25) — Blog yazılarının `<title>` uzunluğu.**
+    Kalan 404 blog yazısı (219 kısa + 185 uzun, + 31 zaten tamamlanmıştı)
+    ve 4 site sayfası (1 TR + 1 EN + 2 IT, `buildIdenfitTitle()`'ın
+    otomatik niteleyicisi 61-63 karaktere taşmıştı) düzeltildi.
+    `check-title-length.mjs`: 409 → **1 sorunlu sayfa** (yalnızca kasıtlı
+    kapsam dışı `admin/index.html`, Decap CMS kabuğu).
+    **Yöntem:** 25 örneklik pilot kullanıcıya sunulup onaylandı (2 düzeltme
+    talebiyle: gerçek içeriği aynı olan 2 "gelir vergisi" yazısının
+    başlıkları birbirinden uzaklaştırıldı; "X Rehberi Nedir?" gibi doğal
+    olmayan Türkçe kalıplardan kaçınıldı), ardından kalan ~379 kayıt
+    script-destekli (içerik başlıklarından/excerpt'ten beslenen kural
+    tabanlı üretim + uzunluk doğrulama) toplu üretildi. **Üretim sonrası
+    kalite taraması** (tüm 435 metaTitle — 404 yeni + 31 eski — arasında
+    kelime-örtüşme benzerliği) 2 gerçek hata yakaladı: `truncateAtWord`
+    iki yazıda ayırt edici yılı (`ihbar-tazminati-hesaplama-2020`,
+    `...-2023`) kesip atmıştı, elle düzeltildi. Ayrıca kaynak WP
+    verisinde birebir aynı başlığı taşıyan 2 gerçek çift bulundu
+    (`bordro-ve-yan-hak-yonetimi` / `...-sirketler-icin-kapsamli-rehber`
+    — aynı içeriğin ~5 ay arayla güncellenmiş hali; `reskilling-upskilling`
+    / `upskilling-ve-reskilling` — aynı konunun 2022'de 4 ay arayla
+    yayımlanmış 2 versiyonu), her ikisinde de içerik/heading'lere bakılıp
+    gerçek bir farka (FAQ bölümü var/yok, "dijital dönüşüm" çerçevesi)
+    dayanan ayrı başlıklar verildi — uydurma bir fark İCAT edilmedi.
+    Site-sayfası 4 kenar durumu için `HubPage.astro`'ya `ProductPage`'teki
+    AYNI `title` override prop'u eklendi (`moduli-gestione-risorse-umane`
+    hub'ı için gerekiyordu, önceden yoktu). Uygulama: `posts.json`'a 400
+    kayıt, 4 markdown pilot yazıya frontmatter, 4 site sayfasına
+    `titleOverride`. `git diff --stat` ile `posts.json` değişikliğinin
+    yalnızca +2 satır/yazı (mevcut içeriğe dokunmadan) olduğu doğrulandı.
 29. **KISMEN KAPANDI (2026-08-19) — JSON-LD artık blog DIŞINDA da var**
     (`BaseLayout.astro`'nun genel `dateModified` prop'u, 7 shared
     component/~161 sayfa, sade `WebPage` şeması). **Kalan gerçek
