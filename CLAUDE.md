@@ -30,45 +30,35 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
-## ⚠️ KRİTİK — İKİ BAĞIMSIZ GIT GEÇMİŞİ, BİRLEŞTİRME BEKLİYOR (2026-08-24'te tespit edildi)
+## ✅ ÇÖZÜLDÜ — İki bağımsız git geçmişi birleştirildi (2026-08-25)
 
-**Durum:**
-- `origin/master` (GitHub'daki gerçek repo) ile bu bilgisayarın
-  (`degisikliklerim-2-bilgisayar-2` dalı) hiçbir ortak commit atası
-  yok — `git merge-base master origin/master` boş döndü, `git diff
-  origin/master...degisikliklerim-2-bilgisayar-2` `fatal: no merge
-  base` verdi. İki tamamen bağımsız `git init` geçmişi.
-- `origin/master`: Türkçe commit mesajları, 2026-08-20/21'e kadar —
-  dashboard carousel + otomatik sekme gezinmesi çalışması dahil,
-  bugünkü SEO/GEO turu YOK (az dili rollout'undan bile ÖNCEKİ bir
-  snapshot).
-- `degisikliklerim-2-bilgisayar-2`: İngilizce commit mesajları,
-  bugünkü SEO/GEO turunun TAMAMI dahil (H2→soru dönüşümü, breadcrumb,
-  author schema, `<cite>` atıfları, veri noktaları, Speakable
-  markup vb.) — muhtemelen carousel/otomatik-gezinme çalışması bu
-  dalda YOK.
-- `git diff origin/master degisikliklerim-2-bilgisayar-2 --stat`
-  (ortak geçmişten bağımsız, düz ağaç karşılaştırması): **116 dosya
-  farklı, +4802/-370 satır.**
-- **HİÇBİR merge/rebase denenmedi, yalnızca kontrol edildi.** Her iki
-  taraf da GitHub'da güvende duruyor, hiçbir veri kaybı riski yok.
+**2026-08-24'te tespit edilen** iki bağımsız `git init` geçmişi sorunu
+(`origin/master` ile `degisikliklerim-2-bilgisayar-2` arasında ortak
+commit atası yoktu) **2026-08-25'te çözüldü.**
 
-**Yarınki plan:**
-1. Her iki tarafın TAM olarak hangi dosyaları/özellikleri içerdiğinin
-   net bir listesini çıkar (özellikle: `origin/master`'daki
-   carousel/otomatik-gezinme kodu, `degisikliklerim-2-bilgisayar-2`'deki
-   bugünkü SEO/GEO değişiklikleri).
-2. Kullanıcıya bu listeyi sun, hangi tarafın "temel" alınacağına
-   (veya elle, dosya bazında birleştirme mi yapılacağına) karar
-   verdir.
-3. `git merge --allow-unrelated-histories` ile dikkatli, kontrollü
-   bir birleştirme yap — çakışma çıkarsa dosya dosya kullanıcıyla
-   netleştir.
-4. Birleştirme sonrası TÜM regresyon testlerini çalıştır, hem
-   carousel/otomatik-gezinme hem bugünkü SEO/GEO işlerinin ikisinin
-   de sağlam olduğunu doğrula.
+**Bulgu:** İnceleme, `origin/master`'ın bu bilgisayardan 3 saat önce
+(2026-08-21 09:09) donmuş, hiç yeni commit almamış bir "bilgisayar 1"
+geçmişi olduğunu; bu daldaki 27 ek commit'in (SEO/GEO turu + carousel
+yeniden tasarımı vb.) origin/master'ın içerdiği HER dosyayı koruyarak
+üzerine eklendiğini gösterdi (`git diff origin/master
+degisikliklerim-2-bilgisayar-2 --name-status`'ta sıfır silinen dosya —
+bu dal net bir üst küme). Tek gerçek çakışma riski taşıyan alan —
+`CustomerStoryCarousel` — canlı ekran görüntüsüyle karşılaştırıldı:
+origin/master'da carousel'in ilk/sade hali, bu dalda ise kasıtlı
+yeniden tasarımı (kırmızı tema, otomatik video döngü, yeni müşteri
+logoları) vardı. Kullanıcı bu dalın tasarımının kalmasına karar verdi.
 
-**Bu iş bitene kadar HİÇBİR otomatik/tahmine dayalı merge yapılmayacak.**
+**Uygulanan çözüm:**
+```
+git merge --allow-unrelated-histories -X ours origin/master
+```
+Merge çakışmasız tamamlandı, sonuç ağacı merge-öncesi bu dalla birebir
+aynı kaldı (doğrulandı: `git diff <merge-öncesi-commit> HEAD` boş
+döndü) — yani hiçbir içerik kaybı olmadı, sadece origin/master'ın
+gerçek 67 commit'lik geçmişi artık bu dalın atası. Hem
+`degisikliklerim-2-bilgisayar-2` hem `master` origin'e push edildi
+(`master` fast-forward, force GEREKMEDİ). Artık GitHub'da tek, birleşik
+geçmiş var.
 
 ---
 
@@ -92,10 +82,8 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
      tüm önerileri hazırlayacak, kullanıcı 20-30 örneği inceleyip
      kurala güvenirse kalanını toplu onaylayacak.
    - Tahmini süre: tek gün içinde tamamlanabilir.
-3. **İki bağımsız git geçmişinin birleştirilmesi** — yukarıdaki
-   "⚠️ KRİTİK" bölümüne bkz., artık basit bir "3 commit push" işi
-   DEĞİL, dikkatli/kontrollü bir `--allow-unrelated-histories` merge
-   süreci gerekiyor.
+3. ~~İki bağımsız git geçmişinin birleştirilmesi~~ — 2026-08-25'te
+   çözüldü, yukarıdaki "✅ ÇÖZÜLDÜ" bölümüne bkz.
 
 ---
 
