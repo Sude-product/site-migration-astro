@@ -212,10 +212,31 @@ function loadYoutubeIframeApi(): Promise<void> {
 // (kullanıcı isteği: "tıklayınca da o videoya gidecek youtube üzerinde").
 function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; start: number; end: number; title: string }) {
   const containerRef = useRef<HTMLDivElement>(null);
-  const frameId = useRef(`yt-loop-${videoId}-${Math.random().toString(36).slice(2)}`).current;
+  // DÜZELTME (2026-08-25) — önceki `Math.random()` içeren id SSR/CSR
+  // hydration uyuşmazlığına yol açıyordu (`videoId` zaten kart başına
+  // benzersiz, rastgele bir ek GEREKMİYORDU).
+  const frameId = `yt-loop-${videoId}`;
+  // DÜZELTME (2026-08-25, kullanıcı bulgusu — "YouTube'un kendi başlık/
+  // 'diğer videolar' arayüzü kartın üzerine sızıyor"): `modestbranding`/
+  // `rel` YALNIZCA logo/ilgili-video ÖNERİLERİNİ etkiler — oynatıcı henüz
+  // BAŞLAMAMIŞKEN (yükleniyor/`autoplay` bir sebeple gecikmişken) YouTube
+  // kendi "başlık + önerilen videolar" boş-durum ekranını YİNE gösterir,
+  // bu parametrelerle GİZLENEMEZ. Çözüm: gerçek `<iframe>` oynatmaya
+  // BAŞLAYANA kadar (`onStateChange`'te `PLAYING`) üzerinde kartın kendi
+  // YouTube thumbnail'i (`YoutubeClickToPlay`'in kullandığı AYNI
+  // `hqdefault.jpg` deseni) opak şekilde durur — YouTube'un kendi boş-
+  // durum arayüzü hiçbir zaman görünür olmaz, yalnızca thumbnail'den
+  // gerçek videoya YUMUŞAK bir geçiş olur.
+  const [started, setStarted] = useState(false);
 
   useEffect(() => {
-    let player: { getCurrentTime: () => number; seekTo: (s: number, allowSeekAhead: boolean) => void; mute: () => void; playVideo: () => void; destroy: () => void } | null = null;
+    let player: {
+      getCurrentTime: () => number;
+      seekTo: (s: number, allowSeekAhead: boolean) => void;
+      mute: () => void;
+      playVideo: () => void;
+      destroy: () => void;
+    } | null = null;
     let intervalId: ReturnType<typeof setInterval> | null = null;
     let cancelled = false;
 
@@ -243,6 +264,12 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
               if (e.target.getCurrentTime() >= end) e.target.seekTo(start, true);
             }, 500);
           },
+          // `1` = `YT.PlayerState.PLAYING` (henüz API script yüklenmeden
+          // sabit kullanılamadığı için sayısal literal — resmi YouTube
+          // IFrame API sabiti).
+          onStateChange: (e: { data: number }) => {
+            if (e.data === 1) setStarted(true);
+          },
         },
       });
     });
@@ -259,6 +286,12 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
     <div className="absolute inset-0 overflow-hidden bg-black">
       <div className="absolute left-1/2 top-1/2 aspect-video h-full -translate-x-1/2 -translate-y-1/2">
         <div ref={containerRef} id={frameId} title={title} className="pointer-events-none h-full w-full" />
+        <img
+          src={`https://img.youtube.com/vi/${videoId}/hqdefault.jpg`}
+          alt=""
+          aria-hidden="true"
+          className={`pointer-events-none absolute inset-0 h-full w-full object-cover transition-opacity duration-500 ${started ? 'opacity-0' : 'opacity-100'}`}
+        />
       </div>
       <a
         href={`https://www.youtube.com/watch?v=${videoId}`}
