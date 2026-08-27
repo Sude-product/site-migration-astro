@@ -419,6 +419,12 @@ export const tr: Translations = {
       femasVideo: { headline: "Femaş'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş, idenfit ile İK süreçlerini tek panelden yönetiyor' },
       beyazFirinVideo: { headline: "Beyaz Fırın'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
+      ibisStylesVideo: { headline: 'ibis Styles Hotels\'in idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin' },
+      ibisStylesQuote: {
+        text: 'Otelimiz açıldığı günden beri idenfit uygulamasını kullanıyor. İdenfit uygulamasında beni en çok cezbeden ve tercih sebebi olan şeylerden bir tanesi idenfitin ortaya koymuş olduğu fikirdi. Çalışma hayatında alışık olduğumuz kart okutmaydı ya da turnike sistemiydi ya da imza atma şekliydi bunların hepsini bir kenara bıraktı. Çalışma arkadaşlarımızın mobil uygulama üzerinden giriş çıkış işlemi yapabilmeleri bizlerin bunu anlık ve mobil olarak her yerden takip edebiliyor olmamız performansımızı da arttırdı.',
+        name: 'Tolga Avcı',
+        jobTitle: 'ibis Styles Hotels - Genel Müdür',
+      },
     },
     faq: {
       viewAllLink: 'Tüm Soruları Görüntüleyin',

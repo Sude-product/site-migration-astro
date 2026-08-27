@@ -28,7 +28,7 @@ interface CarouselCardBase {
    * (emreOzcan/ismailUnal, eski `TestimonialSection`'dan taşınan 2 tanık)
    * birebir eşleşir — hangi kaynaktan okunacağı `CustomerStoryCarouselSection.astro`'daki
    * `HOME_TESTIMONIAL_KEYS` kümesiyle ayrıştırılıyor. */
-  storyKey: 'femas' | 'civil' | 'yatsan' | 'tugbaKuruyemis' | 'beyazFirin' | 'dogSer' | 'emreOzcan' | 'ismailUnal';
+  storyKey: 'femas' | 'civil' | 'yatsan' | 'tugbaKuruyemis' | 'beyazFirin' | 'dogSer' | 'emreOzcan' | 'ismailUnal' | 'ibisStyles';
   companyName: string;
   logo: CarouselLogo;
   /** `/musteriler/` sayfasındaki ilgili bloğun `id`'si — "Devamını Oku"
@@ -59,6 +59,12 @@ export interface VideoCarouselCard extends CarouselCardBase {
 
 export interface QuoteCarouselCard extends CarouselCardBase {
   type: 'quote';
+  // `ibisStyles` ne `customerStories` ne `home.testimonials` şemasında var
+  // (2026-08-27 — yalnızca `customerCarousel.ibisStylesQuote`'tan okunuyor,
+  // bkz. `CustomerStoryCarouselSection.astro`'nun üçüncü/özel dalı) — yine de
+  // BURADA (StatCarouselCard'ın AYNI ilkesiyle) açıkça listelendi, derleme
+  // zamanında yanlış kaynaktan okumayı (`cs[card.storyKey]`) engellemek için.
+  storyKey: 'femas' | 'civil' | 'yatsan' | 'tugbaKuruyemis' | 'beyazFirin' | 'dogSer' | 'emreOzcan' | 'ismailUnal' | 'ibisStyles';
   quotePhotoUrl?: string;
 }
 
@@ -203,5 +209,40 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     logo: { url: '/images/customer-dogser-logo.png', width: 200, height: 73 },
     anchorId: 'dogSer',
     quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
+  },
+  {
+    // 2026-08-27 — kullanıcının verdiği YouTube linki + arka plan döngü
+    // aralığı (31-59sn) ile eklenen YENİ kart. `/musteriler/` sayfasında
+    // ibis Styles Hotels'e ait bir blok YOK (bu turda yalnızca carousel'e
+    // eklendi) — `anchorId` verilmedi, "Devamını Oku" düz `/musteriler/`'e
+    // gider (emreOzcan/ismailUnal ile AYNI davranış). Logo: kullanıcının
+    // ilk paylaştığı CleanPNG kaynağı filigranlı + gerçek şeffaflığı
+    // olmayan (düz VP8 webp, sahte dama deseni pikselin içine gömülü) bir
+    // önizlemeydi, kullanıcıya bildirilip reddedildi — kullanıcının
+    // ikinci paylaştığı Wikimedia Commons kaynağı (CC-BY-SA 4.0, gerçek
+    // RGBA alfa kanallı, filigransız resmi logo) kullanıldı, yerelleştirildi
+    // (`public/images/customer-ibis-styles-logo.png`).
+    type: 'video',
+    storyKey: 'ibisStyles',
+    companyName: 'ibis Styles Hotels',
+    logo: { url: '/images/customer-ibis-styles-logo.png', width: 200, height: 200 },
+    videoUrl: 'https://youtu.be/p5XRqskpHVQ',
+    loopStart: 31,
+    loopEnd: 59,
+  },
+  {
+    // 2026-08-27 (aynı gün, ikinci tur) — video kartının YANINA eklenen
+    // alıntı kartı (kullanıcı isteği: "videosunun yanına"). Tolga Avcı
+    // (Genel Müdür) fotoğrafı paylaşılmadı — `quotePhotoUrl` bilinçli
+    // olarak BOŞ (`QuoteCard` bileşeni fotoğrafı zaten opsiyonel render
+    // ediyor, uydurma bir görsel eklenmedi, bkz. Beyaz Fırın/Doğ-Ser'in
+    // AYNI ilkesi). Alıntı metni ne `customerStories` ne `home.testimonials`
+    // şemasında — ibis Styles Hotels'in `/musteriler/` sayfasında hiç bloğu
+    // olmadığı için (video kartıyla AYNI karar) doğrudan `customerCarousel.
+    // ibisStylesQuote`'a (i18n, 5 dilde gerçek çeviri) eklendi.
+    type: 'quote',
+    storyKey: 'ibisStyles',
+    companyName: 'ibis Styles Hotels',
+    logo: { url: '/images/customer-ibis-styles-logo.png', width: 200, height: 200 },
   },
 ];

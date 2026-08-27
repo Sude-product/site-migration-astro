@@ -538,6 +538,17 @@ export interface HomeCustomerCarouselLabels {
    * paylaşıp "bunu da kart yap" dedi) — aynı firmanın carousel'de 2 kartı
    * var (video + alıntı), ikisi de `/musteriler/#beyazFirin`'e gidiyor. */
   beyazFirinVideo: { headline: string };
+  /** ibis Styles Hotels'in carousel'deki VİDEO kartı (2026-08-27, kullanıcı
+   * YouTube linki + 31-59sn arka plan döngü aralığı paylaştı) —
+   * `/musteriler/` sayfasında bu firmaya ait bir blok yok, yalnızca
+   * carousel'e eklendi. */
+  ibisStylesVideo: { headline: string };
+  /** ibis Styles Hotels'in video kartının YANINDAKİ alıntı kartı (aynı gün,
+   * ikinci tur) — Tolga Avcı (Genel Müdür), kullanıcının verdiği gerçek
+   * metin. Ne `customerStories` ne `home.testimonials` şemasında (o iki
+   * sistem `/musteriler/` sayfasıyla paylaşılıyor, bu firmanın orada bloğu
+   * yok) — doğrudan burada tutuluyor. */
+  ibisStylesQuote: { text: string; name: string; jobTitle: string };
 }
 
 export interface HomeLabels {

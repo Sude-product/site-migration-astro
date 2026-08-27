@@ -1188,6 +1188,66 @@ hâlâ geçerli.)*
     ekleyemeyiz (varsa uydurma bir URL olurdu). Şirket gerçekten bir
     Wikipedia sayfası edinirse `data/footer.ts`'teki `FOOTER_SOCIAL`
     deseniyle `sameAs`'e eklenebilir — o zamana kadar kapsam dışı.
+39. **YENİ (2026-08-26) — `/donanim/` sayfası SEO/GEO denetimi, plan
+    onaylandı, KOD DEĞİŞİKLİĞİ HENÜZ YAPILMADI, yarın devam.**
+    Kullanıcının yeni bir SEO/GEO denetim belgesinden gelen bulgular,
+    tek tek araştırılıp onaylandı ama hiçbiri uygulanmadı:
+    1. **Heading düzeltmesi (6 paragraf, yanlışlıkla H2 → düz P
+       olmalı)** — metinler kullanıcı tarafından sağlandı ve
+       eşleştirme onaylandı, İÇERİK DEĞİŞMEYECEK sadece etiket
+       düzelecek. Uygulanmadı.
+    2. **Yeni "QR Kod Sistemi" bölümü** — kaynak `pdks-modulu` ürün
+       sayfasının 8. section'ı (`Personel Takip Sisteminde Karekod -
+       QR Kod Okutma Nasıl Çalışır?`, idenfit mobil PDKS uygulamasının
+       karekod/QR okutarak giriş-çıkış + anlık konum kaydı özelliği,
+       kartlı geçiş sistemlerinde de kullanılabiliyor). ÖNEMLİ NÜANS:
+       bu içerik "QR donanımı" değil idenfit'in KENDİ yazılım
+       özelliği — donanım sayfasının diğer bölümleri (biyometrik/
+       RFID/turnike/GPRS) "3. parti marka donanımıyla entegrasyon"
+       formatındayken bu "ek donanıma gerek yok" diyor. Çerçeveleme
+       kararı verildi: başlık **"Ek Donanım Gerektirmeyen QR/Karekod
+       Alternatifi"**, dürüst fark vurgusuyla yazılacak, uydurma
+       teknik detay eklenmeyecek. Uygulanmadı.
+    3. **7 mevcut bölüm başlığının (biyometrik/bluetooth/platform/
+       rfid/gprs/turnikeler/markalar) SEO için kısaltılması** — YENİ
+       bölüm gerekmiyor, önerilen 7 başlık mevcut 7 section'la birebir
+       eşleşiyor, sadece metin kısaltma/yeniden yazım. Not: rfid/gprs/
+       turnikeler başlıklarında satır içi `<br>` var, kısaltılan
+       metinde korunup korunmayacağı teyit edilmeli. Uygulanmadı.
+    4. **FAQ (6 soru), `content.faq` şu an bilinçli olarak boş dizi**
+       (`donanim.astro:11`, `ProductPage.astro` FAQ bloğunu yalnızca
+       `faq.length > 0` iken render ediyor) — plan: 3 soru genel FAQ
+       havuzundan (id 12596/12677/12678, "PDKS cihaz/donanımlara
+       entegre olabilir mi", biyometrik cihaz/marka soruları), kalan 3
+       soru sayfanın kendi bölüm metinlerinden (RFID/Bluetooth/GPRS
+       paragrafları) türetilecek — kaynak FAQ havuzunda RFID/
+       Bluetooth/GPRS/turnike/QR'a özel soru YOK. Uygulanmadı.
+    5. **KAPANDI (2026-08-26) — CTA/anchor text ("Hemen Başvur" →
+       "Donanım Entegrasyonu için Başvur"), local dev server ile
+       DOĞRULANDI.** Kod 2026-08-12 CTA/anchor-text turunda zaten
+       yapılmıştı (`donanim.astro:25` `ctaKeyword = 'Donanım
+       Entegrasyonu'`, `pageTitle.ts:131` TR şablonu `${keyword} için
+       Başvur`). `idenfit.com` curl'ü bunu doğrulayamadı çünkü o domain
+       hâlâ ESKİ WordPress kaynak sitesi (`elementor-button-text`
+       class'ı) — Astro build henüz Cloudflare Pages'e deploy edilmedi.
+       `npm run dev` ile local dev server açılıp (`http://localhost:4321`)
+       `curl http://localhost:4321/donanim/` ile gerçek render kontrol
+       edildi: `<a href="/online-sunum-talebi/" class="btn-cta ...">
+       Donanım Entegrasyonu için Başvur</a>` — birebir doğru. TAMAMEN
+       KAPANDI.
+    6. **KAPANDI (2026-08-26) — Görsel lazy load, local dev server ile
+       DOĞRULANDI.** `ProductSectionBlock.astro:30` TÜM section
+       görsellerinde koşulsuz `loading="lazy"`, hero görseli bilinçli
+       `loading="eager"` (`ProductPage.astro:147`, LCP için). Aynı curl
+       ile teyit edildi: hero'nun `<img>`'i `loading="eager"` (1 adet),
+       donanım sayfasındaki diğer tüm görseller `loading="lazy"`.
+       Donanım sayfasında hero hariç **7** section var (brief'te "6"
+       deniyordu, gerçek sayı 7 — sayım farkı, sonuç aynı: hepsi zaten
+       lazy). TAMAMEN KAPANDI.
+    **Dev server:** kullanıcı isteğiyle açık bırakıldı
+    (`http://localhost:4321`, pid 20612, `npm run dev`).
+    **Yarın planı:** 5/6 kapandı, sırada 1/2/3/4 (heading düzeltmesi,
+    QR bölümü, H2 rename, FAQ) kod uygulaması var.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

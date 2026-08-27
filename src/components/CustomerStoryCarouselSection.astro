@@ -25,6 +25,7 @@ const VIDEO_HEADLINES: Partial<Record<string, string>> = {
   civil: cc.civilVideo.headline,
   femas: cc.femasVideo.headline,
   beyazFirin: cc.beyazFirinVideo.headline,
+  ibisStyles: cc.ibisStylesVideo.headline,
 };
 
 // 2026-08-24 — eski (ayrı) `TestimonialSection` widget'ından taşınan 2
@@ -81,6 +82,18 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
         personName: person.name,
         personRole: testimonial.jobTitle,
         photoUrl: person.photoUrl,
+      };
+      return quoteCard;
+    }
+    if (card.storyKey === 'ibisStyles') {
+      const quote = cc.ibisStylesQuote;
+      const quoteCard: QuoteCardData = {
+        ...base,
+        type: 'quote',
+        quoteText: quote.text,
+        personName: quote.name,
+        personRole: quote.jobTitle,
+        photoUrl: card.quotePhotoUrl,
       };
       return quoteCard;
     }
