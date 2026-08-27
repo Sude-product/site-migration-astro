@@ -11,7 +11,6 @@
 import { defineCollection, z } from 'astro:content';
 import { glob, type Loader } from 'astro/loaders';
 import { existsSync, promises as fs } from 'node:fs';
-import { fileURLToPath } from 'node:url';
 import { fixLinkAccessibility } from './data/contentLinkAccessibility';
 import { demoteBodyH1s, normalizeHeadingLevels } from './data/blogHeadingSanitizer';
 
@@ -128,7 +127,14 @@ const legacyJsonLoader: Loader = {
     if (!existsSync(jsonUrl)) return;
 
     const raw: Array<Record<string, unknown>> = JSON.parse(await fs.readFile(jsonUrl, 'utf-8'));
-    const filePath = fileURLToPath(jsonUrl);
+    // `mutable-data-store.js`'in `store.set()`'i `filePath`'in site kökÜNE
+    // GÖRELİ olmasını şart koşuyor (mutlak/`/`ile başlayan yol reddediliyor
+    // — bkz. hata: "File path must be relative to the site root"). Önceki
+    // `fileURLToPath(jsonUrl)` MUTLAK bir yol üretiyordu (ör.
+    // `/home/user/idenfit.com/src/content/blog/posts.json`) — build'i
+    // TAMAMEN kırıyordu (`dist/` hiç oluşmuyordu). `POSTS_JSON_PATH` zaten
+    // göreli olduğu için doğrudan kullanılmalı.
+    const filePath = POSTS_JSON_PATH;
     let loaded = 0;
     for (const item of raw) {
       const id = String(item.slug);

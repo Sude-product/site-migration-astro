@@ -85,8 +85,12 @@ const PLAN_BTN_CLASS =
   dateModified={modified?.toISOString()}
   breadcrumb={[{ label: t.footer.links.general.pricing }]}
 >
-  <section class="bg-[#f8f8f8] py-12 lg:py-16">
+  <section class="bg-[#f8f8f8] pb-12 pt-6 lg:pb-16 lg:pt-8">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
+      {/* DÜZELTME (2026-08-27, kullanıcı isteği: "yazıyı biraz yukarı al") —
+          bölümün üst dolgusu (`py-12 lg:py-16`) H1'i breadcrumb'tan çok
+          uzağa itiyordu; yalnızca ÜST dolgu küçültüldü (`pt-6 lg:pt-8`),
+          ALT dolgu (kartlardan önceki boşluk) DEĞİŞMEDİ (`pb-12 lg:pb-16`). */}
       {/* ⚠️ DÜZELTME (2026-08-04): tüm başlık `font-bold` (700) uygulanmıştı —
           ama `content.pageTitle` zaten ikinci cümleyi (`<b>verimli ve
           bütüncül yönetin!</b>`) kaynaktan gelen GERÇEK bir `<b>` etiketiyle
@@ -124,7 +128,17 @@ const PLAN_BTN_CLASS =
       </div>
 
       <!-- Fiyat kartları -->
-      <div class="mt-12 lg:flex lg:items-start lg:gap-3">
+      {/* DÜZELTME (2026-08-27, kullanıcı isteği: "boşluk bırakmalısın
+          başlık ve kartlar arasında") — Suprema rozeti `lg:` üzerinde
+          Pro kartının `top:-66px` yukarısında YÜZÜYOR (bkz. rozetin
+          kendi yorumu); H1↔kartlar arası boşluk yalnızca `mt-12`(48px)
+          olunca rozet H1'in alt sınırının ÜSTÜNE taşıp bitişik/çakışık
+          duruyordu (ölçülen: rozet üstü H1 altından 18px YUKARIDA).
+          `lg:` altında `mt-24`(96px)'e çıkarılıp rozetin üstünde de
+          gerçek boşluk (~30px) açıldı — mobilde rozet karta normal
+          akışta gömülü olduğu için (çakışma riski yok) `mt-12` aynen
+          korundu. */}
+      <div class="mt-12 lg:mt-24 lg:flex lg:items-start lg:gap-3">
         <div class="mb-4 whitespace-nowrap text-2xl font-medium text-heading lg:mb-0 lg:w-[220px] lg:pt-6 lg:text-[34px]">
           {content.packagesTitle}
         </div>
@@ -144,9 +158,17 @@ const PLAN_BTN_CLASS =
                     KOBİ kartıyla ÇAKIŞIYORDU (idenfit.com'un kaynak mobil
                     görünümünde rozet normal akışta, kartlar arasında kendi
                     boşluğuyla duruyor — `lg:` altında biz de aynısını
-                    yapıyoruz: normal akış + `mb-4`). */}
+                    yapıyoruz: normal akış + `mb-6`).
+                    DÜZELTME (2026-08-27, kullanıcı isteği: "suprema yazısı
+                    ile kart arasına boşluk konulacak, çok bitişik") —
+                    `lg:` altında rozetin metni kartın üst kenarına
+                    neredeyse değiyordu (ölçülen boşluk -2px, yani hafif
+                    çakışma); `-top-[50px]`→`-top-[66px]` ile ~16px gerçek
+                    boşluk açıldı. Mobilde de aynı gerekçeyle `mb-4`(16px)→
+                    `mb-6`(24px) ile rozet metni ile "Pro" başlığı arası
+                    genişletildi. */}
                 {isPro && (
-                  <div class="pointer-events-none relative mb-4 flex flex-col items-center lg:absolute lg:inset-x-0 lg:-top-[50px] lg:mb-0">
+                  <div class="pointer-events-none relative mb-6 flex flex-col items-center lg:absolute lg:inset-x-0 lg:-top-[66px] lg:mb-0">
                     <img
                       src="https://idenfit.com/wp-content/uploads/2025/08/suprema-logo.png"
                       alt="Suprema Logo"
