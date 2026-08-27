@@ -100,10 +100,14 @@ interface TabDef {
   badge?: string;
 }
 
+// DÜZELTME (2026-08-27, kullanıcı isteği) — sekme SIRASI değişti (İK en
+// üstte, sonra İzin Yönetimi, Zaman Yönetimi, Performans Yönetimi) ve
+// "İzin" etiketi "İzin Yönetimi"ye çevrildi — içerik (LeaveManagementTab
+// vb.) DEĞİŞMEDİ, yalnızca bu diziideki sıra + `label`/başlık metni.
 const TABS: TabDef[] = [
-  { key: 'zaman', label: 'Zaman Yönetimi', icon: Clock, enabled: true },
-  { key: 'izin', label: 'İzin', icon: CalendarClock, enabled: true },
   { key: 'ik', label: 'İnsan Kaynakları', icon: Users, enabled: true },
+  { key: 'izin', label: 'İzin Yönetimi', icon: CalendarClock, enabled: true },
+  { key: 'zaman', label: 'Zaman Yönetimi', icon: Clock, enabled: true },
   { key: 'performans', label: 'Performans Yönetimi', icon: Target, enabled: true },
   { key: 'bordro', label: 'Bordro', icon: Wallet, enabled: false, badge: 'Yakında' },
   { key: 'ise-alim', label: 'İşe Alım', icon: UserPlus, enabled: false, badge: 'Yakında' },
@@ -1489,7 +1493,7 @@ function TopLeaveUnitsCard() {
 function LeaveManagementTab() {
   return (
     <div>
-      <SectionMiniHeader icon={CalendarClock} title="İzin" href="/yillik-izin-takip-programi/" />
+      <SectionMiniHeader icon={CalendarClock} title="İzin Yönetimi" href="/yillik-izin-takip-programi/" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
         {LEAVE_STATS.map((stat) => (
           <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
@@ -2621,7 +2625,10 @@ function AppHeaderBar() {
 const AUTO_TAB_INTERVAL_MS = 6000;
 
 export default function ProductPreviewWidget() {
-  const [activeTab, setActiveTab] = useState<TabKey>('zaman');
+  // DÜZELTME (2026-08-27) — varsayılan aktif sekme `TABS`'in YENİ ilk
+  // öğesiyle ('ik') eşleşecek şekilde güncellendi (önceden 'zaman'), sayfa
+  // yüklendiğinde sidebar'da en üstteki sekmenin seçili görünmesi için.
+  const [activeTab, setActiveTab] = useState<TabKey>('ik');
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
