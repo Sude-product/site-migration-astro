@@ -52,22 +52,53 @@ const CALL_URL = 'tel:02162950927';
      sitenin zaten kullandığı ton yeniden kullanıldı. Merkez alt-ortada
      (widget'a en yakın nokta) en yoğun, yukarı doğru beyaza sönümleniyor. -->
 <section class="py-12 lg:py-20" style="background: radial-gradient(120% 90% at 50% 100%, #FFDCDC 0%, #FFF3F3 40%, #FFFFFF 75%);">
-	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:px-8">
+	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
 		<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
 		     (`post-25148.css`, `.elementor-element-0c8eb2b`/`4ec6dae`) —
 		     H1 mobilde 20px, `lg:` 35px/`font-weight:600`/`line-height:45px`
 		     (kaynağın kendi custom CSS'i, `!important`); paragraf mobilde
 		     16px, `lg:` 20px, renk TAM OLARAK `#808080` = bizim `--color-muted`
 		     token'ımızla birebir aynı. Boşluklar (`mt-[15px]`) kaynağın
-		     `padding:15px 0px` kuralından BİREBİR. -->
-		<h1 class="whitespace-pre-line text-xl font-semibold leading-tight tracking-tight text-heading lg:text-[35px] lg:leading-[45px]">
+		     `padding:15px 0px` kuralından BİREBİR.
+		     DÜZELTME (2026-08-27, kullanıcı isteği): masaüstünde başlık
+		     büyütüldü (35px→44px, AYNI GÜN ikinci turda 44px→52px'e bir kez
+		     daha büyütüldü — "biraz daha büyüt" — + MOBİLDE de büyütüldü
+		     20px→30px, kaynaktan gelen mobil boyut artık bilinçli olarak
+		     terk edildi) — rengi (`text-heading`, koyu) DEĞİŞMEDİ. Mobilde
+		     tek satır GARANTİ EDİLMİYOR (dar viewport'ta doğal olarak
+		     sarabilir, kullanıcı yalnızca "büyük olmalı" dedi, tek satır
+		     şartı masaüstüne özgüydü) — `whitespace-pre-line` zaten var olan
+		     davranış korunuyor. Daha geniş bir tek satıra yer açmak için
+		     üstteki sarmalayıcı
+		     `lg:max-w-7xl`'e genişletildi (ProductPreviewWidget'ın altındaki
+		     `max-w-[88rem]`'den hâlâ dar, görsel hiyerarşi bozulmuyor). Alt
+		     paragraf AYNI punto (`lg:text-xl`, DEĞİŞMEDİ) kalıp kendi
+		     `max-w-xl` kısıtı masaüstünde kaldırıldı (`lg:max-w-none`).
+		     **`whitespace-nowrap` BİLİNÇLİ OLARAK KULLANILMADI:** TR metni
+		     (kullanıcının hedeflediği dil) ~1536px+ genişlikte konteynerin
+		     genişletilmiş alanına zaten doğal olarak tek satır sığıyor
+		     (ölçüldü) — ama proje 5 dilli (`HeroSection` TÜM locale'lerle
+		     PAYLAŞILAN tek component) ve IT'nin alt metni (1578px) genişletilmiş
+		     konteynerden (1280px) bile taşıyor; zorlamalı `nowrap` denendi,
+		     IT'de sayfa geneli yatay scrollbar'a yol açtığı görülüp GERİ
+		     ALINDI. Doğal sarma (varsayılan `whitespace-normal`) hem taşma
+		     RİSKİ TAŞIMIYOR hem geniş ekranlarda (TR dahil çoğu dil) zaten
+		     tek satır gösteriyor — yalnızca IT gibi uzun metinli diller/dar
+		     ekranlarda güvenle 2 satıra sarıyor. -->
+		<h1 class="whitespace-pre-line text-3xl font-semibold leading-tight tracking-tight text-heading lg:text-[52px] lg:leading-[62px]">
 			{t.hero.headline}
 		</h1>
-		<p class="mt-[15px] max-w-xl text-base text-muted lg:text-xl">
+		<p class="mt-[15px] max-w-xl text-base text-muted lg:max-w-none lg:text-xl">
 			{t.hero.subheadline}
 		</p>
 
-		<div class="mt-[15px] flex w-full max-w-md flex-col items-center">
+		<!-- 2026-08-27 (üçüncü tur, kullanıcı isteği: "yazıyla email girme
+		     butonları arasında biraz boşluk olsun") — üstteki alt metinle
+		     form arasındaki boşluk (`mt-[15px]`) büyütülen font boyutlarına
+		     (52px başlık) göre artık dar kalıyordu, `mt-8 lg:mt-10`'a
+		     genişletildi (dashboard'ın altındaki AYNI değer ailesiyle
+		     tutarlı, aşağıya bkz.). -->
+		<div class="mt-8 flex w-full max-w-md flex-col items-center lg:mt-10">
 			<HeroEmailCaptureForm
 				locale={locale}
 				placeholder={t.hero.emailPlaceholder}
@@ -131,7 +162,11 @@ const CALL_URL = 'tel:02162950927';
 	     YOK (widget iki kez gösteriliyordu, hero'daki bu YETERLİ görüldüğü
 	     için alttaki kaldırıldı, bkz. CLAUDE.md Açık nokta #35). Genişlik/
 	     yükseklik ayarları (ONUNCU tur) aynen korundu. -->
-	<div class="mx-auto mt-8 w-full max-w-[88rem] px-4 sm:px-6 lg:mt-10 lg:px-8">
+	<!-- 2026-08-27 (üçüncü tur, kullanıcı isteği: "dashboard ile email
+	     girme alanı arasında da biraz boşluk olmalı, daha temiz görünmeli")
+	     — form/buton bloğuyla dashboard arasındaki boşluk (`mt-8 lg:mt-10`)
+	     `mt-12 lg:mt-16`'ya büyütüldü. -->
+	<div class="mx-auto mt-12 w-full max-w-[88rem] px-4 sm:px-6 lg:mt-16 lg:px-8">
 		<div
 			class="rounded-[2rem] p-3 ring-1 ring-white/50 sm:p-5 lg:p-6"
 			style="background: linear-gradient(to bottom, #FFDCDC 0%, #FFF3F3 22%, #FFFFFF 50%, #FFF3F3 78%, #FFDCDC 100%);"
