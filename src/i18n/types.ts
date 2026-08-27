@@ -473,8 +473,6 @@ export interface HomePanelLabels {
 export interface HomeSupremaLabels {
   title: string;
   text: string;
-  /** "Hardware partner" etiketi. */
-  partnerLabel: string;
 }
 
 /** Tek bir testimonial'ın çevrilen metni (isim/fotoğraf gibi dile bağlı

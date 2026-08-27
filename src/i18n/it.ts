@@ -382,10 +382,9 @@ export const it: Translations = {
       imageAlt: 'screenshot del pannello intuitivo idenfit',
     },
     suprema: {
-      title: 'Identificazione Contactless & Sistemi di Controllo Accessi',
+      title: 'Una Piattaforma di Controllo Accessi Integrata con Tutti gli Hardware',
       text:
         "Grazie al sistema integrato con dispositivi di riconoscimento facciale e lettura delle impronte digitali, l'autenticazione dei dipendenti può essere effettuata in tempo reale. Allo stesso tempo, il monitoraggio di entrate, uscite e pause può essere gestito con facilità.",
-      partnerLabel: 'Hardware Partner',
     },
     testimonials: {
       title: "Miglioramento dell'Esperienza dei Dipendenti",

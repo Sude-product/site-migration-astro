@@ -381,10 +381,9 @@ export const en: Translations = {
       imageAlt: 'idenfit user-friendly dashboard screenshot',
     },
     suprema: {
-      title: 'Contactless Identification & Access Systems',
+      title: 'A Time & Attendance Platform Integrated With All Hardware',
       text:
         "With Idenfit's integration to face recognition and fingerprint devices, employee identity verification can be done in real-time. Entry-exit tracking and break times can also be managed with ease.",
-      partnerLabel: 'Hardware partner',
     },
     testimonials: {
       title: 'Enhance Employee Experience',

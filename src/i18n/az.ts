@@ -372,10 +372,9 @@ export const az: Translations = {
       imageAlt: 'idenfit istifadəçi dostu panel ekran görüntüsü',
     },
     suprema: {
-      title: 'Təmassız Tanıma & Keçid Sistemləri',
+      title: 'Bütün Avadanlıqlarla İnteqrasiya Olunmuş PDKS Platforması',
       text:
         'idenfit, üz tanıma və barmaq oxuma cihazlarına inteqrasiya olunmuş sistem sayəsində işçilərin kimlik doğrulaması real zamanlı aparıla bilər. Eyni zamanda giriş-çıxış və fasilə vaxtlarının izlənməsi asanlıqla idarə oluna bilər.',
-      partnerLabel: 'Avadanlıq tərəfdaşı',
     },
     testimonials: {
       title: 'İnkişaf Etdirilə Bilən İşçi Təcrübəsi',
