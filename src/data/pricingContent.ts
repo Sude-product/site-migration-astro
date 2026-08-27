@@ -128,12 +128,22 @@ const MOBILE_DETAILS_TOGGLE: Record<Locale, { more: string; less: string }> = {
 // silinip gitse bile).
 // KOBİ (sme): TR 4.999→9.999 ₺, EN/NL/IT 149→199 € (`priceSuffix` aynı
 // kalıyor, yalnızca sayı değişti).
+// İKİNCİ GÜNCELLEME (2026-08-27, kullanıcı talebi): TR 9.999→7.999 ₺ —
+// (Bu sayfadaki KOBİ CTA'sının gittiği `app.idenfit.com/register/sme/`
+// kayıt sayfasındaki fiyat AYRI bir canlı uygulamanın kendi içeriği —
+// bu repo'nun/projenin kapsamı DIŞINDA, buradan güncellenemez.)
+// ÜÇÜNCÜ GÜNCELLEME (aynı gün, ikinci turda) — "diğer dillerdeki
+// versiyonda da KOBİ fiyatını 149 euro ile güncelle": EN/NL/IT/AZ
+// 199→149 € (ilk turdaki 149→199 değişikliğinin GERİ ALINMASI,
+// `PRICING_AZ_OVERRIDE.sme.price` literal'i de AŞAĞIDA aynı değere
+// güncellendi — bu override zaten kazanıyor ama iki kaynağın
+// birbirinden SAPMASINI önlemek için).
 const SME_PRICE_OVERRIDE: Record<Locale, string> = {
-  tr: '9.999',
-  en: '199',
-  nl: '199',
-  it: '199',
-  az: '199',
+  tr: '7.999',
+  en: '149',
+  nl: '149',
+  it: '149',
+  az: '149',
 };
 
 // Pro paketi artık sabit bir fiyat GÖSTERMİYOR, "Teklif Al" metnine
@@ -199,7 +209,7 @@ const PRICING_AZ_OVERRIDE: PricingContent = {
     planTitle: 'KOB',
     employeeRange: '<b>1-100</b> İşçi',
     modules: ['Rəqəmsal Qeydiyyat (Əsas)', 'İcazə', 'Avans', 'Əmlak', 'Sənəd', 'Əmək Haqqına Baxış', 'Xərc'],
-    price: '199',
+    price: '149',
     priceSuffix: '€/ayda',
     ctaText: 'Satın Alın',
     ctaUrl: 'https://app.idenfit.com/register/sme/?lang=en',
