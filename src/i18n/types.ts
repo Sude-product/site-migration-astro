@@ -171,8 +171,6 @@ export interface FooterLabels {
   copyright: string;
   privacy: string;
   kvkk: string;
-  /** Ödeme yöntemi rozetleri görselinin (iyzico/Troy/Visa/Mastercard/Amex) alt metni. */
-  paymentMethodsAlt: string;
   /** Güven rozetleri şeridindeki 4 ayrı logonun (SSL/ISO 27001/Peryön/GDPR) alt metinleri. */
   trustBadges: {
     ssl: string;

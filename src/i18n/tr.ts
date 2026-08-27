@@ -105,7 +105,6 @@ export const tr: Translations = {
     copyright: '© idenfit, {year}',
     privacy: 'Gizlilik Politikası',
     kvkk: 'KVKK',
-    paymentMethodsAlt: 'Güvenli ödeme yöntemleri: iyzico, Troy, Visa, Mastercard, American Express',
     trustBadges: {
       ssl: 'SSL Güvenlik Sertifikası',
       iso: 'ISO 27001 Bilgi Güvenliği Yönetim Sistemi Sertifikası',

@@ -73,13 +73,17 @@ export const FOOTER_CONTACT = {
 // güncellendi — eski slug hâlâ çalışıyordu ama LinkedIn tarafında 301 ile
 // yeni slug'a yönleniyordu (doğrulandı), `sameAs` bir yönlendirmeyi değil
 // sayfanın kendisini işaret etmeli.
+// **2026-08-27 düzeltme (kullanıcı isteği):** X (Twitter) ve Pinterest
+// kaldırıldı — kalan 5 platform (Facebook/YouTube/Instagram/LinkedIn/
+// Medium). Bu liste `BaseLayout.astro`'nun Organization JSON-LD
+// `sameAs` alanınca da PAYLAŞILDIĞI için (dosya başı yorumu) o şema da
+// otomatik olarak 5 platforma indi — ikinci bir yerde ayrıca
+// güncellenmesi GEREKMEDİ.
 export const FOOTER_SOCIAL = [
   { platform: 'facebook', href: 'https://www.facebook.com/idenfit', label: 'Facebook' },
   { platform: 'youtube', href: 'https://www.youtube.com/channel/UCE-4lk4QsU71NfTI7vxPCJQ/', label: 'YouTube' },
-  { platform: 'x', href: 'https://twitter.com/idenfit', label: 'X (Twitter)' },
   { platform: 'instagram', href: 'https://www.instagram.com/idenfitcom/', label: 'Instagram' },
   { platform: 'linkedin', href: 'https://www.linkedin.com/company/idenfithr/', label: 'LinkedIn' },
-  { platform: 'pinterest', href: 'https://www.pinterest.com/idenfit', label: 'Pinterest' },
   { platform: 'medium', href: 'https://medium.com/@idenfit', label: 'Medium' },
 ] as const;
 
@@ -100,25 +104,24 @@ export const FOOTER_APPS = [
   },
 ] as const;
 
-// Ödeme yöntemi rozetleri — idenfit.com footer'ında GENEL kolonunun
-// sağında ayrı bir bölüm (2026-07-24 bulundu). Kaynakta biri yatay
-// (mobil, 718×57) biri dikey (masaüstü, 386×800) iki ayrı görsel var —
-// dikey versiyon footer'da çok fazla dikey yer kaplayacağı için bilinçli
-// olarak yalnızca yatay/kompakt versiyon (her iki görünümde de) kullanıldı.
-export const FOOTER_PAYMENT_IMAGE = 'https://idenfit.com/wp-content/uploads/2025/07/Group-1365420300-2.webp';
-
 // Güven rozetleri şeridi (SSL/ISO 27001/Peryön/GDPR) — kullanıcının kendi
 // sağladığı 4 AYRI görsel (`public/images/trust-badge-*`, `demo-bar-avatar.jpg`'deki
 // AYNI ilke: wp-content/uploads hotlink değil, yerel dosya). Sıra
 // kullanıcının verdiği sırayla (SSL→ISO→Peryön→GDPR) — alfabetik/dosya
-// adı sırası DEĞİL. `iso27001.webp` uzantısı `.webp` ama kaynak dosya
-// `LOGO4.jpg` adıyla paylaşılmıştı — ham baytlar gerçekte WebP formatında
-// (magic number `RIFF...WEBP` ile doğrulandı), bu yüzden uzantı düzeltildi
-// (aksi halde sunucu `Content-Type: image/jpeg` döner ama tarayıcı WebP
-// baytlarını çözemezdi).
+// adı sırası DEĞİL.
+// DÜZELTME (2026-08-27, kullanıcı isteği: "soldaki logoları beyaz alt
+// tabanlı değil de transparan yapmayı dene") — SSL/ISO ham dosyaları
+// (`.webp`) opak beyaz zeminli DÜZ görsellerdi (gerçek alfa kanalı YOK,
+// lossy VP8), Peryön/GDPR'nin aksine (ikisi zaten gerçek RGBA şeffaflığa
+// sahipti, `sharp` ile doğrulandı). SSL/ISO, `scripts/`de kalıcı
+// olmayan tek seferlik bir Node/`sharp` script'iyle luminans-tabanlı
+// chroma-key uygulanıp (beyaza yakın piksel→şeffaf, koyu mürekkep→opak)
+// gerçek alfa kanallı `.png`'ye çevrildi — görsel İÇERİK (metin/ikon)
+// DEĞİŞMEDİ, yalnızca beyaz zemin şeffaflaştı. `Footer.astro`'daki
+// beyaz kart sarmalayıcısı (`bg-white/95`) bu yüzden kaldırılabildi.
 export const TRUST_BADGE_LOGOS: { key: 'ssl' | 'iso' | 'peryon' | 'gdpr'; src: string }[] = [
-  { key: 'ssl', src: '/images/trust-badge-ssl.webp' },
-  { key: 'iso', src: '/images/trust-badge-iso27001.webp' },
+  { key: 'ssl', src: '/images/trust-badge-ssl.png' },
+  { key: 'iso', src: '/images/trust-badge-iso27001.png' },
   { key: 'peryon', src: '/images/trust-badge-peryon.png' },
   { key: 'gdpr', src: '/images/trust-badge-gdpr.png' },
 ];

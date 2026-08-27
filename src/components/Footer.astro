@@ -26,7 +26,6 @@ import {
   FOOTER_CONTACT,
   FOOTER_SOCIAL,
   FOOTER_APPS,
-  FOOTER_PAYMENT_IMAGE,
   TRUST_BADGE_LOGOS,
 } from '../data/footer';
 
@@ -168,6 +167,12 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 					{FOOTER_CONTACT.emailLabel}
 				</a>
 
+				<!-- 2026-08-27 (kullanıcı isteği: "yanyana olacak şekilde ayarla
+				     çok az daha büyük görünsün") — X/Pinterest kaldırılınca
+				     (bkz. `FOOTER_SOCIAL`) kalan 5 ikon zaten yan yana tek
+				     satıra sığıyor (`flex-wrap` artık pratikte devreye
+				     girmiyor); ikon rozeti `h-8 w-8`→`h-9 w-9`, SVG `16`→`18`px'e
+				     bir kademe büyütüldü. -->
 				<ul class="mt-5 flex flex-wrap items-center gap-3">
 					{
 						FOOTER_SOCIAL.map((social) => {
@@ -179,9 +184,9 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 										target="_blank"
 										rel="noopener noreferrer nofollow"
 										aria-label={social.label}
-										class="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
+										class="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-brand"
 									>
-										<svg width="16" height="16" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
+										<svg width="18" height="18" viewBox={icon.viewBox} fill="currentColor" aria-hidden="true">
 											<path d={icon.path} />
 										</svg>
 									</a>
@@ -274,32 +279,25 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 			</div>
 		</div>
 
-		<!-- Alt bar: güven rozetleri + ödeme yöntemleri + telif hakkı + yasal
-		     linkler — footer'ın kendi gri zemininin İÇİNDE (bir öncekinin
-		     aksine, footer'ın ALTINA taşan ayrı beyaz bir şerit DEĞİL).
-		     Güven rozetleri kullanıcının verdiği sırayla (SSL→ISO→Peryön→GDPR),
-		     ödeme yöntemi rozeti (kullanıcı isteğiyle GENEL kolonundan buraya
-		     taşındı) AYNI satırda sağa hizalı (`sm:ml-auto`) — diğer
-		     logolarla aynı yükseklikte/kart stilinde. Çoğu beyaz/şeffaf
-		     zeminli bu logolar gri fonda çıplak bırakılırsa (özellikle opak
-		     beyaz kare olan SSL/ISO) tutarsız görünür, bu yüzden her biri
-		     kendi küçük beyaz kartında. -->
-		<div class="mt-10 flex flex-wrap items-center justify-center gap-3 border-t border-white/10 pt-6 sm:justify-start">
+		<!-- Alt bar: güven rozetleri + telif hakkı + yasal linkler —
+		     footer'ın kendi gri zemininin İÇİNDE.
+		     DÜZELTME (2026-08-27, kullanıcı isteği):
+		     1. "en aşağıdaki footerdan kredi kartı bölümünü sil" — ödeme
+		        yöntemi rozeti render'ı TAMAMEN kaldırıldı, artık kullanılmayan
+		        `FOOTER_PAYMENT_IMAGE` (`data/footer.ts`) + `paymentMethodsAlt`
+		        i18n alanı (5 dil) da temizlendi — HRTech kaldırma turundaki
+		        AYNI ilke (bkz. CLAUDE.md).
+		     2. "soldaki logoları beyaz alt tabanlı değil de transparan
+		        yapmayı dene" — SSL/ISO artık gerçek alfa kanallı (bkz.
+		        `TRUST_BADGE_LOGOS` yorumu), Peryön/GDPR zaten öyleydi;
+		        4'ünün de sarmalayıcı beyaz kartı (`bg-white/95`) kaldırıldı,
+		        gri footer zemininde çıplak/şeffaf render ediliyor. -->
+		<div class="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-white/10 pt-6 sm:justify-start">
 			{
 				TRUST_BADGE_LOGOS.map((badge) => (
-					<div class="flex h-16 items-center rounded-lg bg-white/95 px-4 sm:h-[4.5rem]">
-						<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
-					</div>
+					<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
 				))
 			}
-			<div class="rounded bg-white/95 p-2 sm:ml-auto">
-				<img
-					src={FOOTER_PAYMENT_IMAGE}
-					alt={t.footer.paymentMethodsAlt}
-					loading="lazy"
-					class="h-auto w-full max-w-[220px] object-contain"
-				/>
-			</div>
 		</div>
 
 		<div class="mt-6 flex flex-col items-center gap-3 pt-0 text-xs text-white/60 sm:flex-row sm:justify-between">

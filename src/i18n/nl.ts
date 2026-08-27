@@ -101,7 +101,6 @@ export const nl: Translations = {
     copyright: '© idenfit, {year}',
     privacy: 'Privacybeleid',
     kvkk: 'Gegevensbeschermingsverklaring',
-    paymentMethodsAlt: 'Veilige betaalmethoden: iyzico, Troy, Visa, Mastercard, American Express',
     trustBadges: {
       ssl: 'SSL-beveiligingscertificaat',
       iso: 'ISO 27001-certificering voor informatiebeveiliging',

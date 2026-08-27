@@ -107,7 +107,6 @@ export const it: Translations = {
     copyright: '© idenfit, {year}',
     privacy: 'Informativa sulla Privacy',
     kvkk: 'Informativa sulla Protezione dei Dati',
-    paymentMethodsAlt: 'Metodi di pagamento sicuri: iyzico, Troy, Visa, Mastercard, American Express',
     trustBadges: {
       ssl: 'Certificato di Sicurezza SSL',
       iso: 'Certificazione ISO 27001 per la Gestione della Sicurezza delle Informazioni',
