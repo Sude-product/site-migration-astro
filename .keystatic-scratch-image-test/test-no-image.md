@@ -1,5 +1,0 @@
----
-slug: ''
-featuredImage:
-  discriminant: false
----
