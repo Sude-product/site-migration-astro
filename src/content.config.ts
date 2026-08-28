@@ -33,6 +33,61 @@ export const CATEGORY_LABELS: Record<string, string> = {
   'uncategorized-tr': 'Uncategorized',
 };
 
+// **KALICI GOTCHA (2026-08-28) — naive (saat dilimsiz) tarih string'leri
+// MAKİNEDEN BAĞIMSIZ hale getiriliyor.** Kaynak WP'nin `date`/`modified`
+// alanı saat dilimi damgası TAŞIMIYOR ("naive", ör. `'2024-10-02T09:30:00'`).
+// Node'un `new Date(naiveString)`'i (z.coerce.date()'in altında çağırdığı)
+// bu tür string'leri ÇALIŞTIĞI MAKİNENİN sistem saat dilimine göre
+// yorumluyor — yerel geliştirme (Türkiye, UTC+3) ile Cloudflare Pages/
+// Workers build ortamı (Cloudflare'in resmi topluluğunda doğrulandı: HER
+// ZAMAN UTC, sabit) arasında SESSİZ bir 3 saatlik kaymaya yol açıyordu.
+// Bu, JSON-LD `datePublished`/`dateModified`, OG `article:published_time`/
+// `modified_time` ve görünür `<time datetime>`'a DOĞRUDAN yansıyor (bkz.
+// `[slug].astro`, hepsi `date.toISOString()` çağırıyor) — SEO/GEO'ya giden
+// gerçek bir doğruluk riski. Ampirik olarak doğrulandı: WP'nin ham
+// `posts.json`'ındaki `date`/`date_gmt` çifti karşılaştırıldığında 622
+// yazının 562'si (%90) tam 3 saatlik Türkiye-ofseti deseni gösteriyor
+// (`date_gmt` = `date` - 3sa) — kaynak veri GERÇEKTEN Türkiye yerel
+// saatini taşıyor, tahmin değil.
+//
+// **Çözüm:** `date`/`modifiedDate` alanına ulaşan naive (Z/ofset damgası
+// TAŞIMAYAN) her string'e açıkça `+03:00` (Türkiye, 2016'dan beri DST
+// kullanmıyor — sabit UTC+3, bu veri setindeki TÜM tarihler zaten 2016
+// sonrası) eklenip Date'e ÖYLE çevriliyor — bir ofset/"Z" damgası
+// EKLENMİŞ string'in `new Date()` yorumu ECMAScript spesifikasyonu
+// gereği SİSTEM SAAT DİLİMİNDEN TAMAMEN BAĞIMSIZDIR, bu yüzden bu normalize
+// adımından SONRA hangi makinede/hangi TZ ortam değişkeniyle çalışılırsa
+// çalışılsın AYNI mutlak UTC anını üretir (yerel Europe/Istanbul VE
+// `TZ=UTC` zorlanmış ortamda `astro build` ile çapraz doğrulandı).
+// Zaten bir "Z"/ofset damgası TAŞIYAN string'lere (Keystatic panelinin
+// kendi `fields.datetime`'ının SAVE'de her zaman yazdığı biçim)
+// DOKUNULMUYOR.
+//
+// **BİLİNÇLİ OLARAK KAPSAM DIŞI (Açık nokta #42/#43, ayrı bir turda ele
+// alınacak):** 622 yazının **60'ında (%9.6)** `date` ile `date_gmt`
+// HAM VERİDE BİREBİR AYNI (ör. `calisan-performans-iyilestirme-plani-
+// nasil-hazirlanir`, `date_gmt` hiç 3 saat çıkarılmamış) — bu 60 yazı
+// için ham veri GERÇEKTEN Türkiye yerel saati mi yoksa zaten UTC mi
+// belirsiz (WP kaynağının kendi tutarsızlığı, muhtemelen API/programatik
+// oluşturma sırasında `date_gmt` hiç hesaplanmadan `date`'in birebir
+// kopyalanması). Bu normalize adımı BU 60 YAZIYA DA aynı +03:00'ü
+// uyguluyor — bu 60 için YANLIŞ olabilir ama şema seviyesinde hangi
+// kaydın "anomali" olduğunu ayırt etmenin bir yolu yok (yalnızca tek bir
+// naive string görüyor, `date_gmt`'e erişimi yok). Aynı sebeple
+// products/sectors/pricing/hardware/misc-pages'in KENDİ "Son Güncelleme"
+// sistemleri (`new Date(raw)`, `productContent.ts` vb.) de BİLİNÇLİ
+// OLARAK bu turda DOKUNULMADI — Keystatic bunlara hiç dokunmuyor (aktif
+// bozulma riski yok) ve `_gmt` karşılığı extraction script'lerinde hiç
+// saklanmadığı için +03:00'ün doğru olup olmadığı KANITLANAMIYOR (en
+// yakın kıyaslanabilir kaynak `pages.json`'da `date`=`date_gmt` HER ZAMAN
+// aynı — bu grubun muhtemelen zaten UTC-eşdeğeri olduğuna işaret ediyor).
+const TURKEY_OFFSET = '+03:00';
+const HAS_TZ_DESIGNATOR_RE = /[Zz]$|[+-]\d{2}:?\d{2}$/;
+function normalizeNaiveDateToTurkeyOffset(value: unknown): unknown {
+  if (typeof value !== 'string') return value;
+  return HAS_TZ_DESIGNATOR_RE.test(value) ? value : `${value}${TURKEY_OFFSET}`;
+}
+
 const blogSchema = z.object({
   slug: z.string(),
   title: z.string(),
@@ -45,7 +100,7 @@ const blogSchema = z.object({
   // (622 için TEK TEK dolduracak bir alan değil, kademeli/tek-tek takip
   // turlarında ihtiyaç oldukça eklenecek — bkz. `[slug].astro`).
   metaTitle: z.string().optional(),
-  date: z.coerce.date(),
+  date: z.preprocess(normalizeNaiveDateToTurkeyOffset, z.coerce.date()),
   // JSON-LD `BlogPosting.dateModified` için (2026-08-10, structured data
   // turu) — legacy yazılarda WP'nin gerçek `modified` alanından geliyor
   // (`extract-blog-posts.mjs`, bkz. §Proje kuralları "JSON-LD/dateModified
@@ -53,7 +108,7 @@ const blogSchema = z.object({
   // düzenleme-tarihi takibi YOK) bu alan hiç yok — `.optional()`,
   // `[slug].astro` yoksa `date`'e (yayın tarihi) düşüyor ("hiç
   // düzenlenmemişse mantıklı bir varsayım", kullanıcı kararı 2026-08-10).
-  modifiedDate: z.coerce.date().optional(),
+  modifiedDate: z.preprocess(normalizeNaiveDateToTurkeyOffset, z.coerce.date()).optional(),
   // WP'nin otomatik excerpt'i (başlığı tekrar eden, `[&hellip;]` ile
   // kesilen) kullanılmıyor — extraction script'i temizlenmiş gövdenin
   // ilk paragrafından kendi excerpt'ini üretiyor (bkz. `buildExcerpt()`).

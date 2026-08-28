@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 // Düzen idenfit.com'un canlı tekil yazı sayfası incelenerek güncellendi
 // (2026-07-24, bkz. CLAUDE.md "Blog tasarımı"): sağda sabit genişlikte bir
 // sidebar (Popüler İçerikler + Yaklaşan Etkinlikler) var, "Benzer Yazılar"
@@ -146,7 +147,7 @@ const jsonLd = {
         </header>
 
         {
-          featuredImage && (
+          featuredImage?.url && (
             <img
               src={featuredImage.url}
               alt={featuredImage.alt}
@@ -176,7 +177,7 @@ const jsonLd = {
                 class="reveal group"
                 style={`transition-delay: ${Math.min(i, 6) * 60}ms`}
               >
-                {related.data.featuredImage && (
+                {related.data.featuredImage?.url && (
                   <span class="block aspect-[4/3] w-full overflow-hidden rounded-md">
                     <img
                       src={related.data.featuredImage.url}

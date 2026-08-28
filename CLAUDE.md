@@ -3,8 +3,11 @@
 idenfit.com (İK/HR SaaS) WordPress'ten Astro'ya migrasyon. Astro + React
 island mimarisi, i18n (tr/en/nl/it + **az** — ana sayfa/tekil sayfalar/
 sektörler/ürünler/hub'lar dahil büyük ölçüde tamamlandı, SSS/hukuki aile
-TR'ye fallback ediyor, bkz. §Açık noktalar #37), Tailwind v4, `output:'static'` →
-Cloudflare Pages. Genel durum: ana sayfa, mega-menü, tüm ürün/modül
+TR'ye fallback ediyor, bkz. §Açık noktalar #37), Tailwind v4. **2026-08-27'de
+`output:'static'` → `output:'server'` + `@astrojs/cloudflare` adapter'a
+geçildi** (Keystatic CMS geçişinin ADIM 1'i, bkz. aşağıdaki "KEYSTATIC
+GEÇİŞİ" bölümü) — Cloudflare Pages yerine artık Cloudflare Workers+Assets
+deploy modeli hedefleniyor. Genel durum: ana sayfa, mega-menü, tüm ürün/modül
 sayfaları (18 modül + Puantaj + 2 hub + Demirbaş/Seyahat), 12 sektör
 sayfası, 622 blog yazısı (618 JSON + 4 Markdown pilot), Müşteriler,
 Destek Talebi, Hesaplama Araçları, Dijital İK Olgunluk Testi, Fiyatlar,
@@ -15,8 +18,10 @@ tamamlandı (2026-08-11, f21f863). Ana sayfa interaktif Ürün Önizleme
 widget'ı (11/11 sekme + üst header'ın 9/9 ikon paneli) tamamlanıp commit
 edildi, sonrasında birden fazla iyileştirme turu (renk/boyut/dashboard
 içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Şu anki
-odak: Blog CMS (Decap) kademeli üretimi + SEO/erişilebilirlik/GEO takip
-turları (bkz. §Açık noktalar #28).
+odak: **Blog CMS'i Decap'ten Keystatic'e geçirme (2026-08-27'de başladı,
+devam ediyor — bkz. aşağıdaki "KEYSTATIC GEÇİŞİ" bölümü)**; bu tamamlanınca
+SEO/erişilebilirlik/GEO takip turlarına (bkz. §Açık noktalar #28) geri
+dönülecek.
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 `docs/claude-md-archive-2026-08-18.md` (2026-08-13→2026-08-19 tam
@@ -27,6 +32,172 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 `docs/claude-md-archive-2026-08-06.md` (2026-07-21→2026-08-06),
 `docs/claude-md-archive-2026-07-31.md`, `docs/claude-md-archive-2026-07-28.md`,
 `docs/claude-md-archive-2026-07-23.md`.
+
+---
+
+## 🔶 KEYSTATIC GEÇİŞİ — devam ediyor, karar bekleniyor (2026-08-27'de başladı)
+
+Blog CMS aracı Decap CMS'ten Keystatic'e geçiriliyor. Projenin temel render
+mimarisini (`astro.config.mjs`) etkileyen bir değişiklik olduğu için ADIM
+ADIM, her adım sonrası doğrulama + kullanıcı onayıyla ilerleniyor —
+927+ sayfalık SEO/GEO emeğinin KORUNMASI öncelik. **Güvenlik ağı:**
+`keystatic-oncesi-yedek` dalı hem `origin` hem `idenfit` remote'unda,
+`ef3666b` commit'inde duruyor — bu turdaki HERHANGİ bir değişiklikten geri
+dönüş her zaman mümkün.
+
+**ADIM 0 (referans nokta) — ✅ TAMAMLANDI.** Değişiklik öncesi `astro
+build` çıktısı referans alındı: `dist/` toplam **3114 HTML dosyası** (3113
+gerçek içerik sayfası + 1 `admin/index.html` Decap kabuğu). 8
+`check-*.mjs` regresyon script'i çalıştırılıp sonuçlar kayıt altına
+alındı — hepsi bilinen/kabul edilmiş taban çizgisiyle uyumluydu (heading
+6 sorunlu [5'i bilinen ana sayfa H1→H3 + 1 admin], hreflang 0 [site alanı
+boş, beklenen], html-lang 0 sorunlu gerçek sayfa, image-alt 0, json-ld
+2630 blok/0 geçersiz, link-accessibility 0, meta-description 1 sorunlu
+[admin], title-length 1 sorunlu [admin]).
+
+**ADIM 1 (output modu değişikliği) — ✅ TAMAMLANDI.**
+- `astro.config.mjs`: `output:'server'` + `@astrojs/cloudflare` adapter
+  eklendi (Astro 5+'ta `hybrid` kaldırıldığı doğrulandı, modern eşdeğeri
+  budur). **201/201 mevcut sayfa dosyasına** `export const prerender =
+  true;` script ile eklendi (config seviyesinde toplu seçenek yok, tek
+  tek eklenmesi şart) — hiçbiri yanlışlıkla server-render'a kaymadı.
+- `npm install` → `npm ci` temiz kurulum doğrulandı, `astro build` exit 0.
+- **Referans sayı karşılaştırması, kullanıcı onayıyla kriter güncellendi:**
+  3114 → **3091** HTML dosyası (23 azaldı). Fark TAM açıklanıyor, regresyon
+  DEĞİL: Cloudflare adapter, `astro.config.mjs`'teki 23 manuel `redirects`
+  girdisini artık statik meta-refresh HTML yerine native Cloudflare
+  `_redirects` dosyasında GERÇEK 301 kuralı olarak yazıyor (`wrangler dev`
+  ile `/suprema`→301→`/donanim` doğrulandı) — SEO açısından ÖNCEKİNDEN
+  DAHA İYİ bir mekanizma. Otomatik i18n fallback stub'ları (2163 sayfa)
+  hiç değişmeden statik kaldı. **928 gerçek içerik sayfası birebir
+  korundu.**
+- 8 regresyon script'i `DIST_DIR=dist/client` ile (script dosyalarına
+  DOKUNULMADAN, zaten var olan env değişkeniyle) yeniden çalıştırıldı —
+  ADIM 0 taban çizgisiyle birebir aynı, sıfır yeni regresyon.
+- **Açık nokta olarak kaydedildi (bkz. §Açık noktalar #40) — düşük
+  öncelik, ayrı bir turda ele alınacak:** var olmayan `/en/`, `/nl/`,
+  `/it/`, `/az/` URL'lerinde HTTP status kodu her zaman doğru 404
+  dönüyor (SEO sinyali sağlam) ama içerik artık HER ZAMAN TR gösteriliyor
+  (kök neden: Astro'nun i18n `fallback` mekanizması `output:'server'`'da
+  bilinmeyen yollar için de dinamik yönlendirme davranışına sahip oldu,
+  2 çözüm denendi ikisi de bu önceliğe yenildi — detay CLAUDE.md #40'ta).
+  **927+ gerçek sayfa ETKİLENMİYOR.**
+
+**ADIM 2 (Keystatic kurulumu) — 🔶 YARIDA, KARAR BEKLİYOR.**
+- `@keystatic/core` + `@keystatic/astro` kuruldu, `astro.config.mjs`'e
+  `keystatic()` integration'ı eklendi.
+- **BÜYÜK BULGU — Keystatic'in `storage:{kind:'local'}` modu Cloudflare
+  Workers runtime'ıyla (workerd) MİMARİ OLARAK UYUMSUZ.** `local` mod
+  git çalışma dizinine doğrudan `fs` (dosya sistemi) erişimi gerektiriyor
+  — Workers (hem `astro dev` hem `wrangler dev`'de, hatta prod'da) bunu
+  sağlamıyor. Kanıt: `wrangler dev` üzerinde gerçek build'i test ederken
+  Keystatic'in kendi API'si açıkça şu hatayı döndürdü: *"The Keystatic
+  API route is running in a non-Node.js environment which is not
+  supported with `storage: { kind: 'local' }`"*. (`astro dev`'de ayrıca
+  farklı bir "exports is not defined" Vite SSR/CJS-bundling çökmesi de
+  vardı — muhtemelen aynı kök nedenin farklı bir belirtisi, `nodejs_compat`
+  ve `vite.ssr.external` denendi, ikisi de çözmedi.) Bu, config'le
+  düzeltilemeyecek bir mimari sınır.
+- **İki gerçek seçenek belirlendi, kullanıcı ekibiyle görüşüp KARAR
+  VERDİ (2026-08-28): (A) Keystatic Cloud.** Seçenekler:
+  - **(A) `storage:{kind:'cloud'}` + `cloud:{project:'takım/proje'}`**
+    — Keystatic Cloud'un ücretsiz katmanı (takım başına 3 kullanıcıya
+    kadar, sınırsız takım/proje). Keystatic'in kendi ifadesiyle: *"No
+    need to deal with environment variables and a custom GitHub app."*
+    Manuel GitHub OAuth App kurulumu GEREKMİYOR — ama üçüncü taraf bir
+    kimlik doğrulama/aracı bağımlılığı yaratıyor (İÇERİK'in kendisi HİÇBİR
+    ZAMAN Keystatic'in sunucularında durmuyor, yalnızca giriş/token
+    değişimi oradan geçiyor — asıl veri her zaman GitHub'da kalıyor).
+    Cloudflare Workers runtime'ıyla uyumlu olması BEKLENİYOR (saf
+    HTTP/API çağrıları, `local` modun fs sorunu burada yok) — henüz
+    CANLI test edilmedi.
+  - **(B) `storage:{kind:'github'}`** — kendi GitHub OAuth App'imiz,
+    sıfır üçüncü taraf bağımlılığı, ama Decap'te kaçınılmaya çalışılan
+    AYNI yükü taşıyor (client ID/secret env değişkenleri, kendi
+    token-exchange backend route'u) — Cloudflare adapter zaten kurulu
+    olduğu için bu backend route'u barındırmak artık daha az ek iş
+    (ADIM 1 sayesinde zaten SSR var), ama yine de manuel kurulum şart.
+  - İlk yanlış öneri (düz "GitHub moduna geç") kullanıcı tarafından
+    doğru şekilde sorgulandı — 2 modun (`github` vs `cloud`) OAuth App
+    gereksinimi bakımından TAMAMEN FARKLI olduğu netleştirildi, kesin
+    cevap kurulu paketin TypeScript tip tanımları (`config.d.ts`) +
+    Keystatic'in resmi `/docs/cloud` sayfası okunarak doğrulandı.
+  - **KARAR NETLİĞİ (kullanıcı notu, 2026-08-28):** (A) Cloud, KALICI bir
+    mimari karar DEĞİL — geçici bir tercih. Canlıya çıkış sonrası, iş
+    yükü azaldığında (B)'ye (kendi GitHub OAuth App'imiz) geçiş
+    PLANLANIYOR. Bu geçiş düşük risklidir — yalnızca `keystatic.config.ts`'in
+    `storage`/`cloud` satırlarını ve yeni bir OAuth App kurulumunu
+    etkiler, sitenin geri kalanına (şema, sayfalar, veri) dokunmaz.
+- **Uygulandı (2026-08-28):** `keystatic.config.ts`'e `storage:{kind:'cloud'}`
+  + `cloud:{project:'idenfit/idenfit-astro'}` yazıldı — **proje adı
+  PLACEHOLDER**, kullanıcı keystatic.cloud'da gerçek hesap/proje
+  oluşturunca gerçek `takım-slug/proje-slug` ile değiştirilecek. Şu anki
+  kod durumu (commit EDİLMEDİ): `.keystatic-scratch-test/` hâlâ geçici
+  test koleksiyonu taşıyor (gerçek blog şeması bir sonraki adımda proje
+  adı netleşince yazılacak). `wrangler.json` (`compatibility_flags:
+  ["nodejs_compat"]`) + `astro.config.mjs`'teki `keystatic()` integration'ı
+  + `package.json`'daki `@keystatic/core`/`@keystatic/astro` bağımlılığı
+  ADIM 2'nin önceki turundan aynen duruyor.
+
+**ADIM 2 devamı — ✅ TAMAMLANDI (2026-08-28).**
+1. **keystatic.cloud proje kurulumu doğrulandı.** `keystatic.config.ts`'teki
+   `cloud:{project:'idenfit/idenfit-astro'}` kullanıcının GERÇEK
+   kurulumuyla birebir eşleşti (placeholder değil). `localhost:4321/keystatic`
+   → otomatik `127.0.0.1` loopback'e yönlenip "Log in with Keystatic
+   Cloud" ile sorunsuz giriş yapıldı — **dashboard'daki "Primary URL"
+   alanı yalnızca kozmetik/bilgi amaçlı**, OAuth `redirect_uri`'si
+   `window.location.origin`'e (o anki origin, ne olursa olsun) dayanıyor
+   — kanıt: `@keystatic/core`'un kendi `keystatic-core-ui.js` kaynağı,
+   `redirect_uri: \`${window.location.origin}/keystatic/cloud/oauth/callback\``.
+2. **Gerçek blog şeması yazıldı**, `scratchTest` koleksiyonu kaldırıldı.
+   Şema, eski Decap config.yml'nin (`public/admin/config.yml`) alan
+   seçimini birebir taşıyor + `content.config.ts`'in zod şemasındaki
+   TÜM alanları kapsıyor (`slug`/`title`/`metaTitle`/`date`/
+   `modifiedDate`/`excerpt`/`featuredImage`{url,alt,width,height}/
+   `categories`/`tags`/`authorName`/`content`). **Not: ayrı bir
+   "description" alanı YOK** — `excerpt` hem blog listesinde hem
+   `<meta name="description">`/`og:description`'da kullanılıyor
+   (`[slug].astro:90,115`), bu tasarım gereği tek alan.
+3. **Cloud modda canlı git commit testi yapıldı ve onaylandı.**
+   `idenfit-yatirim-duyurusu.md`'nin Özet alanına test metni eklenip
+   Save'e basıldı → gerçek commit `66fea5e` (`keystatic-cloud[bot]`,
+   `idenfit/idenfit.com` reposu — yerel `master` dalının zaten takip
+   ettiği repo) doğru dosyayı değiştirdi. **3 istenmeyen yan etki
+   bulundu** (yalnızca excerpt'e dokunulmuştu): (a) gövdede 2 çift
+   boşluk sessizce `&nbsp;`'ye döndü, (b) `date` `'2024-10-02T09:30:00'`
+   (tırnaklı/naive) → `2024-10-02T09:30:00.000Z` (UTC "Z" damgalı,
+   3 saatlik anlamsal kayma riski, bugün görünür etkisi yok çünkü saat
+   gösterilmiyor), (c) YAML biçimi değişti (uzun string'ler `>-` katlanmış
+   bloğa döndü, frontmatter sonrası boş satır kayboldu) — **kalıcı ders:
+   Keystatic'in markdoc editörü SAVE'de dokunulmayan alanları bile
+   yeniden serileştiriyor.** `date`/`datetime` alanı ayrıca saniye
+   içeren mevcut değerlerde (`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$` regex'i,
+   saniye YOK) "is not a valid datetime" hatası verip Save'i
+   engelliyordu — saat alanına dokunup (değer aynı kalacak şekilde)
+   onChange tetiklenerek aşıldı. Test commit'i `git revert 66fea5e`
+   ile (Keystatic panelinden TEKRAR düzenleme DEĞİL — o da aynı
+   yeniden-biçimlendirmeyi tekrar tetiklerdi) byte-byte orijinale
+   döndürülüp `idenfit` remote'una push edildi (`74e3fca`). **Not:**
+   `origin` (Sude-product/site-migration-astro) bu commit çiftini
+   almadı, iki remote arasında senkron açık nokta olarak kaldı — bkz.
+   Açık nokta #41.
+4. **`featuredImage: null` riski bulunup DÜZELTİLDİ.** Görseli olmayan
+   tek yazı (`zirve-katilim-ix-kurumsal-egitim-ve-gelisim-zirvesi.md`)
+   panelde hatasız açıldı ama Keystatic'in `fields.object()`'i asla
+   `null` YAZAMIYOR — SAVE edilirse boş-string'li ama TRUTHY bir objeye
+   dönüşüp `<img src="">` kırık etiketi render edebilirdi.
+   `fields.conditional` izole bir scratch-test'te denendi
+   (`.keystatic-scratch-image-test/`, sonra temizlendi) — YAML'a düz
+   `null` DEĞİL `{discriminant, value}` sarmalayıcısı yazdığı görüldü,
+   mevcut zod şemasıyla uyuşmuyor. Bunun yerine **render tarafı
+   sağlamlaştırıldı**: `src/pages/blog/[slug].astro`'daki 2 truthy
+   kontrolü (hero görseli + "Benzer Yazılar" kartları)
+   `featuredImage &&` → `featuredImage?.url &&`'e çevrildi — hem `null`
+   hem boş-string'li obje için doğru çalışıyor, commit EDİLMEDİ (diğer
+   Keystatic değişiklikleriyle birlikte bekliyor).
+
+**ADIM 3 (son doğrulama) — henüz başlanmadı**, ADIM 2 tamamlandı, sıradaki
+adım kullanıcının bu turu gözden geçirip commit onayı vermesi.
 
 ---
 
@@ -1248,6 +1419,127 @@ hâlâ geçerli.)*
     (`http://localhost:4321`, pid 20612, `npm run dev`).
     **Yarın planı:** 5/6 kapandı, sırada 1/2/3/4 (heading düzeltmesi,
     QR bölümü, H2 rename, FAQ) kod uygulaması var.
+40. **YENİ (2026-08-27, Keystatic geçişi ADIM 1) — Locale'e özel 404 sayfası
+    İÇERİĞİ (en/nl/it/az) `output:'server'`'a geçişten SONRA çalışmıyor,
+    kullanıcı onayıyla ERTELENDİ.** `astro.config.mjs` `output:'static'`
+    (adapter yok) → `output:'server'` + `@astrojs/cloudflare` adapter'a
+    geçti (Keystatic'in kendi dokümantasyonu: admin panelinin dosya-sistemi
+    işlemleri Node.js API'lerine ihtiyaç duyduğu için adapter ZORUNLU;
+    Astro 5+'ta eski `output:'hybrid'` KALDIRILDI, modern eşdeğeri
+    `output:'server'` + her sayfada ayrı `export const prerender = true`
+    — mevcut 201 sayfa dosyasının TAMAMINA bu export script ile eklendi).
+    **Bulgu:** 2026-08-11'de kurulan locale-özel 404 mekanizması
+    (`public/_redirects`'in `/en/* /en/not-found/ 404` gibi 4 satırı,
+    Cloudflare Pages'in ESKİ statik-hosting `_redirects` "404" status
+    konvansiyonuna dayanıyordu) yeni Workers+Assets deploy modelinde
+    geçersiz status kodu hatası verip sessizce devre dışı kaldı — TÜM
+    locale'lerde jenerik TR 404 içeriğine düşülüyordu (`wrangler dev` ile
+    yerel testte yakalandı, `astro build`'in kendi check-*.mjs script'leri
+    bunu YAKALAMAZ — dinamik/runtime davranış, statik dist/ dosyası
+    taraması değil). **2 alternatif denendi, ikisi de ÇALIŞMADI:**
+    (a) Cloudflare'in statik-varlık seviyesi "en yakın 404.html" araması
+    (`assets.not_found_handling`) — `output:'server'`'da eşleşmeyen
+    route'lar statik varlık katmanına hiç uğramıyor, Astro/Cloudflare
+    adapter'ının `entry.mjs`'i doğrudan kendi dahili TEK/global
+    prerendered-hata-sayfası fetch'ine (`prerenderedErrorPageFetch`, her
+    zaman kökteki `404.astro`'yu/TR'yi bulur) düşüyor. (b) her locale'de
+    gerçek bir `src/pages/<locale>/[...path].astro` (`prerender=false`)
+    catch-all route'u — Astro'nun i18n `fallback` mekanizması
+    (`fallback:{en:'tr',...}`) `output:'server'`'da BİLİNMEYEN/rastgele
+    yollar için de ARTIK dinamik bir "üst locale'e yönlendir" davranışına
+    sahip ve bu, kendi catch-all route'umuzdan DAHA YÜKSEK önceliğe sahip
+    — `/en/rastgele/` gibi bir istek `/rastgele/`'ye (bare TR) 302 ile
+    düşüp oradan TR'nin kendi 404'üne varıyor, catch-all'a hiç ulaşmıyor.
+    **Etki (kullanıcı onayıyla değerlendirildi, düşük öncelik):** HTTP
+    status kodu HER ZAMAN doğru 404 (SEO'yu etkileyen asıl sinyal sağlam),
+    yalnızca içerik dili şu an TÜM locale'lerde TR'ye düşüyor — **927+
+    gerçek sayfa ETKİLENMİYOR**, yalnızca var olmayan URL'lerin 404
+    içeriği (düşük trafikli, yalnızca kırık link/typo senaryosu).
+    **Uygulama durumu:** eski 4 satır + denenen catch-all dosyaları
+    (`src/pages/{en,nl,it,az}/[...path].astro`) GERİ ALINDI, kod
+    tabanında iz bırakmıyor. `public/_redirects`'in başına bu bulgunun
+    tam teknik dökümü yorum olarak yazıldı (dosyanın gerçek redirect
+    kuralları — 23 manuel `astro.config.mjs` girdisi, build sırasında
+    adapter tarafından otomatik ekleniyor — etkilenmedi, doğrulandı).
+    **Kalıcı çözüm için muhtemel yön (ayrı bir turda):** Astro'nun i18n
+    `fallback`'ini bu spesifik/bilinmeyen-yol senaryosu için bypass eden
+    özel bir middleware, veya `fallback` haritasından geçici çıkarma.
+    **Ayrıca aynı turda doğrulanan, regresyon OLMAYAN bir davranış
+    değişikliği:** `dist/` artık `dist/client/`+`dist/server/` alt
+    klasörlerine ayrıldı (Cloudflare adapter çıktısı) — 8 `check-*.mjs`
+    script'i zaten sahip olduğu `DIST_DIR` env değişkeniyle (script
+    dosyalarına DOKUNULMADAN) `dist/client`'a yönlendirildi. Toplam HTML
+    sayısı 3114→3091 (23 azaldı) — 23 manuel `redirects` girdisi artık
+    statik meta-refresh stub DEĞİL, native Cloudflare `_redirects`
+    dosyasında gerçek 301 kuralı (adapter'ın kendi davranışı, SEO açısından
+    DAHA İYİ) — 928 gerçek içerik sayfası + 2163 i18n-fallback stub'ı
+    BİREBİR korundu, 8 script de ADIM 0 taban çizgisiyle birebir aynı
+    sonucu verdi (sıfır yeni regresyon).
+41. **YENİ (2026-08-28, Keystatic ADIM 2 test turu) — `origin`
+    (Sude-product/site-migration-astro) ve `idenfit` (idenfit/idenfit.com)
+    remote'ları artık senkron DEĞİL, düşük öncelik.** Keystatic Cloud'un
+    canlı commit testi + revert'i (2 commit: `66fea5e`+`74e3fca`) yalnızca
+    `idenfit` remote'una gitti (yerel `master` dalının zaten takip ettiği
+    repo) — `origin` bu 2 commit'i almadı. Net içerik farkı YOK (test
+    edit zaten revert edildi) ama commit GEÇMİŞİ artık iki remote arasında
+    farklı. Kalıcı çözüm: Keystatic Cloud projesinin hangi tek repoyu
+    kaynak alacağı netleşince (muhtemelen `idenfit`), `origin`'in bu
+    repo'ya senkronize edilip edilmeyeceğine karar verilmeli.
+
+42. **YENİ (2026-08-28) — Blog `date`/`modifiedDate` saat dilimi düzeltmesi
+    (`src/content.config.ts`) uygulandı, ama 622 yazının 60'ında (%9.6)
+    HALA yanlış değer üretiyor, ayrı bir karar gerektiriyor.** Kullanıcının
+    doğruladığı Cloudflare bilgisi ("Pages/Workers build ortamı HER ZAMAN
+    UTC") üzerine, naive tarih string'lerinin (`'2024-10-02T09:30:00'`
+    gibi, saat dilimsiz) yerel makine (Türkiye, UTC+3) ile Cloudflare
+    build ortamı (UTC) arasında SESSİZ 3 saatlik kaymaya yol açtığı
+    kesinleşti (bkz. yukarıdaki KALICI GOTCHA maddesi). Çözüm:
+    `content.config.ts`'e `normalizeNaiveDateToTurkeyOffset()` +
+    `z.preprocess()` eklendi — Z/ofset damgası TAŞIMAYAN her `date`/
+    `modifiedDate` string'ine açıkça `+03:00` ekleniyor, bu da
+    `new Date()` yorumunu ÇALIŞTIĞI MAKİNEDEN TAMAMEN BAĞIMSIZ hale
+    getiriyor (ECMAScript spesifikasyonu gereği). **Çift ortam testiyle
+    doğrulandı:** yerel Europe/Istanbul build VE `TZ=UTC` zorlanmış build
+    aynı yazı için BİREBİR AYNI `datePublished` ürettü
+    (`idenfit-yatirim-duyurusu`: ikisinde de `2024-10-02T06:30:00.000Z`,
+    WP'nin gerçek `date_gmt`'iyle birebir eşleşiyor — TAM DOĞRU).
+    **AMA:** 622 yazının **60'ında** (WP'nin ham `posts.json`'ında
+    `date`=`date_gmt`, ör. `calisan-performans-iyilestirme-plani-nasil-
+    hazirlanir`) bu +03:00 varsayımı YANLIŞ — bu yazılar için ham veri
+    zaten UTC-eşdeğeri olabilir, +03:00 eklemek YENİ bir 3 saatlik hataya
+    yol açıyor (test edildi: `calisan-performans-...` için üretilen
+    değer `12:18:47Z`, WP'nin gerçek `date_gmt`'i `15:18:47` — 3 saat
+    erken). **Bilinçli olarak DÜZELTİLMEDİ** — şema seviyesinde hangi
+    kaydın bu 60 anomaliden biri olduğunu ayırt etmenin bir yolu yok
+    (yalnızca tek bir naive string görülüyor, `date_gmt`'e erişim yok).
+    **Kazanç:** önceden bu 60 yazının değeri HANGİ MAKİNEDE build
+    edildiğine göre RASTGELE yanlıştı (deterministik bile değildi);
+    şimdi en azından HER ZAMAN aynı (tutarlı) yanlış değeri üretiyor.
+    **Kalıcı çözüm için öneri (ayrı bir tur):** `extract-blog-posts.mjs`
+    60 anomali slug'ı için WP'nin `date_gmt`/`modified_gmt` alanını
+    doğrudan (ofset eklemeden, zaten UTC) kullanacak şekilde
+    güncellenmeli — hangi alanın (`date` mi `date_gmt` mi) o 60 kayıt
+    için "doğru" kabul edileceğine kullanıcıyla karar verilmesi
+    gerekiyor.
+43. **YENİ (2026-08-28) — Ürün/sektör/fiyat/donanım/hukuki sayfaların
+    "Son Güncelleme" (`dateModified`) sistemi AYNI naive-tarih riskini
+    taşıyor ama bu turun KAPSAMI DIŞINDA bırakıldı, kanıtlanamıyor.**
+    `productContent.ts`/`sectorContent.ts`/`hardwareContent.ts`/
+    `pricingContent.ts`/`miscPagesContent.ts`'in hepsi AYNI
+    `new Date(rawNaiveString)` desenini kullanıyor (~161 sayfa,
+    2026-08-19 turunda eklenen `dateModified` JSON-LD'si). **Ama** bu
+    dosyaların kaynağı olan `products.json`/`sectors.json`/`pricing.json`/
+    `hardware.json`/`misc-pages.json`'ın extraction script'leri
+    `_gmt` karşılığını HİÇ saklamamış — yalnızca naive `modified` var,
+    karşılaştıracak bir referans yok. En yakın kıyaslanabilir ham kaynak
+    (`pages.json`, 170 sayfanın TAMAMINDA `date`=`date_gmt`) bu grubun
+    MUHTEMELEN zaten UTC-eşdeğeri olduğuna işaret ediyor — yani #42'deki
+    +03:00 düzeltmesini buraya da uygulamak muhtemelen YANLIŞ olurdu.
+    **Bilinçli olarak dokunulmadı:** Keystatic bu sistemlere hiç
+    dokunmuyor (aktif bir bozulma kaynağı yok, yalnızca teorik/ölçülemeyen
+    bir risk), doğru düzeltmenin ne olduğu kanıtlanamıyor. Ayrı bir
+    araştırma turu gerektiriyor (muhtemelen kaynak WP'nin ilgili custom
+    post type'ları için `_gmt` alanının yeniden çekilmesi).
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -1803,6 +2095,64 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   `.md` yazıları için editörün frontmatter'a elle bir `modifiedDate:`
   alanı eklemesi/güncellemesi gerekir (şema destekliyor, Decap
   arayüzünde henüz widget yok). Doğrulama: `node scripts/check-json-ld.mjs`.
+- **KALICI GOTCHA (2026-08-28) — Keystatic'in markdoc editörü SAVE anında
+  DOKUNULMAYAN alanları bile yeniden yazıyor, bu SÜRPRİZ OLMAMALI.**
+  Gerçek bir canlı test turunda (`idenfit-yatirim-duyurusu.md`'nin yalnızca
+  `excerpt`'ine bir kelime eklenip Save'e basıldı) commit diff'i (`66fea5e`,
+  git seviyesinde `74e3fca` ile revert edildi) 3 istenmeyen yan etki
+  gösterdi:
+  1. **Gövdede `&nbsp;` sızıntısı** — Markdown'daki 2 çift-boşluk sessizce
+     `&nbsp;`'ye dönüştü (editör hiç dokunulmayan paragrafları da
+     yeniden serileştiriyor).
+  2. **`date`/`modifiedDate` saat dilimi damgası değişti** —
+     `'2024-10-02T09:30:00'` (tırnaklı, saat dilimsiz/"naive") →
+     `2024-10-02T09:30:00.000Z` (tırnaksız, UTC "Z" damgalı).
+  3. **YAML biçimi değişti** (uzun string'ler `>-` katlanmış bloğa
+     döndü, frontmatter kapanışından sonraki boş satır kayboldu) —
+     `astro build`'i bozmuyor ama git diff'lerini kirletiyor.
+
+  **#2'nin GERÇEK boyutu, Keystatic'in ötesinde site-geneli bir risk:**
+  Node'un `new Date(string)`'i saat dilimsiz ("naive") bir string'i
+  ÇALIŞTIĞI MAKİNENİN sistem saat dilimine göre yorumluyor — ampirik
+  olarak doğrulandı (`node -e "new Date('2024-10-02T09:30:00').toISOString()"`
+  bu makinede/Europe-Istanbul'da `2024-10-02T06:30:00.000Z` veriyor,
+  UTC "Z" damgalı hali ise DOĞRUDAN `2024-10-02T09:30:00.000Z` — **tam 3
+  saatlik fark**, `[slug].astro`'nun `date.toISOString()` çağırdığı HER
+  yerde (JSON-LD `datePublished`/`dateModified`, OG `article:published_time`/
+  `modified_time`, görünür `<time datetime>`) aynen yansıyor). Bu, yalnızca
+  Keystatic'in bir yan etkisi DEĞİL — **`posts.json`'daki 618 legacy yazının
+  TAMAMI hâlâ naive tarih formatı kullanıyor** (bkz. örnek: `date:
+  '2026-07-03T15:18:47'`), yani bu yazıların SEO/GEO'ya giden gerçek UTC
+  tarihleri, `astro build`'in ÇALIŞTIĞI ortamın sistem saat dilimine göre
+  DEĞİŞKEN — yerel geliştirme makinesi (Türkiye, UTC+3) ile gerçek
+  deploy/CI ortamı (Cloudflare Pages/Workers build container'ları
+  TİPİK OLARAK UTC) FARKLI sonuç üretebilir. **Doğrulanmadı, kontrol
+  edilmeli:** gerçek Cloudflare Pages build ortamının sistem saat dilimi
+  — eğer UTC ise, 622 yazının TAMAMININ canlıdaki JSON-LD `datePublished`'i
+  şu an bu makinedeki önizlemeden 3 saat farklı olabilir (İÇERİK
+  değişmiyor, yalnızca makine-okunur tarih damgası — düşük ama gerçek bir
+  SEO/GEO doğruluk riski). **Kalıcı çözüm için öneri (ayrı bir tur):**
+  yeni/düzenlenen yazılarda tarih her zaman açık UTC ("Z" damgalı) veya
+  açık ofsetli (`+03:00`) yazılmalı, naive format hiç kullanılmamalı.
+  **`check-json-ld.mjs` bu sınıfı YAKALAMAZ** — yalnızca ISO 8601 SÖZ
+  DİZİMİNİ doğruluyor (`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|
+  [+-]\d{2}:\d{2})$`), hem naive-yorumlanmış hem UTC-yorumlanmış değer
+  `.toISOString()`'tan geçtikten SONRA HER ZAMAN "Z" damgalı çıkıyor —
+  yani script FORMAT açısından ikisini de geçerli görür, DEĞER kaymasını
+  (saat dilimi belirsizliğinden kaynaklanan) hiç fark edemez — bu KÖR
+  NOKTA elle test edilip doğrulandı (bozuk hâli geçici olarak `astro
+  build`'e sokup `check-json-ld.mjs` çalıştırıldı: **0 geçersiz blok**,
+  ne `&nbsp;` sızıntısı ne tarih kayması yakalandı).
+
+  **Sonuç — editörler panelden düzenleme yapmaya başladığında beklenmesi
+  gerekenler:** (a) SAVE sonrası git diff'i "beklenenden büyük" görünebilir
+  (yalnızca dokunulan alan değil, TÜM dosya yeniden biçimleniyor) — bu
+  BOZULMA değil, editörün normal davranışı; (b) çift boşluk kullanan eski
+  içerik `&nbsp;`'ye dönüşebilir — görsel etkisi yok (tarayıcı ikisini de
+  aynı gösterir) ama kaynak metin değişir; (c) naive tarihli eski
+  yazılar SAVE edilirse tarihleri UTC'ye kayabilir — yayın tarihini/saatini
+  KORUMAK için editör Save'den ÖNCE tarih/saat alanını gözden geçirip
+  gerekiyorsa elle düzeltmeli.
 - **Vite bağımlılık önbelleği bozulması — KALICI ÇÖZÜM:**
   `astro.config.mjs`'in `vite.optimizeDeps`'i iki katmanlı: `force: true`
   (her başlangıçta önbelleği sıfırdan kurar) + `include: ['react',

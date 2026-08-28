@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { unified } from '@astrojs/markdown-remark';
+import cloudflare from '@astrojs/cloudflare';
+import keystatic from '@keystatic/astro';
 
 // Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
 // `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
@@ -77,7 +79,28 @@ function rehypeNormalizeHeadingLevels() {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  // DÜZELTME (2026-08-27, Keystatic geçişi ADIM 1) — önceki `output:'static'`
+  // (adapter yok) yerine `output:'server'` + Cloudflare adapter. Keystatic'in
+  // kendi dokümantasyonu: admin panelinin dosya-sistemi işlemleri Node.js
+  // API'lerine ihtiyaç duyuyor, bu yüzden bir adapter ZORUNLU. Astro 5+'ta
+  // eski `output:'hybrid'` KALDIRILDI — modern eşdeğeri `output:'server'` +
+  // her sayfada AYRI AYRI `export const prerender = true` (config seviyesinde
+  // toplu bir "varsayılan statik" seçeneği YOK, Astro'nun kendi dokümantasyonu
+  // bunu teyit ediyor). Mevcut 201 sayfa dosyasının TAMAMINA bu export
+  // eklendi (bkz. git diff) — hiçbiri yanlışlıkla server-render'a KAYMADI.
+  //
+  // BİLİNÇLİ MİMARİ DEĞİŞİKLİK (kullanıcı onayıyla, 2026-08-27): aşağıdaki
+  // `redirects` bloğu ve i18n `fallback` mekanizmasının ürettiği ~2186
+  // redirect sayfası artık `output:'static'`'te olduğu gibi statik
+  // `<meta http-equiv="refresh">` HTML dosyası ÜRETMİYOR — Astro'nun kendi
+  // dokümantasyonu: bu davranış yalnızca `output:'static'`'e özgü, adapter'lı
+  // `server` modunda TÜM redirect'ler adapter'ın runtime'ında gerçek HTTP
+  // 301/308 olarak işleniyor. Bu bir regresyon DEĞİL (meta-refresh'ten daha
+  // güvenilir bir SEO mekanizması) ama `dist/` dosya sayısı bu yüzden
+  // yapısal olarak düşüyor — bkz. Keystatic geçiş günlüğü ADIM 1 raporu.
+  output: 'server',
+  adapter: cloudflare(),
+  integrations: [react(), keystatic()],
   markdown: {
     processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s, rehypeNormalizeHeadingLevels] }),
   },

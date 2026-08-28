@@ -16,8 +16,11 @@
     "cms:proxy": "decap-server"
   },
   "dependencies": {
+    "@astrojs/cloudflare": "^14.2.5",
     "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/react": "^6.0.4",
+    "@keystatic/astro": "^6.0.0",
+    "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.3.3",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
@@ -42,6 +45,7 @@
     "satteri": "0.10.5"
   },
   "allowScripts": {
-    "esbuild@0.28.1": true
+    "esbuild@0.28.1": true,
+    "workerd@1.20260826.1": true
   }
 }
