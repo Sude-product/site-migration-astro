@@ -2230,11 +2230,32 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   KORUMAK için editör Save'den ÖNCE tarih/saat alanını gözden geçirip
   gerekiyorsa elle düzeltmeli.
 - **Vite bağımlılık önbelleği bozulması — KALICI ÇÖZÜM:**
-  `astro.config.mjs`'in `vite.optimizeDeps`'i iki katmanlı: `force: true`
+  `astro.config.mjs`'in `vite.optimizeDeps`'i şu an ÜÇ katmanlı: `force: true`
   (her başlangıçta önbelleği sıfırdan kurar) + `include: ['react',
-  'react-dom', 'react-dom/client', 'lucide-react']`. **Elle
+  'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web',
+  'astro/virtual-modules/i18n.js', 'astro/logger/json']`. **Elle
   `node_modules/.vite` silme adımı artık hiçbir senaryoda GEREKMİYOR.**
-  Kalan sınıf için iki kalıcı disiplin kuralı şart:
+  **ÜÇÜNCÜ KATMAN (2026-08-29 eklendi) — canlı/runtime keşif kaynaklı YENİ
+  bir alt sınıf bulundu:** `astro/virtual-modules/i18n.js` ve
+  `astro/logger/json` (framework-içi sanal modüller, kullanıcı kodundan
+  statik `import` ile hiç erişilemiyor — yalnızca `getRelativeLocaleUrl()`
+  gibi runtime çağrılarıyla İLK GERÇEK sayfa isteğinde keşfediliyordu) `include`
+  listesinde YOKTU. Sonuç: ana sayfaya (veya i18n kullanan HERHANGİ bir
+  sayfaya) gelen İLK istek Vite'ın dev server ÇALIŞIRKEN "optimized
+  dependencies changed, reloading" tetiklemesine yol açıyor, bu da SSR modül
+  kaydını invalidate edip zaten yüklenmiş React-tüketen island'ların
+  (`MegaMenu`/`LanguageSwitcher`/`MobileMenu`/`ProductPreviewWidget`/
+  `CustomerStoryCarousel`/`YoutubeClickToPlay`) İKİ FARKLI React kopyası
+  arasında kalmasına, "Invalid hook call"/`Cannot read properties of null
+  (reading 'useState')` hatasıyla çökmesine yol açıyordu — **3 art arda
+  `npm run dev:clean` denemesinde bile KENDİLİĞİNDEN düzelmedi** (önceki
+  bilinen sınıfların aksine), kök nedeni `.astro/dev.log`'da ana sayfaya
+  TEK bir `curl` isteği atılıp reload zincirinin canlı yakalanmasıyla
+  bulundu. **Çözüm:** bu 2 modül de `include`'a eklendi, cold start'ta
+  önceden paketleniyor — canlı yeniden-optimizasyon artık hiç tetiklenmiyor
+  (temiz restart sonrası ana sayfa + 3 farklı sayfa `curl` ile ayrı ayrı
+  denenip loglarda sıfır yeni "[optimizer]"/"Invalid hook call" olduğu
+  doğrulandı). Kalan sınıf için iki kalıcı disiplin kuralı şart:
   1. `npm install`/`npm uninstall` çalıştırılmadan ÖNCE dev server
      durdurulmalı, sonrasında `npm run dev:clean` (durdur + `dist`/`.vite`
      temizle + arka planda yeniden başlat, TEK komut) ile yeniden

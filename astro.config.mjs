@@ -171,7 +171,20 @@ export default defineConfig({
     // edilmeli, config'e dördüncü bir katman eklemeden önce.
     optimizeDeps: {
       force: true,
-      include: ['react', 'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web'],
+      // `astro/virtual-modules/i18n.js`/`astro/logger/json` (2026-08-29
+      // eklendi): Vite'ın başlangıç taraması bunları KAÇIRIYOR (framework-
+      // içi sanal modüller, kullanıcı kodundan statik `import` ile
+      // ERİŞİLEMİYOR — yalnızca `getRelativeLocaleUrl()` gibi runtime
+      // çağrılarıyla ilk gerçek sayfa isteğinde keşfediliyor). Bu YAŞAYAN
+      // (dev server ayaktayken) keşif, yukarıdaki `force`'un önlediği sınıfın
+      // AYNISI bir "optimized dependencies changed, reloading" döngüsü
+      // tetikleyip SSR modül kaydını invalidate ediyor — zaten yüklenmiş
+      // React tüketen island'lar (`MegaMenu`/`LanguageSwitcher`/`MobileMenu`
+      // vb.) İKİ FARKLI React kopyası arasında kalıp "Invalid hook call"
+      // hatasıyla çöküyordu (ana sayfaya İLK isteğin bile tetiklediği
+      // doğrulandı). Bu iki modül de `include`'a eklenerek COLD START'ta
+      // önceden paketleniyor, canlı yeniden-optimizasyon hiç tetiklenmiyor.
+      include: ['react', 'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web', 'astro/virtual-modules/i18n.js', 'astro/logger/json'],
     },
   },
   i18n: {
