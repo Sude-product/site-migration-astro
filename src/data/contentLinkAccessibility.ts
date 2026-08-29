@@ -60,8 +60,8 @@
 // kalıyor, ekran okuyucu/SEO tarayıcısı için ek bir bağlam katmanı
 // eklenmiş oluyor.
 import { parseFragment, serialize } from 'parse5';
-import postsExport from '../../reference/wordpress-export/posts.json';
-import pagesExport from '../../reference/wordpress-export/pages.json';
+import postsExport from '../../reference/wordpress-export/posts.json' with { type: 'json' };
+import pagesExport from '../../reference/wordpress-export/pages.json' with { type: 'json' };
 
 // `posts.json`/`pages.json`'ın WP `title.rendered` alanı bazen numerik/
 // named HTML entity taşıyor (`&#8217;` = kesme işareti gibi) — `faqContent.ts`'in
