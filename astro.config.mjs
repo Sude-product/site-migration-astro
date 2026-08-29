@@ -236,6 +236,7 @@ export default defineConfig({
     '/nl/sozlesme/gizlilik-ve-guvenlik-politikasi': '/en/contract/privacy-and-security-policy',
     '/nl/tesekkurler': '/en/thanks',
     '/nl/destek-talebi': '/en/support-request',
+    '/nl/tesekkurler-destek': '/en/thank-you',
     // 2026-07-28'de bulunan bir bug'ın düzeltmesi: `nl:'en'` + `en:'tr'`
     // fallback ZİNCİRİ yalnızca Astro'nun dev server SSR yönlendirmesinde
     // çalışıyor — statik `astro build` çıktısında (`astro preview` ile
@@ -298,7 +299,16 @@ export default defineConfig({
     '/nl/klanten': '/nl/musteriler',
     '/en/request-online-presentation': '/en/online-sunum-talebi',
     '/it/richiedi-presentazione-online': '/it/online-sunum-talebi',
-    '/en/thank-you': '/en/thanks',
+    // ⚠️ DÜZELTME (2026-08-29): yukarıdaki 2026-08-05 denetiminin
+    // `/en/thank-you` → `/en/thanks` eşlemesi YANLIŞ ÇIKTI — canlı sitede
+    // `curl`/tarayıcı ile doğrulandı: `/en/thank-you/` Online Sunum
+    // Talebi'nin "thanks" sayfası DEĞİL, tamamen AYRI ve GERÇEK bir sayfa
+    // (Destek Talebi'nin teşekkür sayfası, WP id 16742 — bkz.
+    // `supportThankYouContent.ts`). 2026-08-05 denetimi muhtemelen bu
+    // sayfanın o an henüz migrate edilmediğini (Açık nokta #10) bir
+    // "unutulmuş redirect" sanıp yanlışlıkla `/en/thanks`'e eşlemişti. Artık
+    // `src/pages/en/thank-you.astro` kendi gerçek içeriğini sunuyor, bu
+    // yanlış redirect KALDIRILDI.
     '/suprema': '/donanim',
     '/en/suprema-tools': '/en/hardware',
     '/it/dispositivi-suprema': '/it/hardware',

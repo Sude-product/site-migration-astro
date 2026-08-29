@@ -9,7 +9,8 @@ geçildi** (Keystatic CMS geçişinin ADIM 1'i, bkz. aşağıdaki "KEYSTATIC
 GEÇİŞİ" bölümü) — Cloudflare Pages yerine artık Cloudflare Workers+Assets
 deploy modeli hedefleniyor. Genel durum: ana sayfa, mega-menü, tüm ürün/modül
 sayfaları (18 modül + Puantaj + 2 hub + Demirbaş/Seyahat), 12 sektör
-sayfası, 622 blog yazısı (618 JSON + 4 Markdown pilot), Müşteriler,
+sayfası, 622 blog yazısı (622/622 Markdown, `posts.json` göçü 2026-08-29'da
+tamamlandı), Müşteriler,
 Destek Talebi, Hesaplama Araçları, Dijital İK Olgunluk Testi, Fiyatlar,
 Hakkımızda, İletişim, SSS, KVKK/hukuki sayfa ailesi (+ KVK Protokol),
 Footer/Header tamamlandı. Site denetim raporu (14 madde) + kapsamlı URL
@@ -198,6 +199,32 @@ boş, beklenen], html-lang 0 sorunlu gerçek sayfa, image-alt 0, json-ld
 
 **ADIM 3 (son doğrulama) — henüz başlanmadı**, ADIM 2 tamamlandı, sıradaki
 adım kullanıcının bu turu gözden geçirip commit onayı vermesi.
+
+**✅ TAMAMLANDI (2026-08-29) — Kademeli blog göçü (Açık nokta #21'in ilk
+maddesi) bitti: 622/622 yazı artık `.md`.** `posts.json`'da kalan 618
+yazı 4 grup halinde (151+151+151+151, `scripts/migrate-blog-to-markdown.mjs`)
+taşındı — grup öncesi her seferinde pilot turda bulunan 3 bug'ın (aşağıda)
+kalıcılığı doğrulandı, grup sonrası `astro build` + 8 regresyon script'i
++ 8 rastgele yazının satır satır orijinaliyle karşılaştırması yapıldı.
+**Sıfır veri kaybı, sıfır regresyon** — `check-json-ld` boyunca
+`BlogPosting: 622` sabit kaldı, `check-link-accessibility` her turda 0.
+`posts.json` şu an boş dizi. 4 commit (`8a53134`, `7ac70ce`, `f077f43`,
+`f47e313`), hem `origin` hem `idenfit` remote'una push edildi.
+
+**Süreçte migrasyon script'inde bulunup düzeltilen 3 sessiz veri kaybı
+(pilot turda, gerçek migrasyon başlamadan önce yakalandı):**
+1. `scripts/lib/html-to-markdown.mjs` — Turndown `<cite>`/`<sup>`
+   etiketlerini unwrap ediyordu (19 cite'lı yazının GEO atıf işaretlemesi
+   + KPMG `<sup>` dipnotu migrasyonda tamamen silinirdi). Düzeltme:
+   `td.keep(['iframe','cite','sup'])`.
+2. `scripts/migrate-blog-to-markdown.mjs`'in frontmatter builder'ı
+   `metaTitle`/`modifiedDate`/`authorName`'i hiç kopyalamıyordu (431/618
+   yazının `<title>` SEO optimizasyonu + JSON-LD `dateModified` kaybolurdu).
+3. `fixLinkAccessibility()`'nin eklediği `aria-label`, Turndown'ın
+   varsayılan link kuralında (`[metin](url)`) taşınamadığı için sessizce
+   atılıyordu — hem `fixLinkAccessibility()` migrasyona eklendi hem
+   `aria-label` taşıyan `<a>`'lar ham HTML olarak korunacak yeni bir
+   Turndown kuralı yazıldı.
 
 ---
 
@@ -1191,7 +1218,41 @@ hâlâ geçerli.)*
    olarak embed edilmedi.
 9. İzin Yönetimi modülünün testimonial bloğu veride var ama PDKS
    şablonuna sadık kalmak için render edilmiyor.
-10. `tesekkurler-destek` (id 16712) bulundu ama migrate edilmedi.
+10. **İÇERİK TAMAMLANDI (2026-08-29), BAĞLANTI Faz 2'yi bekliyor —
+    `tesekkurler-destek` (id 16712) migrate edildi.** Destek Talebi
+    formunun (`/destek-talebi/`) teşekkür sayfası — KARIŞTIRILMASIN,
+    `/tesekkurler/`'deki (Online Sunum Talebi'nin teşekkür sayfası,
+    `thankYouContent.ts`) BAMBAŞKA bir sayfa. Yeni dosyalar:
+    `src/data/supportThankYouContent.ts`, `src/components/SupportThankYouPage.astro`,
+    `src/pages/tesekkurler-destek.astro` (TR), `src/pages/en/thank-you.astro`
+    (EN). TR/EN gerçek WP sayfaları (id 16712/16742) — IT/NL kaynakta hiç
+    yok, IT/AZ genel `it:'tr'`/`az:'tr'` fallback'iyle otomatik bare TR'ye
+    düşüyor, NL'de per-locale slug FARKLI olduğu için `astro.config.mjs`'e
+    elle `'/nl/tesekkurler-destek': '/en/thank-you'` redirect'i eklendi
+    (KVKK/`tesekkurler`/`destek-talebi` sınıfının aynısı). **URL doğrulaması
+    yapıldı — 1 gerçek bug bulunup düzeltildi:** `astro.config.mjs`'te
+    ÖNCEDEN var olan `'/en/thank-you': '/en/thanks'` girdisi (2026-08-05
+    URL denetiminden kalma) YANLIŞTI — canlı sitede `idenfit.com/en/thank-you/`
+    doğrudan ziyaret edilip doğrulandı: bu, Online Sunum Talebi'nin
+    "thanks" sayfasının bir takma adı DEĞİL, tamamen ayrı ve GERÇEK bir
+    sayfa (id 16742, içerik birebir eşleşti). Yanlış redirect KALDIRILDI,
+    yeni EN sayfamız artık kendi gerçek URL'inde. **`<title>` uzunluk
+    düzeltmesi:** EN başlığı (`buildIdenfitTitle()`'ın otomatik niteleyicisi
+    60 karakteri aşıyordu) `SupportThankYouPage.astro`'ya eklenen `title`
+    override prop'uyla (`ProductPage.astro`'daki AYNI desen) kısaltıldı, H1
+    DEĞİŞMEDİ. `astro check` 0 hata, `astro build` 3097 sayfa, 8 regresyon
+    script'i (json-ld/link-accessibility/heading-hierarchy/image-alt-text/
+    meta-description/title-length/html-lang/hreflang) bilinen taban
+    çizgisiyle birebir aynı — sıfır yeni regresyon. Chrome'da TR+EN görsel
+    doğrulandı (görsel/breadcrumb/linkler/Son Güncelleme tarihi hepsi
+    canlı kaynakla eşleşiyor). **⚠️ BİLEREK YAPILMADI —
+    `SupportRequestForm.tsx`'in bu sayfaya yönlendirilmesi:** form hâlâ
+    backend'siz (`console.log` stub, Faz 2/Cloudflare Pages Functions
+    bekliyor) — "başarılı" bir onay sayfasına yönlendirmek, form aslında
+    hiçbir yere gitmediği için kullanıcıya YANLIŞ bilgi verirdi. Form
+    gerçek submit işlevine kavuştuğunda (Faz 2) bağlantı eklenecek — bkz.
+    `ThankYouPage.astro`'daki (Online Sunum Talebi'nin teşekkür sayfası)
+    AYNI bekleyen-durum, madde 2/12 ile aynı kategori.
 12. **TODO — HR Maturity Test sonuç sayfasının PDF rapor gönderimi
     backend'siz** (madde 2 ile aynı Faz 2 kategorisi).
 13. **BULGU — site geneli sabit WhatsApp/Ara widget'ı yok, kaynakta
@@ -1210,11 +1271,14 @@ hâlâ geçerli.)*
 19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
     her önemli değişiklik/deploy öncesi). Şu an 0 açık.
-21. **Blog CMS (Decap) — 3 açık uç:** Kademeli üretim (kalan 618 yazı
-    `scripts/migrate-blog-to-markdown.mjs <slug...>` ile); `verify-blog-posts.mjs`
+21. **Blog CMS — kalan 2 açık uç (ilk madde 2026-08-29'da KAPANDI):**
+    ~~Kademeli üretim (kalan 618 yazı `scripts/migrate-blog-to-markdown.mjs
+    <slug...>` ile)~~ — 622/622 tamamlandı, bkz. yukarıdaki "KEYSTATIC
+    GEÇİŞİ" bölümünün kapanış notu. Kalanlar: `verify-blog-posts.mjs`
     göç etmiş `.md` yazıları görmüyor, güncel değil; `/admin/`
-    trailing-slash davranışı Cloudflare Pages'te henüz doğrulanmadı;
-    OAuth App onayı IT'den bekleniyor.
+    trailing-slash davranışı Cloudflare Pages'te henüz doğrulanmadı
+    (Decap zaten Keystatic'e geçtiği için bu madde muhtemelen artık
+    ilgisiz, ayrı bir turda değerlendirilmeli).
 22. **YENİ — Kategori arşiv sayfaları (`/category/<slug>/`, 12 taksonomi
     sayfası) migrate edilmedi**, ayrı bir yapısal karar bekliyor.
 24. **KAPANDI — DOM boyutu (Chrome "1587/1501 element" uyarısı):**
@@ -1540,6 +1604,18 @@ hâlâ geçerli.)*
     bir risk), doğru düzeltmenin ne olduğu kanıtlanamıyor. Ayrı bir
     araştırma turu gerektiriyor (muhtemelen kaynak WP'nin ilgili custom
     post type'ları için `_gmt` alanının yeniden çekilmesi).
+44. **DÜŞÜK ÖNCELİK (2026-08-29) — `content.config.ts`'teki composite
+    loader mimarisi artık gereksiz karmaşıklık taşıyor, sadeleştirilebilir.**
+    Blog'un tüm 622 yazısı `.md`'ye göç ettiği için (bkz. yukarıdaki
+    "KEYSTATIC GEÇİŞİ" kapanış notu) `legacyJsonLoader` artık boş bir
+    `posts.json`'ı okuyor — işlevsel bir sorun YOK (boş dizide döngü hiç
+    çalışmıyor, `astro build` sorunsuz) ama `glob()`+`file()` sıralamasına
+    dikkat eden özel loader, `fixLinkAccessibility()`/`demoteBodyH1s()`/
+    `normalizeHeadingLevels()` render-time çağrıları gibi tüm o karmaşıklık
+    artık kullanılmayan bir kod yolu. **Acil değil, isteğe bağlı bir
+    temizlik turu:** `content.config.ts` saf `glob()` koleksiyonuna
+    indirgenebilir, `posts.json` + `legacyJsonLoader` kaldırılabilir.
+    Dokunulmadı — kullanıcı isteğiyle bilinçli olarak ertelendi.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
