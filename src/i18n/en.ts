@@ -61,6 +61,8 @@ export const en: Translations = {
       phone: 'Phone Number',
       email: 'E-mail',
       company: 'Company Name',
+      next: 'Continue',
+      back: 'Back',
     },
   },
   footer: {

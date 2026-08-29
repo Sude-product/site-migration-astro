@@ -114,6 +114,11 @@ export interface HeroLabels {
     phone: string;
     email: string;
     company: string;
+    /** 2 adımlı forma geçişte (2026-08-29 yeniden tasarım) eklendi —
+     * Adım 1'den Adım 2'ye devam butonu. */
+    next: string;
+    /** Adım 2'den Adım 1'e dönüş linki. */
+    back: string;
   };
 }
 

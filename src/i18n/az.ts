@@ -57,6 +57,8 @@ export const az: Translations = {
       phone: 'Telefon Nömrəniz',
       email: 'Şirkət E-poçtunuz',
       company: 'Şirkətinizin Adı',
+      next: 'Davam Et',
+      back: 'Geri',
     },
   },
   footer: {

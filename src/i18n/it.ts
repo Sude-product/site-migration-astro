@@ -67,6 +67,8 @@ export const it: Translations = {
       phone: 'Numero di Telefono',
       email: 'E-mail',
       company: 'Nome Azienda',
+      next: 'Continua',
+      back: 'Indietro',
     },
   },
   footer: {

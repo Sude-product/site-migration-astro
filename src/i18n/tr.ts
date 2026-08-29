@@ -65,6 +65,8 @@ export const tr: Translations = {
       phone: 'Telefon Numarası',
       email: 'Şirket E-postanız',
       company: 'Firmanızın Adı',
+      next: 'Devam Et',
+      back: 'Geri',
     },
   },
   footer: {

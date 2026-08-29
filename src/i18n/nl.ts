@@ -61,6 +61,8 @@ export const nl: Translations = {
       phone: 'Telefoonnummer',
       email: 'E-mail',
       company: 'Bedrijfsnaam',
+      next: 'Doorgaan',
+      back: 'Terug',
     },
   },
   footer: {
