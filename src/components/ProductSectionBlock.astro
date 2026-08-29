@@ -16,26 +16,39 @@ interface Props {
 }
 
 const { section, reverse = false, variant = 'default' } = Astro.props;
-const { title, text, ctaText, ctaUrl, image } = section;
+const { title, text, ctaText, ctaUrl, image, images } = section;
 const onBrand = variant === 'brand';
+const hasVisual = Boolean(image || (images && images.length > 0));
 ---
 
 <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
   {
-    image && (
+    images && images.length > 0 ? (
       <div class={reverse ? 'lg:order-2' : 'lg:order-1'}>
-        <img
-          src={image.url}
-          alt={image.alt}
-          loading="lazy"
-          width={image.width}
-          height={image.height}
-          class={onBrand ? 'w-full object-contain' : 'w-full rounded-2xl object-cover'}
-        />
+        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+          {images.map((img) => (
+            <div class="flex aspect-square items-center justify-center rounded-xl bg-white p-4 shadow-sm">
+              <img src={img.url} alt={img.alt} loading="lazy" width={img.width} height={img.height} class="h-full w-full object-contain" />
+            </div>
+          ))}
+        </div>
       </div>
+    ) : (
+      image && (
+        <div class={reverse ? 'lg:order-2' : 'lg:order-1'}>
+          <img
+            src={image.url}
+            alt={image.alt}
+            loading="lazy"
+            width={image.width}
+            height={image.height}
+            class={onBrand ? 'w-full object-contain' : 'w-full rounded-2xl object-cover'}
+          />
+        </div>
+      )
     )
   }
-  <div class={image ? (reverse ? 'lg:order-1' : 'lg:order-2') : ''}>
+  <div class={hasVisual ? (reverse ? 'lg:order-1' : 'lg:order-2') : ''}>
     <h2 class:list={['h2-section', onBrand ? 'text-white' : 'text-heading']} set:html={title} />
     {
       text && (

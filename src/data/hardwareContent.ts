@@ -35,6 +35,19 @@ const DATA = hardwareExport as unknown as HardwareExportRaw;
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 
+// "Geçiş sistemleri / turnikeler" bölümü (2026-08-29) — kaynağın tek kapak
+// görseli (`8@2x.webp`) kullanıcının sağladığı 5 farklı turnike modeli
+// fotoğrafıyla DEĞİŞTİRİLDİ (yerelleştirildi, `public/images/`) — bkz.
+// `ProductBlock.images` yorumu. Dil-bağımsız (fotoğraf, çeviri gerektirmez),
+// bu yüzden TÜM locale'lerde AYNI galeri kullanılıyor.
+const TURNSTILE_GALLERY_IMAGES = [
+  { url: '/images/hardware-turnstile-1.png', alt: 'Cam kanatlı hızlı geçiş turnikesi', width: 700, height: 700 },
+  { url: '/images/hardware-turnstile-2.png', alt: 'Paslanmaz çelik hızlı geçiş turnikesi', width: 700, height: 700 },
+  { url: '/images/hardware-turnstile-3.png', alt: 'LED ışıklı hızlı geçiş turnikesi', width: 700, height: 700 },
+  { url: '/images/hardware-turnstile-4.png', alt: 'Tripod turnike', width: 700, height: 700 },
+  { url: '/images/hardware-turnstile-5.png', alt: 'Ayaklı tripod turnike', width: 700, height: 700 },
+];
+
 function bareSlugFromUrl(url: string): string {
   try {
     const { pathname } = new URL(url);
@@ -88,7 +101,8 @@ export function getHardwareContent(locale: Locale): HardwareContent | undefined 
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.image,
+    image: b.id === 'turnikeler' ? null : b.image,
+    images: b.id === 'turnikeler' ? TURNSTILE_GALLERY_IMAGES : undefined,
     id: b.id,
   });
 
