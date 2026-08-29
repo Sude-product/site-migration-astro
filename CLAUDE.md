@@ -18,10 +18,14 @@ denetimi (853 canlı URL karşılaştırması) kapandı. Landing Page (/demo)
 tamamlandı (2026-08-11, f21f863). Ana sayfa interaktif Ürün Önizleme
 widget'ı (11/11 sekme + üst header'ın 9/9 ikon paneli) tamamlanıp commit
 edildi, sonrasında birden fazla iyileştirme turu (renk/boyut/dashboard
-içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Şu anki
-odak: **Blog CMS'i Decap'ten Keystatic'e geçirme (2026-08-27'de başladı,
-devam ediyor — bkz. aşağıdaki "KEYSTATIC GEÇİŞİ" bölümü)**; bu tamamlanınca
-SEO/erişilebilirlik/GEO takip turlarına (bkz. §Açık noktalar #28) geri
+içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Blog CMS
+göçü (Decap→Keystatic, 2026-08-27'de başladı) ADIM 1/2 tamamlandı, 622/622
+yazı Markdown'a taşındı (2026-08-29) — ADIM 3 (son doğrulama/commit onayı)
+kullanıcıyı bekliyor, bkz. aşağıdaki "KEYSTATIC GEÇİŞİ" bölümü. **Şu anki
+odak (2026-08-29/30): Online Sunum Talebi sayfasının baştan tasarımı**
+(bkz. aşağıdaki "Güncel durum" — çok turlu bir yeniden tasarım süreci,
+kullanıcı geri bildirimiyle ilerledi, hâlâ devam edebilir); ardından SEO/
+erişilebilirlik/GEO takip turlarına (bkz. §Açık noktalar #28) geri
 dönülecek.
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
@@ -280,9 +284,81 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-24)
+## Güncel durum (son güncelleme: 2026-08-29/30)
 
-**🟡 2026-08-24, en son — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
+**🟡 2026-08-29/30, en son — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
+Kaynağın (idenfit.com/online-sunum-talep-et/) BİREBİR DOM yapısına
+(şeffaf sol kolon + kırmızı arka plan + sağ form kartı) sadık kalan eski
+tasarım kullanıcı isteğiyle TAMAMEN terk edildi. Yeni tasarım kullanıcının
+paylaştığı bir mockup + `/demo` (Landing Page) sayfasının birkaç
+parçasının harmanı — **içerik hiçbir yerde uydurulmadı**, tüm metin/görsel
+zaten onaylı gerçek veri (`misc-pages.json`, Müşteriler sayfasının logo
+şeridi, `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" metinleri),
+yalnızca YENİDEN DÜZENLENDİ. Kronolojik özet (aynı gün 6 geri bildirim
+turu):
+1. **Baştan kurulum:** Ortalanmış hero (radyal gradyan, ana sayfanın
+   `#FFDCDC→#FFF3F3→#FFFFFF` tonlarıyla AYNI) + form kartı (`/demo`'nun
+   nabız/halka dekorasyonu `LandingPulseDecoration.tsx` arkasında) + form
+   2 ADIMA bölündü (Adım 1: e-posta+firma, Adım 2: telefon+ad soyad —
+   kullanıcı talimatıyla bu sıra, `/demo`'nun `LandingRequestForm.tsx`
+   iskeleti temel alınıp yeni `PresentationRequestForm.tsx` yazıldı,
+   `t.hero.presentationForm.next`/`back` 5 dilde eklendi).
+2. Başlık-form arası "chip" şeridi + sayfa altındaki 2 logo şeridi
+   (referanslar/entegrasyonlar) kaldırıldı (sadeleştirme).
+3. `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" bölümleri, bu
+   sayfaya özel daha zarif bir tasarımla eklendi (`PresentationTimeline.astro`/
+   `PresentationFeatureGrid.astro`) — kart yüzeyleri + idenfit'in gerçek
+   logo yıldızı her kartın köşesinde dönüyor (`IdenfitStar` +
+   `idenfit-star-spin`, Müşteri Hikayeleri carousel'indeki AYNI, zaten
+   onaylı animasyon deseni yeniden kullanıldı). **Yan bulgu, aynı turda
+   düzeltildi:** `BaseLayout.astro` `.reveal` scroll-fade script'ini
+   (`scroll-reveal.js`) OTOMATİK yüklemiyor — yalnızca `/demo`/ana sayfa
+   gibi onu elle ekleyen sayfalarda çalışıyor, bu yeni sayfaya da eklendi
+   (aksi halde yeni bölümler kalıcı görünmez kalırdı).
+4. Yıldız dokusu çoğaltılıp KARIŞIK/asimetrik yerleştirildi + üstten
+   kesilme sorunu (`overflow-hidden`) düzeltildi; "Hemen Ara" satırı
+   kaldırıldı; H1 kırmızıya çevrildi; Müşteriler sayfasının GERÇEK 14
+   logoluk şeridi (`CustomerLogoMarquee.astro`) + yeni bir güven cümlesi
+   form kartının altına eklendi. **Rakam notu:** kullanıcı "5.000+" dedi,
+   ama sitenin HER YERİNDE (ana sayfa `logoStrip.caption`, `/demo`
+   BENEFITS) onaylı rakam "1.000+" — çelişki bildirildi, netleşene kadar
+   "1.000+" ile yazıldı (`t.hero.presentationTrustCaption`, 5 dilde,
+   rakam UYDURULMADI).
+5. Form kartı içindeki "Online Sunum Talebi" başlığı kırmızı yapıldı,
+   hero'ya 2 yıldız daha eklendi, sayfa altındaki LastUpdated şeridine
+   `#FAFAFA` arka planı verilip footer'a kesintisiz akması sağlandı
+   (önceden şeffaf/beyazdı, gri footer'dan önce kopuk bir şerit gibi
+   duruyordu).
+6. **Site geneli bir mimari düzeltme:** breadcrumb ("Ana Sayfa / ...")
+   HER sayfada düz beyaz zeminde render ediliyor, hemen altındaki renkli/
+   gradyanlı bir hero varsa aralarında görünür bir "dikiş" bırakıyordu —
+   kullanıcı bunun sitedeki GENEL bir sorun olduğunu belirtti.
+   `BaseLayout.astro`'ya YENİ, opsiyonel bir `heroBackground` prop'u
+   eklendi (breadcrumb'ı saran kutuya düz renk uygular — hero'nun
+   gradyanının TAMAMINI değil, yalnızca 0% rengini, iki ayrı kutuda aynı
+   gradyanı hizalamaya çalışmak kırılgan olurdu). Verilmezse (varsayılan)
+   TÜM diğer sayfalarda DAVRANIŞ DEĞİŞMEZ — spot-check + tam regresyon
+   suite'iyle doğrulandı. Bu sayfa `heroBackground="#FFDCDC"` kullanıyor.
+   Güven cümlesi/logo şeridi de bu turda bir kez daha aşağı kaydırıldı.
+
+**Doğrulama (her turda tekrarlandı):** `astro check` 0 hata, `astro
+build` 3097 dosya, 8 regresyon script'i (json-ld/link-accessibility/
+heading-hierarchy/image-alt-text/meta-description/title-length/html-lang/
+hreflang) HER SEFERİNDE bilinen taban çizgisiyle birebir aynı — sıfır yeni
+regresyon. Chrome'da her turda görsel doğrulama yapıldı. Yeni dosyalar:
+`PresentationRequestForm.tsx`, `PresentationTimeline.astro`,
+`PresentationFeatureGrid.astro`. Commit'ler (kronolojik):
+`ba25806`→`81b2edc`→`f570d9b`→`75e9803`→`34c3f14`, her biri hem `origin`
+hem `idenfit` remote'una push edildi — **çalışma ağacı şu an TEMİZ,
+bekleyen commit yok.** Kullanıcı "yarın devam ederiz" dedi — sayfa muhtemelen
+daha fazla ince ayar geçirecek, bu KAPANMIŞ bir iş değil, bir sonraki
+oturumda bu günlüğün devamı beklenmeli.
+
+Aynı gün, ayrıca ana sayfanın hero headline'ı (`t.hero.headline`, TÜM
+locale'lerin PAYLAŞTIĞI `HeroSection.astro`) `text-heading`'den
+`text-brand`'a (kırmızı) çevrildi — kullanıcı talimatı, içerik değişmedi.
+
+**🟡 2026-08-24, ayrıca — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
 `curl` ile `dist/index.html`'de tekrar doğrulandı: LinkedIn `sameAs`'te
 (`linkedin.com/company/idenfithr/`, kanonik adres, bkz. 2026-08-22 notu).
 `check-meta-description-length.mjs`: 927/928 sayfa tamam, tek istisna
