@@ -120,6 +120,11 @@ export interface HeroLabels {
     /** Adım 2'den Adım 1'e dönüş linki. */
     back: string;
   };
+  /** Online Sunum Talebi sayfasında form kartının altına eklenen güven
+   * satırı (2026-08-29, kullanıcı talimatı) — `home.logoStrip.caption`
+   * ile AYNI onaylı "1000+" rakamını taşır, yalnızca farklı bir cümle
+   * kalıbıyla ("X+ müşteriye katılın" — kullanıcının istediği ifade). */
+  presentationTrustCaption: string;
 }
 
 export interface FooterColumnTitles {

@@ -68,6 +68,7 @@ export const tr: Translations = {
       next: 'Devam Et',
       back: 'Geri',
     },
+    presentationTrustCaption: '1.000’den fazla müşterinin güvendiği idenfit’e katılın.',
   },
   footer: {
     columnTitles: {

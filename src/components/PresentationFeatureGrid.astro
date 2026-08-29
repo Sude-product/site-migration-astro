@@ -54,8 +54,14 @@ const ITEMS: BentoItem[] = [
 ];
 ---
 
-<section class="bg-[#FAFAFA] py-16 lg:py-24">
-  <div class="mx-auto max-w-5xl px-6 lg:px-8">
+<section class="relative bg-[#FAFAFA] py-16 lg:py-24">
+  {/* `PresentationTimeline.astro`'daki AYNI dağınık/karışık yıldız dokusu
+      ilkesi (2026-08-29) — bu bölümde zaten kartların köşelerinde dönen
+      küçük yıldızlar var, o yüzden burada yalnızca 2 tane, daha soluk. */}
+  <IdenfitStar className="pointer-events-none absolute -right-10 top-10 h-40 w-40 rotate-[15deg] text-brand opacity-[0.05] lg:h-56 lg:w-56" />
+  <IdenfitStar className="pointer-events-none absolute bottom-10 left-[8%] hidden h-16 w-16 -rotate-12 text-brand opacity-[0.07] sm:block" />
+
+  <div class="relative mx-auto max-w-5xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
       <h2 class="reveal h2-section text-heading">Öne Çıkan Özellikler</h2>
     </div>

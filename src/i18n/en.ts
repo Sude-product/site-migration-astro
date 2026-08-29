@@ -64,6 +64,7 @@ export const en: Translations = {
       next: 'Continue',
       back: 'Back',
     },
+    presentationTrustCaption: 'Join 1,000+ customers who trust idenfit.',
   },
   footer: {
     columnTitles: {

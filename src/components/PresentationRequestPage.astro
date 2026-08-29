@@ -34,15 +34,32 @@
 //    logo yıldızı (`IdenfitStar`, Müşteri Hikayeleri carousel'indeki AYNI
 //    `idenfit-star-spin` dönen-yıldız deseni, kullanıcı talimatı "yıldızı
 //    tasarıma dahil et").
+//
+// ⚠️ ÜÇÜNCÜ TUR (2026-08-29, aynı gün, kullanıcı geri bildirimi):
+// 1. Yıldız dokusu ÇOĞALTILDI + KARIŞIK/asimetrik yerleştirildi
+//    (`PresentationTimeline.astro`/`PresentationFeatureGrid.astro`) —
+//    büyük yıldızın `overflow-hidden` yüzünden üstten kesilmiş görünmesi
+//    de düzeltildi (section'dan `overflow-hidden` kaldırıldı).
+// 2. "Hemen Ara" satırı kaldırıldı, H1 kırmızıya (`text-brand`) çevrildi.
+// 3. Form kartının ALTINA Müşteriler sayfasının (`/musteriler/`) GERÇEK
+//    logo şeridi (`CustomerLogoMarquee.astro` + `CUSTOMER_LOGO_MARQUEE`,
+//    yeniden yazılmadı) + yeni bir güven cümlesi eklendi
+//    (`t.hero.presentationTrustCaption`, 5 dilde). **Rakam notu:** kullanıcı
+//    "5.000+" dedi ama sitenin HER YERİNDE (ana sayfa `logoStrip.caption`,
+//    `/demo` BENEFITS) onaylı/tutarlı rakam "1.000+" — çelişki kullanıcıya
+//    bildirildi, bu rakam netleşene kadar GÜVENLİ/tutarlı "1.000+" ile
+//    yazıldı (KARAR 1 — rakam UYDURULMADI/rastgele büyütülmedi).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LandingPulseDecoration from './LandingPulseDecoration.tsx';
 import PresentationRequestForm from './PresentationRequestForm.tsx';
 import PresentationTimeline from './PresentationTimeline.astro';
 import PresentationFeatureGrid from './PresentationFeatureGrid.astro';
+import CustomerLogoMarquee from './CustomerLogoMarquee.astro';
 import LastUpdated from './LastUpdated.astro';
 import { getTranslations } from '../i18n';
 import { getKvkkAndTermsHrefs, getPresentationMetaDescription, type PresentationContent } from '../data/miscPagesContent';
 import { getThankYouLocaleUrls } from '../data/thankYouContent';
+import { CUSTOMER_LOGO_MARQUEE } from '../data/customerStories';
 import { buildIdenfitTitle } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 
@@ -70,31 +87,7 @@ const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
     style="background: radial-gradient(120% 90% at 50% 0%, #FFDCDC 0%, #FFF3F3 42%, #FFFFFF 78%);"
   >
     <div class="mx-auto max-w-3xl px-6 text-center">
-      <h1 class="text-3xl font-bold leading-tight text-heading lg:text-[44px] lg:leading-[1.16]" set:html={content.pageTitle} />
-
-      {
-        content.phoneNumber && (
-          <p class="mt-7 text-sm font-semibold text-muted">
-            {content.callText}
-            <a href={content.phoneNumberLink} class="ml-2 inline-flex items-center gap-1.5 font-bold text-[#C40000] hover:underline">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                class="h-4 w-4 shrink-0"
-                aria-hidden="true"
-              >
-                <path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384" />
-              </svg>
-              {content.phoneNumber}
-            </a>
-          </p>
-        )
-      }
+      <h1 class="text-3xl font-bold leading-tight text-brand lg:text-[44px] lg:leading-[1.16]" set:html={content.pageTitle} />
     </div>
 
     <div class="relative mx-auto mt-14 flex max-w-md justify-center px-6">
@@ -125,6 +118,18 @@ const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
           kvkkHref={kvkkHref}
           termsHref={termsHref}
         />
+      </div>
+    </div>
+
+    {/* Form kartının ALTINA (kullanıcı talimatı, 2026-08-29) — Müşteriler
+        sayfasının (`/musteriler/`) GERÇEK 14 logoluk kayan şeridi
+        (`CustomerLogoMarquee.astro`, `CUSTOMER_LOGO_MARQUEE` — zaten
+        kanıtlanmış/hızı ölçülmüş component, yeniden yazılmadı) + güven
+        cümlesi. */}
+    <div class="relative z-10 mx-auto mt-14 max-w-2xl px-6 text-center">
+      <p class="text-sm font-semibold text-muted">{t.hero.presentationTrustCaption}</p>
+      <div class="mt-6">
+        <CustomerLogoMarquee logos={CUSTOMER_LOGO_MARQUEE} />
       </div>
     </div>
   </section>

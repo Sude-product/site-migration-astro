@@ -64,6 +64,7 @@ export const nl: Translations = {
       next: 'Doorgaan',
       back: 'Terug',
     },
+    presentationTrustCaption: 'Sluit u aan bij 1.000+ klanten die idenfit vertrouwen.',
   },
   footer: {
     columnTitles: {

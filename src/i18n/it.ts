@@ -70,6 +70,7 @@ export const it: Translations = {
       next: 'Continua',
       back: 'Indietro',
     },
+    presentationTrustCaption: 'Unisciti a oltre 1.000 clienti che si fidano di idenfit.',
   },
   footer: {
     columnTitles: {

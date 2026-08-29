@@ -60,6 +60,7 @@ export const az: Translations = {
       next: 'Davam Et',
       back: 'Geri',
     },
+    presentationTrustCaption: 'idenfit-ə güvənən 1.000-dən çox müştəriyə qoşulun.',
   },
   footer: {
     columnTitles: {
