@@ -25,9 +25,11 @@ const hasVisual = Boolean(image || (images && images.length > 0));
   {
     images && images.length > 0 ? (
       <div class={reverse ? 'lg:order-2' : 'lg:order-1'}>
-        <div class="grid grid-cols-2 gap-4 sm:grid-cols-3">
+        <div class="flex flex-wrap justify-center gap-4">
           {images.map((img) => (
-            <div class="flex aspect-square items-center justify-center rounded-xl bg-white p-4 shadow-sm">
+            <div
+              class="flex aspect-square w-[calc((100%-1rem)/2)] items-center justify-center rounded-xl bg-white p-2 shadow-sm sm:w-[calc((100%-2rem)/3)]"
+            >
               <img src={img.url} alt={img.alt} loading="lazy" width={img.width} height={img.height} class="h-full w-full object-contain" />
             </div>
           ))}
