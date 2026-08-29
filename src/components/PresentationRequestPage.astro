@@ -49,6 +49,28 @@
 //    `/demo` BENEFITS) onaylı/tutarlı rakam "1.000+" — çelişki kullanıcıya
 //    bildirildi, bu rakam netleşene kadar GÜVENLİ/tutarlı "1.000+" ile
 //    yazıldı (KARAR 1 — rakam UYDURULMADI/rastgele büyütülmedi).
+//
+// ⚠️ DÖRDÜNCÜ TUR (2026-08-29, aynı gün): form kartının içindeki
+// "Online Sunum Talebi" başlığı kırmızıya çevrildi, hero'ya 2 küçük yıldız
+// daha eklendi, altta LastUpdated şeridine `#FAFAFA` arka planı verilip
+// gri footer'a KESİNTİSİZ akması sağlandı (önceden şeffaf/beyazdı, footer'dan
+// hemen önce kopuk bir beyaz şerit gibi duruyordu).
+//
+// ⚠️ BEŞİNCİ TUR (2026-08-29, aynı gün) — "her sayfada bulunan bu beyaz
+// boşluk" bulgusu: breadcrumb ("Ana Sayfa / Online Sunum Talebi") HER
+// zaman düz beyaz zeminde render ediliyordu, hemen altındaki bu sayfaya
+// özel pembe gradyanla arasında görünür bir "dikiş" bırakıyordu. Kullanıcı
+// bunun SİTE GENELİNDE (renkli hero kullanan her sayfada) istenmeyen bir
+// desen olduğunu belirtti — `BaseLayout.astro`'ya YENİ, opsiyonel bir
+// `heroBackground` prop'u eklendi (breadcrumb'ı saran kutuya düz renk
+// uygular, verilmezse TÜM diğer sayfalarda DAVRANIŞ DEĞİŞMEZ). Bu sayfa
+// `heroBackground="#FFDCDC"` geçiyor — hero'nun KENDİ radyal gradyanının
+// tam olarak 0% (en üst) rengiyle birebir aynı, bu yüzden breadcrumb'ın alt
+// kenarı ile hero'nun üst kenarı AYNI renkte buluşup kesintisiz görünüyor
+// (gradyanın TAMAMINI 2 ayrı kutuda tekrar üretmek kırılgan olurdu, bkz.
+// `BaseLayout.astro`'daki `heroBackground` prop yorumu). Ayrıca güven
+// cümlesi/logo şeridi bir kez daha aşağı kaydırıldı (`mt-24`/`lg:mt-28` →
+// `mt-32`/`lg:mt-40`) — hâlâ form kartına çok yakın durduğu bildirildi.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LandingPulseDecoration from './LandingPulseDecoration.tsx';
 import PresentationRequestForm from './PresentationRequestForm.tsx';
@@ -82,7 +104,13 @@ const thankYouUrls = getThankYouLocaleUrls();
 const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
 ---
 
-<BaseLayout title={title} description={description} dateModified={modified?.toISOString()} breadcrumb={[{ label: content.formTitle }]}>
+<BaseLayout
+  title={title}
+  description={description}
+  dateModified={modified?.toISOString()}
+  breadcrumb={[{ label: content.formTitle }]}
+  heroBackground="#FFDCDC"
+>
   <section
     class="relative isolate overflow-hidden py-16 lg:py-20"
     style="background: radial-gradient(120% 90% at 50% 0%, #FFDCDC 0%, #FFF3F3 42%, #FFFFFF 78%);"
@@ -132,11 +160,11 @@ const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
         sayfasının (`/musteriler/`) GERÇEK 14 logoluk kayan şeridi
         (`CustomerLogoMarquee.astro`, `CUSTOMER_LOGO_MARQUEE` — zaten
         kanıtlanmış/hızı ölçülmüş component, yeniden yazılmadı) + güven
-        cümlesi. **İKİNCİ DÜZELTME (aynı gün):** form kartına çok yakın/
-        "yukarıda" durduğu bildirildi — boşluk `mt-14`(56px)'ten
-        `mt-24`(96px, `lg:mt-28`/112px)'e büyütüldü, pembe alanın içinde
-        daha ORTALANMIŞ bir görünüm için. */}
-    <div class="relative z-10 mx-auto mt-24 max-w-2xl px-6 text-center lg:mt-28">
+        cümlesi. **DÖRDÜNCÜ TUR (aynı gün):** form kartına hâlâ çok yakın/
+        "yukarıda" durduğu 2 KEZ bildirildi — boşluk `mt-14`(56px) →
+        `mt-24`/`mt-28` → şimdi `mt-32`(128px)/`lg:mt-40`(160px)'a
+        büyütüldü, pembe alanın içinde daha ORTALANMIŞ bir görünüm için. */}
+    <div class="relative z-10 mx-auto mt-32 max-w-2xl px-6 text-center lg:mt-40">
       <p class="text-sm font-semibold text-muted">{t.hero.presentationTrustCaption}</p>
       <div class="mt-6">
         <CustomerLogoMarquee logos={CUSTOMER_LOGO_MARQUEE} />
