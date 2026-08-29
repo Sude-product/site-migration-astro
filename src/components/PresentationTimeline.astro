@@ -1,0 +1,63 @@
+---
+// "3 Adımda idenfit" — Online Sunum Talebi sayfası için (2026-08-29)
+// `/demo` (Landing Page) sayfasındaki `LandingTimeline.astro`'nun İÇERİĞİ
+// (3 adımın metni, kullanıcının paylaştığı ekran görüntüsüyle birebir
+// aynı — yeni bir iddia YAZILMADI) bu sayfaya özel, daha zarif bir
+// tasarımla entegre edildi: çıplak ikon+metin yerine kart yüzeyi, kart
+// köşesinde idenfit'in gerçek logo yıldızı (`IdenfitStar`, Müşteri
+// Hikayeleri carousel'indeki AYNI `idenfit-star-spin` dönen-yıldız deseni
+// — kullanıcının "yıldızı tasarıma dahil et" isteği, yeni bir animasyon
+// İCAT EDİLMEDİ, zaten onaylı deseni yeniden kullanıyor).
+import { Rocket, UploadCloud, LayoutDashboard, type LucideIcon } from 'lucide-react';
+import IdenfitStar from './icons/IdenfitStar';
+
+interface Step {
+  icon: LucideIcon;
+  title: string;
+  text: string;
+}
+
+const STEPS: Step[] = [
+  { icon: Rocket, title: '1. Kaydolun', text: 'Hesabınızı açın — kurulum 48 saat içinde tamamlanır.' },
+  { icon: UploadCloud, title: '2. Verilerinizi Aktarın', text: 'Excel ile toplu veri aktarımıyla çalışan bilgilerinizi sisteme yükleyin.' },
+  { icon: LayoutDashboard, title: '3. Yönetmeye Başlayın', text: 'Canlı panelden giriş-çıkış, izin ve bordro süreçlerini anlık yönetin.' },
+];
+---
+
+<section class="relative overflow-hidden bg-surface py-16 lg:py-24">
+  {/* Dekoratif dev yıldız — çok soluk, arka planda dokusal bir imza (metnin
+      okunabilirliğini etkilemeyecek kadar düşük opaklık). */}
+  <IdenfitStar className="pointer-events-none absolute -right-16 -top-16 h-64 w-64 text-brand opacity-[0.05] lg:h-80 lg:w-80" />
+
+  <div class="relative mx-auto max-w-5xl px-6 lg:px-8">
+    <h2 class="reveal h2-section text-center text-heading">3 Adımda idenfit</h2>
+
+    <div class="relative mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
+      {/* Bağlayıcı çizgi — yalnızca `lg:`'de, kartların ORTA yüksekliğinden
+          geçen ince bir gradyan hat (kaynağın ok ikonlarının yerini alan,
+          daha zarif bir bağlayıcı). */}
+      <div
+        class="pointer-events-none absolute inset-x-[16.6%] top-8 hidden h-px bg-gradient-to-r from-transparent via-brand/25 to-transparent lg:block"
+        aria-hidden="true"
+      />
+
+      {
+        STEPS.map((step, i) => (
+          <div
+            class="reveal group relative rounded-2xl border border-[#F0E4E4] bg-white p-7 shadow-[0_10px_34px_-14px_rgba(120,0,0,0.18)] transition-transform duration-200 hover:-translate-y-1"
+            style={`transition-delay: ${i * 120}ms`}
+          >
+            <span class="idenfit-star-spin pointer-events-none absolute right-5 top-5 text-brand/70" aria-hidden="true">
+              <IdenfitStar className="h-5 w-5" />
+            </span>
+            <div class="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#C40000] text-white shadow-[0_8px_20px_-6px_rgba(255,0,0,0.55)]">
+              <step.icon className="h-6 w-6" aria-hidden="true" />
+            </div>
+            <h3 class="mt-5 text-lg font-semibold text-heading">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-body">{step.text}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

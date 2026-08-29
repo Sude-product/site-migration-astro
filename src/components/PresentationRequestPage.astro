@@ -18,16 +18,28 @@
 //    (`LandingPulseDecoration.tsx`, AYNEN yeniden kullanıldı — "hareketli
 //    panel" talebi buradan karşılanıyor, yeni bir animasyon İCAT EDİLMEDİ).
 //
-// **İçerik DEĞİŞMEDİ** — `content.pageTitle`/`info`/`callText`/`formTitle`/
-// `formText`/`integrationsText`/`referencesText` hepsi ZATEN gerçek/onaylı
-// veri (`misc-pages.json`), yalnızca YENİDEN DÜZENLENDİ (eski 2 kolon →
-// yeni ortalanmış tek kolon + 2 alt "trust strip" bölümü). Hiçbir yeni
-// pazarlama metni UYDURULMADI.
+// ⚠️ İKİNCİ TUR (2026-08-29, aynı gün, kullanıcı geri bildirimi):
+// 1. Başlık ile form kartı arasındaki "chip" şeridi (`content.info`'nun 3
+//    maddesi) ve sayfa altındaki 2 logo şeridi (`referencesImage`/
+//    `integrationsImage`, "Siz de bize güvenen..."/"Entegre
+//    Çalışabileceğimiz Sistemler") kaldırıldı — sadeleştirme talebi.
+//    `content.info`/`referencesText`/`referencesImage`/`integrationsText`/
+//    `integrationsImage` alanları hâlâ `PresentationContent` tipinde/veri
+//    kaynağında duruyor (silinmedi, yalnızca bu sayfada render edilmiyor).
+// 2. `/demo`'daki "3 Adımda idenfit" (`LandingTimeline.astro`) ve "Öne
+//    Çıkan Özellikler" (`LandingBentoGrid.astro`) bölümlerinin İÇERİĞİ
+//    (metin birebir aynı, yeni iddia YOK) bu sayfaya özel, daha zarif bir
+//    tasarımla eklendi (`PresentationTimeline.astro`/
+//    `PresentationFeatureGrid.astro`) — kart yüzeyleri + idenfit'in gerçek
+//    logo yıldızı (`IdenfitStar`, Müşteri Hikayeleri carousel'indeki AYNI
+//    `idenfit-star-spin` dönen-yıldız deseni, kullanıcı talimatı "yıldızı
+//    tasarıma dahil et").
 import BaseLayout from '../layouts/BaseLayout.astro';
 import LandingPulseDecoration from './LandingPulseDecoration.tsx';
 import PresentationRequestForm from './PresentationRequestForm.tsx';
+import PresentationTimeline from './PresentationTimeline.astro';
+import PresentationFeatureGrid from './PresentationFeatureGrid.astro';
 import LastUpdated from './LastUpdated.astro';
-import { Clock, CheckCircle2, ShieldCheck, type LucideIcon } from 'lucide-react';
 import { getTranslations } from '../i18n';
 import { getKvkkAndTermsHrefs, getPresentationMetaDescription, type PresentationContent } from '../data/miscPagesContent';
 import { getThankYouLocaleUrls } from '../data/thankYouContent';
@@ -50,11 +62,6 @@ const title = buildIdenfitTitle(content.formTitle, locale);
 
 const thankYouUrls = getThankYouLocaleUrls();
 const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
-
-// `content.info` her locale'de 3 madde taşıyor (kaynak veri) — sırayla
-// eşleşen 3 ikon, dördüncü bir madde çıkarsa (beklenmiyor) modülo ile
-// döngüye alınır, hiçbir madde ikonsuz kalmaz.
-const INFO_ICONS: LucideIcon[] = [Clock, CheckCircle2, ShieldCheck];
 ---
 
 <BaseLayout title={title} description={description} dateModified={modified?.toISOString()} breadcrumb={[{ label: content.formTitle }]}>
@@ -64,20 +71,6 @@ const INFO_ICONS: LucideIcon[] = [Clock, CheckCircle2, ShieldCheck];
   >
     <div class="mx-auto max-w-3xl px-6 text-center">
       <h1 class="text-3xl font-bold leading-tight text-heading lg:text-[44px] lg:leading-[1.16]" set:html={content.pageTitle} />
-
-      <div class="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-        {
-          content.info.map((line, i) => {
-            const Icon = INFO_ICONS[i % INFO_ICONS.length];
-            return (
-              <span class="inline-flex items-center gap-1.5 rounded-full border border-[#F0E4E4] bg-white px-4 py-2 text-sm font-semibold text-heading shadow-[0_6px_16px_-10px_rgba(120,0,0,0.25)]">
-                <Icon className="h-3.5 w-3.5 shrink-0 text-brand" aria-hidden="true" />
-                {line}
-              </span>
-            );
-          })
-        }
-      </div>
 
       {
         content.phoneNumber && (
@@ -136,39 +129,17 @@ const INFO_ICONS: LucideIcon[] = [Clock, CheckCircle2, ShieldCheck];
     </div>
   </section>
 
-  {
-    content.referencesImage && (
-      <section class="px-6 py-14 text-center">
-        <h3 class="mx-auto max-w-md text-lg font-bold text-heading" set:html={content.referencesText} />
-        <img
-          src={content.referencesImage.url}
-          alt={content.referencesImage.alt}
-          width={content.referencesImage.width}
-          height={content.referencesImage.height}
-          loading="lazy"
-          class="mx-auto mt-7 h-auto w-full max-w-md object-contain opacity-90"
-        />
-      </section>
-    )
-  }
-
-  {
-    content.integrationsImage && (
-      <section class="border-y border-[#F0E4E4] bg-[#FAFAFA] px-6 py-14 text-center">
-        <h3 class="mx-auto max-w-md text-lg font-bold text-heading" set:html={content.integrationsText} />
-        <img
-          src={content.integrationsImage.url}
-          alt={content.integrationsImage.alt}
-          width={content.integrationsImage.width}
-          height={content.integrationsImage.height}
-          loading="lazy"
-          class="mx-auto mt-7 h-auto w-full max-w-md object-contain opacity-90"
-        />
-      </section>
-    )
-  }
+  <PresentationTimeline />
+  <PresentationFeatureGrid />
 
   <div class="py-8 text-center">
     <LastUpdated date={modified} locale={locale} />
   </div>
 </BaseLayout>
+
+<!-- `PresentationTimeline`/`PresentationFeatureGrid`'in `.reveal` scroll-fade'i
+     için (bkz. `LandingPage.astro`'daki AYNI kullanım) — `BaseLayout.astro`
+     bu script'i KENDİLİĞİNDEN yüklemiyor, yalnızca `.reveal`'ın JS-kapalı
+     `<noscript>` geri düşüşünü tanımlıyor; script'in kendisi onu gerçekten
+     kullanan her sayfada/component'te ayrı eklenmeli. -->
+<script src="../scripts/scroll-reveal.js"></script>
