@@ -4,7 +4,7 @@ title: Çalışan Yetkilendirmesi
 date: '2022-07-28T13:05:56'
 excerpt: Çalışan yetkilendirmesi, liderlerin ekip üyelerine gerekli araç, kaynak ve özgürlüğü sağlamalarına odaklanan bir sistemdir. Çalışan bağlılığı konusunda oldukça…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/07/calisan-yetkilendirmesi-basarili-yetkilendirmenin-asamalar@2x-scaled.jpg
+  url: /wp-content/uploads/2022/07/calisan-yetkilendirmesi-basarili-yetkilendirmenin-asamalar@2x-scaled.jpg
   alt: Çalışan Yetkilendirmesi
   width: 2560
   height: 1688

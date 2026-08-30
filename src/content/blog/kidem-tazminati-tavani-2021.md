@@ -4,7 +4,7 @@ title: Kıdem Tazminatı Tavanı 2021
 date: '2021-03-10T14:33:39'
 excerpt: Kıdem tazminatı tavanı 2021, asgari ücret değişikliği ile birlikte en çok merak edilen sorular arasında. 2021 asgari ücret , %21,56 oranında yapılan zam ile…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/01/2023-kidem-tazminat─▒-hasaplama.jpg
+  url: /wp-content/uploads/2023/01/2023-kidem-tazminat─▒-hasaplama.jpg
   alt: Kıdem Tazminatı Tavanı 2021
   width: 1515
   height: 999

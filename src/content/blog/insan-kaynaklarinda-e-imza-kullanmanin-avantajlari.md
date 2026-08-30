@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde E-imza (Mobil İmza)
 date: '2021-03-26T15:52:48'
 excerpt: E-imza (mobil imza) son zamanlarda işletmelerin ihtiyaç duyduğu en büyük kolaylıklardan biri. İşletmelerde evrak işleri hiç bitmez biliyoruz. İş teklifi, iş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/Varlik-3@3x-scaled.png
+  url: /wp-content/uploads/2021/03/Varlik-3@3x-scaled.png
   alt: İnsan Kaynakları Yönetiminde E-imza (Mobil İmza)
   width: 2560
   height: 1438
@@ -33,7 +33,7 @@ E-imza (mobil imza) insan kaynaklarında işe alım sürecinden eğitim planlama
 
 İnsan kaynakları süreçlerinde İdenfit ile güvenli bir şekilde imzalayıp saklayabileceğiniz belge türlerinde herhangi bir sınırlama yoktur. Burada, mevcut **[İdenfit](/)** kullanıcılarının  sıklıkla kullandığı İK belgelerine birkaç örnek veriyoruz. Şimdiden **mobil imza özelliğimizle** binlerce belgenin imzalanmasına yardımcı olduk!
 
-[![e-imza idenfit](https://idenfit.com/wp-content/uploads/2021/03/e-imza-1-1024x576.png)](/digital-imza-modulu/)
+[![e-imza idenfit](/wp-content/uploads/2021/03/e-imza-1-1024x576.png)](/digital-imza-modulu/)
 
 **İDENFİT MOBİL İMZA ÖZELLİĞİ**
 

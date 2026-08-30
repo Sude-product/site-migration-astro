@@ -4,7 +4,7 @@ title: İK’da Yapay Zeka Kullanımı
 date: '2022-01-17T10:09:53'
 excerpt: İK’da yapay zeka kullanımı uzun süredir iş dünyasının odağında yer alıyor. Hayatımıza hızla entegre olan ve her alanda kullanımı artan yapay zeka uygulamaları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/ik-yapay-zeka@2x.jpg
+  url: /wp-content/uploads/2022/01/ik-yapay-zeka@2x.jpg
   alt: İK’da Yapay Zeka Kullanımı
   width: 810
   height: 534

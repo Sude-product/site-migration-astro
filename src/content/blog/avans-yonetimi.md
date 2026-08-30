@@ -4,7 +4,7 @@ title: Avans Yönetimi Hakkında Tüm Merak Edilenler
 date: '2024-12-14T19:02:57'
 excerpt: Finansal ihtiyaçları anında karşılamak ve çalışan memnuniyetini artırmak için avans yönetimi kritik bir araçtır. Etkili bir avans sistemi, hem çalışanların…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/avans-yonetimi-2.jpg
+  url: /wp-content/uploads/2025/08/avans-yonetimi-2.jpg
   alt: Avans Yönetimi Hakkında Tüm Merak Edilenler
   width: 1280
   height: 720

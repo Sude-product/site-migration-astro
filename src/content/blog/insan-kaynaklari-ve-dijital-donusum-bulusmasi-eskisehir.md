@@ -4,7 +4,7 @@ title: İnsan Kaynakları ve Dijital Dönüşüm Buluşması | Eskişehir
 date: '2024-05-16T14:45:57'
 excerpt: Günümüzde insan kaynakları profesyonellerinin, iş gücünü oluşturan insan sermayesini şekillendiren rekabet, aidiyet ve adaletli yönetim beklentisi gibi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/ik-dijital-donusum-bulusmasi-20240613-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/ik-dijital-donusum-bulusmasi-20240613-1392x783-1.jpg
   alt: İnsan Kaynakları ve Dijital Dönüşüm Buluşması | Eskişehir
   width: 1392
   height: 783
@@ -34,13 +34,13 @@ Bu buluşma, insan kaynaklarının dijital dönüşümü sürecinde stratejileri
 
 [Kayıt Ol](https://forms.gle/RkQ3azDq4Df3PzyM6)
 
-![profile-9](https://idenfit.com/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
+![profile-9](/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
 
 **Kemal Koçak**\
 Datassist\
 Chief Growth Officer
 
-![doruk gülsever](https://idenfit.com/wp-content/uploads/2024/05/doruk-gulsever-2024.png)
+![doruk gülsever](/wp-content/uploads/2024/05/doruk-gulsever-2024.png)
 
 **Doruk Gülsever\
 **idenfit\

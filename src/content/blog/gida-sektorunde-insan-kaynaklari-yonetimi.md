@@ -4,7 +4,7 @@ title: Gıda Sektöründe İnsan Kaynakları Yönetimi
 date: '2020-11-23T10:24:54'
 excerpt: Gıda sektöründe insan kaynakları yönetimi , ana iş kolunun yanında tedarikçilerin de dahil olduğu büyük bir endüstriyi yönetmek anlamına gelir. Gıda…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/11/Gıda-Sektöründe-İnsan-Kaynakları-Yönetimi-ve-_İK-Yazılımı-Uygulamaları@3x.png
+  url: /wp-content/uploads/2020/11/Gıda-Sektöründe-İnsan-Kaynakları-Yönetimi-ve-_İK-Yazılımı-Uygulamaları@3x.png
   alt: Gıda Sektöründe İnsan Kaynakları Yönetimi
   width: 2271
   height: 1497
@@ -28,7 +28,7 @@ Yiyecek ve içecek sektörü olarak da nitelendirilebilen gıda sektöründe, ç
 
 ## Gıda Sektöründeki İşletmeler İçin İK Yazılımının Önemi
 
-![](https://idenfit.com/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)
+![](/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)
 
 **[İDENFİT İNSAN KAYNAKLARI YAZILIMI](/insan-kaynaklari-yonetimi-modulu/)**
 

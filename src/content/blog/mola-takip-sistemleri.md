@@ -4,7 +4,7 @@ title: Mola Takip Sistemleri Hakkında Tüm Merak Edilenler
 date: '2024-07-23T19:25:42'
 excerpt: Mola takip sistemleri ile çalışanların mola ve izin sürelerini dijitale taşımaya ne dersiniz? İşletmelerin hiç şüphesiz en değerli kaynağı olan insan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/mola-takip-sistemi.jpg
+  url: /wp-content/uploads/2025/08/mola-takip-sistemi.jpg
   alt: Mola Takip Sistemleri Hakkında Tüm Merak Edilenler
   width: 1281
   height: 721

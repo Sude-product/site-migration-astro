@@ -4,7 +4,7 @@ title: Sigorta Girişi Bilgisi Sisteme Ne Zaman Yansır?
 date: '2025-03-08T18:08:50'
 excerpt: Sigorta girişi bilgisi ne zaman sisteme düşer diye merak ediyorsanız, doğru yerdesiniz. İşe yeni başlayan herkes için kritik olan bu süreç, sosyal hakları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/sigorta-girisi-bilgisi-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/sigorta-girisi-bilgisi-1392x696-1.jpg
   alt: Sigorta Girişi Bilgisi Sisteme Ne Zaman Yansır?
   width: 1392
   height: 696

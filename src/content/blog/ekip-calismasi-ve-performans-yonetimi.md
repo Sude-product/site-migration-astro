@@ -4,7 +4,7 @@ title: Ekip Çalışması ve Performans Yönetimi
 date: '2020-12-08T22:17:16'
 excerpt: Ekip çalışması, uzaktan ve evden çalışmanın yoğun olarak yaşandığı bu pandemi döneminde daha da önem kazanmıştır. Yöneticiler, her zaman neler olup bittiğini,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/Ekip-calismasiyla-ilgili-sik-sorulan-sorular@3x-1.png
+  url: /wp-content/uploads/2020/12/Ekip-calismasiyla-ilgili-sik-sorulan-sorular@3x-1.png
   alt: Ekip Çalışması ve Performans Yönetimi
   width: 2271
   height: 1497

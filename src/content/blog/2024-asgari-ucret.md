@@ -4,7 +4,7 @@ title: 2024 Asgari Ücret Rehberi
 date: '2024-01-09T20:28:51'
 excerpt: Malumunuz olduğu üzere iş dünyasının gözü kulağı bir süredir yeni yılda uygulanacak asgari ücret oranında. Nihayet belli olan 2024 asgari ücret oranı 17.002 Tl…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2024-asgari-ucretli-rehberi-1-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/2024-asgari-ucretli-rehberi-1-1392x696-1.jpg
   alt: 2024 Asgari Ücret Rehberi
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Dijital Yakalı Dönüşümüne Hazır mısınız?
 date: '2021-11-01T16:54:22'
 excerpt: Dünyanın dijital dönüşümüne tanıklık ettiğimiz bir yılın sonuna geldiğimiz bu günlerde dijitalleşme etkisiyle her geçen gün yeni kavramlar ortaya çıkıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/dijital-yakalilar@2x.jpg
+  url: /wp-content/uploads/2021/11/dijital-yakalilar@2x.jpg
   alt: Dijital Yakalı Dönüşümüne Hazır mısınız?
   width: 810
   height: 534

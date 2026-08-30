@@ -4,7 +4,7 @@ title: İK Analitiği (HR Analytics)
 date: '2020-10-12T10:40:57'
 excerpt: İK analitiği, şirket içinde insan kaynakları yönetimi alanındaki ilgili tüm verileri toplayarak İK yönetimindeki her bir süreç hakkında daha iyi bir bakış…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/ik-analitiği-şirkette-nasil-başariyla-uygulanir@3x.png
+  url: /wp-content/uploads/2020/10/ik-analitiği-şirkette-nasil-başariyla-uygulanir@3x.png
   alt: İK Analitiği (HR Analytics)
   width: 2271
   height: 1497
@@ -41,7 +41,7 @@ modifiedDate: '2025-08-28T10:12:38'
 
 ### Çalışanlarla Direkt İlgili İK Analitikleri
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
+![idenfit işe alım modülü](/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
 
 **[İDENFİT İŞE ALIM MODÜLÜ](/ise-alim-modulu/)**
 

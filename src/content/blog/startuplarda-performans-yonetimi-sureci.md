@@ -4,7 +4,7 @@ title: Start-up’larda Performans Yönetimi Süreci
 date: '2021-01-27T12:11:15'
 excerpt: Performans yönetimi süreci, her işletme için oldukça titizlikle ve etkili biçimde yürütülmesi gereken bir süreçtir. Özellikle de tanım gereği start-up…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/start-uplarda-performas-yonetimi-sureci@2x.png
+  url: /wp-content/uploads/2021/01/start-uplarda-performas-yonetimi-sureci@2x.png
   alt: Start-up’larda Performans Yönetimi Süreci
   width: 1514
   height: 998
@@ -32,7 +32,7 @@ Performans yönetimi süreci içerisinde çalışanların günlük olarak perfor
 
 ## **Tutarlı şekilde geri bildirim sağlanır**
 
-![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)
+![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-3.png)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 

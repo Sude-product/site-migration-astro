@@ -4,7 +4,7 @@ title: Mobil İmza Rehberi
 date: '2022-03-30T11:06:16'
 excerpt: Mobil imza dijitalleşme etkisi ile teknolojinin hayatın her alanına hızla entegre olduğu bu günlerde işletmelerin öncelikli ihtiyaçları arasında yer alıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/03/Mobil-I╠cmza-Hakk─▒nda-Tu╠em-Merak-Ettikleriniz@2x.jpg
+  url: /wp-content/uploads/2022/03/Mobil-I╠cmza-Hakk─▒nda-Tu╠em-Merak-Ettikleriniz@2x.jpg
   alt: Mobil İmza Rehberi
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Online Mülakat Sırasında Dikkat Edilmesi Gerekenler
 date: '2020-12-11T13:11:40'
 excerpt: Online mülakat tekniği, özellikle pandemi sürecinde insan kaynakları uzmanlarının işe alım süreçlerinde sıklıkla tercih ettiği bir yöntemdir. İşe alım…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/Online-Mülakatlarda-Dikkat-Edilmesi-Gereken-10-Nokta@3x.png
+  url: /wp-content/uploads/2020/12/Online-Mülakatlarda-Dikkat-Edilmesi-Gereken-10-Nokta@3x.png
   alt: Online Mülakat Sırasında Dikkat Edilmesi Gerekenler
   width: 2271
   height: 1497

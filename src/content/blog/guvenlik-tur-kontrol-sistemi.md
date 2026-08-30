@@ -4,7 +4,7 @@ title: Güvenlik Tur Kontrol Sistemi Nedir?
 date: '2020-10-19T11:03:34'
 excerpt: Güvenlik tur kontrol sistemi , şirket veya kuruluşların belirli periyotlar dahilinde kontrol edilmesi gereken alanlarının ziyaret edilip edilmediğinin ispatını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/guvenlik-tur-kontrol-sistemi-nedir.png
+  url: /wp-content/uploads/2020/10/guvenlik-tur-kontrol-sistemi-nedir.png
   alt: Güvenlik Tur Kontrol Sistemi Nedir?
   width: 2271
   height: 1497

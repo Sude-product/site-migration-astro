@@ -4,7 +4,7 @@ title: Hastalık İzni Nedir?
 date: '2021-10-27T15:10:32'
 excerpt: Hastalık izni, 4857 sayılı İş Kanunu kapsamında çalışan işçilerin herhangi bir sağlık sorunu yaşaması durumunda hak sahibi olduğu izin türüdür. Günlük hayatın…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/hastalik-izni@2x.png
+  url: /wp-content/uploads/2021/10/hastalik-izni@2x.png
   alt: Hastalık İzni Nedir?
   width: 1515
   height: 999

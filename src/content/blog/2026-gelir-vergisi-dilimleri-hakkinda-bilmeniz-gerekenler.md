@@ -4,7 +4,7 @@ title: 2026 Gelir Vergisi Dilimleri Hakkında Bilmeniz Gerekenler
 date: '2026-05-21T06:32:53'
 excerpt: 2026 gelir vergisi dilimleri, bordro süreçlerini en doğrudan etkileyen başlıklardan biri olmaya devam ediyor. Çünkü gelir vergisi yalnızca yasal bir kesinti…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/05/2026-Gelir-Vergisi-Dilimleri-Hakkinda-Bilmeniz-Gerekenler_.jpg
+  url: /wp-content/uploads/2026/05/2026-Gelir-Vergisi-Dilimleri-Hakkinda-Bilmeniz-Gerekenler_.jpg
   alt: 2026 Gelir Vergisi Dilimleri Hakkında Bilmeniz Gerekenler
   width: 1280
   height: 720

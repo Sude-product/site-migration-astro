@@ -4,7 +4,7 @@ title: Puantör Kime Denir? Ne İş Yapar?
 date: '2020-08-12T10:57:34'
 excerpt: Hem kamu da hem de özel sektörde personellerin performanslarına dair verileri takip eden kişi puantör olarak isimlendirilir. Muhasebe birimiyle uyum içinde…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/puantör@3x.png
+  url: /wp-content/uploads/2025/08/puantör@3x.png
   alt: Puantör Kime Denir? Ne İş Yapar?
   width: 2271
   height: 1497

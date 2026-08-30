@@ -4,7 +4,7 @@ title: Ulaşılamama Hakkı Ne Şekilde Uygulanıyor?
 date: '2021-06-21T10:09:10'
 excerpt: Teknolojinin gelişmesi, yapılan işlere her zamankinden daha fazla bağlı olduğu anlamına geliyor. Yakın zamana kadar ofis dışında çalışmak çalışma süresine…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/06/ulasilamama-hakki-nedir-hangi-ulkelerde-ne-sekilde-uygulaniyor-2x.jpg
+  url: /wp-content/uploads/2021/06/ulasilamama-hakki-nedir-hangi-ulkelerde-ne-sekilde-uygulaniyor-2x.jpg
   alt: Ulaşılamama Hakkı Ne Şekilde Uygulanıyor?
   width: 810
   height: 534

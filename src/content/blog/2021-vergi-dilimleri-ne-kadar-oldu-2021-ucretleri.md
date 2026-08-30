@@ -4,7 +4,7 @@ title: 2021 Vergi Dilimleri Ne Kadar Oldu?
 date: '2021-03-31T14:41:44'
 excerpt: 2021 vergi dilimleri, 2021 yılında geçerli olacak birçok mali parametre ile birlikte belirlendi. Devletin çalışanların geliri üzerinden yaptığı oransal kesinti…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/2021-vergi-dilimleri-ne-kadar-oldu-2021-ucretleri@2x.png
+  url: /wp-content/uploads/2021/03/2021-vergi-dilimleri-ne-kadar-oldu-2021-ucretleri@2x.png
   alt: 2021 Vergi Dilimleri Ne Kadar Oldu?
   width: 1514
   height: 999

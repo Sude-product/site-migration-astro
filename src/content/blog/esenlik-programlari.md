@@ -4,7 +4,7 @@ title: Esenlik Programları ile Tanışın!
 date: '2022-06-22T15:39:08'
 excerpt: Esenlik programları, çalışanların sağlık risklerini azaltarak hayat kalitelerinin artırılmasını hedefleyen pozitif davranışlar bütünü olarak ifade ediliyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/06/Esenlik-Programlari-ile-Tanisin-Kurumsal-Esenlik-Nedir.jpg
+  url: /wp-content/uploads/2022/06/Esenlik-Programlari-ile-Tanisin-Kurumsal-Esenlik-Nedir.jpg
   alt: Esenlik Programları ile Tanışın!
   width: 1515
   height: 999

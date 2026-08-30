@@ -4,7 +4,7 @@ title: Bulut Tabanlı Yazılımda Bordro Hesaplama Nasıl Yapılır?
 date: '2020-07-08T15:03:42'
 excerpt: “ Bordro nedir? ” sorusunun yanıtı aslında bir hesabın detaylarını gösteren cetvel olsa da bu kelime yaygın olarak maaş bordrosu anlamında kullanılır. Maaş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/bordro-1.png
+  url: /wp-content/uploads/2025/08/bordro-1.png
   alt: Bulut Tabanlı Yazılımda Bordro Hesaplama Nasıl Yapılır?
   width: 2271
   height: 1497

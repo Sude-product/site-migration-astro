@@ -4,7 +4,7 @@ title: Mobil PDKS’nin Avantajları
 date: '2025-03-28T23:00:24'
 excerpt: Mobil PDKS, İK süreçlerini hızlandıran, esnekliği artıran ve zamandan tasarruf sağlayan bir iş gücü yönetimi çözümüdür. Bu sistem, çalışan takibini yalnızca…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/blok-mobil-pdks-nin-avantajlari.jpg
+  url: /wp-content/uploads/2025/08/blok-mobil-pdks-nin-avantajlari.jpg
   alt: Mobil PDKS’nin Avantajları
   width: 1280
   height: 721

@@ -4,7 +4,7 @@ title: Dijital İnsan Kaynakları Yönetimi Semineri | Bodrum
 date: '2024-03-15T16:15:25'
 excerpt: Yöneticilerin ve insan kaynaklarının, çalışanların etkin yönetiminde dijital uygulamalarla işlerini kolaylaştırmayı, yasal mevzuata uygun hale getirmeyi, zaman…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2024/03/Bodrum-Dijital-IK-Semineri-1392x783-1.jpg
+  url: /wp-content/uploads/2024/03/Bodrum-Dijital-IK-Semineri-1392x783-1.jpg
   alt: Bodrum Dijital IK Semineri
   width: 1392
   height: 783
@@ -34,7 +34,7 @@ Yöneticilerin ve insan kaynaklarının, çalışanların etkin yönetiminde dij
 
 [Kayıt Ol](https://forms.gle/dRMbzJsGU8jEyfNYA)
 
-![](https://idenfit.com/wp-content/uploads/2024/02/doruk-gulsever-no-bg.png)
+![](/wp-content/uploads/2024/02/doruk-gulsever-no-bg.png)
 
 **Doruk Gülsever\
 **idenfit\

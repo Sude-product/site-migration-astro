@@ -4,7 +4,7 @@ title: Yalın İK Yönetimi
 date: '2021-09-28T14:10:50'
 excerpt: 2021 yılı devam eden Covid-19 pandemisi, teknolojinin hayatın her alanına hızla entegre olması ve iş dünyasında yoğun şekilde hissedilen dijital dönüşüm…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/09/Yalin-Uretimin-Anahtari-Yalin-IK-Yonetimi.png
+  url: /wp-content/uploads/2021/09/Yalin-Uretimin-Anahtari-Yalin-IK-Yonetimi.png
   alt: Yalın İK Yönetimi
   width: 758
   height: 499

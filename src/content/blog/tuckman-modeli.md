@@ -4,7 +4,7 @@ title: 'Tuckman Modeli: Ekip Yönetimi'
 date: '2022-10-11T15:24:51'
 excerpt: Proje yönetiminin etkin ve verimli ilerlemesi iyi bir ekip yönetimi ile doğru orantılıdır. Bu nedenle ekip dinamikleri ve davranışlarının doğru bir şekilde…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/iyi-bir-proje-yonetimi-icin-ekip-yonetimi-tuckman-modeli.jpg
+  url: /wp-content/uploads/2022/10/iyi-bir-proje-yonetimi-icin-ekip-yonetimi-tuckman-modeli.jpg
   alt: 'Tuckman Modeli: Ekip Yönetimi'
   width: 1515
   height: 999

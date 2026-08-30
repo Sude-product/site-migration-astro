@@ -4,7 +4,7 @@ title: KOBİ Dijital Dönüşümü
 date: '2021-09-20T19:42:19'
 excerpt: Kobi dijital dönüşümü pandemi sürecinin nadir olumlu etkileri arasında yer alıyor. Genellikle geleneksel şirket anlayışıyla varlığını sürdüren Kobi’ler için…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/09/KOBİlerin-Dijital-Donusumu-KOBİler-Gelecekle-Bulusmaya-Hazir-mi_.png
+  url: /wp-content/uploads/2021/09/KOBİlerin-Dijital-Donusumu-KOBİler-Gelecekle-Bulusmaya-Hazir-mi_.png
   alt: KOBİ Dijital Dönüşümü
   width: 757
   height: 500

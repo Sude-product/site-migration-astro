@@ -4,7 +4,7 @@ title: İşveren Markası Yönetimi
 date: '2022-02-16T12:29:09'
 excerpt: İşveren markası yönetimi son dönemlerde İK departmanlarının ve iş dünyasının odak noktasında yer alıyor. İşveren markası, işletmelerin potansiyel çalışanları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/WhatsApp-Image-2022-02-16-at-11.55.33.jpeg
+  url: /wp-content/uploads/2022/02/WhatsApp-Image-2022-02-16-at-11.55.33.jpeg
   alt: İşveren Markası Yönetimi
   width: 758
   height: 500

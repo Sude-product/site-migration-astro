@@ -4,7 +4,7 @@ title: İşten Çıkış Kodları Nedir?
 date: '2022-03-16T14:31:45'
 excerpt: İşveren ve işçi arasında imzalanan iş sözleşmesi, çeşitli nedenlere bağlı olarak işveren veya işçi tarafından sonlandırılabilir. İşten çıkış kodu, iş akdinin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Çalişma-Yüzeyi-3-kopya@2x.png
+  url: /wp-content/uploads/2025/08/Çalişma-Yüzeyi-3-kopya@2x.png
   alt: İşten Çıkış Kodları Nedir?
   width: 1515
   height: 999

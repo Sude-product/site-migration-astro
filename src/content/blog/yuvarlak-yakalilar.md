@@ -4,7 +4,7 @@ title: 'Yuvarlak Yakalılar: Geleceğin Çalışanları!'
 date: '2025-05-18T17:21:16'
 excerpt: Yuvarlak yakalılar kavramı ile ilk kez karşılaşmış olabilirsiniz ancak son kez olmadığına eminiz. Beyaz yaka ve mavi yaka kavramları uzun süredir iş hayatının…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/yuvarlak-yakalilar-1.jpg
+  url: /wp-content/uploads/2025/05/yuvarlak-yakalilar-1.jpg
   alt: 'Yuvarlak Yakalılar: Geleceğin Çalışanları!'
   width: 1024
   height: 675

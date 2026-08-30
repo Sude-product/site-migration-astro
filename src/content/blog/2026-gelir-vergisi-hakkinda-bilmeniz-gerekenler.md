@@ -4,7 +4,7 @@ title: 2026 Gelir Vergisi Dilimleri Hakkında Bilmeniz Gerekenler
 date: '2026-03-11T13:42:40'
 excerpt: Gelir vergisi dilimleri, çalışanların elde ettiği gelirin hangi oranlarda vergilendirileceğini belirleyen önemli bir sistemdir. Bu sistem hem çalışanların net…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/2026-Gelir-Vergisi-Dilimleri-Hakkinda-Bilmeniz-Gerekenler.jpg
+  url: /wp-content/uploads/2026/03/2026-Gelir-Vergisi-Dilimleri-Hakkinda-Bilmeniz-Gerekenler.jpg
   alt: 2026 Gelir Vergisi Dilimleri
   width: 1280
   height: 721

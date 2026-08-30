@@ -4,7 +4,7 @@ title: 2024 Memur Maaş Zammı
 date: '2023-10-30T13:38:29'
 excerpt: 2024 memur maaş zammı oranı milyonlarca memur ve memur emeklisi tarafından merakla bekleniyor. Biz de son dakika bilgilerine göre 2024 yılı ocak ayında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/10/2024-emekli-ve-memur-zammi-oranlari.jpg
+  url: /wp-content/uploads/2023/10/2024-emekli-ve-memur-zammi-oranlari.jpg
   alt: 2024 Memur Maaş Zammı
   width: 1621
   height: 811

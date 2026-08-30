@@ -4,7 +4,7 @@ title: İşveren Yemek ve Yol Ücreti Ödemek Zorunda Mı?
 date: '2020-10-21T14:01:14'
 excerpt: Yemek ve yol ücreti işçiye ödenmeli mi sorusu hem işçiyi hem de işvereni yakından ilgilendiren bir konudur. İşçi hakları, her grup işçinin 4857 sayılı İş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/isveren-yemek-ve-yol-ucreti-odemek-zorunda-mi.png
+  url: /wp-content/uploads/2020/10/isveren-yemek-ve-yol-ucreti-odemek-zorunda-mi.png
   alt: İşveren Yemek ve Yol Ücreti Ödemek Zorunda Mı?
   width: 2271
   height: 1497
@@ -33,7 +33,7 @@ Maaş ödemesinden önce işçinin işverenden talebi üzerine almış olduğu �
 
 Borçlar Kanunu’nda yer alan bu koşullar; işçinin zorunlu bir ihtiyacı olması, işverenin ödeyebilecek durumda olması ve avans miktarının işçinin hizmetiyle orantılı olmasıdır. Yasal hükümler sonucunda yine de işverenin işçiye karşı avans verme zorunluluğu söz konusu değildir. Ayrıca işverenin işçiye avans vermemesi haklı bir **fesih gerekçesi** değildir ve işçi bu sebeple işten ayrılırsa **[kıdem tazminatı](/blog/kidem-tazminati/)** hakkı kazanamaz.
 
-![](https://idenfit.com/wp-content/uploads/2020/10/Varlık-18@2x-1024x844.png)
+![](/wp-content/uploads/2020/10/Varlık-18@2x-1024x844.png)
 
 **[İDENFİT HARCAMALAR VE AVANS MODÜLÜ](/masraf-yonetimi-modulu/)**
 

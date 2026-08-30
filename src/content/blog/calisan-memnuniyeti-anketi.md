@@ -4,7 +4,7 @@ title: Çalışan Memnuniyeti Anketi Nedir? Nasıl Uygulanır?
 date: '2024-08-20T21:53:53'
 excerpt: Çalışan memnuniyeti anketi, bir kurumun veya organizasyonun çetin yollarda hedefe ilerlerken başarıyı ölçmede kritik rol oynayan araçlardan biridir. İnsan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Çalişan-Memnuniyeti-Anketi-Nedir.-_Çalişan-Memnuniyeti-Nasil-Artirilir.@3x.png
+  url: /wp-content/uploads/2025/08/Çalişan-Memnuniyeti-Anketi-Nedir.-_Çalişan-Memnuniyeti-Nasil-Artirilir.@3x.png
   alt: Çalışan Memnuniyeti Anketi Nedir? Nasıl Uygulanır?
   width: 2271
   height: 1497
@@ -75,7 +75,7 @@ Bir kurumda çalışanların memnun olduğu veya olmadığı konuları ölçüp,
 *   **[Çalışan motivasyonu](/blog/calisan-motivasyonu/)**na olumlu katkılar sağlar,
 *   Anket sonrası iyileştirmeler noktasında yardımcı olur.
 
-![calisan memnıniyeti geri bildirim](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)
+![calisan memnıniyeti geri bildirim](/wp-content/uploads/2020/09/feedbackxx-3.png)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 

@@ -4,7 +4,7 @@ title: İşe Dönüş Programları
 date: '2021-11-03T09:25:22'
 excerpt: İşe dönüş programları dünyada ve ülkemizde etkinliğini günden güne arttırıyor. Fortune 50 şirketlerinin büyük bir kısmı işe dönüş programlarını destekliyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/ik-profesyonellerinin-dikkatine-yildizlar-sahnelerine-geri-donuyor-ise-donus-programlari@2x.jpg
+  url: /wp-content/uploads/2021/11/ik-profesyonellerinin-dikkatine-yildizlar-sahnelerine-geri-donuyor-ise-donus-programlari@2x.jpg
   alt: İşe Dönüş Programları
   width: 810
   height: 534

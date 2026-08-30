@@ -4,7 +4,7 @@ title: Şeffaf Maaş Sistemi
 date: '2022-05-17T12:28:02'
 excerpt: Şeffaf maaş sistemi insan odaklı İK yaklaşımının etkisi ile her geçen gün daha sık gündeme geliyor. Bazı şirketlerde 360 derece performans değerlendirmeleri ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/07/Seffaf-maas-politikas─▒.jpg
+  url: /wp-content/uploads/2025/07/Seffaf-maas-politikas─▒.jpg
   alt: Şeffaf Maaş Sistemi
   width: 1515
   height: 998

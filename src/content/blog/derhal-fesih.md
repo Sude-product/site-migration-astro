@@ -4,7 +4,7 @@ title: Derhal Fesih / Bildirimsiz Fesih
 date: '2023-03-09T19:40:31'
 excerpt: Derhal fesih hakkında ne kadar bilgi sahibisiniz? İş Kanunun’da öngörülen “Haklı fesih sebepleri nelerdir?” , “Bildirimsiz fesih durumunda karşı tarafın…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/03/derhal-fesih.jpg
+  url: /wp-content/uploads/2023/03/derhal-fesih.jpg
   alt: Derhal Fesih / Bildirimsiz Fesih
   width: 1621
   height: 811

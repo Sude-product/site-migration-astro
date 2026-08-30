@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi
 date: '2023-05-09T11:12:52'
 excerpt: Dijital teknolojilerin iş dünyasına olan etkisi hızla artmaktadır ve bu değişim, insan kaynakları yönetimi alanında da hissedilmektedir. Bu zirve, işletmelerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/05/ik-dijital-donusum-zirvesi-guncel.jpg
+  url: /wp-content/uploads/2023/05/ik-dijital-donusum-zirvesi-guncel.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi
   width: 1920
   height: 1080
@@ -41,36 +41,36 @@ Gerçekleştirildi.
 
 ## **KONUŞMACILAR**
 
-![](https://idenfit.com/wp-content/uploads/2023/05/konusmaci-demet-ozdemir.png)
+![](/wp-content/uploads/2023/05/konusmaci-demet-ozdemir.png)
 
 Demet Özdemir\
 **Mondelēz International**\
 Country HR Lead
 
-![](https://idenfit.com/wp-content/uploads/2023/05/konusmaci-Damla-Benli-Yildirim.png)
+![](/wp-content/uploads/2023/05/konusmaci-Damla-Benli-Yildirim.png)
 
 Damla Beni Yıldırım **Sodexo Entegre**\
 Human Resources Director
 
-![](https://idenfit.com/wp-content/uploads/2023/06/hande-yalgin.png)
+![](/wp-content/uploads/2023/06/hande-yalgin.png)
 
 Hande Yalgın\
 **Yemeksepeti**\
 Chief People & Culture Officer
 
-![](https://idenfit.com/wp-content/uploads/2023/05/seray-kerimak.png)
+![](/wp-content/uploads/2023/05/seray-kerimak.png)
 
 Seray Kerimak\
 **Turkcell**\
 HR Director Center of Excellence
 
-![](https://idenfit.com/wp-content/uploads/2023/05/konusmaci-eyup-kutlu.png)
+![](/wp-content/uploads/2023/05/konusmaci-eyup-kutlu.png)
 
 Eyüp Kutlu\
 **DeFacto**\
 Global Total Rewards & HR Analytics Director
 
-![](https://idenfit.com/wp-content/uploads/2023/05/konusmaci-ridvan-acar.png)
+![](/wp-content/uploads/2023/05/konusmaci-ridvan-acar.png)
 
 Rıdvan Acar\
 **Alışan Group**\

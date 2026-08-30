@@ -4,7 +4,7 @@ title: İnsan Kaynakları için Sosyal Güvenlik Kanunu Uygulamaları
 date: '2023-04-01T14:36:20'
 excerpt: Günümüz iş dünyasında, insan kaynakları yönetimi için en önemli konulardan biri olan sosyal güvenlik, hem işverenler hem de çalışanlar için büyük önem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/05/webinar-ik-profesyonelleri-icin-sgk-uygulamalari-20230525-16-9.jpg
+  url: /wp-content/uploads/2023/05/webinar-ik-profesyonelleri-icin-sgk-uygulamalari-20230525-16-9.jpg
   alt: İnsan Kaynakları için Sosyal Güvenlik Kanunu Uygulamaları
   width: 1280
   height: 720

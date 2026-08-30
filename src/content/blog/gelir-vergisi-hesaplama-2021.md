@@ -4,7 +4,7 @@ title: Gelir Vergisi Hesaplama 2021
 date: '2021-03-17T14:16:55'
 excerpt: Gelir vergisi hesaplama ve gelir vergisi dilimleri 2021, her yıl olduğu gibi bu yıl içinde de en çok merak edilen konular arasındadır. Çünkü 2021 yılında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/gelir-vergisi-hesaplama-gelir-vergisi-dilimleri-2021@2x.png
+  url: /wp-content/uploads/2021/03/gelir-vergisi-hesaplama-gelir-vergisi-dilimleri-2021@2x.png
   alt: Gelir Vergisi Hesaplama 2021
   width: 1514
   height: 999

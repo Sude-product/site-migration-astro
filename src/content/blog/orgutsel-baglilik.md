@@ -4,7 +4,7 @@ title: Örgütsel Bağlılık
 date: '2022-10-18T14:34:50'
 excerpt: Tarih boyunca çalışma hayatı önemli değişimlere sahne olmuştur. Günümüzde ise çalışma hayatını olumlu ya da olumsuz etkileyen makro ve mikro ölçekte pek çok…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/orgutsel-baglilik.jpg
+  url: /wp-content/uploads/2022/10/orgutsel-baglilik.jpg
   alt: Örgütsel Bağlılık
   width: 1515
   height: 999
@@ -27,7 +27,7 @@ Diğer yandan, özellikle iş gücü piyasasında nispeten daha genç olanların
 
 Literatürde örgütsel bağlılığın alt boyutları ile ilgili çeşitli yaklaşımlara rastlamak mümkünse de bu konudaki çalışmaların birbirini tamamlar nitelikte olduğu görülmektedir.  Meyer ve Allen’a göre, bir bireyin çalıştığı işletme ile olan ilişkisinin daha iyi anlaşılabilmesinin yolu, ileri sürmüş oldukları her üç bağlılık boyutunun birlikte ele alınmasından geçmektedir.
 
-![](https://idenfit.com/wp-content/uploads/2022/10/Ekran-Resmi-2022-10-18-15.59.52-1024x328.png)
+![](/wp-content/uploads/2022/10/Ekran-Resmi-2022-10-18-15.59.52-1024x328.png)
 
 1.  **Duygusal Bağlılık**
 

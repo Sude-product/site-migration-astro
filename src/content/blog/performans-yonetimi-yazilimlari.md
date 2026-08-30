@@ -4,7 +4,7 @@ title: Performans Yönetimi Yazılımları Hakkında Tüm Merak Ettikleriniz
 date: '2025-10-22T20:48:23'
 excerpt: Çalışan performans yönetimi, günümüzde işletmelerin başarısı için kritik bir faktör olarak öne çıkıyor. Bu süreç her dönemde pratik ve doğrusal olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/performans-yonetimi-yazilimlari-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/performans-yonetimi-yazilimlari-1392x696-1.jpg
   alt: Performans Yönetimi Yazılımları Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

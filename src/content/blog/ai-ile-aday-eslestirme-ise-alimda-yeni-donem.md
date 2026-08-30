@@ -4,7 +4,7 @@ title: 'AI ile Aday Eşleştirme: İşe Alımda Yeni Dönem'
 date: '2026-03-11T14:36:29'
 excerpt: İşe alım süreçleri son yıllarda hem teknoloji hem de iş dünyasındaki değişimler nedeniyle önemli ölçüde dönüşmeye başladı. Şirketler artık yalnızca doğru adayı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/AI-ile-Aday-Eslestirme-Ise-Alimda-Yeni-Donem-.jpg
+  url: /wp-content/uploads/2026/03/AI-ile-Aday-Eslestirme-Ise-Alimda-Yeni-Donem-.jpg
   alt: 'AI ile işe alım: İşe Alımda Yeni Dönem'
   width: 1280
   height: 721

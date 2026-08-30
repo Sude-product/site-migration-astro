@@ -4,7 +4,7 @@ title: Oyunlaştırma Nedir? İnsan Kaynaklarında Oyunlaştırma
 date: '2021-02-12T15:36:10'
 excerpt: “Oyunlaştırma nedir? İşimize, kurum kültürüne faydası ne olur?” soruları son zamanların iş dünyasında oldukça merak edilen sorular. 2010 yılından itibaren…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/02/yapboz@2x.jpg
+  url: /wp-content/uploads/2021/02/yapboz@2x.jpg
   alt: Oyunlaştırma Nedir? İnsan Kaynaklarında Oyunlaştırma
   width: 810
   height: 534
@@ -17,7 +17,7 @@ modifiedDate: '2025-08-24T14:04:51'
 
 “Oyunlaştırma nedir? İşimize, kurum kültürüne faydası ne olur?” soruları son zamanların iş dünyasında oldukça merak edilen sorular. 2010 yılından itibaren kullanılmaya başlanan ve sürekli yeniliklerle anılan oyunlaştırma kavramı teorik olarak anlaşılsa da uygulama konusu akıllarda hala net değil. Peki **oyunlaştırma (gamification)** tam olarak nedir ve şirketlerde nasıl uygulanıyor? Bu blog yazımızda iş dünyası ve özellikle insan kaynakları departmanı için oyunlaştırma ne ifade ediyor, bu konuya odaklanacağız.
 
-![oyunlaştırma kavramı aranma trendi](https://idenfit.com/wp-content/uploads/2021/02/oyunlastirma-1024x512.png)
+![oyunlaştırma kavramı aranma trendi](/wp-content/uploads/2021/02/oyunlastirma-1024x512.png)
 
 Oyunlaştırma kavramının zaman içindeki aranma grafiği – Google Trends ( Şubat 2021)
 
@@ -35,7 +35,7 @@ Oyunlaştırmanın en önemli faktörlerinden biri motivasyondur. İyi kurgulanm
 
 Ünlü oyunlaştırma uzmanı **[Gabe Zichermann](https://gabezichermann.com/)**’ın ödül tiplerini oyunlaştırma tasarımı için incelediği **SAPS Ödüllendirme Sisteminde** yer alan, **(Status-Access-Power ve Stuff)** **Statü, Erişim, Güç** ve **Eşya** olarak kategorize edilmiş 4 çeşit ödülde, hem iç hem de dış motivasyonlar mevcuttur. Eşya temelde dış motivasyon sağlarken, rol paylaşımı ya da belirli bir yere üye kabul edilmek gibi statü sağlayan ödüller daha çok içsel motivasyon sağlar.
 
-![](https://idenfit.com/wp-content/uploads/2021/02/Calisma-Yuzeyi-2-kopya-100-1.jpg)
+![](/wp-content/uploads/2021/02/Calisma-Yuzeyi-2-kopya-100-1.jpg)
 
 SAPS ÖDÜLLENDİRME SİSTEMİ
 
@@ -49,7 +49,7 @@ Oyunlaştırmanın en özelliği süreklilik adına bir döngü oluşturmaktır.
 
 Peki tüm bu bilgiler ışığında insan kaynakları departmanları oyunlaştırmayı kendi alanlarında nasıl uygulayabilirler?
 
-![](https://idenfit.com/wp-content/uploads/2021/02/42990-1-1024x1024.jpg)
+![](/wp-content/uploads/2021/02/42990-1-1024x1024.jpg)
 
 ## **İnsan Kaynakları Yönetiminde Oyunlaştırma**
 

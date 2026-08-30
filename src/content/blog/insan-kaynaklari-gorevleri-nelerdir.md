@@ -4,7 +4,7 @@ title: İnsan Kaynakları Görevleri ve Sorumlulukları Nelerdir?
 date: '2025-02-08T20:45:06'
 excerpt: İnsan kaynakları görevleri nelerdir deyince akla hemen üretim ve hizmetin yer aldığı her kurumun sahip olduğu en değerli kaynak olan insanın doğru…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/insan-kaynaklari-görevleri.png
+  url: /wp-content/uploads/2025/08/insan-kaynaklari-görevleri.png
   alt: İnsan Kaynakları Görevleri ve Sorumlulukları Nelerdir?
   width: 2271
   height: 1497
@@ -41,7 +41,7 @@ Genel algı insan kaynakları biriminin sadece işe alım sürecinde aktif rol o
 \
 İnsan kaynakları departmanları tüm bu işleri yaparken insan kaynaklarına özel tasarlanmış insan kaynakları yazılımından yararlanabiliyor. [Idenfit insan kaynakları ve iş gücü yazılımı](/calisan-performans-degerlendirme-sistemi-modulu/), insan kaynakları yönetimine bütüncül bir yaklaşım getiriyor. Böylece özlük dosyası tutmaktan <a href="/calisan-ozluk-yonetimi-modulu/" aria-label="Employee Information Module_TR sayfası"> </a>işe alıma, performans değerlendirmeden [eğitim planlamaya](/calisan-egitim-yonetimi-modulu/) kadar insan kaynaklarının alanına giren tüm iş ve işlemleri tek bir platform altında yönetmenizi sağlıyor.
 
-<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İnsan Kaynakları sayfası"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/linkedin-.png" alt="" class="wp-image-2045"></a>
+<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İnsan Kaynakları sayfası"><img decoding="async" src="/wp-content/uploads/2020/08/linkedin-.png" alt="" class="wp-image-2045"></a>
 
 ## **İKY Görevleri Neleri Kapsar?**
 

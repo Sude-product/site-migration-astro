@@ -4,7 +4,7 @@ title: Sanal Oryantasyon Rehberi
 date: '2024-04-01T23:35:00'
 excerpt: Dijital çağın hızla evrildiği günümüzde, işletmeler için sanal oryantasyon artık bir gereklilik haline geldi. İşte tam da burada, idenfit olarak devreye…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/digital-oryantasyon-rehberi.png
+  url: /wp-content/uploads/2025/08/digital-oryantasyon-rehberi.png
   alt: Sanal Oryantasyon Rehberi
   width: 811
   height: 406

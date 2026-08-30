@@ -4,7 +4,7 @@ title: Yetenek Krizi ve İşverenler
 date: '2022-08-16T17:37:27'
 excerpt: Yetenek krizi, her geçen gün daha ciddi bir sorun haline geliyor. Her 4 şirketten 3’ünün doğru yeteneklere ulaşmakta zorluk yaşadığı belirtiliyor. Yetenek…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/08/yetenek-krizi.jpg
+  url: /wp-content/uploads/2022/08/yetenek-krizi.jpg
   alt: Yetenek Krizi ve İşverenler
   width: 1514
   height: 999

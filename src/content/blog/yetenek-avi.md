@@ -4,7 +4,7 @@ title: Yetenek Avı için Tavsiyeler
 date: '2021-12-31T11:50:22'
 excerpt: Yetenek avı her geçen gün daha sık duyduğumuz bir kavram haline geliyor. Pandemi sonrasında yaygınlaşan mekân bağımsız çalışma modelleri, artan teknoloji…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/12/Yetenek-Avi-3.jpg
+  url: /wp-content/uploads/2021/12/Yetenek-Avi-3.jpg
   alt: Yetenek Avı için Tavsiyeler
   width: 757
   height: 499

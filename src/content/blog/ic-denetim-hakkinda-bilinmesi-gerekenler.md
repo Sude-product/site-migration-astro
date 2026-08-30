@@ -4,7 +4,7 @@ title: İç Denetim Hakkında Bilinmesi Gerekenler
 date: '2022-11-09T12:19:00'
 excerpt: İç denetim kavramı sadece kelime anlamıyla bile işletmeler için rahatsızlık duygusu uyandıran bir kavram olabilir. En iyi koşullar sağlansa dahi, çoğu zaman…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/11/ic-denetim-hakkinda-bilinmesi-gerekenler@2x-100.jpg
+  url: /wp-content/uploads/2022/11/ic-denetim-hakkinda-bilinmesi-gerekenler@2x-100.jpg
   alt: İç Denetim Hakkında Bilinmesi Gerekenler
   width: 1515
   height: 999
@@ -53,7 +53,7 @@ Günümüzde iç denetim faaliyetleri, bir işletmenin faaliyetlerinde ve kurums
 
 5.  **Takip:** İç denetim sürecinin son aşamasında, iç denetim ekibi hazırladıkları denetim raporunda belirlenen konuların uygulandığına dair düzeltici eylem planlarını takip eder. İlerleme sağlamayan bir düzeltici eylem planları yönetim kuruluna iletilir.
 
-![](https://idenfit.com/wp-content/uploads/2022/11/İç-denetim-süreci-yazisiz@-1024x418.png)
+![](/wp-content/uploads/2022/11/İç-denetim-süreci-yazisiz@-1024x418.png)
 
 **Şekil 1**. İç Denetim Süreci
 

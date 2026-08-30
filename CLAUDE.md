@@ -1333,11 +1333,44 @@ hâlâ geçerli.)*
     backend'siz** (madde 2 ile aynı Faz 2 kategorisi).
 13. **BULGU — site geneli sabit WhatsApp/Ara widget'ı yok, kaynakta
     var.** Kapsam dışı, istenirse eklenebilir.
-14. **Görsel yerelleştirme kısmen tamamlandı** — yalnızca İK Olgunluk
-    Testi + `pdks-nedir` blog yazısı yerelleştirildi. **Kalan ~1260
-    görsel (618 blog yazısı + 10 veri dosyası) hâlâ hotlink** — kademeli
-    üretim onayı bekliyor. Script: `scripts/localize-images.mjs`.
-    **Karar (2026-08-12):** Faz 2'ye geçmeden hemen önce ele alınacak.
+14. **TAMAMEN KAPANDI (2026-08-30) — 622 blog yazısının TÜM görselleri
+    yerelleştirildi VE `.md`'lerdeki URL'ler göreliye çevrildi, blog
+    artık `idenfit.com` domainine hiç bağımlı değil.** Kullanıcının
+    paylaştığı bir denetim raporu "973 blog görseli eski WordPress'e
+    mutlak URL'yle bağlı, DNS geçişinde hepsi 404 verir" bulgusunu
+    getirdi, 2 turda kapatıldı:
+    1. **Yerelleştirme:** 976 benzersiz görsel dosyası doğrulandı (622
+       `.md`'de, `public/wp-content/uploads/`'da 0'ı mevcuttu).
+       `reference/wordpress-export/uploads.zip` bu makinede YOK
+       (gitignore'da, hiç commit edilmemiş) — `scripts/localize-images.mjs`
+       bu yüzden kullanılamadı. Bunun yerine eski WP sitesinin
+       (`idenfit.com`) hâlâ canlı olduğu doğrulanıp yeni
+       `scripts/download-blog-images.mjs` yazıldı — 622 `.md`'yi tarayıp
+       benzersiz görselleri doğrudan HTTP ile indirip AYNI göreli yola
+       yazıyor, her dosya için 0-byte + magic-byte (PNG/JPEG/GIF/WEBP/SVG
+       imzası) doğrulaması yapıyor. **976/976 indirildi, 0 hata** (25'lik
+       pilot + 951'lik toplu tur).
+    2. **URL göreliye çevirme:** yeni `scripts/relativize-blog-image-urls.mjs`
+       ile 620 `.md` dosyasındaki `https://idenfit.com/wp-content/uploads/`
+       önekleri `/wp-content/uploads/`'a çevrildi (25'lik pilot + 595'lik
+       toplu tur, **toplam 1039 URL, 0 kalan mutlak referans**).
+    **Doğrulama (her iki turda da tekrarlandı):** `astro build` (3097
+    sayfa) + `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
+    sıfır regresyon. `dist/`'teki TÜM `/wp-content/uploads/` referansları
+    (URL-decode edilerek) dosya varlığına karşı tek tek doğrulandı:
+    981/991 gerçek blog-görseli referansı sağlam, kalan 10'u blog
+    içeriğiyle İLGİSİZ (`src/data/navigation.ts`'teki KEŞFET mega-menü
+    "Raporlar" kartlarının PDF/PNG'leri — muhtemelen bu maddenin eski
+    "10 veri dosyası" notuna karşılık geliyor, AYRI/dokunulmamış bir
+    kapsam, bilinçli olarak bu turun dışında bırakıldı). Chrome'da
+    `astro preview` ile 4 yazı (mojibake dosya adı içeren
+    `is-gorusmesinde-ne-giyilmeli` dahil) `read_network_requests` ile
+    tek tek doğrulandı — TÜM görsel istekleri artık `localhost:4321`'e
+    gidiyor, `idenfit.com`'a HİÇ istek atılmıyor (URL göreli
+    olduğu için domain'e bağımlılık tamamen kalktı). Script'ler:
+    `scripts/download-blog-images.mjs` + `scripts/relativize-blog-image-urls.mjs`
+    (ikisi de yeni, kalıcı/yeniden kullanılabilir). `scripts/localize-images.mjs`
+    (eski, zip tabanlı) hâlâ duruyor ama artık kullanılmıyor.
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).

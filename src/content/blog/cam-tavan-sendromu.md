@@ -4,7 +4,7 @@ title: Cam Tavan Sendromu ile Başa Çıkma Stratejileri
 date: '2020-07-03T09:21:51'
 excerpt: Cam tavan sendromu, kişisel gelişim alanında uzman bir doktor olan David J. Schwartz tarafından yapılan bir deney sonucunda bu isimle anılmaya başlanılan bir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/camtavan.png
+  url: /wp-content/uploads/2025/08/camtavan.png
   alt: Cam Tavan Sendromu ile Başa Çıkma Stratejileri
   width: 2271
   height: 1497

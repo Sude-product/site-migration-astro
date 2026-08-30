@@ -4,7 +4,7 @@ title: 'Sanal Kapsayıcılık: Uzaktan Çalışmada Kapsayıcılık'
 date: '2022-04-21T11:21:41'
 excerpt: Sanal kapsayıcılık son dönemlerde İK departmanlarının ilgilendiği konularda üst sıralarda yer alıyor. Pandemi sonrasında hayatımıza katılan yeni çalışma…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/Sanal-Kapsay─▒c─▒l─▒k-Uzaktan-C╠gal─▒s╠gmada-Kapsay─▒c─▒l─▒k-Ku╠eltu╠eru╠e.jpg
+  url: /wp-content/uploads/2022/04/Sanal-Kapsay─▒c─▒l─▒k-Uzaktan-C╠gal─▒s╠gmada-Kapsay─▒c─▒l─▒k-Ku╠eltu╠eru╠e.jpg
   alt: 'Sanal Kapsayıcılık: Uzaktan Çalışmada Kapsayıcılık'
   width: 1515
   height: 998

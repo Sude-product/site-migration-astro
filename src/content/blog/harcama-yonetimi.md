@@ -4,7 +4,7 @@ title: Harcama Yönetimi Stratejinizi Belirleyin
 date: '2022-01-03T09:36:33'
 excerpt: Pandemi sonrasında global pazarı etkisi altına alan ekonomik kriz şirketlerin harcama yönetiminde çok daha dikkatli davranmasını gerektiriyor. Dinamiklerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/kuresel-ekonomik-krizde-harcama-yonetimi-stratejinizi-belirleyin@2x.jpg
+  url: /wp-content/uploads/2022/01/kuresel-ekonomik-krizde-harcama-yonetimi-stratejinizi-belirleyin@2x.jpg
   alt: Harcama Yönetimi Stratejinizi Belirleyin
   width: 1515
   height: 999

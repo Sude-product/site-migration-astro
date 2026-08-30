@@ -4,7 +4,7 @@ title: Organizasyon Şeması Nedir, Nasıl Oluşturulur?
 date: '2021-03-22T15:23:49'
 excerpt: Organizasyon şeması, insan kaynakları yönetimi alanında oluşturması ciddi emek gerektiren ve önem verilen konuların başında gelir. İnsan kaynakları yönetimi,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/Varlik-125@2x.png
+  url: /wp-content/uploads/2021/03/Varlik-125@2x.png
   alt: Organizasyon Şeması Nedir, Nasıl Oluşturulur?
   width: 1514
   height: 999
@@ -65,7 +65,7 @@ Organizasyon şeması, bir işletmenin nasıl bir yapılanma içerisinde olduğu
 
 ### **İdenfit Organizasyon Şeması**
 
-![idenfit organizasyon şeması](https://idenfit.com/wp-content/uploads/2021/03/sema@2x-1024x654.png)
+![idenfit organizasyon şeması](/wp-content/uploads/2021/03/sema@2x-1024x654.png)
 
 **İDENFİT ORGANİZASYON ŞEMASI**
 

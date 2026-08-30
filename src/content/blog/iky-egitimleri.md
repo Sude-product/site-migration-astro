@@ -4,7 +4,7 @@ title: İKY Profesyonellerinin Alması Gereken Eğitimler
 date: '2024-08-21T23:11:47'
 excerpt: İnsan kaynakları dünyasında başarılı olmanın yolu, sürekli öğrenme ve kendini geliştirmekten geçiyor. İKY profesyonelleri, çeşitli kritik alanlarda eğitim…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/ik-uzmanlarinin-almasi-gereken-egitimler.jpg
+  url: /wp-content/uploads/2025/08/ik-uzmanlarinin-almasi-gereken-egitimler.jpg
   alt: İKY Profesyonellerinin Alması Gereken Eğitimler
   width: 1281
   height: 721

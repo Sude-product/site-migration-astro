@@ -4,7 +4,7 @@ title: Çalışan Yıllık İzin Hakkı Nasıl Hesaplanır? (2026 Rehberi)
 date: '2026-07-24T09:22:27'
 excerpt: Yıllık izin hakkı, çalışanlar açısından en çok sorulan ama uygulamada en çok karışan konulardan biridir. Bunun temel nedeni, birçok kişinin izin süresini…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/07/Calisan-Yillik-Izin-Hakki-Nasil-Hesaplanir-1.png
+  url: /wp-content/uploads/2026/07/Calisan-Yillik-Izin-Hakki-Nasil-Hesaplanir-1.png
   alt: Çalışan Yıllık İzin Hakkı Nasıl Hesaplanır? (2026 Rehberi)
   width: 1672
   height: 941

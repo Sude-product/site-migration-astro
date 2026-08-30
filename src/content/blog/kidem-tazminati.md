@@ -4,7 +4,7 @@ title: 2020 Yılı Kıdem Tazminatı
 date: '2020-01-13T14:34:14'
 excerpt: Kıdem tazminatı 2020 yılı şartları sigortalı çalışanların hakkında en çok soru sorduğu ve değişiklikleri yakından takip ettiği konuların başında gelir.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-kidem-tazminati-tavan-tutari-696x392-1.jpg
+  url: /wp-content/uploads/2025/08/2025-kidem-tazminati-tavan-tutari-696x392-1.jpg
   alt: 2020 Yılı Kıdem Tazminatı
   width: 696
   height: 392
@@ -21,7 +21,7 @@ modifiedDate: '2025-08-26T12:50:50'
 
 ## **Kıdem Tazminatı Nedir?**
 
-![kidem tazminati](https://idenfit.com/wp-content/uploads/2020/01/1-1.png)
+![kidem tazminati](/wp-content/uploads/2020/01/1-1.png)
 
 Kıdem tazminatı; sigortalı çalışanların yasal olarak hak ettiği tazminat çeşitlerindendir. Bu, çalışanların sahip olduğu bir hak olsa da tazminat için yasayla belirlenen **kıdem tazminatı şartları 2020** sağlanmalıdır. Koşulların sağlanması durumunda işçiler kıdem tazminatı talebinde bulunabilirler. İş Kanunu’na göre, çalışanın işten çıkarılması durumunda işveren kıdem tazminatı ödemekle yükümlüdür.
 
@@ -29,7 +29,7 @@ Kıdem tazminatı; sigortalı çalışanların yasal olarak hak ettiği tazminat
 
 ## **Kendi Rızasıyla Ayrılanlar için Kıdem Tazminatı 202 Yılında Hangi Şartlarla Alınır?**
 
-![kidem tazminati sartlari](https://idenfit.com/wp-content/uploads/2020/01/2-1.png)
+![kidem tazminati sartlari](/wp-content/uploads/2020/01/2-1.png)
 
 “**Kıdem tazminatı nasıl hak edilir**?” diye merak edenlere “İşçinin işveren tarafından işten çıkarılması yeterlidir” cevabı verilebilir. Ancak elbette işverenin haklı gerekçelerle işçiyi işten çıkarması durumunda işçi kıdem tazminatı talebinde bulunamaz. Bunun yanı sıra çalışanlar kendi istekleriyle işlerinden istifa etmeleri halinde de çalıştıkları süreye dair hesaplamalar yapılarak -herkes için geçerli olmamakla birlikte- **kıdem tazminatı karşılığı** alabilirler.  
 
@@ -45,7 +45,7 @@ Yaşa bağlı olarak emekli olan çalışanlar işten ayrıldıkları zaman **k�
 
 ## **Kıdem Tazminatı Almak için Çalışan Lehine Haklı Fesih Nedenleri**
 
-![kidem tazminati fesih nedenleri](https://idenfit.com/wp-content/uploads/2020/01/3-1.png)
+![kidem tazminati fesih nedenleri](/wp-content/uploads/2020/01/3-1.png)
 
 *   Sağlık nedenleri
 *   İyi niyet ve ahlak kurallarına uyulmayan durumlar yaşanması
@@ -56,7 +56,7 @@ Yaşa bağlı olarak emekli olan çalışanlar işten ayrıldıkları zaman **k�
 
 ## **Kıdem Tazminatını Ödememek için İşveren Lehine Haklı Fesih Nedenleri**
 
-![kidem tazminati isveren fesih nedenleri](https://idenfit.com/wp-content/uploads/2020/01/4-1.png)
+![kidem tazminati isveren fesih nedenleri](/wp-content/uploads/2020/01/4-1.png)
 
 *   Sağlık sebepleri
 *   İyi niyet ve ahlak kurallarına uyulmayan durumlar yaşanması
@@ -74,7 +74,7 @@ Asgari ücretli çalışanların **en yüksek kıdem tazminatı**nı alabilmeler
 
 ## **Kıdem Tazminatı En Geç Ne Zaman Ödenir?**
 
-![kidem tazminati ne zaman ödenir](https://idenfit.com/wp-content/uploads/2020/01/5-1.png)
+![kidem tazminati ne zaman ödenir](/wp-content/uploads/2020/01/5-1.png)
 
 **[İş Kanunu](https://www.mevzuat.gov.tr/MevzuatMetin/1.5.4857.pdf)** içerisinde işverenin kıdem tazminatını çalışana ödemesi gereken süre ile ilgili hükümler bulunur. Buna karşılık zaman konusu net ifadelerle belirtilmez. Aslında **kıdem tazminatı**nı alma hakkı kazanan çalışan, iş akdi feshedildikten hemen sonra peşin olarak kıdem tazminatını almalıdır. Elbette işverenle işçi arasında yapılan anlaşmaya göre işçi tarafından ödemeyle ilgili olarak makul bir süre de belirlenebilir. 
 
@@ -82,7 +82,7 @@ Asgari ücretli çalışanların **en yüksek kıdem tazminatı**nı alabilmeler
 
 ## **Kıdem Tazminatı Fonu Nedir?**
 
-![kidem tazminati fonu](https://idenfit.com/wp-content/uploads/2020/01/6.png)
+![kidem tazminati fonu](/wp-content/uploads/2020/01/6.png)
 
 **Kıdem tazminatında son gelişme** olan yeni **kıdem tazminatı fonu** sistemi, çalışanlar için çeşitli yenilikleri beraberinde getirir. Bu nedenle pek çok çalışanın kafasında **kıdem tazminatı 2020 son durum** ile ilgili soru işaretleri bulunur. Eski sisteme göre çok derin farklılıkların bulunduğu bu sistemde işçi bir iş yerinde 1 gün dahi sigortalı olarak çalışırsa kıdem tazminatına hak kazanır.
 

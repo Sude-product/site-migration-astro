@@ -4,7 +4,7 @@ title: Stratejik İnsan Kaynakları Yönetimi Nedir?
 date: '2019-12-31T08:58:31'
 excerpt: Yaşamın ve insanların değişmesiyle beraber işletmelerin de hedeflerine ulaşması ve planlarını gerçekleştirebilmesi için insan kaynağına hem daha çok önem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/stratejik@3x.png
+  url: /wp-content/uploads/2025/08/stratejik@3x.png
   alt: Stratejik İnsan Kaynakları Yönetimi Nedir?
   width: 2272
   height: 1620
@@ -28,7 +28,7 @@ Yaşamın ve insanların değişmesiyle beraber işletmelerin de hedeflerine ula
 
 ## **İnsan Kaynakları Yönetimi Nedir?**
 
-![insan kaynaklari yonetimi nedir](https://idenfit.com/wp-content/uploads/2019/12/1_6.png)
+![insan kaynaklari yonetimi nedir](/wp-content/uploads/2019/12/1_6.png)
 
 **İnsan kaynakları yönetimi tanımı**; en genel ifadeyle şirket amaç ve stratejisi doğrultusunda çalışanların yönetimi ve idaresidir. **İnsan kaynakları yöneti**mine başlamadan önce istenen sonucun doğru bir şekilde belirlenmesi, doğru insanları seçmenin yanı sıra amaca yönelik etkili bir şekilde çalışmayı da kolaylaştırır. İnsan kaynakları; şirketteki çalışanların, bilgileri, tecrübeleri, becerileri, performansları ve karakterleriyle ortaya koyduklarının toplamıdır.
 
@@ -36,7 +36,7 @@ Bütün bu sebeplerden dolayı “**İKY nedir**?” diye sorulduğunda şirketi
 
 ## **Stratejik İnsan Kaynakları Yönetimi Uygulanma Adımları**
 
-![stratejik insan kaynaklari](https://idenfit.com/wp-content/uploads/2019/12/2_5.png)
+![stratejik insan kaynaklari](/wp-content/uploads/2019/12/2_5.png)
 
 **Stratejik insan kaynakları planlaması**; rekabet ortamını ve çevresel koşulları göz önüne alan, uzun vadeli ve kapsamlı bir yaklaşımdır. Uygulama adımlarının ilkinde şirketin misyonu, hedefleri ve yönetim felsefesi belirlenir. İkinci adımda ise çevresel şartlar değerlendirilir ve hem iç hem de dış çevre analizi yapılır. Bir sonraki aşamada fonksiyonel ve kurumsal aşamada hareket planı yani strateji oluşturulur. 
 
@@ -46,7 +46,7 @@ Ardından strateji hayata geçirilir ve strateji değerlendirilerek kontrol nokt
 
 ## **Stratejik İnsan Kaynakları Yönetiminin Amacı**
 
-![insan kaynaklari yonetimi](https://idenfit.com/wp-content/uploads/2019/12/3_3-3.png)
+![insan kaynaklari yonetimi](/wp-content/uploads/2019/12/3_3-3.png)
 
 Genel olarak **stratejik insan kaynakları yönetimi**; dört temel amaca sahiptir.
 
@@ -57,7 +57,7 @@ Genel olarak **stratejik insan kaynakları yönetimi**; dört temel amaca sahipt
 
 ## **Stratejik İnsan Kaynakları Yönetiminin Temel Özellikleri**
 
-![insan kaynaklari yonetimin temel ozellikleri](https://idenfit.com/wp-content/uploads/2019/12/4_3-4.png)
+![insan kaynaklari yonetimin temel ozellikleri](/wp-content/uploads/2019/12/4_3-4.png)
 
 **Stratejik insan kaynakları yönetimi**, geleneksel prensiplere göre makro özellik taşır. Bu yüzden bireysel performanslar yerine örgütsel ve grubu kapsayan performansları odak noktası olarak alır. Gelişen bir sorunun çözümü için insan kaynakları uygulamalarına değil, **insan kaynakları** sistemlerine odaklanır. Stratejik yaklaşımda faaliyetler birbirinden ve işletmenin stratejilerinden bağımsız şekilde değil, bağlantılı ve tamamlayıcı biçimde ele alınır. 
 
@@ -67,7 +67,7 @@ Bunların yanı sıra **stratejik insan kaynakları yönetimi** anlayışına g�
 
 ## **Stratejik İnsan Kaynakları Yönetimi Sürecinin Aşamaları**
 
-![insan kaynaklari gelisim surecleri](https://idenfit.com/wp-content/uploads/2019/12/5_3-2.png)
+![insan kaynaklari gelisim surecleri](/wp-content/uploads/2019/12/5_3-2.png)
 
 Sürecin en başına bakıldığı zaman **stratejik planlama** grubu ile insan kaynakları departmanının birbirinden bağımsız bir şekilde çaba gösterdiği ve birbiriyle herhangi bir ilişkide bulunmadan işletme içinde yer edinmeye çalıştığı görülebilir. **Stratejik insan kaynakları yönetimi** devreye girdiği zaman bu iki grubun arasındaki bağların zaman içerisinde gelişmeye başladığı gözlemlenebilir. 
 

@@ -4,7 +4,7 @@ title: Beceriye Dayalı İşe Alım Yeteneği Nasıl Yükseltir?
 date: '2025-11-24T19:45:46'
 excerpt: Günümüz iş dünyasında doğru yeteneği bulmak, yalnızca özgeçmişlere bakarak karar verilemeyecek kadar kritik bir süreç haline geldi. Şirketler artık adayların…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/WhatsApp-Image-2024-03-04-at-17.00.31-1392x696-1.jpeg
+  url: /wp-content/uploads/2025/08/WhatsApp-Image-2024-03-04-at-17.00.31-1392x696-1.jpeg
   alt: Beceriye Dayalı İşe Alım Yeteneği Nasıl Yükseltir?
   width: 1392
   height: 696

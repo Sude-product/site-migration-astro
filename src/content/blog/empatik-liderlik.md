@@ -4,7 +4,7 @@ title: Empatik Liderlik Hakkında Tüm Merak Edilenler
 date: '2023-04-20T18:10:17'
 excerpt: Empatik liderlik verimli iş süreçlerine ve motivasyonu yüksek ekiplere giden yolda en güçlü destekçiniz olacaktır. Öyle ki birbirini anlama noktasında başarıya…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/04/Empatik-liderlik.jpg
+  url: /wp-content/uploads/2023/04/Empatik-liderlik.jpg
   alt: Empatik Liderlik Hakkında Tüm Merak Edilenler
   width: 1621
   height: 811

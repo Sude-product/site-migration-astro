@@ -4,7 +4,7 @@ title: Yetkinlik Nedir? Yetkinlik Rehberi
 date: '2022-07-05T16:28:25'
 excerpt: Yetkinlik nedir sorusu özellikle kariyerini inşa etme döneminde veya CV hazırlama aşamasında olan kişiler tarafından oldukça sık merak ediliyor. Yetkinlik…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/07/yetkinlik-nedir@2x-100.jpg
+  url: /wp-content/uploads/2022/07/yetkinlik-nedir@2x-100.jpg
   alt: Yetkinlik Nedir? Yetkinlik Rehberi
   width: 1515
   height: 999

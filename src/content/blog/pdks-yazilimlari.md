@@ -4,7 +4,7 @@ title: PDKS Yazılımları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-11-28T00:00:07'
 excerpt: PDKS yazılımları yani bir diğer adıyla personel devam kontrol sistemi yazılımları, çalışanların zamanını ve verimliliğini maksimize etmek için vazgeçilmez…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/pdks-yazilimlari-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/pdks-yazilimlari-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
   alt: PDKS Yazılımları Hakkında Tüm Bilmeniz Gerekenler
   width: 1392
   height: 696

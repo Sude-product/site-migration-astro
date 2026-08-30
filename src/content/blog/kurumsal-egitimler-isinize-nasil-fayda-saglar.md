@@ -4,7 +4,7 @@ title: Kurumsal Eğitimler İşinize Nasıl Fayda Sağlar?
 date: '2020-07-17T11:12:04'
 excerpt: Çalışma ortamlarının verimliğini arttıran, kaliteli hizmet ve ürünlerin ortaya çıkmasını etkileyen en önemli unsur çalışanların niteliği ve bilgi düzeyidir. Bu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/eğitim@3x-1.png
+  url: /wp-content/uploads/2025/08/eğitim@3x-1.png
   alt: Kurumsal Eğitimler İşinize Nasıl Fayda Sağlar?
   width: 2271
   height: 1497
@@ -33,7 +33,7 @@ Kurumsal eğitim programları çalışanlara şirketlerin faaliyet gösterdikle
 
 ## Idenfit Eğitim Yönetimi Modülü ve Kurumsal Eğitim Planlama
 
-<a href="/calisan-egitim-yonetimi-modulu/" aria-label="KURUMSAL EĞİTİMLERİ IDENFIT İLE PLANLAYIN"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/07/Varlık-16@2x-855x1024.png" alt="" class="wp-image-1923"></a>
+<a href="/calisan-egitim-yonetimi-modulu/" aria-label="KURUMSAL EĞİTİMLERİ IDENFIT İLE PLANLAYIN"><img decoding="async" src="/wp-content/uploads/2020/07/Varlık-16@2x-855x1024.png" alt="" class="wp-image-1923"></a>
 
 KURUMSAL EĞİTİMLERİ IDENFIT İLE PLANLAYIN
 

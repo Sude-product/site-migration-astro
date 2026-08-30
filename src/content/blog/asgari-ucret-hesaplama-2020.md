@@ -4,7 +4,7 @@ title: Asgari Ücret Hesaplama 2020
 date: '2020-06-12T13:45:42'
 excerpt: Asgari ücret kavramı, sigortalı çalışan işçiler için bir nevi koruyucu özellik taşır. Asgari ücret ile işçi ücreti için bir alt limit oluşturularak bundan daha…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/asgari-ücret@3x.png
+  url: /wp-content/uploads/2025/08/asgari-ücret@3x.png
   alt: Asgari Ücret Hesaplama 2020
   width: 2272
   height: 1498

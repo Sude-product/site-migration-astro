@@ -4,7 +4,7 @@ title: Deneyimli Çalışanlar ve Çeşitlilik Bağlamında Yaş Faktörü
 date: '2024-03-22T23:31:00'
 excerpt: Deneyimli çalışanlar işyerinde değerli bir varlık oluştururken, yaş faktörü de bu deneyime farklı bir boyut kazandırır. İşte, deneyimli çalışanlar ve yaş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/deneyimli-calisanlari-ise-almanin-4-faydasi-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/deneyimli-calisanlari-ise-almanin-4-faydasi-1392x696-1.jpg
   alt: Deneyimli Çalışanlar ve Çeşitlilik Bağlamında Yaş Faktörü
   width: 1392
   height: 696

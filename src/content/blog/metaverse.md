@@ -4,7 +4,7 @@ title: Metaverse Çağında İK’nın Geleceği
 date: '2022-04-08T16:33:23'
 excerpt: ‍Metaverse evreni şu sıralar en sık konuşulan konular arasında yer alıyor. Dijital avatarını bir an önce yaratmak için sabırsızlananlar olduğu kadar projeye…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/Metaverse-2.jpg
+  url: /wp-content/uploads/2022/04/Metaverse-2.jpg
   alt: Metaverse Çağında İK’nın Geleceği
   width: 1515
   height: 998

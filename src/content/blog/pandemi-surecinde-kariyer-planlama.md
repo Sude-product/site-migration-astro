@@ -4,7 +4,7 @@ title: Post Pandemi Sürecinde Kariyer Planlama
 date: '2021-03-19T17:11:43'
 excerpt: Kariyer planlama, çoğumuz için kişinin kendi kariyeri ve iş hayatı ile ilgili belirli süreler dahilinde hedefler koymasıdır. Ancak son yıllarda yaşadığımız…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/kariyer-planlama.jpg
+  url: /wp-content/uploads/2021/03/kariyer-planlama.jpg
   alt: Post Pandemi Sürecinde Kariyer Planlama
   width: 810
   height: 534

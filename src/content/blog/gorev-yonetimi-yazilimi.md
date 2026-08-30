@@ -4,7 +4,7 @@ title: Görev Yönetimi Yazılımı Nedir?
 date: '2020-01-28T16:47:14'
 excerpt: Ofis ortamında iş gücünün etkili şekilde yönetilebilmesi adına görevlerin bir yönetici tarafından sürekli olarak takip edilmesi ve düzenlenmesi gerekir.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/GÖREV@2x.png
+  url: /wp-content/uploads/2025/08/GÖREV@2x.png
   alt: Görev Yönetimi Yazılımı Nedir?
   width: 1515
   height: 998
@@ -26,7 +26,7 @@ Halen daha pek çok yöneticinin **görev dağılımı** işlemini gerçekleşti
 
 ## **Kolay Yönetilebilir Idenfit Görev Yönetimi Yazılımı**
 
-![Idenfit Gorev Yonetimi](https://idenfit.com/wp-content/uploads/2020/01/1-3-1024x285.png)
+![Idenfit Gorev Yonetimi](/wp-content/uploads/2020/01/1-3-1024x285.png)
 
 Görev dağılımı, **iş planlanması ve yönetimi** sürecini çok daha etkili ve fonksiyonel bir şekilde yönetmek için Idenfit tarafından geliştirilen **[Görev Takip Yazılımı](/insan-kaynaklari-yonetimi-modulu/)**, bulut tabanlı bir **iş takip programı** olarak öne çıkar. İş gücünü sürekli, anlık ve rutin görevlendirmeler ile kolayca yönetebilirsiniz. Dağıtılan görevleri dilediğiniz her an pratik şekilde takip edebilir ve hatta raporlayabilirsiniz.
 
@@ -44,7 +44,7 @@ Yetki atama, takım oluşturma ve bilgileri düzenleme işlemlerinin tamamı hem
 
 ## **Mobil Uygulama Üzerinden İş Takip**
 
-![is takip mobil uygulama](https://idenfit.com/wp-content/uploads/2020/01/2-3-1024x850.png)
+![is takip mobil uygulama](/wp-content/uploads/2020/01/2-3-1024x850.png)
 
 Son yıllarda mobil cihaz kullanımın giderek artması ve şaşırtıcı şekilde masaüstü kullanımını geçmesiyle beraber önceleri masaüstünde yapılan çoğu işlemin mobile taşınma ihtiyacı doğdu. Bu ihtiyaç doğrultusunda ofis ortamında masaüstü bilgisayarlarda çalışan kişiler dahi diledikleri an masaüstünden yönelttikleri online programlarına mobilden de erişim sağlama beklentisine girdiler. Mobil uygulama veya mobil uyumluluk sağlamayan sistemler oyun dışı kaldı.
 
@@ -70,6 +70,6 @@ Bir bölgede acil olarak müdahale edilmesi gereken durumlar yaşandığında Id
 
 ## **Görev Takip Çizelgesi Nedir ve Nasıl Oluşturulur?**
 
-![gorev takip cizelgesi](https://idenfit.com/wp-content/uploads/2020/01/3-3.png)
+![gorev takip cizelgesi](/wp-content/uploads/2020/01/3-3.png)
 
 **Görev takip çizelgesi**; çalışanların gün, ay hafta ve yıl bazında yapacakları görevlerin takip çizelgesi oluşturulup girilmesine denir. Idenfit’in hızlı ve kolay **görev yönetimi** sayesinde bu işlem çok pratik bir şekilde gerçekleşir. Bazı işletmelerde bu çizelgenin oluşturulması için Excel gibi eski yöntemler kullanılırken Idenfit’te manuel işlem yapmaya gerek kalmadan **görevlerin takibi** en güvenilir şekilde yapılabilir.

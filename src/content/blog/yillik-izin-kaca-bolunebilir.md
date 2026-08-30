@@ -4,7 +4,7 @@ title: Yıllık Ücretli İzin Kaça Bölünebilir?
 date: '2025-03-15T19:49:26'
 excerpt: Yaz ayları yaklaşırken, tatil planları yaparken yıllık izin hakkının nasıl bölünebileceği en çok merak edilen konular arasında yerini aldı. Çalışanlar yıllık…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/yillik-ucretli-izin-kaca-bolunebilir.jpg
+  url: /wp-content/uploads/2025/08/yillik-ucretli-izin-kaca-bolunebilir.jpg
   alt: Yıllık Ücretli İzin Kaça Bölünebilir?
   width: 1280
   height: 720

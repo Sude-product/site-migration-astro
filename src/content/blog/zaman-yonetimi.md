@@ -4,7 +4,7 @@ title: Zaman Yönetimi İnsan Kaynaklarında Nasıl Uygulanmalıdır?
 date: '2021-06-09T09:11:24'
 excerpt: Hangi sektör veya meslek grubundan olursanız olun zaman yönetimi herkes için bir sorun. Evden çalışma, sürekli çevrimiçi olmak ve mesai saatlerinin tüm güne…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/06/insan-kaynaklari-zaman-yonetimi-nasil-uygulanir@2x-100.jpg
+  url: /wp-content/uploads/2021/06/insan-kaynaklari-zaman-yonetimi-nasil-uygulanir@2x-100.jpg
   alt: Zaman Yönetimi İnsan Kaynaklarında Nasıl Uygulanmalıdır?
   width: 1514
   height: 999

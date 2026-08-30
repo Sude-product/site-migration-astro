@@ -4,7 +4,7 @@ title: Personel İzin Yönetimi Süreci
 date: '2023-02-14T17:39:25'
 excerpt: İzin kullanmak çalışanın motivasyonunu ve aidiyet hissini arttırmak gibi pek çok olumlu geri dönüş sağlıyor. Kurumsal yapı adına çok önemli işlevlere sahip…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/02/personel-izin-yonetimi@2x-100.jpg
+  url: /wp-content/uploads/2023/02/personel-izin-yonetimi@2x-100.jpg
   alt: Personel İzin Yönetimi Süreci
   width: 1515
   height: 999

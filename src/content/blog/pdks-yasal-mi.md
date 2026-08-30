@@ -4,7 +4,7 @@ title: PDKS Sistemi Yasal mı?
 date: '2024-07-26T17:15:55'
 excerpt: Personel takibinde verimliliği artırmanın yollarını ararken, Personel Devam Kontrol Sistemleri (PDKS) adeta kurtarıcı rolünü üstleniyor. Eski usul imza atma…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/pdks-sistemi-yasal-mi.jpg
+  url: /wp-content/uploads/2025/08/pdks-sistemi-yasal-mi.jpg
   alt: PDKS Sistemi Yasal mı?
   width: 1281
   height: 721

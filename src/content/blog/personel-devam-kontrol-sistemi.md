@@ -4,7 +4,7 @@ title: 'Yeni Nesil Personel Devam Kontrol Sistemi: Bulut PDKS'
 date: '2020-05-20T10:58:01'
 excerpt: Şirketinizin veya işletmenizin büyümesi için üretken, nitelikli, deneyimli, dürüst ve dakik çalışanlara ihtiyacınız vardır. Bu doğrultuda işletmenizin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/bulut-pdks-ana.png
+  url: /wp-content/uploads/2025/08/bulut-pdks-ana.png
   alt: 'Yeni Nesil Personel Devam Kontrol Sistemi: Bulut PDKS'
   width: 1515
   height: 999
@@ -22,7 +22,7 @@ Teknolojinin gelişimi ile birlikte çalışanların katılımını daha iyi ve
 
 ## Personel Devam Kontrol Sistemi Nedir?
 
-![personel devam kontrol sistemi](https://idenfit.com/wp-content/uploads/2020/05/pdks-1.png)
+![personel devam kontrol sistemi](/wp-content/uploads/2020/05/pdks-1.png)
 
 **Personel devam kontrol sistemleri** (**pkds**), İK ve Muhasebe ekiplerinizin çalışan zamanlamalarını ve katılımlarını etkin ve verimli bir şekilde izlemelerini ve yönetmelerini sağlar. **Personel devam kontrol yazılımı;** fazla mesai, vardiyalar, esnek zamanlamalar, yetkisiz kullanım süreleri ve görev onayları gibi farklı parametrelere dayalı çalışan katılımının hesaplamasını gerçekleştirir. Bu sistemler, herhangi bir donanımla entegre edilebilir ve parmak izi biyometrik cihaz, manyetik kartlar, RFID veya web punch, Yüz Tanıma Sistemleri ve Palm Kayıt sistemleri gibi her türlü araçları bu sürece dahil edebilir. **Personel devam kontrol programı**, işletmelere birçok fayda sağlayan temel bir hizmet sunar. Bu sistemin düzgün yönetilmesi, çalışanların çalışma sürelerinin daha takip edilir olmasına yardımcı olur ve iş kararları almak için gerekli verileri sağlar.
 
@@ -32,7 +32,7 @@ Teknolojinin gelişimi ile birlikte çalışanların katılımını daha iyi ve
 
 ## PDKS ve Faydaları
 
-![pdks ve faydaları](https://idenfit.com/wp-content/uploads/2020/05/puantaj-1.png)
+![pdks ve faydaları](/wp-content/uploads/2020/05/puantaj-1.png)
 
 *   **Yöneticiler olası devam sorunlarını tespit edebilir:** Bir işverenin katılımı izlemesinin birincil nedeni, ele alınması gereken herhangi bir sorun olup olmadığını bulmaktır. Planlanmış zaman ayırmanın ötesinde, çalışma saatlerinin kötüye kullanılmamasını sağlamak için çalışanların işe gelme, ayrılma ve mola zamanlarını da belirlemek önemlidir.
 *   **İşverenler ve çalışanlar uzaktan çalışmayı benimseyebilir:** Bazı işverenler uzaktan çalışmayı benimsemek konusunda isteksizdir. Bu noktada işverenler, doğrudan denetim olmadan çalışanların eksik katılım sağlayacağını düşünebilirler. **Pkds cihazı,** uzaktan saat ölçüm özelliği ile devamın izlenmesini sağlar. Çalışanlar ofisteymiş gibi saat başı çalışabildiğinde herkes için bir kazan-kazan bir strateji gelişir.
@@ -46,7 +46,7 @@ Teknolojinin gelişimi ile birlikte çalışanların katılımını daha iyi ve
 
 ## Bulut Tabanlı Personel Devam Kontrol Sistemleri
 
-![Bulut tabanlı pdks](https://idenfit.com/wp-content/uploads/2020/05/bulut-teknolojisi.png)
+![Bulut tabanlı pdks](/wp-content/uploads/2020/05/bulut-teknolojisi.png)
 
 Günümüzde birçok kuruluş; esneklik, kolay entegrasyon ve maliyeti optimize eden bulut tabanlı bir katılım yönetim yazılımı tercih eder. Bulut tabanlı sistemler, çalışanlar için de çok faydalıdır. Çünkü herhangi bir cihaz veya konumdan kolayca giriş yapabilir ve çalışma saatlerini takip edebilirler. Bulut tabanlı personel devam kontrol programı, diğerlerinden farklı pek çok ekstra hizmet de sunar. Bulut tabanlı bir sistemin sağladığı başlıca avantajlardan bazıları şunlardır:
 

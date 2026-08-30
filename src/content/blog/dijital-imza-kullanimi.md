@@ -4,7 +4,7 @@ title: Dijital İmza Kullanmanız için 5 Neden
 date: '2024-10-16T21:12:29'
 excerpt: İş dünyasında hız, güvenlik ve verimlilik her geçen gün daha önemli hale geliyor. Dijital imza, bu ihtiyaçları karşılayan yenilikçi bir teknoloji olarak öne…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/digital-imza-kullanimi-avantajlari.jpg
+  url: /wp-content/uploads/2025/08/digital-imza-kullanimi-avantajlari.jpg
   alt: Dijital İmza Kullanmanız için 5 Neden
   width: 641
   height: 361

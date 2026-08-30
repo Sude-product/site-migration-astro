@@ -4,7 +4,7 @@ title: İş Tasarımı Nedir? İK Uzmanları Nasıl Yararlanır?
 date: '2021-08-09T16:06:06'
 excerpt: İş tasarımı günümüzde oldukça popüler bir kavram haline geldi. İş tanımları her zamankinden daha hızlı değişiyor. Her gün yeni bir iş tanımı yaratılıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/08/is-tasarimi.png
+  url: /wp-content/uploads/2021/08/is-tasarimi.png
   alt: İş Tasarımı Nedir? İK Uzmanları Nasıl Yararlanır?
   width: 1515
   height: 999

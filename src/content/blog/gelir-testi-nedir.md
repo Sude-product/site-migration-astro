@@ -4,7 +4,7 @@ title: Gelir Testi Nedir? Gelir Testi Başvurusu Nasıl Yapılır?
 date: '2020-11-11T15:14:00'
 excerpt: Gelir testi, Sosyal Güvenlik Kurumu ’nun hizmet kapsamında olan genel sağlık sigortası ve sağlık hizmetleri ile ilişkili bir uygulamadır. Gelir testi;…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/11/Gelir-Testi-Nedir-Gelir-Testi-Başvurusu-Nasıl-Yapılır._@3x.png
+  url: /wp-content/uploads/2020/11/Gelir-Testi-Nedir-Gelir-Testi-Başvurusu-Nasıl-Yapılır._@3x.png
   alt: Gelir Testi Nedir? Gelir Testi Başvurusu Nasıl Yapılır?
   width: 2271
   height: 1497

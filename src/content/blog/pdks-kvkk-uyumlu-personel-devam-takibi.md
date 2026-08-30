@@ -4,7 +4,7 @@ title: 'PDKS: KVKK Uyumlu Personel Devam Takibi'
 date: '2026-07-27T12:31:00'
 excerpt: Personel devam takibinde uzun yıllar boyunca kart okutma, imza çizelgesi, parmak izi ve yüz tanıma gibi farklı yöntemler birlikte kullanıldı. Ancak bugün…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/07/PDKS-KVKK-Uyumlu-Personel-Devam-Takibi_-1.png
+  url: /wp-content/uploads/2026/07/PDKS-KVKK-Uyumlu-Personel-Devam-Takibi_-1.png
   alt: 'PDKS: KVKK Uyumlu Personel Devam Takibi'
   width: 1765
   height: 993

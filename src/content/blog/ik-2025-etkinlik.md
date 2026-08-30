@@ -4,7 +4,7 @@ title: People First Meetup
 date: '2025-05-20T20:24:30'
 excerpt: İnsan Kaynakları profesyonelleri olarak her gün işin merkezine insanı koyuyoruz. Peki, çalışan deneyimini gerçekten nasıl dönüştürüyoruz? Kurum kültürünü…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/Hrtech-etkinlik.png
+  url: /wp-content/uploads/2025/05/Hrtech-etkinlik.png
   alt: People First Meetup
   width: 2134
   height: 1200
@@ -32,7 +32,7 @@ Bu soruların peşine düştüğümüz bu buluşmada; işe alımdan eğitime, pe
 
 [Kayıt Ol](https://www.linkedin.com/events/peoplefirstmeetup7325442010125873153/)
 
-![özge korkmaz](https://idenfit.com/wp-content/uploads/2025/05/ozge-korkmaz.png)
+![özge korkmaz](/wp-content/uploads/2025/05/ozge-korkmaz.png)
 
 **Özge Korkmaz**
 
@@ -40,7 +40,7 @@ Sipay
 
 CHRO
 
-![Seda Tamur Ograli](https://idenfit.com/wp-content/uploads/2025/05/seda-tamur-ograli.png)
+![Seda Tamur Ograli](/wp-content/uploads/2025/05/seda-tamur-ograli.png)
 
 **Seda Tamur Oğralı**
 
@@ -48,7 +48,7 @@ Pfizer
 
 Senior Director, People Experience, Turkey&MERA
 
-![tayfun ones](https://idenfit.com/wp-content/uploads/2025/05/tayfun-ones.png)
+![tayfun ones](/wp-content/uploads/2025/05/tayfun-ones.png)
 
 **Tayfun Öneş**
 
@@ -56,7 +56,7 @@ Ex-CEO & Board Member Mercedes-Benz Romania
 
 Founder ONES Academy & Koçvari Mentorluk
 
-![Nilsen Altintas](https://idenfit.com/wp-content/uploads/2025/05/nilsen-altintas.png)
+![Nilsen Altintas](/wp-content/uploads/2025/05/nilsen-altintas.png)
 
 **DR. Nilsen Altıntaş**
 
@@ -64,9 +64,9 @@ TEB Sh.A
 
 Board Member
 
-![](https://idenfit.com/wp-content/uploads/2025/05/ozge-otmanboluk.png)
+![](/wp-content/uploads/2025/05/ozge-otmanboluk.png)
 
-![Rabia Durur](https://idenfit.com/wp-content/uploads/2025/05/rabia-durur.png)
+![Rabia Durur](/wp-content/uploads/2025/05/rabia-durur.png)
 
 **Rabia Durur**
 
@@ -74,7 +74,7 @@ Coca-Cola İçecek
 
 Capability Devolopment Manager
 
-![Berna Boragan](https://idenfit.com/wp-content/uploads/2025/05/berna-boragan.png)
+![Berna Boragan](/wp-content/uploads/2025/05/berna-boragan.png)
 
 **Berna Büyükutku Boragan**
 

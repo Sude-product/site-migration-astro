@@ -4,7 +4,7 @@ title: Dijital Beceriler ile Kuşak Farkını Önemsizleştir!
 date: '2022-01-24T12:54:43'
 excerpt: Dijital beceriler son zamanlarda iş dünyasında öncelikli olarak aranan nitelikler arasında yer alıyor. Teknoloji hızla hayatın her alanına entegre oluyor ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/2.-resim-@2x.jpg
+  url: /wp-content/uploads/2022/01/2.-resim-@2x.jpg
   alt: Dijital Beceriler ile Kuşak Farkını Önemsizleştir!
   width: 1515
   height: 999

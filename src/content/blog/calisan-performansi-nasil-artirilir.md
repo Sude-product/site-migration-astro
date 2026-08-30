@@ -4,7 +4,7 @@ title: Çalışan Performansı Uzaktan Çalışma Sürecinde Nasıl Artırılır
 date: '2020-12-23T17:04:50'
 excerpt: Çalışan performansı, işverenler ve İK uzmanları tarafından covid-19 sürecinde belirsiz bir süreliğine ofislerde değil evlerdeki çalışma koşullarında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/Çalişan-Performansinin-Uzaktan-Çalişmada-Artirilmasi-ve-İKnin-Rolü@2x.png
+  url: /wp-content/uploads/2020/12/Çalişan-Performansinin-Uzaktan-Çalişmada-Artirilmasi-ve-İKnin-Rolü@2x.png
   alt: Çalışan Performansı Uzaktan Çalışma Sürecinde Nasıl Artırılır?
   width: 1514
   height: 998
@@ -33,7 +33,7 @@ Sosyal izolasyonun çalışan ruh sağlığı üzerindeki etkileri mutlaka çal�
 
 Evden çalışma sürecinde şirketler özelinde İK departmanları ve çalışanlar için teknolojinin rolü hayati bir önem taşır. Başarılı şekilde iletişim kopukluğu yaşamadan uzaktan çalışma stratejileri gerçekleştirilebilmesi için sanal işbirliği ve teknolojik iletişim araçları büyük önem arz eder. Özellikle çalışan performansının kontrolünün sağlanması ve artırılması noktasında; Skype, Zoom, Google Meet, Google Drive, Basecamp ve Monday.com gibi teknoloji araçları şirketlere yardımcı olur. Teknolojik araçlarla ya da yazılımlarla çalışanlardan [**geri bildirim**](/blog/insan-kaynaklarinda-geri-bildirim/) alınması, hem çalışanın isteklerini gözeten bir şirket olma yolunda hem de kurumsal imaj konusunda işletmeye fayda sağlar.
 
-![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-1.png)
+![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-1.png)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)** İLE EKİP iLETİŞİMİNİ CANLI TUTUN
 

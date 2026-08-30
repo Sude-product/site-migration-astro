@@ -4,7 +4,7 @@ title: Takım Çalışması Verimliliğini Artırmanın 9 Yolu
 date: '2021-01-04T10:19:55'
 excerpt: Takım çalışması verimliliği ve üretkenliği işletmeler için kritik önem arz eder. Çünkü işveren çalışmalar sonucunda takımlardan beklentilerinin karşılanmasını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/Takim-çalişmasi-verimliliğini-arttirmanin-9-yolu@2x.png
+  url: /wp-content/uploads/2021/01/Takim-çalişmasi-verimliliğini-arttirmanin-9-yolu@2x.png
   alt: Takım Çalışması Verimliliğini Artırmanın 9 Yolu
   width: 1514
   height: 998
@@ -35,7 +35,7 @@ Takım çalışması verimliliğini sağlamak için öncelikli olarak takımın 
 
 Takım çalışması verimliliği için en kritik konulardan biri de ekibe düzenli olarak anlamlı ve yapıcı geri bildirimler sağlayarak ekip içinde güven kültürünü artırmaktır. Çalışan her bir bireyin karşı karşıya kaldığı zorluklar ve bu durumlar karşısında nasıl çözümlere veya kaynaklara ihtiyaç duydukları ekibe sorulmalıdır. Bu noktada takım çalışması verimliliği için **[İdenfit İK yönetimi yazılımı](/)** içinde yer alan **[geri bildirim modülü](/organizasyonel-geri-bildirim-modulu/)** en önemli yardımcılardan biridir.
 
-![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)
+![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-3.png)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 

@@ -4,7 +4,7 @@ title: Küresel İnsan Kaynakları Yönetimi
 date: '2023-07-08T17:08:10'
 excerpt: Küresel insan kaynakları yönetimi yaklaşımı ağırlığını günden güne artrıyor. Geride bıraktığımız yüzyılın en önemli kavramlarından birisi olan küreselleşme…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/07/kuresel-iky-yaklasimi.jpg
+  url: /wp-content/uploads/2023/07/kuresel-iky-yaklasimi.jpg
   alt: Küresel İnsan Kaynakları Yönetimi
   width: 1620
   height: 811

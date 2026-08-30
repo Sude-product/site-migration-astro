@@ -4,7 +4,7 @@ title: 'İK Gelişim Serisi: Çalışan Etkinliğini Ölçme ve Geliştirme Webi
 date: '2024-01-15T10:27:35'
 excerpt: Bu webinar, işyerindeki performans yönetimi süreçlerinin etkinliğini ve eğitim programlarının başarısını ölçmeyi hedeflemektedir.
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/webinar-ik-gelisim-calisan-etkinligi-20240207-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/webinar-ik-gelisim-calisan-etkinligi-20240207-1392x783-1.jpg
   alt: 'İK Gelişim Serisi: Çalışan Etkinliğini Ölçme ve Geliştirme Webinarı'
   width: 1392
   height: 783
@@ -41,13 +41,13 @@ Eğitim etkinliklerinin katılımcıların bilgiyi ne kadar öğrendiği ve uygu
 
 [Gerçekleştirildi](#)
 
-![profile-28](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-meral-geyikci.jpg)
+![profile-28](/wp-content/uploads/2023/12/konusmaci-meral-geyikci.jpg)
 
 Meral Etisoy Geyikçi\
 **Vedubox**\
 Marketing Executive
 
-![Doruk Gülsever](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-doruk-gulsever.jpg)
+![Doruk Gülsever](/wp-content/uploads/2024/03/konusmaci-doruk-gulsever.jpg)
 
 Doruk Gülsever\
 **idenfit**\

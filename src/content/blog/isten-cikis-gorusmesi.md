@@ -4,7 +4,7 @@ title: İşten Çıkış Görüşmesi Nedir?
 date: '2021-08-02T15:50:59'
 excerpt: Birçok işveren, bir çalışanın neden görevinden ayrıldığına dair bir veri elde etmek için bir çalışanın şirketteki görev süresinin sonunda çıkış görüşmeleri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/07/İsten-cikis-Gorusmesi-Nedir_-Nasil-Verimli-Gerceklestirilir_@2x.png
+  url: /wp-content/uploads/2021/07/İsten-cikis-Gorusmesi-Nedir_-Nasil-Verimli-Gerceklestirilir_@2x.png
   alt: İşten Çıkış Görüşmesi Nedir?
   width: 1515
   height: 998

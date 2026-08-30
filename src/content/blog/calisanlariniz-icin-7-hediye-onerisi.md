@@ -4,7 +4,7 @@ title: Çalışanlarınız İçin 7 Hediye Önerisi
 date: '2024-03-08T13:10:24'
 excerpt: Çalışanlarına değer veren ve onları motive eden işletmeler, genellikle daha yüksek verimlilik, daha yüksek memnuniyet ve daha düşük işten ayrılma oranlarına…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/WhatsApp-Image-2024-03-08-at-13.03.30-1392x696-1.jpeg
+  url: /wp-content/uploads/2025/08/WhatsApp-Image-2024-03-08-at-13.03.30-1392x696-1.jpeg
   alt: Çalışanlarınız İçin 7 Hediye Önerisi
   width: 1392
   height: 696

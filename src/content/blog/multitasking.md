@@ -4,7 +4,7 @@ title: Multitasking İş Veriminizi Düşürmesin
 date: '2022-04-26T09:40:06'
 excerpt: Multitasking iş dünyasının hızlı akışına uyum sağlamakta zorluk yaşayan çalışanların en sık düştüğü tuzaklar arasında yer alıyor. İngilizce’de ‘multi’ ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/Multitasking.jpg
+  url: /wp-content/uploads/2022/04/Multitasking.jpg
   alt: Multitasking İş Veriminizi Düşürmesin
   width: 1514
   height: 998

@@ -4,7 +4,7 @@ title: Dijital Dönüşümde Gereken Liderlik Özellikleri Nelerdir?
 date: '2020-09-02T15:22:28'
 excerpt: “Dijital Dönüşümde Olması Gereken Liderlik Özellikleri Nelerdir?”sorusunu teknoloji ve dijitalle gelen değişim sonucu artık çok daha fazla işletme sormaya…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/dijital-dönüşüm-kopya-4@3x.png
+  url: /wp-content/uploads/2025/08/dijital-dönüşüm-kopya-4@3x.png
   alt: Dijital Dönüşümde Gereken Liderlik Özellikleri Nelerdir?
   width: 2271
   height: 1497

@@ -4,7 +4,7 @@ title: İş Zekası Nedir?
 date: '2021-07-30T09:05:50'
 excerpt: İş zekası, başarının anahtarıdır. İK profesyonellerinin iş zekası becerisi eksik olarak görülmektedir. Çok yönlü bir başarı sağlamak ihtiyaç duyulan her…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/07/is-zekasi-nedir-iknin-bilmesi-gerekenler-nelerdir@2x.jpg
+  url: /wp-content/uploads/2021/07/is-zekasi-nedir-iknin-bilmesi-gerekenler-nelerdir@2x.jpg
   alt: İş Zekası Nedir?
   width: 810
   height: 534

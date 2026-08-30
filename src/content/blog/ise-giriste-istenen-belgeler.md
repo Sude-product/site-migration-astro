@@ -4,7 +4,7 @@ title: İşe Girerken İstenen Belgeler Nelerdir?
 date: '2020-01-16T11:40:25'
 excerpt: Yeni bir işe girme süreci işe kabul edilme stresinin yanı sıra işe kabul edildikten sonra işe başlama evrakları hazırlamak açısından da bir miktar zorlayıcı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/isÃse-alƒ±m-2020@3x.png
+  url: /wp-content/uploads/2025/08/isÃse-alƒ±m-2020@3x.png
   alt: İşe Girerken İstenen Belgeler Nelerdir?
   width: 2272
   height: 1497
@@ -20,13 +20,13 @@ Yeni bir işe girme süreci işe kabul edilme stresinin yanı sıra işe kabul e
 
 ## **İşe Giriş Evrakları Nereden Alınır?**
 
-![ise giris evraklari](https://idenfit.com/wp-content/uploads/2020/01/1-2.png)
+![ise giris evraklari](/wp-content/uploads/2020/01/1-2.png)
 
 Pek çok ülkenin aksine Türkiye’de vatandaşların günlük işleri için ihtiyaç duydukları çoğu evrak online olarak gelişmiş e-Devlet sistemi üzerinden rahatça temin edilebilir. Önceleri **işe giriş belgeleri t**oparlamak adına bir haftaya yakın vakit harcanırken günümüzde elektronik ortamdan toplamda bir gün içerisinde hemen hemen bütün belgeler alınabilir. Yalnızca bazı spesifik belgeler için ilgili kurumlara bizzat gitmek gerekebilir.
 
 ## **İşe Girerken İstenen Belgeler 2020**
 
-![ise giris belgeleri](https://idenfit.com/wp-content/uploads/2020/01/2-2.png)
+![ise giris belgeleri](/wp-content/uploads/2020/01/2-2.png)
 
 İşverenlerin çalışanlar işe girecekleri zaman istedikleri ve **personel özlük dosyası**nda da bulunan kanunen **zorunlu olan belgeler** vardır. Aşağıda listesi verilen bu belgeler, standart olan ve devletin zorunlu tuttuğu **işe girişte istenen evraklar** diye geçer. İşveren ile işçinin kendi aralarındaki düzenledikleri sözleşmeye bağlı olarak işveren işçiden iş için gerekli olan farklı birtakım ilave  evraklar da isteyebilir.
 
@@ -76,7 +76,7 @@ Erkek çalışanlar için zorunlu olan bir diğer **işe giriş belgesi** ise as
 
 ## **Özlük Dosyası İşe Giriş Evrakları 2020**
 
-![ozluk dosyasi ](https://idenfit.com/wp-content/uploads/2020/01/3-2.png)
+![ozluk dosyasi ](/wp-content/uploads/2020/01/3-2.png)
 
 Yukarıdaki her belge özlük dosyasında yer almalıdır. İlave olarak dosyada mesai, yıllık izin ve saatlik izin gibi evraklara da yer verilir. Ancak, bu evraklar kuruma göre değişkenlik gösterir. **İşe girişte istenen belgeler 2020** yılında bir önceki yılda olduğu gibi aynı şekilde hazırlanır. İşe alım sürecinde istenen bütün belgelerin kurum tarafından bir yazılım programında tutulması gerekir.
 

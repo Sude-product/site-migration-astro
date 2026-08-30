@@ -4,7 +4,7 @@ title: İş Yerinde Stres ve Çalışanlarda Stres Yönetimi
 date: '2020-06-26T12:21:17'
 excerpt: İş yaşamında herkesin herhangi bir dönemde yaşayabileceği stres, çeşitli ciddi sorunları da beraberinde getirir. Nihayetinde hem çeşitli sağlık sorunlarıyla…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/stresssss.png
+  url: /wp-content/uploads/2025/08/stresssss.png
   alt: İş Yerinde Stres ve Çalışanlarda Stres Yönetimi
   width: 2272
   height: 1498
@@ -19,7 +19,7 @@ modifiedDate: '2025-09-29T12:30:49'
 
 Açık iletişim, çalışanlardan alınacak feedbackler, kurum kültürünün iletişim üzerine oturtulması gibi organizasyonlara çok iş düşse de bireysel tarafta da stresle baş etmek için çok fazla yol bulunur.
 
-![](https://idenfit.com/wp-content/uploads/2020/08/feedbackxx.png)
+![](/wp-content/uploads/2020/08/feedbackxx.png)
 
 ## İş Yerinde Stres Yaratan Etkenler
 

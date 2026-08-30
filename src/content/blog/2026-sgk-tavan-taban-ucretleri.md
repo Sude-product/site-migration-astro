@@ -4,7 +4,7 @@ title: 2026 SGK Tavan ve Taban Ücretleri Ne Kadar Oldu?
 date: '2026-03-18T10:48:36'
 excerpt: Yeniden değerleme oranlarının ve asgari ücret güncellemelerinin netleştiği bu dönemde, iş dünyasını yakından ilgilendiren en önemli bordro parametrelerinden…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/2026_sgk_tavan_taban_ucretleri.jpeg
+  url: /wp-content/uploads/2026/03/2026_sgk_tavan_taban_ucretleri.jpeg
   alt: 2026 sgk tavan ve taban ücretleri
   width: 1280
   height: 721

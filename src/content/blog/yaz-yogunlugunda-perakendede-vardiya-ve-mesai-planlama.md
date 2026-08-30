@@ -4,7 +4,7 @@ title: Yaz Yoğunluğunda Perakendede Vardiya ve Mesai Planlama
 date: '2026-07-20T10:19:17'
 excerpt: Perakendede yaz yoğunluğu çoğu zaman satış rakamlarıyla konuşulur; ancak bu rakamların sürdürülebilir hale gelmesi doğrudan vardiya planının kalitesine…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/07/Vardiya-Plani.png
+  url: /wp-content/uploads/2026/07/Vardiya-Plani.png
   alt: Yaz Yoğunluğunda Perakendede Vardiya ve Mesai Planlama
   width: 1773
   height: 979

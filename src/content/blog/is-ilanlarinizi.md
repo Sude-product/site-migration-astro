@@ -4,7 +4,7 @@ title: İş İlanlarınızı Adayların Gözünden İnceleyin
 date: '2022-03-30T17:18:54'
 excerpt: İş ilanlarınızı hiç potansiyel adayların gözünden incelediniz mi? İşveren markası kavramı günden güne ağırlık kazanıyor. Özellikle bazı sektörlerde doğru…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/03/I╠cs╠g-I╠clanlar─▒n─▒z─▒-C╠gal─▒s╠gan-Adaylar─▒n─▒n-Go╠ezu╠enden-I╠cncelemeyi-Denediniz-mi@2x.jpg
+  url: /wp-content/uploads/2022/03/I╠cs╠g-I╠clanlar─▒n─▒z─▒-C╠gal─▒s╠gan-Adaylar─▒n─▒n-Go╠ezu╠enden-I╠cncelemeyi-Denediniz-mi@2x.jpg
   alt: İş İlanlarınızı Adayların Gözünden İnceleyin
   width: 1515
   height: 998

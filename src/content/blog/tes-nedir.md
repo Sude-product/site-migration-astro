@@ -4,7 +4,7 @@ title: TES Nedir? Zorunlu mudur? Bordroya Nasıl Yansır?
 date: '2025-12-21T18:27:51'
 excerpt: 2026 itibarıyla devreye girmesi planlanan Tamamlayıcı Emeklilik Sistemi (TES), yalnızca çalışanları değil, bordro ve insan kaynakları süreçlerini yöneten…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/12/Tes-Nedir.png
+  url: /wp-content/uploads/2025/12/Tes-Nedir.png
   alt: TES Nedir? Zorunlu mudur? Bordroya Nasıl Yansır?
   width: 1281
   height: 720

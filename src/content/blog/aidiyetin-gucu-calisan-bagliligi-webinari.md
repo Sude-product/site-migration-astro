@@ -4,7 +4,7 @@ title: 'Aidiyetin Gücü: Çalışan Bağlılığı Webinarı'
 date: '2023-06-15T09:14:39'
 excerpt: Bu webinar; çalışan aidiyetinin temelini oluşturan unsurlardan, liderlik ve iletişim etkisine, işe alımda aidiyetin değerlendirilmesinden, çalışan deneyimi ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/06/webinar-calisan-bagliligi-webinari-20230713.jpg
+  url: /wp-content/uploads/2023/06/webinar-calisan-bagliligi-webinari-20230713.jpg
   alt: 'Aidiyetin Gücü: Çalışan Bağlılığı Webinarı'
   width: 1920
   height: 1080
@@ -34,13 +34,13 @@ Gerçekleştirildi
 
 Gerçekleştirildi
 
-![](https://idenfit.com/wp-content/uploads/2023/06/serdar-durupinar.png)
+![](/wp-content/uploads/2023/06/serdar-durupinar.png)
 
 **Serdar Durupınar\
 **Digiturk\
 Human Resources Director
 
-![](https://idenfit.com/wp-content/uploads/2023/06/canan-emgen.png)
+![](/wp-content/uploads/2023/06/canan-emgen.png)
 
 **Canan Emgen**\
 Mavi\

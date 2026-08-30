@@ -4,7 +4,7 @@ title: 2026 İK Yazılımı Fiyatları Hakkında Bilmeniz Gerekenler
 date: '2026-03-18T13:27:15'
 excerpt: İnsan kaynakları süreçlerini dijitalleştirmek isteyen şirketler için en kritik sorulardan biri “ İK yazılım fiyatları ne kadar? ” sorusudur. Ancak bu sorunun…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/2026-ik-yazilimlari-fiyatlari.jpeg
+  url: /wp-content/uploads/2026/03/2026-ik-yazilimlari-fiyatlari.jpeg
   alt: 2026 ik yazılımları fiyatları
   width: 1280
   height: 720

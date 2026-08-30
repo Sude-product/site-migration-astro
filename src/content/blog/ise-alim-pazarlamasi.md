@@ -4,7 +4,7 @@ title: İşe Alım Pazarlaması
 date: '2022-02-20T19:24:26'
 excerpt: İşe alım pazarlaması kavramını ilk kez mi duydunuz yoksa 2021 trendlerinden aşina mısınız? İşe alım sürecinde en yüksek maliyetin mülakat aşamasına ait olduğu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/is╠ge-al─▒m-2-@2x.jpg
+  url: /wp-content/uploads/2022/02/is╠ge-al─▒m-2-@2x.jpg
   alt: İşe Alım Pazarlaması
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Çalışan Bağlılığını Arttırmanın 6 Etkin Yolu
 date: '2020-08-24T13:52:34'
 excerpt: Çalışan bağlılığı içeride, müşteri memnuniyeti dışarıda ayakta tutar işletmeleri derler. Gerçekten de şirketlerin başarı grafiğini yükselten en önemli unsur,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/başarili-şirket@3x.png
+  url: /wp-content/uploads/2025/08/başarili-şirket@3x.png
   alt: Çalışan Bağlılığını Arttırmanın 6 Etkin Yolu
   width: 2271
   height: 1497
@@ -42,7 +42,7 @@ Mesleki gelişim planı oluşturmak, yöneticinin çalışanlarının ilgi alanl
 
 ## 5\. Çalışanlarınızdan Tavsiye veya Görüş İsteyin
 
-[![anket modülü](https://idenfit.com/wp-content/uploads/2020/08/Varlık-6@2x-1024x648.png)](/anket-modulu/)
+[![anket modülü](/wp-content/uploads/2020/08/Varlık-6@2x-1024x648.png)](/anket-modulu/)
 
 IDENFİT ANKET MODÜLÜ
 
@@ -52,7 +52,7 @@ IDENFİT ANKET MODÜLÜ
 
 ## 6\. Geri Bildirimde Bulunun
 
-<a href="/organizasyonel-geri-bildirim-modulu/" aria-label="GERİ BİLDİRİMLERİ IDENFİT ÜZERİNDEN ALIN!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/feedbackxx-1.png" alt="" class="wp-image-2274" style="width:482px;height:335px"></a>
+<a href="/organizasyonel-geri-bildirim-modulu/" aria-label="GERİ BİLDİRİMLERİ IDENFİT ÜZERİNDEN ALIN!"><img decoding="async" src="/wp-content/uploads/2020/08/feedbackxx-1.png" alt="" class="wp-image-2274" style="width:482px;height:335px"></a>
 
 GERİ BİLDİRİMLERİ IDENFİT ÜZERİNDEN ALIN!
 

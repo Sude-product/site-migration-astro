@@ -4,7 +4,7 @@ title: Çalışan Ebeveynlerin İzin Süreleri
 date: '2023-07-14T14:32:42'
 excerpt: Çalışan ebeveynlerin izin süreleri, Türk İş Kanunu’nda keskin hatlar ile belirlenmiş olup yasal güvence altına alınıyor. Özellikle yeni çocuk sahibi olacak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/07/calisan-ebeveynlerin-izin-sureleri.jpg
+  url: /wp-content/uploads/2023/07/calisan-ebeveynlerin-izin-sureleri.jpg
   alt: Çalışan Ebeveynlerin İzin Süreleri
   width: 1620
   height: 811

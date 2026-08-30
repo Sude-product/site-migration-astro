@@ -4,7 +4,7 @@ title: Reskilling & Upskilling Nedir?
 date: '2022-05-13T13:48:52'
 excerpt: Reskilling & Upskilling kavramları son zamanlarda İK dünyasının en önemli kavramları arasında yer alıyor. İK departmanları mevcut iş süreçlerinde ve gelecek…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/05/Reskilling-ve-Upskilling.jpg
+  url: /wp-content/uploads/2022/05/Reskilling-ve-Upskilling.jpg
   alt: Reskilling & Upskilling Nedir?
   width: 1514
   height: 998

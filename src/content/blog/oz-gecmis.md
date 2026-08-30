@@ -4,7 +4,7 @@ title: Öz Geçmişinizi Güncel Tutmanın İpuçları
 date: '2023-09-03T17:55:49'
 excerpt: Öz geçmiş hazırlamak parlak bir kariyer yolculuğu için ne kadar önemliyse öz geçmişi güncel tutmak da bir o kadar önem taşıyor. Kariyerinizin rotası sürekli…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/09/ozgecmis-hazirlama-rehberi.jpg
+  url: /wp-content/uploads/2023/09/ozgecmis-hazirlama-rehberi.jpg
   alt: Öz Geçmişinizi Güncel Tutmanın İpuçları
   width: 1621
   height: 811

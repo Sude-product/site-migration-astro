@@ -4,7 +4,7 @@ title: Mobbing Nedir?
 date: '2019-12-24T17:36:48'
 excerpt: Ofis yaşamında karşılaşılan bir zorbalık çeşidi olan mobbing , pek çok çalışanın başına gelen bir durumdur. Her ne kadar pek çok insan işyerinde mobbinge maruz…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/mobbing@3x-100.jpg
+  url: /wp-content/uploads/2025/08/mobbing@3x-100.jpg
   alt: Mobbing Nedir?
   width: 2272
   height: 1497
@@ -23,7 +23,7 @@ Ofis yaşamında karşılaşılan bir zorbalık çeşidi olan **mobbing**, pek �
 
 ## **Mobbing Nasıl Ortaya Çıkar?**
 
-![mobbing nedir](https://idenfit.com/wp-content/uploads/2019/12/8-1.png)
+![mobbing nedir](/wp-content/uploads/2019/12/8-1.png)
 
 Bir **çalışana mobbing** uygulandığını ortaya koyan bazı belirli davranışlar vardır. Çalışanın mesleki yeterliliklerinin sürekli olarak sorgulanır hale gelmesi, güven problemi yaşandığının sıkça hissettirilmesi, bilerek çalışana verilen sürede tamamlanamayacak görevler verilmesi ve bazı önemli bilgilerin çalışandan saklanılması mobbing yapıldığına işarettir. Bunların haricinde gerekçe olmadan çalışanın görmezden gelinmesi, ekipten dışlanması ve yetkilerinin kısıtlanması da **mobbing göstergeleri** arasındadır.
 
@@ -33,13 +33,13 @@ Ancak, açıkça yönetici ya da işverenin diğer çalışanları azmettirdiği
 
 ## **Mobing Genellikle Kimleri Hedef Alır?**
 
-![mobbing kimleri hedef alir](https://idenfit.com/wp-content/uploads/2019/12/2_4.png)
+![mobbing kimleri hedef alir](/wp-content/uploads/2019/12/2_4.png)
 
 “**İşyerinde psikolojik baskı görüyorum**” diyen kişiler genellikle kurumdaki en yaratıcı ve yetkin kişiler arasında bulunur. Özellikle bu durum diğer çalışanlar veya yöneticiler tarafından uygulanan her türlü taciz için geçerlidir. Nedeni ise ağırlıklı olarak çalışanın tehditmiş gibi algılanması olur. Bunların yanı sıra, yapılan araştırmalara göre kadınlar, genç ve yaşlı çalışanlar da mobbingin hedefi olma ihtimali yüksek olan kişilerdir.
 
 ## **Mobbing Çeşitleri**
 
-![mobbing cesitleri](https://idenfit.com/wp-content/uploads/2019/12/3_3-2-1024x318.png)
+![mobbing cesitleri](/wp-content/uploads/2019/12/3_3-2-1024x318.png)
 
 “**İşyerinde mobbing nedir**?” diye merak edenlerin mobbingin tek çeşidi olmadığını bilmesi gerekir. **Mobbing** farklı yöntemler ve örneklerle gerçekleşebilir. Aslında mobbingin varlığını anlamak, çalışanın davranışlarını gözden geçirmesi ve her şey yolunda olmasına rağmen olumsuz davranışlarla karşılaşmasını fark etmesiyle olur. İş yerinde çalışmayı seven ama son zamanlarda işin niteliğinden bağımsız olarak işten kaçınma içgüdüsüne girenler mobbingi fark edebilir.
 
@@ -47,7 +47,7 @@ Ancak, açıkça yönetici ya da işverenin diğer çalışanları azmettirdiği
 
 ## **İşyerinde Psikolojik Baskı Etkileri**
 
-![is yerinde psikolojik baski](https://idenfit.com/wp-content/uploads/2019/12/4_3-1.png)
+![is yerinde psikolojik baski](/wp-content/uploads/2019/12/4_3-1.png)
 
 **İşyerinde** mobbinge uğrayan kurbanların iş performansları düşer ve sürekli olarak morali bozuk şekilde işe gelmeye başlarlar. Özellikle yönetimin ya da işverenin olayın son bulması için hamleler yapmamasıyla etkiler giderek daha çok artar. Mobbingle karşılaşan kişiler işe olan heveslerini yitirirler ve basit görevlere dahi odaklanma konusunda sorun yaşarlar.
 
@@ -55,7 +55,7 @@ Ancak, açıkça yönetici ya da işverenin diğer çalışanları azmettirdiği
 
 ## **Mobbing Şikayet için Başvuru Yöntemleri**
 
-![mobbing sikayet basvurusu](https://idenfit.com/wp-content/uploads/2019/12/6_2-1.png)
+![mobbing sikayet basvurusu](/wp-content/uploads/2019/12/6_2-1.png)
 
 Mobbingle karşılaşan ve şikayetlerine dönüş alamayan çalışan tarafından çeşitli kurumlara **işyeri şikayet** edilir. Mobbing karşısında çöküntü yaşayıp pes etmek yerine bununla mücadele etmek ve gerekli yerlere **işyerinde mobbing şikayet dilekçesi** vermek önemlidir. **Mobbing şikayet dilekçesi** için başvurulabilecek yerler arasında TBMM, Çalışma ve Sosyal Güvenlik Bakanlığı, Anayasa Mahkemesi ve Kamu Denetçiliği Kurumu bulunur.
 
@@ -63,7 +63,7 @@ Bunların yanı sıra mobbing bir insan hakları ihlali olduğu için **mobbing 
 
 ## **Mobbingle Karşılaşanların Mutlaka Yapması Gerekenler**
 
-![mobbinge karsi yapilmasi gerekenler](https://idenfit.com/wp-content/uploads/2019/12/1_4.png)
+![mobbinge karsi yapilmasi gerekenler](/wp-content/uploads/2019/12/1_4.png)
 
 **Mobbinge uğradığını** hisseden kişilerin açık deliller toplamaya dikkat etmesi gerekir. Bunun için;
 
@@ -76,7 +76,7 @@ Gerekli hallerde tüm bu belgeler delil olarak kullanılabilir ve çalışanın 
 
 ## **İşyerinde Mobbing ile Karşılaşanların Sahip Olduğu Haklar**
 
-![is yerinde mobbing](https://idenfit.com/wp-content/uploads/2019/12/7_1-1.png)
+![is yerinde mobbing](/wp-content/uploads/2019/12/7_1-1.png)
 
 Pek çok **işveren mobbingi** kendine hak görse de aslında buna uğrayan çalışanların bu baskıyı ispat etmesi halinde çok geniş hakları bulunur. Çalışan iş sözleşmesini feshedebilir, ayrımcılık tazminatı isteyebilir ve hatta tazminat talebinde bulunabilir. Ayrıca **mobbinge uğrayan kişi**, mobbingi yapan kişiyi dava ederek manevi tazminat isteyebilir. Gerektiğinde kötü niyet tazminatı hükümleri de devreye girebilir.
 

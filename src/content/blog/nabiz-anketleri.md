@@ -4,7 +4,7 @@ title: Nabız Anketleri Neden Önemlidir?
 date: '2022-08-12T12:22:37'
 excerpt: Nabız anketleri çalışanlardan hızlı ve sık geri bildirim alınmasını sağlayan yöntemdir. Geleneksel yöntemlerle yılda bir veya iki kez uygulanan anketlerden…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/08/nab─▒z-anketlerinin-temel-faydalar─▒.jpg
+  url: /wp-content/uploads/2022/08/nab─▒z-anketlerinin-temel-faydalar─▒.jpg
   alt: Nabız Anketleri Neden Önemlidir?
   width: 1514
   height: 999

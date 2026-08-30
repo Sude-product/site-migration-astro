@@ -4,7 +4,7 @@ title: 'Geleceğin İş Gücü: Z Kuşağı'
 date: '2022-08-04T11:35:59'
 excerpt: Geleceğin iş gücü iş dünyasında etkisini arttırmaya devam ediyor. Uzmanlar 2030 yılına kadar Z kuşağına ait çalışanların toplam iş gücünün yüzde 30’unu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/08/Gelecegin-is-Gucu-Z-Kusagini-Nasil-Etkilersiniz-1.jpg
+  url: /wp-content/uploads/2022/08/Gelecegin-is-Gucu-Z-Kusagini-Nasil-Etkilersiniz-1.jpg
   alt: 'Geleceğin İş Gücü: Z Kuşağı'
   width: 810
   height: 534

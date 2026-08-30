@@ -4,7 +4,7 @@ title: Küresel Çalışma Kültürü için İK Stratejileri
 date: '2024-02-19T00:05:00'
 excerpt: Küresel çalışma kültürü, iş dünyasında giderek daha yaygın hale gelen ve küresel ölçekte faaliyet gösteren şirketlerin çalışma ortamlarında ortaya çıkan bir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/kuresel-calisma-kulturu-farkl─▒-ulkelerden-insanlari-birlestiren-ik-stratejileri-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/kuresel-calisma-kulturu-farkl─▒-ulkelerden-insanlari-birlestiren-ik-stratejileri-1392x696-1.jpg
   alt: Küresel Çalışma Kültürü için İK Stratejileri
   width: 1392
   height: 696

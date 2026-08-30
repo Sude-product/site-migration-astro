@@ -4,7 +4,7 @@ title: Etkili Sunumlar için 8 Öneri
 date: '2023-11-02T12:43:41'
 excerpt: Etkili sunumlar için ihtiyaç duyduğunuz tüyoları öğrenmeye hazır mısınız? Bir sunum yaparken ilk birkaç dakika dinleyicilerinizin dikkatini çekmek açısından…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/11/sunumlar-icin-8-akilli-kanca-teknigi.jpg
+  url: /wp-content/uploads/2023/11/sunumlar-icin-8-akilli-kanca-teknigi.jpg
   alt: Etkili Sunumlar için 8 Öneri
   width: 1621
   height: 811

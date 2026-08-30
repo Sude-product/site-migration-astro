@@ -4,7 +4,7 @@ title: 2024 İdari Para Cezaları
 date: '2024-02-18T15:59:37'
 excerpt: Ceza her ne kadar sevimsiz bir kelime olsa da hayatımızın bir parçası maalesef. Toplumsal normları korumak adına belirlenen idari para cezaları pek çok farklı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2024-idari-para-cezalari-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/2024-idari-para-cezalari-1392x696-1.jpg
   alt: 2024 İdari Para Cezaları
   width: 1392
   height: 696

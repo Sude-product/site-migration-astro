@@ -4,7 +4,7 @@ title: 2026 Yılında SGK İdari Para Cezaları Neye Göre Uygulanıyor?
 date: '2026-05-18T13:52:49'
 excerpt: 2026 yılında SGK idari para cezaları, işverenler açısından yalnızca mevzuat başlığı değil; aynı zamanda bordro doğruluğu, bildirim disiplini ve İK süreçlerinin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/05/2026-Yilinda-SGK-Idari-Para-Cezalari-Neye-Gore-Uygulaniyor.jpg
+  url: /wp-content/uploads/2026/05/2026-Yilinda-SGK-Idari-Para-Cezalari-Neye-Gore-Uygulaniyor.jpg
   alt: 2026 Yılında SGK İdari Para Cezaları Neye Göre Uygulanıyor?
   width: 1280
   height: 720

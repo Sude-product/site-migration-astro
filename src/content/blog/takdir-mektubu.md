@@ -4,7 +4,7 @@ title: Takdir Mektubu Nedir, Nasıl Yazılır?
 date: '2024-03-18T11:39:27'
 excerpt: Takdir mektubu, iş süreçlerinize verim ve ekip üyeleri arasında uyum yaratmak konusunda düşündüğünüzden çok daha etkili bir yöntem. Öyle ki günlük hayatta biri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/idenfit-linkedin-Taktir-Mektubu-Nedir-_Nasil-Yazilir_@2x-100-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/idenfit-linkedin-Taktir-Mektubu-Nedir-_Nasil-Yazilir_@2x-100-1392x783-1.jpg
   alt: Takdir Mektubu Nedir, Nasıl Yazılır?
   width: 1392
   height: 783

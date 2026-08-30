@@ -4,7 +4,7 @@ title: Özlük Dosyası Nasıl Hazırlanır?
 date: '2024-11-22T20:16:56'
 excerpt: Özlük dosyası hazırlama ve saklama İK departmanlarının vaktini alan en önemli konuların başında geliyor. İnsan kaynakları departmanı, faaliyette bulunduğu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/personel-ozluk-dosyasi.png
+  url: /wp-content/uploads/2025/08/personel-ozluk-dosyasi.png
   alt: Özlük Dosyası Nasıl Hazırlanır?
   width: 2271
   height: 1497
@@ -34,7 +34,7 @@ modifiedDate: '2025-09-29T12:05:19'
 
 ## **Özlük Dosyası Nedir?**
 
-![ozluk dosyasi nedir](https://idenfit.com/wp-content/uploads/2019/12/4_1@2x.png)
+![ozluk dosyasi nedir](/wp-content/uploads/2019/12/4_1@2x.png)
 
 İşletmeler, işe yeni başlayacak olan personelden bir dizi belge talep ediyor. Bu belgeler kurumdan kuruma birtakım farklılıklar gösterebiliyor. Personelin işe başlamasıyla birlikte teslim alınan bu belgeler, çalışanla ilgili her türlü özel bilgiyi içeriyor. Söz konusu belgelerin tamamı, **personelin özlük dosyası**nı oluşturuyor.
 
@@ -46,7 +46,7 @@ Kanuna göre, kurumların **özlük dosyası** tutmaları ve bu dosyaları günc
 
 ## **Personel Özlük Dosyası Tutmak Neden Gereklidir?**
 
-![personel ozluk dosyasi neden gerekli](https://idenfit.com/wp-content/uploads/2019/12/1_1@2x.png)
+![personel ozluk dosyasi neden gerekli](/wp-content/uploads/2019/12/1_1@2x.png)
 
 Personelin çalıştığı süre boyunca ıslak imzalı olarak tutulması gereken belgelerin bir arada bulunduğu özlük dosyası, her şeyden önce kişinin o iş yerinde çalıştığının ispatını sağlıyor. Ayrıca, **personel özlük dosyası**, çalışma süresi boyunca çalışanla işveren arasındaki iş ilişkisine dair atılan adımları özetleyen evrak ve yazışmaları içeriyor. Böylece herhangi bir anlaşmazlık durumunda, özlük dosyasında yer alan bu belgeler gün yüzüne çıkıyor. Çalışanın ve işverenin iddialarına dair kanıtlar söz konusu belgeler içinde aranıyor. Dolayısıyla **özlük dosyası evrakları** güncel olarak ve asıl nüshaları ile birlikte muhafaza edilmelidir.
 
@@ -54,7 +54,7 @@ Herhangi bir şirkette, hakkında **özlük dosyası** tutulmayan bir çalışan
 
 ## **Özlük Dosyası Nasıl Tutuluyor?**
 
-![ozluk dosyasi nasil tutulur](https://idenfit.com/wp-content/uploads/2019/12/2_1@2x.png)
+![ozluk dosyasi nasil tutulur](/wp-content/uploads/2019/12/2_1@2x.png)
 
 Şirketlerde **özlük işleri** göreviyle ilgilenen personel tarafından tutulması gereken personel özlük dosyası kırtasiyelerde rahatlıkla bulunabiliyor. Öte yandan, İş Kanunu’nda özlük dosyalarının özellikle belirli bir formatta hazırlanmasını gerektirecek herhangi bir madde bulunmuyor. Dolayısıyla personele ait özel bilgilerin yer aldığı tüm evrakları herhangi bir dosyada da muhafaza edilebiliyor. Bu anlamda, **özlük dosyaları**nı nasıl tutacağına kurum kendisi karar verebiliyor.
 
@@ -66,7 +66,7 @@ Aslında hayatın her alanında kendini gösteren dijitalleşmeye paralel olarak
 
 ## **Özlük Dosyasında Neler Olmalı?**
 
-![ozluk dosyasi](https://idenfit.com/wp-content/uploads/2019/12/3_1@2x.png)
+![ozluk dosyasi](/wp-content/uploads/2019/12/3_1@2x.png)
 
 **Personel özlük dosyası**, yalnızca personelin işe girerken kuruma teslim etmek zorunda olduğu belgelerden oluşmaz. Çalışma süresi boyunca çalışan-kurum arasındaki her türlü ilişkinin özetlendiği evraklar da bu dosyadaki yerini almalıdır. İzin formları, raporlar, disiplin cezaları bu türden belgelere sadece birkaç örnektir.
 
@@ -95,7 +95,7 @@ Personel özlük dosyalarının dijitalleşmesi, insan kaynakları süreçlerind
 
 ## **İşverenler Özlük Dosyalarını Ne Kadar Süre ile Saklamalıdır?**
 
-![personel ozluk dosyasi saklanma suresi](https://idenfit.com/wp-content/uploads/2019/12/5_1@2x.png)
+![personel ozluk dosyasi saklanma suresi](/wp-content/uploads/2019/12/5_1@2x.png)
 
 İş Kanunu’nda **personel özlük dosyaları**nın ne kadar süre ile muhafaza edilmesi gerektiğine dair herhangi bir hüküm bulunmaz. Bu noktada SGK mevzuatını dikkate almak doğru olabilir. SGK mevzuatı, iş yerine ait resmi kayıt ve belgelerin on yıl süreyle muhafaza edilmesini söyler. **Personel özlük dosyaları** da kurumsal kayıt evrakları sınıfına girer. Bu durumda özlük dosyalarının da on yıl süreyle saklanması gerektiğini söylemek yanlış olmayacaktır.
 

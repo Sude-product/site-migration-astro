@@ -4,7 +4,7 @@ title: Big Data Nedir?
 date: '2025-05-25T22:26:23'
 excerpt: Büyük veri, modern çağın dijital altınlarından biridir. Big Data olarak da bilinen bu kavram, yalnızca verinin miktarıyla değil; aynı zamanda hızla artması ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/big-data-ve-insan-kaynaklarinda-ise-alim-surecleri.png
+  url: /wp-content/uploads/2025/05/big-data-ve-insan-kaynaklarinda-ise-alim-surecleri.png
   alt: Big Data Nedir?
   width: 757
   height: 499
@@ -94,7 +94,7 @@ Günümüzde big data analizi, iş dünyasındaki rekabetçi ortamın belirleyic
 
 **
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2025/05/işe-alim-modülü-1024x958-1.png)
+![idenfit işe alım modülü](/wp-content/uploads/2025/05/işe-alim-modülü-1024x958-1.png)
 
 Big data sayesinde işe alım süreçlerinde İK yöneticileri, potansiyel özgeçmişleri takip etme fırsatı yakalar. Yetenekleri ölçümleyip sınıflandırabilen [**insan kaynakları uzmanları**,](/blog/ik-uzmani-olabilmek-icin-gereken-ozellikler/) büyük veri ile uygunsuz profilleri eleyebilir. Böylelikle işletme profiline daha uygun adaylar, daha doğru tercihlerle işletmeye kazandırılir. Geleneksel işe alım yöntemleri çoğu zaman zaman kaybına ve yanlış seçimlere yol açar. Ancak Big Data, **[işe alım](/ise-alim-modulu/)** süreçlerine veri odaklı bir yaklaşım getirerek bu sorunları minimize eder. **[Öz geçmiş ayrıştırma](/blog/ozgecmis-ayristirma/)** yoluyla; eğitim geçmişi, çevrim içi davranışları ve önceki iş deneyimlerine dair veriler analiz edilir. Bu veriler ışığında pozisyona en uygun adaylar daha hızlı belirlenir. Ayrıca, adayın şirkete olan kültürel uyumu da verilerle öngörülebilir hale gelir. Big Data, işe alım kararlarını sezgiden veriye taşır. Bu da hem daha az hataya yol açar hem de işe alınan çalışanların kuruma uyum süresini kısaltır. Sonuç olarak, daha doğru seçimler, daha güçlü ekipler doğurur.
 

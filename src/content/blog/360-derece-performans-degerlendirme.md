@@ -4,7 +4,7 @@ title: 360 Derece Performans Değerlendirme Yöntemi Nedir?
 date: '2020-09-09T14:42:34'
 excerpt: 360 derece performans değerlendirme, hem insan kaynakları hem de yönetim süreçleri açısından oldukça önemlidir. İşletmeler, geçerli ve güvenilir bir performans…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/360-derece-performans-değerlendirme.png
+  url: /wp-content/uploads/2025/08/360-derece-performans-değerlendirme.png
   alt: 360 Derece Performans Değerlendirme Yöntemi Nedir?
   width: 2271
   height: 1497
@@ -21,7 +21,7 @@ modifiedDate: '2025-09-29T12:31:11'
 
 ## 360 Derece Performans Değerlendirme Nedir?
 
-<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="360 DERECE PERFORMANS DEĞERLENDİRMEYİ IDENFİT İLE YAPIN!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-1024x831.png" alt="" class="wp-image-2335"></a>
+<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="360 DERECE PERFORMANS DEĞERLENDİRMEYİ IDENFİT İLE YAPIN!"><img decoding="async" src="/wp-content/uploads/2020/09/unnamed-1-1024x831.png" alt="" class="wp-image-2335"></a>
 
 360 DERECE PERFORMANS DEĞERLENDİRMEYİ IDENFİT İLE YAPIN!
 

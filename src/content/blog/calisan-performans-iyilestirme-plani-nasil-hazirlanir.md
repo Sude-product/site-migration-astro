@@ -5,7 +5,7 @@ metaTitle: Çalışan Performans İyileştirme Planı Rehberi
 date: '2026-07-03T15:18:47'
 excerpt: Bir çalışanın performansında düşüş görülmesi, çoğu şirkette ya anlık geri bildirimlerle geçiştiriliyor ya da sorun büyüdükten sonra disiplin gündemiyle ele…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/07/Calisan-Performans.png
+  url: /wp-content/uploads/2026/07/Calisan-Performans.png
   alt: Çalışan Performans İyileştirme Planı Nasıl Hazırlanır?
   width: 1672
   height: 941

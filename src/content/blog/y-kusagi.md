@@ -4,7 +4,7 @@ title: Çalışma Hayatında Y Kuşağı
 date: '2022-10-21T16:55:02'
 excerpt: Tam olarak hangi yılların Y Kuşağını temsil ettiği konusu hâlen tartışılmakla birlikte, 1977-2003 yılları arasında çeşitli aralıklara yerleştirilmeye çalışılan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/calisma-hayatinda-bir-donum-noktasi-unsuru-y-kusagi.jpg
+  url: /wp-content/uploads/2022/10/calisma-hayatinda-bir-donum-noktasi-unsuru-y-kusagi.jpg
   alt: Çalışma Hayatında Y Kuşağı
   width: 1515
   height: 999

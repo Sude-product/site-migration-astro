@@ -4,7 +4,7 @@ title: 2025 Stajyer Maaşları
 date: '2025-01-12T16:08:18'
 excerpt: 2025 zam oranlarının belli olmasıyla toplumun çalışan ve emekli kesimleri zamlı maaş oranlarını hesaplamaya başladı. Biz de meslek hayatının ilk adımlarını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-Stajyer-Maaslari.jpg
+  url: /wp-content/uploads/2025/08/2025-Stajyer-Maaslari.jpg
   alt: 2025 Stajyer Maaşları
   width: 1280
   height: 721

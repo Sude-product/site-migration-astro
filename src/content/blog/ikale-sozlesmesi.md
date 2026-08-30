@@ -4,7 +4,7 @@ title: İkale Sözleşmesi Nedir?
 date: '2023-12-02T19:49:11'
 excerpt: İkale sözleşmesi, tarafların birbirine karşı olan yükümlülükleri sona erdiren bir anlaşma belgesi olur. Bu belge, sözleşmeye dair tüm hususları kapsayarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/12/ikale-sozlesmesi.jpg
+  url: /wp-content/uploads/2023/12/ikale-sozlesmesi.jpg
   alt: İkale Sözleşmesi Nedir?
   width: 1621
   height: 811

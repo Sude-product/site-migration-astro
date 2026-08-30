@@ -4,7 +4,7 @@ title: İş Sözleşmesi Nedir? Nasıl Düzenlenir?
 date: '2020-06-15T10:31:54'
 excerpt: Hem işçiyi hem de işvereni yakından ilgilendiren iş sözleşmesi ve iş sözleşmesi çeşitleri farklı gereklilikleri bulunduğu için özenle hazırlanması gereken…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/iş-sözleşmesi@3x.png
+  url: /wp-content/uploads/2025/08/iş-sözleşmesi@3x.png
   alt: İş Sözleşmesi Nedir? Nasıl Düzenlenir?
   width: 2272
   height: 1498

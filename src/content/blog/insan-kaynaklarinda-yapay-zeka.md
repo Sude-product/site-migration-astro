@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Yapay Zeka ve Geleceği
 date: '2025-08-31T12:09:46'
 excerpt: Yapay zeka, insan kaynaklarında artık geleceğin değil bugünün gerçeği. Çünkü işe alımdan performans yönetimine kadar tüm süreçleri hızlandırıyor. Dahası,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Insan-Kaynaklarinda-Yapay-Zeka-.jpg
+  url: /wp-content/uploads/2025/08/Insan-Kaynaklarinda-Yapay-Zeka-.jpg
   alt: İnsan Kaynaklarında Yapay Zeka ve Geleceği
   width: 1024
   height: 675

@@ -4,7 +4,7 @@ title: İş Güvenliği Kültürünü Anlamada Ulusal Kültür
 date: '2022-11-04T17:42:41'
 excerpt: Her toplumun kendi karakteristiği ile şekillenmiş olan bir kültürel yapısı var. Sonraki kuşaklara aktarılarak gelişen ve canlı kalmaya devam eden bu yapı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/11/is-guvenligi-kulturu.jpg
+  url: /wp-content/uploads/2022/11/is-guvenligi-kulturu.jpg
   alt: İş Güvenliği Kültürünü Anlamada Ulusal Kültür
   width: 1515
   height: 999

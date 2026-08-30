@@ -4,7 +4,7 @@ title: Turquality Nedir?
 date: '2025-02-06T21:14:08'
 excerpt: 2004 yılında hayata geçirilen Turquality programı Türkiye’nin markalaşma stratejisidir. Devlet destekli olarak hayata geçirilen Turquality programı bu anlamda…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/isveren_markasi.png
+  url: /wp-content/uploads/2025/08/isveren_markasi.png
   alt: Turquality Nedir?
   width: 757
   height: 499

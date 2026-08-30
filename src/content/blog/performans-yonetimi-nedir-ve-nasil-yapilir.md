@@ -4,7 +4,7 @@ title: Performans Yönetimi Nedir ve Nasıl Yapılır?
 date: '2025-11-24T20:26:55'
 excerpt: Performans yönetimi, günümüzde büyük değişim rüzgarları içerisinde kendine yer edinirken eski yöntemleri geride bırakıyor. Şirketler dijital dönüşüme ayak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Performans-yonetimi-nedir-ve-nasil-yapilir_-1.png
+  url: /wp-content/uploads/2025/08/Performans-yonetimi-nedir-ve-nasil-yapilir_-1.png
   alt: Performans Yönetimi Nedir ve Nasıl Yapılır?
   width: 2271
   height: 1497

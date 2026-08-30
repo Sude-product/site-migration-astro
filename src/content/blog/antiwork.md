@@ -4,7 +4,7 @@ title: Antiwork Akımı
 date: '2022-02-08T17:09:22'
 excerpt: Antiwork akımı ile tanışmaya hazır mısınız? Pandemi ile hayatımıza yeni katılan çalışma modelleri, dijital gezgin furyası ve büyük istifa hareketi derken son…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/Antiwork-Hareketi@2x.jpg
+  url: /wp-content/uploads/2022/02/Antiwork-Hareketi@2x.jpg
   alt: Antiwork Akımı
   width: 1514
   height: 998

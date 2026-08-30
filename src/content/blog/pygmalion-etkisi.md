@@ -4,7 +4,7 @@ title: Pygmalion Etkisi
 date: '2022-09-15T10:24:46'
 excerpt: Pygmalion etkisi yani; kendi kendini gerçekleştiren kehanet, iş dünyasında da etki gösteriyor olabilir mi? Duyduğumuz inançlar biz farkında olmasak dahi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/09/2-1.jpg
+  url: /wp-content/uploads/2022/09/2-1.jpg
   alt: Pygmalion Etkisi
   width: 1515
   height: 999

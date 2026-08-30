@@ -4,7 +4,7 @@ title: 'Kapsayıcılık: Huzurlu Bir Çalışma Ortamı'
 date: '2021-12-10T10:33:47'
 excerpt: Kapsayıcılık, pandemi etkisiyle hızla dönüşen insan kaynakları dinamikleri arasında yer ilk sıralarda alıyor. 2021 yılının son çeyreğinde İK dünyası yeni yılda…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/08/cesitlilik-ve-kapsayicilik-daha-guclu-ekipler-insa-edin.jpg
+  url: /wp-content/uploads/2022/08/cesitlilik-ve-kapsayicilik-daha-guclu-ekipler-insa-edin.jpg
   alt: 'Kapsayıcılık: Huzurlu Bir Çalışma Ortamı'
   width: 1515
   height: 999

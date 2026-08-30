@@ -4,7 +4,7 @@ title: İşten Çıkış Kodu Nedir, İşten Çıkış Kod Listesi
 date: '2024-07-12T23:43:32'
 excerpt: İşten çıkış süreçleri, insan kaynakları profesyonelleri için organizasyonun yasal uyumluluğunu korumak adına büyük bir önem taşıyor. İşe alımdan yetenek…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Çalişma-Yüzeyi-3-kopya@2x.png
+  url: /wp-content/uploads/2025/08/Çalişma-Yüzeyi-3-kopya@2x.png
   alt: İşten Çıkış Kodu Nedir, İşten Çıkış Kod Listesi
   width: 1515
   height: 999
@@ -37,7 +37,7 @@ Sosyal Güvenlik Kurumu’na (SGK) işten çıkış sebeplerinin doğru kodlarla
 
 ## İşten Çıkış Kodu Nedir?
 
-![işten çıkış kodu nedir?](https://idenfit.com/wp-content/uploads/2020/05/1@4x.png)
+![işten çıkış kodu nedir?](/wp-content/uploads/2020/05/1@4x.png)
 
 İşverenlerin, işçilerin iş sözleşmelerinin sonlanmasının ardından Sosyal Güvenlik Kurumu’na bildirmesi gereken kodlara işten çıkış kodu adı verilir. 
 
@@ -47,7 +47,7 @@ Sosyal Güvenlik Kurumu’na (SGK) işten çıkış sebeplerinin doğru kodlarla
 
 Sistemde çıkış bildirimi yaparken seçilen **işten çıkış kod** ile işten çıkarılan işçiye yapılan çıkış ödemesi uyumlu olmalıdır. 
 
-![](https://idenfit.com/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)
+![](/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)
 
 **[İDENFİT İŞTEN ÇIKIŞ MODÜLÜ](/offboarding-modulu/)**
 
@@ -57,7 +57,7 @@ Sistemde çıkış bildirimi yaparken seçilen **işten çıkış kod** ile i�
 
 ## SGK İşten Çıkış Kodları Neden Önemlidir?
 
-![işten çıkış kodları ne ifade eder?](https://idenfit.com/wp-content/uploads/2020/05/2@4x.png)
+![işten çıkış kodları ne ifade eder?](/wp-content/uploads/2020/05/2@4x.png)
 
 **İşten çıkış kodları**, iş sözleşmesinin ne için, ne sebeple ve hangi tarafın talebi ile sonlandığını anlatır. Bu kodlar ayrıca sözleşmeni sonlanmasından sonra işçinin hangi haklara sahip olacağının ya da olmayacağının tespitini sağlar. İşten ayrılma kodları ile işçinin ihbar tazminatı, **[kıdem tazminatı](/blog/kidem-tazminati/)** ya da [**işsizlik maaşı**](/blog/issizlik-maasi-nedir/) alıp almayacağı tespit edilir.
 
@@ -341,7 +341,7 @@ Sosyal Güvenlik Kurumu, 4857 sayılı İş Kanunu’nun 25/2 maddesi çerçeves
 
 ## **SGK İşten Çıkış Kodu Yanlış Girilirse Ne Olur?**
 
-![işten çıkış koduna itiraz](https://idenfit.com/wp-content/uploads/2020/05/7@4x.png)
+![işten çıkış koduna itiraz](/wp-content/uploads/2020/05/7@4x.png)
 
 SGK’ye yanlış girilen işten çıkış kodları, çalışanların işsizlik maaşı, yeni iş başvuruları üzerinde ciddi sonuçlar doğurur. Bir çalışanın işten ayrılma sebebini belirtir. Böylece İŞKUR tarafından işsizlik maaşı hak edişinde anahtar bir faktördür. Eğer kod, çalışanın aleyhine yanlış girilirse, işsizlik maaşı alamama veya yeni iş bulmada zorluk gibi sorunlar yaşanır. Bu tür bir yanlışlık, işçinin kariyerine zarar verebilecek uzun vadeli etkilere neden olur. Bu nedenle, yanlış işten çıkış kodu vakalarında hızlı ve etkili düzeltme mekanizmalarının devreye girmesi kritik önem taşır.
 

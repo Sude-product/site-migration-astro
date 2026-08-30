@@ -4,7 +4,7 @@ title: İş Gücü Optimizasyonu
 date: '2022-05-09T18:22:10'
 excerpt: 'İş gücü optimizasyonu kavramı en net ve en yaygın şekilde bu cümle ile tanımlanıyor: ‘Daha akıllıca çalışın, daha çok değil.’ . Hem çalışanlar hem de…'
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/05/İş-Gücü-Optimizasyonu-Nedir_.jpg
+  url: /wp-content/uploads/2022/05/İş-Gücü-Optimizasyonu-Nedir_.jpg
   alt: İş Gücü Optimizasyonu
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: Hibrit Çalışma Modeli Nedir?
 date: '2024-08-27T23:09:42'
 excerpt: Hibrit çalışma modeli pandemi sonrası iş hayatımıza giren yepyeni kavramlardan. Covid 19 salgını ve normalleşme sürecinde hibrit çalışma modelini daha da çok…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/keyboard-social-business-young-person-scaled-1.jpg
+  url: /wp-content/uploads/2025/08/keyboard-social-business-young-person-scaled-1.jpg
   alt: Hibrit Çalışma Modeli Nedir?
   width: 2560
   height: 1708

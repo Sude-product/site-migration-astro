@@ -4,7 +4,7 @@ title: Kariyer Desteği Nedir?
 date: '2023-05-17T19:59:52'
 excerpt: Kariyer desteği çalışanların bir şirkette çalışırken diğer iş fırsatlarına karşı gösterdiği yatkınlık olarak nitelendirilebilir. Buna göre yetenekli ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/05/kariyer-destegi.jpg
+  url: /wp-content/uploads/2023/05/kariyer-destegi.jpg
   alt: Kariyer Desteği Nedir?
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: Vardiya Yönetimi Nasıl İyileştirilir?
 date: '2020-07-16T10:51:28'
 excerpt: Çalışanların çalışma süreleri, izinleri, işe giriş ve çıkış saatlerini düzenlemek insan kaynakları departmanının en önemli görevleri arasında yer alır. Hem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/VARDİYA-YÖNETİMİ@3x-1.png
+  url: /wp-content/uploads/2025/08/VARDİYA-YÖNETİMİ@3x-1.png
   alt: Vardiya Yönetimi Nasıl İyileştirilir?
   width: 2271
   height: 1497
@@ -32,7 +32,7 @@ Hizmetin ve çalışmanın sürekli olduğu durumlar için etkili ve verimli ça
 
 ## Idenfit ve Yeni Nesil Vardiya Yönetimi
 
-<a href="/puantaj-takip-programi-modulu/" aria-label="AKILLI VARDİYA YÖNETİMİ IDENFİT"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-2.png" alt="" class="wp-image-2022"></a>
+<a href="/puantaj-takip-programi-modulu/" aria-label="AKILLI VARDİYA YÖNETİMİ IDENFİT"><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-2.png" alt="" class="wp-image-2022"></a>
 
 AKILLI VARDİYA YÖNETİMİ IDENFİT
 

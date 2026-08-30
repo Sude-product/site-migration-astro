@@ -4,7 +4,7 @@ title: Turnover Rate Nedir? Nasıl Hesaplanır?
 date: '2025-02-03T22:03:13'
 excerpt: Turnover rate, yani iş gücü devir oranı, insan kaynakları ekiplerinin yakından takip ettiği en kritik metriklerden biridir. İşletmeler için yalnızca bir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/Turnover-Rate-Nedir-Nasıl-Hesaplanır-işten-çıkış-oranı@3x.png
+  url: /wp-content/uploads/2020/10/Turnover-Rate-Nedir-Nasıl-Hesaplanır-işten-çıkış-oranı@3x.png
   alt: Turnover Rate Nedir? Nasıl Hesaplanır?
   width: 2271
   height: 1497
@@ -42,13 +42,13 @@ Turnover hesaplama yaparken belli başlı değişkenlere ihtiyaç duyuluyor. Bun
 
 **İş gücü devir oranı** **hesaplaması** yapılırken öncelikle, toplam işten ayrılan çalışan sayısı ortalama çalışan sayısına bölünüyor. Sonuçta elde edilen sayı, yüzdelik bir oran elde etmek için 100 ile çarpılıyor. **Ortalama çalışan sayısı** ise aylık olarak tüm çalışan sayıları toplanıyor. Ardından hangi ay aralıkları dahil edilecekse o ay sayısına bölünüyor. Turnover hesaplaması formülle gösterilecek olursa;
 
-![](https://idenfit.com/wp-content/uploads/2020/10/tornover-rate_1@3x-1024x410.png)
+![](/wp-content/uploads/2020/10/tornover-rate_1@3x-1024x410.png)
 
 Ortalama Çalışan Sayısı = Aylık Olarak Tüm Çalışanların Toplamı / Hesaplama Yapılacak Ay Sayısı
 
 ## **Turnover Rate (İşgücü Devir Oranı) Neden Önemli?**
 
-![](https://idenfit.com/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)
+![](/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)
 
 **[İŞ GÜCÜ DEVİR ORANINI İDENFİT İŞTEN ÇIKIŞ MODÜLÜYLE HESAPLAYIN!](/offboarding-modulu/)**
 

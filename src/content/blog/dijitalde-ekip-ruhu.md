@@ -4,7 +4,7 @@ title: Dijitalde Ekip Ruhunu Korumak
 date: '2025-06-23T21:28:13'
 excerpt: Evden çalışmak artık geçici bir çözüm değil, kalıcı bir çalışma biçimine dönüşmüş durumda. Ancak bu yeni düzende, ekip ruhunu canlı tutmak her zamankinden daha…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/06/dijitalde-ekip-ruhu.jpg
+  url: /wp-content/uploads/2025/06/dijitalde-ekip-ruhu.jpg
   alt: Dijitalde Ekip Ruhunu Korumak
   width: 1024
   height: 675
@@ -17,7 +17,7 @@ modifiedDate: '2025-09-29T13:58:12'
 
 Evden çalışmak artık geçici bir çözüm değil, kalıcı bir çalışma biçimine dönüşmüş durumda. Ancak bu yeni düzende, ekip ruhunu canlı tutmak her zamankinden daha fazla özen istiyor. Çünkü uzaktan çalışma modeli, fiziksel mesafeyi artırsa da duygusal bağı zayıflatabiliyor. Bu noktada, dijitalde ekip ruhunu korumak, iletişimi güçlendirmek ve ortak hedefleri görünür kılmak büyük önem taşıyor. Evden çalışma imkanı elbette zaman kazandırıyor. Fakat bir ekip içinde aidiyet hissetmek hala temel ihtiyaçlar arasında bulunuyor. Dolayısıyla, ekibin birbirini hissettiği, değer gördüğü bir dijital ortam yaratmak şart. Bu yazıda, dijitalde ekip ruhunu korumanın yollarını birlikte keşfedeceğiz.
 
-![ekip iletisimi](https://idenfit.com/wp-content/uploads/2020/04/2_4@3x.png)
+![ekip iletisimi](/wp-content/uploads/2020/04/2_4@3x.png)
 
 ## İçindekiler
 
@@ -66,7 +66,7 @@ Fiziksel olarak ayrı olsak da, ekip olarak birlikte hissetmek hala mümkün. Ç
 
 ### **Ekibinizden Beklentileriniz Net Olsun!**
 
-![ekipten net beklentiler isteyin](https://idenfit.com/wp-content/uploads/2020/04/1_4@3x-1.png)
+![ekipten net beklentiler isteyin](/wp-content/uploads/2020/04/1_4@3x-1.png)
 
 Evden çalışma modelinin sağladığı esnek çalışma programı, ofis ortamından uzak çalışanlar için işlerin sürdürülmesi açısından bir avantaj olarak görülebilmektedir. Ancak bu esnekliğin getirdiği birtakım belirsizlikler, evden çalışmanın fazla mesailere sebebiyet vermesi, bu durumun ölçülememesi gibi sorunları da beraberinde getirmektedir. Çalışanlarınızın belirli saatlerde, belirli işleri yapmalarını ya da bitirmelerini istiyorsanız, bu beklentiyi net bir şekilde belirtin.
 
@@ -74,7 +74,7 @@ Evden çalışma modelinin sağladığı esnek çalışma programı, ofis ortam�
 
 ### **Çalışanlarınızla İletişimde Kalmak İçin Teknik Altyapı Sağlayın!**
 
-![](https://idenfit.com/wp-content/uploads/2020/04/3_3@3x.png)
+![](/wp-content/uploads/2020/04/3_3@3x.png)
 
 Başarılı bir ekip ruhu için iş birliği çok önemlidir ancak sizinle etkileşimde olamayan çalışanlarla etkili bir şekilde iletişim kuramazsınız. Ekibinizin, sürdürülebilir iş için teknik anlamda doğru araçlara ve imkanlara sahip olduğundan emin olun. Çalışanlara internet erişimlerinin sağlanması ya da şirket telefon hatlarının verilmesi gibi teknik altyapılar çalışanlarınızın iletişimde kalmalarını sürdürülebilir kılmaktadır.
 
@@ -84,7 +84,7 @@ Telefonla direkt olarak konuşmanın diğer tüm seçeneklerden daha etkili oldu
 
 ### **Büyüme ve Gelişmeye Odaklanın!**
 
-![gelişmeye odaklanın](https://idenfit.com/wp-content/uploads/2020/04/4_3@3x.png)
+![gelişmeye odaklanın](/wp-content/uploads/2020/04/4_3@3x.png)
 
 Çalışanlarınızın ya da ekibinizin çok kaliteli becerilere sahip ya da alanlarında çok yetenekli olmaları maalesef büyümeye odaklanan işletmeler için yeterli değildir. Bu noktada çalışanlarınızın gelişmeye, rekabete ve meydan okumalara açık olması gerekir. Çalışanlarınızı uzaktan çalışırken motive edebilmek için, hem kişisel gelişimlerine hem de **[performans](/calisan-performans-degerlendirme-sistemi-modulu/)** hedeflerine odaklanmalarını sağlayın.
 
@@ -94,13 +94,13 @@ Tüm bunların yanında, büyüme ve gelişmeyi hızlandırmanın bir parçası 
 
 ### **Çalışma Saatlerini Değil Başarıları Yönetin!**
 
-![basarilari yonetin](https://idenfit.com/wp-content/uploads/2020/04/5_3@3x.png)
+![basarilari yonetin](/wp-content/uploads/2020/04/5_3@3x.png)
 
 İşin kendisini vurgulamak yerine çalışanları ortaya çıkacak olan başarı hikayesine yöneltmek gerekir. Bu hem ekibinizin başarılı ve gelişen bir yapıya dönüşmesini hem de motivasyonlarının yüksek kalmasını sağlar. Evden çalışırken kaç saat çalışıldığını saymak iş gücünü yönetmenin en az etkili yollarından biridir. Bunun yerine, çalışanlarınızın toplu ve bireysel performans hedeflerine ulaşıp ulaşmadığını ölçün.
 
 ### **Hedefleri Görselleştirin!**
 
-![hedefleri görsellestirin](https://idenfit.com/wp-content/uploads/2020/04/6_2@3x.png)
+![hedefleri görsellestirin](/wp-content/uploads/2020/04/6_2@3x.png)
 
 Ekibiniz raporlamaları düzenli yapıyor olabilir. Ancak yine de istenilen hedefleri yakalamak için bir yol haritasına ihtiyaçları olacaktır. Hedefleri temsil eden bir görsel bir pano oluşturmak yararlıdır. Durum analizini de somutlaştırarak temel performans göstergelerini, öncelikleri ve ulaşılması gereken hedefi netleştirir.
 
@@ -108,7 +108,7 @@ Ekibiniz raporlamaları düzenli yapıyor olabilir. Ancak yine de istenilen hede
 
 ### **Teknolojiyi Sonuna Kadar Kullanın!**
 
-![teknoloji kullanın](https://idenfit.com/wp-content/uploads/2020/04/7_1@3x.png)
+![teknoloji kullanın](/wp-content/uploads/2020/04/7_1@3x.png)
 
 Teknolojinin gelişmesiyle uzaktan iletişim araçlarıyla bir ekip oluşturmak ve bağlantıda kalmak günümüzde çok kolay. Online işbirliklerini ve ekip çalışmasını destekleyen birçok yüksek kalitede çözüm sunan araçlar ya ücretsiz veya geleneksel yöntemlere oranlara oldukça maliyetsiz. Ekibinizin kullanımı için işletmenize en uygun ve kolay araçları seçerek teknolojiden sonuna kadar faydalanın.
 
@@ -116,7 +116,7 @@ Evden çalışanların doğrudan mesajlaşma toollarına veya dosya paylaşıp i
 
 ### **Dijitalde Ekibi Bir Arada Tutun!**
 
-![ekibi birarada tutun](https://idenfit.com/wp-content/uploads/2020/04/8@3x-1.png)
+![ekibi birarada tutun](/wp-content/uploads/2020/04/8@3x-1.png)
 
 Çalışanlarınızın bir araya gelmesini sağlayan ofis ortamı olmadan dijitalde ekip ruhunu korumak için çaba harcamak gerekir. Online toplantılardan oluşan günlük rutin dışında takımın sosyalleşmesi adına planlanmış çevrimiçi online aktiviteler düzenlenmesi ekip ruhunu korumak adına oldukça yararlıdır.
 
@@ -124,7 +124,7 @@ Gerçekleşen hedefleri paylaşmayı, elde edilen başarılarla ilgili duyurular
 
 ### **Ekibinizle Güven İnşa Edin!**
 
-![ekiple guven insa edin](https://idenfit.com/wp-content/uploads/2020/04/9@3x.png)
+![ekiple guven insa edin](/wp-content/uploads/2020/04/9@3x.png)
 
 Son noktada, sorumlulukları, beklentileri ve hedef tarihlerini ​​belirledikten sonra, ekibinize güvenmelisiniz. Doğru araçların seçimi işletmenize tahmin edilenden çok daha fazla yarar sağlayacaktır. Teknik altyapı ve **[iş gücü](/insan-kaynaklari-isgucu-yonetimi/)** yeteneklerini birbirine bağlayın, ekip ruhu için ise hem kişisel, hem de departmanlar arası güven inşa edin. 
 

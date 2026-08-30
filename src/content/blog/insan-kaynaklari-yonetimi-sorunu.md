@@ -4,7 +4,7 @@ title: 5 Yaygın İnsan Kaynakları Yönetimi Sorunu
 date: '2023-05-25T11:36:11'
 excerpt: İnsan kaynakları yönetimi sorunu denildiğinde sizin aklınızda ilk beliren ne oldu? Belli belirsiz olasılıklar mı yoksa ard arda sıralanan ciddi sorunlar mı?…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/05/5-yaygin-insan-kaynaklari-yonetimi-sorunu.jpg
+  url: /wp-content/uploads/2023/05/5-yaygin-insan-kaynaklari-yonetimi-sorunu.jpg
   alt: 5 Yaygın İnsan Kaynakları Yönetimi Sorunu
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: Bulut Tabanlı İK Yazılımı ile İK Süreçlerini İyileştirin
 date: '2021-02-24T10:56:18'
 excerpt: Bulut tabanlı İK yazılımı, yeni teknolojilerin hayatımıza girmesiyle birlikte bilgiye hızla ulaşımın mümkün olduğu bir ortamda insan kaynakları departmanları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/02/bulut-tabanli-ik-yazilimi@2x.png
+  url: /wp-content/uploads/2021/02/bulut-tabanli-ik-yazilimi@2x.png
   alt: Bulut Tabanlı İK Yazılımı ile İK Süreçlerini İyileştirin
   width: 1514
   height: 998
@@ -25,7 +25,7 @@ Bulut tabanlı İK yazılımı çözümlerinin katma değerlerinden biri de yön
 
 Covid-19 döneminin getirisi olarak **[uzaktan çalışma](/blog/uzaktan-calisma-nedir/)** düzenine geçilmesiyle çalışanların insan kaynakları işlerine evden, araçtan veya mobil cihazdan erişim ihtiyacı artmıştır. Hatta işe yeni alınan çalışanlar bulut tabanlı İK yazılımıyla ofise adım atmadan dahi [**işe alım sürecine**](/blog/ise-alim-sureclerinde-iyilestirme/) başlayabilir ve süreçlerini yönetebilir duruma gelmiştir. Bu durum bulut tabanlı çözümlerin işe alım sürecinde sunduğu faydalar arasındadır. 
 
-[![idenfit bulut tabanlı ik yazılımı](https://idenfit.com/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)](/)
+[![idenfit bulut tabanlı ik yazılımı](/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)](/)
 
 **[İdenfit Bulut Tabanlı İK Yazılımı](/)**
 

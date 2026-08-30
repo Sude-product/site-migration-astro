@@ -4,7 +4,7 @@ title: Başarılı Bir İK Uzmanı Olabilmek İçin Gereken 8 Özellik
 date: '2020-12-18T17:18:13'
 excerpt: İK uzmanı, başarılı olabilmek için şirketlerin birbirinden farklı ihtiyaçlara sahip olduğunu bilir ve işletme büyümesi için çaba harcar. Şirketlerde İK…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/Başarili-Bir-İKcinin-Sahip-Olmasi-Gereken-Özellikler@2x.png
+  url: /wp-content/uploads/2020/12/Başarili-Bir-İKcinin-Sahip-Olmasi-Gereken-Özellikler@2x.png
   alt: Başarılı Bir İK Uzmanı Olabilmek İçin Gereken 8 Özellik
   width: 1514
   height: 998
@@ -51,7 +51,7 @@ Başarılı bir İK uzmanının farklı kişiliklere sahip çalışanlarla etkil
 
 Bir iş günü içerisinde insan kaynakları uzmanlarına çalışandan yöneticilere kadar pek çok kişiden ve birçok farklı alandan soru gelir.  Örneğin; çalışanlar tatil ve doğum izinleri hakkında, yöneticiler ise farklı alanlarda sorular sorar. Bir de bunların yanında boş kalan pozisyon için İK uzmanı işe alım stratejisi geliştirmelidir. Tüm bunlara yetişebilmesi için başarılı bir İK uzmanının çoklu görevleri aynı anda yerine getirebilmesi gerekir. Bu konuda **[İdenfit](/)** gibi bulut tabanlı **[İK yazılımlarından](/blog/insan-kaynaklari-programlari/)** destek alınabilir.
 
-![İK uzmanı 360 derece yönetim](https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-1.png)
+![İK uzmanı 360 derece yönetim](/wp-content/uploads/2020/08/linkedin-1-1.png)
 
 **[İDENFİT İK MODÜLLERİ](/insan-kaynaklari-yonetimi-modulu/)**
 

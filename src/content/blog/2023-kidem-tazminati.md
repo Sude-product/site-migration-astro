@@ -4,7 +4,7 @@ title: 2023 Kıdem Tazminatı Tavan Tutarı
 date: '2023-01-11T12:02:17'
 excerpt: 2023 kıdem tazminatı tutarı, birçok sigortalı çalışan ve EYT’liler tarafından merak ediliyor. Bir işletmeye hizmet veren çalışanların iş akdi işveren…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/01/2023-kidem-tazminat─▒-hasaplama.jpg
+  url: /wp-content/uploads/2023/01/2023-kidem-tazminat─▒-hasaplama.jpg
   alt: 2023 Kıdem Tazminatı Tavan Tutarı
   width: 1515
   height: 999

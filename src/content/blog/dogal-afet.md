@@ -4,7 +4,7 @@ title: Doğal Afetlerde Kurumsal Tutum Önerileri
 date: '2025-04-24T22:51:06'
 excerpt: Doğal afet gerçekleşmesi olasılığı ne yazık ki hayatımızın üzücü bir parçasıdır. Özellikle deprem kuşağında yer alan ülkemiz sık sık büyük ölçekli depremlere…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Deprem-Sonrasinda-Ekibinizi-Nasil-Destekleyebilirsiniz@2x-100.jpg
+  url: /wp-content/uploads/2025/08/Deprem-Sonrasinda-Ekibinizi-Nasil-Destekleyebilirsiniz@2x-100.jpg
   alt: Doğal Afetlerde Kurumsal Tutum Önerileri
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Beceri Temelli İşe Alım
 date: '2022-02-28T09:21:38'
 excerpt: Beceri temelli işe alım son zamanlarda İK dünyasında en sık konuşulan konular arasında yer alıyor. Uzun yıllardır hüküm süren ve diploma enflasyonu olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/Beceri-Temelli-I╠cs╠ge-Al─▒m-2-@2x.jpg
+  url: /wp-content/uploads/2022/02/Beceri-Temelli-I╠cs╠ge-Al─▒m-2-@2x.jpg
   alt: Beceri Temelli İşe Alım
   width: 1515
   height: 999

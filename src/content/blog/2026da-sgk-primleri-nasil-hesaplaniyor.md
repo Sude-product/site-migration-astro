@@ -4,7 +4,7 @@ title: 2026’da SGK Primleri Nasıl Hesaplanıyor?
 date: '2026-04-17T07:50:19'
 excerpt: 2026 SGK primleri, sadece bordro uzmanlarını değil; İK, finans ve şirket yönetimini de doğrudan ilgilendiriyor. Çünkü SGK primi hesaplama süreci, çalışanın net…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/2026-ik-yazilimlari-fiyatlari.jpeg
+  url: /wp-content/uploads/2026/03/2026-ik-yazilimlari-fiyatlari.jpeg
   alt: 2026 ik yazılımları fiyatları
   width: 1280
   height: 720

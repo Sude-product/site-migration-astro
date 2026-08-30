@@ -4,7 +4,7 @@ title: İK Yönetiminde Smart Hedefler
 date: '2021-03-05T16:46:14'
 excerpt: SMART hedefler uzun zamandır iş hayatında kullanılan bir araç ve pek çok çalışan da başarıya ulaşmada hala bu yöntemden yararlanıyor. 2021 yılında iş dünyası…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/smart-hedefler@2x.png
+  url: /wp-content/uploads/2021/03/smart-hedefler@2x.png
   alt: İK Yönetiminde Smart Hedefler
   width: 1514
   height: 999
@@ -53,7 +53,7 @@ SMART Hedef: İşe alım sürecinde belli bir pozisyona başvuran adayların yü
 *   Gerçekçi / İlgili: İşe alım sürecinde verimliliği en üst düzeye çıkarmak, işe alım maliyetini düşürmek ve işletmeye en iyi / uygun yetenekleri katmak. 
 *   Zaman Sınırı: 2020-2021 arası.
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
+![idenfit işe alım modülü](/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
 
 **[İDENFİT İŞE ALIM MODÜLÜ](/ise-alim-modulu/)**
 
@@ -93,7 +93,7 @@ SMART Hedef: Doğru geri bildirimlerle belirsizlik ve yanlış anlaşılmaları 
 *   Gerçekçi / İlgili: Çalışanların yaptıkları işin anlamlı olduğunu ve kuruma bir bütün olarak katkıda bulunduğunu hissetmeleri.
 *   Zaman Sınırı: Çalışanlara üç ayda bir geri bildirim anketi uygulamak.
 
-[![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
+[![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 
@@ -116,7 +116,7 @@ SMART Hedef: Olumlu bir çalışma ortamına sahip olduğunu ifade eden çalış
 *   Önümüzdeki çeyrekte mevcut geliştirme eğitim programlarının sayısını % 30 artırmak.
 *   Önümüzdeki 6 ay içinde idari görevler için harcanan zamanı % 30 azaltmak.
 
-<a href="/organizasyonel-geri-bildirim-modulu/" aria-label="İDENFİT EĞİTİM MODÜLÜ"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/Varlık-14@3x-926x1024.png" alt="" class="wp-image-2329" style="width:463px;height:512px"></a>
+<a href="/organizasyonel-geri-bildirim-modulu/" aria-label="İDENFİT EĞİTİM MODÜLÜ"><img decoding="async" src="/wp-content/uploads/2020/09/Varlık-14@3x-926x1024.png" alt="" class="wp-image-2329" style="width:463px;height:512px"></a>
 
 **[İDENFİT EĞİTİM MODÜLÜ](/calisan-egitim-yonetimi-modulu/)**
 

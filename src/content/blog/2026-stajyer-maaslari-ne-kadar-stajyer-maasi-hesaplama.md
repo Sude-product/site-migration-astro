@@ -4,7 +4,7 @@ title: 2026 Stajyer Maaşları Ne Kadar? Stajyer Maaşı Hesaplama?
 date: '2026-06-12T15:46:06'
 excerpt: 2026 stajyer maaşı, hem öğrenciler hem de stajyer çalıştıran işletmeler için en çok merak edilen konular arasında yer alıyor. Çünkü stajyer ücretleri yalnızca…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/06/2026-Stajyer-Maaslari-Ne-Kadar.-Stajyer-Maasi-Hesaplama.jpg
+  url: /wp-content/uploads/2026/06/2026-Stajyer-Maaslari-Ne-Kadar.-Stajyer-Maasi-Hesaplama.jpg
   alt: 2026 Stajyer Maaşları Ne Kadar? Stajyer Maaşı Hesaplama?
   width: 1280
   height: 721

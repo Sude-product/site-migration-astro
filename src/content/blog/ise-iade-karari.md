@@ -4,7 +4,7 @@ title: İşe İade Kararı Sonrası Samimiyet
 date: '2021-12-18T12:46:31'
 excerpt: İşe iade kararı alan bir işçinin işverene başvurması ve işveren tarafından işe başlatılması gerekir. Ancak bu durumda İş Kanunu işverene seçimlik bir hak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/12/ise-iade-karari-sonrasi-samimiyet-kavrami@2x-100.jpg
+  url: /wp-content/uploads/2021/12/ise-iade-karari-sonrasi-samimiyet-kavrami@2x-100.jpg
   alt: İşe İade Kararı Sonrası Samimiyet
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Bütün Sektörler İçin Gerekli İK Yazılımı Modülleri Nelerdir?
 date: '2020-12-21T11:13:48'
 excerpt: İK yazılımı, bir işletmede iş gücünün daha verimli ve daha iyi organize edilebilmesi adına büyük önem taşır. Şirketin en büyük potansiyeli olan insan faktörünü…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/Bütün-Sektörler-İçin-Olmazsa-Olmaz-İK-Yazilimi-Modülleri-Nelerdir@2x.png
+  url: /wp-content/uploads/2020/12/Bütün-Sektörler-İçin-Olmazsa-Olmaz-İK-Yazilimi-Modülleri-Nelerdir@2x.png
   alt: Bütün Sektörler İçin Gerekli İK Yazılımı Modülleri Nelerdir?
   width: 1514
   height: 998
@@ -25,7 +25,7 @@ modifiedDate: '2025-09-29T13:04:30'
 
 ### **İşe Alım Sürecinde İK Yazılımının Faydası**
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
+![idenfit işe alım modülü](/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
 
 **[İDENFİT İŞE ALIM MODÜLÜ](/ise-alim-modulu/)**
 
@@ -37,7 +37,7 @@ modifiedDate: '2025-09-29T13:04:30'
 
 ### **Performans Yönetimi ve İK Yazılımı**
 
-![idenfit performans yönetimi modülü](https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
+![idenfit performans yönetimi modülü](/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
 
 \
 **[İDENFİT PERFORMANS YÖNETİMİ MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**
@@ -48,7 +48,7 @@ Geleneksel performans değerlendirme yöntemlerinden farklı olarak insan kaynak
 
 ### **İzin Yönetimi ve İK Yazılımı**
 
-![idenfit izin yönetimi modülü](https://idenfit.com/wp-content/uploads/2020/09/unnamed-3-1.png)
+![idenfit izin yönetimi modülü](/wp-content/uploads/2020/09/unnamed-3-1.png)
 
 **[İDENFİT İZİN YÖNETİMİ MODÜLÜ](/yillik-izin-takip-programi/)**
 

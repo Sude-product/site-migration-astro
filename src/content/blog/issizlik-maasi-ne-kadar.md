@@ -4,7 +4,7 @@ title: İşsizlik Maaşı Ne Kadar?
 date: '2021-02-17T14:33:32'
 excerpt: İşsizlik maaşı ne kadar? sorusu her çalışanın iş hayatında zaman zaman sormak durumunda kaldığı bir sorudur. İşsizlik maaşı veya işsizlik ödeneğinden…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/02/issizlik-maasi-ne-kadar-issizlik-maasi-nasil-alinir@2x.png
+  url: /wp-content/uploads/2021/02/issizlik-maasi-ne-kadar-issizlik-maasi-nasil-alinir@2x.png
   alt: İşsizlik Maaşı Ne Kadar?
   width: 1514
   height: 998

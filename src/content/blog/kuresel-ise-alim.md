@@ -4,7 +4,7 @@ title: Küresel İşe Alım için 5 Önemli Strateji
 date: '2024-04-18T17:32:45'
 excerpt: Günümüz iş dünyasında, rekabet yalnızca yerel değil küresel boyutta yaşanıyor. Dolayısıyla işe alım stratejileri de aynı hızla evriliyor. Şirketlerin sınırları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/kuresel-ise-alim-rehberi-1-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/kuresel-ise-alim-rehberi-1-1392x696-1.jpg
   alt: Küresel İşe Alım için 5 Önemli Strateji
   width: 1392
   height: 696

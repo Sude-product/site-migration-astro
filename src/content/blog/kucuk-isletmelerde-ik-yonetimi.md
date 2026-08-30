@@ -4,7 +4,7 @@ title: Küçük İşletmelerde İK Yönetimi – 2023
 date: '2023-01-06T12:03:42'
 excerpt: Küçük işletmelerde İK yönetimi iyi planlanması ve takip edilmesi gereken konular arasında üst sıralarda yer alıyor. Büyük ölçekli şirketlere kıyasla daha az…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/1-1.jpg
+  url: /wp-content/uploads/2025/08/1-1.jpg
   alt: Küçük İşletmelerde İK Yönetimi – 2023
   width: 1515
   height: 999

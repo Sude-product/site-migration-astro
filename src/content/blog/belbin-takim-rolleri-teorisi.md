@@ -4,7 +4,7 @@ title: Belbin Takım Rolleri Teorisi Nedir?
 date: '2021-10-14T13:43:33'
 excerpt: Belbin, 1981 yılında Dr. Meredith Belbin tarafından geliştirilen iş yerindeki davranışları inceleyen davranış envanteridir. Dr. Meredith Belbin ve ekibi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/Belbin-Takim-Rolleri-Teorisi-Nedir_@2x.png
+  url: /wp-content/uploads/2021/10/Belbin-Takim-Rolleri-Teorisi-Nedir_@2x.png
   alt: Belbin Takım Rolleri Teorisi Nedir?
   width: 1515
   height: 999

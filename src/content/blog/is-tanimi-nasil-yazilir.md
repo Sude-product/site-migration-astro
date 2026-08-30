@@ -4,7 +4,7 @@ title: İş Tanımı Nedir? | İş Tanımı Nasıl Yazılır?
 date: '2025-01-15T21:05:44'
 excerpt: İş tanımı, dijital dönüşüm ile birlikte rekabetin arttığı iş dünyasında işletmelerin rakiplerin önüne geçebilmesi için dikkat etmesi ve önem vermesi gereken…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/is-tanimi-nedir-is-tanimi-nasil-yazilir@2x.png
+  url: /wp-content/uploads/2021/01/is-tanimi-nedir-is-tanimi-nasil-yazilir@2x.png
   alt: İş Tanımı Nedir? | İş Tanımı Nasıl Yazılır?
   width: 1514
   height: 998

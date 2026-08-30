@@ -4,7 +4,7 @@ title: İş Gücünüzü Aşırı Sıcaktan Korumak
 date: '2023-07-25T16:42:20'
 excerpt: İş gücünüzü aşırı sıcaktan korumak istiyorsanız, tam da olmanız gereken yerdesiniz! Küresel ısınmanın etkilerini iyiden iyiye hissettirdiği günümüzde aşırı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/07/is-gucunuzu-asiri-sicaktan-koruma@2x-100.jpg
+  url: /wp-content/uploads/2023/07/is-gucunuzu-asiri-sicaktan-koruma@2x-100.jpg
   alt: İş Gücünüzü Aşırı Sıcaktan Korumak
   width: 1620
   height: 811

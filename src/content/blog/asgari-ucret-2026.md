@@ -4,7 +4,7 @@ title: 2026 Asgari Ücret Tahminleri
 date: '2025-11-16T18:00:11'
 excerpt: 2026 yılı yaklaşırken çalışanların ve işverenlerin en merak ettiği konuların başında asgari ücret geliyor. Çalışanlar yaşam maliyetlerini karşılayacak bir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/11/2026-asgari-ucret-beklentileri.jpg
+  url: /wp-content/uploads/2025/11/2026-asgari-ucret-beklentileri.jpg
   alt: 2026 asgari ücret
   width: 1281
   height: 721

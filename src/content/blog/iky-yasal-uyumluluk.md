@@ -4,7 +4,7 @@ title: idenfit İKY Yasal Uyumluluk Süreçlerini Nasıl Dijitalleştirir?
 date: '2025-01-29T22:41:02'
 excerpt: Yasal süreçleri yönetmek zahmetli ve zaman alıcı olabiliyor. Evrak takibi, mevzuata uyum ve karmaşık iş akışları derken hata yapma riski de artıyor. Peki, tüm…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/idenfit-yasal-surecleri-nasil-dijitallestirir.jpg
+  url: /wp-content/uploads/2025/08/idenfit-yasal-surecleri-nasil-dijitallestirir.jpg
   alt: idenfit İKY Yasal Uyumluluk Süreçlerini Nasıl Dijitalleştirir?
   width: 1280
   height: 721

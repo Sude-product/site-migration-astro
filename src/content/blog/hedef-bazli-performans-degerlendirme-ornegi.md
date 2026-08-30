@@ -4,7 +4,7 @@ title: Hedef Bazlı Performans Değerlendirme Örneği
 date: '2021-02-01T10:23:13'
 excerpt: Hedef bazlı performans değerlendirme, belirlenen hedeflerle sayısal odaklı bir ilişki içerisinde olduğu için genellikle üretim veya satış gibi departmanlara…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/02/hedef_bazli_performans_degerlendirme_ornegi_faydalari_nelerdir@2x.png
+  url: /wp-content/uploads/2021/02/hedef_bazli_performans_degerlendirme_ornegi_faydalari_nelerdir@2x.png
   alt: Hedef Bazlı Performans Değerlendirme Örneği
   width: 1514
   height: 998
@@ -24,7 +24,7 @@ Hedefi temel alan performans ölçme ya da değerleme, birçok farklı alanda ç
 
 ## **Hedef Bazlı Performans Değerlendirme Nasıl Uygulanır?**
 
-![performans yönetimi](https://idenfit.com/wp-content/uploads/2020/06/performans-822x1024.png)
+![performans yönetimi](/wp-content/uploads/2020/06/performans-822x1024.png)
 
 **[İDENFİT PERFORMANS YÖNETİMİ MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**
 

@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetimi Nedir?
 date: '2019-11-05T17:44:44'
 excerpt: İnsan kaynakları yönetimi , genel olarak işletme bilimi için de farklı sektörlerdeki şirketler için de ayrı bir önem taşıyor. İşletme biliminin en etkili alt…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/11/insan-kaynaklari-yonetimi-nedir.jpg
+  url: /wp-content/uploads/2019/11/insan-kaynaklari-yonetimi-nedir.jpg
   alt: İnsan Kaynakları Yönetimi Nedir?
   width: 2272
   height: 1621
@@ -20,7 +20,7 @@ modifiedDate: '2025-09-29T12:59:02'
 
 ## **İnsan Kaynakları Nedir?**
 
-[![insan kaynakları yazılımı](https://idenfit.com/wp-content/uploads/2019/11/idenfit-nedir-3.jpg)](/)
+[![insan kaynakları yazılımı](/wp-content/uploads/2019/11/idenfit-nedir-3.jpg)](/)
 
 **İnsan kaynakları yönetimi**, temel olarak şirketlerdeki işe alım, daha iyi bir insan kaynağı yaratılması ve mevcut insan kaynağının verimli şekilde kullanılması için uygulanan yöntemler ve süreçler bütününe deniyor. İnsan kaynaklarını yalnızca kendi başına ve kendi içinde bir departman olarak değil de tüm personelle etkileşim hâlinde olan, sürekli devinimin söz konusu olduğu bir merkez olarak düşünmek daha doğru bir yaklaşım oluyor.
 
@@ -42,7 +42,7 @@ Sonuç olarak daha planlı iş yerleri ve çalışma düzenleri, iş ortamıyla 
 
 ## **İnsan Kaynakları Ne İş Yapar?**
 
-![insan kaynakları yönetimi](https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-2.png)
+![insan kaynakları yönetimi](/wp-content/uploads/2020/08/linkedin-1-2.png)
 
 360 DERECE İNSAN KAYNAKLARI YÖNETİMİ YAZILIMI
 
@@ -54,7 +54,7 @@ Tüm bu iş kalemlerinin yanında insan kaynakları yönetiminde önemli yere sa
 
 ## **İnsan Kaynakları Yönetiminde İşe Alım**
 
-![işe alım modülü](https://idenfit.com/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1-1024x958.png)
+![işe alım modülü](/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1-1024x958.png)
 
 İŞE ALIMLARI IDENFİT İLE SORUNSUZ YÖNETİN!
 
@@ -66,7 +66,7 @@ Potansiyel çalışanları değerlendirme sürecinde karşı tarafın kabiliyet 
 
 ## **Performans Yönetimi**
 
-![](https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-1-1024x831.png)
+![](/wp-content/uploads/2020/09/unnamed-1-1-1024x831.png)
 
 IDENFİT İLE 360 DERECE PERFORMANS YÖNETİMİ
 
@@ -78,7 +78,7 @@ Tüm bu süreçler ve daha fazlasını planlı ve profesyonel bir şekilde yöne
 
 ## **Zaman & İzin Yönetimi ve PDKS**
 
-![](https://idenfit.com/wp-content/uploads/2020/09/puantaj-cetveli-1024x631.png)
+![](/wp-content/uploads/2020/09/puantaj-cetveli-1024x631.png)
 
 PERSONEL TAKİBİ VE PDKS İÇİN IDENFİT!
 

@@ -4,7 +4,7 @@ title: Dijital Özlük Dosyası
 date: '2024-07-18T15:24:15'
 excerpt: Dijital özlük dosyası, işe başlayacak olan personelden talep edilen ve çalışanlarla ilgili her türlü bilgiyi içeren özlük dosyalarının dijital ortamda…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/digital-ozluk-dosyasiv.jpg
+  url: /wp-content/uploads/2025/08/digital-ozluk-dosyasiv.jpg
   alt: Dijital Özlük Dosyası
   width: 1515
   height: 999

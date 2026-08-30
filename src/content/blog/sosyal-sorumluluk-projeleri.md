@@ -4,7 +4,7 @@ title: Sosyal Sorumluluk Projeleri
 date: '2020-11-06T13:58:24'
 excerpt: Kurumsal sosyal sorumluluk projeleri, kişisel çıkar gütmeden tamamen gönüllülük esasına dayalı olarak insanlığa yararlı olacak şekilde hazırlanan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/11/kurumsal-sirketlerin-ses-getiren-sosyal-sorumluluk-projeleri.png
+  url: /wp-content/uploads/2020/11/kurumsal-sirketlerin-ses-getiren-sosyal-sorumluluk-projeleri.png
   alt: Sosyal Sorumluluk Projeleri
   width: 2271
   height: 1497

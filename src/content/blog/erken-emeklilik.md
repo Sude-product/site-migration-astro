@@ -4,7 +4,7 @@ title: Engelli Raporu Kapsamındaki Erken Emeklilik İşlemleri
 date: '2025-02-16T20:45:11'
 excerpt: Emeklilik, çalışma hayatının en önemli dönüm noktaları arasında yer alıyor. Emeklilik süreci, farklı kriterlere göre şekillenen çeşitli türlerde uygulanıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/engelli-raporu-kapsamindaki-emeklilik-islemleri.jpg
+  url: /wp-content/uploads/2025/08/engelli-raporu-kapsamindaki-emeklilik-islemleri.jpg
   alt: Engelli Raporu Kapsamındaki Erken Emeklilik İşlemleri
   width: 1280
   height: 720

@@ -4,7 +4,7 @@ title: Damga Vergisi Nedir? Nasıl Hesaplanır?
 date: '2021-08-11T15:23:01'
 excerpt: Damga vergisi, adını sıkça duyduğumuz ve merak edilen, devlet tarafından kağıt üzerinden alınan bir vergi türüdür. ‘Damga vergisi nedir, vergi mükellefleri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/08/Damga-Vergisi-Nedir-Damga-Vergisi-Nasil-Hesaplanir_@2x.png
+  url: /wp-content/uploads/2021/08/Damga-Vergisi-Nedir-Damga-Vergisi-Nasil-Hesaplanir_@2x.png
   alt: Damga Vergisi Nedir? Nasıl Hesaplanır?
   width: 1515
   height: 998

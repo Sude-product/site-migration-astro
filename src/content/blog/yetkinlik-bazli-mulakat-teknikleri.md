@@ -4,7 +4,7 @@ title: Yetkinlik Bazlı Mülakat Teknikleri
 date: '2021-06-11T10:52:38'
 excerpt: Yetkinlik bazlı mülakat teknikleri, adayın geçmiş performans deneyimlerini ve problemler karşısında gösterdiği davranış biçimlerini ele aldığı için son…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/06/yetkinlik-bazli-mulakat-teknikleri-nelerdir@2x-100.jpg
+  url: /wp-content/uploads/2021/06/yetkinlik-bazli-mulakat-teknikleri-nelerdir@2x-100.jpg
   alt: Yetkinlik Bazlı Mülakat Teknikleri
   width: 1514
   height: 999

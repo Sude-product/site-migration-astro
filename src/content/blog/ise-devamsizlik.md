@@ -4,7 +4,7 @@ title: İşe Devamsızlık Nedeniyle İş Akdinin Feshi
 date: '2022-08-24T20:47:38'
 excerpt: İşe devamsızlık, çalışanların işyerine mazeret bildirmeden veya haklı bir neden sunmadan işe gelmemeleri olarak tanımlanan durumdur. Günlük hayatın yoğun…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/08/iscinin-ise-devamsizligi.jpg
+  url: /wp-content/uploads/2022/08/iscinin-ise-devamsizligi.jpg
   alt: İşe Devamsızlık Nedeniyle İş Akdinin Feshi
   width: 1515
   height: 999

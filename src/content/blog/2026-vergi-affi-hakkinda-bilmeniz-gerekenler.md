@@ -4,7 +4,7 @@ title: 2026 Vergi Affı Hakkında Bilmeniz Gerekenler
 date: '2026-06-29T10:10:03'
 excerpt: 2026 vergi affı konusu, özellikle ödeme yükü artan işletmeler ve yapılandırma beklentisi taşıyan mükellefler tarafından yakından izleniyor. Ancak bu başlıkta…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/06/VergiAffi_Blog_Idenfit.png
+  url: /wp-content/uploads/2026/06/VergiAffi_Blog_Idenfit.png
   alt: 2026 Vergi Affı Hakkında Bilmeniz Gerekenler
   width: 1672
   height: 941

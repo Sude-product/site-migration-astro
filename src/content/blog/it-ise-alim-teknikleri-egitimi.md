@@ -4,7 +4,7 @@ title: IT İşe Alım Teknikleri Eğitimi
 date: '2024-04-19T12:01:12'
 excerpt: 26 – 27 Nisan’daki programımıza “IT İşe Alım” konusunda bilgi sahibi olmak isteyen meslektaşlarımızı bekliyoruz.
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/it-ise-alim-egitimi-linkedin@2x-100-1-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/it-ise-alim-egitimi-linkedin@2x-100-1-1392x783-1.jpg
   alt: IT İşe Alım Teknikleri Eğitimi
   width: 1392
   height: 783

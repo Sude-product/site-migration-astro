@@ -4,7 +4,7 @@ title: İhbar Tazminatı Nedir? İhbar Tazminatı Hesaplama 2020
 date: '2020-04-29T17:15:16'
 excerpt: Herhangi bir sebep ile işine son verilen sigortalı işçilerin en merak ettikleri konuların başında ihbar tazminatı gelir. İhbar tazminatı, çalışana kanun…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/İhbar-Tazminati-2020.png
+  url: /wp-content/uploads/2025/08/İhbar-Tazminati-2020.png
   alt: İhbar Tazminatı Nedir? İhbar Tazminatı Hesaplama 2020
   width: 1515
   height: 999
@@ -23,7 +23,7 @@ Bu tazminatın alınması için hangi koşulların gerekli olduğu 4857 Sayılı
 
 ## İhbar tazminatı nedir?
 
-![ihbar tazminatı nedir](https://idenfit.com/wp-content/uploads/2020/04/1@3x.png)
+![ihbar tazminatı nedir](/wp-content/uploads/2020/04/1@3x.png)
 
 **İhbar tazminatı nedir** sorusunun yanıtı, İş Kanunu’nda net olarak verilmiştir. Kanuna göre;  işveren, çalışanın iş sözleşmesini sonlandırmadan önce işveren tarafından belirli bir süre önce bilgilendirilmelidir. Çalışana bilgilendirme yazılı bir şekilde yapılmalıdır. 
 
@@ -33,7 +33,7 @@ Bu tazminatın alınması için hangi koşulların gerekli olduğu 4857 Sayılı
 
 ## İhbar Tazminatı Hangi Durumlarda Alınır?
 
-![ihbar tazminatı hangi durumlarda alınır](https://idenfit.com/wp-content/uploads/2020/04/ihbar-tazminatı-hangi-durumlarda-alinir-1024x454.png)
+![ihbar tazminatı hangi durumlarda alınır](/wp-content/uploads/2020/04/ihbar-tazminatı-hangi-durumlarda-alinir-1024x454.png)
 
 **İhbar tazminatı alma şartları** şu şekildedir:
 
@@ -46,7 +46,7 @@ Bu tazminatın alınması için hangi koşulların gerekli olduğu 4857 Sayılı
 
 ## İhbar Tazminatı Süreleri Nelerdir?
 
-![](https://idenfit.com/wp-content/uploads/2020/04/ihbar-tazminati-sureleri-nelerdir.png)
+![](/wp-content/uploads/2020/04/ihbar-tazminati-sureleri-nelerdir.png)
 
 4857 Sayılı İş Kanunu’na göre fesih bildirimi yapıldıktan sonra **ihbar tazminatı süreleri** aşağıdaki gibidir: 
 
@@ -63,7 +63,7 @@ Buna göre **kıdem ihbar** süresini belirler. İş Kanunu’nda **ihbar taz
 
 ## İhbar Tazminatı Ne Kadar?
 
-![ihbar tazminatı ne kadar](https://idenfit.com/wp-content/uploads/2020/04/ihbar-tazminatı-ne-kadardir.png)
+![ihbar tazminatı ne kadar](/wp-content/uploads/2020/04/ihbar-tazminatı-ne-kadardir.png)
 
 **İhbar tazminatı ne kadar** ve ihbar tazminatı nasıl hesaplanır soruları ihbar tazminatı ödemesi yapacak işverenlerin ve tazminat alacak çalışanların cevabını merak ettikleri sorular arasındadır. Çalışanın bulunduğu **kıdem ihbar tazminatı** hesaplanırken dikkate alınır. Kıdeme yani aynı iş yerinde çalıştığı süreye bağlı olarak yasanın belirlediği ihbar süresi esas alınır.
 
@@ -73,7 +73,7 @@ Buna göre; aylık 3000 lira brüt maaş alan işçi beş yıldır çalışıyor
 
 ## İhbar Tazminatı Nasıl Hesaplanır?
 
-![İhbar Tazminatı Nasıl Hesaplanır](https://idenfit.com/wp-content/uploads/2020/04/İhbar-Tazminati-Nasil-Hesaplanir-768x453-1.png)
+![İhbar Tazminatı Nasıl Hesaplanır](/wp-content/uploads/2020/04/İhbar-Tazminati-Nasil-Hesaplanir-768x453-1.png)
 
 Basit bir matematik hesabıyla ihbar tazminatının ne kadar olacağı hesaplanabilir.
 
@@ -91,7 +91,7 @@ Dört yıllık çalışan olduğu için sekiz hafta baz alınır: 700X8=5.600 li
 
 ## Kıdem Tazminatından Farkı Nedir?
 
-![kıdem tazminatından farkı nedir](https://idenfit.com/wp-content/uploads/2020/04/2@3x.png)
+![kıdem tazminatından farkı nedir](/wp-content/uploads/2020/04/2@3x.png)
 
 **Kıdem ve ihbar tazminatı** zaman zaman birbirine karıştırılabilir.
 
@@ -110,7 +110,7 @@ Dört yıllık çalışan olduğu için sekiz hafta baz alınır: 700X8=5.600 li
 
 ## İhbar Tazminatı Ödenmeyen Durumlar
 
-![ihbar tazminatı ödenmeyen durumlar](https://idenfit.com/wp-content/uploads/2020/04/7@3x.png)
+![ihbar tazminatı ödenmeyen durumlar](/wp-content/uploads/2020/04/7@3x.png)
 
 Bazı durumlarda ihbar tazminatı ödenmez. İş Kanunu’na göre bazı durumlarda bildirimsiz çıkış hakkı vardır.
 
@@ -123,6 +123,6 @@ Bazı durumlarda ihbar tazminatı ödenmez. İş Kanunu’na göre bazı durumla
 
 ## İhbar Tazminatı Ödeme Süresi Nedir?
 
-![tazminat ödeme süresi nedir](https://idenfit.com/wp-content/uploads/2020/04/ihbar-tazminatı-ne-kadar-1024x476.png)
+![tazminat ödeme süresi nedir](/wp-content/uploads/2020/04/ihbar-tazminatı-ne-kadar-1024x476.png)
 
 İşçinin, iş sözleşmesinin sona erdiği tarihte ihbar tazminatına hak kazanmasıyla ihbar tazminatının derhal ödenmesi gerekmektedir. İhbar tazminatı zamanında ödenmezse, faiz uygulanır. İhbar tazminatı için uygulanacak olan faiz temerrüt tarihinden itibarendir.

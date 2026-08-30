@@ -4,7 +4,7 @@ title: Start-up’ların İnsan Kaynakları Yönetimi Süreci
 date: '2021-11-23T22:23:13'
 excerpt: Start-up’ların insan kaynakları yönetimi de istihdam sağlayan tüm işlerde olduğu gibi titizlikle ve belirli bir strateji dâhilinde yürütülmelidir. Başarıya…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/startup-insan-kaynaklari@2x.jpg
+  url: /wp-content/uploads/2021/11/startup-insan-kaynaklari@2x.jpg
   alt: Start-up’ların İnsan Kaynakları Yönetimi Süreci
   width: 810
   height: 534

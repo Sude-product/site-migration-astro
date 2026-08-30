@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Sosyal Medya Kullanımı
 date: '2021-02-22T12:30:02'
 excerpt: İnsan kaynaklarında sosyal medya kullanımı, son yıllarda tüm iş dünyasında yükselen bir trend olarak kendini gösteriyor. Özellikle dijital dönüşüm rüzgarı ile…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/02/insan-kaynaklarinda-sosyal-medya-kullanimi@2x.png
+  url: /wp-content/uploads/2021/02/insan-kaynaklarinda-sosyal-medya-kullanimi@2x.png
   alt: İnsan Kaynaklarında Sosyal Medya Kullanımı
   width: 1514
   height: 998
@@ -39,7 +39,7 @@ Sosyal ağların son dönemde birçok sektörde birçok **İK uzmanı** tarafın
 
 **Dijital ayak izleri** sayesinde İK uzmanları adayın; kişiliği, hobileri, katılım sağlamış olduğu kurs veya eğitimlerin iş ile uyum içerisinde olup olmadığını görebilir. Sosyal medya kanalları ile adayın arkadaş ortamı, ilgi alanları, beğenmiş olduğu profiller veya sayfalar, siyasi görüşü, aile ortamı vb. konular hakkında fikir sahibi olunabilir. 
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
+![idenfit işe alım modülü](/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
 
 ## **İnsan Kaynakları Uzmanları Hangi Sosyal Ağlarda Araştırma Yapıyor?**
 

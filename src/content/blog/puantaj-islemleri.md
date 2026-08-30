@@ -4,7 +4,7 @@ title: Puantaj İşlemleri Rehberi
 date: '2023-11-16T09:55:39'
 excerpt: Puantaj işlemleri, bir çalışanın çalışma saatlerini ve işe geliş-gidiş zamanlarını kaydederek, bu verileri işveren tarafından izlenmesini sağlayan bir sistem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/11/puantaj-islemleri-hakkinda-tum-merak-ettikleriniz.jpg
+  url: /wp-content/uploads/2023/11/puantaj-islemleri-hakkinda-tum-merak-ettikleriniz.jpg
   alt: Puantaj İşlemleri Rehberi
   width: 1621
   height: 811

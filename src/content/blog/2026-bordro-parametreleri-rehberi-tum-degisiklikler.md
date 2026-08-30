@@ -4,7 +4,7 @@ title: '2026 Bordro Parametreleri Rehberi: Tüm Değişiklikler'
 date: '2026-06-12T15:41:20'
 excerpt: 2026 bordro parametreleri, bordro hesaplamasını etkileyen hemen her temel kalemin yeniden gözden geçirilmesini gerektiriyor. SGK matrahı, gelir vergisi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/06/2026-Bordro-Parametreleri-Rehberi-Tum-Degisiklikler_.jpg
+  url: /wp-content/uploads/2026/06/2026-Bordro-Parametreleri-Rehberi-Tum-Degisiklikler_.jpg
   alt: '2026 Bordro Parametreleri Rehberi: Tüm Değişiklikler'
   width: 1280
   height: 721

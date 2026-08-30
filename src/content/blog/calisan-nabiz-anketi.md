@@ -4,7 +4,7 @@ title: Çalışan Nabız Anketi Rehberi
 date: '2023-12-06T21:46:25'
 excerpt: İddialı ve sağlam bir kültüre sahip şirketler için çalışanlarını tanımak elzemdir. Bu bağlamda kullanılan çalışan nabız anketleri de çalışanlarınızı çeşitli…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/12/WhatsApp-Image-2023-12-06-at-21.29.14.jpeg
+  url: /wp-content/uploads/2023/12/WhatsApp-Image-2023-12-06-at-21.29.14.jpeg
   alt: Çalışan Nabız Anketi Rehberi
   width: 1621
   height: 811

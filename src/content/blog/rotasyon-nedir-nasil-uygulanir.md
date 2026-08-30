@@ -4,7 +4,7 @@ title: İş Rotasyonu Nasıl Uygulanır?
 date: '2021-03-12T09:55:30'
 excerpt: “Rotasyon nedir ve ne işe yarar?” soruları, iş dünyasına yeni giren ve daha önce bu kelimeyi duymamış çalışanların merak ettiği sorular arasında yer alır.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/varlik-120@2x.jpg
+  url: /wp-content/uploads/2021/03/varlik-120@2x.jpg
   alt: İş Rotasyonu Nasıl Uygulanır?
   width: 810
   height: 534

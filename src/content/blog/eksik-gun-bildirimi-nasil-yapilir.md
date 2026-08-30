@@ -4,7 +4,7 @@ title: Eksik Gün Bildirimi Nasıl Yapılır?
 date: '2021-08-18T13:26:16'
 excerpt: Eksik gün bildirimi, çoğu işveren ve işçiyi yakından ilgilendiren konuların başında gelir. Eksik gün bildirimi yapılırken nedenleri bildirmek zorunludur. Eksik…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/08/eksik-gun-bildirimi-nasil-yapilir-sgk-eksik-gun-kodlari@2x.png
+  url: /wp-content/uploads/2021/08/eksik-gun-bildirimi-nasil-yapilir-sgk-eksik-gun-kodlari@2x.png
   alt: Eksik Gün Bildirimi Nasıl Yapılır?
   width: 1515
   height: 998

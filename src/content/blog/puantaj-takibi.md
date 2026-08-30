@@ -4,7 +4,7 @@ title: Puantaj Takibi Nedir?
 date: '2019-11-29T17:40:26'
 excerpt: Puantaj takibi , bir firmanın sağlıklı şekilde işleyebilmesi için eksiksiz olarak gerçekleştirilmesi gereken süreçler arasında yer alıyor. Puantaj takibi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/11/puantaj-takibi-nedir.png
+  url: /wp-content/uploads/2019/11/puantaj-takibi-nedir.png
   alt: Puantaj Takibi Nedir?
   width: 2272
   height: 1497
@@ -21,13 +21,13 @@ Güncellenen mevzuatlara bağlı değişebilen bu detayların tümüne hakim olm
 
 ## **Puantaj Takibi Nedir?**
 
-![puantaj takibi](https://idenfit.com/wp-content/uploads/2019/11/2-7.png)
+![puantaj takibi](/wp-content/uploads/2019/11/2-7.png)
 
 Bir firmadaki çalışanların, hak edişlerini hesaplamak için şirket tarafından tutulan kayıtlara **işçi puantajı** adı veriliyor. Puantaj takibi, tüm firmalar için önemli olsa da taşeronlar için üst düzeyde bir anlam taşıyor. Çalışanın standart çalışma günleri, işe gelmediği günler, resmî tatillerdeki mesaileri, ekstra çalışma saatleri ve daha birçok detayı barındıran **puantaj tabloları**nın, herhangi bir hak ihlaline yol açmamak için doğru şekilde tutulması gerekiyor.
 
 ## **Puantaj Takibi Nasıl Yapılır?**
 
-![puantaj takibi nasil yapilir](https://idenfit.com/wp-content/uploads/2019/11/4-8.png)
+![puantaj takibi nasil yapilir](/wp-content/uploads/2019/11/4-8.png)
 
 **Puantaj takibi**, ilgili ay içerisinde personelin işe geliş ve **çalışma süreleri**ne bağlı olarak ücretler oluşturuyor. Bu temel amacı sağlayan her işlem aslında puantaj takibinin yapıldığı anlamına geliyor.
 
@@ -39,7 +39,7 @@ Bu yolların başındaysa direkt bilgisayar ortamında veya bilgisayardan çıkt
 
 ## **Puantaj Takibi İçin Excel Tablo Oluşturma**
 
-![excelde puantaj takibi](https://idenfit.com/wp-content/uploads/2019/11/3-4-1.png)
+![excelde puantaj takibi](/wp-content/uploads/2019/11/3-4-1.png)
 
 **İşçi çalışma saatleri çizelgesi örneği** için excel’de; çalışan isimleri, çalışma günleri not kısmı yeterli oluyor. İlk sütunda baştan aşağı çalışan isimleri yazılabiliyor. İlk satıra ise ayın başından sonuna kadar olan günler sıralanabiliyor. Böylece her çalışanın işe gelip gelmediğini, hangi saatler çalıştığını not alabileceğiniz alan yaratmış oluyorsunuz. Ayın tüm günlerinden sonra gelen son sütunu da çalışanın o ayki özel durumlarıyla ilgili; örneğin rapor nedeni, toplam ekstra mesai miktarı ve benzeri gibi ayrıntılar için not alanı olarak kullanabilirsiniz.
 
@@ -67,7 +67,7 @@ Puantaj **excel tablo örnekleri**, genellikle tamamen aynı amaca hizmet eden v
 
 ## **Idenfit ile Puantaj Takibi**
 
-![idenfit ile puantaj takibi yapma](https://idenfit.com/wp-content/uploads/2019/11/5-5.png)
+![idenfit ile puantaj takibi yapma](/wp-content/uploads/2019/11/5-5.png)
 
 **Puantaj takibi** yapan sistemler bilgileri manuel talep ettiği için ayrıntıları siz girmek zorunda kalırsınız. Ancak [Idenfit Zaman Yönetimi](/puantaj-takip-programi-modulu/), geleneksel yöntemlerden bağımsız olarak en yeni teknolojileri kullanıyor. Ve manuel müdahaleleri mümkün olduğunca azaltarak puantajın baştan sona bir sistem üzerinde akmasını sağlıyor. 
 

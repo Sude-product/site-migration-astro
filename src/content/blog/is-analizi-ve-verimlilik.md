@@ -4,7 +4,7 @@ title: İK Yönetiminde İş Analizi ve Verimlilik
 date: '2020-06-23T16:46:26'
 excerpt: Günümüzde işletmeler, insan kaynaklarıyla alakalı çözülememiş ve çeşitli sıkıntıların yaşandığı süreçler yaşayabilir. Özellikle iş gücü planlaması yapmak,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/verimlilik.png
+  url: /wp-content/uploads/2025/08/verimlilik.png
   alt: İK Yönetiminde İş Analizi ve Verimlilik
   width: 2272
   height: 1498
@@ -26,7 +26,7 @@ Günümüzde işletmeler, insan kaynaklarıyla alakalı çözülememiş ve çeş
 
 ## Verimlilik ve Verimlilikte İnsan Kaynakları Yönetim Yazılımlarının Önemi
 
-![izin yönetimi](https://idenfit.com/wp-content/uploads/2020/06/izin-1-1024x905.png)
+![izin yönetimi](/wp-content/uploads/2020/06/izin-1-1024x905.png)
 
 **Verimlilik**, en az girdiyle en çok çıktıyı elde etmek ve daha fazla üretmek gibi tanımları içerebilir. Bir üretim sisteminin girdisi ve çıktısı arasındaki ilişki verimlilik olarak açıklanabilir. Nitelikli ve kayda değer bir verimlilik sağlayabilmek için sermaye, arazi, emek, enerji ve malzeme gibi çeşitli kaynakların etkili bir şekilde kullanılabiliyor olması gerekir.
 
@@ -58,7 +58,7 @@ Performans değerlendirme ve ücret yönetimi konusunda, iş analizi verileri bi
 
 ## İş Analizi ve Görev Atama Yazılımları
 
-![görev yazılımı](https://idenfit.com/wp-content/uploads/2020/06/4.png)
+![görev yazılımı](/wp-content/uploads/2020/06/4.png)
 
 İş standartlarının belirlenmesi ve doğru bir iş süreci yönetimi yapılabilmesi için özellikle görev atama noktasında insan kaynakları özelinde geliştirilmiş olan yazılım programlarının kullanılmasının faydası büyüktür. Bu tip programlar sayesinde süreç çok daha hızlı ilerlerken daha isabetli sonuçlar almak mümkün olur. [Idenfit görev yönetimi modülü](/insan-kaynaklari-yonetimi-modulu/), işte bu noktada işletmelerin işini büyük oranda kolaylaştırır.
 

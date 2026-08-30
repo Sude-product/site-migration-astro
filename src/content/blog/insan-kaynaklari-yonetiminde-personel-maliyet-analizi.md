@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Personel Maliyet Analizi ve Önemi
 date: '2020-07-31T15:04:14'
 excerpt: Çoğu şirket için çalışan maaşları şirketin en büyük giderini oluşturur. Çalışanlarına aylık olarak ödediği parayı brüt olarak değil net olarak vermeyi tercih…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Culture-1.png
+  url: /wp-content/uploads/2025/08/Culture-1.png
   alt: İnsan Kaynakları Yönetiminde Personel Maliyet Analizi ve Önemi
   width: 2272
   height: 1498
@@ -41,7 +41,7 @@ Asgari ücretle çalışan yani 2943 TL maaşı olan bir personel için firma *
 
 Çalışanlarına yatırım yaparak ihtiyaç duyduğu personel yeterliliğini yakalan firmalar personel giderleri arasına yoğun eğitimler ve iş gezileri de dahil eder. Aslında bu tarz uygulamalar hem çalışanın motivasyonu hem de şirketin ihtiyaç duyduğu iş gücünü yaratması bakımından büyük önem taşır. Üstelik bu bakış açısı ile yetiştirilen personeller daha uzun süreler bağlılık ile çalışma eğilimi gösterir.
 
-<a href="/calisan-egitim-yonetimi-modulu/" aria-label="KURUMSAL EĞİTİMLERİ IDENFİT İLE PLANLAYIN!"><img decoding="async" class="alignnone wp-image-1923" src="https://idenfit.com/wp-content/uploads/2020/07/Varlık-16@2x-855x1024.png" alt="" width="428" height="512"></a>
+<a href="/calisan-egitim-yonetimi-modulu/" aria-label="KURUMSAL EĞİTİMLERİ IDENFİT İLE PLANLAYIN!"><img decoding="async" class="alignnone wp-image-1923" src="/wp-content/uploads/2020/07/Varlık-16@2x-855x1024.png" alt="" width="428" height="512"></a>
 
 KURUMSAL EĞİTİMLERİ IDENFİT İLE PLANLAYIN!
 

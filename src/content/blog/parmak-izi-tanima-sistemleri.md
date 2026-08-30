@@ -4,7 +4,7 @@ title: Parmak İzi Tanıma Sistemleri Hakkında Tüm Merak Ettikleriniz
 date: '2024-07-01T12:08:24'
 excerpt: Günümüzde, parmak izi tanıma sistemleri personel takibi başta olmak üzere pek çok farklı alanda karşımıza çıkıyor. Parmak izi okuyucu sistemler, özellikle…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/parmak-izi-tanima-sistemleri.jpg
+  url: /wp-content/uploads/2025/08/parmak-izi-tanima-sistemleri.jpg
   alt: Parmak İzi Tanıma Sistemleri Hakkında Tüm Merak Ettikleriniz
   width: 1281
   height: 721

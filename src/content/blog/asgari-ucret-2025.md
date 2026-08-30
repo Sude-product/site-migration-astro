@@ -4,7 +4,7 @@ title: 2025 Asgari Ücret Tutarı Açıklandı
 date: '2024-12-25T01:18:50'
 excerpt: Asgari Ücret Tespit Komisyonu’nun gerçekleştirdiği görüşmeler sonucunda, 1 Ocak 2025 tarihinden itibaren uygulanacak yeni asgari ücret rakamı açıklandı.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/asgari-ucret-2025.jpg
+  url: /wp-content/uploads/2025/08/asgari-ucret-2025.jpg
   alt: 2025 Asgari Ücret Tutarı Açıklandı
   width: 1280
   height: 721

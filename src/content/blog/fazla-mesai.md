@@ -4,7 +4,7 @@ title: Fazla Mesai ve Çalışanın Hakları
 date: '2022-02-14T10:25:09'
 excerpt: Fazla mesai iş hayatında varlık gösteren herkesin bir dönem karşılaştığı bir kavram. Fazla çalışmalar ile ilgili çalışanlar tarafından en sık merak edilen…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/Fazla-mesai-durumunda-c╠gal─▒s╠gan─▒n-haklar─▒@2x.jpg
+  url: /wp-content/uploads/2022/02/Fazla-mesai-durumunda-c╠gal─▒s╠gan─▒n-haklar─▒@2x.jpg
   alt: Fazla Mesai ve Çalışanın Hakları
   width: 1515
   height: 998

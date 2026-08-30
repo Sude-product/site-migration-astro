@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Çeviklik
 date: '2021-01-22T09:18:05'
 excerpt: Çeviklik (agile) kavramı kurumsal literatürde son yıllarda sık sık karşılaştığımız bir kavram. Çeviklik deyince hepimizin aklına hızlı olmak, farkında olup…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/cevik_ik@2x.jpg
+  url: /wp-content/uploads/2021/01/cevik_ik@2x.jpg
   alt: İnsan Kaynakları Yönetiminde Çeviklik
   width: 810
   height: 534
@@ -59,7 +59,7 @@ Peki kurumsal çeviklik kavramının, organizasyonel değişimlerin yöneticisi 
 
 ### **İşe Alım Sürecinde**
 
-![idenfit işe alım modülü](https://idenfit.com/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
+![idenfit işe alım modülü](/wp-content/uploads/2021/02/işe-alim-modülü-1024x958.png)
 
 **[İDENFİT İŞE ALIM MODÜLÜ](/ise-alim-modulu/)**
 
@@ -72,7 +72,7 @@ Peki kurumsal çeviklik kavramının, organizasyonel değişimlerin yöneticisi 
 
 ### **Eğitim ve Geliştirme Sürecinde**
 
-![](https://idenfit.com/wp-content/uploads/2020/09/Varlık-14@3x-1-926x1024.png)
+![](/wp-content/uploads/2020/09/Varlık-14@3x-1-926x1024.png)
 
 **[İDENFİT EĞİTİM MODÜLÜ](/calisan-egitim-yonetimi-modulu/)**
 
@@ -84,7 +84,7 @@ Peki kurumsal çeviklik kavramının, organizasyonel değişimlerin yöneticisi 
 
 ### **Performans Değerlendirme Sürecinde**
 
-![idenfit performans modülü](https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-1024x831.png)
+![idenfit performans modülü](/wp-content/uploads/2020/09/unnamed-1-1024x831.png)
 
 **[İDENFİT PERFORMANS DEĞERLENDİRME MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**
 

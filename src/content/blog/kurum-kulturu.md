@@ -4,7 +4,7 @@ title: Kurum Kültürü Nedir?
 date: '2020-02-27T09:17:03'
 excerpt: Bir kurumun en önemli yapı taşları arasında gösterilen kurum kültürü , bazı çevreler tarafından yalnızca bazı yazılı kurallardan oluşuyormuş gibi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Culture.png
+  url: /wp-content/uploads/2025/08/Culture.png
   alt: Kurum Kültürü Nedir?
   width: 2272
   height: 1498
@@ -21,7 +21,7 @@ Nitelikli ve köklü bir kurum kültürünün olmadığı kurumlarda karışıkl
 
 ## **Kurum Kültürü Nedir?**
 
-![kurum kulturu](https://idenfit.com/wp-content/uploads/2020/02/1-1.png)
+![kurum kulturu](/wp-content/uploads/2020/02/1-1.png)
 
 **Kurum kültürü** en temel ifadesiyle kuruma özgü olan davranış, inanç ve alışkanlıkların bütününü kapsar. Bu kültür, o kuruma ait olan tüm çalışanlar tarafından da paylaşılır ve çalışan davranışlarını da düzenler. Eğer çalışanların kurumsal aksiyonları bu kültür ile bire bir örtüşüyorsa, yönlendirilebiliyorsa ve diğer üyeler tarafından kabul görüyorsa o kurumda yerleşik bir **kurum kültürü** olduğundan bahsedilebilir.
 
@@ -33,7 +33,7 @@ Kuruma yeni bir çalışan alırken kurum kültürüne uygunluğuna özen göste
 
 ## **Kurum Kültürü Özellikleri**
 
-![kurum kültürü özellikleri](https://idenfit.com/wp-content/uploads/2020/02/2-1.png)
+![kurum kültürü özellikleri](/wp-content/uploads/2020/02/2-1.png)
 
 **Kurum kültürü** yapı itibariyle organizasyon içerisinde belirgin özellikler barındırır. Bu bağlamda **kurum kültürü**ndeki davranışlarında kalıplaşmış olduğundan söz edilebilir. Aynı zamanda soyut ve somut değerler bir arada bulunur ve asla birbirinin önüne geçmez. Kurumda bulunan çalışanların kültüre saygı duyması ve bu çerçevede davranıp buna uygun yaşaması kurum kültürünün en belirgin özellikleri arasında gösterilir. 
 
@@ -47,7 +47,7 @@ Kurum kültürü oluştururken liderlik rolü en önemli detaylardan bir tanesi 
 
 ## **Kurum Kültürü Çeşitleri**
 
-![kurum kültürü cesitleri](https://idenfit.com/wp-content/uploads/2020/02/3-1.png)
+![kurum kültürü cesitleri](/wp-content/uploads/2020/02/3-1.png)
 
 **Kurum kültürü**nün her bir kurumda farklı şekilde uygulanabilecek çeşitleri vardır. Başarılı işleyen ve takdir edilen bir kurum kültürünü her bir kuruma uygulamak mümkün değildir.
 
@@ -69,7 +69,7 @@ Muhafazakar yaklaşımda ise tüm değerlerin muhafazakar bir bakış açısıyl
 
 ## **Kurum Kültürü Neden Önemlidir?**
 
-![kurum kültürü neden önemli](https://idenfit.com/wp-content/uploads/2020/02/4-1.png)
+![kurum kültürü neden önemli](/wp-content/uploads/2020/02/4-1.png)
 
 **Kurum kültürü**nün önemine iki farklı pencereden bakmak ve her birini ayrı şekilde değerlendirmek gerekir. Birinci pencerede kurumun iç paydaşları bakımından sahip olduğu önemden bahsedilir. Diğer pencerede ise kuruma dışarıdan bakıldığında nasıl göründüğünden yani bir diğer deyişle dış paydaşlar açısından kuruma biçilen itibarından bahsedilir. Yani kurum kültürünü hem kurum içinde hem de kurum dışında oldukça önemlidir.
 

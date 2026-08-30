@@ -4,7 +4,7 @@ title: Vardiya Nedir? Nasıl Yapılır?
 date: '2019-12-16T16:42:00'
 excerpt: Vardiya sistemi düzenli ve sistematik çalışan bir işletmenin en önemli uygulamalarındandır. Pek çok işletmede ya da mağazada çalışanların sonraki hafta hangi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/vardiya@3x.png
+  url: /wp-content/uploads/2025/08/vardiya@3x.png
   alt: Vardiya Nedir? Nasıl Yapılır?
   width: 2272
   height: 1497
@@ -21,7 +21,7 @@ Vardiya sistemi düzenli ve sistematik çalışan bir işletmenin en önemli uyg
 
 ## **Vardiya Nedir?**
 
-![vardiya nedir](https://idenfit.com/wp-content/uploads/2019/12/1.png)
+![vardiya nedir](/wp-content/uploads/2019/12/1.png)
 
 En basit tanımı ile çalışma sürelerinin düzenlenmesi anlamına geliyor. **Vardiyal**ı **sistem** ile asıl amaçlanan şey; üretim ya da hizmet sektöründe farklı grupların farklı zaman dilimlerinde devamlı olarak çalışmasını sağlamak oluyor. **Vardiyalı çalışmak** işletmeye üretimi veya hizmeti sürekli hale getirdiği için çeşitli avantajlar sağlarken çalışanlara ise haftanın farklı günlerinde izin kullanma olanağı tanıyor.
 
@@ -29,13 +29,13 @@ Dolayısıyla “**Vardiyalı ne demek**?” sorusunun cevabı da “Belirli pro
 
 ## **Vardiyalı Çalışma Nedir?**
 
-![vardiyali calisma nedir](https://idenfit.com/wp-content/uploads/2019/12/2.png)
+![vardiyali calisma nedir](/wp-content/uploads/2019/12/2.png)
 
 “**Vardiyalı çalışma** nedir?” diye bakarsak, **vardiyalı çalışma sistemi**yle faaliyet gösteren işletmelerde çalışanların haftalık doldurması gereken mesai saatleri diğer çalışanlarla günün belirlenen saatlerinde birbirini takip eden bir döngü şeklinde planlanıyor. Bu sistemde her bir çalışan farklı günlerde ve saatlerde mesaj yapabiliyor. Böylece üretim devamlı hale getiriliyor.
 
 ## **Tarihte Vardiyalı Sistem Nedir ve Nasıl Gelişti?**
 
-![vardiya sistemi nedir](https://idenfit.com/wp-content/uploads/2019/12/3.png)
+![vardiya sistemi nedir](/wp-content/uploads/2019/12/3.png)
 
 Sanayi Devrimi gerçekleşene kadar **çalışma saati** kavramından bahsedildiğinde akıllara tarım veya atölye üretiminin devam ettiği yalnızca bir zaman dilimi geliyordu. Köylü veya işçiler sabah uyandıktan sonra akşam karanlığı çökene dek çalışıyorlar ve bu çalıştıkları sürenin karşılığını alıyorlardı. Sanayi Devrimi gerçekleştikten sonra artı değer üretmek için işçilerin gün içindeki çalışma saatlerinin dışında da çalışması sağlandı.  
 
@@ -51,19 +51,19 @@ Kelime anlamı “**tam zamanlı**” olan bu kavram, kısa süreli ya da yarı 
 
 ## **Mavi Yaka Nedir?**
 
-![mavi yaka nedir](https://idenfit.com/wp-content/uploads/2019/12/4.png)
+![mavi yaka nedir](/wp-content/uploads/2019/12/4.png)
 
 “**Mavi yaka ne demek**?” sorusunun cevabında bu kavramı beyaz yakadan ayıran en önemli özelliğinde bedensel güçle, maaş ya da süreli ücret karşılığında çalışan işçiler olduğu görülüyor. El emeğine dayanan işlerde çalışan **mavi yakalarda vardiyalı çalışma sistemi** yaygın olarak görülüyor. Ayrıca **mavi yakalı işçiler**, maaşın dışında parça başı, saatlik ya da yevmiye ile de çalışabiliyorlar.
 
 ## **Shift Ne Demek ve Time Shift Nedir?**
 
-![shift ne demek](https://idenfit.com/wp-content/uploads/2019/12/5.png)
+![shift ne demek](/wp-content/uploads/2019/12/5.png)
 
 **Time shift** ya da **shift time** **vardiyal**arın **değişimi**ni ve süresini açıklayan bir kavram olmakla beraber; işçilerin çalışma periyotlarının düzenlenmesini içeriyor. Her ne kadar “shift” kelimesi “**vardiya**” kelimesinin karşılığı olsa da genellikle vardiyalı çalışan kişiler tarafından kullanıldığında **vardiya saatleri** ve **çalışma çizelgesi** akıllara geliyor. Çoğu işletmede duvara asılan **haftalık shift çizelgesi** de kısaca “shift” olarak adlandırılıyor.
 
 ## **Vardiya Yönetimi Nedir?**
 
-![vardiya yonetimi nedir](https://idenfit.com/wp-content/uploads/2019/12/6.png)
+![vardiya yonetimi nedir](/wp-content/uploads/2019/12/6.png)
 
 Vardiya yönetimi; **vardiya sistemi programı** ile veya manuel olarak işçilerin çalışma zamanlarının düzenlenmesi anlamına geliyor. Vardiya yönetimi; **3’lü vardiya sistemi**, **4’lü vardiya sistemi**, **2+2+2 vardiya sistemi** ya da **2 vardiyalı çalışma çizelgesi** şeklinde hazırlanabiliyor. Düzenleme için akıllı sistemlerin kullanıldığı vardiya yönetimi uygulaması ve vardiya çizelgesi programı genellikle uzun çalışma saatleri olan sektörlerde kullanılıyor. 
 
@@ -71,7 +71,7 @@ Vardiya yönetimi; **vardiya sistemi programı** ile veya manuel olarak işçile
 
 ## **2+2+2 Vardiya Sistemi Nedir?**
 
-![2+2+2 vardiya sistemi](https://idenfit.com/wp-content/uploads/2019/12/7.png)
+![2+2+2 vardiya sistemi](/wp-content/uploads/2019/12/7.png)
 
 **2+2+2 vardiya sistemi**nde işçi 2 gündüz 12/12 çalıştıktan sonra 2 gece 12/12 çalışıyor ve ardından 2 gün yani 48 saat istirahat ediyor. Arka arkaya iki gün izne sahip olmayı sağlayan sistem, bazı işçiler için çok avantajlı olarak görülüyor. Henüz yaygın olarak uygulanmayan bu sistem, bazı kurumlarda dönem dönem denenerek test ediliyor.
 
@@ -81,7 +81,7 @@ Vardiya yönetimi; **vardiya sistemi programı** ile veya manuel olarak işçile
 
 ## **Idenfit Vardiya/Zaman Yönetimi**
 
-!["vardiya"](https://idenfit.com/wp-content/uploads/2020/09/puantaj-cetveli-1024x631.png)
+!["vardiya"](/wp-content/uploads/2020/09/puantaj-cetveli-1024x631.png)
 
 **[İDENFİT PUANTAJ TAKİBİ MODÜLÜ](/puantaj-takip-programi-modulu/)**
 

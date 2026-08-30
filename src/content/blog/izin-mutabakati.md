@@ -4,7 +4,7 @@ title: İzin Mutabakatları Hakkında Tüm Merak Edilenler
 date: '2024-12-22T18:51:27'
 excerpt: Yeni yıl hızla yaklaşırken, iş süreçlerinizin yoğunluğu da aynı hızda artıyor olmalı. Fakat bu yoğunluk içerisinde gözden kaçmaması gereken önemli bir konu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/yiilik-izin-mutabakatlari.jpg
+  url: /wp-content/uploads/2025/08/yiilik-izin-mutabakatlari.jpg
   alt: İzin Mutabakatları Hakkında Tüm Merak Edilenler
   width: 1280
   height: 720
@@ -44,7 +44,7 @@ Yıllık izin mutabakatı, genellikle yıl sonlarında veya hesap kapanış dön
 
 İzin mutabakatı, hem işveren hem de çalışan için adil bir çözüm sunuyor. İş yerinde düzen ve şeffaflık oluşturmanın önemli bir adımı olarak öne çıkıyor. Bu nedenle, yıl sonu yoğunluğu başlamadan önce izin mutabakatını tamamlamak faydalı olacaktır. Planlı bir izin süreci, iş verimliliğini artırır.
 
-![Yıllık İzin Mutabakatları](https://idenfit.com/wp-content/uploads/2024/12/yiilik-izin-mutabakatlari-kopya-1024x202.jpg)
+![Yıllık İzin Mutabakatları](/wp-content/uploads/2024/12/yiilik-izin-mutabakatlari-kopya-1024x202.jpg)
 
 **Yıllık İzin Mutabakatları**
 

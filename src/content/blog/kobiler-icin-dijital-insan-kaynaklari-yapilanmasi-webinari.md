@@ -4,7 +4,7 @@ title: KOBİ’ler için Dijital İnsan Kaynakları Yapılanması Webinarı
 date: '2024-03-05T10:29:14'
 excerpt: Sürdürülebilir ve büyüyen bir işletme olma yolundaki KOBİ’ler, sahip oldukları sınırlı işgücü ve bütçe ile rekabette ön plana çıkmak için her iki kaynağını da…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/20240319-kobi-dijital-ik-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/20240319-kobi-dijital-ik-1392x783-1.jpg
   alt: KOBİ’ler için Dijital İnsan Kaynakları Yapılanması Webinarı
   width: 1392
   height: 783
@@ -37,13 +37,13 @@ MS Teams
 
 [Kayıt Olun](https://forms.gle/3Cy9qCyeDQLuM5sL9)
 
-![Mustafa İcer](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-mustafa-icer.png)
+![Mustafa İcer](/wp-content/uploads/2024/03/konusmaci-mustafa-icer.png)
 
 **Mustafa İçer**\
 idenfit\
 Chief Business Development Officer
 
-![Merve Sezen](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-merve-sezen-1.png)
+![Merve Sezen](/wp-content/uploads/2024/03/konusmaci-merve-sezen-1.png)
 
 **Merve Sezen**\
 PEC Consultancy\

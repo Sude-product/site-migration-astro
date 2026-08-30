@@ -4,7 +4,7 @@ title: 2026 Gelir Vergisi Dilimleri
 date: '2026-03-26T11:58:22'
 excerpt: Bir işletmenin en önemli vergi kalemlerinden biri olan gelir vergisi, 2026 yılı itibarıyla güncellenmiş dilimlere göre uygulanmaktadır. Buna göre 2026 gelir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2024/12/WhatsApp-Image-2026-03-13-at-15.17.52-1.jpeg
+  url: /wp-content/uploads/2024/12/WhatsApp-Image-2026-03-13-at-15.17.52-1.jpeg
   alt: 2026 Gelir Vergisi Dilimleri
   width: 1280
   height: 720

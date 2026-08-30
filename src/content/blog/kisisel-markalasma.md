@@ -4,7 +4,7 @@ title: Kişisel Markalaşma Nedir?
 date: '2021-10-07T09:27:41'
 excerpt: Kişisel markalaşma, son yıllarda oldukça sık duymaya başladığımız bir kavram. Hayatımızın gidişatını belirleyen temel etmenler arasında yer alan kariyerimizi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/kisisel-markalasmaa@2x.png
+  url: /wp-content/uploads/2021/10/kisisel-markalasmaa@2x.png
   alt: Kişisel Markalaşma Nedir?
   width: 1515
   height: 998

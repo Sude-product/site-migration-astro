@@ -4,7 +4,7 @@ title: 'Bordro Yönetimi Webinarı: Puantajdan Bordroya, Dağıtımından İmzay
 date: '2023-10-19T08:34:36'
 excerpt: Bu eğitim, katılımcılara puantajın dijital olarak oluşturulması, iş mevzuatına uygun bordro yapımı için dikkat edilmesi gerekenler, bordronun dağıtımı ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/10/20231214-bordro-yonetimi-webinari.jpg
+  url: /wp-content/uploads/2023/10/20231214-bordro-yonetimi-webinari.jpg
   alt: 'Bordro Yönetimi Webinarı: Puantajdan Bordroya, Dağıtımından İmzaya Bordro Süreçleri'
   width: 1920
   height: 1080

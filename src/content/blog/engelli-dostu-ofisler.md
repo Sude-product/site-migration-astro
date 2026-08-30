@@ -4,7 +4,7 @@ title: Engelli Dostu Ofisler İçin Öneriler
 date: '2023-05-07T23:55:17'
 excerpt: Engelli dostu ofisler yaratmak istek değil bir gereklilik. Çünkü ekipler kapsayıcılığı ve çeşitliliği kadar güçlü ve verimli! Özel gereksinimli pek çok birey…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/05/engelli-dostu-ofisler-icin-oneriler.jpg
+  url: /wp-content/uploads/2023/05/engelli-dostu-ofisler-icin-oneriler.jpg
   alt: Engelli Dostu Ofisler İçin Öneriler
   width: 1621
   height: 811

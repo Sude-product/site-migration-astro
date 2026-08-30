@@ -4,7 +4,7 @@ title: Değişim Yönetimi ve Dijital İK Çözümleri
 date: '2020-06-17T12:47:49'
 excerpt: Yaşadığımız son aylar Covid-19 nedeniyle, dünyaya değişim getirirken, bireyin de kendini güncellemesini ve yenilenmesini zorunlu kılıyor. İş hayatında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/ana-resim@3x.png
+  url: /wp-content/uploads/2025/08/ana-resim@3x.png
   alt: Değişim Yönetimi ve Dijital İK Çözümleri
   width: 2272
   height: 1498
@@ -39,7 +39,7 @@ Idenfit, yapılacak işler listesini tek bir platformdan yönetmenize imkan verm
 
 ## İzinleri Kapsamlı, Vardiyaları Doğru Yönetin!
 
-![Idenfit İzin Yönetimi](https://idenfit.com/wp-content/uploads/2020/06/izin-1024x905.png)
+![Idenfit İzin Yönetimi](/wp-content/uploads/2020/06/izin-1024x905.png)
 
 Çalışan izinlerini yönetmek, izinlerin çakışmamasını sağlamak ve adil olabilmek zorlu ve uzun bir süreçtir. Bu süreçleri kısaltmak ve daha kapsamlı izin yönetimi yapabilmek Idenfit’in kapsamlı izin modülüyle tanışın.
 
@@ -65,7 +65,7 @@ Idenfit mesajlar modülüyle telefon ve e-mail trafiği yaşamadan departman iç
 
 ## Değişim En Çok Performans Yönetimini Zorunlu Kılıyor!
 
-![performans yönetimi](https://idenfit.com/wp-content/uploads/2020/06/performans-822x1024.png)
+![performans yönetimi](/wp-content/uploads/2020/06/performans-822x1024.png)
 
 Dünyadaki trendler ve son dönemde yaşadığımız pandemi, işletmeleri derinden sarsarken evden çalışmayla gelen değişim süreci, sürdürülebilirlik anlamında ölçülebilir çalışan performansının ne kadar önemli olduğu da gösterdi.
 

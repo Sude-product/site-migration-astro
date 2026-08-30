@@ -4,7 +4,7 @@ title: En İyi Bordro Yazılımı Nasıl Seçilir?
 date: '2023-11-26T23:00:58'
 excerpt: Bordro yazılımı, bir işletmenin çalışanlarına maaş ve diğer özlük işlemleri için kullanılan bir yazılım sistemidir. Bordro yönetimi, personel maaşlarının…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/11/buyuk-sirketler-icin-en-iyi-bordro-yazilimi-nasil-seciler-2.jpg
+  url: /wp-content/uploads/2023/11/buyuk-sirketler-icin-en-iyi-bordro-yazilimi-nasil-seciler-2.jpg
   alt: En İyi Bordro Yazılımı Nasıl Seçilir?
   width: 1621
   height: 811

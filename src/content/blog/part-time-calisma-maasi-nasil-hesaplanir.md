@@ -4,7 +4,7 @@ title: Part Time Çalışma Maaşı Nasıl Hesaplanır?
 date: '2020-09-21T20:52:02'
 excerpt: Part time ya da diğer adıyla kısmi süreli çalışma nedir ve part time çalışma maaşı nasıl hesaplanır?
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Kismi-süreli-Part-time-Çalişma-Maaşi-Nasil-Hesaplanir_.png
+  url: /wp-content/uploads/2025/08/Kismi-süreli-Part-time-Çalişma-Maaşi-Nasil-Hesaplanir_.png
   alt: Part Time Çalışma Maaşı Nasıl Hesaplanır?
   width: 2271
   height: 1497

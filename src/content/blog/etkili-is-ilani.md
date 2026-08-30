@@ -4,7 +4,7 @@ title: Etkili İş İlanı Oluşturma Rehberi
 date: '2023-03-05T23:38:12'
 excerpt: Etkili iş ilanı hazırlama konusunda yeterince bilgi sahibi misiniz? Cevabınız çok güçlü bir “Evet.” değilse önerilerimizi incelemeye başlayabilirsiniz. Çünkü…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/03/Basvuru-sahiplerinden-daha-kullanisli-ozgecmisler-ve-on-yazilar-almak-icin-10-ipucu.jpg
+  url: /wp-content/uploads/2023/03/Basvuru-sahiplerinden-daha-kullanisli-ozgecmisler-ve-on-yazilar-almak-icin-10-ipucu.jpg
   alt: Etkili İş İlanı Oluşturma Rehberi
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: İnsan Kaynakları Uzmanının Yeni Rolleri
 date: '2023-02-12T23:23:20'
 excerpt: İKY 2023 yılında da dijital dönüşüm sürecine hız kesmeden devam ediyor. Dijitale taşınan İKY süreçleri ile İK ekipleri ihtiyaç duydukları zaman ve enerjiyi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/02/insan-Kaynaklari-uzmaninin-yeni-rolleri.jpg
+  url: /wp-content/uploads/2023/02/insan-Kaynaklari-uzmaninin-yeni-rolleri.jpg
   alt: İnsan Kaynakları Uzmanının Yeni Rolleri
   width: 1515
   height: 999

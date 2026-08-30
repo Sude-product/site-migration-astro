@@ -4,7 +4,7 @@ title: İK Yazılımları ile Finansal Riskleri Azaltın
 date: '2021-10-21T10:00:46'
 excerpt: İK yazılımlarının İK departmanlarına sağladığı avantajlar ve kurum stratejisinde sahip olduğu önem uzun süredir kabul edilen bir gerçek. Personellerin işe…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/İnsan-Kaynaklari-Yazilimlariyla-Finansal-Riskleri-Azaltin@2x.png
+  url: /wp-content/uploads/2021/10/İnsan-Kaynaklari-Yazilimlariyla-Finansal-Riskleri-Azaltin@2x.png
   alt: İK Yazılımları ile Finansal Riskleri Azaltın
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: KPI’lar ile Geleceği Öngörebilirsiniz!
 date: '2021-10-16T12:45:46'
 excerpt: KPI’lar ile geçmişi değerlendirirken aynı zamanda geleceği öngörebilirsiniz. KPI yani Key Performance Indicator, şirketlerin, projelerin ve bireylerin strateji…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/KPIlar-ile-Gelecegi-Ongorebilirsiniz@2x.png
+  url: /wp-content/uploads/2021/10/KPIlar-ile-Gelecegi-Ongorebilirsiniz@2x.png
   alt: KPI’lar ile Geleceği Öngörebilirsiniz!
   width: 1515
   height: 998

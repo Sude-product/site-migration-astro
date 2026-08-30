@@ -4,7 +4,7 @@ title: Kod 29 | Kod 29 Kaldırıldı
 date: '2021-04-09T12:21:18'
 excerpt: Sosyal Güvenlik Kurumu, milyonlarca çalışanı ilgilendiren ve 16 Nisan 2021 tarihiyle birlikte geçerli olacak yeni bir genelge yayınladı. Covid-19 salgını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/04/Varlik-135.png
+  url: /wp-content/uploads/2021/04/Varlik-135.png
   alt: Kod 29 | Kod 29 Kaldırıldı
   width: 758
   height: 500
@@ -31,7 +31,7 @@ SGK, çalışanların pandeminin kötü koşullarından etkilenmesini önlemek i
 
 _“Birbirinden farklı fesih nedenlerinin tamamının aynı kod (Kod-29) ile bildiriminin çalışma hayatında belirsizliklere yol açtığının görülmesi üzerine SGK genelgesinde yapılan değişiklik ile ahlak ve iyi niyet kurallarına uymayan hallerin tamamı için ayrı ayrı kodlar belirlenmiştir. Böylelikle mazeretsiz devamsızlık hali ile hırsızlık gibi birbirinden farklı fesih sebeplerinin farklı bildirim kodları ile yapılması sağlanarak, olası sorunların önüne geçilecektir.”_
 
-![](https://idenfit.com/wp-content/uploads/2021/04/kod-29-nedir-sgk-29da-duzenlemeye-gitti@2x-1024x675.png)
+![](/wp-content/uploads/2021/04/kod-29-nedir-sgk-29da-duzenlemeye-gitti@2x-1024x675.png)
 
 ## **Kod 29 Kaldırıldı! SGK Genelgesi 2021/9**
 

@@ -4,7 +4,7 @@ title: İşçi Maaş Bordrosu ve İmzalanması
 date: '2023-05-22T13:56:54'
 excerpt: İşçi maaş bordrosu, çalışanların bir aylık çalışmaları karşılığında aldığı ücreti detayları ile gösteren belgedir. Maaş bordrosunda çalışana ait gelir ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/iscinin-maas-bordrosunu-imzalamasi-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/iscinin-maas-bordrosunu-imzalamasi-1392x696-1.jpg
   alt: İşçi Maaş Bordrosu ve İmzalanması
   width: 1392
   height: 696

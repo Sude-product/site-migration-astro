@@ -4,7 +4,7 @@ title: Özlük Dosyaları Biyometrik İmza ile Hukuki Kimlik Kazanıyor
 date: '2020-05-22T17:26:50'
 excerpt: Özlük dosyalarının ve resmi belgelerin manuel yöntemlerle saklanması ve paylaşılması hem iş yükünü arttıran hem de hukuki boyutları olan bir durum. Idenfit…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/E-İMZA@3x-1.png
+  url: /wp-content/uploads/2025/08/E-İMZA@3x-1.png
   alt: Özlük Dosyaları Biyometrik İmza ile Hukuki Kimlik Kazanıyor
   width: 2272
   height: 1498
@@ -22,7 +22,7 @@ Teknolojinin gelişmesi ve internetin her alanda kullanılmaya başlaması iş d
 
 ## Biyometrik İmza Nedir?
 
-![biyometrik imza nedir](https://idenfit.com/wp-content/uploads/2020/05/biyometrik-cozum.png)
+![biyometrik imza nedir](/wp-content/uploads/2020/05/biyometrik-cozum.png)
 
 Biyometrik imza, bilgisayar kullanıcısının kimliğini doğrulamak için **biyometrik imza kalemi** kullanılarak bilgisayar ya da tablet üzerinde el ile uygulanan ve ıslak imza yerine geçen dijital imzadır.
 
@@ -52,13 +52,13 @@ Kâğıt üzerine atılan geleneksel ıslak imza karşılaştırma teknolojileri
 
 ## Biyometrik İmza Çeşitleri
 
-![Biyometrik İmza Çeşitleri](https://idenfit.com/wp-content/uploads/2020/05/biyometrik-imza-1.png)
+![Biyometrik İmza Çeşitleri](/wp-content/uploads/2020/05/biyometrik-imza-1.png)
 
 Biyometrik imza; statik (görüntüsel) ve dinamik(davranışsal) olmak üzere ikiye ayrılır. Statik imzanın hukuksal geçerliliği yoktur. Sadece kâğıt üzerine atılan imzanın taranması ve imza sahibinin daha önce attığı imzalarla karşılaştırılmasına dayanır. Karşılaştırmadaki tek kriter imzaların görünüşleridir. Ancak dinamik biyometrik imza çeşidi, atılan imzanın davranışsal kriterlerini de içerir. Özel olarak üretilen biyometrik imza kalemi ile imza tablete atılır. İmza atarken imza sahibinin kalemi tutuş açısı, kaleme uyguladığı basınç gibi pek çok farklı kriter değerlendirilir. İmzanın atıldığı tarih ve saat bilgileri elektronik zaman damgası kullanılarak sabitlenir. Elektronik zaman damgası Kamu Sertifikasyon Merkezi ile desteklenir. Kişinin her defasında birebir aynı imzayı atması mümkün değildir. Her imzada küçük de olsa basınç değişiklikleri, hız ve ivme gibi farklılıklar gözlenebilir. Kayıt altına alınan biyometrik imza verileri, davranışsal kriterleri göz önüne alır ve sahip olduğu donanım sayesinde ortaya çıkan farkların da aynı kişiye sahip olduğunu saptayabilir. İmza sahibinin zaman içinde oluşturduğu imza davranışı değişikliklerine adapte olma yeteneğine sahip olan biyometrik imza sistemi, aynı kullanıcının değişik zamanlarda attığı imzaları daha öncekilerle kıyaslar ve birbirine yakın imzalardan oluşan bir kümeyi değerlendirmede esas alır. İnsan doğasından kaynaklı basınç, hız, ivme gibi farklılıkları göz önüne alarak imza eşleştirmesini sorunsuz şekilde sağlar.
 
 ## Biyometrik İmzanın Günümüzdeki Önemi
 
-![biyometrik-imza-önemi](https://idenfit.com/wp-content/uploads/2020/05/biyometrik-imza-cesitleri-1024x159.png)
+![biyometrik-imza-önemi](/wp-content/uploads/2020/05/biyometrik-imza-cesitleri-1024x159.png)
 
 Zamanın oldukça önemli olduğu iş dünyasında hem zamandan hem de kâğıttan tasarruf sağlayan biyometrik imza, el yazısı kullanılarak uygulandığı için ıslak imzanın yerini alır ve her zaman kullanılabilir. Biyometrik imzalar ayrıca;
 
@@ -79,7 +79,7 @@ Kâğıt belgelere olan bağımlılığı ortadan kaldıran biyometrik imzalar, 
 
 ## Biyometrik İmzanın Hukuki Boyutu
 
-![biyometrik imza hukuki boyut](https://idenfit.com/wp-content/uploads/2020/05/parmak-izi-takip.png)
+![biyometrik imza hukuki boyut](/wp-content/uploads/2020/05/parmak-izi-takip.png)
 
 Biyometrik imzayla kâğıt üzerine atılan ıslak imza arasında teknik açıdan herhangi bir fark yoktur. Başka bir deyişle **biyometrik imzanın geçerliliği** tıpkı ıslak imzadaki ile aynıdır. **Biyometrik imzalar hukuk** açısından değerlendirilecek olursa;
 
@@ -97,7 +97,7 @@ E-imza kanununda göz önünde bulundurulan PAdES (PDF gelişmiş elektronik imz
 
 ## Özlük Dosyalarında Biyometrik İmzanın Geçerli Sayılma Koşulları
 
-![özlük dosyalarında biyometrik imza](https://idenfit.com/wp-content/uploads/2020/01/10@4x.png)
+![özlük dosyalarında biyometrik imza](/wp-content/uploads/2020/01/10@4x.png)
 
 Biyometrik imzanın kanuni açıdan geçerli sayılabilmesi için yukarıda bahsedilen özel kriterleri taşıması gerekir. Her türlü işletme için uygulanabilen bulut tabanlı (SaaS) teknolojisine sahip olan İdenfit insan kaynakları yazılımı, çalışanlarınızı ve operasyonların tek bir platform altına toplayarak en verimli şekilde yönetebilmenize yardımcı olur. Güvenilir veri tabanı ve güçlü alt yapısı ile hem operasyon maliyetlerini ve iş yükünü azaltır hem de zamandan tasarruf etmenizi sağlar. Çalışan **özlük dosyası** hazırlarken [Idenfit özlük dosyası modülü](/calisan-ozluk-yonetimi-modulu/) kullanarak işlemlerinizi kolaylaştırabilirsiniz. Bu modül ile çalışanın;
 

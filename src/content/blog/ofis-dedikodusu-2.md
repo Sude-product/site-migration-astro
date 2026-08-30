@@ -4,7 +4,7 @@ title: Ofis Dedikodusu:Şirketinizi Dedikodu Kültüründen Arındırın!
 date: '2021-12-01T14:02:13'
 excerpt: Ofis dedikodusu oldukça sık görülen ve sıkıntılar üreten bir alışkanlık. İş ortamında geçirilen mesai saatleri üretme ve iş geliştirme faaliyetlerinin yanı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/12/dedikodu@2x.jpg
+  url: /wp-content/uploads/2021/12/dedikodu@2x.jpg
   alt: Ofis Dedikodusu:Şirketinizi Dedikodu Kültüründen Arındırın!
   width: 810
   height: 534

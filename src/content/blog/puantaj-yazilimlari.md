@@ -4,7 +4,7 @@ title: Puantaj Yazılımları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-11-15T21:13:12'
 excerpt: Zaman, tıpkı bizler için olduğu gibi işletmeler için de en değerli kaynak rolünü üstleniyor. Dolayısıyla personel zaman yönetimi konusu, iş dünyasının…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/puantaj-yazilimlari-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/puantaj-yazilimlari-1392x696-1.jpg
   alt: Puantaj Yazılımları Hakkında Tüm Bilmeniz Gerekenler
   width: 1392
   height: 696

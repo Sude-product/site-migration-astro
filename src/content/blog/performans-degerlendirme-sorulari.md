@@ -4,7 +4,7 @@ title: Performans Değerlendirme Soruları
 date: '2025-10-30T20:32:20'
 excerpt: Performans değerlendirme ile işletme belirlenen zaman dilimlerinde çalışan performanslarının ölçümlerini sağlayabiliyor. Bu inceleme esnasında sorulan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Performans-Değerlendirme-Sorulari-–-Yönetici-ve-Çalişan-Hangi-Sorulari-Sormali@2x.png
+  url: /wp-content/uploads/2025/08/Performans-Değerlendirme-Sorulari-–-Yönetici-ve-Çalişan-Hangi-Sorulari-Sormali@2x.png
   alt: Performans Değerlendirme Soruları
   width: 1514
   height: 998
@@ -49,7 +49,7 @@ Modern **[performans yönetim sistemleri](/blog/performans-yonetimi-yazilimlari/
 
 Performans değerlendirme soruları içerisinde bu soruda genelde çalışanlar kendi hedeflerini belirtse bile ekip ve şirket hedefleri için soruyu cevapsız bırakıyor. Bunun sebebi sorunun cevabını bilmiyor olmaları veya kendi hedefleri ile şirket hedeflerini bağdaştıramıyor olmaları olabiliyor. Burada yöneticinin görevi, **[performans yönetimi](/blog/performans-yonetimi-nedir-ve-nasil-yapilir/)** sayesinde çalışan hedeflerinin şirket hedefleriyle uyum yakalamasını sağlamak olmalıdır. 
 
-![performans yönetimi](https://idenfit.com/wp-content/uploads/2020/06/performans-822x1024.png)
+![performans yönetimi](/wp-content/uploads/2020/06/performans-822x1024.png)
 
 **[İDENFİT PERFORMANS MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**
 

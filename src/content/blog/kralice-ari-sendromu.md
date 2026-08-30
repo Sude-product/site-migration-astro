@@ -4,7 +4,7 @@ title: İş Dünyasında Kraliçe Arı Sendromu
 date: '2023-10-26T23:54:07'
 excerpt: Kraliçe arı sendromu, özellikle erkeklerin statü olarak baskın olduğu iş yerlerinde gözlemlenen sosyolojik bir olgu. Buna göre kraliçe arı sendromlu kadınlar…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/10/is-dunyasinda-kralice-ari-sendromu.jpg
+  url: /wp-content/uploads/2023/10/is-dunyasinda-kralice-ari-sendromu.jpg
   alt: İş Dünyasında Kraliçe Arı Sendromu
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: Performans Yönetimi Döngüsü
 date: '2023-08-02T07:33:23'
 excerpt: Performans yönetimi, bir kuruluşun hedeflerine ulaşma sürecini optimize etmek için kullanılan bir yönetim sürecidir. Bu süreç, işletmelerin performanslarını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/08/Performans-yonetimi-dongusunun-4-asamasi@2x-100.jpg
+  url: /wp-content/uploads/2023/08/Performans-yonetimi-dongusunun-4-asamasi@2x-100.jpg
   alt: Performans Yönetimi Döngüsü
   width: 1620
   height: 811

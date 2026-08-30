@@ -4,7 +4,7 @@ title: Gaslighting Nedir? İşyerinde Gaslighting’in Belirtileri Nelerdir?
 date: '2025-04-20T20:23:15'
 excerpt: Gaslighting, son yıllarda adını oldukça sık duymaya başladığımız bir psikolojik istismar türü. İlk kez 1938 yılında İngiliz yazar Patrick Hamilton’un bir…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/3@2x.jpg
+  url: /wp-content/uploads/2025/08/3@2x.jpg
   alt: Gaslighting Nedir? İşyerinde Gaslighting’in Belirtileri Nelerdir?
   width: 810
   height: 534

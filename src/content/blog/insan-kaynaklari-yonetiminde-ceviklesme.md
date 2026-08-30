@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Çevikleşme
 date: '2021-10-15T08:58:00'
 excerpt: İnsan kaynakları yönetiminde çevikleşme kavramına her geçen gün daha sık rastlıyoruz. Yakın zamana kadar genellikle teknoloji birimleri tarafından kullanılan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/insan-kaynaklari-yonetiminde-ceviklesme-zamani@2x.png
+  url: /wp-content/uploads/2021/10/insan-kaynaklari-yonetiminde-ceviklesme-zamani@2x.png
   alt: İnsan Kaynakları Yönetiminde Çevikleşme
   width: 1515
   height: 999

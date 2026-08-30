@@ -4,7 +4,7 @@ title: Kasa Tazminatı Hakkında Tüm Merak Ettikleriniz
 date: '2024-04-09T19:00:21'
 excerpt: Kasa tazminatı bir diğer adıyla mali sorumluluk tazminatı, çalışanların haklarını koruyan ve işverenlerin yükümlülüklerini belirleyen önemli bir konu olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/kasa-tazminati-nedir-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/kasa-tazminati-nedir-1392x696-1.jpg
   alt: Kasa Tazminatı Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Açık Kurumsal Kültür ile Tanışmaya Hazır mısınız?
 date: '2022-07-20T12:36:29'
 excerpt: Açık kurumsal kültür bu konuda gönüllü olmasak dahi hayatımıza dahil olmakta kararlı gibi görünüyor. Değişim başladığında kayıtsız kalmanın imkansız olduğu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/07/Acik-Kurumsal-Kultur-ile-Tanismaya-Hazir-misiniz@2x-scaled.jpg
+  url: /wp-content/uploads/2022/07/Acik-Kurumsal-Kultur-ile-Tanismaya-Hazir-misiniz@2x-scaled.jpg
   alt: Açık Kurumsal Kültür ile Tanışmaya Hazır mısınız?
   width: 2560
   height: 1688

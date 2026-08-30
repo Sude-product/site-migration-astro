@@ -4,7 +4,7 @@ title: Uzaktan Çalışma Sistemi Verimli mi?
 date: '2021-04-30T11:03:14'
 excerpt: Uzaktan çalışma sisteminin tüm dünyada zorunlu olarak yaygınlaşması, bu çalışma sisteminin verimliliğinin de sorgulanmasına neden oldu. Şirketler, sisteme ayak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/04/uzaktan-calisma.jpg
+  url: /wp-content/uploads/2021/04/uzaktan-calisma.jpg
   alt: Uzaktan Çalışma Sistemi Verimli mi?
   width: 758
   height: 500

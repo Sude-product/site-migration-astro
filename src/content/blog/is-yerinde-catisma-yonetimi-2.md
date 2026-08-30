@@ -4,7 +4,7 @@ title: İş Yerinde Çatışma Yönetimi
 date: '2025-08-21T23:37:41'
 excerpt: İş yerinde çatışma yönetimi konusunun önemsenmesi gerekiyor. Çünkü tıpkı fikir ve eylem olan her yerde olduğu gibi iş yerlerinde de mutlaka fikir ayrılıkları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/03/catisma-yonetimi.jpg
+  url: /wp-content/uploads/2023/03/catisma-yonetimi.jpg
   alt: İş Yerinde Çatışma Yönetimi
   width: 1621
   height: 811

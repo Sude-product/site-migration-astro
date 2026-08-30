@@ -4,7 +4,7 @@ title: Imposter Sendromu
 date: '2025-06-22T23:10:23'
 excerpt: Imposter sendromu; kişilerin iş dünyasında başarılarını hak etmediklerini düşünmeleri ve kendilerinden şüphe duymaları olarak tanımlanmaktadır. Kişilerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/06/Imposter-Sendromu.jpg
+  url: /wp-content/uploads/2025/06/Imposter-Sendromu.jpg
   alt: Imposter Sendromu
   width: 1024
   height: 675

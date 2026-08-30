@@ -4,7 +4,7 @@ title: Şirket Kültürü Nedir?
 date: '2020-11-13T17:06:37'
 excerpt: Şirket kültürü, değerler bütünü olmasının yanında bir organizasyonda işlerin nasıl yürüdüğünün herkes tarafından bilinen şekli, toplam davranışlar ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Şirket-Kültürü-Nedir-Şirket-Kültürü-Nasil-Kalici-Hale-Gelir.@3x.png
+  url: /wp-content/uploads/2025/08/Şirket-Kültürü-Nedir-Şirket-Kültürü-Nasil-Kalici-Hale-Gelir.@3x.png
   alt: Şirket Kültürü Nedir?
   width: 2271
   height: 1497
@@ -39,7 +39,7 @@ Kurum kültürünün benimsenmesini sağlamak için kurum içinde güçlü ve g�
 
 **[Kurum kültürü](/blog/kurum-kulturu/)**, stratejilerle ve başta **insan kaynakları yönetim** **süreçleri** olmak üzere şirket içi tüm süreçlerle uyumlu hale getirilmelidir. Misyon, vizyon ve şirket değerleri ile **işe alım**, **puantaj takibi**, izin yönetimi, geri bildirim, **performans değerlendirme** ve eğitimler de dahil olmak üzere tüm İK süreçleri uyumlu olmalıdır. Kültürü kalıcı kılmak için tüm bunlar ciddi önem arz ediyor. **[İdenfit insan kaynakları yönetimi modülleriyle](/insan-kaynaklari-yonetimi-modulu/)** İK stratejierinizi kurum kültürüyle uyumlu ve güvenilir olarak hayata geçirebilirsiniz.
 
-![insan kaynakları yönetimi](https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-2.png)
+![insan kaynakları yönetimi](/wp-content/uploads/2020/08/linkedin-1-2.png)
 
 ### Kültür İle Hesap Verilebilirlik Birbirine Bağlanmalı
 

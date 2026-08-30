@@ -4,7 +4,7 @@ title: Al İşe Alım Teknolojisi
 date: '2022-06-20T10:24:40'
 excerpt: Al işe alım son dönemde İK dünyasının gündeminde yer alıyor. İşe alım süreçlerinde yapay zeka kullanımı İK profesyonelleri tarafından heyecanla takip ediliyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/06/ise-ali─▒mda-yapay-zeka-kullanimi.jpg
+  url: /wp-content/uploads/2022/06/ise-ali─▒mda-yapay-zeka-kullanimi.jpg
   alt: Al İşe Alım Teknolojisi
   width: 1514
   height: 998

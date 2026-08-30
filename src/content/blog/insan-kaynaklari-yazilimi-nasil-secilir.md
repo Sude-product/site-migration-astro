@@ -4,7 +4,7 @@ title: Firmanız İçin İnsan Kaynakları Yazılımı Nasıl Seçilir?
 date: '2020-07-13T14:05:30'
 excerpt: Dijitalleşen dünyada insan kaynakları yönetimi de teknolojiden yararlanan birimler arasında yer alır. Bir şirketin en önemli potansiyelini ve kaynağını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/ik-yazilimi@3x-1.png
+  url: /wp-content/uploads/2025/08/ik-yazilimi@3x-1.png
   alt: Firmanız İçin İnsan Kaynakları Yazılımı Nasıl Seçilir?
   width: 2271
   height: 1497
@@ -23,7 +23,7 @@ Dijitalleşen dünyada insan kaynakları yönetimi de teknolojiden yararlanan bi
 
 ## İnsan Kaynakları ve İş Gücü Yönetimi Çözümleri
 
-<a href="/insan-kaynaklari-isgucu-yonetimi/" aria-label="IDENFIT PDKS"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-2-1.png" alt="" class="wp-image-2027"></a>
+<a href="/insan-kaynaklari-isgucu-yonetimi/" aria-label="IDENFIT PDKS"><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-2-1.png" alt="" class="wp-image-2027"></a>
 
 IDENFIT PDKS
 
@@ -46,7 +46,7 @@ Bulut tabanlı insan kaynakları yazılımlarının faydaları:
 
 ## İnsan Kaynakları ve İzin Yönetimi
 
-<a href="/yillik-izin-takip-programi/" aria-label="IDENFIT İZİN YÖNETİMİ"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-3.png" alt="" class="wp-image-2029"></a>
+<a href="/yillik-izin-takip-programi/" aria-label="IDENFIT İZİN YÖNETİMİ"><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-3.png" alt="" class="wp-image-2029"></a>
 
 IDENFIT İZİN YÖNETİMİ
 
@@ -56,7 +56,7 @@ Personellerin birbirleriyle uyum içinde çalışması, alınan izinlerin ve ya
 
 ## Yazılımlar ve İşe Alım Yönetimi
 
-<a href="/ise-alim-modulu/" aria-label="IDENFIT İŞE ALIM"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-1-1024x958.png" alt="" class="wp-image-2030" style="width:512px;height:479px"></a>
+<a href="/ise-alim-modulu/" aria-label="IDENFIT İŞE ALIM"><img decoding="async" src="/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-1-1024x958.png" alt="" class="wp-image-2030" style="width:512px;height:479px"></a>
 
 IDENFIT İŞE ALIM
 

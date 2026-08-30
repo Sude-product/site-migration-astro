@@ -4,7 +4,7 @@ title: İlk İş Gününe Nasıl Hazırlanmalı?
 date: '2019-12-12T13:37:33'
 excerpt: İlk iş günü , hem çalışan hem de işveren için oldukça önemlidir. İşyerinde ilk gün , işe yeni başlayacak kişi için stresli geçebileceğinden bu süreci işverenin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/12/ilk-is-gunune-nasil-hazirlanmali.png
+  url: /wp-content/uploads/2019/12/ilk-is-gunune-nasil-hazirlanmali.png
   alt: İlk İş Gününe Nasıl Hazırlanmalı?
   width: 2272
   height: 1497
@@ -21,7 +21,7 @@ modifiedDate: '2025-08-25T14:45:40'
 
 ## **Yeni İşe Başlama Maili**
 
-![yeni ise baslama maili](https://idenfit.com/wp-content/uploads/2019/12/1_3.png)
+![yeni ise baslama maili](/wp-content/uploads/2019/12/1_3.png)
 
 İşverenin **ilk gün**den şirketteki diğer çalışanların da bulunduğu bir e-mail grubuna çalışanla ilgili bir “**Hoş Geldin Duyurusu**” göndermesi önemlidir. Bu hem çalışana şirkette önemsendiğini hissettirir hem de diğer çalışanlar **ekibe yeni katılan** kişi hakkında bilgi sahibi olurlar. E-mailin içeriğinde yeni çalışanın isminin, unvanının, çalışacağı departmanın, hatta hobi veya sevdiği yiyecekler gibi kişisel bilgilerin bulunması gerekir.
 
@@ -29,7 +29,7 @@ Diğer çalışanlar ve yeni başlayan çalışan arasında ister istemez **ilk 
 
 ## **Yeni Bir İş ve Çalışan için Ortamı Önceden Hazırlamak**
 
-![yeni bir is baslangici](https://idenfit.com/wp-content/uploads/2019/12/2_3.png)
+![yeni bir is baslangici](/wp-content/uploads/2019/12/2_3.png)
 
 İşe yeni başlayacak bir çalışanın gittiği şirkette kendisi için hazırlanılmamış olmasını görmesi ve bir yerinin dahi olmadığını fark etmesi onun motivasyonunu daha **ilk gün**den kırmaya yetebilir. Bu yüzden hem çalışanı işe geldiği gün karşılayacak biri olmalıdır hem de çalışacağı alanı önceden hazırlamak gereklidir. Bilgisayar, telefon, ofis malzemeleri, e-posta kurulumu ve bilgisayarının ağ erişimi önceden planlanmalıdır.
 
@@ -41,7 +41,7 @@ Yapılacak bütün bu çalışmalar sayesinde **yeni çalışan**ın kurumun de�
 
 ## **İlk İş Günü İçin Merakı Ortadan Kaldırmak Adına Bir Personel Rehberi Sunmak**
 
-![ilk is günü süreci](https://idenfit.com/wp-content/uploads/2019/12/3_3.png)
+![ilk is günü süreci](/wp-content/uploads/2019/12/3_3.png)
 
 **İşe yeni başlayacak kişi**, kurum ve kurumdaki diğer çalışanlar hakkında büyük soru işaretleri ile doludur. Bu yüzden kurum çalışanlarının basit bilgilerinin yer aldığı bir liste vermeniz hem yeni çalışma arkadaşlarına aşina olması hem de kendini rahat hissetmesi adına fayda sağlar. Listeyi yazıcıdan çıktı alınmış bir A4 ile vermek yerine online şekilde sunmanız daha doğru olur.
 
@@ -49,7 +49,7 @@ Hatta bunun için güncel çalışanların bir listesinin olduğu, unvan ve ilet
 
 ## **İşyerinde İlk Gün İmzalanması Gereken Evrakları Sadeleştirmek**
 
-![ilk is günü evragi](https://idenfit.com/wp-content/uploads/2019/12/4_3.png)
+![ilk is günü evragi](/wp-content/uploads/2019/12/4_3.png)
 
 Her iş yerinde **çalışanın ilk günü** için yapılması gereken bazı formaliteler bulunur. Genellikle çalışanın imzalamasını gerektiren evraklardan oluşan bu formaliteler pek çok kağıtla uğraşılmasına neden olduğu için sıkıcı gelebilir. Bu süreci daha etkili ve faydalı bir şekilde yönetebilmek adına evrakları çalışanın elektronik ortamda imzalayabileceği bir formatta sunabilirsiniz. Bu durum hem size hem de çalışana zaman tasarrufu sağlar. 
 
@@ -57,7 +57,7 @@ Formalitelerin ve evrakların dijital ortamda sunulup imzalanması gelecekte bu 
 
 ## **Oryantasyon Soruları ve Oryantasyon Programı**
 
-![oryantasyon sorulari](https://idenfit.com/wp-content/uploads/2019/12/5_3.png)
+![oryantasyon sorulari](/wp-content/uploads/2019/12/5_3.png)
 
 ## **Öncelikle Oryantasyon Nedir?**
 
@@ -71,7 +71,7 @@ Formalitelerin ve evrakların dijital ortamda sunulup imzalanması gelecekte bu 
 
 ## **İlk İş Günü için Görevli Olacak Mentor Planlanması**
 
-![oryantasyon programi](https://idenfit.com/wp-content/uploads/2019/12/6_2.png)
+![oryantasyon programi](/wp-content/uploads/2019/12/6_2.png)
 
 **Yeni işe başlamak** çalışan için gerginliklerle doludur. Bu süreçte kendisini sevdirmek ve ortama kabul ettirmek isteyen çalışan kendisiyle ilgilenebilecek ve alışmasına yardımcı olabilecek birine ihtiyaç duyar. İşverenin bu süreçte çalışana destek olması için yakın bir çalışma arkadaşı ya da müdür görevlendirmesi gerekir. Bu sayede çalışan merak ettiği tüm soruları bu mentora sorarak sağlıklı bilgiler alabilir.
 
@@ -79,7 +79,7 @@ Formalitelerin ve evrakların dijital ortamda sunulup imzalanması gelecekte bu 
 
 ## **İlk İş Günü Etkinliği**
 
-![ilk is günü etkinligi](https://idenfit.com/wp-content/uploads/2019/12/7_1.png)
+![ilk is günü etkinligi](/wp-content/uploads/2019/12/7_1.png)
 
 **İşe yeni başlamak**, diğer çalışanlarla kaynaşabilme endişelerini de beraberinde getirdiği için bu süreci çok daha sorunsuz bir şekilde geçirebilmek adına yeni çalışan için bir etkinlik organize edebilirsiniz. Böylece hem yeni çalışan kendini ilk gününde iyi hisseder hem de diğer çalışanlarda ekip olma bilinci güçlenir. Bu etkinliği kurumun ayırabileceği bütçeyle orantılı olarak dilediğiniz şekilde planlayabilirsiniz.
 

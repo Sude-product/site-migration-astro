@@ -4,7 +4,7 @@ title: Gelir Vergisi Dilimleri 2020
 date: '2019-11-11T17:36:26'
 excerpt: Gelir vergisi dilimleri ve gelir vergisinin nasıl hesaplanacağı her yıl çalışanlar açısından büyük önem taşıyan konulardır. Türk Dil Kurumu vergi kelimesinin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/11/gelir-vergisi-hesaplama-1.jpg
+  url: /wp-content/uploads/2019/11/gelir-vergisi-hesaplama-1.jpg
   alt: Gelir Vergisi Dilimleri 2020
   width: 2272
   height: 1620
@@ -19,7 +19,7 @@ Gelir vergisi dilimleri ve gelir vergisinin nasıl hesaplanacağı her yıl çal
 
 ## **Vergi Çeşitleri Nelerdir?**
 
-![gelir vergisi cesitleri](https://idenfit.com/wp-content/uploads/2019/11/1-3.png)
+![gelir vergisi cesitleri](/wp-content/uploads/2019/11/1-3.png)
 
 Verginin genel olarak tanımını yaptıktan sonra, **[Gelir Vergisi Kanunu](https://www.mevzuat.gov.tr/MevzuatMetin/1.4.193.pdf)**‘nda tanımlanmış olan vergi çeşitlerini ve detaylarını yakından incelemekte fayda var. Böylelikle bireysel veya kurumsal olarak hangi vergi çeşitlerine tabi olduğunuzu öğrenebilirsiniz. Gelir İdaresi Başkanlığı’nın açıkladığı listeye göre Türkiye’de 200 civarında vergi kalemi olsa da en sık kullanılan ve tahakkuk ettirilen vergi kalemleri **gelir vergisi**, kurumlar vergisi, katma değer vergisi, özel tüketim vergisi, motorlu taşıtlar vergisi, damga vergisi ve emlak vergisi olarak karşımıza çıkmaktadır.
 
@@ -49,13 +49,13 @@ Türkiye toprakları üzerine inşa edilmiş tüm binalar, kullanım amacı fark
 
 Bunlara ek olarak sık karşılaşılan vergi çeşitlerinden bir diğeri ise genel servet vergisidir. Kişilere miras yolu ile kalan menkul, gayrimenkul ve nakdi varlıklar ile bağış yolu ile intikal eden kazançları kapsar. Ayrıca ikramiye ve piyango kazançları da bu vergiye tabidir.
 
-<a href="/masraf-yonetimi-modulu/" aria-label="İNSAN KAYNAKLARI YÖNETİMİ VE HARCAMALAR MODÜLÜ İÇİN IDENFİT"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/Varlık-18@2x-1024x844.png" alt="" class="wp-image-2402"></a>
+<a href="/masraf-yonetimi-modulu/" aria-label="İNSAN KAYNAKLARI YÖNETİMİ VE HARCAMALAR MODÜLÜ İÇİN IDENFİT"><img decoding="async" src="/wp-content/uploads/2020/09/Varlık-18@2x-1024x844.png" alt="" class="wp-image-2402"></a>
 
 [İNSAN KAYNAKLARI YÖNETİMİ](/masraf-yonetimi-modulu/) VE [HARCAMALAR MODÜLÜ](/masraf-yonetimi-modulu/) İÇİN [IDENFİT](/)
 
 ## **Vergiye Tabi Gelir Nasıl Oluşur?**
 
-![gelir vergisi](https://idenfit.com/wp-content/uploads/2019/11/2-3.png)
+![gelir vergisi](/wp-content/uploads/2019/11/2-3.png)
 
 Gerçek kişilerin bir takvim yılı içinde elde ettikleri gelirin toplam tutarı, vergilendirilecek kısmını ve vergi oranını belirler. Bu hesaplamayı yapabilmek için ilk adım, gerçek geliri oluşturan unsurların net olarak tespit edilip toplanmasıdır. Gelir olarak kabul edilen kazanç türlerini bilmeniz **vergi dilimi**nizi hesaplarken işinizi kolaylaştıracaktır.
 
@@ -89,13 +89,13 @@ Menkul veya gayrimenkullerden kaynaklı değer artışı kazancı gibi ek gelirl
 
 ## **Kimler Gelir Vergisi Mükellefidir?**
 
-![gelir vergisi mukellefi](https://idenfit.com/wp-content/uploads/2019/11/3-3.png)
+![gelir vergisi mukellefi](/wp-content/uploads/2019/11/3-3.png)
 
 **Gelir vergisi** mükellefleri tam mükellef ve dar mükellef olarak ikiye ayrılır. Tam mükellefler, ikametgahı Türkiye’de bulunan, bir takvim yılı içinde Türkiye’de devamlı olarak altı aydan fazla oturan, resmi daire ve müesseselere veya merkezi Türkiye’de bulunan teşekkül ve teşebbüslere bağlı olup adı geçen daire, müessese, teşekkül ve teşebbüslerin işleri dolayısıyla yabancı memleketlerde oturan Türk vatandaşlarıdır. Dar mükellefler ise Türkiye’de yerleşmiş olmayan gerçek kişilerdir ve sadece Türkiye’de elde ettikleri kazanç ve iratlar üzerinden vergilendirilirler.
 
 ## **2020 Gelir Vergisi Dilimleri Nelerdir?**
 
-![2019 gelir vergisi dilimleri](https://idenfit.com/wp-content/uploads/2019/11/4-3.png)
+![2019 gelir vergisi dilimleri](/wp-content/uploads/2019/11/4-3.png)
 
 2019 gelir vergisi dilimleri 2020 takvim yılı için revize edilmiş ve yeniden belirlenmiştir. **Gelir Vergisi Kanunu**nun 103. maddesinin birinci fıkrasında yer alan gelir vergisine tabi gelirlerin vergilendirilmesinde esas alınan tarife, 2020 takvim yılı **gelir vergisi dilimleri** belirlenmesinde esas alınmak üzere aşağıdaki şekilde düzenlenmiştir. Gelir vergisi dilimleri 2020 :
 
@@ -108,6 +108,6 @@ Menkul veya gayrimenkullerden kaynaklı değer artışı kazancı gibi ek gelirl
 
 ## **Gelir Vergisi Ödemesi Ne zaman Yapılır?**
 
-![gelir vergisi odemesi](https://idenfit.com/wp-content/uploads/2019/11/5-2.png)
+![gelir vergisi odemesi](/wp-content/uploads/2019/11/5-2.png)
 
 Her yıl düzenli olarak 2 taksitte yapılan **gelir vergisi ödemesi**, basit usule tabi olan ve olmayan mükellefler için farklı ödeme tarihlerine sahiptir. Basit usulde kazanç sağlayan mükellefler ilk taksitlerini şubat ayı, ikinci taksitlerini ise haziran ayı sonuna kadar ödeyebilir. Ancak elde edilen kazançlar sadece basit usulden oluşmuyorsa **gelir vergisi ödeme** süresi mart ayı ve temmuz ayı sonuna kadardır.

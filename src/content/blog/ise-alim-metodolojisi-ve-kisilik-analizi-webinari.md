@@ -4,7 +4,7 @@ title: İşe Alım Metodolojisi ve Kişilik Analizi Webinarı
 date: '2024-02-12T11:39:39'
 excerpt: Bu webinar, işe alım sürecinde etkili bir metodoloji oluşturmayı ve kişilik analiz raporlarını doğru şekilde kullanmayı öğretmeyi amaçlamaktadır. İşverenler ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/20240308-ise-alim-webinari-konusmacilar-1-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/20240308-ise-alim-webinari-konusmacilar-1-1392x783-1.jpg
   alt: İşe Alım Metodolojisi ve Kişilik Analizi Webinarı
   width: 1392
   height: 783
@@ -32,19 +32,19 @@ Gerçekleştirildi.
 
 Yeniden İzle
 
-![profile-26](https://idenfit.com/wp-content/uploads/2023/08/kenan-sahan.png)
+![profile-26](/wp-content/uploads/2023/08/kenan-sahan.png)
 
 Kenan Şahan\
 **ebebek**\
 HR Director
 
-![profile-25](https://idenfit.com/wp-content/uploads/2023/08/selim-asil.png)
+![profile-25](/wp-content/uploads/2023/08/selim-asil.png)
 
 Selim Asil\
 **PlusDISC**\
 Co-Founder
 
-![hazal temurlenk](https://idenfit.com/wp-content/uploads/2024/02/hazal-temurlenk.png)
+![hazal temurlenk](/wp-content/uploads/2024/02/hazal-temurlenk.png)
 
 Hazal Temurlenk\
 **Peopling**\

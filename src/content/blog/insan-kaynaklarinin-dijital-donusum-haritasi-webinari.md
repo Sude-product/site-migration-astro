@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşüm Haritası Webinarı
 date: '2024-01-11T17:01:44'
 excerpt: Bu etkinlik, katılımcılara işletmelerinde dijitalleşme sürecinde insan kaynakları yönetimini etkili bir şekilde nasıl entegre edebileceklerini öğretmeyi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/webinar-ik-dijital-donusum-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/webinar-ik-dijital-donusum-1392x783-1.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşüm Haritası Webinarı
   width: 1392
   height: 783
@@ -32,19 +32,19 @@ Bu etkinlik, katılımcılara işletmelerinde dijitalleşme sürecinde insan kay
 
 [Kayıt Olun](https://forms.gle/JpY2HFE4t8bZVCdt6)
 
-![Selim Yener](https://idenfit.com/wp-content/uploads/2024/01/konumaci-selim-yener.png)
+![Selim Yener](/wp-content/uploads/2024/01/konumaci-selim-yener.png)
 
 **Selim Yener**\
 Consultant\
 HR Digital Transformation Leader
 
-![Kemal Kocak](https://idenfit.com/wp-content/uploads/2024/02/konusmaci-kemal-kocak-1.png)
+![Kemal Kocak](/wp-content/uploads/2024/02/konusmaci-kemal-kocak-1.png)
 
 **Kemal Koçak**\
 Datassist\
 Chief Growth Officer
 
-![Gülnur Narin](https://idenfit.com/wp-content/uploads/2024/01/konusmaci-gulnur-narin.jpg)
+![Gülnur Narin](/wp-content/uploads/2024/01/konusmaci-gulnur-narin.jpg)
 
 **Gülnur Narin**\
 Zeren Group\

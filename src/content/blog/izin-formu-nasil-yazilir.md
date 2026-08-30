@@ -4,7 +4,7 @@ title: İzin Formu Nasıl Yazılır?
 date: '2020-09-30T12:24:50'
 excerpt: İzin formu , çalışanların yıllık izin talebinde bulundukları zaman ihtiyaç duydukları belgedir. Yıllık izin talebinde bulunamak için çalışanların belirli…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/çalişma-ve-yaşam-dengesi@3x.png
+  url: /wp-content/uploads/2025/08/çalişma-ve-yaşam-dengesi@3x.png
   alt: İzin Formu Nasıl Yazılır?
   width: 2271
   height: 1497
@@ -35,7 +35,7 @@ modifiedDate: '2025-09-29T13:04:12'
 *   İzin formunda izne çıkacak olan çalışanın adı soyadı ve imzası, izin başlangıç ve bitiş tarihi, izin süresi gibi birçok bilgiye yer verilmesi gerekiyor.
 *   İşverenin, çalışanların yıllık ücretli izin kullanımlarını gösteren **izin kayıt belgesini** tutması zorunlu.
 
-![](https://idenfit.com/wp-content/uploads/2020/09/unnamed-3-1.png)
+![](/wp-content/uploads/2020/09/unnamed-3-1.png)
 
 [**IDENFİT İZİN YÖNETİMİ MODÜLÜ**](/yillik-izin-takip-programi/)
 

@@ -4,7 +4,7 @@ title: Personel Takibi Rehberi
 date: '2024-10-30T23:17:02'
 excerpt: Planlama ve izleme bir işletme için hayati öneme sahiptir. Kontrolü iyi yapılmayan bir organizasyon zamanla aşınır ve dejenere olur. İşletmelerin asli…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/personel-takibi-rehberi.jpg
+  url: /wp-content/uploads/2025/08/personel-takibi-rehberi.jpg
   alt: Personel Takibi Rehberi
   width: 1280
   height: 721

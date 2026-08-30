@@ -4,7 +4,7 @@ title: Maaş Zammı Hesaplama, Maaş Yüzdesi Nasıl Hesaplanır?
 date: '2024-12-09T22:04:25'
 excerpt: Yıl sonuna geldiğimiz bugünlerde milyonlarca çalışanı ilgilendiren en önemli konuların başında maaş zammı geliyor. Çeşitli parametrelere göre belirlenen maaş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/zam-hesaplama-maas-yuzdesi-nasil-hesaplanir.jpg
+  url: /wp-content/uploads/2025/08/zam-hesaplama-maas-yuzdesi-nasil-hesaplanir.jpg
   alt: Maaş Zammı Hesaplama, Maaş Yüzdesi Nasıl Hesaplanır?
   width: 1280
   height: 720

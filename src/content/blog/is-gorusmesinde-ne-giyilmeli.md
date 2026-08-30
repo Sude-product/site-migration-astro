@@ -4,7 +4,7 @@ title: İş Görüşmesinde Ne Giyilmeli?
 date: '2019-11-21T11:26:46'
 excerpt: İş görüşmesi kıyafetleri , genellikle resmî olsa da kuruluşun kültürü bu durumu tam tersine çevirebiliyor. Bu nedenle iş görüşmesi kıyafeti dendiğinde döpiyes…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/11/is-gorusmesinde-ne-giyilmeli.jpg
+  url: /wp-content/uploads/2019/11/is-gorusmesinde-ne-giyilmeli.jpg
   alt: İş Görüşmesinde Ne Giyilmeli?
   width: 1515
   height: 1080
@@ -21,7 +21,7 @@ modifiedDate: '2025-08-25T14:52:47'
 
 ## **İş Görüşmesi Kıyafeti Neden Farklıdır? İş Görüşmesinde Ne Giyilir?**
 
-![is gorusmesinde ne giyilmeli](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-9.png)
+![is gorusmesinde ne giyilmeli](/wp-content/uploads/2019/11/Varlƒ±k-9.png)
 
 **CV** **görüşmesinde** ne giymeniz gerektiğini belirleyen bazı önemli etkenler bulunuyor. Kendi stilinizin yanı sıra karşı tarafı; yani görüşmeye gideceğiniz kuruluşu da iyi analiz etmeniz gerekiyor. Bu durum aynı zamanda ezberci davranmayıp, karşı tarafı anlamaya çalıştığınız için de size büyük ölçüde avantaj sağlıyor.
 
@@ -31,7 +31,7 @@ Tüm bu nedenlerden dolayı kadınlarda da erkeklerde de yalnızca standart bir 
 
 ## **Kadınlar İçin İş Görüşmesi Kıyafeti**
 
-![kadin is gorusmesi kiyafeti](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-15.png)
+![kadin is gorusmesi kiyafeti](/wp-content/uploads/2019/11/Varlƒ±k-15.png)
 
 Günlük hayatta olduğu gibi **iş görüşmeleri**nde de kadınların **kıyafet seçenekleri** erkeklere oranla çok daha fazla alternatif içeriyor. Bu durum da kadınların tıpkı günlük hayatta olduğu gibi iş görüşmelerinde de neler giyebileceklerine dair kafalarının karışmasına sebep olabiliyor.
 
@@ -39,7 +39,7 @@ Günlük hayatta olduğu gibi **iş görüşmeleri**nde de kadınların **kıyaf
 
 ## **Her İş Görüşmesinde Döpiyes mi Giyilmeli? Döpiyes Nedir?**
 
-![dopiyes nedir](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-13.png)
+![dopiyes nedir](/wp-content/uploads/2019/11/Varlƒ±k-13.png)
 
 Öncelikle **“Döpiyes nedir?”** sorusunun cevabını öğrenmek isteyebilirsiniz. Kadınların genellikle özel veya resmî zamanlarda tercih ettikleri, çoğu zaman şık bir ceket ve diz hizasında etekten oluşan takımlar, “döpiyes” ve ya “**döpiyes elbise**” olarak adlandırılıyor. Döpiyes dendiğinde akla ilk olarak etek ve ceketten oluşan takım elbise gelse de bu kelime aslında Fransızca “2 parçalı” anlamına geliyor. 
 
@@ -47,7 +47,7 @@ Aynı zamanda pantolon ve ceketten oluşan takımları da kapsayan döpiyesin bi
 
 ## **İş Görüşmeleri İçin Bluz Gömlek ve Pantolon Kombinleri**
 
-![is gorusmesi kiyafetleri](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-10-1024x367.png)
+![is gorusmesi kiyafetleri](/wp-content/uploads/2019/11/Varlƒ±k-10-1024x367.png)
 
 Daha **‘casual’** bir **iş görüşmesi** tarzı için düz bluzları, gömlekleri ve çeşitli pantolonları tercih edebilirsiniz. Örneğin; beyaz gömlek ve siyah, gri düz kesim bir kumaş pantolonla risksiz bir kombin oluşturabilirsiniz. Ya da daha iddialı bir görüntü için yine beyaz gömlekle siyah deri pantolon ve ince topuklu bir ayakkabıyı kombinleyebilirsiniz.
 
@@ -55,7 +55,7 @@ Uyumlu olmanın önem kazandığı bir **iş görüşmesi**ne gidecekseniz, bej,
 
 ## **İş Görüşmelerinde Desensiz Düz Parçalar Kullanmak**
 
-![is gorusmesinde ne giyilir](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-11-1-1024x251.png)
+![is gorusmesinde ne giyilir](/wp-content/uploads/2019/11/Varlƒ±k-11-1-1024x251.png)
 
 Reklam ajansları, butik işletmeler ve bazı medya kuruluşlarında **iş görüşmeleri** için çok özel hazırlanmak gerekmeyebiliyor. Bunu ilgili kuruluşun çalışanlarından, sosyal medya hesaplarından ve genel şirket kültüründen anlayabiliyorsunuz. Böyle durumlarda kazak, keten pantolon ve babet gibi rahat parçaları da değerlendirebilirsiniz.
 
@@ -67,7 +67,7 @@ Kadınlar pek çok parçayı **iş görüşmeleri**nde giyebilse de taytlar, rug
 
 ## **Erkekler İçin İş Görüşmesi Kıyafeti**
 
-![erkek is gorusmesi kiyafeti](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-14.png)
+![erkek is gorusmesi kiyafeti](/wp-content/uploads/2019/11/Varlƒ±k-14.png)
 
 Belli başlı kombinlerden oluşan erkek **iş görüşmesi kıyafetleri**, genellikle yalnızca sade bir takımdan oluşabiliyor. ‘**Business casual**‘ olarak adlandırılan tarzda daha günlük parçalar da içerebiliyor. İşin niteliğine, şirketin profiline göre **erkeklerin iş görüşmelerinde giymesi gereken** kombinler de birbirinden oldukça farklılaşabiliyor.
 
@@ -81,7 +81,7 @@ Orta ve üst düzey yöneticilik, pazarlama ve benzeri işlerin görüşmelerind
 
 ## **Business Casual Giyim İş Görüşmelerinde Fark Yaratın**
 
-![is gorusmesi business casual](https://idenfit.com/wp-content/uploads/2019/11/Varlƒ±k-12.png)
+![is gorusmesi business casual](/wp-content/uploads/2019/11/Varlƒ±k-12.png)
 
 “**Business casual nedir**?” sorusunun cevabı; “Formal imaja yakın günlük kıyafetlerden oluşan kombinler.” şeklinde tanımlanıyor. Örneğin; kahverengi, düz bir kazak ve bej rengi keten pantolon tercih edilebiliyor. Ve altına giyebileceğiniz kahverengi deri ayakkabılar, **‘business casual’** tarzını oluşturuyor.
 

@@ -4,7 +4,7 @@ title: İK Liderliği Kavramı
 date: '2022-01-19T19:29:10'
 excerpt: Pandemi döneminde ve sonrasında yaşanan normale dönüş sürecinde yeni politikalar geliştirmek ve sürdürmek için yoğun çalışmalar yürüten İK liderleri birçok…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/I╠cK-Liderlig╠ai@2x.jpg
+  url: /wp-content/uploads/2022/01/I╠cK-Liderlig╠ai@2x.jpg
   alt: İK Liderliği Kavramı
   width: 1515
   height: 999

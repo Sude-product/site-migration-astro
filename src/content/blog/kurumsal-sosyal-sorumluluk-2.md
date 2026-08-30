@@ -4,7 +4,7 @@ title: Kurumsal Sosyal Sorumluluk Rehberi
 date: '2023-03-31T10:27:44'
 excerpt: Kurumsal sosyal sorumluluk konusu son yıllarda şirketlerin odağına yerleşti. Bilhassa da post pandemi sürecinde çalışanların insan kaynağını ön planda tutan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/03/Kurumsal-sosyal-sorumluluk.jpg
+  url: /wp-content/uploads/2023/03/Kurumsal-sosyal-sorumluluk.jpg
   alt: Kurumsal Sosyal Sorumluluk Rehberi
   width: 1621
   height: 811

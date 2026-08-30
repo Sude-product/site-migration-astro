@@ -4,7 +4,7 @@ title: Dijital İK Süreçleri Hakkında Tüm Merak Ettikleriniz
 date: '2024-06-28T23:09:00'
 excerpt: Dijital İK süreçleri, günümüz iş dünyasının ritmine ayak uydurmak için başlıca gereklilikler arasında yer alıyor. İK’da dijital dönüşüm, insan kaynakları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/dijital-ik-surecleri.jpg
+  url: /wp-content/uploads/2025/08/dijital-ik-surecleri.jpg
   alt: Dijital İK Süreçleri Hakkında Tüm Merak Ettikleriniz
   width: 1281
   height: 721

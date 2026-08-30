@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yöneticileri için Kitaplar
 date: '2019-12-18T17:46:58'
 excerpt: Şirketlerde çalışanların verimli bir şekilde çalışabilmesini sağlamak, yönetici ve insan kaynakları yöneticileri ve insan kaynakları uzmanlarının görevidir. Bu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/kitap-okuma@3x-100.jpg
+  url: /wp-content/uploads/2025/08/kitap-okuma@3x-100.jpg
   alt: İnsan Kaynakları Yöneticileri için Kitaplar
   width: 2272
   height: 1497
@@ -20,7 +20,7 @@ modifiedDate: '2025-09-29T12:03:39'
 
 ## **İnsan Kaynakları Kitapları Okumanın Önemi**
 
-![ik icin kitaplar](https://idenfit.com/wp-content/uploads/2019/12/1_3-1.png)
+![ik icin kitaplar](/wp-content/uploads/2019/12/1_3-1.png)
 
 Şirketler, yıllık hedeflerine ulaşabilmek için çalışanlarının yüksek verimde çalışmasına ihtiyaç duyar. Bu verimli çalışma ortamının oluşturulabilmesi için de insan kaynakları uzmanlarına ve yöneticilere büyük görevler düşer. Ancak, bu görevleri yalnızca teorik bilgilerle ve mesleki tecrübelerle sağlamak mümkün olmayabilir. Yönetici pozisyonundaki kişilerin **liderlik ile ilgili kitaplar**, İK uzmanı olan kişilerin de **insan kaynakları kitabı** okuması gerekebilir.
 
@@ -30,85 +30,85 @@ Ayrıca yöneticinin ya da uzmanın daha gelişmiş bir dünya görüşüne sahi
 
 ### **1\. İyiden Mükemmel Şirkete**
 
-![iyiden mukemmel sirkete kitap](https://idenfit.com/wp-content/uploads/2019/12/iyiden-mukemmel-sirkete.jpg)
+![iyiden mukemmel sirkete kitap](/wp-content/uploads/2019/12/iyiden-mukemmel-sirkete.jpg)
 
 Akademik nitelik taşıyan bir kitap olan Jim Collins’in _İyiden Mükemmel Şirkete_ isimli kitabı, şirketlerin başarıya ulaşabilmesinin ve ulaşamamasının nedenlerini anlatır. Bu kitabı okuyarak aynı pazarda yer alan şirketlerden bazılarının neden öne çıktığının, bazılarının niye neden başarısızlıkla karşı karşıya kaldığının cevaplarına ulaşabilirsiniz. Ancak, kitabın akademik dille yazıldığını ve bu yüzden biraz ağır olduğunu unutmamalısınız.
 
 ### **2\. Google Nasıl Yönetiliyor?**
 
-![google nasil yonetiliyor kitap](https://idenfit.com/wp-content/uploads/2019/12/google-nasil-yonetiliyor.jpg)
+![google nasil yonetiliyor kitap](/wp-content/uploads/2019/12/google-nasil-yonetiliyor.jpg)
 
 En hızlı büyüyen ve en popüler şirketlerden bir tanesi olan Google’ın başarısının ardındaki nedenleri inceleyen _Google Nasıl Yönetiliyor?_ adlı kitap, şirketin kuruluşundan itibaren atlattığı süreçleri içerir. “**Yönetici olmak için ne okumalı**?” diye düşünüyorsanız şirket kültürü, işe alım süreçleri ve yönetimle ilgili önemli bilgilerin yer aldığı bu kitabı “**En İyi İnsan Kaynakları Kitapları**” listenize ekleyebilirsiniz.
 
 ### **3\. İnsanların Oynadığı Oyunlar**
 
-![insanlarin oynadigi oyunlar kitap](https://idenfit.com/wp-content/uploads/2019/12/insanlarin-oynadigi-oyunlar.jpg)
+![insanlarin oynadigi oyunlar kitap](/wp-content/uploads/2019/12/insanlarin-oynadigi-oyunlar.jpg)
 
 Bir **insan kaynakları yöneticileri için el kitabı** olarak gösterilebilecek _İnsanların Oynadığı Oyunlar_; insan kaynağını yönetebilmek konusunda oldukça önemli ipuçları sunar. Yöneticilerin ve **psikoloji öğrencilerinin okuması gereken kitaplar** arasında da yer alan kitap iki bölümden oluşur. İlk bölümde iletişim analizi konusuna değinilirken ikinci bölümde karşı tarafa galip gelebilmek için bilinçaltı yönlendirmesiyle yapılan öğrenilmiş hareketler işlenir.
 
 ### **4\. Kişisel Liderlik ve 1 Dakika Yöneticisi**
 
-![kisisel liderlik ve 1 dakika yoneticisi kitap](https://idenfit.com/wp-content/uploads/2019/12/kisisel-liderlik-.jpg)
+![kisisel liderlik ve 1 dakika yoneticisi kitap](/wp-content/uploads/2019/12/kisisel-liderlik-.jpg)
 
 **En iyi liderlik kitapları** arasında gösterilen _Kişisel Liderlik ve 1 Dakika Yöneticisi_ yöneticilikle ilgilenen herkesin en az bir defa okuması gereken bir kitaptır. Kitapta ekiplerin nasıl yönetileceğinden çalışan ve yönetici arasındaki iletişim diline kadar pek çok konuda sistematik bilgilere ulaşabilirsiniz. Üstelik kısa ve öz anlatımıyla bu kitap, **okunması gereken en iyi kitaplar** arasında yer alır.
 
 ### **5\. Takım Oyunu**
 
-![takim oyunu kitap](https://idenfit.com/wp-content/uploads/2019/12/takim-oyunu.jpg)
+![takim oyunu kitap](/wp-content/uploads/2019/12/takim-oyunu.jpg)
 
 **İnsan kaynakları yönetimi kitapları** arasındaki en çok satanlardan olan Seth Godin’in _Takım Oyunu_ adlı kitabı liderliği odak noktasına alır. İnsanları yönetmeyi bilen, fark yaratan, iyi iletişim kuran ve gerektiğinde risk alabilen başarılı liderlerin anlatıldığı kitap, lider adaylarına nasıl liderlik yapılabileceğinin yöntemlerini gösterir. Hatta Godin’e göre herkes potansiyel bir liderdir ama pek çoğu bunu istemez.
 
 ### **6\. Liderliğin Kutsal Kitabı**
 
-![liderligin kutsal kitabi](https://idenfit.com/wp-content/uploads/2019/12/liderligin-kutsal-kitabi.jpg)
+![liderligin kutsal kitabi](/wp-content/uploads/2019/12/liderligin-kutsal-kitabi.jpg)
 
 Liderlik konusunda **okunması tavsiye edilen kitaplar** arasında _Liderliğin Kutsal Kitabı_ da bulunur. Jeffrey Gitomer bu kitapta 12 adet liderlik özelliğini inceler. Özellikle gerçek ve başarılı bir lider olmak istiyorsanız sahip olmanız beklenen becerileri bu kitapta bulabilirsiniz. Dolayısıyla bu kitaptaki bilgiler ışığında kendinize ekleyeceğiniz yeni özelliklerle daha başarılı ve şirkete katkı sağlayan bir lider haline gelebilirsiniz.
 
 ### **7\. Duygusal Zeka**
 
-![duygusal zeka kitap](https://idenfit.com/wp-content/uploads/2019/12/duygusal-zeka.jpg)
+![duygusal zeka kitap](/wp-content/uploads/2019/12/duygusal-zeka.jpg)
 
 Mutlaka **okunması gereken psikoloji kitapları** arasında gösterilen ve Psikolog Dr. Daniel Goleman tarafından yazılan _Duygusal Zeka_, iyi bir lider olabilmek için çalışanları iyi tanımanın öneminden bahseder. Duygusal zekadan yoksun olan kişilerin toplumsal ilişkilerde sorunlar yaşayabileceğini anlatan bu kitapta, iş yaşamına ve liderliğe dair çok önemli detaylar bulabilir ve kendinizi geliştirecek noktalar yakalayabilirsiniz.
 
 ### **8\. İş Yaşamında 100 Kanguru**
 
-![is yasaminda 100 kanguru kitap](https://idenfit.com/wp-content/uploads/2019/12/İş-Yaşamında-100-Kanguru.jpg)
+![is yasaminda 100 kanguru kitap](/wp-content/uploads/2019/12/İş-Yaşamında-100-Kanguru.jpg)
 
 **İnsan kaynakları yönetimi kitap** okuyarak geliştirilebilecek bir konu olduğu için Ahmet Şerif _İzgören tarafından yazılan İş Yaşamında 100 Kanguru_ kitabı da liderlik ve iş yaşamı ile ilgili her çalışanın önemli bilgiler bulabileceği kitaplar arasında yer alır. Bu kitaptan iş yaşamınızda sizi daha başarılı yapabilecek bilgiler bulmak için yönetici veya insan kaynakları uzmanı olmanıza gerekmez.
 
 ### **9\. Liderlik Dili – Başarılı CEO’ların İletişim Sırları**
 
-![liderlik dili basarili CEOlarin iletisim sirlari kitap](https://idenfit.com/wp-content/uploads/2019/12/liderlik-dili.jpg)
+![liderlik dili basarili CEOlarin iletisim sirlari kitap](/wp-content/uploads/2019/12/liderlik-dili.jpg)
 
 **Okunması gereken sosyoloji kitapları** arasında yer alan ve sosyolojinin de bir parçası olan iletişim sırlarını içeren bu kitap, CEO’lar ile yapılan söyleşileri içerir. 70’ten fazla CEO’dan deneyimlerini ve iş yaşamından çıkardıkları dersleri bulabileceğiniz kitapta liderlik yolunda ilerlerken çalışanlarla başarılı bir iletişim kurabilmek için uygulamanız gereken adımlara dair önemli çıkarımlara ve bakış açılarına ulaşabilirsiniz.
 
 ### **10\. İnsan Kaynakları Yönetimi**
 
-![insan kaynaklari yonetimi kitap](https://idenfit.com/wp-content/uploads/2019/12/İnsan-Kaynakları-Yönetimi.jpg)
+![insan kaynaklari yonetimi kitap](/wp-content/uploads/2019/12/İnsan-Kaynakları-Yönetimi.jpg)
 
 İnsan kaynakları konusunda kendinizi geliştirmek veya bilgilerinizi tazelemek istiyorsanız başucu kitabı olarak alabileceğiniz bu kitapta örnek olaylara ulaşabilirsiniz. Akademik dille yazılan kitap; İ.Ü. İnsan Kaynakları Yönetimi Anabilim Dalı Öğretim Üyeleri tarafından kaleme alınmıştır ve yazarların akademik birikimlerini içerir. Dilini ağır bulabilirsiniz ancak iş yaşamınıza katkı sağlamak ve kendinizi geliştirmek için göz atmanızda fayda var.
 
 ### **11\. Nasıl Başardılar?**
 
-![nasil basardilar kitap](https://idenfit.com/wp-content/uploads/2019/12/Nasıl-Başardılar.jpg)
+![nasil basardilar kitap](/wp-content/uploads/2019/12/Nasıl-Başardılar.jpg)
 
 **En iyi strateji kitapları** genellikle girişimcilik ile ilgili olanlardır çünkü girişimcilik salt stratejinin yeterli kalmadığı durumlarda yeni planlar ve yöntemler uygulayarak başarıya ulaşmayı konu alır. Bu yüzden Türkiye’den çıkan bazı öncü girişimlerin başarılarını ve bu yolculukta geçtikleri adımları anlatan bu kitabı okuyarak kişisel gelişiminize büyük katkılar sağlayabilirsiniz. Kitaptan fayda sağlamak için girişimci olmak zorunda değilsiniz.
 
 ### **12\. Çavdar Tarlasında Çocuklar**
 
-![cavdar tarlasinda cocuklar kitap](https://idenfit.com/wp-content/uploads/2019/12/Çavdar-Tarlasında-Çocuklar.jpg)
+![cavdar tarlasinda cocuklar kitap](/wp-content/uploads/2019/12/Çavdar-Tarlasında-Çocuklar.jpg)
 
 Uzun yıllardır dünya çapında çok satan kitaplar arasında gösterilen _Çavdar Tarlasında Çocuklar_ kitabı Bill Gates’in de iş yaşamı üzerine okunmasını tavsiye ettiği bir kitaptır. Pek çok başarılı yönetici ve liderin favori kitabı olan kitap, farklı çıkarımlar sağlayabileceğiniz hem sürükleyici hem de etkileyici bir romandır. İş yaşamınıza katkısının yanı sıra kişisel gelişiminiz için de tercih edebilirsiniz.
 
 ### **13\. Savaş Sanatı**
 
-![savas sanati kitap](https://idenfit.com/wp-content/uploads/2019/12/Savaş-Sanatı.jpg)
+![savas sanati kitap](/wp-content/uploads/2019/12/Savaş-Sanatı.jpg)
 
 Aslında bir strateji kitabı olan ama **en iyi sosyoloji kitapları** ve **en güzel psikoloji kitapları** arasında da gösterilen _Savaş Sanatı_, özellikle pek çok lider tarafından rakipleri yenme konusunda önemli çıkarımlar sağlayabilecek bir yardımcı kitap olarak gösterilir. Kitapta yer alan stratejileri zihninizde iş yaşamına uyarlayarak sizi çok daha başarılı kılacak önemli bulgular elde edebilirsiniz.
 
 ### **14\. Yeni Yöneticinin El Kitabı**
 
-![yeni yoneticinin el kitabi](https://idenfit.com/wp-content/uploads/2019/12/Yeni-Yöneticinin-El-Kitabı-666x1024.jpg)
+![yeni yoneticinin el kitabi](/wp-content/uploads/2019/12/Yeni-Yöneticinin-El-Kitabı-666x1024.jpg)
 
 Liderlik ve insan yönetimi sosyolojinin bir parçası olduğu için **sosyoloji kitap önerileri** arasında da kendine yer bulan _Yeni Yöneticinin El Kitabı_, çalışanlara ilham vermek, heyecan yaratmak ve onları ikna ederek harekete geçirebilmek adına önemli yöntemler anlatır. Oldukça değerli ipuçlarının yer aldığı kitabı yöneticilik pozisyonundaki beyaz yakalı çalışanların mutlaka okuması ve kitaptaki tavsiyeleri uygulaması gerekir.
 

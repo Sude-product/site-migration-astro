@@ -4,7 +4,7 @@ title: SaaS İK Yazılımları için Kapsamlı Rehber
 date: '2023-08-30T11:55:30'
 excerpt: SaaS İK Yazılımları ile işletmenizi geleceğe taşımak için ihtiyaç duyduğunuz tüm bilgilere ulaşmaya hazır mısınız? Günümüzün dinamik iş dünyasında başarının…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/08/saas-hizmet-olarak-yazilim-nedir.jpg
+  url: /wp-content/uploads/2023/08/saas-hizmet-olarak-yazilim-nedir.jpg
   alt: SaaS İK Yazılımları için Kapsamlı Rehber
   width: 1621
   height: 811

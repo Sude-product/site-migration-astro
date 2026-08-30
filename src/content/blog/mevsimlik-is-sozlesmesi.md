@@ -4,7 +4,7 @@ title: Mevsimlik İş Sözleşmesi ve Feshi Hakkında Tüm Merak Ettikleriniz
 date: '2024-03-27T23:55:00'
 excerpt: Mevsimlik iş sözleşmesi, çalışma hayatının önemli köşe taşları arasında yer alıyor. Ancak bu sözleşmelerin doğru uygulanması, işçilerin ve işverenlerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/mevsimlik-is-sozlesmeleri-ve-feshi.png
+  url: /wp-content/uploads/2025/08/mevsimlik-is-sozlesmeleri-ve-feshi.png
   alt: Mevsimlik İş Sözleşmesi ve Feshi Hakkında Tüm Merak Ettikleriniz
   width: 811
   height: 406

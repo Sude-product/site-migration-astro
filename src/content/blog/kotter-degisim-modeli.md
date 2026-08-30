@@ -4,7 +4,7 @@ title: Kotter Değişim Modeli Nasıl Kullanılır?
 date: '2021-07-14T09:43:03'
 excerpt: John Kotter, Harvard Business School Profesörü ve tanınmış bir değişim uzmanıdır. Kotter Değişim Modeli, değişim sürecinden geçen 100 kurumun araştırmasına…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/07/kotter-degisim-modeli@2x.png
+  url: /wp-content/uploads/2021/07/kotter-degisim-modeli@2x.png
   alt: Kotter Değişim Modeli Nasıl Kullanılır?
   width: 1515
   height: 998

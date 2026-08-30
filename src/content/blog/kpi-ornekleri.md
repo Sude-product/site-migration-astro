@@ -4,7 +4,7 @@ title: Kpi Örnekleri – (Anahtar Performans Göstergesi Örnekleri)
 date: '2025-11-04T19:11:05'
 excerpt: Kpi örnekleri konusunu açıklamak için öncelikle Kpi kavramını incelemek gerekir. “ Key Performance Indicator” kelimelerinin baş harflerinden oluşur. Kpi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/kpi_ornekleri.png
+  url: /wp-content/uploads/2020/10/kpi_ornekleri.png
   alt: Kpi Örnekleri – (Anahtar Performans Göstergesi Örnekleri)
   width: 2271
   height: 1497
@@ -62,7 +62,7 @@ KPI kullanılmayan şirketlerde ikinci vurucu etki yönetim kadrosu üzerinde ke
 
 ## Kpi İçin Hangi Sorular Cevaplanmalı?
 
-![](https://idenfit.com/wp-content/uploads/2020/10/performans-yonetimi-yazılımı--1024x800.png)
+![](/wp-content/uploads/2020/10/performans-yonetimi-yazılımı--1024x800.png)
 
 **[İDENFİT PERFORMANS MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**
 

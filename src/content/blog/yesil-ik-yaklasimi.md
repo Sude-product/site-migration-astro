@@ -4,7 +4,7 @@ title: Yeşil İK Yaklaşımı ile Kağıtsız Ofis Sistemi
 date: '2022-02-10T10:03:49'
 excerpt: Yeşil İK yaklaşımı doğaya ve işletmenize sağladığı avantajlarla yakın gelecekte çok sık konuşulacak gibi duruyor. Küçük, orta ve büyük ölçekli tüm işletmelerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/yes╠gil-ik@2x.jpg
+  url: /wp-content/uploads/2022/02/yes╠gil-ik@2x.jpg
   alt: Yeşil İK Yaklaşımı ile Kağıtsız Ofis Sistemi
   width: 1514
   height: 998

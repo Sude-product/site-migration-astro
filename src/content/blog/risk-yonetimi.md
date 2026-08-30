@@ -4,7 +4,7 @@ title: ​​Risk Yönetimi Nedir?
 date: '2022-10-26T14:49:25'
 excerpt: Tüm işletmeler, faaliyetlerini yürütürken paylarına düşen sürprizler ve aksilikler ile karşı karşıya kalabilmekte. Fakat bu durum, dikkatli risk…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/Risk-Yonetimi.jpg
+  url: /wp-content/uploads/2022/10/Risk-Yonetimi.jpg
   alt: ​​Risk Yönetimi Nedir?
   width: 1515
   height: 999
@@ -67,7 +67,7 @@ Risk yönetimi hakkında işletmelerin risklerini yönetmek için ne yapmaları 
 
 İşletmelere bütün bu faydaları sağlayabilecek ve IS0 31000 Standardına uygun olarak oluşturulan risk yönetimi sürecini aşağıda açıkladık:
 
-![](https://idenfit.com/wp-content/uploads/2022/10/Varlik-2.png)
+![](/wp-content/uploads/2022/10/Varlik-2.png)
 
 **Şekil 1**. Risk Yönetimi Süreci
 

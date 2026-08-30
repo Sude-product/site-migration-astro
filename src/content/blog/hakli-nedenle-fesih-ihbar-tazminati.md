@@ -4,7 +4,7 @@ title: Haklı Nedenle Fesih İhbar ve Kıdem Tazminatı
 date: '2024-12-01T22:38:36'
 excerpt: Haklı fesih, iş akdinin yasal sebeplerle sonlanmasını ifade eden önemli bir terim olarak öne çıkıyor. İşten ayrılık süreçlerinde sıkça gündeme gelen ihbar ve…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/08/WhatsApp-Image-2021-08-27-at-09.33.38.jpeg
+  url: /wp-content/uploads/2021/08/WhatsApp-Image-2021-08-27-at-09.33.38.jpeg
   alt: Haklı Nedenle Fesih İhbar ve Kıdem Tazminatı
   width: 1515
   height: 998

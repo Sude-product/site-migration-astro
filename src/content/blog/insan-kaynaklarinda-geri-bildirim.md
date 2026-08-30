@@ -4,7 +4,7 @@ title: Geri Bildirim ve İnsan Kaynaklarında Geri Bildirimin Önemi
 date: '2020-09-18T16:58:05'
 excerpt: Geri bildirim, hayatın her alanında karşılaştığımız, talep ettiğimiz ve iletişim çağının en önemli konularından biri. Modern yönetimde ve dolayısıyla işletme…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/4.-Geri-bildirim@2x.jpg
+  url: /wp-content/uploads/2025/08/4.-Geri-bildirim@2x.jpg
   alt: Geri Bildirim ve İnsan Kaynaklarında Geri Bildirimin Önemi
   width: 1515
   height: 999
@@ -26,7 +26,7 @@ Etkili bir geri bildirim süreci ve ardından yapılacak doğru analizler, oluş
 
 ## Geri Bildirim ve İnsan Kaynakları
 
-<a href="/" aria-label="IDENFİT GERİ BİLDİRİM MODÜLÜ"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png" alt="" class="wp-image-2391"></a>
+<a href="/" aria-label="IDENFİT GERİ BİLDİRİM MODÜLÜ"><img decoding="async" src="/wp-content/uploads/2020/09/feedbackxx-3.png" alt="" class="wp-image-2391"></a>
 
 [IDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)
 

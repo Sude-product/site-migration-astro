@@ -4,7 +4,7 @@ title: Çalışan Deneyimi Nedir?
 date: '2024-09-28T14:51:14'
 excerpt: Çalışan deneyimi , bir çalışanın şirketiyle çalışmasının sonucunda ona verdiği değerler toplamını ifade eder. Hem metot hem de yaklaşım bakımından bakıldığında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/cÃsalƒ±sÃsma.png
+  url: /wp-content/uploads/2025/08/cÃsalƒ±sÃsma.png
   alt: Çalışan Deneyimi Nedir?
   width: 2272
   height: 1497
@@ -61,7 +61,7 @@ Bu bağlamda, çalışan deneyiminin iyileştirilmesi, organizasyonların çalı
 
 ## **Çalışan Deneyimi Nedir ve Ne Değildir?**
 
-![calisan deneyimi](https://idenfit.com/wp-content/uploads/2020/01/1.png)
+![calisan deneyimi](/wp-content/uploads/2020/01/1.png)
 
 En net ifadeyle **çalışan deneyimi;** çalışanların şirketleriyle gerçekleştirdikleri etkileşimlere dair sahip oldukları algıların bütünüdür. Bir diğer deyişle çalışan deneyimi; çalışan değer önermesinden, çalışan yaşam döngüsünden ve cuma günleri yapılan serbest kıyafet uygulamalarından daha fazlası olmaktadır. Çalışan deneyiminin içerisine zorlayıcı performans değerlendirmelerinin yapıldığı günler ya da hasta olduğunu öğrenen bir çalışanın yöneticisinden gördüğü tutum da girer.
 
@@ -86,7 +86,7 @@ Pozitif bir iş kültürü oluşturmak da çok önemli. Destekleyici ve kapsayı
 
 ## **Doğru Çalışan Deneyimi Sağlama**
 
-![dogru calisan deneyimi](https://idenfit.com/wp-content/uploads/2020/01/2.png)
+![dogru calisan deneyimi](/wp-content/uploads/2020/01/2.png)
 
 **Çalışan deneyimi** konusunda incelenmesi ve üzerine düşünülmesi gereken en önemli nokta; çalışanların iyi sonuçlar alabilmesine yardım etmek için doğru çalışan deneyiminin nasıl oluşturulacağı olmalıdır. Aslında bir işletmede her şey çalışanlar ile alakalıdır ve bunu fark ettiğiniz zaman **çalışan deneyimini nasıl** sağlayabileceğinizi, şirkette nasıl bir dönüşüm başlatabileceğinizi görebilirsiniz. Bu noktada genellikle liderlerin iyi gözlem yapması gerekir.
 
@@ -128,7 +128,7 @@ Ayrılma sonrası, süreçlerin analizi yapılır; çalışanların neden ayrıl
 
 ## **Çalışan Deneyimi Yönetimi için Anketler**
 
-![calisan deneyiminde anket](https://idenfit.com/wp-content/uploads/2020/01/3.png)
+![calisan deneyiminde anket](/wp-content/uploads/2020/01/3.png)
 
 **Çalışan deneyimi**ni etkili bir şekilde yönetebilmek yalnızca **insan kaynakları** departmanının görevi değildir. Bu yönetim süreci alt kademeden en üst kademeye kadar bütün yöneticilerin sorumluluğundadır. İşe yeni başlamış olandan tutun da işten ayrılan çalışana dek herkesin hemen hemen her etkileşiminin nitelikli şekilde ölçümlenmesi gerekir. Bu, “**Çalışan memnuniyeti için neler yapılabilir**?” sorusunun ilk ve en önemli cevabıdır.
 
@@ -170,13 +170,13 @@ Idenfit’in Geri Bildirim özelliğiyle çalışanlarınızın sesini daha iyi 
 
 ## **Çalışan Deneyimi için Yapılan Anketlerde Gizlilik**
 
-![calisan deneyiminde gizlilik](https://idenfit.com/wp-content/uploads/2020/01/4.png)
+![calisan deneyiminde gizlilik](/wp-content/uploads/2020/01/4.png)
 
 Yapılan anketlerden hem güvenilir hem de doğru sonuçlar almak istiyorsanız gizliliği mutlaka sağlamalısınız. Ayrıca, çalışanlarınızı uygulamaların gizliliği konusunda ikna etmelisiniz. Hatta bazı **çalışan deneyimi anketleri** anonim şekilde yapmalıdır. Ayrıca, anonim olmayanlarını da çalışanların kişisel bilgilerinin gizliliğini güvence altına alarak sunmalısınız. Çalışanların anketi doldururken rahat hissetmeleri önemlidir. Bunu sağlamak adına, verdikleri bilgilerin diğer çalışanlar veya yöneticilerle paylaşılmayacağını mutlaka vurgulamalısınız.
 
 ## **Çalışan Deneyimi için Kurum İçi Geri Bildirim Kanalları**
 
-![calisan deneyimi geri bildirim](https://idenfit.com/wp-content/uploads/2020/01/5-1024x279.png)
+![calisan deneyimi geri bildirim](/wp-content/uploads/2020/01/5-1024x279.png)
 
 Kurumunuzda çalışanların, akıllarına gelen her konuda geri bildirimde bulunabileceği kanalların yer alması önem taşır. Hatta bu geri bildirimleri sağlıklı şekilde değerlendirebilmek için sınıflandırdıktan sonra alakalı birimlere ulaştırabilirsiniz. Bir internet sitesi, kurum içinden geri bildirimlerin alınabilmesi için oldukça kullanışlı bir mecra olur. Böylece şirket tarafından sunulan hizmetler ya da ürünler, çalışanların gözünden de değerlendirilebilir.
 

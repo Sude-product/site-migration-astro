@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Değer Zinciri Analizi
 date: '2021-05-21T10:28:15'
 excerpt: Değer zinciri analizi, şirketin rekabet avantajı sağlamak için hangi faaliyetlerinin en değerli olduğunu ve hangilerinin optimize edilebileceğini anlamasına…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/05/insan-kaynaklarinda-deger-zinciri-analizi-nasil-kullanilir@2x-100.jpg
+  url: /wp-content/uploads/2021/05/insan-kaynaklarinda-deger-zinciri-analizi-nasil-kullanilir@2x-100.jpg
   alt: İnsan Kaynaklarında Değer Zinciri Analizi
   width: 1514
   height: 999

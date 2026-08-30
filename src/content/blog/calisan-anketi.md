@@ -4,7 +4,7 @@ title: Çalışan Anketi için Soru Örnekleri
 date: '2024-01-06T11:10:15'
 excerpt: “Çalışan anketleri” genellikle bir şirketin çalışan memnuniyetini ölçmek, işyeri kültürünü değerlendirmek ve çalışanların ihtiyaçlarını anlamak amacıyla…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/calisan-anketleri-icin-soru-ornekleri-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/calisan-anketleri-icin-soru-ornekleri-1392x696-1.jpg
   alt: Çalışan Anketi için Soru Örnekleri
   width: 1392
   height: 696

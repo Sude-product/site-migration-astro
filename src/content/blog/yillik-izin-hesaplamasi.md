@@ -4,7 +4,7 @@ title: Yıllık İzin Hesaplama Nasıl Yapılır?
 date: '2019-12-09T09:48:21'
 excerpt: Yıllık izin hesaplama yada izin hakediş hesaplama her çalışan için oldukça önemli bir konudur. Yıllık izin veya daha doğru adıyla yıllık ücretli izin, hem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/12/yillik-izin-hesaplama-nasil-yapilir.png
+  url: /wp-content/uploads/2019/12/yillik-izin-hesaplama-nasil-yapilir.png
   alt: Yıllık İzin Hesaplama Nasıl Yapılır?
   width: 2272
   height: 1497
@@ -20,13 +20,13 @@ Yıllık izin hesaplama yada izin hakediş hesaplama her çalışan için olduk�
 
 ## **Yıllık İzin Nedir?**
 
-![yillik izin nedir](https://idenfit.com/wp-content/uploads/2019/12/1_2.png)
+![yillik izin nedir](/wp-content/uploads/2019/12/1_2.png)
 
 Farklı izin çeşitleri ile karıştırılabildiği için öncelikle yıllık izin kavramının tanımını yapıp, sınırlarını çizerek başlamakta fayda var. Yıllık izin, çalışanın sigortalı ve aynı iş yerine bağlı şekilde belirli bir süre çalıştıktan sonra, iş süreci ile ücretinin devam etmesi şartıyla kullanabildiği izin türüne verilen isimdir. Ücretsiz izinle herhangi bir bağlantısı olmayıp, bir gerekçe gösterme zorunluluğu bulunmaksızın her çalışan tarafından kazanılıyor ve kullanılıyor.
 
 ## **Yıllık İzin Hakkı Ne Zaman Elde Edilir?**
 
-![yillik izin hakki](https://idenfit.com/wp-content/uploads/2019/12/2_2.png)
+![yillik izin hakki](/wp-content/uploads/2019/12/2_2.png)
 
 Yıllık izin hakkını elde etmek için en az 1 yıl çalışmış olmak gerekiyor. Bu 1 yıl yalnızca iş günleri olarak değil, tüm günler olarak sayılıyor. Ve böylece çalışan, işe giriş tarihinden 1 yıl sonra yıllık izin hakkı kazanıyor. Özel durumlar haricinde 1 yıldan az çalışmış olan personelin herhangi bir yıllık izin hakkı bulunmuyor.
 
@@ -36,7 +36,7 @@ Yıllık izin hakkını elde etmek için en az 1 yıl çalışmış olmak gereki
 
 ## **Yıllık İzin Hesaplama Nasıl Yapılır?**
 
-![](https://idenfit.com/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)
+![](/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)
 
 **[İDENFİT İNSAN KAYNAKLARI YÖNETİMİ YAZILIMI](/insan-kaynaklari-yonetimi-modulu/)**
 
@@ -46,7 +46,7 @@ Bu hesap yapılırken fazla mesailer, primler ya da ikramiye gibi ek ödemeler d
 
 ## **2020 Yıllık İzin Hesaplama Örnekleri**
 
-![yillik izin hesaplamasi 2019](https://idenfit.com/wp-content/uploads/2019/12/4_2.png)
+![yillik izin hesaplamasi 2019](/wp-content/uploads/2019/12/4_2.png)
 
 İşçi adına ödenen primler hariç güncel brüt asgari ücret tutarı 2.558,40 TL. Ancak yıllık izin ücretini hesaplarken sigorta ve işsizlik primi toplama dahil ediliyor. Böylece brüt ücreti 3.006,12 TL olur.
 
@@ -56,7 +56,7 @@ Asgari ücret dışında bir örnek için brüt ücreti toplam 5000 TL olan bir 
 
 ## **Yıllık İzin ile İlgili Bilinmesi Gereken Diğer Detaylar**
 
-![yillik izin ](https://idenfit.com/wp-content/uploads/2019/12/5_2.png)
+![yillik izin ](/wp-content/uploads/2019/12/5_2.png)
 
 Yıllık izin konusu yalnızca sürelerin ve tutarların bilinmesi ile bitmeyecek kadar kapsamlı bir konu. **Senelik izin hesaplama** araçları var mı, varsa neler? Arta kalan yıllık izin süreleri diğer yıllara devredilmeli mi? Yoksa her yıl kullanılması daha mı doğru? Yıllık iznin tamamen kaybedilme, iptal edilme durumu olur mu? Tüm bu soruların cevaplarına aşağıdaki maddeler üzerinden ulaşabilirsiniz.
 
@@ -72,7 +72,7 @@ Yıllık izin konusu yalnızca sürelerin ve tutarların bilinmesi ile bitmeyece
 
 ## **İzin Yönetimi**
 
-![](https://idenfit.com/wp-content/uploads/2020/06/izin-1-1024x905.png)
+![](/wp-content/uploads/2020/06/izin-1-1024x905.png)
 
 **[İDENFİT İZİN YÖNETİMİ MODÜLÜ](/yillik-izin-takip-programi/)**
 

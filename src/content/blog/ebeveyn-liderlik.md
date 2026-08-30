@@ -4,7 +4,7 @@ title: Ebeveyn Liderlik Hakkında Tüm Merak Edilenler
 date: '2023-06-12T15:45:56'
 excerpt: Ebeveyn liderlik kavramı ile tanışmaya hazır mısınız? “Cool Parent Leadership”, değişen sosyolojik gereksinimlere uygun olarak kabuk değiştiren liderlik…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/06/cool-parent-leadership-ebeveyn-liderlik-nedir.jpg
+  url: /wp-content/uploads/2023/06/cool-parent-leadership-ebeveyn-liderlik-nedir.jpg
   alt: Ebeveyn Liderlik Hakkında Tüm Merak Edilenler
   width: 1621
   height: 811

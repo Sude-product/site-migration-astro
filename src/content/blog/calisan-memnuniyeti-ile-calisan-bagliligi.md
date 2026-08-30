@@ -4,7 +4,7 @@ title: Çalışan Memnuniyeti ile Çalışan Bağlılığı
 date: '2024-10-21T22:35:48'
 excerpt: Çalışan memnuniyeti ve çalışan bağlılığına verilen değer işletmelerde her geçen gün artmaya devam ediyor. Burada işletmelerin öncelikle hedefi kesinlikle…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Calisan-Memnuniyeti-ile-Calisan-Bagliligi-Arasindaki-Fark-Nedir@3x.png
+  url: /wp-content/uploads/2025/08/Calisan-Memnuniyeti-ile-Calisan-Bagliligi-Arasindaki-Fark-Nedir@3x.png
   alt: Çalışan Memnuniyeti ile Çalışan Bağlılığı
   width: 2271
   height: 1497

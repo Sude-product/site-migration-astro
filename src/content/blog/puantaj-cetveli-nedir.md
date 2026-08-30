@@ -4,7 +4,7 @@ title: Puantaj Cetveli Nedir, Nasıl Kullanılır?
 date: '2020-08-06T17:19:07'
 excerpt: Çalışanların belirlenen saatler içinde iş yerinde olması ve onlardan beklenilen işleri yerine getirilmesi bir kurumun en temel isteğidir. Çalışanların önceden…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/puantaj-cetveli@3x.png
+  url: /wp-content/uploads/2025/08/puantaj-cetveli@3x.png
   alt: Puantaj Cetveli Nedir, Nasıl Kullanılır?
   width: 2271
   height: 1497
@@ -22,7 +22,7 @@ Puantaj cetvelleri genel olarak personellerin kurum içinde geçirdikleri zaman 
 
 Maaş ödemeleri için dikkate alınan öncelikli belgeler arasında yer alan puantaj cetvelleri çalışanların gerek fiziksel gerek dijital imzaları alınarak resmileştirilebilir. Klasik yöntemlerde çalışanlar işe giriş çıkışlarında imza atarken günümüzde çalışanlar özel programlara kartları ya da kendilerine özel olarak tanımlanan kullanıcı ismi ve şifresiyle giriş yaparak cetveli tamamlayabilir. 
 
-![](https://idenfit.com/wp-content/uploads/2020/08/Time_Book_and_Return_of_Work_done_in_Machine_Shop_Frankford_Arsenal_1885-1024x519.jpg)
+![](/wp-content/uploads/2020/08/Time_Book_and_Return_of_Work_done_in_Machine_Shop_Frankford_Arsenal_1885-1024x519.jpg)
 
 Geleneksel Yöntemlerle Hazırlanan Bir Puantaj Cetveli Örneği\
 Kaynak: Wikimedia Commons, the free media repository
@@ -33,7 +33,7 @@ Puantaj cetvellerine bilgi işlenirken dikkat edilmesi gereken öncelikli unsur 
 
 Personelin çalışma saatleri, fazla mesaileri ve izinlerinin yer aldığı alan puantör tarafından doldurulduktan sonra çalışan tarafından imzalanır. Günlük şekilde yapılan bu işlem sonunda oluşan tablo ay sonunda personele ödenecek ücreti belirlemede etkin rol oynar. Bu nedenle çalışan saatlerin cetvele işlenmesi sırasında titiz davranılması kritik bir önem taşır.
 
-<a href="/puantaj-takip-programi-modulu/" aria-label="ZAMAN ve İZİN YÖNETİMİNİ IDENFİT İLE TAKİP EDİN!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/puantaj-cetveli-1-1024x631.png" alt="" class="wp-image-2070"></a>
+<a href="/puantaj-takip-programi-modulu/" aria-label="ZAMAN ve İZİN YÖNETİMİNİ IDENFİT İLE TAKİP EDİN!"><img decoding="async" src="/wp-content/uploads/2020/08/puantaj-cetveli-1-1024x631.png" alt="" class="wp-image-2070"></a>
 
 ZAMAN ve İZİN YÖNETİMİNİ IDENFİT İLE TAKİP EDİN!
 

@@ -4,7 +4,7 @@ title: KVKK (Kişisel Verilerin Korunması Kanunu) ve İKY Yönetimi
 date: '2025-02-28T19:10:07'
 excerpt: Günümüzde çalışan verilerinin korunması, şirketler için yalnızca bir yasal zorunluluk değil, aynı zamanda kurumsal güvenin temel unsurlarından biri olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/KVKK-ve-İnsan-Kaynaklari-Yönetimi-İlişkisi@3x.png
+  url: /wp-content/uploads/2025/08/KVKK-ve-İnsan-Kaynaklari-Yönetimi-İlişkisi@3x.png
   alt: KVKK (Kişisel Verilerin Korunması Kanunu) ve İKY Yönetimi
   width: 2271
   height: 1497
@@ -53,7 +53,7 @@ KVKK, insan kaynakları süreçlerinde veri gizliliğini sağlamak için kritik 
 
 ## **İşe Alım Sürecinde Kişisel Verilerin Korunması Kanunu**
 
-![](https://idenfit.com/wp-content/uploads/2020/08/ozluk.png)
+![](/wp-content/uploads/2020/08/ozluk.png)
 
 [**İDENFİT İLE ÖZLÜK DOSYALARINI KVKK’YA UYGUN OLARAK SAKLAYIN**](/calisan-ozluk-yonetimi-modulu/)
 

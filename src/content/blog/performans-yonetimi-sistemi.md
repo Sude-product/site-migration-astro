@@ -4,7 +4,7 @@ title: Performans Yönetimi Sistemi Hakkında Bilmeniz Gerekenler
 date: '2020-10-09T09:58:04'
 excerpt: Performans yönetimi sistemi; çalışanların potansiyeline ve çalıştıkları pozisyona uygun olacak şekilde hedeflerin belirlenmesi ve bu hedeflerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/performans_yönetimi_sistemi.png
+  url: /wp-content/uploads/2020/10/performans_yönetimi_sistemi.png
   alt: Performans Yönetimi Sistemi Hakkında Bilmeniz Gerekenler
   width: 2271
   height: 1497
@@ -23,7 +23,7 @@ Performans yönetimi kavramı kaynaklara bakıldığında literatürde **ilk kez
 
 ## Performans Yönetimi Sisteminin Temel Unsurları
 
-![](https://idenfit.com/wp-content/uploads/2020/10/performans-yonetimi-yazılımı--1024x800.png)
+![](/wp-content/uploads/2020/10/performans-yonetimi-yazılımı--1024x800.png)
 
 **[İDENFİT PERFORMANS YÖNETİMİ MODÜLÜ\
 ](/calisan-performans-degerlendirme-sistemi-modulu/)**
@@ -35,7 +35,7 @@ Her işletme hedeflerine giden yolda rakiplerine karşı rekabet avantajı elde 
 *   Geri bildirimler sonucunda performansı artırmak için çalışanların eğitimlerle desteklenmesi
 *   Performans değerlendirmeden elde edilen sonuçların **ücretlendirme, terfi, eğitim ve kariyer** gibi temel konularda karar alıcılara veri sağlaması
 
-![](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)
+![](/wp-content/uploads/2020/09/feedbackxx-3.png)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 

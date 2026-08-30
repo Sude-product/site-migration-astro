@@ -4,7 +4,7 @@ title: Deloitte 2021 İnsan Kaynakları Trendleri Raporu
 date: '2020-12-21T16:24:43'
 excerpt: 'Deloitte 2021 İnsan Kaynakları Trendleri Raporu yayınlandı. “Dengesi Bozulan Bir Dünyada Sosyal Şirket: Hayatta Kalmaktan Başarıyla Var Olmaya Giden Yol (The…'
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/12/varlik-3-2@2x.jpg
+  url: /wp-content/uploads/2020/12/varlik-3-2@2x.jpg
   alt: Deloitte 2021 İnsan Kaynakları Trendleri Raporu
   width: 810
   height: 534

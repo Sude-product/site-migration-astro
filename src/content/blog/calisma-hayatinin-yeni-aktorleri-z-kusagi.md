@@ -4,7 +4,7 @@ title: 'Çalışma Hayatının Yeni Aktörleri: Z Kuşağı'
 date: '2025-03-18T21:32:46'
 excerpt: Teknolojinin içine doğan Z kuşağı, iş dünyasına hızlı bir giriş yaptı. Onlar, internetle iç içe büyüyen, dijital çağın yerlileri. Bilgiye anında ulaşmak ister,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Calisma-Hayatinin-Yeni-Aktorleri-Z-Kusagi0A@2x-100.jpg
+  url: /wp-content/uploads/2025/08/Calisma-Hayatinin-Yeni-Aktorleri-Z-Kusagi0A@2x-100.jpg
   alt: 'Çalışma Hayatının Yeni Aktörleri: Z Kuşağı'
   width: 1515
   height: 999
@@ -89,7 +89,7 @@ Z kuşağı iş hayatında esneklik ve teknoloji odaklı bir yaklaşım bekler. 
 
 ## **Z Kuşağının İş Hayatındaki Zorluklar Nelerdir?**
 
-![Z kuşağı](https://idenfit.com/wp-content/uploads/2025/03/blok-calisma-hayatinin-aktoru-z-kusaklari-ara-gorsel-1024x469.jpg)
+![Z kuşağı](/wp-content/uploads/2025/03/blok-calisma-hayatinin-aktoru-z-kusaklari-ara-gorsel-1024x469.jpg)
 
 Z kuşağı, iş hayatına uyum sağlarken çeşitli zorluklarla karşılaşır. Geleneksel iş yapıları, onlar için fazla katıdır. Esnek çalışma modeline alışık oldukları için, sabit mesai saatleri zorlayıcıdır. Hızlı sonuç almak isterler. Ancak bazı süreçler sabır gerektirir. **[Geri bildirim](/organizasyonel-geri-bildirim-modulu/)** beklerler, ancak bazı yöneticiler bu kültüre uzaktır. Anlamlı işler ararlar, rutin görevler motivasyonlarını düşürür. İKY profesyonelleri için önemli olan, bu yeni neslin beklentilerini dengelemektir. Doğru yaklaşımla, Z kuşağı’nın iş gücüne dinamizm katması sağlanabilir.
 

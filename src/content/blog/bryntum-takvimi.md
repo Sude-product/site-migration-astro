@@ -4,7 +4,7 @@ title: Şirket Takvimi ile Zamanı Verimli Yönetin!
 date: '2022-01-12T15:42:47'
 excerpt: İdenfit olarak dünyanın en iyi markalarından biri olma hedefiyle çıktığımız yolculukta her zaman alanında en başarılı şirket ve kişilerle çalışmayı tercih…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/Bryntum-Takvimi-Kullanarak-Nasil-Avantajlar-Sağliyoruz_@2x.jpg
+  url: /wp-content/uploads/2022/01/Bryntum-Takvimi-Kullanarak-Nasil-Avantajlar-Sağliyoruz_@2x.jpg
   alt: Şirket Takvimi ile Zamanı Verimli Yönetin!
   width: 1515
   height: 998

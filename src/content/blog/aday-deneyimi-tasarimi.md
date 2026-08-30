@@ -4,7 +4,7 @@ title: Aday Deneyimi Tasarımı ile Yetenek Kazanımı
 date: '2022-05-10T18:58:01'
 excerpt: Aday deneyimi tasarımı ile yetenek avında avantaj sağlamaya ne dersiniz? Gig ekonomi, uzaktan çalışma modelleri ve büyük istifa etkisi ile yetenek krizi her…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/05/3-1-scaled.jpg
+  url: /wp-content/uploads/2022/05/3-1-scaled.jpg
   alt: Aday Deneyimi Tasarımı ile Yetenek Kazanımı
   width: 2560
   height: 1688

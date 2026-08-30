@@ -4,7 +4,7 @@ title: Oryantasyon Nedir?
 date: '2019-12-27T17:41:58'
 excerpt: Yeni işe alınan personelin işe başlatıldığı günde duyarlılık gösterilmesi oldukça önemli. Genellikle pek çok çalışan ilk iş günü nü bir şey yapmadan sadece…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/oryantasyon@3x-100.jpg
+  url: /wp-content/uploads/2025/08/oryantasyon@3x-100.jpg
   alt: Oryantasyon Nedir?
   width: 2272
   height: 1497
@@ -31,7 +31,7 @@ Yeni işe alınan personelin işe başlatıldığı günde duyarlılık gösteri
 
 ## **Oryantasyon Eğitimi Nedir?**
 
-![oryantasyon egitimi nedir](https://idenfit.com/wp-content/uploads/2019/12/1_4-1.png)
+![oryantasyon egitimi nedir](/wp-content/uploads/2019/12/1_4-1.png)
 
 **Oryantasyon programı** kapsam ve içeriği kurumun ölçeğine göre değişkenlik gösterebiliyor. Küçük ve orta ölçekli işletmelerde az sayıda işe alım gerçekleştiği için kapsamı daha dar tutulabiliyor. Bu işletmelerde genellikle **oryantasyon örnekleri** nadir görülüyor ya da yönetici tarafından gerçekleştiriliyor. Yoğun ve geniş ölçekte işe alımların yapıldığı büyük işletmelerde ise kapsamlı **oryantasyon eğitimi örneği** uygulamak gerekiyor.
 
@@ -39,7 +39,7 @@ Ancak her iki yöntemde de oryantasyon kapsamına giren bütün uygulamaların y
 
 ## **Oryantasyon Programı Nedir ve İçeriği Ne Olmalıdır?**
 
-![oryantasyon programi nedir](https://idenfit.com/wp-content/uploads/2019/12/2_4-1.png)
+![oryantasyon programi nedir](/wp-content/uploads/2019/12/2_4-1.png)
 
 Başarılı bir oryantasyonun içerisinde çalışanın ihtiyaç duyacağı tüm bilgilerin yer alması gerekiyor. Prosedürün de bu bilinç ile hazırlanması önemli oluyor. Genel olarak **oryantasyon eğitimi** temel oryantasyon ve **mesleki oryantasyon** olmak üzere 2’ye ayrılıyor. **Temel oryantasyon** eğitiminde yeni çalışana kurumu tanıması ve fikir sahibi olması için kurum ile alakalı önemli bilgiler veriliyor.
 
@@ -55,13 +55,13 @@ Başarılı bir **oryantasyon süreci** gerçekleştirebilmek için İK departma
 
 ## **Oryantasyon Kursu Nedir?**
 
-![oryantasyon kursu](https://idenfit.com/wp-content/uploads/2019/12/4_3-3.png)
+![oryantasyon kursu](/wp-content/uploads/2019/12/4_3-3.png)
 
 **Oryantasyon kursu** kurum içerisinde verilebileceği gibi dışarıdan hizmet olarak da alınabiliyor. Bu kapsamda kişiye etkili iletişim kurma yöntemleri, kurumsal iletişim, protokol kuralları, mevzuatlar ve doğru programların hazırlanması ile ilgili kapsamı değişkenlik gösterebilen eğitimler veriliyor. Bu **oryantasyon kursu** eğitimleri kurumun yapısına, kültürüne ve pozisyonun sorumluluklarına göre de büyük ölçüde farklılık gösterebiliyor.
 
 ## **Oryantasyon Belgesi Nedir?**
 
-![oryantasyon belgesi](https://idenfit.com/wp-content/uploads/2019/12/5_3-1.png)
+![oryantasyon belgesi](/wp-content/uploads/2019/12/5_3-1.png)
 
 **Oryantasyon belgesi**, oryantasyon kursu almış çalışanlara bu görevi yerine getirdiği için verilebileceği gibi aynı adlı bir başka belge de **oryantasyon programı**na katılmış olan yeni çalışanlara verilebiliyor. İnsan Kaynakları Uzmanı olan kişilerin yetkinlik bakımından aldıkları kurslar neticesinde hak kazandıkları belge, çalışanın iş deneyimi öncesinde bir sertifika programına dahil olarak da edinilebiliyor. 
 
@@ -73,14 +73,14 @@ Mesleki oryantasyonda ise yeni çalışana işin öğretilmeye başlanması ve u
 
 ## **Oryantasyonun Faydaları**
 
-![oryantasyon surecinin faydalari](https://idenfit.com/wp-content/uploads/2019/12/6_2-2.png)
+![oryantasyon surecinin faydalari](/wp-content/uploads/2019/12/6_2-2.png)
 
 *   Kurum içerisinde dönemsel olarak oryantasyona yeni ilaveler yapılması ya da çeşitli değişikliklere gidilmesi büyük önem taşıyor. Bunun için farklı **oryantasyon çalışmaları örnekleri** incelenerek kuruma entegre edilip sonuçlar incelenebiliyor. Oryantasyonun kurumun tüm çalışanları tarafından öneminin bilinmesi başarılı bir sonuca ulaşabilmek için gerekli oluyor. Kaliteli bir oryantasyonla kurum sadakati ve aidiyet duygusu oluşturulabiliyor.
 *   Oryantasyonun eksiksiz şekilde yerine getirilmesi ile kurumdaki çalışan sirkülasyonu ve istikrarsızlık en az seviyeye indirilebiliyor. Bunun yanı sıra çalışanların kendilerini kuruma bağlı hissetmelerinin önü açılıyor. Çalışandan üst seviyede verim alınabilmesinin önünü açan bu sistemle yalnızca uzun vadede değil kısa vadede de olumlu sonuçlar alınabiliyor. Kısa sürede işe alışan yeni çalışan kuruma kazanç sağlamaya hızla başlayabiliyor.
 
 ## **Idenfit Onboarding Modülü**
 
-[![idenfit bulut tabanlı ik yazılımı](https://idenfit.com/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)](/insan-kaynaklari-yonetimi-modulu/)
+[![idenfit bulut tabanlı ik yazılımı](/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png)](/insan-kaynaklari-yonetimi-modulu/)
 
 **[İDENFİT İNSAN KAYNAKLARI YAZILIMI](/insan-kaynaklari-yonetimi-modulu/)**
 

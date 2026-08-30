@@ -4,7 +4,7 @@ title: İşkolik Olabilir misiniz?
 date: '2023-04-04T14:03:19'
 excerpt: İşkolik olduğunuzu mu düşünüyorsunuz? Çalışmadığınız zaman rahat hissetmiyor musunuz? Ya da çalışmadan duramıyor musunuz? Eğer bu sorulara cevabınız “Evet!”…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/04/iskolik.jpg
+  url: /wp-content/uploads/2023/04/iskolik.jpg
   alt: İşkolik Olabilir misiniz?
   width: 1621
   height: 811

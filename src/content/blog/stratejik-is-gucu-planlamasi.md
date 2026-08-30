@@ -4,7 +4,7 @@ title: Stratejik İş Gücü Planlaması
 date: '2022-10-14T12:24:42'
 excerpt: Her ölçekteki işletmelerde sosyal ve ekonomik yaşamın dinamizminden kaynaklanan planlama ihtiyacı, tüm stratejik yönetim süreçlerinin ilk basamağı olarak kabul…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/stratejik-is-gucu-planlamasi.jpg
+  url: /wp-content/uploads/2022/10/stratejik-is-gucu-planlamasi.jpg
   alt: Stratejik İş Gücü Planlaması
   width: 1515
   height: 999
@@ -23,7 +23,7 @@ Stratejik iş gücü planlaması; misyon, vizyon ve hedeflerle stratejik bir yö
 
 Stratejik iş gücü planlaması, **➢** stratejik analiz yapılması, **➢** insan kaynağı gereksiniminin tasarlanması, **➢** insan kaynağı stratejileri geliştirilmesi ve uygulanması, **➢** uygulanan stratejilerin izlenmesi ve ölçülmesi olarak sıralanabilmektedir.
 
-![](https://idenfit.com/wp-content/uploads/2022/10/saydam.png)**\
+![](/wp-content/uploads/2022/10/saydam.png)**\
 Şekil 1.** Stratejik İş Gücü Planlaması Aşamaları
 
 **Aşama 1: Stratejik Analiz Yapılması**

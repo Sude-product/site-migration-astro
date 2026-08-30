@@ -4,7 +4,7 @@ title: “Yardım İsteme” Sanatı
 date: '2022-06-21T09:23:19'
 excerpt: Yardım isteme konusu iş dünyasında aşılamayan tabular arasında yer alıyor. Başarılı olmak genellikle her sorunu kendi başına çözmekle eş değer tutuluyor. İş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/06/yardim-isteme-sanati.jpg
+  url: /wp-content/uploads/2022/06/yardim-isteme-sanati.jpg
   alt: “Yardım İsteme” Sanatı
   width: 1515
   height: 999

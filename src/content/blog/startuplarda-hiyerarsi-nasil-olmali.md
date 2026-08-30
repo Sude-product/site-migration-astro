@@ -4,7 +4,7 @@ title: Start-up’larda Hiyerarşi ve Organizasyon Yapısı
 date: '2020-08-17T13:43:23'
 excerpt: Hiyerarşi her işletme için işlerin düzenli yürümesi açısından önem arz ediyor. Ancak start-up’larda açıkça tanımlanmış bir hiyerarşi düzenine sahip olmak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/startup@3x.png
+  url: /wp-content/uploads/2025/08/startup@3x.png
   alt: Start-up’larda Hiyerarşi ve Organizasyon Yapısı
   width: 2271
   height: 1497
@@ -44,7 +44,7 @@ Start-up gibi genellikle az çalışanların olduğu ve ivme kazanma aşamasınd
 
 ## Hedefiniz Büyümek mi Yoksa Maliyeti mi Azaltmak?
 
-<a href="/online-sunum-talebi/" aria-label="IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-1.png" alt="" class="wp-image-2096" style="width:451px;height:376px"></a>
+<a href="/online-sunum-talebi/" aria-label="IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!"><img decoding="async" src="/wp-content/uploads/2020/08/linkedin-1-1.png" alt="" class="wp-image-2096" style="width:451px;height:376px"></a>
 
 IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!
 

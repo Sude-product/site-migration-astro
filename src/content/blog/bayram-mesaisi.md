@@ -4,7 +4,7 @@ title: Bayram Mesaisi Nasıl Hesaplanır?
 date: '2022-04-29T12:28:01'
 excerpt: Bayram mesaisi son günlerde oldukça sık merak edilen konular arasında yer alıyor. Bu yıl 1 Mayıs Pazar günü Ramazan Bayramı Arifesi ve bayram tatili 2 Mayıs…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/Bayram-Mesaisi-Nedir_-Nasil-Hesaplanir_-1.jpg
+  url: /wp-content/uploads/2022/04/Bayram-Mesaisi-Nedir_-Nasil-Hesaplanir_-1.jpg
   alt: Bayram Mesaisi Nasıl Hesaplanır?
   width: 1515
   height: 998

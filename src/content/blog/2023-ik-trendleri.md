@@ -4,7 +4,7 @@ title: '2023 İK Trendleri: İKY’nin Geleceği'
 date: '2022-12-21T21:09:13'
 excerpt: Yeni bir yılı karşılamaya hazırlandığımız bugünlerde İK profesyonelleri tarafından en sık merak edilen konuların başında gelecek yılın İK trendleri yer alıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/12/2023-yili-ik-trendleri-sozlugu.jpg
+  url: /wp-content/uploads/2023/12/2023-yili-ik-trendleri-sozlugu.jpg
   alt: '2023 İK Trendleri: İKY’nin Geleceği'
   width: 1621
   height: 811

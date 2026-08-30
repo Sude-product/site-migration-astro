@@ -4,7 +4,7 @@ title: IX. Kurumsal Eğitim ve Gelişim Zirvesi
 date: '2023-12-11T17:24:53'
 excerpt: idenfit ve Yüksekbilgili Eğitim işbirliğinde gerçekleştirilen bu zirvede, proaktif Öğrenme ve Geliştirme kültürünün oluşturulmasına, en son teknolojilerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/12/kurumsal-egitim-ve-gelisim-zirvesi-butonlu-2023.jpg
+  url: /wp-content/uploads/2023/12/kurumsal-egitim-ve-gelisim-zirvesi-butonlu-2023.jpg
   alt: IX. Kurumsal Eğitim ve Gelişim Zirvesi
   width: 1920
   height: 1080
@@ -35,61 +35,61 @@ Bu zirve, kazanan bir Öğrenme ve Geliştirme stratejisinin nasıl belirlenip u
 
 ### **KONUŞMACILAR**
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-zeki-yuksekbilgili.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-zeki-yuksekbilgili.jpg)
 
 **Zeki Yüksekbilgili\
 **Yüksekbilgili Eğitim\
 Master of Ceremony
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-tuba-albayrak.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-tuba-albayrak.jpg)
 
 **Tuba Albayrak**\
 Gürmen Group\
 Director of Human Resources / Board Member
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-ibrahim-boylu.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-ibrahim-boylu.jpg)
 
 **İbrahim Boylu\
 **Skoda Yüce Auto\
 Business Development Unit Manager
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-selin-selamet.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-selin-selamet.jpg)
 
 **Selin Selamet**\
 Memorial\
 Training and Development Group Manager
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-samet-aldemir.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-samet-aldemir.jpg)
 
 **Samet Aldemir\
 **Vestel\
 Senior Training Professional and Project Manager
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-irem-kurt.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-irem-kurt.jpg)
 
 **İrem Kurt**\
 Arkas Holding\
 Head of Arkas Academy
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-harun-tunckiran.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-harun-tunckiran.jpg)
 
 **Harun Tunçkıran\
 **Anadolubank\
 Training and Development Group Manager
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-meral-geyikci.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-meral-geyikci.jpg)
 
 **Meral Geyikçi\
 **Vedubox\
 Marketing Executive
 
-![](https://idenfit.com/wp-content/uploads/2023/12/betul-deniz-yetim.jpg)
+![](/wp-content/uploads/2023/12/betul-deniz-yetim.jpg)
 
 **Betül Deniz Yetim**\
 Atasun Optik\
 Talent Development Manager
 
-![](https://idenfit.com/wp-content/uploads/2023/12/konusmaci-sibel-ozuag.jpg)
+![](/wp-content/uploads/2023/12/konusmaci-sibel-ozuag.jpg)
 
 **Sibel Özüağ**\
 Danone\

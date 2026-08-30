@@ -4,7 +4,7 @@ title: İşe Alım Süreçlerinde İyileştirme ve Geliştirme
 date: '2020-07-29T21:21:03'
 excerpt: Bir kurumu başarıya veya başarısızlığa iten, ona yön veren en önemli unsur insandır. Kurumlarda yer alacak kişilerin ihtiyacı karşılayacak şekilde seçilmesi,…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/işe-alimm@3x-1.png
+  url: /wp-content/uploads/2025/08/işe-alimm@3x-1.png
   alt: İşe Alım Süreçlerinde İyileştirme ve Geliştirme
   width: 2271
   height: 1497
@@ -40,7 +40,7 @@ Kendi işe alım birimlerine sahip kurumlar ise işe alım sürecini etkili şek
 
 ## İşe Alım Süreçlerinde İyileştirme
 
-[![işe alım](https://idenfit.com/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-1024x958.png)](/ise-alim-modulu/)
+[![işe alım](/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-1024x958.png)](/ise-alim-modulu/)
 
 İŞE ALIM SÜREÇLERİNİ IDENFİT İLE İYİLEŞTİRİN!
 

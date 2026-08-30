@@ -4,7 +4,7 @@ title: 2022 Yılı Asgari Ücret Zammı
 date: '2021-12-16T15:52:52'
 excerpt: 2022 yılı asgari ücret zammı uzun süredir milyonlarca işçi ve işveren tarafından merakla bekleniyor. 2022 yılı asgari ücret zam oranı ve 2022 yılı AGİ (Asgari…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/12/2022-Asgari-Ücret-Beklentisi-Nedir@2x.png
+  url: /wp-content/uploads/2021/12/2022-Asgari-Ücret-Beklentisi-Nedir@2x.png
   alt: 2022 Yılı Asgari Ücret Zammı
   width: 1515
   height: 999

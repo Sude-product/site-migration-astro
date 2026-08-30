@@ -4,7 +4,7 @@ title: 'İşyerinde Sosyal Dışlanma Unsuru: Boşanma'
 date: '2022-11-18T09:07:00'
 excerpt: Damgalama, çalışma hayatında boşanmış kadınların sıklıkla maruz kaldığı bir olgu. Boşanmış bir kadın, bir yandan boşanma sonrasında başlayacağı yeni hayatın…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/11/is-yerinde-damgalama-ve-sosyal-dislanma-unsuru-Bosanma.jpg
+  url: /wp-content/uploads/2022/11/is-yerinde-damgalama-ve-sosyal-dislanma-unsuru-Bosanma.jpg
   alt: 'İşyerinde Sosyal Dışlanma Unsuru: Boşanma'
   width: 1495
   height: 999

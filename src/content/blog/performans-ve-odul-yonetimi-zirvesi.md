@@ -4,7 +4,7 @@ title: Performans ve Ödül Yönetimi Zirvesi
 date: '2023-08-21T17:28:24'
 excerpt: Katılımcılar, dijital performansın iş stratejilerine entegrasyonunu, yenilikçi ödül ve teşvik yönetimini keşfedecekler. İK liderleri, uzmanlar, dijital…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/zirve-performans-ve-odul-yonetimi-20230921-16x9-1-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/zirve-performans-ve-odul-yonetimi-20230921-16x9-1-1392x783-1.jpg
   alt: Performans ve Ödül Yönetimi Zirvesi
   width: 1392
   height: 783
@@ -36,55 +36,55 @@ Bu zirve, katılımcılara işletme modellerini güçlendirmek, verimliliği art
 
 ## **KONUŞMACILAR**
 
-![](https://idenfit.com/wp-content/uploads/2023/05/yasemin-bingol.png)
+![](/wp-content/uploads/2023/05/yasemin-bingol.png)
 
 Yasemin Bingöl\
 **Hedef Filo\
 **CHRO
 
-![](https://idenfit.com/wp-content/uploads/2023/06/erdal-elidar.png)
+![](/wp-content/uploads/2023/06/erdal-elidar.png)
 
 Erdal Elidar\
 **Gözalan Grup**\
 Deputy General Manager of HR & Executive Board Member
 
-![](https://idenfit.com/wp-content/uploads/2023/09/konusmaci-nihal-kansu.png)
+![](/wp-content/uploads/2023/09/konusmaci-nihal-kansu.png)
 
 Nihal Kansu\
 **Mars Logistics**\
 Human Resources Director
 
-![](https://idenfit.com/wp-content/uploads/2023/08/elcin-sezgin.png)
+![](/wp-content/uploads/2023/08/elcin-sezgin.png)
 
 Elçin Sezgin\
 **Sephora**\
 Human Resources Director
 
-![](https://idenfit.com/wp-content/uploads/2023/09/pinar-akbulut.png)
+![](/wp-content/uploads/2023/09/pinar-akbulut.png)
 
 Pınar Akbulut\
 **Türkiye Finans Katılım Bankası\
 **Performance and Talent Management Vice President
 
-![](https://idenfit.com/wp-content/uploads/2023/09/konusmaci-inci-arikan.png)
+![](/wp-content/uploads/2023/09/konusmaci-inci-arikan.png)
 
 İnci Arıkan\
 **ODAŞ Enerji\
 **People & Culture Director
 
-![](https://idenfit.com/wp-content/uploads/2023/09/sebla-oran.png)
+![](/wp-content/uploads/2023/09/sebla-oran.png)
 
 Sebla Oran Palut\
 **Hayat Kimya\
 **HR Group Manager, Total Rewards and People Analytics
 
-![](https://idenfit.com/wp-content/uploads/2023/08/can-tascioglu-1.png)
+![](/wp-content/uploads/2023/08/can-tascioglu-1.png)
 
 Can Taşçıoğlu\
 **Interlink**\
 CEO
 
-![](https://idenfit.com/wp-content/uploads/2023/09/woman-avatar.png)
+![](/wp-content/uploads/2023/09/woman-avatar.png)
 
 Begüm Zümrütdal\
 **Hayat Kimya\

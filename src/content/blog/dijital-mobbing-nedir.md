@@ -4,7 +4,7 @@ title: Dijital Mobbing Nedir?
 date: '2025-08-05T21:43:31'
 excerpt: Dijital mobbing ya da sanal zorbalık (cyber bullying) son zamanlarda çalışanların sosyal medya dahil olmak üzere çeşitli mecralarda en çok yakındığı konuların…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/dijital-mobbing.jpg
+  url: /wp-content/uploads/2025/08/dijital-mobbing.jpg
   alt: Dijital Mobbing Nedir?
   width: 1024
   height: 675

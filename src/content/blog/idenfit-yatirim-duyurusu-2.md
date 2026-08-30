@@ -4,7 +4,7 @@ title: Globalleşme ve Büyüme Yolculuğumuz, Mevcut Ortaklarımızın Güçlü
 date: '2025-05-30T00:46:24'
 excerpt: İnsan kaynakları ve iş gücü yönetiminde sunduğumuz yenilikçi çözümlerle büyümeye devam ediyoruz. Bu yolculukta önemli bir kilometre taşına daha ulaştık.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/idenfit-yatirim-haberi-1392x788-1.jpeg
+  url: /wp-content/uploads/2025/05/idenfit-yatirim-haberi-1392x788-1.jpeg
   alt: Globalleşme ve Büyüme Yolculuğumuz, Mevcut Ortaklarımızın Güçlü Desteği ve ÜNLÜ Portföy Ar-Ge GSYF’nin Katılımıyla Hız Kazanıyor
   width: 1392
   height: 788

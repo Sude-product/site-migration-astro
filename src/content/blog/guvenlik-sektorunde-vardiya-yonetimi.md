@@ -4,7 +4,7 @@ title: Güvenlik Sektöründe Vardiya Yönetimi
 date: '2025-01-24T20:09:26'
 excerpt: Güvenlik sektörü, hızla gelişen teknolojik yeniliklerle adeta yeniden şekilleniyor. Vardiya yönetimi ise bu dönüşümün merkezinde yer alıyor. 7/24 kesintisiz…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/Güvenlik-tur-kontrol-sistemi-nedir@3x.png
+  url: /wp-content/uploads/2020/10/Güvenlik-tur-kontrol-sistemi-nedir@3x.png
   alt: Güvenlik Sektöründe Vardiya Yönetimi
   width: 2271
   height: 1497

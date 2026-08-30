@@ -4,7 +4,7 @@ title: Liderlikte Yedekleme Stratejileri için 8 Etkili Öneri
 date: '2024-04-04T16:58:39'
 excerpt: Liderlikte yedekleme stratejileri, bir organizasyonun liderlik pozisyonlarının geçişlerini sorunsuz hale getiriyor. Böylece kurumsal bilginin korunmasını…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/liderlik-yedekleme-stratejileri@2x-100-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/liderlik-yedekleme-stratejileri@2x-100-1392x696-1.jpg
   alt: Liderlikte Yedekleme Stratejileri için 8 Etkili Öneri
   width: 1392
   height: 696

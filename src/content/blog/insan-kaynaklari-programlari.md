@@ -4,7 +4,7 @@ title: İnsan Kaynakları Programları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-05-15T17:45:30'
 excerpt: İnsan kaynakları programları dijitalleşen şirketlerin odağında yer alıyor. Tüm organizasyonların en temel kaynağı olan insan kaynağını yöneten İKY…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/insan_kaynaklari_yazilimlari@3x.png
+  url: /wp-content/uploads/2025/08/insan_kaynaklari_yazilimlari@3x.png
   alt: İnsan Kaynakları Programları Hakkında Tüm Bilmeniz Gerekenler
   width: 2271
   height: 1497
@@ -37,7 +37,7 @@ modifiedDate: '2025-09-29T15:02:57'
 *   [İnsan Kaynakları Yazılımları ve Çeşitleri](#h-insan-kaynaklari-yazilimlari-ve-cesitleri)
 *   [Sık Sorulan Sorular](#h-sik-sorulan-sorular)
 
-<a href="/" aria-label="İDENFİT İNSAN KAYNAKLARI YAZILIMI"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/10/webrazzi-1-1024x576.png" alt="" class="wp-image-2472"></a>
+<a href="/" aria-label="İDENFİT İNSAN KAYNAKLARI YAZILIMI"><img decoding="async" src="/wp-content/uploads/2020/10/webrazzi-1-1024x576.png" alt="" class="wp-image-2472"></a>
 
 \
 **[İDENFİT İNSAN KAYNAKLARI YAZILIMI](/)**
@@ -81,7 +81,7 @@ Dijital İKY yazılımları, maliyet verimliliği ve zaman tasarrufu sağlamalar
 
 Her işletme yöneticisinin ideali olan departmanlar ve çalışanların uyum içinde çalışması, İK yazılımı sayesinde daha erişilebilir bir hedef haline geliyor. İK yazılımları, her belgenin kaydını tutuyor. Dolayısıyla olası anlaşmazlıklarda, çalışanın bir bilgiyi bilip bilmediğini veya okuyup okumadığını belirleyebiliyor. Bu, çatışma ve anlaşmazlık durumlarında önemli bir referans noktası sağlıyor.
 
-[![geri bildirim](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
+[![geri bildirim](/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 
@@ -97,7 +97,7 @@ Veri kaybı şirketler için fazlasıyla büyük felaketlere yol açabiliyor. Bu
 
 Peki insan kaynaklarında yer alan başlıca yazılım türleri nelerdir?
 
-<a href="/" aria-label="İHTİYACINIZ OLAN TÜM MODÜLLER İÇİN İDENFİT"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png" alt="" class="wp-image-2475"></a>
+<a href="/" aria-label="İHTİYACINIZ OLAN TÜM MODÜLLER İÇİN İDENFİT"><img decoding="async" src="/wp-content/uploads/2020/10/insan_kaynakları_yazılımı_idenfit-1024x665.png" alt="" class="wp-image-2475"></a>
 
 **[İHTİYACINIZ OLAN TÜM MODÜLLER İÇİN İDENFİT](/insan-kaynaklari-yonetimi-modulu/)**
 

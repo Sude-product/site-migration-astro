@@ -4,7 +4,7 @@ title: Çalışan Memnuniyeti İçin Oyunlaştırma
 date: '2024-11-04T21:34:17'
 excerpt: Oyunlaştırma stratejisi, iş süreçlerine veya aktivitelerine oyun elementleri ekleyerek, çalışanları motive etmeyi, katılımı artırmayı ve hedeflere ulaşmayı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/calisan-memnuniyeti-icin-oyunlastirma-stratejileri-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/calisan-memnuniyeti-icin-oyunlastirma-stratejileri-1392x696-1.jpg
   alt: Çalışan Memnuniyeti İçin Oyunlaştırma
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Çalışan Esenliği Hakkında Tüm Merak Edilenler
 date: '2023-04-30T13:58:06'
 excerpt: Çalışan esenliği, hayal edilen güçlü kurum kültürü ve mutlu ekiplerin yolunu açıyor. Bir kişinin iş hayatının genel sağlık ve mutluluğunu etkileme potansiyeli…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/04/calisan-esenligi.jpg
+  url: /wp-content/uploads/2023/04/calisan-esenligi.jpg
   alt: Çalışan Esenliği Hakkında Tüm Merak Edilenler
   width: 1621
   height: 811

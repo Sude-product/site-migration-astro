@@ -4,7 +4,7 @@ title: 2026 Yılının En Önemli Dönemine Hoş Geldiniz! Yeni Yıl İle Birlik
 date: '2026-02-02T13:34:15'
 excerpt: 2026 yılına yaklaşırken çalışanlar ve işverenler için en merak edilen konuların başında maaş artışları geliyor. Enflasyon, ekonomik göstergeler ve yasal…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/02/Maas-Zammi@2x-2.png
+  url: /wp-content/uploads/2026/02/Maas-Zammi@2x-2.png
   alt: 2026 Yılının En Önemli Dönemine Hoş Geldiniz! Yeni Yıl İle Birlikte Maaşlarımız Ne Olacak?
   width: 1281
   height: 721

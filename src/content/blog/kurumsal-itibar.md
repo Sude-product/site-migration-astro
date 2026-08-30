@@ -4,7 +4,7 @@ title: Kurumsal İtibar Rehberi
 date: '2023-10-05T17:51:49'
 excerpt: Kurumsal itibar, bir şirketin veya organizasyonun genel olarak kamuya veya müşterilere yansıttığı imajın ve algının bir yansımasıdır. Bir organizasyonun…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/10/Kurumsal-itibar-nedir@2x-100.jpg
+  url: /wp-content/uploads/2023/10/Kurumsal-itibar-nedir@2x-100.jpg
   alt: Kurumsal İtibar Rehberi
   width: 1621
   height: 811

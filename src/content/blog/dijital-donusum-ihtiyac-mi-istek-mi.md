@@ -4,7 +4,7 @@ title: Dijital Dönüşüm İnsan Kaynaklarında İhtiyaç mı İstek mi?
 date: '2020-08-19T13:25:06'
 excerpt: Dijitalleşme, günlük operasyonlarda dijital araçlardan yararlanan bir organizasyon olmayı içerir. Bir işi yürütmek için teknolojiyi kullanma kültürünü…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/dijital-dönüşüm@3x.png
+  url: /wp-content/uploads/2025/08/dijital-dönüşüm@3x.png
   alt: Dijital Dönüşüm İnsan Kaynaklarında İhtiyaç mı İstek mi?
   width: 2271
   height: 1497
@@ -36,7 +36,7 @@ Bir şirketin dijital dönüşümü sahiplenebilmesi ve sindirmesi için insan k
 
 ## İnsan Kaynaklarında Dijital Dönüşümün Amacı
 
-<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İnsan Kaynaklarında Dijital Dönüşüme Idenfit ile Geçin!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-1-1024x831.png" alt="" class="wp-image-2075" style="width:512px;height:416px"></a>
+<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İnsan Kaynaklarında Dijital Dönüşüme Idenfit ile Geçin!"><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-1-1024x831.png" alt="" class="wp-image-2075" style="width:512px;height:416px"></a>
 
 İnsan Kaynaklarında Dijital Dönüşüme Idenfit ile Geçin!
 

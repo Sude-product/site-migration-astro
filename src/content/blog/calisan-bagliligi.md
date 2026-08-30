@@ -4,7 +4,7 @@ title: Çalışan Bağlılığını Azaltan Etkenler
 date: '2024-10-27T14:20:49'
 excerpt: Çalışan bağlılığı, bir çalışanın işe ve işverenine duyduğu güçlü bağlılık, sadakat ve motivasyon durumunu ifade eder. Bu kavram, çalışanın işine olan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/calisan-bagliligini-azaltan-etkenler-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/calisan-bagliligini-azaltan-etkenler-1392x696-1.jpg
   alt: Çalışan Bağlılığını Azaltan Etkenler
   width: 1392
   height: 696

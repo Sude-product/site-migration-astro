@@ -4,7 +4,7 @@ title: Uzaktan Çalışma Sonrası İş Motivasyonu
 date: '2021-08-13T12:09:34'
 excerpt: Birçok çalışan pandemi sonrası işe geri dönmek istemiyor, fakat normalleşme süreci ile beraber pek çok şirket ofislere geri dönmeyi planlıyor. Peki İK…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/3-1.jpg
+  url: /wp-content/uploads/2025/08/3-1.jpg
   alt: Uzaktan Çalışma Sonrası İş Motivasyonu
   width: 810
   height: 534

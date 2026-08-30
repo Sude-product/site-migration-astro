@@ -4,7 +4,7 @@ title: İş Hayatı Başarısı İçin 30’larda Edinilmesi Gereken Deneyimler
 date: '2021-06-04T10:24:03'
 excerpt: İş hayatı, hem işverenler hem de çalışanlar açısından sürekli yeni stratejilerle ve yeni öğrenimlerle geçen, başarı için her geçen gün daha çok çaba gösterilen…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/06/is-hayati.jpg
+  url: /wp-content/uploads/2021/06/is-hayati.jpg
   alt: İş Hayatı Başarısı İçin 30’larda Edinilmesi Gereken Deneyimler
   width: 1514
   height: 999

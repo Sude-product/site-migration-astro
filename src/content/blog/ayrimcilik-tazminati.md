@@ -4,7 +4,7 @@ title: Ayrımcılık Tazminatı Hakkında Tüm Merak Edilenler
 date: '2022-04-10T21:26:11'
 excerpt: Ayrımcılık tazminatı, işverenin işyerinde çalışan tüm işçilere eşit davranmaması durumunda işçinin almaya hak kazandığı tazminattır. Anayasa içerisinde yer…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/Ayr─▒mc─▒l─▒k.jpg
+  url: /wp-content/uploads/2022/04/Ayr─▒mc─▒l─▒k.jpg
   alt: Ayrımcılık Tazminatı Hakkında Tüm Merak Edilenler
   width: 1515
   height: 998

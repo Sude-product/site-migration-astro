@@ -4,7 +4,7 @@ title: İstifa Dilekçesi Verirken Dikkat Edilmesi Gerekenler
 date: '2021-03-24T11:05:59'
 excerpt: İstifa dilekçesi yazmak ve istifa etmenin usulleri çalışanların iş hayatlarında bilmesi gereken konular arasında yer alır. İstifa etmek, tıpkı bir işe yeni…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/istifa-dilekcesi-verirken-nelere-dikkat-edilmelidir@2x.png
+  url: /wp-content/uploads/2021/03/istifa-dilekcesi-verirken-nelere-dikkat-edilmelidir@2x.png
   alt: İstifa Dilekçesi Verirken Dikkat Edilmesi Gerekenler
   width: 1514
   height: 999
@@ -40,7 +40,7 @@ modifiedDate: '2025-09-29T14:45:16'
 
 İşyerinden iyi veya kötü nasıl ayrılırsanız ayrılın giderken olumsuz konuşmaların içerisinde olmaktan kaçının. Çünkü istenmeyen olaylar yaşansa dahi konuşulan veya yazılan her söylem diğer işlerde kişinin karşısına çıkabilir. Özellikle yöneticiler veya iş arkadaşları hakkında nefret içerikli, olumsuz konuşmalar kişinin gelecekteki kariyeri içinde tehlikelidir. Bu nedenle kişi istifa dilekçesi verdiği süreçte mutlak surette işyeri ile ilgili olumsuz konuşmalardan kaçınmalıdır. 
 
-[![idenfit offboarding modülü](https://idenfit.com/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)](/offboarding-modulu/)
+[![idenfit offboarding modülü](/wp-content/uploads/2020/09/offboarding@3x-1024x728.png)](/offboarding-modulu/)
 
 **İdenfit offboarding modülüyle işten ayrılan ekip arkadaşlarınızın istifa sürecini sorunsuz yönetin.\
 [İDENFİT OFFBOARDING MODÜLÜ](/offboarding-modulu/)**

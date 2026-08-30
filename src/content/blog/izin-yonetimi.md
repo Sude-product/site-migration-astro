@@ -4,7 +4,7 @@ title: İzin Yönetimi Hakkında Tüm Merak Ettikleriniz
 date: '2024-05-17T18:45:07'
 excerpt: İzin yönetimi, insan kaynakları yönetimi profesyonellerinin en çok efor sarf ettiği alanlar arasında yer alıyor. Geleneksel yöntemlerle sürdürülen izin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/izin-yonetimi-hakkinda-tum-merak-ettiklerimiz-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/izin-yonetimi-hakkinda-tum-merak-ettiklerimiz-1392x696-1.jpg
   alt: İzin Yönetimi Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696
@@ -47,7 +47,7 @@ Etkili bir izin yönetimi sisteminin iş hukuku ve yasal uyumluluk gereklilikler
 
 ## **İzin Türleri Nedir?**
 
-![ücretli izin](https://idenfit.com/wp-content/uploads/2024/05/ucretli-izin-1024x512.jpg)
+![ücretli izin](/wp-content/uploads/2024/05/ucretli-izin-1024x512.jpg)
 
 Ücretli İzin
 
@@ -89,7 +89,7 @@ Etkili bir izin yönetimi sisteminin iş hukuku ve yasal uyumluluk gereklilikler
 
 ### **Ücretsiz İzinler**
 
-![](https://idenfit.com/wp-content/uploads/2024/05/ucretsiz-izin-1024x512.jpg)
+![](/wp-content/uploads/2024/05/ucretsiz-izin-1024x512.jpg)
 
 Ücretsiz İzin
 
@@ -103,7 +103,7 @@ Etkili bir izin yönetimi sisteminin iş hukuku ve yasal uyumluluk gereklilikler
 
 ### **Özel İzinler**
 
-![özel izin](https://idenfit.com/wp-content/uploads/2024/05/ozel-izin-1024x512.jpg)
+![özel izin](/wp-content/uploads/2024/05/ozel-izin-1024x512.jpg)
 
 Özel İzinler
 

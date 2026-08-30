@@ -4,7 +4,7 @@ title: Part Time Çalışanlar İçin Maaş ve Kıdem Hesabı
 date: '2025-06-16T22:20:31'
 excerpt: Son yıllarda ülkemizde de yaygınlık oranı bir hayli artan part time çalışma 2003 yılından bu yana yasal çerçevesi çizilmiş bir istihdam modelidir. Part time…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/06/part-time-calisanlar.jpg
+  url: /wp-content/uploads/2025/06/part-time-calisanlar.jpg
   alt: Part Time Çalışanlar İçin Maaş ve Kıdem Hesabı
   width: 1024
   height: 675

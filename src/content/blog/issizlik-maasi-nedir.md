@@ -4,7 +4,7 @@ title: İşsizlik Maaşı
 date: '2019-11-01T16:21:19'
 excerpt: İşsizlik maaşı, zor zamanlarda mükemmel bir kurtarıcıya dönüşebiliyor. İşsizlik gibi sıkıntılı bir süreci olabildiğince az zararla atlatmak için…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/11/issizlik-maasi-nedir.jpg
+  url: /wp-content/uploads/2019/11/issizlik-maasi-nedir.jpg
   alt: İşsizlik Maaşı
   width: 2272
   height: 1497
@@ -21,7 +21,7 @@ modifiedDate: '2025-08-25T14:47:24'
 
 ## **İşsizlik Maaşı Nedir? İşsizlik Maaşı Nasıl Alınır?**
 
-![issizlik-maasi-ikonu](https://idenfit.com/wp-content/uploads/2019/11/1.png)
+![issizlik-maasi-ikonu](/wp-content/uploads/2019/11/1.png)
 
 Sigortalı işsizler, 4447 sayılı İşsizlik Sigortası Kanunu’nda yer alan şartlara uydukları takdirde işsiz kaldıkları dönemler için ilgili kanunda belirlenmiş süre boyunca belirli miktarlarda ödenek alabiliyorlar ve bu ödenek, “**işsizlik ödeneği**” ya da “**[İŞKUR işsizlik maaşı](https://www.iskur.gov.tr/is-arayan/issizlik-sigortasi/issizlik-odenegi/)**” olarak da tanımlanıyor.
 
@@ -29,7 +29,7 @@ Bu şartlara uyanlar ve onların bakmakla yükümlü olduğu kişiler, sağlık 
 
 ## **İşsizlik Maaşı Hesaplama İşlemi Nasıl Yapılır?**
 
-![](https://idenfit.com/wp-content/uploads/2019/11/3.png)
+![](/wp-content/uploads/2019/11/3.png)
 
 **İşsizlik maaşı hesaplama**, sigortalının son 4 aylık prime esas kazançları dikkate alınarak gerçekleştiriliyor ve bu veriler doğrultusunda günlük ortalama brüt kazancının %40’ını oluşturuyor. İşsizlik maaşının en yüksek tutarı ise aylık brüt asgari ücretin %80’inden fazla olamıyor.
 
@@ -37,7 +37,7 @@ Ayrıca işsizlik maaşından damga vergisi dışında herhangi bir kesinti yap�
 
 ## **İşsizlik Maaşını Almak İçin Gerekli Şartlar Nelerdir?**
 
-![cuzdan-ikonu](https://idenfit.com/wp-content/uploads/2019/11/2.png)
+![cuzdan-ikonu](/wp-content/uploads/2019/11/2.png)
 
 İşsiz kalan herkes için geçerli olmayan **işsizlik maaşı**, ancak belirli koşullar dahilinde resmî kurumlar tarafından kabul edilerek onaylanıyor. **İşsizlik maaş başvuru**ları İŞKUR üzerinden değerlendirilerek sonuca bağlanıyor ve sonucu etkileyen çeşitli faktörler bulunuyor. Bunlar şu şekilde sıralanıyor:
 
@@ -54,7 +54,7 @@ Bunlar; ücretsiz izin, kısmî istihdam, kısa veya yarım çalışma ödeneği
 
 ## **İşsizlik Maaşı İçin Gereken Fesih Şekilleri**
 
-![metin-sayfasi-ikonu](https://idenfit.com/wp-content/uploads/2019/11/4.png)
+![metin-sayfasi-ikonu](/wp-content/uploads/2019/11/4.png)
 
 **İşsizlik maaşını** alabilmenin en önemli şartını “Çalışanın kendi isteği ve kendi hatası dışında işsiz kalması.” kısmı oluşturuyor. Bu şartı sağlayan belirli koşullarla birlikte bu koşulların da çeşitli detayları bulunuyor. Bunlar;
 
@@ -66,7 +66,7 @@ Bunlar; ücretsiz izin, kısmî istihdam, kısa veya yarım çalışma ödeneği
 
 ## **İşsizlik Maaşı Başvuru Süreci**
 
-![zaman-para-ikonu](https://idenfit.com/wp-content/uploads/2019/11/5.png)
+![zaman-para-ikonu](/wp-content/uploads/2019/11/5.png)
 
 En yakın İŞKUR birimine giderek şahsi olarak veya internet üzerinden iskur.gov.tr adresinden başvuru yaptıktan sonra talebiniz incelemeye alınıyor. Başvurunuzu, hizmet akdinin son bulmasından sonraki 30 gün içinde gerçekleştirmeniz gerekiyor. Aksi takdirde istisnai durumlar hariç ilk 30 günden sonraki bir tarihte yaptığınız **işsizlik maaşı başvurusu**nda, geçen süre hak sahibi olduğunuz işsizlik maaş sürenizden düşülüyor. Bu nedenle almanız gerekenden eksik bir tutara sahip oluyorsunuz.
 
@@ -76,7 +76,7 @@ Ek olarak kişinin farklı bir kişiye vekâlet vererek başvuru ve benzeri sür
 
 ## **İşsizlik Maaşının Ödenmesi**
 
-![para-sayma-ikonu](https://idenfit.com/wp-content/uploads/2019/11/6.png)
+![para-sayma-ikonu](/wp-content/uploads/2019/11/6.png)
 
 Olumlu sonuçlanan **işsizlik maaş başvuru**larının ardından maaşlar, yalnızca maaş sahibi olan ilgili kişilere her ayın 5’inde almaya hak kazandıkları **işsizlik maaşı kaç ay** ise o süre boyunca ödeniyor. İşsizlik maaşını almaya hak kazananlar, her ödeme tarihinde TC kimlik numaralarının olduğu nüfus suretleri ile PTTBank şubelerinden maaşlarını teslim alabiliyorlar.
 
@@ -84,7 +84,7 @@ Olumlu sonuçlanan **işsizlik maaş başvuru**larının ardından maaşlar, yal
 
 ## **İşsizlik Maaşı Alırken Yapılması Gerekenler**
 
-![yildiz-ikonu](https://idenfit.com/wp-content/uploads/2019/11/7.png)
+![yildiz-ikonu](/wp-content/uploads/2019/11/7.png)
 
 **İşsizlik maaşı**nı almaya hak kazananların süreç dahilinde maaşlarını almaya devam edebilmeleri için bazı durumları İŞKUR’a veya Alo170’e bildirmeleri gerekiyor.
 

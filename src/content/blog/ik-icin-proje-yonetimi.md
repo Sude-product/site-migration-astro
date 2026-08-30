@@ -4,7 +4,7 @@ title: İK İçin Proje Yönetimi Nedir?
 date: '2021-05-17T10:08:30'
 excerpt: İK uzmanları sektördeki değişimlere liderlik ederek başarı sağlayabilir. Akıllı teknolojileri kullanarak işe alım süreçlerini yönetme, şirket kültürüne katkı…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2x.jpg
+  url: /wp-content/uploads/2025/08/2x.jpg
   alt: İK İçin Proje Yönetimi Nedir?
   width: 810
   height: 534

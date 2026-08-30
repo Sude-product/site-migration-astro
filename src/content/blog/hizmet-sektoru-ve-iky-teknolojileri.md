@@ -4,7 +4,7 @@ title: Hizmet Sektörü ve İKY Teknolojileri
 date: '2025-03-23T20:17:16'
 excerpt: Hizmet sektörü, üretim yapmak yerine insanlara ve şirketlere hizmet sunan ekonomi aktivitelerinin toplamını ifade etmektedir. Ülkemizdeki ekonomi pastasında en…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/blog-iky-yazilimlari-ve-hizmet-sektoru.jpg
+  url: /wp-content/uploads/2025/08/blog-iky-yazilimlari-ve-hizmet-sektoru.jpg
   alt: Hizmet Sektörü ve İKY Teknolojileri
   width: 1280
   height: 720

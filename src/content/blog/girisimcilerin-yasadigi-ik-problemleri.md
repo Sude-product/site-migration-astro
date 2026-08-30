@@ -4,7 +4,7 @@ title: Girişimcilerin Yaşadığı İK Problemleri
 date: '2020-12-04T17:25:37'
 excerpt: Girişimler ve girişimciler, iş dünyasına adım attıkları andan itibaren çok farklı konularda, çok farklı zorluklarla karşı karşıya kalabilirler. Girişimler, en…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/vardiya-yonetimi-yazilimlari-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/vardiya-yonetimi-yazilimlari-1392x696-1.jpg
   alt: Girişimcilerin Yaşadığı İK Problemleri
   width: 1392
   height: 696

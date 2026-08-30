@@ -4,7 +4,7 @@ title: Zombi Çalışanları Tanıma Rehberi
 date: '2025-08-31T13:05:44'
 excerpt: Zombi çalışanlar İKY trendlerinin popüler kavramları arasında yerini aldı. Peki, bu kavram tam olarak neyi ifade ediyor? Zombi çalışanlar iş süreçlerini nasıl…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/09/zombi-calisanlari-tanima-rehberi-1392x696-1.webp
+  url: /wp-content/uploads/2025/09/zombi-calisanlari-tanima-rehberi-1392x696-1.webp
   alt: Zombi Çalışanları Tanıma Rehberi
   width: 1392
   height: 696

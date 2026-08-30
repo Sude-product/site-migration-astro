@@ -4,7 +4,7 @@ title: Ara Zam Uygulamaları ve İKY Profesyonellerinin İş Yükü
 date: '2024-08-24T14:11:42'
 excerpt: Ara zam uygulamaları İKY profesyonelleri için yoğun bir tempoyu beraberinde getiriyor. Ara zam konusu son birkaç yılda gündemi meşgul eden başlıklar arasında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/maas-artis-oranlari-ve-ikynin-is-yuku.jpg
+  url: /wp-content/uploads/2025/08/maas-artis-oranlari-ve-ikynin-is-yuku.jpg
   alt: Ara Zam Uygulamaları ve İKY Profesyonellerinin İş Yükü
   width: 1281
   height: 721

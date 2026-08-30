@@ -4,7 +4,7 @@ title: Çalışan Bağlılığını Artırmanın Yolları
 date: '2025-07-09T23:06:08'
 excerpt: Çalışan bağlılığını artırmanın yolları, tüm işveren ve insan kaynakları departmanları tarafından sıklıkla aranılan konuların başında gelir. Çünkü, çalışan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/07/Calisan-Bagliligini-Artirmanin-Yollari.jpg
+  url: /wp-content/uploads/2025/07/Calisan-Bagliligini-Artirmanin-Yollari.jpg
   alt: Çalışan Bağlılığını Artırmanın Yolları
   width: 1024
   height: 675
@@ -75,7 +75,7 @@ Mentorluk ve koçluk uygulamaları, çalışan memnuniyetini artırmaya yönelik
 
 ### **360 Derece Performans Yönetimi**
 
-![idenfit performans yönetimi modülü](https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
+![idenfit performans yönetimi modülü](/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
 
 \
 **[İDENFİT PERFORMANS YÖNETİMİ MODÜLÜ](/calisan-performans-degerlendirme-sistemi-modulu/)**

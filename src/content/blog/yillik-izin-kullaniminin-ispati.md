@@ -4,7 +4,7 @@ title: Yıllık İzin Kullanımının İspatı
 date: '2024-05-01T23:34:00'
 excerpt: Teknolojinin ilerlemesiyle birlikte, iş dünyasında da önemli değişiklikler yaşanıyor. Özellikle de yıllık izin kullanımının ispatı noktasında Yargıtay’ın…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/yillik-izin-kullaniminin-ispati-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/yillik-izin-kullaniminin-ispati-1392x696-1.jpg
   alt: Yıllık İzin Kullanımının İspatı
   width: 1392
   height: 696

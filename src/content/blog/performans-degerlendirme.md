@@ -4,7 +4,7 @@ title: Performans Değerlendirme Nedir?
 date: '2025-12-08T18:42:15'
 excerpt: Performans değerlendirme sürecinin ne olduğunu anlayabilmemiz için önce performansın tanımını yapmamız gerekiyor. Sanayi Devrimi’nden önce ve Sanayi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2019/12/performans-degerlendirme-nedir.png
+  url: /wp-content/uploads/2019/12/performans-degerlendirme-nedir.png
   alt: Performans Değerlendirme Nedir?
   width: 2272
   height: 1497
@@ -19,7 +19,7 @@ modifiedDate: '2025-12-08T18:42:52'
 
 ## **Performans Nedir?**
 
-![performans nedir](https://idenfit.com/wp-content/uploads/2019/12/Varlƒ±k-41.png)
+![performans nedir](/wp-content/uploads/2019/12/Varlƒ±k-41.png)
 
 **Performans**, bir bireyin herhangi bir örgüt içerisinde, örgütün hedeflerine uygun olarak hedeflere ne kadar ulaştığını gösteren değerler toplamıdır. Çalışanın nicel ve nitel tüm aksiyonları performansa dahildir. **Performans** temel olarak “hedef” kavramı ile sıkı sıkıya bağlıdır. Buradan anlayacağınız üzere, performansın en azından bir sağlam kriteri var. Hedef olmadan performanstan bahsedilemez.
 
@@ -27,7 +27,7 @@ Hedefler performansın cetvelidir. Burada bahsi geçen hedefler, sadece kurum ç
 
 ## **Performans Değerlendirme Nedir?**
 
-![performans degerlendirme](https://idenfit.com/wp-content/uploads/2019/12/Varlık-1-1.png)
+![performans degerlendirme](/wp-content/uploads/2019/12/Varlık-1-1.png)
 
 “Ölçümleyemediğinizi yönetemezsiniz, tanımlayamadığınızı da ölçümleyemezsiniz.” Prof. Dr. Robert Kaplan, Harvard Business School.
 
@@ -37,13 +37,13 @@ Performans uçsuz bucaksız bir ormansa, **performans değerlendirme** de o orma
 
 ## **Performans Değerlendirme Nasıl Yapılır?**
 
-![performans degerlendirme nasil yapilir](https://idenfit.com/wp-content/uploads/2019/12/Varlƒ±k-42.png)
+![performans degerlendirme nasil yapilir](/wp-content/uploads/2019/12/Varlƒ±k-42.png)
 
 **Performans değerlendirm**e yöntemleri uygulandıkça “performans değerlendirmedeki performansımız” günden güne arttı. Bugün birçok değerlendirme yöntemi ve birbirinden farklı birçok **performans değerlendirme ölçeği** ile karşı karşıyayız. Zaman içinde edindiğimiz deneyimler iyi bir performans değerlendirme sürecinin özelliklerini de netleştirdi.
 
 ## **Kaliteli bir performans değerlendirme süreci için:**
 
-![performans degerlendirme süreci](https://idenfit.com/wp-content/uploads/2019/12/Varlƒ±k-40.png)
+![performans degerlendirme süreci](/wp-content/uploads/2019/12/Varlƒ±k-40.png)
 
 ### **Adil olun**
 
@@ -63,13 +63,13 @@ Performans değerlendirmesi yaparken çalışanı kendisinden ya da yöneticisin
 
 ### **Bir yazılımdan destek alın**
 
-![performans degerlendirme yazılımı](https://idenfit.com/wp-content/uploads/2019/12/np_code_969064_FF0000.png)
+![performans degerlendirme yazılımı](/wp-content/uploads/2019/12/np_code_969064_FF0000.png)
 
 **İnsan kaynakları yazılımları** bu süreçte işinizi oldukça kolaylaştıracaktır. Üstelik her çalışanın gelişim profilini ya da negatif yönelimini bir seferde görebilmenizi sağlar. Bir yazılımla geri bildirim süreçlerini otonom hale getirebilirsiniz. Ayrıca çalışanlarınız da kağıtlara basılmış anketlerden kurtulur. Yazılımlar bilgiyi paylaşmanızı kolaylaştırır, insan hatalarını ortadan kaldırır, elde ettiğiniz verileri zaman kaybetmeden kolayca raporlamanızı ve paylaşmanızı sağlar.
 
 ## **Performans Değerlendirme Kazaları**
 
-![performans degerlendirme kazalari](https://idenfit.com/wp-content/uploads/2019/12/np_exclamation_1674432_FF0000.png)
+![performans degerlendirme kazalari](/wp-content/uploads/2019/12/np_exclamation_1674432_FF0000.png)
 
 Aslında kusursuz olarak uygulandığında kulağa çok hoş gelen şeylerden bahsettik. Ancak performans değerlendirmesinin çalışan motivasyonunu öldüren bir katil olduğunu düşünenler de yok değil. Aslında bu düşünceyi haklı çıkaran durumlar, her zaman performans değerlendirme sürecinin doğru işletilmemesinden kaynaklanır. Performans değerlendirme **performans yöntemleri** için bir araçtır, bir amaç değildir. Performans değerlendirme süreci belirli kararlar alınmasına neden olmuyor, yani **performans yönetimi** üzerinde etkisiz kalıyorsa giderek anlamsızlaşır ve bir formaliteden öteye gidemez. Yapılan en önemli **[performans değerlendirme yanlışlarından](/blog/performans-degerlendirme-hatalari/)** bazıları:
 
@@ -86,7 +86,7 @@ Aslında kusursuz olarak uygulandığında kulağa çok hoş gelen şeylerden ba
 
 ## **Ön Yargı Tuzağına Düşmeyin**
 
-![performans degerlendirme kriterleri](https://idenfit.com/wp-content/uploads/2019/12/np_unjust_2854707_FF0000.png)
+![performans degerlendirme kriterleri](/wp-content/uploads/2019/12/np_unjust_2854707_FF0000.png)
 
 **Performans değerlendirme** ön yargılardan, yani kişisel sorunlardan ne kadar arındırılmış olursa, sonuçları da o kadar güvenilir ve dolayısıyla etkili olacaktır. Genel olarak en çok karşılaşılan ön yargı etmenleri:
 

@@ -4,7 +4,7 @@ title: İnsan Kaynakları Çalışanlarının Yetkinlikleri Nelerdir?
 date: '2021-04-26T10:42:26'
 excerpt: İK yetkinlikleri, insan kaynakları yönetiminde yaşanan gelişmeler ışığında yetkinlik bazlı insan kaynakları yönetiminin değeri arttıkça her geçen gün daha da…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/04/insan-kaynaklari-calisanlarinin-yetkinlikleri-nelerdir.jpg
+  url: /wp-content/uploads/2021/04/insan-kaynaklari-calisanlarinin-yetkinlikleri-nelerdir.jpg
   alt: İnsan Kaynakları Çalışanlarının Yetkinlikleri Nelerdir?
   width: 1514
   height: 999

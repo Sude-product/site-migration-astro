@@ -4,7 +4,7 @@ title: Yıkıcı Motivasyon Nedir
 date: '2023-09-18T22:43:41'
 excerpt: Hedefe yönelik davranışları ve güdülenmeyi ifade eden motivasyon kavramı iş dünyası kalıpları içinde kendisine sıklıkla yer bulan bir kavramdır. Olumlu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/09/yikici-motivasyon-nedir-zararlari-nelerdir.jpg
+  url: /wp-content/uploads/2023/09/yikici-motivasyon-nedir-zararlari-nelerdir.jpg
   alt: Yıkıcı Motivasyon Nedir
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: Etkili Liderlik için 7 İpucu
 date: '2023-04-05T20:19:44'
 excerpt: Etkili liderlik, karizmatik liderlik ya da pozitif liderlik… Sizin tercihiniz hangisi olurdu? Esasında bu soruya vereceğiniz yanıt pek de önemli değil. Çünkü…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/04/Etkili-liderlik.jpg
+  url: /wp-content/uploads/2023/04/Etkili-liderlik.jpg
   alt: Etkili Liderlik için 7 İpucu
   width: 1621
   height: 811

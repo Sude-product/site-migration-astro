@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Ölçülmesi Gereken Metrikler Nelerdir?
 date: '2020-08-31T16:01:19'
 excerpt: Günümüzde insan kaynakları departmanının bir şirketin bel kemiği olduğu artık yadsınamaz bir gerçek. İnsan kaynakları hem bir şirket ya da kuruluş için çalışan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/insan-kaynaklarinda-ölçülmesi-gereken-metrikler.png
+  url: /wp-content/uploads/2025/08/insan-kaynaklarinda-ölçülmesi-gereken-metrikler.png
   alt: İnsan Kaynaklarında Ölçülmesi Gereken Metrikler Nelerdir?
   width: 2271
   height: 1497
@@ -21,7 +21,7 @@ Hızlı büyümek ve verimli çıktılar elde etmek isteyen her departman gibi i
 
 ## İnsan Kaynaklarında Metrik Nedir?
 
-<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İNSAN KAYNAKLARINI IDENFİT İLE YÖNETİN!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-2.png" alt="" class="wp-image-2296"></a>
+<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="İNSAN KAYNAKLARINI IDENFİT İLE YÖNETİN!"><img decoding="async" src="/wp-content/uploads/2020/08/linkedin-1-2.png" alt="" class="wp-image-2296"></a>
 
 İNSAN KAYNAKLARINI IDENFİT İLE YÖNETİN!
 

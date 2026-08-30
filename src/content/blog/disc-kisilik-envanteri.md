@@ -4,7 +4,7 @@ title: DiSC Kişilik Envanteri
 date: '2021-08-16T14:20:45'
 excerpt: İK süreçleri, işe alım , görüşme ve yeni personelin işe alınması gibi görevleri kapsar. İşe alım görüşmelerinde adayın psikolojisini anlayabilmek çok…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/08/disc.png
+  url: /wp-content/uploads/2021/08/disc.png
   alt: DiSC Kişilik Envanteri
   width: 1515
   height: 998

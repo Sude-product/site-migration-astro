@@ -4,7 +4,7 @@ title: Kişilik Envanteri Nasıl Uygulanır?
 date: '2021-04-28T12:20:05'
 excerpt: İşe alım süreçlerinde adayın değerlendirmesi ve süreci başarılı şekilde tamamlayabilmesi için birçok aşamadan geçmesi gerekir. Bu süreç içerisinde insan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/04/kisilik-envanteri-insan-kaynaklari-yonetiminde-nasil-uygulanir@2x-100.jpg
+  url: /wp-content/uploads/2021/04/kisilik-envanteri-insan-kaynaklari-yonetiminde-nasil-uygulanir@2x-100.jpg
   alt: Kişilik Envanteri Nasıl Uygulanır?
   width: 1515
   height: 999

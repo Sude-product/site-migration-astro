@@ -4,7 +4,7 @@ title: Geri Bildirim Nedir?
 date: '2024-11-10T16:59:06'
 excerpt: Geri bildirim nedir, geri bildirimin performansa veya çalışan motivasyonuna etkileri nelerdir, yapıcı geri bildirimler ile çalışan motivasyonu nasıl artırılır…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-ik-Trendleri-Sozlugu.png
+  url: /wp-content/uploads/2025/08/2025-ik-Trendleri-Sozlugu.png
   alt: Geri Bildirim Nedir?
   width: 1514
   height: 999
@@ -52,7 +52,7 @@ Yapıcı geri bildirim, çalışanların performansını iyileştirmek ve geliş
 
 ## **Yapıcı Geri Bildirim Nasıl Verilir?**
 
-[![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
+[![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-3.png)](/organizasyonel-geri-bildirim-modulu/)
 
 **[İDENFİT GERİ BİLDİRİM MODÜLÜ](/organizasyonel-geri-bildirim-modulu/)**
 

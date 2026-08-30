@@ -4,7 +4,7 @@ title: Upskilling ve Reskilling Nedir?
 date: '2022-01-06T12:06:02'
 excerpt: Pandemi sonrası değişen çalışma modelleri, büyük istifa hareketi ile art arda kaybedilen yıldız çalışanlar ve tüm iş süreçlerinde artan yoğun teknoloji…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/01/İK-Profesyonellerinin-Dikkatine@2x.jpg
+  url: /wp-content/uploads/2022/01/İK-Profesyonellerinin-Dikkatine@2x.jpg
   alt: Upskilling ve Reskilling Nedir?
   width: 1515
   height: 999

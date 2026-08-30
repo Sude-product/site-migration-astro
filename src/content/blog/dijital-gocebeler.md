@@ -4,7 +4,7 @@ title: Dijital Göçebeler
 date: '2021-11-15T10:09:29'
 excerpt: Dijital göçebeler kavramını son zamanlarda sık duymaya mı başladınız? Cevabınız evet ise sizi temin ederiz ki çok yakın bir süre içerisinde çok daha sık…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/digital-nomad@2x.jpg
+  url: /wp-content/uploads/2021/11/digital-nomad@2x.jpg
   alt: Dijital Göçebeler
   width: 810
   height: 534

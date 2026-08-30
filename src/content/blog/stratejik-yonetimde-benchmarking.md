@@ -4,7 +4,7 @@ title: Stratejik Yönetimde Benchmarking
 date: '2025-06-11T23:36:20'
 excerpt: Şirketlerdeki stratejik yönetimin etkinliğinin artması konusunda benchmarking kavramı önemli bir araç olarak kabul ediliyor. Global dünyada şirketlerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/06/bench.png
+  url: /wp-content/uploads/2025/06/bench.png
   alt: Stratejik Yönetimde Benchmarking
   width: 2272
   height: 1498

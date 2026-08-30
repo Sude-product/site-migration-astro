@@ -4,7 +4,7 @@ title: Yemek Kartlarının SGK Primi İstisnası Değişikliği 2023
 date: '2023-06-22T17:54:16'
 excerpt: Yemek kartlarının SGK primi istisnası değişikliği, yemek bedeli, çalışanlara sağlanan yemek hizmetlerinin vergi ve prim muafiyetleri ile ilgili bir kavramdır.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/06/yemek-kartlarinin-sgk-primi-istisnasi-degisikligi.jpg
+  url: /wp-content/uploads/2023/06/yemek-kartlarinin-sgk-primi-istisnasi-degisikligi.jpg
   alt: Yemek Kartlarının SGK Primi İstisnası Değişikliği 2023
   width: 1621
   height: 811

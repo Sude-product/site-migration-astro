@@ -4,7 +4,7 @@ title: 4 Etkili Müzakere Stratejisi
 date: '2023-08-23T19:10:29'
 excerpt: Müzakere stratejisi teknikleri yalnızca iş hayatında değil günün hemen her anında hayatınıza pratiklik katar. Birçok insan, müzakerelerden genellikle hoşnut…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/08/4-muzakere-stratejisi.jpg
+  url: /wp-content/uploads/2023/08/4-muzakere-stratejisi.jpg
   alt: 4 Etkili Müzakere Stratejisi
   width: 1621
   height: 811

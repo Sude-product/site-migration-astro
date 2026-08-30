@@ -4,7 +4,7 @@ title: Sanal Gerçeklik Uygulamaları İK Tarafından Nasıl Kullanılmalı?
 date: '2025-04-13T21:19:15'
 excerpt: Teknoloji, her alanda olduğu gibi insan kaynakları süreçlerinde de dönüşüm yaratmaktadır. Sanal gerçeklik teknolojisi ise insan kaynakları alanında yenilikçi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/sanal-gerceklik.jpg
+  url: /wp-content/uploads/2025/08/sanal-gerceklik.jpg
   alt: Sanal Gerçeklik Uygulamaları İK Tarafından Nasıl Kullanılmalı?
   width: 1515
   height: 999

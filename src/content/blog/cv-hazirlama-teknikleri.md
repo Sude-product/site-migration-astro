@@ -4,7 +4,7 @@ title: İşe Alınmanızı Sağlayacak CV Hazırlama Teknikleri
 date: '2025-04-15T20:45:41'
 excerpt: CV hazırlama öğrenci ya da çalışan demeden herkesin hayatının bir döneminde üzerinde çalıştığı bir eylemdir. Rekabetin bu denli güçlü olduğu, tek bir pozisyona…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/cv-hazirlama.jpg
+  url: /wp-content/uploads/2025/08/cv-hazirlama.jpg
   alt: İşe Alınmanızı Sağlayacak CV Hazırlama Teknikleri
   width: 2272
   height: 1497
@@ -21,7 +21,7 @@ ABD merkezli iş arama platformu The Ladders, işverenlerin özgeçmişleri nas�
 
 ## **İyi bir “Ön Yazı” Sizi Öne Çıkaraktır**
 
-![etkili on yazı ornegi](https://idenfit.com/wp-content/uploads/2019/10/on-yazi-ornegi.png)
+![etkili on yazı ornegi](/wp-content/uploads/2019/10/on-yazi-ornegi.png)
 
 Etkili CV hazırlama için ilk olarak, işverene veya işe alımdan sorumlu yöneticiye vereceğiniz ilk izlenimin önemli olduğunu bilmelisiniz. Yöneticinin sizinle ilgili edindiği ilk intiba olması açısından **[ön yazı](https://www.canva.com/tr_tr/yapma/on-yazi-cover-letter/)** önemlidir. Tabii, bot mesaj gibi yazılan “genel” ön yazılardan bahsetmiyoruz. Başvurduğunuz pozisyon özelinde, sizi neden tercih etmeleri gerektiğini anlatan, yetenek ve tecrübelerinizden bahsettiğiniz kısa ve kolay anlaşılır bir yazı olmalı. Hatta başvurduğunuz pozisyona göre CV’nizde de değişiklik yapabilirsiniz. Ön yazınızdan etkilenen bir yönetici, sizinle ilgili detaylı bilgi edinmek isteyecek ve CV’nizi daha dikkatli inceleyecektir.
 
@@ -33,7 +33,7 @@ Etkili CV hazırlama için ilk olarak, işverene veya işe alımdan sorumlu yön
 
 ## **Etkili CV Örneği ve İçerik**
 
-![dogru ve yanlis cv ornekleri](https://idenfit.com/wp-content/uploads/2019/10/dogru-ve-yanlis-cv-ornekleri-1024x527.jpg)
+![dogru ve yanlis cv ornekleri](/wp-content/uploads/2019/10/dogru-ve-yanlis-cv-ornekleri-1024x527.jpg)
 
 Aynı pozisyona sizin gibi yüzlerce kişinin daha başvurduğunu unutmayın. İşvereni etkilemeye yönelik hazırlanan uzun ve sıkıcı bir özgeçmiş ters etki yaratabilir ve hatta direkt elenmenize bile sebep olabilir. Başvuruların incelenme sürecinin zaman alıcı olmasından dolayı yöneticilerin çok uzun özgeçmişlere vakit ayıramayacağını bilmelisiniz. Kendinizi göstermek ve diğer adaylardan sıyrılarak işi kapabilmek için sadece 6 saniyeniz olduğunu unutmayın.
 
@@ -54,7 +54,7 @@ CV’niz; kimlik bilgileri, iletişim bilgileri, eğitim hayatı ve iş tecrübe
 
 ## **Hobileriniz Gerçekten Nelerdir?**
 
-![cv hobi ornekleri](https://idenfit.com/wp-content/uploads/2019/10/cv-hobiler-1024x564.png)
+![cv hobi ornekleri](/wp-content/uploads/2019/10/cv-hobiler-1024x564.png)
 
 Öncelikle CV’nizde gerçeği yansıtmayan herhangi bir bilgiye yer vermeyin. Kendinizi en iyi şekilde sunarken olabildiğince dürüst olun. Bilgiye erişimin bu denli kolay olduğu günümüzde kendinizi zora sokacak bilgiler vermekten kaçının. Hobilerden bahsedecek olursak kitap okumak hobi değildir, bunu artık hepimiz biliyoruz değil mi? Gerçekten yapmaktan keyif aldığınız uğraşınız ya da uğraşlarınız varsa elbette yazın. Fakat klişe hobiler yazmaktansa hiç yazmamayı tercih edebilirsiniz.
 
@@ -62,13 +62,13 @@ CV’niz; kimlik bilgileri, iletişim bilgileri, eğitim hayatı ve iş tecrübe
 
 ## **“Yalnız o “de” ayrı olacak!”**
 
-![yazim kurallari](https://idenfit.com/wp-content/uploads/2019/10/dil-bilgisi-kurali-karikatur.jpeg)
+![yazim kurallari](/wp-content/uploads/2019/10/dil-bilgisi-kurali-karikatur.jpeg)
 
 Bildiğiniz gibi, ülkece dahi anlamındaki -de, da’ların ayrı yazılması konusunda hassasız. Sadece bu konuda mı peki? Dil bilgisi ve yazım hatalarını çok önemsemesekte aslında iş başvurusunda sizinle ilgili oldukça kötü izlenim verebilecek bir detay. Sonuçta ilk izleniminizi özgeçmişiniz ile oluşturuyorken negatif bir başlangıç yapmak istemezsiniz. CV’nizi yazarken ya da güncellerken muhakkak yazım hatalarını kontrol edin. Bazen metindeki hataları farketmenin en iyi yolu metni sesli okumaktır. Sesli okuduğunuzda kulağınızı tırmalayan bir şey farkettiğinizde durun! işte orada düzeltilmesi gereken bir durum söz konusu.
 
 ## **Font Önemli**
 
-![cv yazı fontlari](https://idenfit.com/wp-content/uploads/2019/10/cv-yazi-fontu.png)
+![cv yazı fontlari](/wp-content/uploads/2019/10/cv-yazi-fontu.png)
 
 Cv örneklerini incelediğimizde net ve okunaklı fontlarla yazılanların daha okunmaya müsait olduğunu görüyoruz. Cv hazırlarken bu tarz okunaklı fontlar seçmeye özen gösterin. İlk bakıldığında göze karmaşık gelen, zor okunabilen fontlar etkili bir özgeçmiş de olsa, direkt kenara atılma sebebi olabilir. 
 
@@ -78,7 +78,7 @@ Bir diğer önemli husus da yazı tipi boyutları. İçerikte 11-12 punto başl�
 
 ## **Etkili Bir CV İçin Fotoğraf Seçimi**
 
-![cv fotografi](https://idenfit.com/wp-content/uploads/2019/10/cv-fotografi-1024x707.png)
+![cv fotografi](/wp-content/uploads/2019/10/cv-fotografi-1024x707.png)
 
 Fotoğraflı CV hazırlama dünyada birçok ülkede artık uygulanmıyor olsa da, ülkemizde CV’lerde fotoğraf olması beklenilmekte. Bu durumda CV için fotoğraf seçimi önemli bir konudur. Fotoğraf seçimi yaparken prezentabl ve profesyonel gözüken ama kimlikteki kadar da sert olmayan bir fotoğraf seçtiğinizden emin olun. Böyle bir cv hazırlamak için fotoğraflı bir cv hazırlama formu işinizi kolaylaştıracaktır.
 
@@ -90,7 +90,7 @@ Tüm bilgilerinizi bir araya getirmeyin, sıkıştırmayın. Beyaz boşluk alanl
 
 ## **Dijitali Yakala!**
 
-![digital cv ornegi](https://idenfit.com/wp-content/uploads/2019/10/sosyal-medya-ikonlari.png)
+![digital cv ornegi](/wp-content/uploads/2019/10/sosyal-medya-ikonlari.png)
 
 Başvurduğunuz pozisyona göre zamanı yakalamanız gerekebilir. Örneğin, yaratıcı işler yapacağınız, yeni fikirler üretmeniz gereken bir pozisyona başvuracaksanız sınırları zorlamanız gerekebilir. Son yıllarda internet ve teknolojinin gelişmesi ile birlikte sosyal medya hayatımıza hızlı bir şekilde girdi ve her geçen gün gelişmekte. 
 

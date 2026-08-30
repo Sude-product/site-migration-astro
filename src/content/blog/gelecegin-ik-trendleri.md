@@ -4,7 +4,7 @@ title: Geleceğin İK Trendleri Neler?
 date: '2021-06-07T11:05:30'
 excerpt: Geçtiğimiz yıldan itibaren zaman her meslek ve sektör için oldukça zorlu geçti. Pandemi ile birlikte yeni normale uyum sağlamak için çok hızlı değişiklikler…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/06/2X-100.jpg
+  url: /wp-content/uploads/2021/06/2X-100.jpg
   alt: Geleceğin İK Trendleri Neler?
   width: 810
   height: 534

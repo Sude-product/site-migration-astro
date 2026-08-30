@@ -4,7 +4,7 @@ title: Performans Değerlendirme Sürecinizi Ön Yargılardan Arındırın
 date: '2021-11-08T09:21:15'
 excerpt: Performans değerlendirme sürecinizi ön yargıdan uzak ve profesyonel şekilde yürüttüğüne emin misiniz? 1800’lü yılların sonlarında insanlık tarihine katılan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/10/Performans-Degerlendirme-Surecinizi-On-Yargilardan-Arindirin@2x.png
+  url: /wp-content/uploads/2021/10/Performans-Degerlendirme-Surecinizi-On-Yargilardan-Arindirin@2x.png
   alt: Performans Değerlendirme Sürecinizi Ön Yargılardan Arındırın
   width: 1515
   height: 999

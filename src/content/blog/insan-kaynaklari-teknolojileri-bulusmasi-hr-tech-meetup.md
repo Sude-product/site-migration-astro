@@ -4,7 +4,7 @@ title: İnsan Kaynakları Teknolojileri Buluşması – HR Tech Meetup
 date: '2024-04-26T16:51:46'
 excerpt: HR TECH MEETUP, İK teknolojileri kullanmaları sayesinde firmaların işlerini daha verimli hale nasıl getirecekleri konusunda deneyimleri, geçiş sürecindeki…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/hrtech-meetup-20240523-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/hrtech-meetup-20240523-1392x783-1.jpg
   alt: İnsan Kaynakları Teknolojileri Buluşması – HR Tech Meetup
   width: 1392
   height: 783
@@ -36,49 +36,49 @@ Katılımcılar, HR TECH çözümlerinin güncel özelliklerini keşfederken, se
 
 [Kayıt Ol](https://forms.gle/FrJHFvrHHScK6iUL9)
 
-![profile-15](https://idenfit.com/wp-content/uploads/2023/05/konusmaci-ridvan-acar.png)
+![profile-15](/wp-content/uploads/2023/05/konusmaci-ridvan-acar.png)
 
 **Rıdvan Acar**\
 Kibar Holding\
 Group Total Rewards and HR Analytics Director
 
-![gülnur narin](https://idenfit.com/wp-content/uploads/2024/04/konusmaci-gulnur-narin-1.png)
+![gülnur narin](/wp-content/uploads/2024/04/konusmaci-gulnur-narin-1.png)
 
 **Gülnur Narin\
 **Consultant\
 ExCHRO
 
-![berna belkis](https://idenfit.com/wp-content/uploads/2024/04/konusmaci-berna-belkis.png)
+![berna belkis](/wp-content/uploads/2024/04/konusmaci-berna-belkis.png)
 
 **Berna Belkıs**\
 Param\
 Group CHRO, Deputy CEO
 
-![akın söylemez](https://idenfit.com/wp-content/uploads/2024/04/konusmaci-akin-soylemez-1.png)
+![akın söylemez](/wp-content/uploads/2024/04/konusmaci-akin-soylemez-1.png)
 
 **Akın Söylemez\
 **Fibabanka\
 HR Systems, Process and Data Analytics Unit Head
 
-![profile-9](https://idenfit.com/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
+![profile-9](/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
 
 **Kemal Koçak**\
 Datassist\
 Chief Growth Officer
 
-![bilgin yazar](https://idenfit.com/wp-content/uploads/2024/04/konusmaci-bilgin-yazar.png)
+![bilgin yazar](/wp-content/uploads/2024/04/konusmaci-bilgin-yazar.png)
 
 **Bilgin Yazar\
 **Vedubox\
 CEO
 
-![doruk gülsever](https://idenfit.com/wp-content/uploads/2024/05/doruk-gulsever-2024.png)
+![doruk gülsever](/wp-content/uploads/2024/05/doruk-gulsever-2024.png)
 
 **Doruk Gülsever\
 **idenfit\
 Senior HR Solutions Partner
 
-![soner yıldırım](https://idenfit.com/wp-content/uploads/2024/04/konusmaci-soner-yildirim-1.png)
+![soner yıldırım](/wp-content/uploads/2024/04/konusmaci-soner-yildirim-1.png)
 
 **Soner Yıldırım\
 **Spektera\

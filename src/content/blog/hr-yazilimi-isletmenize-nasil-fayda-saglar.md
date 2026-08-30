@@ -4,7 +4,7 @@ title: HR Yazılımı İşletmenizin Büyümesine Nasıl Yardımcı Olur?
 date: '2025-05-25T20:19:41'
 excerpt: Bir işletmenin kısa, orta ve uzun vadeli planlarını gerçekleştirmesi için insan kaynakları yönetiminin tutarlı ve doğru şekilde sürdürülmesi gerekir. Sahip…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/hr-yazilimi-1.png
+  url: /wp-content/uploads/2025/05/hr-yazilimi-1.png
   alt: HR Yazılımı İşletmenizin Büyümesine Nasıl Yardımcı Olur?
   width: 1024
   height: 675
@@ -54,7 +54,7 @@ HR yazılımı, insan kaynakları departmanlarının neredeyse tüm süreçlerin
 
 ### **İşe Alım Süreci**
 
-<a href="/ise-alim-modulu/" aria-label="İŞE ALIM SÜRECİNİ IDENFIT İLE PLANLAYIN"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/07/Varlık-10@2x-12.16.42-4-1024x958.png" alt="" class="wp-image-1968" style="width:512px;height:479px"></a>
+<a href="/ise-alim-modulu/" aria-label="İŞE ALIM SÜRECİNİ IDENFIT İLE PLANLAYIN"><img decoding="async" src="/wp-content/uploads/2020/07/Varlık-10@2x-12.16.42-4-1024x958.png" alt="" class="wp-image-1968" style="width:512px;height:479px"></a>
 
 İŞE ALIM SÜRECİNİ IDENFIT İLE PLANLAYIN
 
@@ -96,7 +96,7 @@ HR yazılımları, çalışanların kuruma olan bağlılığını güçlendiren 
 
 ### **Uçtan Uca İnsan Kaynakları Yönetimi**
 
-<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="IDENFIT İLE UÇTAN UCA İNSAN KAYNAKLARI YÖNETİMİ"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/07/linkedin-.png" alt="" class="wp-image-1971" style="width:451px;height:376px"></a>
+<a href="/insan-kaynaklari-yonetimi-modulu/" aria-label="IDENFIT İLE UÇTAN UCA İNSAN KAYNAKLARI YÖNETİMİ"><img decoding="async" src="/wp-content/uploads/2020/07/linkedin-.png" alt="" class="wp-image-1971" style="width:451px;height:376px"></a>
 
 IDENFIT İLE UÇTAN UCA İNSAN KAYNAKLARI YÖNETİMİ
 

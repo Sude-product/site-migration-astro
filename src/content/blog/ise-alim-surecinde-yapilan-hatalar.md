@@ -4,7 +4,7 @@ title: İşe Alım Sürecinde Sık Yapılan Hatalar
 date: '2020-08-28T10:43:14'
 excerpt: Şirketler için uzun vadeli katkı sunabilecek personeli bulmak son derece önemli bir konudur. İnsan kaynakları departmanları başta olmak üzere şirketlerin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/işe-alim-hatalari@3x.png
+  url: /wp-content/uploads/2025/08/işe-alim-hatalari@3x.png
   alt: İşe Alım Sürecinde Sık Yapılan Hatalar
   width: 2271
   height: 1497
@@ -35,7 +35,7 @@ Modern yaşamda [işe alım süreçleri hakkında her şey](/blog/insan-kaynakla
 
 ## İşe Alım Sürecinde Yapılan Hatalar ve Çözümleri
 
-[![işe alım](https://idenfit.com/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-2-1024x958.png)](/ise-alim-modulu/)
+[![işe alım](/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-2-1024x958.png)](/ise-alim-modulu/)
 
 HATASIZ İŞE ALIMIN TÜM KADEMELERİ İÇİN IDENFİT
 

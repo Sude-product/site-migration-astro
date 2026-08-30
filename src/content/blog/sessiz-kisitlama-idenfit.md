@@ -4,7 +4,7 @@ title: 'Sessiz Kısıtlama: Bu Gerçek Bir Trend mi?'
 date: '2025-04-27T15:35:54'
 excerpt: Sessiz kısıtlama ifadesiyle ilk karşılaşmamız bizi de şaşırttı doğrusu. Büyük istifa, sessiz istifa derken sessiz bir trend daha hayatımıza katıldı. Yani…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/sessiz-k─▒s─▒tlama.jpg
+  url: /wp-content/uploads/2025/08/sessiz-k─▒s─▒tlama.jpg
   alt: 'Sessiz Kısıtlama: Bu Gerçek Bir Trend mi?'
   width: 1515
   height: 999

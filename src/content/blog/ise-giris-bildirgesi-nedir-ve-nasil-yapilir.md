@@ -4,7 +4,7 @@ title: İşe Giriş Bildirgesi Nedir ve Nasıl Yapılır?
 date: '2020-08-07T17:20:25'
 excerpt: Bir kurum bir personeli işe alırken Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu’na göre işe giriş bildirgesi düzenlemelidir. Bu belgenin Sosyal Güvenlik…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/WhatsApp-Image-2020-08-07-at-17.28.26.jpeg
+  url: /wp-content/uploads/2025/08/WhatsApp-Image-2020-08-07-at-17.28.26.jpeg
   alt: İşe Giriş Bildirgesi Nedir ve Nasıl Yapılır?
   width: 1600
   height: 1054
@@ -20,7 +20,7 @@ Bir kurum bir personeli işe alırken Sosyal Sigortalar ve Genel Sağlık Sigort
 
 Genellikle insan kaynakları birimince yönetilen işe alım süreçleri sonunda personel için bir [özlük dosyası hazırlama](/blog/personel-ozluk-dosyasi/) sürecine girilir. Önceleri personelin sigortasının aktif hale gelmesi için gerekli kurumlarla belge bilgi akışı sağlanırken son yıllarda bu basamak bir hayli kolaylaşmıştır. Artık bu işlem personelin kimlik numarasıyla Sosyal Sigortalar Kurumu’nun sitesi üzerinden gerçekleştirilebilir durumdadır.
 
-[![özlük dosyası](https://idenfit.com/wp-content/uploads/2020/08/ozluk.png)](/calisan-ozluk-yonetimi-modulu/)
+[![özlük dosyası](/wp-content/uploads/2020/08/ozluk.png)](/calisan-ozluk-yonetimi-modulu/)
 
 ÖZLÜK DOSYALARINI IDENFİT İLE DİJİTALDE GÜVENLE SAKLAYIN!
 

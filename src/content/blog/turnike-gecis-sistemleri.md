@@ -4,7 +4,7 @@ title: Turnike Geçiş Sistemleri Rehberi
 date: '2024-07-11T12:31:08'
 excerpt: Güvenlik ve erişim kontrolü, her dönemde olduğu gibi günümüzde de iş dünyasının öncelikleri arasında yer alıyor. Eğer sizde işyerinizde yetkisiz girişleri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/tunike-gecis-sistemleri.jpg
+  url: /wp-content/uploads/2025/08/tunike-gecis-sistemleri.jpg
   alt: Turnike Geçiş Sistemleri Rehberi
   width: 1281
   height: 721

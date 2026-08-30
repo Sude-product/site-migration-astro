@@ -4,7 +4,7 @@ title: İşten Çıkarma ve Küçülme Süreçleri
 date: '2022-04-27T13:36:17'
 excerpt: İşten çıkarma ve küçülme hiçbir zaman ilk tercih olmamakla birlikte dönem dönem şirket stratejisi gereği uygulanması gereken yöntemler arasında yer alıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/04/İşten-Çikarma-ve-Küçülme-Süreçleri-Nasil-Sorunsuz-Yönetilir_-1.jpg
+  url: /wp-content/uploads/2022/04/İşten-Çikarma-ve-Küçülme-Süreçleri-Nasil-Sorunsuz-Yönetilir_-1.jpg
   alt: İşten Çıkarma ve Küçülme Süreçleri
   width: 1514
   height: 998

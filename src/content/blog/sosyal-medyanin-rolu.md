@@ -4,7 +4,7 @@ title: Muhasebe Firmalarının Büyümesinde Sosyal Medyanın Rolü
 date: '2022-10-05T18:06:18'
 excerpt: Muhasebe sektörü yoğun iş tempolarından dolayı sosyal medya kullanımını destekleyen sektörler arasında görülmeyebilir. Ancak firmanızın sunduğu hizmetleri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/sosyal-medyanin-rolu.jpg
+  url: /wp-content/uploads/2022/10/sosyal-medyanin-rolu.jpg
   alt: Muhasebe Firmalarının Büyümesinde Sosyal Medyanın Rolü
   width: 1514
   height: 998

@@ -4,7 +4,7 @@ title: Güçlü Bir İK Departmanı İçin Dikkat!
 date: '2022-02-02T14:09:33'
 excerpt: Güçlü bir İK departmanı kuşkusuz küçük, orta veya büyük çaplı her işletmenin verimli ve sistemli şekilde çalışması için olmazsa olmazlar arasında yer alıyor.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/02/Gu╠ec╠glu╠e-Bir-I╠cK-Departman─▒-I╠cc╠gin-Bu-Detaylara-Dikkat@2x.jpg
+  url: /wp-content/uploads/2022/02/Gu╠ec╠glu╠e-Bir-I╠cK-Departman─▒-I╠cc╠gin-Bu-Detaylara-Dikkat@2x.jpg
   alt: Güçlü Bir İK Departmanı İçin Dikkat!
   width: 1515
   height: 998

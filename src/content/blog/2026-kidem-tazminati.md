@@ -4,7 +4,7 @@ title: 2026 Kıdem Tazminatı Tavan Tutarı
 date: '2026-03-18T09:39:08'
 excerpt: Yeniden değerleme oranlarının netleştiği bu günlerde iş dünyasını yakından ilgilendiren önemli ödeme kalemlerinden biri de kıdem tazminatı tavan tutarı olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/03/2026_kidem_tazminati_tavani.jpeg
+  url: /wp-content/uploads/2026/03/2026_kidem_tazminati_tavani.jpeg
   alt: 2026 Kıdem Tazminatı Tavan Tutarı
   width: 1280
   height: 721

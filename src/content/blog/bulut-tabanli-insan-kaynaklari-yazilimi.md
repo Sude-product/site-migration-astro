@@ -4,7 +4,7 @@ title: Bulut Tabanlı İnsan Kaynakları Yazılımı Faydaları
 date: '2024-06-22T23:01:41'
 excerpt: Gün geçtikçe hızlanan hayat akışı nedeniyle her bilgiye her an ve hızlıca ulaşmak insan kaynakları için de büyük önem taşır. Bulut tabanlı insan kaynakları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/tekyazilim.png
+  url: /wp-content/uploads/2025/08/tekyazilim.png
   alt: Bulut Tabanlı İnsan Kaynakları Yazılımı Faydaları
   width: 2271
   height: 1497
@@ -92,7 +92,7 @@ Bulut tabanlı sistemlere ulaşım için herhangi bir yerdeki mobil cihaz kullan
 
 ### **Web Tabanlı Erişim Olanağı**
 
-<a href="/ise-alim-modulu/" aria-label="İşe alımın tüm kademelerinde Idenfit yanınızda!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-2-1024x958.png" alt="" class="wp-image-2043"></a>
+<a href="/ise-alim-modulu/" aria-label="İşe alımın tüm kademelerinde Idenfit yanınızda!"><img decoding="async" src="/wp-content/uploads/2020/08/Varlık-10@2x-12.16.42-2-1024x958.png" alt="" class="wp-image-2043"></a>
 
 [İşe alımın](/ise-alim-modulu/) tüm kademelerinde Idenfit yanınızda!
 
@@ -182,7 +182,7 @@ Bulut tabanlı İK yazılımlarının maliyeti, işletmenizin özgün ihtiyaçla
 
 ## idenfit ile Tek Yazılımla Verimlilik
 
-![](https://idenfit.com/wp-content/uploads/2020/08/linkedin-.png)
+![](/wp-content/uploads/2020/08/linkedin-.png)
 
 Yeni nesil insan kaynakları ve iş gücü denildiği zaman akla ilk gelen bulut tabanlı yazılım olan Idenfit, hem çalışanları hem de iş yerinin yürüttüğü etkinleri kolayca takip etmeyi sağlar. Bu sistem modüler yapısı sayesinde başka yazılımlar ile kolaylıkla bir bütün haline gelir.
 

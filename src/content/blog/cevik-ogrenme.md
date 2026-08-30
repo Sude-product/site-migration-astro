@@ -4,7 +4,7 @@ title: Çevik Öğrenme (Agile Learning)
 date: '2023-03-16T23:59:21'
 excerpt: Çevik öğrenme en geniş çerçevede bir organizasyonun değişen durum ve şartlara hızlı bir şekilde reaksiyon gösterebilmesini ifade ediyor. Dijital devrimin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/03/cevik-ogrenme.jpg
+  url: /wp-content/uploads/2023/03/cevik-ogrenme.jpg
   alt: Çevik Öğrenme (Agile Learning)
   width: 1621
   height: 811

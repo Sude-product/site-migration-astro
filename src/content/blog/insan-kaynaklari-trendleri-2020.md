@@ -4,7 +4,7 @@ title: İnsan Kaynakları Trendleri 2020 ve İK’nın Geleceği
 date: '2020-06-09T10:13:38'
 excerpt: Her sene olduğu gibi bu sene de insan kaynakları trendleri belirlendi. İnsan kaynaklarının geleceği konusuna adeta yön verecek olan bu trendler, hem…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri-696x392-1.jpg
+  url: /wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri-696x392-1.jpg
   alt: İnsan Kaynakları Trendleri 2020 ve İK’nın Geleceği
   width: 696
   height: 392
@@ -26,7 +26,7 @@ Teknolojik değişimlere en çok ve en hızlı adapte olması beklenen departman
 \
 [Idenfit bulut tabanlı, yeni nesil insan kaynakları yönetimi yazılımı](/insan-kaynaklari-yonetimi-modulu/), insan kaynakları yönetiminde kullanımı kolay, birbirini destekleyen ve tamamlayan modüllerle tek platform üzerinden iş akışını sorunsuz hale getiriyor. Idenfit’in kullanıcılarına sunduğu yazılımda **işe alım**, **performans değerleme**, **puantaj takibi**, **izin yönetimi**, **özlük dosyası**, **evrak saklama ve iletme**, **anlık mesajlaşma** gibi hem departman yöneticileri hem de departman çalışanlar için süreçleri kolaylaştıran ik modüllerini bulabilirsiniz.
 
-<a href="/yillik-izin-takip-programi/" aria-label="Çalışan izinlerini Idenfit’le esnek ve kademeli olarak yönetirsiniz."><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/unnamed-3.png" alt="" class="wp-image-2324" style="width:487px;height:449px"></a>
+<a href="/yillik-izin-takip-programi/" aria-label="Çalışan izinlerini Idenfit’le esnek ve kademeli olarak yönetirsiniz."><img decoding="async" src="/wp-content/uploads/2020/09/unnamed-3.png" alt="" class="wp-image-2324" style="width:487px;height:449px"></a>
 
 Çalışan izinlerini Idenfit’le esnek ve kademeli olarak yönetirsiniz.
 
@@ -48,7 +48,7 @@ Bundan birkaç sene önce, mesleki tatmin konusunda konuşulurken genellikle mot
 
 Güncel bir İK trendi olarak çok sayıda şirket tarafından benimsenen çalışan deneyimi kavramı; çalışanların çalışma alanlarından kullandıkları teknolojiye kadar çok sayıda konuda şirket hakkında ne düşündüklerini ve nasıl hissettiklerini ele alıyor. Çalışan deneyimini en ideal şekilde anlayabilmek adına kapsamlı çalışmalar yürütülüyor ve bunların sonucunda çok daha etkili stratejik planlamalar yapılabiliyor.
 
-![](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx.png)
+![](/wp-content/uploads/2020/09/feedbackxx.png)
 
 Çalışan deneyimini Idenfit geri bildirim modülüyle geliştirin.
 
@@ -62,7 +62,7 @@ Bir işe alım eğilimi olarak da 2020 İK trendleri arasında kendine yer bulan
 
 **[Idenfit işe alım modülüyle](/ise-alim-modulu/)** İK departmanı olarak, işe alım sürecinde **açık pozisyonların belirlenmesi ve iş ilanlarının farklı sitelerde paylaşılması, cv havuzlarının oluşturulması, bu cvlerin hangi kanaldan geldiğinin belirlenmesi, hangi departmanın bu alıma ihtiyaç duyduğunun tespiti, olumlu adayların bir sonraki sürece geçirilmesi ya da olumsuz adayların blackliste alınması** gibi çok kademeli işlerin altından kolaylıkla kalkarsınız.
 
-<a href="/ise-alim-modulu/" aria-label="İşe alım modülüyle Idenfit karmaşık süreçleri kolaylaştırıyor!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1-1024x958.png" alt="" class="wp-image-2326" style="width:512px;height:479px"></a>
+<a href="/ise-alim-modulu/" aria-label="İşe alım modülüyle Idenfit karmaşık süreçleri kolaylaştırıyor!"><img decoding="async" src="/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1-1024x958.png" alt="" class="wp-image-2326" style="width:512px;height:479px"></a>
 
 İşe alım modülüyle Idenfit karmaşık süreçleri kolaylaştırıyor!
 

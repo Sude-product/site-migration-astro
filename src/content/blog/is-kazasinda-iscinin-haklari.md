@@ -4,7 +4,7 @@ title: İş Kazasında İşçinin Hakları
 date: '2020-05-08T17:49:12'
 excerpt: Çalışma hayatında, kimi zaman iş sağlığı ve iş güvenliği önlemlerinin alınmaması nedeniyle kimi zamansa işçinin ya da üçüncü bir kişinin hatası nedeniyle iş…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/alişma-Yüzeyi-3-kopya-2@2x-1-e1588948374105.png
+  url: /wp-content/uploads/2025/08/alişma-Yüzeyi-3-kopya-2@2x-1-e1588948374105.png
   alt: İş Kazasında İşçinin Hakları
   width: 1500
   height: 989
@@ -25,7 +25,7 @@ Sosyal Güvenlik Kurumu, iş kazası geçiren sigortalıya, sigortalının ailes
 
 ## İş Kazası Geçiren Bir İşçi Neler Yapmalıdır?
 
-![iş kazası](https://idenfit.com/wp-content/uploads/2020/05/Varlık-24@4x.png)
+![iş kazası](/wp-content/uploads/2020/05/Varlık-24@4x.png)
 
 **İş kazası geçirdim ne yapmalıyım** sorusu çalışanlar tarafından iş kazası geçirildikten sonra sorulur. Ancak sigortalı çalışan haklarını bilmeli ve bu sorunun cevabını bir kaza yaşanmadan önce öğrenmelidir. 
 
@@ -36,7 +36,7 @@ Sosyal Güvenlik Kurumu, iş kazası geçiren sigortalıya, sigortalının ailes
 
 ## İş Kazasında İşçinin Hakları Nelerdir?
 
-![iş kazasında işçinin hakları](https://idenfit.com/wp-content/uploads/2020/05/Varlık-23@4x.png)
+![iş kazasında işçinin hakları](/wp-content/uploads/2020/05/Varlık-23@4x.png)
 
 İş kazası geçiren sigortalı çalışanın ve çalışanın yakınlarının bir takım hakları bulunmaktadır. Bu haklar, iş kazası sonrası çalışanın sağlık durumu göz önüne alınarak verilir. 
 
@@ -54,7 +54,7 @@ Bazı işçilerse kazanın ardından “**iş kazası geçirdim şikayetçi olma
 
 ## İş Kazası Geçiren İşçinin Maaşı Kesilir mi?
 
-![iş kazası geçiren işçinin maaşı kesilir mi?](https://idenfit.com/wp-content/uploads/2020/05/Varlık-21@4x.png)
+![iş kazası geçiren işçinin maaşı kesilir mi?](/wp-content/uploads/2020/05/Varlık-21@4x.png)
 
 İş kazası geçiren işçilerin cevabını en çok merak ettikleri konuların başında “**iş kazası geçiren işçinin maaşı kesilir mi?”** sorusu gelir. Kazayı geçiren işçi ne kadar süre istirahat raporu almışsa o kadar süre boyunca geçici iş göremezlik ödeneği verilir. Bu ödenekle raporun ilk gününden itibaren ödeme almak mümkündür. 
 
@@ -62,7 +62,7 @@ Bunun yanı sıra “**iş kazası raporu maaştan kesilir mi?”** sorusu da 
 
 ## İş Kazası Bildirim Süresi Kaç Gün?
 
-![iş kazası bildirim süresi](https://idenfit.com/wp-content/uploads/2020/05/Varlık-19@4x.png)
+![iş kazası bildirim süresi](/wp-content/uploads/2020/05/Varlık-19@4x.png)
 
 5510 sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu’na göre iş kazasının Sosyal Güvenlik Kurumu’na işveren tarafından **iş kazası bildirme** süresi üç iş günüdür. İşveren, kazadan sonraki üç iş günü içinde kaza bildirimini iş kazası ve meslek hastalığı bildirgesi ile yapmalıdır. Tatil günleri ve resmi günler bu süreye dahil değildir.
 
@@ -76,13 +76,13 @@ Sigortalılar, işverenin kontrolü dışındaki bir yerde iş kazası geçirdiy
 
 ## İş Kazası Nereye Bildirilir?
 
-![iş kazası nereye bildirilir?](https://idenfit.com/wp-content/uploads/2020/05/Varlık-22@4x.png)
+![iş kazası nereye bildirilir?](/wp-content/uploads/2020/05/Varlık-22@4x.png)
 
 İş kazası, [işveren](/blog/is-kazalarinda-isverenin-yukumlulukleri/) tarafından bulunulan yerdeki yetkili kolluk kuvvetlerine derhal [Sosyal Güvenlik Kurumu](http://www.sgk.gov.tr/wps/portal/sgk/tr)‘na ise üç iş günü içinde bildirilir. İşverenin internet üzerinden bildirim yapması yeterlidir. Sosyal Güvenlik Kurumu’na ya da Çalışma ve Sosyal Güvenlik Bakanlığı’na yazılı bildirim yapılmasına gerek yoktur.
 
 ## Sigortasız İşçi İş Kazası Geçirirse Süreç Nasıl İşler?
 
-![sigortasız işçi iş kazası](https://idenfit.com/wp-content/uploads/2020/05/Varlık-18@4x.png)
+![sigortasız işçi iş kazası](/wp-content/uploads/2020/05/Varlık-18@4x.png)
 
 Bir iş yerinde sigortasız olarak çalışan bir kişi, çalışırken **iş kazası sayılan haller** tanımına giren bir kaza geçirdiği takdirde, tıpkı sigortalı bir işçi gibi değerlendirilir ve sigortalı bir işçinin sahip olduğu tüm haklardan yararlanabilir. 
 
@@ -90,7 +90,7 @@ Bir iş yerinde sigortasız olarak çalışan bir kişi, çalışırken **iş k
 
 ## İş Kazasında İşçinin Hakları Kapsamında Tazminat
 
-![iş kazasında tazminat](https://idenfit.com/wp-content/uploads/2020/05/Varlık-20@4x.png)
+![iş kazasında tazminat](/wp-content/uploads/2020/05/Varlık-20@4x.png)
 
 İş kazası geçiren bir işçi ya da işçi yakınları işverene karşı maddi ve manevi tazminat davası açabilir. **İş kazasında tazminat** talebinde bulunmak için **iş kazası dava dilekçesi** hazırlayabilir. Tedavi giderleri ve kazadan dolayı iş göremezlik nedeniyle oluşan gelir kaybı işçinin açabileceği maddi davaların konusunu oluşturur.
 
@@ -102,7 +102,7 @@ Bir iş yerinde sigortasız olarak çalışan bir kişi, çalışırken **iş k
 
 ## **İş Kazası Tazminat Davası Ne Kadar Sürer?** 
 
-![iş kazasında tazminat davası ne kadar sürer](https://idenfit.com/wp-content/uploads/2020/05/Varlık-17@4x.png)
+![iş kazasında tazminat davası ne kadar sürer](/wp-content/uploads/2020/05/Varlık-17@4x.png)
 
 İş kazasında işçinin hakları kapsamında tazminat davaları genel itibariyle bir yıl süre içinde neticelenmektedir. Hukuk davalarında, davaların tamamlanmasında ön görülen on ay ve on beş ay dava sonuçlanma süresi belirlenmiştir.
 

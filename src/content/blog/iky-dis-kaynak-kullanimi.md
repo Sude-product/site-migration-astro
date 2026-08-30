@@ -4,7 +4,7 @@ title: İKY Dış Kaynak Kullanımı Rehberi
 date: '2023-02-24T17:33:36'
 excerpt: İKY dış kaynak kullanımı, bir şirketin kendi yetenekleri dışında kalan bazı hizmetleri dışarıdan temin etmesini ifade eder. Dış kaynaklardan yararlanmak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/02/insan-kaynaklari-yonetiminde-dis-kaynak-entegrasyonu@2x-100.jpg
+  url: /wp-content/uploads/2023/02/insan-kaynaklari-yonetiminde-dis-kaynak-entegrasyonu@2x-100.jpg
   alt: İKY Dış Kaynak Kullanımı Rehberi
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: İş Gücü Yönetimi Yazılımları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-06-14T14:11:36'
 excerpt: Günümüzün hızla dijitalleşen ve rekabet koşulları günden güne zorlaşan iş dünyasında, etkin bir iş gücü yönetimi, organizasyonların başarı merdivenlerini hızla…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/is-gucu-yonetimi-yazilimlari-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/is-gucu-yonetimi-yazilimlari-1392x696-1.jpg
   alt: İş Gücü Yönetimi Yazılımları Hakkında Tüm Bilmeniz Gerekenler
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: İşe Alımlarda Sosyal Medya Kullanımı
 date: '2023-04-30T12:55:07'
 excerpt: İşe alımlarda sosyal medya kullanımı sizi yetenek avında bir ileri taşıyabilir! “Nasıl mı?” Öyle ki dijital çağın çocukları Z kuşağının aktif iş gücü katılım…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/04/ise-alimda-sosyal-medya-kullanimi.jpg
+  url: /wp-content/uploads/2023/04/ise-alimda-sosyal-medya-kullanimi.jpg
   alt: İşe Alımlarda Sosyal Medya Kullanımı
   width: 1621
   height: 811

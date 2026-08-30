@@ -4,7 +4,7 @@ title: Duygusal Dayanıklılık (Resilience) Nedir?
 date: '2022-05-18T12:52:00'
 excerpt: Duygusal dayanıklılık, hem bireyler hem de kurumlar için kullanılan bir kavramı ifade ediyor. Hayatta karşımıza çıkması olağan sorunlarla başa çıkmayı veya…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/05/Resilience.jpg
+  url: /wp-content/uploads/2022/05/Resilience.jpg
   alt: Duygusal Dayanıklılık (Resilience) Nedir?
   width: 1514
   height: 998

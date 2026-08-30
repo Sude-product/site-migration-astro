@@ -4,7 +4,7 @@ title: Entelektüel Sermaye Ve İK İlişkisi
 date: '2021-05-28T08:52:31'
 excerpt: Entelektüel sermaye terimi toplu olarak bir kuruluşun değerini ve bir işletmenin rekabet gücünü belirleyen tüm kaynakları ifade eder. İnsan kaynakları…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/05/entelektuel-sermaye-ve-insan-kaynaklari.png
+  url: /wp-content/uploads/2021/05/entelektuel-sermaye-ve-insan-kaynaklari.png
   alt: Entelektüel Sermaye Ve İK İlişkisi
   width: 1514
   height: 999

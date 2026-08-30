@@ -4,7 +4,7 @@ title: 'Bordro & Yan Hak Yönetimi: Şirketler İçin Kapsamlı Rehber'
 date: '2026-05-14T09:43:45'
 excerpt: Bordro ve yan hak yönetimi, şirketlerin yalnızca maaş ödeme süreçlerini düzenlediği operasyonel bir alan değildir. Doğru kurgulandığında çalışan deneyimini…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/05/Bordro-Yan-Hak-Yonetimi-Sirketler-Icin-Kapsamli-Rehber_.jpg
+  url: /wp-content/uploads/2026/05/Bordro-Yan-Hak-Yonetimi-Sirketler-Icin-Kapsamli-Rehber_.jpg
   alt: 'Bordro & Yan Hak Yönetimi: Şirketler İçin Kapsamlı Rehber'
   width: 1280
   height: 721

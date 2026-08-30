@@ -4,7 +4,7 @@ title: Ücretli ve Ücretsiz İzin Şartları Nelerdir?
 date: '2024-10-30T22:02:24'
 excerpt: Ücretli ve ücretsiz izin arasındaki farkları ve bu izinlerin hangi koşullarda verildiğini bilmek, çalışanların haklarını koruma ve işverenlerin izin…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/ücretsizizin.png
+  url: /wp-content/uploads/2025/08/ücretsizizin.png
   alt: Ücretli ve Ücretsiz İzin Şartları Nelerdir?
   width: 2272
   height: 1498
@@ -41,7 +41,7 @@ Anayasanın 50. maddesi ile güvence altında bulunan çalışanın dinlenme hak
 
 Ücretli izin çerçevesinde işçiler kanunda açıkça belirtilen izin haklarını kullanır. Ayrıca, aylık ücreti aynı şekilde almaya devam eder. İşçi her ne kadar fiilen çalışmıyor olsa da maaşını tam olarak alır. Buna karşılık çalıştığı süreçte işçiye ekstra olarak ödenen fazla mesai ya da benzeri çalışmaların karşılığındaki ücretler ödenmez. 
 
-<a href="/yillik-izin-takip-programi/" aria-label="İzinleri Idenfit ile kolayca oluşturabilirsiniz."><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-3-1.png" alt="" class="wp-image-2059" style="width:487px;height:449px"></a>
+<a href="/yillik-izin-takip-programi/" aria-label="İzinleri Idenfit ile kolayca oluşturabilirsiniz."><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-3-1.png" alt="" class="wp-image-2059" style="width:487px;height:449px"></a>
 
 [İzinleri Idenfit ile kolayca oluşturabilirsiniz.](/yillik-izin-takip-programi/)
 

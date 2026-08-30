@@ -4,7 +4,7 @@ title: Çalışma Hayatında X Kuşağı
 date: '2022-10-31T11:03:12'
 excerpt: Daha ziyade 1965-1979 yılları arasında doğanlar olarak kabul edilen X Kuşağı, günümüzde en yaşlısı 57 ve en genci 43 yaşları arasındaki bireyler için…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/calisma-hayatinin-sayica-baskin-bireyleri-x-kusagi.jpg
+  url: /wp-content/uploads/2022/10/calisma-hayatinin-sayica-baskin-bireyleri-x-kusagi.jpg
   alt: Çalışma Hayatında X Kuşağı
   width: 1515
   height: 999

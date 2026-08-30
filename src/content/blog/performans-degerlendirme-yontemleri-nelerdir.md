@@ -4,7 +4,7 @@ title: Performans Değerlendirme Yöntemleri Nelerdir?
 date: '2020-08-10T15:07:38'
 excerpt: Her kurumun en temel ve en değerli parçası olarak çalışanları öne çıkar. Bu nedenle bir kurumun verimliliği yine bu en değerli parça ile ölçülür. Çalışanların…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/performans-yöntemleri@3x.png
+  url: /wp-content/uploads/2025/08/performans-yöntemleri@3x.png
   alt: Performans Değerlendirme Yöntemleri Nelerdir?
   width: 2271
   height: 1497
@@ -24,7 +24,7 @@ Genel geçer ve tüm kurumlarda uygulanabilecek bir performans değerlendirme y�
 
 ## Performans Değerlendirmesini Kimler Yapar?
 
-<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="PERFORMANS DEĞERLENDİRMESİNİ IDENFİT İLE 360 DERECE YAPIN!"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/08/unnamed-1-1024x831.png" alt="" class="wp-image-2075"></a>
+<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="PERFORMANS DEĞERLENDİRMESİNİ IDENFİT İLE 360 DERECE YAPIN!"><img decoding="async" src="/wp-content/uploads/2020/08/unnamed-1-1024x831.png" alt="" class="wp-image-2075"></a>
 
 PERFORMANS DEĞERLENDİRMESİNİ IDENFİT İLE 360 DERECE YAPIN!
 

@@ -4,7 +4,7 @@ title: İnsan Kaynakları Dönüşümü ve İşbirliği Buluşması (Mersin)
 date: '2024-02-19T10:25:10'
 excerpt: Büyüme ve değişim, her organizasyonun temel hedeflerindendir. Bu süreçte en önemli kaynaklarımızdan biri, çalışanlarımızdır. İnsan kaynaklarının hukuk, yönetim…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/mersin-ik-bulusmasi-20240312-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/mersin-ik-bulusmasi-20240312-1392x783-1.jpg
   alt: İnsan Kaynakları Dönüşümü ve İşbirliği Buluşması (Mersin)
   width: 1392
   height: 783
@@ -34,31 +34,31 @@ Bu buluşma, farklı sektörlerden gelen deneyimli insan kaynakları uzmanların
 
 Gerçekleştirildi
 
-![Ali Koç](https://idenfit.com/wp-content/uploads/2024/02/konusmaci-ali-koc.png)
+![Ali Koç](/wp-content/uploads/2024/02/konusmaci-ali-koc.png)
 
 **Ali Koç**\
 Sosyal Güvenlik Kurumu\
 İl Müdürü
 
-![Kemal Kocak](https://idenfit.com/wp-content/uploads/2024/02/konusmaci-kemal-kocak-1.png)
+![Kemal Kocak](/wp-content/uploads/2024/02/konusmaci-kemal-kocak-1.png)
 
 **Kemal Koçak**\
 Datassist\
 Chief Growth Officer
 
-![Şakir Gülsever](https://idenfit.com/wp-content/uploads/2024/02/konusmaci-sakir-gulsever-bw.png)
+![Şakir Gülsever](/wp-content/uploads/2024/02/konusmaci-sakir-gulsever-bw.png)
 
 **Şakir Gülsever\
 **Danışman\
 İK, İş ve Sosyal Güvenlik Hukuku
 
-![Anna Sunar](https://idenfit.com/wp-content/uploads/2024/02/konusmaci-anna-sunar.png)
+![Anna Sunar](/wp-content/uploads/2024/02/konusmaci-anna-sunar.png)
 
 **Anna Sunar\
 **AkkuyuTST\
 HR Generalist
 
-![Doruk Gülsever](https://idenfit.com/wp-content/uploads/2024/02/doruk-gulsever-no-bg.png)
+![Doruk Gülsever](/wp-content/uploads/2024/02/doruk-gulsever-no-bg.png)
 
 **Doruk Gülsever\
 **idenfit\

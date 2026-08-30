@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
 date: '2024-03-15T16:49:11'
 excerpt: Günümüzde insan kaynakları profesyonellerinin, iş gücünü oluşturan insan sermayesini şekillendiren rekabet, aidiyet ve adaletli yönetim beklentisi gibi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/bursa-ik-zirvesi-20240417-1-1392x783-1.jpg
+  url: /wp-content/uploads/2025/08/bursa-ik-zirvesi-20240417-1-1392x783-1.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
   width: 1392
   height: 783
@@ -35,67 +35,67 @@ Gerçekleştirildi.
 **Yer:\
 **Balkantürksiad, Bursa
 
-![Uğur Yıldız](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-ugur-yildiz.png)
+![Uğur Yıldız](/wp-content/uploads/2024/03/konusmaci-ugur-yildiz.png)
 
 **Uğur Cem Yıldız**\
 Beyçelik Gestamp\
 People, Technology, Innovation Director
 
-![Seyhan Kocak](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-seyhan-kocak.png)
+![Seyhan Kocak](/wp-content/uploads/2024/03/konusmaci-seyhan-kocak.png)
 
 **Seyhan Koçak**\
 Toltek Koçluk\
 Founder – Executive Team Coaching
 
-![Kemal Sakin](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-kemal-sakin-1.png)
+![Kemal Sakin](/wp-content/uploads/2024/03/konusmaci-kemal-sakin-1.png)
 
 **Kemal Sakin\
 **Cobus İş Geliştirme\
 SGK ve İŞKUR Teşvik Danışmanı
 
-![Şükrü Kurtuluş](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-sukru-kurtulus.png)
+![Şükrü Kurtuluş](/wp-content/uploads/2024/03/konusmaci-sukru-kurtulus.png)
 
 **Şükrü Kurtuluş\
 **Matlı Şirketler Grubu\
 Human Resources Manager
 
-![](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-isil-asiroglu.png)
+![](/wp-content/uploads/2024/03/konusmaci-isil-asiroglu.png)
 
 **Işıl Aşıroğlu**\
 İbraş Kauçuk\
 Human&Culture Manager
 
-![profile-9](https://idenfit.com/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
+![profile-9](/wp-content/uploads/2023/11/konusmaci-kemal-kocak.jpg)
 
 **Kemal Koçak**\
 Datassist\
 Chief Growth Officer
 
-![](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-mucahit-gunes-1.png)
+![](/wp-content/uploads/2024/03/konusmaci-mucahit-gunes-1.png)
 
 **Mücahit Güneş\
 **İnoksan\
 Human Resources Manager
 
-![Caner Pekcan](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-caner-pekcan.png)
+![Caner Pekcan](/wp-content/uploads/2024/03/konusmaci-caner-pekcan.png)
 
 **Av. Arb. Caner Pekcan**\
 Pekcan Hukuk Bürosu\
 Founder / Attorney
 
-![Doruk Gülsever](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-doruk-gulsever.jpg)
+![Doruk Gülsever](/wp-content/uploads/2024/03/konusmaci-doruk-gulsever.jpg)
 
 **Doruk Gülsever\
 **idenfit\
 Senior HR Solutions Partner
 
-![profile-14](https://idenfit.com/wp-content/uploads/2023/11/konusmaci-kaan-kosova.jpg)
+![profile-14](/wp-content/uploads/2023/11/konusmaci-kaan-kosova.jpg)
 
 **Kaan Kosova\
 **Datassist\
 Media Relations & Business Matchmaker
 
-![](https://idenfit.com/wp-content/uploads/2024/03/konusmaci-alper-pekcan.png)
+![](/wp-content/uploads/2024/03/konusmaci-alper-pekcan.png)
 
 **Alper Pekcan**\
 Pekcan Hukuk Bürosu\

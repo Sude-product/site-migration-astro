@@ -4,7 +4,7 @@ title: İş Gücü Nedir?
 date: '2020-10-23T13:03:54'
 excerpt: İş gücü, tam anlamıyla bir işletmenin bel kemiğidir desek yanlış olmaz. Bu nedenle de son zamanlarda pek çok yönetici ve insan kaynakları uzmanının kafasında…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/10/is-gucu-nedir.png
+  url: /wp-content/uploads/2020/10/is-gucu-nedir.png
   alt: İş Gücü Nedir?
   width: 2271
   height: 1497
@@ -32,7 +32,7 @@ Mülakat, iş gücünde çeşitlilik sağlanması adına ilk basamak olarak gör
 
 ### İş İlanları Revize Edilmeli
 
-![işe alım](https://idenfit.com/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1024x958.png)
+![işe alım](/wp-content/uploads/2020/09/Varlık-10@2x-12.16.42-1024x958.png)
 
 **[İDENFİT İŞE ALIM MODÜLÜ](/ise-alim-modulu/)**
 

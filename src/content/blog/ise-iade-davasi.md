@@ -4,7 +4,7 @@ title: İşe İade Davası Hakkında Tüm Merak Edilenler
 date: '2025-05-15T21:51:08'
 excerpt: İşe iade davası, işten çıkarılan bir çalışanın belirli şartları taşıması halinde başvurabileceği yasal bir haktır. İş Kanunu kapsamında iş güvencesini sağlayan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/05/ise-iade-davasi-hakkinda-tum-merak-ettikleriniz@2x-100.jpg
+  url: /wp-content/uploads/2025/05/ise-iade-davasi-hakkinda-tum-merak-ettikleriniz@2x-100.jpg
   alt: İşe İade Davası Hakkında Tüm Merak Edilenler
   width: 1515
   height: 998

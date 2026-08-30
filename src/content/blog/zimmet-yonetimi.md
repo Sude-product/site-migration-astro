@@ -4,7 +4,7 @@ title: İşletmelerde Zimmet Yönetimi
 date: '2024-12-05T23:14:27'
 excerpt: İnsan kaynaklarının işletmedeki fiziksel varlıkları korumak ve personeller arasındaki kullanımlarını takip etmek ile ilgili olan görevleri zimmet yönetimi ile…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/07/zimmet-yönetimi@3x-1.png
+  url: /wp-content/uploads/2020/07/zimmet-yönetimi@3x-1.png
   alt: İşletmelerde Zimmet Yönetimi
   width: 2271
   height: 1497
@@ -48,7 +48,7 @@ Garanti süreleri, yapılan ve yapılması gereken bakımlar yazılımlar arac�
 
 ## **Demirbaş Takibi ve Online Zimmet Yönetimi**
 
-![zimmet yönetimi](https://idenfit.com/wp-content/uploads/2020/07/Varlık-12@2x-840x1024.png)
+![zimmet yönetimi](/wp-content/uploads/2020/07/Varlık-12@2x-840x1024.png)
 
 ZİMMET YÖNETİMİNİ İDENFİT İLE GÜVENLE YAPIN!
 

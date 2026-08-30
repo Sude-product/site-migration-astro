@@ -4,7 +4,7 @@ title: Babalık İzni Hakkında Tüm Merak Edilenler
 date: '2022-07-19T16:31:22'
 excerpt: Babalık izni, eşi doğum yapan babaların doğum sonrasında izin kullanmalarını sağlayan yasal olarak tanınmış bir izin türüdür. Babanın çocuğu ve eşi ile zaman…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/07/Babalik-izni-Hakkinda-Tum-Merak-Ettikleriniz.jpg
+  url: /wp-content/uploads/2022/07/Babalik-izni-Hakkinda-Tum-Merak-Ettikleriniz.jpg
   alt: Babalık İzni Hakkında Tüm Merak Edilenler
   width: 1515
   height: 999

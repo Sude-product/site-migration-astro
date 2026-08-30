@@ -4,7 +4,7 @@ title: İK Trendleri ve İK’nın Geleceği
 date: '2021-09-17T10:21:05'
 excerpt: İK Trendleri ve İK’nın Geleceği 2021 yılının son aylarında sık merak edilen konular arasında yer alıyor. Pekii gelecekte İK profesyonellerini neler bekliyor?…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/09/2021-Yili-Insan-Kaynaklari-Trendleri-ve-IKnin-Gelecegi@2x-4.jpg
+  url: /wp-content/uploads/2021/09/2021-Yili-Insan-Kaynaklari-Trendleri-ve-IKnin-Gelecegi@2x-4.jpg
   alt: İK Trendleri ve İK’nın Geleceği
   width: 810
   height: 534

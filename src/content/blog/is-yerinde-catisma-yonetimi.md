@@ -4,7 +4,7 @@ title: İş Yerinde ÇatışmaYönetimi
 date: '2020-09-14T15:05:44'
 excerpt: Çatışma, insan faktörünün bulunduğu her yerde karşınıza çıkabilir. Bu sebeple iş hayatında da sıklıkla çatışma yaşanması, kaçınılmaz ve doğal bir durumdur.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/çatişma-yönetimi.png
+  url: /wp-content/uploads/2025/08/çatişma-yönetimi.png
   alt: İş Yerinde ÇatışmaYönetimi
   width: 2271
   height: 1497
@@ -36,7 +36,7 @@ Karşı tarafı dinlemek, şüphesiz ki sağlıklı iletişimin en önemli şart
 
 ## 4) Şirket İçi İletişimi Artırın
 
-[![geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-1.png)](/organizasyonel-geri-bildirim-modulu/)
+[![geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-1.png)](/organizasyonel-geri-bildirim-modulu/)
 
 İletişimi IDENFİT GERİ BİLDİRİM MODÜLÜYLE arttırın!
 

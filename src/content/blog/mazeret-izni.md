@@ -4,7 +4,7 @@ title: Mazeret İzni Nedir?
 date: '2024-09-03T23:33:54'
 excerpt: İş hayatında herhangi bir çalışanın çeşitli nedenlerle birkaç gün izne ihtiyaç duyması olağan bir durumdur. İş Kanunu kapsamında mazeret izni hakkı olarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/Mazeret-İzni-Nedir-Hangi-Durumlarda-Kullanilir@2x.png
+  url: /wp-content/uploads/2021/11/Mazeret-İzni-Nedir-Hangi-Durumlarda-Kullanilir@2x.png
   alt: Mazeret İzni Nedir?
   width: 1515
   height: 999

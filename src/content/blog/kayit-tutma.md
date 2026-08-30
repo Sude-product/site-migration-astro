@@ -4,7 +4,7 @@ title: Kayıt Tutma İşleminden İK Yönetimine Geçiş
 date: '2022-10-24T16:55:14'
 excerpt: Çalışma hayatının dinamik bir unsuru olan insanı temel alan İnsan Kaynakları Yönetimi (İKY), 18. yüzyılın ikinci yarısında gerçekleşen Sanayi Devrimi ile…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/kayit-tutma-isleminden-insan-kaynaklari-yonetimine-gecis.jpg
+  url: /wp-content/uploads/2022/10/kayit-tutma-isleminden-insan-kaynaklari-yonetimine-gecis.jpg
   alt: Kayıt Tutma İşleminden İK Yönetimine Geçiş
   width: 1515
   height: 999
@@ -16,7 +16,7 @@ modifiedDate: '2025-08-23T16:44:41'
 
 Çalışma hayatının dinamik bir unsuru olan insanı temel alan İnsan Kaynakları Yönetimi (İKY), 18. yüzyılın ikinci yarısında gerçekleşen Sanayi Devrimi ile birlikte günümüz anlamında iş olgusunun belirginleşmesi sonucunda kayıt tutma işlemi olarak ortaya çıkan, zaman içinde sosyal hizmet görevine dönüşen, daha sonra personel yönetimi anlayışının doğduğu, beşeri ilişkiler ve endüstri ilişkilerinin de personel yönetiminin çatısı altına girerek geliştiği ve nihayetinde İKY olarak anlam bulduğu bir gelişim süreci göstermektedir. 
 
-![](https://idenfit.com/wp-content/uploads/2022/10/metin-içi-şekil-1024x322.png)
+![](/wp-content/uploads/2022/10/metin-içi-şekil-1024x322.png)
 
 **Şekil 1.** Kayıt Tutma İşleminden İnsan Kaynakları Yönetimi Anlayışına Geçiş Aşamaları
 

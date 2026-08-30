@@ -4,7 +4,7 @@ title: Telafi Çalışması Günde En Çok Kaç Saat Yapılır?
 date: '2021-04-21T13:27:50'
 excerpt: Telafi çalışması, çalışma hayatında meydana gelen işin durmasına sebebiyet verecek durumlar karşısında ortaya çıkan esnek çalışma modellerinden biridir.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/04/telafi-calismasi.jpg
+  url: /wp-content/uploads/2021/04/telafi-calismasi.jpg
   alt: Telafi Çalışması Günde En Çok Kaç Saat Yapılır?
   width: 1514
   height: 999

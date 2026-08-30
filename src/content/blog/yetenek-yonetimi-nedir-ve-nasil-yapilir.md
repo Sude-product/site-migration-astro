@@ -4,7 +4,7 @@ title: Yetenek Yönetimi Nedir? Nasıl Yapılır?
 date: '2025-10-26T21:07:58'
 excerpt: Yetenek yönetimi artık insan kaynakları departmanlarının temel gündeminde yer alıyor. Alışılmış personel ve çalışan kavramından çok yeteneklerini işletme…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2020/09/yetenek-yönetimi@3x.png
+  url: /wp-content/uploads/2020/09/yetenek-yönetimi@3x.png
   alt: Yetenek Yönetimi Nedir? Nasıl Yapılır?
   width: 2271
   height: 1497

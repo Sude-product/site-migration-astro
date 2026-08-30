@@ -4,7 +4,7 @@ title: 10 İlginç Çalışan Elde Tutma İstatistiği
 date: '2023-08-18T13:52:48'
 excerpt: Çalışan elde tutma istatistiği verileri yetenek avında ve yıldız yetenekleri organizasyonda tutma konusunda kritik öneme sahip. Biz de bu fikirden yola çıkarak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/08/10-sasirtici-calisan-elde-tutma-istatistigi.jpg
+  url: /wp-content/uploads/2023/08/10-sasirtici-calisan-elde-tutma-istatistigi.jpg
   alt: 10 İlginç Çalışan Elde Tutma İstatistiği
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: İşe Alım Sürecinde Yapay Zeka Kullanımı
 date: '2025-10-22T19:00:44'
 excerpt: İşe alım sürecinde yapay zeka kullanımı, son zamanlarda insan kaynakları yönetimi alanında en çok araştırılan trend konular arasında yer alıyor. Yapay zeka işe…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/2x-2.jpg
+  url: /wp-content/uploads/2021/01/2x-2.jpg
   alt: İşe Alım Sürecinde Yapay Zeka Kullanımı
   width: 810
   height: 534

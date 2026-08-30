@@ -4,7 +4,7 @@ title: İnsan Kaynakları Teknolojileri ile Çeşitlilik ve Kapsayıcılık
 date: '2022-12-23T17:44:51'
 excerpt: İnsan kaynakları teknolojileri, İK departmanı ve dolayısıyla bütün organizasyonun daha verimli hale getirilmesi amacıyla uygulanan süreç optimizasyonudur.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/12/ik-teknolojileri-cesitlilik-ve-kapsayiciligi-nasil-gelistirebilir@2x-100.jpg
+  url: /wp-content/uploads/2022/12/ik-teknolojileri-cesitlilik-ve-kapsayiciligi-nasil-gelistirebilir@2x-100.jpg
   alt: İnsan Kaynakları Teknolojileri ile Çeşitlilik ve Kapsayıcılık
   width: 1515
   height: 999

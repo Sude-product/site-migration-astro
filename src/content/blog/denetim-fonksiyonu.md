@@ -4,7 +4,7 @@ title: Denetim Fonksiyonu Konusunda Bilinmesi Gerekenler
 date: '2022-10-20T11:24:06'
 excerpt: Denetim, finansal bilgilerin ve kayıtların incelenmesi ve bu finansal bilgilerin doğru ve adil olup olmadığı konusunda denetim firmasının görüş vermesiyle…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/Denetim-Fonksiyonu-Konusunda-Bilinmesi-Gerekenler0D.jpg
+  url: /wp-content/uploads/2022/10/Denetim-Fonksiyonu-Konusunda-Bilinmesi-Gerekenler0D.jpg
   alt: Denetim Fonksiyonu Konusunda Bilinmesi Gerekenler
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Yaş Haddinden Emeklilik Şartları
 date: '2020-02-20T17:02:14'
 excerpt: Yaş haddinden emeklilik hak etmek için üç şart bulunur. Emeklilik için temel şartlar arasında prim gün sayısı, sigortalı geçirilen süre ve yaş vardır. Buna…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/emeklilik.png
+  url: /wp-content/uploads/2025/08/emeklilik.png
   alt: Yaş Haddinden Emeklilik Şartları
   width: 2272
   height: 1498
@@ -21,7 +21,7 @@ modifiedDate: '2025-09-29T12:04:50'
 
 ## **İleri Yaştan Emeklilik Nedir?**
 
-![ileri yastan emeklilik nedir](https://idenfit.com/wp-content/uploads/2020/02/1.png)
+![ileri yastan emeklilik nedir](/wp-content/uploads/2020/02/1.png)
 
 “**İleri yaştan emeklilik** ne demek?” diye merak edenlerin bu kavramın **yaş haddinden emeklilik** ile aynı anlama geldiğini bilmesi gerekir. Bu bağlamda belli bir yaşa gelindiğinde normal prim gün sayısı henüz doldurulmamışsa yine de sigortalılara hak sağlanır. Kanuna göre çeşitli **ileri yaştan emeklilik koşulları** bulunur. Şartları sağlayanlar gereken çalışma gününü doldurmamış olsalar da sağlanan imkanla emeklilik hakkını elde edebilirler.
 
@@ -31,7 +31,7 @@ Her ne kadar **yaş haddinden emeklilik 2019** yılı itibariyle bazı genel ko�
 
 ## **Yaş Haddinden Emeklilik Şartları**
 
-![ileri yastan emeklilik nedir](https://idenfit.com/wp-content/uploads/2020/02/2.png)
+![ileri yastan emeklilik nedir](/wp-content/uploads/2020/02/2.png)
 
 *   Öncelikle ilk kez sigortalı olarak işe başlanan tarihi bilmek gerekir. Belirleyici şartların en önemlisi sigortanın başladığı tarih olacaktır. Bu tarihe bakarak tarihin belirlediği şartların sağlanması durumunda kişiler yaşları geldiği zaman emekliye ayrılabilirler. “**Emeklilik yaşı kaç**?” gibi spesifik soruların cevabı ise kadınlara ve erkeklere göre değişkenlik gösterir. Ayrıca her işe başlangıç tarihinde **emeklilik gün sayısı** farklılaşır.
 *   8 Eylül 1999 tarihi öncesinde ilk sigorta girişi yapılmış olan SSK çalışanı kadınlar, 3600 iş günü tamamlanması durumunda 58 yaşındayken, erkekler de 60 yaşındayken emekli olabilirler.
@@ -40,7 +40,7 @@ Her ne kadar **yaş haddinden emeklilik 2019** yılı itibariyle bazı genel ko�
 
 ## **SSK Emekliliğinde Kademeli Artış Koşulları**
 
-![ssk emeklilik](https://idenfit.com/wp-content/uploads/2020/02/3.png)
+![ssk emeklilik](/wp-content/uploads/2020/02/3.png)
 
 1 Mayıs 2008 ve sonrasında sigorta girişi yapılan çalışanlara kademeli artış şartları uygulanır. Bu doğrultuda kademeli yaş artışı şartları sürekli arttığı için erkeklerde 63 yaş, kadınlarda ise 61 yaş şartı aranır. 2035 senesine kadar tamamlanmış olması gereken bu koşullara göre de **emeklilik şartları** değişkenlik gösterir. Dolayısıyla gereken iş günü sayısının hangi tarihte tamamlandığı da önemlidir.
 
@@ -51,7 +51,7 @@ Her ne kadar **yaş haddinden emeklilik 2019** yılı itibariyle bazı genel ko�
 
 ## **Bağ-Kur Yaş Haddinden Emeklilik Koşulları**
 
-![bagkur emeklilik](https://idenfit.com/wp-content/uploads/2020/02/4.png)
+![bagkur emeklilik](/wp-content/uploads/2020/02/4.png)
 
 *   8 Eylül 1999 tarihinden önce Bağ-Kur girişi yapılmış olan kadınların sigortalı süreleri 5400 iş günü olduğunda 56 yaşı, erkeklerin ise yine sigortalı süreleri 5400 iş günü olduğunda 58 yaşı tamamlamış olmaları gerekir.
 *   8 Eylül 1999 tarihi ile 30 Nisan 2008 tarihi arasında ilk kez sigorta girişi gerçekleşmiş olan Bağ-Kur çalışanları 5400 iş gününü tamamladıktan sonra kadınlar 60 yaşında, erkekler ise 63 yaşında emekli olabilirler.
@@ -59,7 +59,7 @@ Her ne kadar **yaş haddinden emeklilik 2019** yılı itibariyle bazı genel ko�
 
 ## **Bağ-Kur Kademeli Yaş Uygulaması Koşulları**
 
-![bagkur emeklilik kosullari](https://idenfit.com/wp-content/uploads/2020/02/5.png)
+![bagkur emeklilik kosullari](/wp-content/uploads/2020/02/5.png)
 
 *   31 Aralık 2035’e kadar 5400 iş günün tamamlanmış olan Bağ-Kur’lu kadın çalışanlar 61 yaşında, erkekler de 63 yaşında emekli olabilir.
 *   1 Ocak 2038 tarihi ile 31 Aralık 2039 tarihi arasında 5400 iş günü tamamlanmış olan Bağ-Kur’lu kadın çalışanlar 63 yaşında, erkekler de 65 yaşında emekli olabilir.
@@ -69,13 +69,13 @@ Bütün bu **yaş haddi uygulamaları** aynı şekilde emekli sandığına mensu
 
 ## **SSK 3600 Gün Emeklilik Koşulları**
 
-![skk emeklilik kosullari](https://idenfit.com/wp-content/uploads/2020/02/6.png)
+![skk emeklilik kosullari](/wp-content/uploads/2020/02/6.png)
 
 3600 günlük prim ödemesiyle yaş haddinden yararlanarak **emekli olabilmek için gereken koşullar** arasında 8 Eylül 1999 tarihinden önce ilk sigortalılık girişinin yapılmış olması gelir. 8 Eylül 1999 tarihinden önce ilk kez sigortalı olarak işe girmiş olan SSK mensubu sigortalı çalışanlar **3600 iş günü prim ödemesi** gerçekleştiren sonra yaş haddinden yararlanarak emekli olabilirler.
 
 ## **SSK 3600 Gün Yaş Haddinden Emeklilik Tablosu**
 
-![ssk yas haddinden emeklilik](https://idenfit.com/wp-content/uploads/2020/02/7.png)
+![ssk yas haddinden emeklilik](/wp-content/uploads/2020/02/7.png)
 
 *   Mayıs 2002’den önce 15 senelik sigorta süresi tamamlayan ve 3600 prim ödeme sayısı gerçekleştiren kadınların **emekli olabilmek için** 50 yaşını, erkeklerin de 55 yaşını doldurması gerekir.
 *   Mayıs 2002 – 23 Mayıs 2005 arasında 15 senelik sigorta süresini tamamlayan ve 3600 prim ödeme sayısı gerçekleştiren kadınların **emekli olabilmek için** 52, yaşını erkeklerin de 56 yaşını doldurması gerekir.
@@ -86,7 +86,7 @@ Bütün bu **yaş haddi uygulamaları** aynı şekilde emekli sandığına mensu
 
 ## **Yaş Haddinden Emeklilik Maaşı Ne Kadar?**
 
-![yas haddinden emeklilik maasi](https://idenfit.com/wp-content/uploads/2020/02/8.png)
+![yas haddinden emeklilik maasi](/wp-content/uploads/2020/02/8.png)
 
 **Emeklilik maaşı** hesaplanırken 2000 senesine kadarki hesaplamalar Bağ-Kur, emekli sandığı ve SSK mensubu çalışanlar için gösterge ile katsayısına göre yapılıyordu. 1999 senesinde sonra Bağ-Kur ve SSK mensubu çalışanlar için yeni sistem uygulanırken memur emeklileri ise aynı sistemle bugün halen devam eder. SSK mensubu çalışanların **emeklilik maaşı hesaplaması**, 3 farklı dönem kullanılarak gerçekleştirilir:
 

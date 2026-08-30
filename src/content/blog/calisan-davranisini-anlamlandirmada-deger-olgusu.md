@@ -4,7 +4,7 @@ title: Çalışan Davranışını Anlamlandırmada “Değer” Olgusu
 date: '2022-10-28T12:25:28'
 excerpt: Antik Çağ filozoflarının söylemlerine kadar uzanan temellere sahip olan “değer” üzerinde fazlasıyla görüş bildirilmiştir. Bilimsel anlamda bir değer teorisi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/calisan-davranislarini-anlamlandirma-_-Deger.jpg
+  url: /wp-content/uploads/2022/10/calisan-davranislarini-anlamlandirma-_-Deger.jpg
   alt: Çalışan Davranışını Anlamlandırmada “Değer” Olgusu
   width: 1515
   height: 999

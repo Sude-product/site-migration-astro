@@ -4,7 +4,7 @@ title: 2025 Yılında İşe Alım Zorlukları
 date: '2025-10-30T20:22:20'
 excerpt: 2025 yılı, işe alım süreçlerinin oldukça zorlu geçtiği bir dönem olarak karşımıza çıkıyor. Hızla değişen iş piyasasında yetenek edinimi, İKY profesyonelleri…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2024-yilinda-ise-alim-zorluklari.jpg
+  url: /wp-content/uploads/2025/08/2024-yilinda-ise-alim-zorluklari.jpg
   alt: 2025 Yılında İşe Alım Zorlukları
   width: 1281
   height: 721

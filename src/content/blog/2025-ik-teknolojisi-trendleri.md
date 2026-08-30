@@ -4,7 +4,7 @@ title: 2025 İK Teknolojisi Trendleri
 date: '2025-01-15T19:47:50'
 excerpt: 2025, insan kaynakları teknolojilerinde devrim niteliğinde değişimlere sahne olacak gibi görünüyor. Çeşitli araştırmalardan derlediğimiz bu içerikte, 2025’in…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri.jpg
+  url: /wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri.jpg
   alt: 2025 İK Teknolojisi Trendleri
   width: 1280
   height: 720
@@ -51,7 +51,7 @@ Upskilling, mevcut çalışanların yeteneklerini geliştirmeyi hedeflerken; res
 
 <cite>World Economic Forum</cite> (WEF)’in raporuna göre, iş gücü piyasası demografik değişimlerle yeniden şekilleniyor. Yüksek gelirli ekonomilerde yaşlanan nüfus iş gücünde bir açık yaratıyor. Öte yandan düşük gelirli ülkelerde ise genç nüfus hızla artıyor. 2050 yılına kadar, küresel çalışma çağındaki nüfusun %59’unun düşük gelirli ülkelerde bulunması bekleniyor. Bu değişim, otomasyon ve yeniden beceri kazandırma süreçlerini daha da hızlandıracak gibi görünüyor. Özellikle dijitalleşme ve otomasyonun yükselişiyle birlikte İKY yazılımlarına duyulan ihtiyaç giderek artıyor. İnsan kaynakları yönetiminde çevik ve teknoloji odaklı çözümler, değişen demografik yapıya uyum sağlamak için kritik bir rol üstleniyor.
 
-![2025 IK Teknolojisi Trendleri Ara Görsel](https://idenfit.com/wp-content/uploads/2025/01/2025-IK-Teknolojisi-Trendleri-ara-gorsel.jpg)
+![2025 IK Teknolojisi Trendleri Ara Görsel](/wp-content/uploads/2025/01/2025-IK-Teknolojisi-Trendleri-ara-gorsel.jpg)
 
 ## **5- 2025’te İK’nın En Büyük Zorluğu: Değişim Yönetimi**
 

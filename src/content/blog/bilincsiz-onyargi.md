@@ -4,7 +4,7 @@ title: 'Bilinçsiz Önyargı: Farkedin ve Engelleyin!'
 date: '2022-06-27T18:00:23'
 excerpt: Bilinçsiz önyargı iş süreçlerinizi düşündüğünüzden daha çok etkiliyor olabilir. Uzmanlar kararlarımızın yüzde 93 oranında bilinçaltımız tarafından…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/06/farkinda-olun-ve-engelleyin.jpg
+  url: /wp-content/uploads/2022/06/farkinda-olun-ve-engelleyin.jpg
   alt: 'Bilinçsiz Önyargı: Farkedin ve Engelleyin!'
   width: 1515
   height: 999

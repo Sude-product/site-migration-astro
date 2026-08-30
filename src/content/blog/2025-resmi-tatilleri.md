@@ -4,7 +4,7 @@ title: 2025 Yılı Resmi Tatilleri
 date: '2024-11-24T18:54:53'
 excerpt: 2024 yılının son haftalarına yaklaştığımız şu günlerde pek çok kişi önümüzdeki yılın tatil günlerini merak etmeye başladı bile. 2025 yılında toplam 14.5 gün…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/2025-resmi-tatil-gunleri-1.jpg
+  url: /wp-content/uploads/2025/08/2025-resmi-tatil-gunleri-1.jpg
   alt: 2025 Yılı Resmi Tatilleri
   width: 1280
   height: 721

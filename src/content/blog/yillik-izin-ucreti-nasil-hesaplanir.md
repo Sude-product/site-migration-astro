@@ -4,7 +4,7 @@ title: Yıllık İzin Nedir? Nasıl Hesaplanır?
 date: '2020-08-26T17:19:25'
 excerpt: Yıllık izin konusu çoğu çalışanı yakından ilgilendiren bir konudur. Yıllık izin ücreti nasıl hesaplanır sorusu ise çalışma hayatına yeni atılan çalışanlar için…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/yillik-izin-hesaplama@3x.png
+  url: /wp-content/uploads/2025/08/yillik-izin-hesaplama@3x.png
   alt: Yıllık İzin Nedir? Nasıl Hesaplanır?
   width: 2271
   height: 1497

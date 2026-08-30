@@ -4,7 +4,7 @@ title: İK Yazılımı Hakkında Bilinmesi Gerekenler
 date: '2022-10-03T16:26:25'
 excerpt: Hangi düzeyde olursa olsun işletmelerin başarısı ve sürdürülebilir bir şekilde büyümesi, büyük ölçüde, insan kaynağının ne kadar iyi yönetildiğine ve olumlu…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2022/10/ik-yazilimlari-hakkinda@2x-100.jpg
+  url: /wp-content/uploads/2022/10/ik-yazilimlari-hakkinda@2x-100.jpg
   alt: İK Yazılımı Hakkında Bilinmesi Gerekenler
   width: 1515
   height: 998

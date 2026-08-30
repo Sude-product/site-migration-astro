@@ -4,7 +4,7 @@ title: Dağınık Ekipler için 5 Etkili İletişim Yolu
 date: '2024-02-29T12:02:37'
 excerpt: Dağınık ekipler, fiziksel olarak aynı yerde bulunmayan, genellikle farklı coğrafi konumlardan çalışan bireylerden oluşan ekipleri tanımlamak için kullanılan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/WhatsApp-Image-2024-02-29-at-11.55.05-1392x696-1.jpeg
+  url: /wp-content/uploads/2025/08/WhatsApp-Image-2024-02-29-at-11.55.05-1392x696-1.jpeg
   alt: Dağınık Ekipler için 5 Etkili İletişim Yolu
   width: 1392
   height: 696

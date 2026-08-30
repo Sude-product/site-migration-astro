@@ -4,7 +4,7 @@ title: Evden Çalışma Sürecinde İş Yaşam Dengesi
 date: '2020-11-18T13:48:23'
 excerpt: Evden çalışma ile koronavirüs sürecinde olması gerekenden daha fazla çalışma saatlerine maruz kalıyor olabilirsiniz. Hatta Hastalık Kontrol Merkezi verilerine…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Evden-Çalişma-Sürecinde-İş-Yaşam-Dengesi@3x.png
+  url: /wp-content/uploads/2025/08/Evden-Çalişma-Sürecinde-İş-Yaşam-Dengesi@3x.png
   alt: Evden Çalışma Sürecinde İş Yaşam Dengesi
   width: 2271
   height: 1497

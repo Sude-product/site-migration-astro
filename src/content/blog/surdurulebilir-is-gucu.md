@@ -4,7 +4,7 @@ title: Sürdürülebilir Bir İş Gücü Oluşturma ve İK’nın Rolü
 date: '2025-03-25T22:33:15'
 excerpt: Sürdürülebilir bir iş gücü inşa etmek, günümüzde artık bir tercih değil, bir zorunluluktur. Bu süreçte, organizasyonların en temel ve değerli kaynağı olan…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/blog-surdurulebilir-bir-is-gucu-olusturma-ve-ik-nin-rolu.jpg
+  url: /wp-content/uploads/2025/08/blog-surdurulebilir-bir-is-gucu-olusturma-ve-ik-nin-rolu.jpg
   alt: Sürdürülebilir Bir İş Gücü Oluşturma ve İK’nın Rolü
   width: 1280
   height: 721

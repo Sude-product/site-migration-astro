@@ -4,7 +4,7 @@ title: İş Kazalarında İşverenin Yükümlülükleri
 date: '2020-03-09T15:54:30'
 excerpt: İş kazalarında çeşitli önlemler ve tedbirler alınsa da zaman zaman yeterli gelmeyebilir. İş kazasının tanımı , Sosyal Sigortalar ve Genel Sağlık Sigortası…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/IÃásÃs-kazasƒ±@3x.png
+  url: /wp-content/uploads/2025/08/IÃásÃs-kazasƒ±@3x.png
   alt: İş Kazalarında İşverenin Yükümlülükleri
   width: 2272
   height: 1498
@@ -20,7 +20,7 @@ modifiedDate: '2025-08-26T12:30:36'
 
 ## **İş Kazası Nedir?**
 
-![is kazasi nedir](https://idenfit.com/wp-content/uploads/2020/03/1_4@4x.png)
+![is kazasi nedir](/wp-content/uploads/2020/03/1_4@4x.png)
 
 5510 Sayılı Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu’na göre **iş kazası tanımı** yapılmıştır. Buna göre **iş kazası**;
 
@@ -33,7 +33,7 @@ modifiedDate: '2025-08-26T12:30:36'
 
 ## **İş Kazalarında Yapılması Gerekenler Nelerdir?**
 
-![is kazasinda yapilmasi gerekenler](https://idenfit.com/wp-content/uploads/2020/03/2_4@4x.png)
+![is kazasinda yapilmasi gerekenler](/wp-content/uploads/2020/03/2_4@4x.png)
 
 *   İşveren, kaza geçiren çalışana sağlık durumunun gerektirdiği  sağlık hizmetini sağlamakla yükümlüdür.
 *   İşveren mümkün olan en kısa süre içerisinde sağlık ekiplerinin kaza geçiren çalışana ulaşmasını sağlamak ve çalışanı sağlık kuruluşuna ulaştırmak zorundadır.
@@ -42,7 +42,7 @@ modifiedDate: '2025-08-26T12:30:36'
 
 ## **İş Kazası Kaç Gün İçinde Bildirilir?**
 
-![is kazasi kac gun icinde bildirilir](https://idenfit.com/wp-content/uploads/2020/03/3_3@4x.png)
+![is kazasi kac gun icinde bildirilir](/wp-content/uploads/2020/03/3_3@4x.png)
 
 İşveren, **iş kazası**nı, kazadan sonraki üç iş günü içinde bildirmelidir. Hastane de **iş kazası bildirimi** yapabilir ve bu bildirim iş yeri e-bildirge sisteminde görülebilir. Ancak hastanenin **iş kazası bildirim süresi** on iş günüdür.
 
@@ -52,7 +52,7 @@ Yasal bildirim süresini geçen işverenler para cezası ödemek durumunda kalac
 
 ## **İş Kazalarında Bildirmeme Cezası 2020 Yılında Ne Kadar?**
 
-![is kazasi bildirmeme cezasi 2020](https://idenfit.com/wp-content/uploads/2020/03/4_3@4x.png)
+![is kazasi bildirmeme cezasi 2020](/wp-content/uploads/2020/03/4_3@4x.png)
 
 **İş kazasını geç bildirme** ya da bildirmeme durumunda, işverenlere, iş yerinde çalışan işçi sayısı ile iş yerinin tehlike sınıfı dikkate alınarak idari para cezası uygulanır.
 
@@ -66,7 +66,7 @@ Bu para cezasının yanı sıra işverenden, **iş kazası geçiren işçi**nin 
 
 ## **İş Kazası Bildirim Girişi Nasıl Yapılır?**
 
-![is kazasi bildirme](https://idenfit.com/wp-content/uploads/2020/03/5_3@4x.png)
+![is kazasi bildirme](/wp-content/uploads/2020/03/5_3@4x.png)
 
 Sosyal Güvenlik Kurumu’na **iş kazası bildirimleri** elektronik ortamda yapılabilmektedir. Elektronik ortamın yanı sıra doğrudan müracaat edip yazılı olarak da bildirim yapmak mümkündür.
 
@@ -74,7 +74,7 @@ E-bildirim, e-devlet sayfasından yapılabilmektedir. Elektronik ortamda **iş k
 
 ## **İş Kazası Tutanağı Nasıl Tutulur?**
 
-![is kazasi tutanagi](https://idenfit.com/wp-content/uploads/2020/03/6_2@4x.png)
+![is kazasi tutanagi](/wp-content/uploads/2020/03/6_2@4x.png)
 
 **İş kazası**nın gerçekleşmesinin ardından ilk olarak kazayı geçiren çalışana gerekli sağlık yardımları sağlanmalıdır. Sonrasında ise **iş kazası tutanağı** hazırlanmalıdır.
 
@@ -87,7 +87,7 @@ E-bildirim, e-devlet sayfasından yapılabilmektedir. Elektronik ortamda **iş k
 
 ## **İş Kazası Tutanağı Tutulmazsa Ne Olur?**
 
-![is kazasi tutanagi tutulmazsa ne olur](https://idenfit.com/wp-content/uploads/2020/03/7_1@4x.png)
+![is kazasi tutanagi tutulmazsa ne olur](/wp-content/uploads/2020/03/7_1@4x.png)
 
 **İş kazaları** her iş yerinde önlemler alınsa dahi gerçekleşebilen kazalardır. Bu kazaların önüne geçmek için işveren, iş sağlığı ve iş güvenliği kurallarına dikkat etmelidir.
 
@@ -99,7 +99,7 @@ Kurallara uyarak kaza riski azaltılsa da zaman zaman beklenmedik, öngörüleme
 
 ## **İş Kazasında İşverenin Tazminat Sorumluluğu**
 
-![is kazasinda isverenin tazminat sorumlulugu](https://idenfit.com/wp-content/uploads/2020/03/8@4x.png)
+![is kazasinda isverenin tazminat sorumlulugu](/wp-content/uploads/2020/03/8@4x.png)
 
 İşverenin, **iş kazası** nedeniyle tazmin sorumluluğu olması için;
 
@@ -133,7 +133,7 @@ Kurallara uyarak kaza riski azaltılsa da zaman zaman beklenmedik, öngörüleme
 
 ## **İş Kazası [Tazminat Davas](/blog/kotu-niyet-tazminati/)ı Ne Kadar Sürer?**
 
-![is kazasi tazminat davasi](https://idenfit.com/wp-content/uploads/2020/03/11@4x.png)
+![is kazasi tazminat davasi](/wp-content/uploads/2020/03/11@4x.png)
 
 **İş kazalarında tazminat davaları** genel olarak bir yıl süre içinde sonuçlanmaktadır. Hukuk davalarında, davaların tamamlanmasında ön görülen on ay ve on beş ay dava sonuçlanma süresi belirlenmiştir.
 

@@ -4,7 +4,7 @@ title: Kurum İçi İletişim Araçları
 date: '2025-07-28T23:05:30'
 excerpt: Kurum içi iletişim araçları, bir işletmenin başarıya giden yolda elinde bulundurması gereken altın madenlerinden biridir. Çünkü çalışan ve yönetici arasındaki…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/07/kurum-ici-iletisim.jpg
+  url: /wp-content/uploads/2025/07/kurum-ici-iletisim.jpg
   alt: Kurum İçi İletişim Araçları
   width: 1024
   height: 675

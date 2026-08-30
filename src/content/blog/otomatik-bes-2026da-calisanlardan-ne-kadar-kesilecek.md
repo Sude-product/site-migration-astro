@@ -4,7 +4,7 @@ title: Otomatik BES 2026’da Çalışanlardan Ne Kadar Kesilecek?
 date: '2026-04-17T06:58:20'
 excerpt: 2026’da ücret artışları, bordro kalemlerinin daha görünür hale gelmesi ve çalışanların maaş detaylarına daha fazla dikkat etmesiyle birlikte otomatik BES…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/04/Bes2026.png
+  url: /wp-content/uploads/2026/04/Bes2026.png
   alt: Otomatik BES 2026’da Çalışanlardan Ne Kadar Kesilecek?
   width: 3231
   height: 2154

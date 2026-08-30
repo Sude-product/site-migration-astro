@@ -4,7 +4,7 @@ title: KPİ Nedir ve Nasıl Belirlenir?
 date: '2020-07-10T09:59:21'
 excerpt: Key Performance Indicator ( Anahtar Temel Performans Göstergesi) kısaca KPI, son yılların yükselen kavramları arasında yer alır. Özellikle çalışanların…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/performans-yöntemleri@3x-1.png
+  url: /wp-content/uploads/2025/08/performans-yöntemleri@3x-1.png
   alt: KPİ Nedir ve Nasıl Belirlenir?
   width: 2271
   height: 1497
@@ -33,7 +33,7 @@ Gerçekçi bir şekilde konulmayan yıl sonu hedefleri hem çalışanların he
 
 ## Performans Göstergesi KPI Örnekleri
 
-<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="Performans değerlendirmesini Idenfit ile 360 derece yapın."><img decoding="async" src="https://idenfit.com/wp-content/uploads/2020/07/performanssxx.png" alt="" class="wp-image-2331" width="626" height="515"></a>
+<a href="/calisan-performans-degerlendirme-sistemi-modulu/" aria-label="Performans değerlendirmesini Idenfit ile 360 derece yapın."><img decoding="async" src="/wp-content/uploads/2020/07/performanssxx.png" alt="" class="wp-image-2331" width="626" height="515"></a>
 
 Performans değerlendirmesini Idenfit ile 360 derece yapın.
 

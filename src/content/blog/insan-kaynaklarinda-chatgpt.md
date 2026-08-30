@@ -4,7 +4,7 @@ title: İnsan Kaynakları Profesyonelleri için ChatGPT Rehberi
 date: '2024-07-21T21:54:02'
 excerpt: Merhaba pek değerli insan kaynakları profesyonelleri! İş süreçlerinizi daha verimli, etkili ve pratik hale getirmek mi istiyorsunuz? Öyleyse, tam da olmanız…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/insan-kaynaklari-chatgpt.jpg
+  url: /wp-content/uploads/2025/08/insan-kaynaklari-chatgpt.jpg
   alt: İnsan Kaynakları Profesyonelleri için ChatGPT Rehberi
   width: 1281
   height: 721

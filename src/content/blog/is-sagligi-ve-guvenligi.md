@@ -4,7 +4,7 @@ title: İş Sağlığı ve Güvenliği Kapsamında İnsan Kaynakları Yönetimi
 date: '2021-12-07T09:44:42'
 excerpt: İş sağlığı ve güvenliği tüm işletmelerin önemsemesi ve öncelik vermesi gereken konular arasında ilk sıralarda yer almaktadır. Her işletme için en önemli değer…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/11/İş-Sağliği-ve-Güvenliğinde-İnsan-Kaynaklari-Yönetimi@2x.png
+  url: /wp-content/uploads/2021/11/İş-Sağliği-ve-Güvenliğinde-İnsan-Kaynaklari-Yönetimi@2x.png
   alt: İş Sağlığı ve Güvenliği Kapsamında İnsan Kaynakları Yönetimi
   width: 1515
   height: 999

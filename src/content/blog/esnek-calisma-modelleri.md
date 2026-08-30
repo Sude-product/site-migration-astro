@@ -4,7 +4,7 @@ title: Esnek Çalışma Modelleri ve Uzaktan İşe Alım Stratejileri
 date: '2024-02-25T15:19:21'
 excerpt: Esnek çalışma modelleri, geleneksel iş düzenlerine göre daha fazla serbestlik ve kontrol sağlayan iş yapma biçimleridir. Bu modelde, çalışanlar genellikle…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/esnek-calisma-modelleri-ve-uzaktan-ise-alim-stratejileri-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/esnek-calisma-modelleri-ve-uzaktan-ise-alim-stratejileri-1392x696-1.jpg
   alt: Esnek Çalışma Modelleri ve Uzaktan İşe Alım Stratejileri
   width: 1392
   height: 696

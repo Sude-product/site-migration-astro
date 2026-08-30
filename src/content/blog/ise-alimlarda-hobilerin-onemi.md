@@ -4,7 +4,7 @@ title: İşe Alımlarda “Hobiler” Gerçekten Önemli mi?
 date: '2020-02-04T11:44:23'
 excerpt: Yalnızca iş görüşmeleri nde değil hayatın her alanında hobilerinizin neler olduğuna ve boş zamanlarınızda neler yaptığınıza dair sorularla karşılaşırsınız.…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/GOÃàREV-kopya@2x.png
+  url: /wp-content/uploads/2025/08/GOÃàREV-kopya@2x.png
   alt: İşe Alımlarda “Hobiler” Gerçekten Önemli mi?
   width: 1515
   height: 998
@@ -22,7 +22,7 @@ Iş yaşamından arda kalan zamanlarınızda ve sorumluluklarınızdan sıyrıld
 
 ## **Hobiler Sayesinde Çalışanların Hangi Özellikleri Anlaşılabilir?**
 
-![CV hobi](https://idenfit.com/wp-content/uploads/2020/02/1_4@2x.png)
+![CV hobi](/wp-content/uploads/2020/02/1_4@2x.png)
 
 Nitelikli ve deneyimli IK uzmanları, bir çalışanın özgeçmişindeki hobilerine bakarak çalışan hakkında oldukça yerinde tespitler yapabilir ve doğru çıkarımlara ulaşabilir. Özellikle mülakatta **hobilerle ilgili** de ayrıca konuşulmasının nedeni tam da budur. Adaylar yalnızca **CV**’de güzel görünmesi için hakim olmadıkları bir aktiviteyi ya da sporu **hobi** olarak **özgeçmiş**lerine eklediklerinde mülakat sırasında fazlasıyla mahcup olabilirler. 
 
@@ -50,13 +50,13 @@ Her yönetici, motivasyonu daima yüksek olan veya istediği zaman motivasyonunu
 
 ## **Mülakatta Sizi Bir Adım Öne Geçirecek Hobiler Neler Olabilir?**
 
-![CV hobi onerileri](https://idenfit.com/wp-content/uploads/2020/02/2_4@2x.png)
+![CV hobi onerileri](/wp-content/uploads/2020/02/2_4@2x.png)
 
 **CV hazırla**rken bazı **hobiler** yalnızca alan doldurmak için yazılırken bazıları ise gerçekten detaylı düşünülerek olumlu etki bırakabilmek adına özgeçmişe eklenir. Eğer siz de IK uzmanlarının gözünde iyi bir algı oluşturmayı hedefliyorsanız **CV**’de kullanacağınız hobilere özen göstermelisiniz. Elbette bu **hobiler**den çok daha farklı hobilere sahipseniz yanlış anlaşılacak bir yönleri olmadığı sürece onları da özgeçmişinize ekleyebilirsiniz.
 
 *   Blog Yazmak
 
-![ozgecmis hobileri](https://idenfit.com/wp-content/uploads/2020/02/3_3@2x.png)
+![ozgecmis hobileri](/wp-content/uploads/2020/02/3_3@2x.png)
 
 Bilindiği üzere **IK uzmanları**, yöneticiler ve işverenler; iş başvurusunda bulunan adayların isimlerini internet ortamında da aratarak onlar hakkında çok daha detaylı bilgi edinme yoluna başvururlar. Bu arama sonuçlarında kurum yetkililerinin karşılaşacağı farklılık yaratan bilgiler, işe alınmanız konusunda sizi bir adım öne taşıyabilir. Buna bağlı olarak profesyonel şekilde blog yazma fikrine ne dersiniz?
 
@@ -64,13 +64,13 @@ Hobileriniz arasında blog yazmanın olduğunu **CV**’nizde belirtip bir de is
 
 *   Dünyayı Gezmek
 
-![CV'ye yazılacak hobiler](https://idenfit.com/wp-content/uploads/2020/02/4_3@2x.png)
+![CV'ye yazılacak hobiler](/wp-content/uploads/2020/02/4_3@2x.png)
 
 Dünyayı gezmeyi bir **hobi** olarak **CV**’ye ekleme konusunu ilk etapta klişe bulabilirsiniz ama bu hobiyi karşı tarafa nasıl aktardığınız da oldukça önemli. Farklı kültürleri tanıdığınızı, farklı diller öğrendiğinizi ve kendinizi geliştirecek bir dolu deneyimle bu seyahatleri gerçekleştirdiğinizi doğru şekilde ifade etmeniz IK uzmanlarının üzerinde oldukça olumlu karşılık bulur. Bu hobi, özellikle çok uluslu şirketlerde hayli avantajlı olabilir.
 
 *   Takım Sporları
 
-![ozgecmis hobi](https://idenfit.com/wp-content/uploads/2020/02/5_3@2x.png)
+![ozgecmis hobi](/wp-content/uploads/2020/02/5_3@2x.png)
 
 Kendinize olan saygınızı, olgunluğunuzu ve ekip içerisindeki uyumluluğunuzu ortaya çıkarmak istiyorsanız mutlaka takım sporlarıyla ilgilenmeli ve **CV**’nizde de bu detaya yer vermelisiniz. Hatta bir takım sporuyla ilgilendiğinizi gören IK uzmanı, sizin ekip içerisinde uyumlu çalışabileceğinize dair notunu direkt olarak verebilir. Bu yüzden bireysel sporlar yerine takım sporları özgeçmişlerde çok daha avantajlı olur.
 
@@ -78,7 +78,7 @@ Takım sporlarıyla uğraşan kişilerin zaman yönetimi ve iş sadakati konusun
 
 ## **IK Uzmanlarının Sevdiği Popüler Hobiler**
 
-![CV hobi ve ilgi alanlari](https://idenfit.com/wp-content/uploads/2020/02/6_2@2x.png)
+![CV hobi ve ilgi alanlari](/wp-content/uploads/2020/02/6_2@2x.png)
 
 **IK uzmanları**ndan tam not alan ve uzmanların görmek istediği **hobilere örnek** vermek gerekirse daha güncel ve daha spesifik aktivitelerden bahsetmeniz gerektiği söylenebilir. Bunlar; yoga, pilates, yelken, golf, dalış, yemek sanatı, snowboard, takı tasarımı, bowing, rafting, satranç, fotoğrafçılık, tenis ve dans olabilir. Ancak, daha da popüler olanlar arasında dalış, yelken, dağcılık, otomobil ve Uzak Doğu sporları bulunur.
 

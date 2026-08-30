@@ -4,7 +4,7 @@ title: Liderlikte En Çok Yapılan Hatalar ve Çözüm Yolları
 date: '2020-09-16T17:06:55'
 excerpt: Liderlikte en çok yapılan hatalar ve bu hatalar nasıl önlenebilir konusu modern yönetimin en önemli konularındandır. Yöneticiler farklı liderlik özelliklerine…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/liderlikte-yapilan-hatalar.png
+  url: /wp-content/uploads/2025/08/liderlikte-yapilan-hatalar.png
   alt: Liderlikte En Çok Yapılan Hatalar ve Çözüm Yolları
   width: 2271
   height: 1497
@@ -34,7 +34,7 @@ Vizyon kaybından kaçınmak için,
 *   Çalışanlara yarattıkları değerin büyük resimde hangi parçayı tamamladığı gösterilmeli.
 *   Başarısız hedeflerin başarılı ekipleri dağıtmasına izin vermemeli.
 
-![](https://idenfit.com/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
+![](/wp-content/uploads/2020/09/unnamed-1-3-1024x831.png)
 
 Liderler net hedeflere sahip olmalarının yanında ekiplerinin performanslarını da takip etmelidirler. **[Idenfit](/)** **[performans yönetimi modülü](/calisan-performans-degerlendirme-sistemi-modulu/)** **hedef ve yetkinlikler** dahilinde 360 derece performans değerlendirme yapmaya olanak sağlar.
 
@@ -73,7 +73,7 @@ Motivasyon eksikliğini gidermek için,
 *   Çalışanları yakından takip etmeli, özverili çalışanları ve elinden gelenin en iyisini başarmak için çaba gösterenleri hak ettikleri şekilde takdir etmeli.
 *   Ekip içi eğitim ve sosyal etkinlikler düzenlenmeli. **[Idenfit insan kaynakları yazılımı modüllerinden](/insan-kaynaklari-yonetimi-modulu/) [eğitim modülü](/calisan-egitim-yonetimi-modulu/)** ile çalışanlarınız için eğitimler düzenleyip eğitim planlamasını kolaylıkla yönetebilirsiniz.
 
-![Idenfit eğitim modülü](https://idenfit.com/wp-content/uploads/2020/09/Varlık-14@3x-2-926x1024.png)
+![Idenfit eğitim modülü](/wp-content/uploads/2020/09/Varlık-14@3x-2-926x1024.png)
 
 ## **Duygusal Kararlar Vermek**
 
@@ -100,7 +100,7 @@ Tutarsızlık yaşanmaması için,
 
 ## **Yetersiz ve Gecikmiş Geri Bildirim**
 
-![idenfit geri bildirim modülü](https://idenfit.com/wp-content/uploads/2020/09/feedbackxx-2.png)
+![idenfit geri bildirim modülü](/wp-content/uploads/2020/09/feedbackxx-2.png)
 
 Geçmişte yöneticilerle yapılan bir ankete göre, liderlerin yaptığı ortak hataların başında geri bildirim vermemek geliyor. Bir lider olarak takımınızdaki en deneyimli birey siz olduğunuz için çoğu zaman çalışanlarınız sizden gelecek **geri bildirimlere** ihtiyaç duyar. Sizin deneyimlerinizden yararlanır veya size destek için danışır. Siz doğru zamanda ve yeterli biçimde geri bildirim vermediğiniz taktirde çalışanlarınız kendilerini geliştiremez. Bu noktada **[Idenfit](/)** akıllı ik yazılımının **[geri bildirim modülüyle](/organizasyonel-geri-bildirim-modulu/)** işletmenizde geri bildirimin gücünden yararlanabilirsiniz.
 

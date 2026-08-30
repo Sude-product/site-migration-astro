@@ -4,7 +4,7 @@ title: Parmak İzi Okuyucu Sistemleri Hakkında Tüm Merak Ettikleriniz
 date: '2024-06-05T15:37:15'
 excerpt: İş süreçlerinde artan teknoloji kullanımı, güvenlik ve verimlilik alanlarında da devrim yaratıyor. Personel devam kontrol yazılımlarıyla entegre çalışan parmak…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/parmak-izi-okuyucu-sistemleri-1392x696-1.jpg
+  url: /wp-content/uploads/2025/08/parmak-izi-okuyucu-sistemleri-1392x696-1.jpg
   alt: Parmak İzi Okuyucu Sistemleri Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

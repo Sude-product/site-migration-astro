@@ -4,7 +4,7 @@ title: Haftalık Çalışma Saati Nasıl Belirlenir?
 date: '2021-01-11T10:31:20'
 excerpt: Haftalık çalışma saati, İş Kanunu 63. maddesinde “çalışma süresi” kavramı adı altında kendine yer bulur. Çalışma süresi, bir işçinin işbaşında geçirdiği süreyi…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/01/Haftalik-Calisma-Saati-–-Mesai-Saatleri-Nasil-Belirlenir.@2x.png
+  url: /wp-content/uploads/2021/01/Haftalik-Calisma-Saati-–-Mesai-Saatleri-Nasil-Belirlenir.@2x.png
   alt: Haftalık Çalışma Saati Nasıl Belirlenir?
   width: 1514
   height: 998
@@ -22,7 +22,7 @@ Mesai saatleri belirlenirken mevzuatta yer alan genel şartlara ve bazı sınır
 
 Haftalık çalışma saati, **4857 sayılı İş Kanunu’nun** 63. maddesi ile düzenlenmiştir. Bu maddeye göre genel bakımdan **çalışma süresi** haftada **en fazla 45 saat** olacak şekilde belirlenmiştir. Aksi kararlaştırılmadığı sürece çalışma süresi, haftanın çalışılan günlerine eşit olarak paylaştırılarak uygulanır. Taraflar anlaştığı taktirde ise haftalık çalışma süresi, günde on bir saati geçmeyecek şekilde farklı günlere paylaştırılabilir.
 
-![idenfit puantaj modülü](https://idenfit.com/wp-content/uploads/2020/08/puantaj-cetveli-2-1024x631.png)
+![idenfit puantaj modülü](/wp-content/uploads/2020/08/puantaj-cetveli-2-1024x631.png)
 
 **[İDENFİT PUANTAJ TAKİBİ MODÜLÜ](/puantaj-takip-programi-modulu/)**
 

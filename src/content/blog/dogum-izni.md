@@ -4,7 +4,7 @@ title: Doğum İzni Kaç Gün?
 date: '2020-03-02T10:30:00'
 excerpt: Çalışan anne ve baba adayları için doğum i zinleri en merak edilen konular arasında yer alır. İznin kapsamının ne olduğu, ne zaman başlayıp ne zaman biteceği…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/hamilelik@3x.png
+  url: /wp-content/uploads/2025/08/hamilelik@3x.png
   alt: Doğum İzni Kaç Gün?
   width: 2272
   height: 1498
@@ -21,7 +21,7 @@ modifiedDate: '2025-09-29T13:03:19'
 
 ## **Doğum İzni Nedir?**
 
-![dogum izni nedir](https://idenfit.com/wp-content/uploads/2020/03/1_4@2x.png)
+![dogum izni nedir](/wp-content/uploads/2020/03/1_4@2x.png)
 
 İş Kanunu’na göre **doğum izni**; kadın çalışanın doğumdan önce sekiz ve doğumdan sonra sekiz olmak üzere toplamda on altı hafta çalıştırılmadığı izindir. **Doğum izni süresi** hesaplanırken gebelik süresi kırk hafta olarak esas alınmıştır.
 
@@ -29,13 +29,13 @@ Doğum raporu ile dileyen hamileler, doğumlarına üç hafta süre kalana dek y
 
 ## **Doğum İzni Kaç Gün?**
 
-![dogum izni kac gün](https://idenfit.com/wp-content/uploads/2020/03/2_4@2x.png)
+![dogum izni kac gün](/wp-content/uploads/2020/03/2_4@2x.png)
 
 Toplam on altı haftalık süreyi kapsayan **doğum izni**nin sekiz haftası, bebeğin doğumundan sonra kullanılır. **Doğum raporu** alarak otuz yedinci haftaya dek çalışan anne adaylarının izin yapmak yerine çalıştıkları süre, doğum sonrası süreye eklenir. Çoğul gebelik halinde **doğum izni**nin, doğum öncesi olan sekiz haftalık izin süresine iki hafta daha eklenir.
 
 ## **Doğum İzninin Hesaplaması Nasıl Yapılır?**
 
-![dogum izni hesaplama](https://idenfit.com/wp-content/uploads/2020/03/3_3@2x.png)
+![dogum izni hesaplama](/wp-content/uploads/2020/03/3_3@2x.png)
 
 Halk arasında süt izni ya da analık izni olarak da bilinen **doğum izni ne zaman başlar** ve ne zaman biter sorularına cevap olarak 4857 sayılı İş Kanunu’nun analık halinde çalışma ve süt iznine dair bilgileri içeren 74. maddesine göre **hesaplama** yapılabilir. Buna göre;
 
@@ -48,7 +48,7 @@ Bunlara ek olarak; hamilelik süresince çalışan kadına rutin kontrolleri iç
 
 ## **Doğum İzni Nasıl Alınır?**
 
-![dogum izni nasil hesaplanir](https://idenfit.com/wp-content/uploads/2020/03/4_3@2x.png)
+![dogum izni nasil hesaplanir](/wp-content/uploads/2020/03/4_3@2x.png)
 
 *   Doktordan çalışamaz raporu alınmalıdır.
 *   Bu raporun bir örneği iş yerine verilmelidir.
@@ -56,7 +56,7 @@ Bunlara ek olarak; hamilelik süresince çalışan kadına rutin kontrolleri iç
 
 ## **Doğum İzni Dilekçesi Nasıl Yazılır?**
 
-![dogum izni dilekcesi nasil yazilir](https://idenfit.com/wp-content/uploads/2020/03/5_3@2x.png)
+![dogum izni dilekcesi nasil yazilir](/wp-content/uploads/2020/03/5_3@2x.png)
 
 *   Kadın çalışan **doğum izni dilekçesi** yazarken öncelikle dilekçenin başına izin alacağı iş yerinin adını yazmalıdır.
 *   Ardından sicil numarasını yazıp bir alt satırda izin için hitap edeceği kişinin adını “Sayın” ifadesinin ardından yazmalıdır.
@@ -66,7 +66,7 @@ Bunlara ek olarak; hamilelik süresince çalışan kadına rutin kontrolleri iç
 
 ## **Doğum [İzni](/yillik-izin-takip-programi/) Ne Kadar Özel Sektörde?**
 
-![dogum izni ne kadar](https://idenfit.com/wp-content/uploads/2020/03/6_2@2x.png)
+![dogum izni ne kadar](/wp-content/uploads/2020/03/6_2@2x.png)
 
 Devlet memuru olmayan, özel sektörde çalışan annelerin en çok merak ettikleri konulardan biri **özel sektörde doğum izni** konusudur. İş **kanunu** uyarınca; doğumdan önce sekiz hafta ve doğumdan sonra sekiz hafta olan doğum izni süresi özel sektördeki kadın işçiler için de geçerlidir.
 
@@ -74,7 +74,7 @@ Devlet memuru olmayan, özel sektörde çalışan annelerin en çok merak ettikl
 
 ## **Doğum Sonrası Ücretsiz İzin Dilekçesi**
 
-![dogum sonrasi ücretsiz izin](https://idenfit.com/wp-content/uploads/2020/03/7_1@2x.png)
+![dogum sonrasi ücretsiz izin](/wp-content/uploads/2020/03/7_1@2x.png)
 
 Doğum sonrasından kadın çalışan dilerse altı aya kadar ücretsiz izin kullanabilir. Bu kadın çalışanlara iş kanununca tanınmış bir haktır. Bu nedenle altı aya kadar ücretsiz izin konusunda işverenin rızası gerekli değildir. Kadın çalışan on altı haftalık ücretli iznini kullanmasının ardından ücretsiz izin kullanmak isterse bunun için bir dilekçe hazırlamalıdır. Bu dilekçede;
 
@@ -84,7 +84,7 @@ Doğum sonrasından kadın çalışan dilerse altı aya kadar ücretsiz izin kul
 
 ## **Doğumda Babalık İzni**
 
-![dogumda babalik izni](https://idenfit.com/wp-content/uploads/2020/03/8@2x.png)
+![dogumda babalik izni](/wp-content/uploads/2020/03/8@2x.png)
 
 Eşi doğum yapmış çalışan erkeklere verilen doğum izni, babalık iznidir. **Doğum izni baba** için çalıştığı kuruma göre değişkenlik gösterir.
 
@@ -99,7 +99,7 @@ Eşi doğum yapmış çalışan erkeklere verilen doğum izni, babalık iznidir.
 
 ## **Doğum İzni Ücreti**
 
-![dogumda izni ucreti](https://idenfit.com/wp-content/uploads/2020/03/9@2x.png)
+![dogumda izni ucreti](/wp-content/uploads/2020/03/9@2x.png)
 
 **Çalışan anneler doğum izni** paralarını iş göremezlik ödeneği adı altında devletten alabilir. Toplamda on altı hafta ücretli izne ayrılan annelere bu sürenin parasının ödenmesinin yanı sıra iki ödeme daha yapılır.
 
@@ -109,13 +109,13 @@ Eşi doğum yapmış çalışan erkeklere verilen doğum izni, babalık iznidir.
 
 ## **Doğum İzni Hesaplama için idenfit İzin Yönetimi**
 
-![idenfit izin yonetimi](https://idenfit.com/wp-content/uploads/2020/03/10@2x-1024x448.png)
+![idenfit izin yonetimi](/wp-content/uploads/2020/03/10@2x-1024x448.png)
 
 **İzin hesaplama** ve yönetme konusunda kullanıcılarına büyük yenilik ve kolaylıklar sunan [Idenfit İzin Yönetimi](/yillik-izin-takip-programi/), **Doğum iznini hesaplama** konusunda da yardımcı olmaktadır. Küçük, orta ve büyük işletmelerde çalışanlar için sunulan günlük, haftalık, aylık ve yıllık izinlerin planlanması ve takip edilmesi işlerini sizin yerinize yapan **Idenfit İzin Yönetimi** ile çalışma hayatınızı kolaylaştırabilir, **izin planlama**nızı rahatlıkla yapabilirsiniz.
 
 ## **Doğum Sonrası Yarım Gün Çalışma Nedir?**
 
-![dogum sonrasi yarim gün calisma](https://idenfit.com/wp-content/uploads/2020/03/11@2x.png)
+![dogum sonrasi yarim gün calisma](/wp-content/uploads/2020/03/11@2x.png)
 
 **Doğum sonrası yarım gün çalışma** uygulaması ile doğumdan sonra çalışan annenin yarım gün çalışıp tam maaş alması mümkün olmaktadır. Bu uygulamaya göre:
 
@@ -126,7 +126,7 @@ Eşi doğum yapmış çalışan erkeklere verilen doğum izni, babalık iznidir.
 
 ## **Doğum Sonrası Yarım Gün Çalışma Şartları Nedir?**
 
-![dogum sonrasi yarim gün calisma sartlari](https://idenfit.com/wp-content/uploads/2020/03/12@2x.png)
+![dogum sonrasi yarim gün calisma sartlari](/wp-content/uploads/2020/03/12@2x.png)
 
 **Doğum sonrası yarım gün çalışma uygulaması**ndan yararlanabilmek için çalışan annelerin taşıması gereken şartlar şu şekildedir:
 

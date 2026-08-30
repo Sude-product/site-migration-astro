@@ -4,7 +4,7 @@ title: Yakınlık Ön Yargısı Nedir?
 date: '2023-02-09T23:42:19'
 excerpt: Yakınlık ön yargısı, yeni çalışma modelleri ile birlikte iş dünyasının gündemini meşgul eden bir kavram haline geliyor. Uzaktan çalışma veya hibrit çalışma…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2023/02/Yakinlik-onyargisi@2x-100.jpg
+  url: /wp-content/uploads/2023/02/Yakinlik-onyargisi@2x-100.jpg
   alt: Yakınlık Ön Yargısı Nedir?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Yüz Tanıma Sistemleri Rehberi
 date: '2024-07-05T13:44:38'
 excerpt: Yüz tanıma teknolojisi, günlük hayatımızda günden güne daha çok karşımıza çıkıyor. Bu yenilikçi sistemler, personel giriş çıkış takibinden akıllı telefonlara…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/yuz-tanima-sistemleri.jpg
+  url: /wp-content/uploads/2025/08/yuz-tanima-sistemleri.jpg
   alt: Yüz Tanıma Sistemleri Rehberi
   width: 1281
   height: 721

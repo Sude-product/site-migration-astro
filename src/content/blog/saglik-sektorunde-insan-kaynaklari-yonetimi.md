@@ -4,7 +4,7 @@ title: Sağlık Sektöründe İnsan Kaynakları Yönetimi
 date: '2020-11-30T13:31:57'
 excerpt: Sağlık sektöründe insan kaynakları yönetimi, bilim, teknoloji ve ekonominin gelişmesiyle birlikte daha çok önem kazanmıştır. Sektörde sağlık kurumları finansal…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2025/08/Sağlik-Sektöründe-İnsan-Kaynaklari-Yönetimi_-ve-İK-Yazilimi-Uygulamalari@3x.png
+  url: /wp-content/uploads/2025/08/Sağlik-Sektöründe-İnsan-Kaynaklari-Yönetimi_-ve-İK-Yazilimi-Uygulamalari@3x.png
   alt: Sağlık Sektöründe İnsan Kaynakları Yönetimi
   width: 2271
   height: 1497
@@ -46,7 +46,7 @@ Sayılan tüm bu metriklerin bir arada olması sonucunda sağlık hizmetlerinde 
 
 ## Sağlık Sektörü İçin İK Yazılımları ve Çeşitleri
 
-![insan kaynakları yönetimi](https://idenfit.com/wp-content/uploads/2020/08/linkedin-1-2.png)
+![insan kaynakları yönetimi](/wp-content/uploads/2020/08/linkedin-1-2.png)
 
 Sağlık sektöründe insan kaynakları yönetimi, kurum hedeflerini gerçekleştirmek için insan gücüne yönelik olarak planlanan stratejiler, programlar ve politikalar anlamına gelir. Olmazsa olmaz bir sektör olduğu için inanılmaz büyüklükte bir insan kaynağına sahiptir. Bu nedenle İK yazılımlarıyla kurum içinde iş gücünün doğru planlanması ve düzenli şekilde kontrolünün sağlanması gerekir. Peki sağlık sektöründe **İK yönetiminin verimliliği** için İK yazılımlarının çeşitleri nelerdir?
 

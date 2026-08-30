@@ -4,7 +4,7 @@ title: PDKS Sistemi Nasıl Kullanılır? | Mobil PDKS
 date: '2021-03-29T12:50:25'
 excerpt: PDKS sistemi, şirketlerde çalışanların işe devamlılığının takibi amacıyla kullanılan programlardır. PDKS açılımı “personel devam kontrol sistemleri”…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2021/03/PDKS-sistemi-nasil-kullanilir-mobil-PDKS@2x.png
+  url: /wp-content/uploads/2021/03/PDKS-sistemi-nasil-kullanilir-mobil-PDKS@2x.png
   alt: PDKS Sistemi Nasıl Kullanılır? | Mobil PDKS
   width: 1515
   height: 999
@@ -24,7 +24,7 @@ PDKS sistemi, birincil olarak personel çalışma sürelerinin doğru hesaplanma
 
 **Puantaj hesaplaması**, iş yükü azaltılarak daha pratik ve hatasız şekilde yönetilir. Personel takip sistemi ile hem zamandan tasarruf edilir hem de hata payı en aza indirilir. Ayrıca **web PDKS** ve mobil PDKS ile veriye anlık olarak ulaşılabilir ve raporlama yapılabilir. Ayrıca **PDKS sistemleri** sayesinde hızlı raporlamanın sonucu olarak işletmede hızlı bordro süreci de gerçekleşir.
 
-<a href="/pdks-modulu/" aria-label="İDENFİT PDKS"><img decoding="async" src="https://idenfit.com/wp-content/uploads/2021/03/webrazii@2x-1024x577.png" alt="" class="wp-image-3899"></a>
+<a href="/pdks-modulu/" aria-label="İDENFİT PDKS"><img decoding="async" src="/wp-content/uploads/2021/03/webrazii@2x-1024x577.png" alt="" class="wp-image-3899"></a>
 
 **[İDENFİT PDKS](/pdks-modulu/)**
 
@@ -62,7 +62,7 @@ Personel takip sistemi ile PDKS yazılımı ile entegre PDKS cihazlarda personel
 
 Idenfit PDKS yazılımı, şirketinizde ihtiyaç duyduğunuz **personel takip sistemi** için en uygun çözümdür. Personel yönetim yazılımına yenilik getiren Idenfit, hem **web PDKS** hem **mobil PDKS** tarafında devam kayıtlarını yönetme, devamı asgari insan müdahalesi ve maksimum verimlilik ve doğruluk ile kendi başına sabitleme özellikleri sunar. Kuruluşunuzun benzersiz ihtiyaçlarına uyacak şekilde kolayca yapılandırılabilir, çoklu vardiya yönetiminden özelleştirilmiş katılım politikalarına ve raporlarına kadar her şeyi yönetmenize olanak tanır.
 
-[![idenfit pdks](https://idenfit.com/wp-content/uploads/2020/12/linkedin-1024x536.jpg)](/pdks-modulu/)
+[![idenfit pdks](/wp-content/uploads/2020/12/linkedin-1024x536.jpg)](/pdks-modulu/)
 
 **[İDENFİT PDKS](/pdks-modulu/)**
 
