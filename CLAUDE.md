@@ -1285,10 +1285,12 @@ hâlâ geçerli.)*
    ekiple görüşülüp netleşmeyi bekliyor; şimdilik üretilmiyor.
    **İstisna:** Online Sunum Talebi'nin NL versiyonu kullanıcının açık
    talimatıyla eklendi (`PRESENTATION_NL_OVERRIDE`).
-2. **Faz 2 backend yok** — Hero formu + HR Maturity Test sonuç
-   sayfasının "raporu e-postama gönder" butonu `console.log` stub/devre
-   dışı. Faz 2'de (Cloudflare Pages Functions) gerçek backend'e
-   bağlanacak.
+2. **GENİŞLETİLDİ (2026-08-30) — Faz 2 backend yok, 6 form etkileniyor,
+   +KVKK hukuki risk notu.** Bu maddenin eski/eksik hali yalnızca Hero
+   formu + HR Maturity Test'ten bahsediyordu — tam liste + KVKK onay
+   metniyle çelişen hukuki risk notu artık CLAUDE.md'de "## Deployment"
+   bölümünün HEMEN ÜSTÜNDEKİ "🔶 AÇIK NOKTA (2026-08-30)" bloğunda
+   kayıtlı, bkz. orası. Kod değişikliği HENÜZ YAPILMADI.
 6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
 8. Puantaj modülünün gerçek YouTube `video_url`'i var ama bilinçli
    olarak embed edilmedi.
@@ -2501,6 +2503,44 @@ Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:
 olsun olmasın) `npm run dev:clean` ile yeniden başlatın. Üretim build
 testi (`astro build`) sonrası dev server'a dönerken de aynı komut
 kullanılabilir (`dist/` çıktısını da temizler).
+
+## 🔶 AÇIK NOKTA (2026-08-30) — Sitedeki 6 form da backend'siz `console.log`
+stub'ı, ayrıca KVKK onay metniyle çelişen bir hukuki risk taşıyor. Kod
+değişikliği HENÜZ YAPILMADI — 2 gün sonra ele alınacak.
+
+Açık nokta #2'nin ("Faz 2 backend yok") eski, eksik listesi
+(yalnızca Hero formu + HR Maturity Test'ten bahsediyordu) bu turda tam
+taranıp genişletildi/güncellendi — kaynak kodda doğrulandı
+(`grep console.log src/components/*.tsx`):
+
+| Form (component) | Kullanıldığı sayfa(lar) | Durum |
+|---|---|---|
+| `HeroForm.tsx` | Ana Sayfa hero **VE** İletişim sayfası (ikisi de AYNI component'i reuse ediyor, `ContactPage.astro:66,183`) | `console.log`, backend yok |
+| `LandingRequestForm.tsx` | `/demo` (Landing Page) | `console.log`, "raporunuz e-postanıza gönderildi" mesajı gösteriyor ama hiçbir yere gönderilmiyor |
+| `SupportRequestForm.tsx` | Destek Talebi (`/destek-talebi/`) | `console.log`; teşekkür sayfasına (`tesekkurler-destek`) bağlantı da bilinçli olarak kurulmadı (bkz. Açık nokta #10) |
+| `HrMaturityTest.tsx` | Dijital İK Olgunluk Testi sonuç ekranı | `console.log('HR Maturity Test — rapor talebi:', ...)`, "raporu e-postama gönder" butonu |
+| `PresentationRequestForm.tsx` | Online Sunum Talebi | `console.log('Online Sunum Talebi formu gönderildi:', ...)` — **kullanıcının orijinal 5'lik listesinde yoktu, bu taramada bulunup eklendi** |
+
+**Hukuki risk notu (kullanıcı bulgusu):** Bu 6 formun HEPSİ, gönderim
+öncesi kullanıcıya gerçek bir KVKK onay metni gösteriyor (`src/i18n/
+tr.ts`'teki `kvkkNotice`: *"İletişim Web KVKK İbaresi ve Kullanım
+Koşullarını kabul ediyorum."*, kaynak koddaki yorumlarda "AYNI dürüst
+desen" olarak anılıyor — bkz. `LandingRequestForm.tsx:47-48`,
+`SupportRequestForm.tsx:24-25`). Kullanıcı bu onayı verip formu
+gönderdiğinde, sistem KİŞİSEL VERİYİ (ad/telefon/e-posta/firma) fiilen
+HİÇBİR YERE göndermiyor/saklamıyor — yalnızca tarayıcı konsoluna
+yazıyor. Yani kullanıcıya biçimsel bir KVKK/veri işleme onayı
+sunulurken, o onayın konu ettiği veri işleme fiilen HİÇ gerçekleşmiyor
+— gösterilen hukuki metinle sistemin gerçek davranışı arasında bir
+TUTARSIZLIK var. (Bu bir hukuki görüş DEĞİL, yalnızca kod davranışının
+tespitidir — nihai değerlendirme için hukuk danışmanına başvurulmalı.)
+
+**Kapsam netliği:** Bu madde yalnızca KAYDA GEÇİRİLDİ, hiçbir form/
+metin/backend değişikliği yapılmadı. Faz 2'de (aşağıdaki plan) ele
+alınacak — kullanıcı "2 gün sonra" (tahmini 2026-09-01) bu işe
+başlanacağını belirtti.
+
+---
 
 ## Deployment
 **Faz 1 (mevcut):** Tüm statik içerik Astro ile migrate edilip Cloudflare
