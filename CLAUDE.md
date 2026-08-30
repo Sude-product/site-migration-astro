@@ -1371,6 +1371,24 @@ hâlâ geçerli.)*
     `scripts/download-blog-images.mjs` + `scripts/relativize-blog-image-urls.mjs`
     (ikisi de yeni, kalıcı/yeniden kullanılabilir). `scripts/localize-images.mjs`
     (eski, zip tabanlı) hâlâ duruyor ama artık kullanılmıyor.
+    **Ek tur (2026-08-30, aynı gün) — `src/data/navigation.ts`'teki
+    KEŞFET mega-menü "Raporlar" kartları (9 URL) + `src/pages/blog/
+    [slug].astro`'daki site logosu (OG/JSON-LD publisher fallback'i, 1
+    URL) da AYNI yöntemle (yeni `scripts/download-report-assets.mjs`,
+    PNG/SVG/PDF magic-byte doğrulamalı) yerelleştirildi ve göreliye
+    çevrildi — 10/10 dosya, 0 hata.** Artık **blog + mega-menü, eski
+    idenfit.com'a SIFIR bağımlı** — `astro build` +
+    `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
+    sıfır regresyon, Chrome'da KEŞFET menüsü açılıp 4 rapor kartının
+    `localhost:4321`'den yüklendiği `read_network_requests` ile
+    doğrulandı. **YENİ bulgu (bu turda keşfedildi, KAPSAM DIŞI
+    bırakıldı) — bkz. Açık nokta #45:** `dist/` genelinde
+    TARANDIĞINDA, blog+navigation dışında **~300 sayfada yüzlerce**
+    başka `idenfit.com/wp-content/uploads/...` hotlink'i daha var
+    (ürün/sektör sayfası bölüm görselleri, Müşteri Hikayeleri
+    carousel'inin bazı portreleri, hesaplama araçları ikonları, KVKK/
+    güvenlik PDF'leri, 404 sayfası arka planı vb.) — bu maddenin
+    kapsamına hiç girmemiş, çok daha büyük ve AYRI bir iş.
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).
@@ -1725,6 +1743,28 @@ hâlâ geçerli.)*
     temizlik turu:** `content.config.ts` saf `glob()` koleksiyonuna
     indirgenebilir, `posts.json` + `legacyJsonLoader` kaldırılabilir.
     Dokunulmadı — kullanıcı isteğiyle bilinçli olarak ertelendi.
+45. **YENİ (2026-08-30) — Blog+navigation DIŞINDA, sitenin geri kalanında
+    ~300 sayfada YÜZLERCE `idenfit.com/wp-content/uploads/...` hotlink'i
+    daha var — Açık nokta #14'ün (artık kapalı) kapsamına hiç girmemiş,
+    çok daha büyük ve AYRI bir iş.** Açık nokta #14'ün son turunda
+    `dist/` genelinde tam bir tarama yapılırken tesadüfen bulundu:
+    ürün/sektör sayfalarının bölüm görselleri (`2025/07`, `2025/08`
+    altındaki `productContent.ts`/`sectorContent.ts`/`hardwareContent.ts`
+    kaynaklı yüzlerce PNG/WEBP/SVG), Müşteri Hikayeleri carousel'inin
+    bazı portreleri (`Muzeyyen-Kiran-Mergen.png`, `emre-ozcan.webp` vb.,
+    `customerStories.ts`), hesaplama araçları/sektör ikonları, KVKK/
+    Bilgi Güvenliği/Çerez Politikası PDF'leri (`miscPagesContent.ts`),
+    `404.html`'in arka plan görseli (`wp-content/themes/vault/...`,
+    DİKKAT — bu bir `uploads/` yolu bile değil, farklı bir WP tema
+    varlığı). **Boyut tahmini yapılmadı** (muhtemelen CLAUDE.md'nin eski
+    "~1260 görsel" notundaki "10 veri dosyası" ifadesinin gerçek karşılığı
+    bu — ama rakam o zaman da doğrulanmamıştı, şimdi de değil). Kod
+    değişikliği YAPILMADI, yalnızca keşfedildi ve kayda geçirildi —
+    kullanıcı isterse `scripts/download-blog-images.mjs`/
+    `scripts/download-report-assets.mjs`'in aynı deseniyle (kaynak
+    dosya taraması → HTTP indirme → magic-byte doğrulama → göreli URL)
+    genişletilebilir, ama önce hangi veri dosyalarının kapsama gireceği
+    netleşmeli (küçük bir tarama turu gerekir).
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
