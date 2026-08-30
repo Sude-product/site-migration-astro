@@ -1743,28 +1743,58 @@ hâlâ geçerli.)*
     temizlik turu:** `content.config.ts` saf `glob()` koleksiyonuna
     indirgenebilir, `posts.json` + `legacyJsonLoader` kaldırılabilir.
     Dokunulmadı — kullanıcı isteğiyle bilinçli olarak ertelendi.
-45. **YENİ (2026-08-30) — Blog+navigation DIŞINDA, sitenin geri kalanında
-    ~300 sayfada YÜZLERCE `idenfit.com/wp-content/uploads/...` hotlink'i
-    daha var — Açık nokta #14'ün (artık kapalı) kapsamına hiç girmemiş,
-    çok daha büyük ve AYRI bir iş.** Açık nokta #14'ün son turunda
-    `dist/` genelinde tam bir tarama yapılırken tesadüfen bulundu:
-    ürün/sektör sayfalarının bölüm görselleri (`2025/07`, `2025/08`
-    altındaki `productContent.ts`/`sectorContent.ts`/`hardwareContent.ts`
-    kaynaklı yüzlerce PNG/WEBP/SVG), Müşteri Hikayeleri carousel'inin
-    bazı portreleri (`Muzeyyen-Kiran-Mergen.png`, `emre-ozcan.webp` vb.,
-    `customerStories.ts`), hesaplama araçları/sektör ikonları, KVKK/
-    Bilgi Güvenliği/Çerez Politikası PDF'leri (`miscPagesContent.ts`),
-    `404.html`'in arka plan görseli (`wp-content/themes/vault/...`,
-    DİKKAT — bu bir `uploads/` yolu bile değil, farklı bir WP tema
-    varlığı). **Boyut tahmini yapılmadı** (muhtemelen CLAUDE.md'nin eski
-    "~1260 görsel" notundaki "10 veri dosyası" ifadesinin gerçek karşılığı
-    bu — ama rakam o zaman da doğrulanmamıştı, şimdi de değil). Kod
-    değişikliği YAPILMADI, yalnızca keşfedildi ve kayda geçirildi —
-    kullanıcı isterse `scripts/download-blog-images.mjs`/
-    `scripts/download-report-assets.mjs`'in aynı deseniyle (kaynak
-    dosya taraması → HTTP indirme → magic-byte doğrulama → göreli URL)
-    genişletilebilir, ama önce hangi veri dosyalarının kapsama gireceği
-    netleşmeli (küçük bir tarama turu gerekir).
+45. **KAPSAMI NETLEŞTİRİLDİ (2026-08-30) — Blog+navigation DIŞINDA,
+    sitenin geri kalanında hâlâ 307 sayfada 293 benzersiz
+    `idenfit.com/wp-content/...` hotlink'i var, henüz DOKUNULMADI.**
+    Yeni kalıcı denetim script'i (`scripts/audit-remote-hotlinks.mjs`,
+    `dist/`'i tarar, indirme/değiştirme YAPMAZ) ile tam site taraması
+    yapıldı. **Sonuç:** 3097 HTML dosyasının 307'sinde (%9.9) toplam 293
+    benzersiz uzak dosya referansı — 119 PNG, 93 WEBP, 59 SVG, 14 PDF,
+    7 JPG, 1 JPEG. En sık geçen tekil dosya `pnl-img-1024x644.webp`
+    (`homeContent.ts`, 111 sayfada — ürün/modül sayfalarının paylaştığı
+    "Verimlilik" CTA paneli + blog liste/sayfalama sayfaları); 6 sektör
+    ikonu (`sektor-*-icon.svg`) 8-25 sayfa arasında tekrarlanıyor.
+    **İki farklı kaynak/düzeltme yolu var:**
+    (A) **19 TypeScript dosyasında LİTERAL mutlak URL** (~392 tekil
+    occurrence, çoğu tekrarlayan ikon): `productTranslationOverrides.ts`
+    (107) + `...OverridesAz.ts` (70), `sectorTranslationOverrides.ts`
+    (56), `homeContent.ts` (37), `miscPagesTranslationOverrides.ts` (24),
+    `hubTranslationOverrides.ts` (24) + `...OverridesAz.ts` (23),
+    `hardwareTranslationOverrides.ts` (16), `customerStories.ts` (10),
+    `calculatorDefinitions.ts` (8), `thankYouContent.ts` (4),
+    `miscPagesContent.ts` (3), `faqContent.ts` (3),
+    `customerStoryCarousel.ts` (2), `supportThankYouContent.ts` (1),
+    `PricingPage.astro` (1), `NotFoundPage.astro` (1),
+    `IdenfitLogo.tsx` (1), `CalculatorsPage.astro` (1) — bunlar Açık
+    nokta #14'teki blog/navigation'la BİREBİR AYNI yöntemle (indir +
+    göreliye çevir) düzeltilebilir.
+    (B) **Ham WordPress export JSON'larından RUNTIME'da okunan `image`
+    alanları** (literal string DEĞİL, `b.image` gibi pass-through) —
+    `productContent.ts`←`products.json`, `sectorContent.ts`←`sectors.json`,
+    `hardwareContent.ts`←`hardware.json`, `hubContent.ts`←`hubs.json`,
+    `miscPagesContent.ts`←`misc-pages.json`. Bunlar bul-değiştir ile
+    düzeltilemez — ya (i) her `*Content.ts`'te alanı okurken tek satırlık
+    bir `.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/')`
+    dönüşümü eklenir (blog `date`'in `+03:00` normalizasyonuyla AYNI
+    desen, düşük risk) ya da (ii) ham JSON dosyalarının kendisi
+    güncellenir (5 dosya, çok daha büyük/riskli bir diff). **(i) önerilir.**
+    Ayrıca `404.html`'in arka plan görseli `wp-content/themes/vault/...`
+    yoluna gidiyor — bu `uploads/` bile değil, farklı bir WP tema
+    varlığı, ayrı ele alınmalı (muhtemelen tek dosya, `NotFoundPage.astro`).
+    **Tahmini efor:** (A) yolu blog/navigation turlarıyla aynı ölçekte
+    (~1-2 saat, script zaten hazır — yalnızca kaynak dosya listesi
+    genişletilip yeniden çalıştırılır). (B) yolu kod olarak küçük (5
+    dosyada birer satır) ama önce 293 benzersiz dosyanın TAMAMININ
+    indirilip doğrulanması gerekir (aynı `download-*.mjs` deseniyle,
+    tahmini 30-60 dk) + build/regresyon/Chrome doğrulaması (~1 saat).
+    **Toplam kaba tahmin: 3-5 saat, tek turda yapılabilir.** Kod
+    değişikliği HENÜZ YAPILMADI — yalnızca kapsam netleştirildi,
+    kullanıcı onayı bekliyor. **Sıradaki oturum için plan (kullanıcı
+    kararı, 2026-08-30):** ÖNCE (A) yolu (19 sabit-kodlu dosya, ~1-2
+    saat, daha hızlı/düşük riskli) tamamlanıp SONUÇ GÖSTERİLECEK —
+    kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
+    saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
+    turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -2304,6 +2334,25 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   bu durumda `ProductPage.astro`'ya `ctaKeyword` prop'uyla kısa, gerçek
   bir anahtar kelime geçirilmeli. Yeni bir jenerik/tekrarlayan metin
   kalıbı keşfedilirse `GENERIC_CTA_TEXTS` set'ine eklenmeli.
+- **Görsel bağımlılık kuralı (2026-08-30'da GÜNCELLENDİ — eski
+  "hotlink kabul edilebilir" yaklaşımının YERİNE geçti):** Önceden
+  (`docs/remaining-work-report.md`'nin eski notu, bkz. Açık nokta #45)
+  "ihtiyaç duyulan görsel canlı idenfit.com'dan hotlink ile bulunabilir,
+  `uploads.zip`'i açmaya somut bir ihtiyaç yok" denilen bilinçli bir
+  tolerans vardı. **Bu tolerans artık GEÇERSİZ.** Kural: yeni eklenen/
+  düzenlenen HİÇBİR içerik `https://idenfit.com/wp-content/...`
+  adresine hotlink YAPMAMALI — DNS geçişinden sonra `idenfit.com` YENİ
+  siteye işaret edeceği için eski sunucudan görsel çekmeye güvenmek
+  kendi kendini kıran bir bağımlılıktır (bkz. Açık nokta #14'ün kapanış
+  günlüğü, ilk somut örnek). Yeni bir görsel eklenirken: dosya
+  `public/wp-content/uploads/<YYYY>/<AA>/...` altına (WP'nin kendi
+  yol yapısı korunarak) yerleştirilmeli, kaynakta `url:` alanı GÖRELİ
+  (`/wp-content/uploads/...`) yazılmalı. Blog + mega-menü bu kurala göre
+  TAMAMEN temizlendi (Açık nokta #14); sitenin geri kalanındaki mevcut
+  ihlaller (~307 sayfa/293 benzersiz dosya) Açık nokta #45'te kayıtlı,
+  kademeli olarak aynı kurala getirilecek. Doğrulama:
+  `DIST_DIR=dist/client node scripts/audit-remote-hotlinks.mjs` (yeni,
+  kalıcı — `astro build` sonrası sıfır sonuç vermesi hedef).
 - **Open Graph görsel kuralı:** Yeni bir sayfa/component eklendiğinde,
   sayfanın gerçek/temsili bir görseli varsa (`hero.image`,
   `featuredImage` gibi) `<BaseLayout>`/`<LandingLayout>` çağrısına
