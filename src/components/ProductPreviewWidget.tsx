@@ -47,6 +47,8 @@ import {
 import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
+import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
+import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
 // panel ekran görüntülerinden (kullanıcı tarafından sağlandı) çıkarılan
@@ -73,6 +75,18 @@ import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.t
 const ThemeContext = createContext<{ isDark: boolean; toggle: () => void }>({ isDark: false, toggle: () => {} });
 function useTheme() {
   return useContext(ThemeContext);
+}
+
+// Dil desteği (2026-08-31, kullanıcı isteği — "dil değişince dashboard'un
+// da dili değişsin"). `ThemeContext`'le AYNI desen: iç içe geçmiş 59 alt
+// bileşenin her birine `labels` prop'u elle taşımak (prop drilling) yerine
+// Context kullanılıyor. Yalnızca YAPISAL/arayüz metni (Tier 1) buradan
+// geliyor — kurgusal veri etiketleri (Tier 2, ör. "İşe Giren"/"Ayrılan")
+// henüz kapsam dışı, bkz. `productPreviewWidgetLabels.ts`'in dosya başı
+// yorumu.
+const LabelsContext = createContext<ProductPreviewWidgetLabels>(getProductPreviewWidgetLabels('tr'));
+function useLabels() {
+  return useContext(LabelsContext);
 }
 
 type TabKey =
@@ -104,26 +118,54 @@ interface TabDef {
 // üstte, sonra İzin Yönetimi, Zaman Yönetimi, Performans Yönetimi) ve
 // "İzin" etiketi "İzin Yönetimi"ye çevrildi — içerik (LeaveManagementTab
 // vb.) DEĞİŞMEDİ, yalnızca bu diziideki sıra + `label`/başlık metni.
-const TABS: TabDef[] = [
-  { key: 'ik', label: 'İnsan Kaynakları', icon: Users, enabled: true },
-  { key: 'izin', label: 'İzin Yönetimi', icon: CalendarClock, enabled: true },
-  { key: 'zaman', label: 'Zaman Yönetimi', icon: Clock, enabled: true },
-  { key: 'performans', label: 'Performans Yönetimi', icon: Target, enabled: true },
-  { key: 'bordro', label: 'Bordro', icon: Wallet, enabled: false, badge: 'Yakında' },
-  { key: 'ise-alim', label: 'İşe Alım', icon: UserPlus, enabled: false, badge: 'Yakında' },
-  { key: 'calisan-deneyimi', label: 'Çalışan Deneyimi', icon: Heart, enabled: false },
-  { key: 'moduller', label: 'Modüller', icon: LayoutGrid, enabled: false },
-  { key: 'raporlar', label: 'Raporlar', icon: FileText, enabled: false },
-  { key: 'veri-analizi', label: 'Veri Analizi', icon: BarChart3, enabled: true },
-  { key: 'egitim-akademisi', label: 'Eğitim Akademisi', icon: GraduationCap, enabled: false },
+//
+// Dil desteği (2026-08-31) — `label`/`badge` artık burada SABİT
+// yazılmıyor, `TAB_DEFS` yalnızca yapıyı (key/icon/enabled) taşıyor;
+// gerçek metin `useLabels()`'ten `buildTabs()` ile locale'e göre
+// derleniyor (aşağıya bkz.) — `TabKey` (kebab-case, `activeTab` state'i
+// için) ile `ProductPreviewWidgetLabels['tabs']`in alan adları
+// (camelCase) arasındaki eşleme `TAB_LABEL_KEYS`'te.
+interface TabStructureDef {
+  key: TabKey;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  enabled: boolean;
+  hasComingSoonBadge?: boolean;
+}
+const TAB_DEFS: TabStructureDef[] = [
+  { key: 'ik', icon: Users, enabled: true },
+  { key: 'izin', icon: CalendarClock, enabled: true },
+  { key: 'zaman', icon: Clock, enabled: true },
+  { key: 'performans', icon: Target, enabled: true },
+  { key: 'bordro', icon: Wallet, enabled: false, hasComingSoonBadge: true },
+  { key: 'ise-alim', icon: UserPlus, enabled: false, hasComingSoonBadge: true },
+  { key: 'calisan-deneyimi', icon: Heart, enabled: false },
+  { key: 'moduller', icon: LayoutGrid, enabled: false },
+  { key: 'raporlar', icon: FileText, enabled: false },
+  { key: 'veri-analizi', icon: BarChart3, enabled: true },
+  { key: 'egitim-akademisi', icon: GraduationCap, enabled: false },
 ];
-
-// Otomatik sekme gezinmesi (2026-08-20, kullanıcı isteği — Personio.com'un
-// ana sayfasındaki canlı dashboard gibi widget'ın kendi kendine gezinmesi)
-// yalnızca FONKSİYONEL sekmeler arasında döngü yapıyor — "Yakında" rozetli/
-// pasif dolgu sekmeler (Bordro/İşe Alım vb.) zaten tıklanamaz durumda,
-// otomatik gezinme de bunları atlıyor.
-const ENABLED_TABS = TABS.filter((t) => t.enabled);
+const TAB_LABEL_KEYS: Record<TabKey, keyof ProductPreviewWidgetLabels['tabs']> = {
+  ik: 'ik',
+  izin: 'izin',
+  zaman: 'zaman',
+  performans: 'performans',
+  bordro: 'bordro',
+  'ise-alim': 'iseAlim',
+  'calisan-deneyimi': 'calisanDeneyimi',
+  moduller: 'moduller',
+  raporlar: 'raporlar',
+  'veri-analizi': 'veriAnalizi',
+  'egitim-akademisi': 'egitimAkademisi',
+};
+function buildTabs(labels: ProductPreviewWidgetLabels): TabDef[] {
+  return TAB_DEFS.map((def) => ({
+    key: def.key,
+    icon: def.icon,
+    enabled: def.enabled,
+    label: labels.tabs[TAB_LABEL_KEYS[def.key]],
+    badge: def.hasComingSoonBadge ? labels.comingSoonBadge : undefined,
+  }));
+}
 
 // --- "Zaman Yönetimi" sekmesi — kurgusal veri ---
 
@@ -2175,9 +2217,10 @@ function IconDropdown({
 
 function ShortcutsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
-      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Kısayollar</h4>
+      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.shortcuts.title}</h4>
       <div className="grid grid-cols-3 gap-1" aria-hidden="true">
         {HEADER_SHORTCUTS.map((shortcut) => (
           <span
@@ -2203,14 +2246,15 @@ function ShortcutsPanelContent() {
 
 function NotificationsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-1 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
-        Bildirimler
+        {labels.notifications.title}
       </h4>
       <div className="flex flex-col items-center justify-center gap-2 py-7 text-center" aria-hidden="true">
         <Bell className={`h-7 w-7 ${isDark ? 'text-gray-600' : 'text-gray-300'}`} />
-        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-muted'}`}>Henüz bildirim yok</p>
+        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-muted'}`}>{labels.notifications.empty}</p>
       </div>
     </div>
   );
@@ -2324,10 +2368,11 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
 
 function LanguagePanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
-        Dil Seçin
+        {labels.languageSelector.title}
       </h4>
       <div className="space-y-0.5 pt-1" aria-hidden="true">
         {LANGUAGE_LIST.map((lang) => (
@@ -2340,12 +2385,13 @@ function LanguagePanelContent() {
 
 function TasksPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4
         className={`mb-1 flex items-center gap-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}
       >
-        Görevler
+        {labels.tasks.title}
         <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS.length}</span>
       </h4>
       <div className="space-y-3 pt-2" aria-hidden="true">
@@ -2364,10 +2410,11 @@ function TasksPanelContent() {
 
 function AvatarPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   const items = [
-    { icon: User, label: 'Profil' },
-    { icon: Settings, label: 'Ayarlar' },
-    { icon: LogOut, label: 'Çıkış Yap' },
+    { icon: User, label: labels.avatar.profile },
+    { icon: Settings, label: labels.avatar.settings },
+    { icon: LogOut, label: labels.avatar.logout },
   ];
   return (
     <div className="space-y-0.5" aria-hidden="true">
@@ -2389,9 +2436,10 @@ function AvatarPanelContent() {
 
 function AnalyticsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
-      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Bugünün Özeti</h4>
+      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.analytics.title}</h4>
       <div className="space-y-3" aria-hidden="true">
         {TODAY_SUMMARY.map((row) => (
           <div key={row.label} className="flex items-center justify-between gap-3">
@@ -2431,16 +2479,17 @@ function VisibilityToggleRow({ label, on }: { label: string; on: boolean }) {
 
 function VisibilityPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-3 flex items-center gap-2 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
         <EyeOff className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
-        Görünürlük Ayarları
+        {labels.visibility.title}
       </h4>
       <div className="space-y-3">
-        <VisibilityToggleRow label="Bekleyen onayları göster" on={true} />
-        <VisibilityToggleRow label="Devre dışı çalışanları gizle" on={true} />
-        <VisibilityToggleRow label="Kompakt görünüm" on={false} />
+        <VisibilityToggleRow label={labels.visibility.toggles.pendingApprovals} on={true} />
+        <VisibilityToggleRow label={labels.visibility.toggles.hideInactive} on={true} />
+        <VisibilityToggleRow label={labels.visibility.toggles.compactView} on={false} />
       </div>
     </div>
   );
@@ -2467,6 +2516,7 @@ function VisibilityPanelContent() {
 // İCAT EDİLMEDİ.
 function AppHeaderBar() {
   const { isDark, toggle } = useTheme();
+  const labels = useLabels();
   const iconBtnClass = `flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors hover:scale-105 ${
     isDark ? 'border-gray-700 text-gray-200 hover:bg-gray-800' : 'border-gray-200 text-heading hover:bg-gray-50'
   }`;
@@ -2500,7 +2550,7 @@ function AppHeaderBar() {
       <div className="flex items-center gap-2.5">
         <IconDropdown
           icon={BarChart3}
-          label="Analiz"
+          label={labels.analytics.ariaLabel}
           panelKey="analytics"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2511,7 +2561,7 @@ function AppHeaderBar() {
         </IconDropdown>
         <IconDropdown
           icon={Grid2x2}
-          label="Kısayollar"
+          label={labels.shortcuts.ariaLabel}
           panelKey="shortcuts"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2526,15 +2576,15 @@ function AppHeaderBar() {
           }`}
         >
           <Search className="h-4 w-4" aria-hidden="true" />
-          Personel ara...
+          {labels.searchPlaceholder}
         </span>
       </div>
       <div className="flex items-center gap-2.5">
-        <IconDropdown icon={Eye} label="Görünürlük Ayarları" panelKey="visibility" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass}>
+        <IconDropdown icon={Eye} label={labels.visibility.ariaLabel} panelKey="visibility" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass}>
           <VisibilityPanelContent />
         </IconDropdown>
         <IconDropdown
-          label="Dil seçici"
+          label={labels.languageSelector.ariaLabel}
           panelKey="language"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2555,7 +2605,7 @@ function AppHeaderBar() {
         <button
           type="button"
           onClick={toggle}
-          aria-label={isDark ? 'Aydınlık moda geç' : 'Karanlık moda geç'}
+          aria-label={isDark ? labels.lightModeAriaLabel : labels.darkModeAriaLabel}
           aria-pressed={isDark}
           className={iconBtnClass}
           style={{ color: '#F59E0B' }}
@@ -2564,7 +2614,7 @@ function AppHeaderBar() {
         </button>
         <IconDropdown
           icon={Bell}
-          label="Bildirimler"
+          label={labels.notifications.ariaLabel}
           panelKey="notifications"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2573,7 +2623,7 @@ function AppHeaderBar() {
         >
           <NotificationsPanelContent />
         </IconDropdown>
-        <IconDropdown icon={Bell} label="Görevler" panelKey="tasks" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass} hiddenSm>
+        <IconDropdown icon={Bell} label={labels.tasks.ariaLabel} panelKey="tasks" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass} hiddenSm>
           <TasksPanelContent />
         </IconDropdown>
         <IconDropdown
@@ -2596,7 +2646,7 @@ function AppHeaderBar() {
           <AppsPanelContent onNavigate={() => setOpenPanel(null)} />
         </IconDropdown>
         <IconDropdown
-          label="Kullanıcı menüsü"
+          label={labels.userMenuAriaLabel}
           panelKey="avatar"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2607,7 +2657,7 @@ function AppHeaderBar() {
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
               <span className="hidden leading-tight sm:block">
                 <span className={`block text-xs font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Deniz Aydın</span>
-                <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>İK Yöneticisi</span>
+                <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>{labels.jobTitle}</span>
               </span>
             </>
           }
@@ -2624,7 +2674,7 @@ function AppHeaderBar() {
 // AYNI değer, projede zaten kanıtlanmış bir süre).
 const AUTO_TAB_INTERVAL_MS = 6000;
 
-export default function ProductPreviewWidget() {
+export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   // DÜZELTME (2026-08-27) — varsayılan aktif sekme `TABS`'in YENİ ilk
   // öğesiyle ('ik') eşleşecek şekilde güncellendi (önceden 'zaman'), sayfa
   // yüklendiğinde sidebar'da en üstteki sekmenin seçili görünmesi için.
@@ -2632,6 +2682,14 @@ export default function ProductPreviewWidget() {
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
+
+  // Dil desteği (2026-08-31) — bkz. `LabelsContext` yorumu. `TABS`/
+  // `ENABLED_TABS` artık modül-seviyesinde SABİT değil, `locale`'e göre
+  // her render'da türetiliyor (`buildTabs()` ucuz bir map, `useMemo`
+  // GEREKMİYOR).
+  const labels = getProductPreviewWidgetLabels(locale);
+  const TABS = buildTabs(labels);
+  const ENABLED_TABS = TABS.filter((t) => t.enabled);
 
   // Otomatik sekme gezinmesi — widget hover/focus edilince VEYA
   // `prefers-reduced-motion` tercih edilmişse durur (`TestimonialCarousel.tsx`
@@ -2653,6 +2711,7 @@ export default function ProductPreviewWidget() {
   }, [autoPaused]);
 
   return (
+    <LabelsContext.Provider value={labels}>
     <ThemeContext.Provider value={{ isDark, toggle }}>
       <div
         className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
@@ -2682,7 +2741,20 @@ export default function ProductPreviewWidget() {
             (daha açık) — önceki sürümde bu ilişki TERSTİ. */}
         <div className={`shrink-0 border-b p-5 lg:w-72 lg:border-r lg:border-b-0 lg:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
           <IdenfitLogo className={`h-6 w-auto sm:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
-          <nav aria-label="Panel önizleme modülleri" className="mt-6 space-y-1">
+          {/* Mobil/tablet (< lg): dikey modül listesi widget'ı çok
+              uzatıyordu — sidebar (11 öğe) içerikle YAN YANA değil, ÜST
+              ÜSTE dizilince (bkz. dış sarmalayıcının `flex-col lg:flex-row`'u)
+              toplam yükseklik masaüstünün (~620-650px) neredeyse 2 katına
+              (~1150-1200px) çıkıyor, "tek parça" hissi kayboluyordu
+              (2026-08-31, kullanıcı bulgusu — iframe-viewport tekniğiyle
+              390px'te doğrulandı). Düzeltme: `lg:` ALTINDA nav yatay
+              kaydırılabilir bir sekme çubuğuna dönüşüyor (`flex` + `overflow-x-auto`,
+              her buton `shrink-0` — sıkışmıyor, doğal genişliğinde kalıyor),
+              `lg:` ve ÜZERİNDE davranış BİREBİR korunuyor (`lg:flex-col`,
+              dikey liste, `lg:w-full` butonlar). Aynı 11 modül/ikon/rozet
+              — içerik/işlevsellik DEĞİŞMEDİ, yalnızca küçük ekranda
+              yerleşim yönü. */}
+          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-6 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -2693,7 +2765,7 @@ export default function ProductPreviewWidget() {
                   aria-selected={isActive}
                   disabled={!tab.enabled}
                   onClick={() => tab.enabled && setActiveTab(tab.key)}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors lg:w-full ${
                     isActive
                       ? 'bg-brand text-white'
                       : tab.enabled
@@ -2706,7 +2778,7 @@ export default function ProductPreviewWidget() {
                   }`}
                 >
                   <tab.icon className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
-                  <span className="flex-1 truncate">{tab.label}</span>
+                  <span className="whitespace-nowrap lg:flex-1 lg:truncate">{tab.label}</span>
                   {tab.badge && (
                     <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
                       {tab.badge}
@@ -2749,5 +2821,6 @@ export default function ProductPreviewWidget() {
         </div>
       </div>
     </ThemeContext.Provider>
+    </LabelsContext.Provider>
   );
 }

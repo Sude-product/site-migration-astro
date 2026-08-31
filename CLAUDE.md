@@ -1965,6 +1965,65 @@ hâlâ geçerli.)*
     kullanılacaksa, `check-heading-hierarchy.mjs` Açık nokta #36
     kapanana kadar gate'i KIRACAK — ya #36 önce kapatılmalı ya da gate
     mantığı bu bilinen istisnayı hesaba katmalı.
+51. **TAMAMLANDI (2026-08-31) — "Canlı dashboard" widget'ı (`ProductPreviewWidget.tsx`)
+    site locale'ine göre dil değiştiriyor artık (Tier 1: yapısal arayüz
+    metni), + aynı dosyadaki mobil "tek parça" düzeltmesiyle birlikte
+    commit edildi.** Kullanıcı isteği: "anasayfada dil değişimi yapınca
+    dashboardın da dilinin değişmesi lazım". Widget 2753 satır, 30+
+    kurgusal veri sabiti taşıyor (her biri içine gömülü Türkçe etiketli,
+    ör. `{ label: 'İşe Giren', value: '42' }`) — TAMAMININ çevrilmesi
+    çok büyük bir iş olduğundan kullanıcı onayıyla İKİ AŞAMAYA bölündü:
+    **Tier 1 (bu turda YAPILDI)** — sekme adları, header panel
+    başlıkları/aria-label'ları, arama placeholder'ı, görünürlük/avatar/
+    bildirim/görev menü öğeleri gibi yapısal arayüz metni; **Tier 2
+    (BİLİNÇLİ ERTELENDİ)** — her sekmenin kart içeriğindeki kurgusal
+    veri etiketleri, şimdilik TÜM locale'lerde Türkçe kalıyor. **Dil
+    kapsamı:** önce TR+EN (kullanıcı seçimi "Önce TR+EN, sonra
+    kademeli"), NL/IT/AZ ayrı bir turda eklenecek. **Mimari:**
+    `src/data/productPreviewWidgetLabels.ts` (YENİ dosya) —
+    `ProductPreviewWidgetLabels` arayüzü + `tr`/`en` implementasyonları,
+    `getProductPreviewWidgetLabels(locale)` eksik locale için `tr`'ye
+    düşüyor. `Partial<Record<Locale,X>>` KULLANILDI (KARAR 1'in "uydurma
+    çeviri yok" kuralı yüzünden `Record<Locale,X>` DEĞİL — TypeScript
+    nl/it/az'ı da doldurmaya ZORLARDI). `ProductPreviewWidget.tsx`'e
+    `locale: Locale` prop'u eklendi, mevcut `ThemeContext`/`useTheme()`
+    kalıbı mirror edilerek yeni `LabelsContext`/`useLabels()` eklendi
+    (59 alt bileşen boyunca prop-drilling'den kaçınmak için), modül
+    seviyesi `TABS` sabiti `buildTabs(labels)` fonksiyonuna çevrildi.
+    `HeroSection.astro`'da `<ProductPreviewWidget client:visible
+    locale={locale} />` (zaten scope'ta olan `locale` değişkeni
+    yeniden kullanıldı). Kişi adları ("Deniz Aydın"), marka adı
+    ("HRTECHTOOLS"), kasıtlı İngilizce slogan ("LATER IS NEVER") ve
+    dil seçicinin 11 dilinin isimleri (dekoratif, Tier 1 kapsamı
+    dışı) ÇEVRİLMEDİ. **Doğrulama:** `astro check` 0 hata, `astro
+    build` 3096 sayfa temiz, 8 regresyon script'inden 6'sı temiz;
+    `check-heading-hierarchy` (5, bilinen #36) ve
+    `check-html-lang-attribute` (196, bkz. Açık nokta #52) hataları bu
+    turdan ÖNCE de aynen vardı — `git stash` ile doğrulandı, bu turun
+    değişikliğiyle İLGİSİZ. Chrome'da görsel doğrulama: TR anasayfa
+    değişmedi, `/en/` sayfasında sekme adları/placeholder/avatar
+    menüsü/bildirimler/görünürlük ayarları İngilizce, Tier 2 veri
+    içeriği (grafik başlıkları, kişi adları) plana uygun şekilde
+    Türkçe kaldı; iframe-viewport tekniğiyle 387px mobil görünümde
+    yatay sekme çubuğu + İngilizce etiketler birlikte doğru çalıştı.
+52. **YENİ (2026-08-31) — `check-html-lang-attribute.mjs` 196 sorunlu
+    sayfa raporluyor (tüm `/nl/*` sayfaları, `lang="nl"` ama script
+    "tr" bekliyor), henüz araştırılmadı/aksiyon alınmadı.** Açık nokta
+    #37'nin (az dili eklenmesi, 2026-08-21) doğrulama notu bu script'in
+    o tarihte "sıfır yeni ihlal" verdiğini kaydediyordu — yani bu 196
+    sayfalık durum SONRADAN ortaya çıkmış bir regresyon, ama Açık nokta
+    #51'in (bu turun widget i18n işi) NEDEN OLMADIĞI `git stash` ile
+    doğrulandı (stash'lenmiş haliyle de aynı 196 hata çıktı). Hangi
+    turda/commit'te ortaya çıktığı henüz tespit edilmedi — muhtemel
+    şüpheli: `nl` sayfalarının içeriği hâlâ Türkçe kaldığı için script
+    "beklenen: tr" diyor ama sayfanın kendi `<html lang>` etiketi
+    muhtemelen URL öneki `nl`'den otomatik türetiliyor (script'in
+    kendi mantığı muhtemelen "içerik Türkçeyse `lang` de tr olmalı"
+    kuralını uyguluyor). Kod değişikliği YAPILMADI — yalnızca script
+    çıktısı gözlemlendi, kök neden analiz edilmedi. Bir sonraki turda:
+    `scripts/check-html-lang-attribute.mjs`'in beklenen-değer mantığını
+    ve ilgili nl sayfalarının `<html lang>` kaynağını (muhtemelen
+    `BaseLayout.astro`/`Layout.astro`) incelemek gerekiyor.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
