@@ -2006,6 +2006,35 @@ hâlâ geçerli.)*
     içeriği (grafik başlıkları, kişi adları) plana uygun şekilde
     Türkçe kaldı; iframe-viewport tekniğiyle 387px mobil görünümde
     yatay sekme çubuğu + İngilizce etiketler birlikte doğru çalıştı.
+    **GÜNCELLEME (2026-08-31, 2. tur) — Tier 1 NL/IT/AZ'a genişletildi,
+    TAMAMLANDI.** Kullanıcı isteği: "diğer diller içinde yap". Terminoloji
+    UYDURULMADI — `src/i18n/{nl,it,az}.ts`'in kendi nav/hero içeriğinde
+    ZATEN kullandığı gerçek modül adları birebir yeniden kullanıldı (ör.
+    NL "Verlofbeheer"/"Salarisadministratie", IT "Gestione Ferie e
+    Permessi"/"Buste Paga"/"Controllo Accessi" [site'ın kendi seçtiği
+    "Zaman Yönetimi" karşılığı], AZ "İcazə İdarəçiliyi"/"Əmək Haqqı");
+    `jobTitle` alanı IT/AZ'da o dildeki gerçek "İK Müdürü" ifadesiyle
+    (`it.ts`'in "Responsabile Risorse Umane", `az.ts`'in "İnsan
+    Resursları Müdiri" — ikisi de customer-story rolü olarak zaten
+    vardı) BİREBİR eşleşti. Karşılığı olmayan birkaç alan ("Veri
+    Analizi"/"Eğitim Akademisi") için KARAR 1'e uygun profesyonel çeviri
+    üretildi. **Doğrulama:** `astro check` 0 hata, `astro build` temiz,
+    8 regresyon script'i (yalnızca bilinen 5 H1→H3 taban çizgisi hariç)
+    sıfır yeni sorun, Chrome'da `/nl/`/`/it/`/`/az/` üzerinde sekme
+    adları + arama placeholder'ı + jobTitle doğrulandı.
+    **Kapsam netleştirmesi (Tier 2 için) — kullanıcı aynı turda "canlı
+    dashboard içindeki modüller de çevrilmeli" dedi, kapsam ölçüldü:**
+    Tier 2 önceden düşünülenden ÇOK daha büyük — ~30 modül-seviyesi
+    kurgusal veri sabiti (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/`HR_EVENTS`/
+    `PERFORMANCE_GOALS`/vb.) + render ağacına gömülü ~40 `WidgetCard`
+    title/subtitle gibi JSX metni — toplam tahmini 250-300 ayrı çevrilebilir
+    alan × 4 eksik dil (EN dahil, Tier 2 EN de ERTELENMİŞTİ) = ~1000-1200
+    string. Ayrıca ay/gün kısaltmaları (`Oca`/`Şub`/`Pzt`/`Sal` vb., 6
+    farklı sabitte tekrarlanıyor) için elle çeviri yerine `dates.ts`'teki
+    `BCP47_LOCALE` ile `Intl.DateTimeFormat(...,{month:'short'})` kullanımı
+    planlanıyor (uydurma riski yok, tarayıcının kendi ICU verisi).
+    Henüz KOD DEĞİŞİKLİĞİ yapılmadı — mimari + kapsam kullanıcıya
+    sunulup onay bekleniyor (bkz. bir sonraki tur).
 52. **KAPANDI (2026-08-31) — `check-html-lang-attribute.mjs`'in 196
     "sorunlu sayfa" raporu GERÇEK bir site regresyonu DEĞİLDİ, script'in
     kendi bug'ıydı; kök neden bulunup düzeltildi.** (İlk kayıtta "yalnızca
