@@ -2006,24 +2006,73 @@ hâlâ geçerli.)*
     içeriği (grafik başlıkları, kişi adları) plana uygun şekilde
     Türkçe kaldı; iframe-viewport tekniğiyle 387px mobil görünümde
     yatay sekme çubuğu + İngilizce etiketler birlikte doğru çalıştı.
-52. **YENİ (2026-08-31) — `check-html-lang-attribute.mjs` 196 sorunlu
-    sayfa raporluyor (tüm `/nl/*` sayfaları, `lang="nl"` ama script
-    "tr" bekliyor), henüz araştırılmadı/aksiyon alınmadı.** Açık nokta
-    #37'nin (az dili eklenmesi, 2026-08-21) doğrulama notu bu script'in
-    o tarihte "sıfır yeni ihlal" verdiğini kaydediyordu — yani bu 196
-    sayfalık durum SONRADAN ortaya çıkmış bir regresyon, ama Açık nokta
-    #51'in (bu turun widget i18n işi) NEDEN OLMADIĞI `git stash` ile
-    doğrulandı (stash'lenmiş haliyle de aynı 196 hata çıktı). Hangi
-    turda/commit'te ortaya çıktığı henüz tespit edilmedi — muhtemel
-    şüpheli: `nl` sayfalarının içeriği hâlâ Türkçe kaldığı için script
-    "beklenen: tr" diyor ama sayfanın kendi `<html lang>` etiketi
-    muhtemelen URL öneki `nl`'den otomatik türetiliyor (script'in
-    kendi mantığı muhtemelen "içerik Türkçeyse `lang` de tr olmalı"
-    kuralını uyguluyor). Kod değişikliği YAPILMADI — yalnızca script
-    çıktısı gözlemlendi, kök neden analiz edilmedi. Bir sonraki turda:
-    `scripts/check-html-lang-attribute.mjs`'in beklenen-değer mantığını
-    ve ilgili nl sayfalarının `<html lang>` kaynağını (muhtemelen
-    `BaseLayout.astro`/`Layout.astro`) incelemek gerekiyor.
+52. **KAPANDI (2026-08-31) — `check-html-lang-attribute.mjs`'in 196
+    "sorunlu sayfa" raporu GERÇEK bir site regresyonu DEĞİLDİ, script'in
+    kendi bug'ıydı; kök neden bulunup düzeltildi.** (İlk kayıtta "yalnızca
+    nl, 196 sayfa, henüz araştırılmadı" yazılmıştı — bu YANLIŞTI, örnekler
+    `tail`'in son 20 satırına rastladığı için yalnızca nl görünüyordu;
+    gerçekte 4 locale'in TAMAMI etkileniyordu: 46 az + 56 en + 52 it + 42
+    nl.) **Kök neden:** `expectedLocaleFor()` beklenen locale'i, `DIST_DIR`
+    (varsayılan `'dist'`) köküne göre relatif yolun İLK segmentinden
+    (`parts[0]`) çıkarıyordu. `output:'static'` döneminde bu doğruydu
+    (`dist/<locale>/...`). Ama commit `b73428a`'nın (2026-08-28, "Migrate
+    to output:server + Cloudflare adapter") `output:'server'`'a geçişiyle
+    `@astrojs/cloudflare` adapter'ı TÜM statik çıktıyı `dist/client/`
+    altına sarmaya başladı — artık her sayfanın yolu `client/<locale>/...`
+    ile başlıyor, `parts[0]` HER ZAMAN `"client"` (asla `VALID_LOCALES`
+    içinde değil), fonksiyon her sayfa için `'tr'`'ye düşüyordu. Bulunan
+    değerler (`"az"`/`"en"`/`"it"`/`"nl"`) her zaman DOĞRUYDU — canlı
+    dosyalardan doğrudan doğrulandı (`grep '<html lang' dist/client/
+    {nl,en,az,it}/.../index.html`) — yalnızca yanlış bir "beklenen" ile
+    karşılaştırılıyordu. **Ne zaman başladı:** commit `b73428a`
+    (2026-08-28 17:30:34 +0300). **Neden günlerce fark edilmedi:** Açık
+    nokta #50'deki aynı alışkanlık — script'in ÖZET satırı hep doğru
+    sayıyı veriyordu ama doğrulama turlarında `tail`/göz atma ile
+    okunduğu için kaçırıldı; ilk yanlış "sıfır yeni regresyon" iddiası
+    2026-08-29 tarihli (Destek/Teşekkürler sayfası) turda görülüyor.
+    İlginç not: proje bu `dist/client/` değişikliğini BİR KEZ zaten
+    keşfetmişti — `scripts/audit-remote-hotlinks.mjs` (2026-08-30, hotlink
+    denetimi) kendi başında `DIST_DIR=dist/client` çağrı kalıbını
+    belgeliyordu, ama bu düzeltme `check-html-lang-attribute.mjs`'e geri
+    uygulanmamıştı. **Düzeltme (uygulandı):** `check-html-lang-attribute.mjs`'te
+    `DIST_DIR` varsayılanı `'dist'` yerine `'dist/client'` yapıldı (tek
+    satır, `audit-remote-hotlinks.mjs`'teki emsalin birebir aynısı) — bu
+    otomatik olarak `dist/server/`'ı (SSR worker kodu, HTML sayfası değil)
+    taramadan da hariç bırakıyor. **Kapsam kontrolü:** diğer 7
+    `check-*.mjs` script'i relatif yolu YALNIZCA raporlamada (hangi
+    dosyada sorun var) kullanıyor, locale'e bağlı bir "beklenen değer"
+    hesaplamıyor — bu yüzden mantıkları etkilenmedi, DOKUNULMADI (bkz.
+    Açık nokta #53'teki TEK istisna). **Doğrulama:** düzeltme sonrası
+    script 0 sorunlu sayfa raporladı (exit 0); script'in gerçek bir
+    sorunu hâlâ yakaladığını kanıtlamak için `dist/client/en/about/
+    index.html`'e kasıtlı bozuk `lang="xx-BROKEN"` enjekte edilip script
+    tekrar çalıştırıldı — 1 sorun + exit 1 doğru şekilde raporlandı,
+    test değişikliği hemen geri alındı (Açık nokta #50'deki disiplinin
+    aynısı). Diğer 7 regresyon script'i + `astro check`/`astro build`
+    yeniden çalıştırılıp bu değişiklikten etkilenmedikleri doğrulandı.
+53. **YENİ, DORMANT/ETKİSİZ (2026-08-31) — `check-hreflang.mjs`'de
+    AYNI KÖKENLİ bir bug pusuda bekliyor, Faz 2'de hreflang aktifleşince
+    patlayacak.** Açık nokta #52'nin araştırması sırasında bulundu.
+    `check-hreflang.mjs`'in `hrefToDistRelPath()`'i hreflang `<link>`
+    etiketlerinin `href` URL'sini (`new URL(href).pathname`, ör.
+    `nl/over/index.html`) sayfanın KENDİ disk-relatif yoluyla (`rel`,
+    `DIST_DIR='dist'` köküne göre — düzeltilmezse `client/nl/over/
+    index.html`) karşılaştırıyor/`Map`'te arıyor (`pages.get(targetRel)`,
+    satır 87). Bu ikisi `client/` önekiyle ASLA eşleşmeyecek — Faz 2'de
+    `astro.config.mjs`'in `site` alanı doldurulup hreflang üretilmeye
+    başlandığı AN, bu script'in "kendi kendine referans eksik" +
+    "geçersiz hedefe işaret ediyor (dosya bulunamadı)" bulguları HER
+    hreflang'lı sayfa için sahte şekilde patlayacak (`check-html-
+    attribute.mjs`'in düzeltilmeden önceki haliyle birebir aynı hata
+    sınıfı). **Şu an ETKİSİZ** çünkü `pagesWithHreflang === 0` erken
+    çıkışı (satır 121-129) bu mantığa hiç girmiyor — `check-hreflang`
+    hâlâ 0 ile çıkıyor, kod değişikliği bu turda YAPILMADI (kullanıcı
+    onayı yalnızca `check-html-lang-attribute.mjs`'i kapsıyordu).
+    **Aksiyon:** Faz 2'de `site` alanı doldurulmadan HEMEN ÖNCE (veya
+    o turun bir parçası olarak) `check-hreflang.mjs`'e de aynı
+    `DIST_DIR ?? 'dist/client'` düzeltmesi uygulanmalı — aksi halde
+    Faz 2 doğrulama turu, gerçekte doğru olan hreflang çıktısını
+    yüzlerce sahte hatayla raporlayacak.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
