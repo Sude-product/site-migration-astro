@@ -1924,7 +1924,47 @@ hâlâ geçerli.)*
     teknik olarak zaten mümkün kılıyor, yeni bir adapter kurulumu
     gerekmeyecek. Kod değişikliği YOK, yalnızca ileriye dönük bir eşik/
     hatırlatma notu.
-
+50. **TAMAMLANDI (2026-08-31) — "pipefail eksikliği" denetimi, kod
+    değişikliği GEREKMEDİ; ileriye dönük Cloudflare Pages notu eklendi.**
+    Kapsamlı tarama: `package.json`'ın 8 script'i (build/dev/dev:clean/
+    audit/vb.) VE bunların çağırdığı `scripts/dev-clean-restart.mjs`/
+    `scripts/run-audit.mjs` dosyaları — hiçbirinde shell pipe (`|`)
+    kullanımı YOK, hepsi tekil komut. Repo'da `.sh` dosyası veya CI YAML
+    config'i de yok. **Yani düzeltilecek bozuk bir script mevcut değildi**
+    — `set -o pipefail` eklemek için gerçek bir hedef yoktu.
+    **Gerçek risk, projenin kendi kod tabanında DEĞİL, build'i elle
+    doğrularken kullanılan `komut 2>&1 | tail -N` deseninde** (bu
+    projenin çalışma tarihi boyunca doğrulama turlarında sıkça kullanıldı)
+    — canlı olarak kanıtlandı: kasıtlı bozuk bir sayfa eklenip `astro
+    build 2>&1 | tail -5` çalıştırıldığında build GERÇEKTEN çöktü (stack
+    trace görünür) ama `$?` **0** (başarılı!) döndü — `pipefail`
+    açıkken AYNI komut doğru şekilde **127** (başarısız) döndü. Test
+    dosyası hemen kaldırıldı, temiz build + regresyon script'leriyle
+    doğrulandı. **Kalıcı disiplin:** bundan sonra build/test çıktısı
+    `tail`/`grep` gibi bir komuta yönlendirilecekse önce `set -o
+    pipefail` (veya exit code'u pipe'tan ÖNCE ayrıca `; echo $?` ile
+    kontrol etmek) kullanılmalı — yalnızca son komutun durumuna
+    güvenilmemeli.
+    **İleriye dönük not:** Cloudflare Pages'e henüz bir build komutu
+    YAPILANDIRILMADI (site henüz deploy edilmedi). Deploy ayarlarında
+    build komutu girilirken, komut bir pipe içeriyorsa exit code'un
+    gerçek build sonucunu yansıttığından emin olunmalı (`pipefail` ile) —
+    aksi halde başarısız bir build Cloudflare tarafından "başarılı"
+    sanılıp eski/bozuk bir sürüm sessizce yayında kalabilir.
+    **Ek bulgu (aynı gün, `pipefail` disiplinini gerçekten uygulayınca
+    ortaya çıktı):** projenin 8 kalıcı `check-*.mjs` script'i hepsi AYNI
+    kalıbı izliyor — `process.exit(0)` sıfır sorunda, `process.exit(1)`
+    HERHANGİ bir sorun bulunursa (bilinen/kabul edilmiş bir açık nokta
+    olsa BİLE). Şu an yalnızca `check-heading-hierarchy.mjs` **exit 1**
+    veriyor — Açık nokta #36'daki 5 bilinen "ana sayfa H1→H3" sorunu
+    yüzünden (YENİ bir regresyon DEĞİL, sayı değişmedi). Bu script'i bu
+    konuşma boyunca hep `| tail -N` ile çalıştırıp yalnızca İÇERİĞE
+    bakıldığı için exit code'un aslında sürekli 1 olduğu hiç fark
+    edilmemişti — tam da yukarıdaki pipefail dersinin somut kanıtı.
+    **Sonuç/hatırlatma:** bu script'ler ileride bir CI gate'i olarak
+    kullanılacaksa, `check-heading-hierarchy.mjs` Açık nokta #36
+    kapanana kadar gate'i KIRACAK — ya #36 önce kapatılmalı ya da gate
+    mantığı bu bilinen istisnayı hesaba katmalı.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
