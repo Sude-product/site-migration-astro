@@ -1415,11 +1415,59 @@ hâlâ geçerli.)*
     düzeltildi (`hasOpened` state, ilk tıklamaya kadar hiç mount
     edilmiyor). Son ölçüm: 1587→1327 element (-%16.4). MegaMenu hâlâ
     BİLİNÇLİ olarak ertelenmiş durumda, bkz. madde 25.
-25. **TODO — MegaMenu'nün 4 panelinin DOM'da her zaman var olması (447
-    element) performans maliyeti yaratıyor** ama kaldırılırsa geçmiş bir
-    focus/kapanma bug'ı geri gelebilir. Bilinçli olarak ertelendi
-    (2026-08-10) — `MegaMenu.tsx` satır 241-253'teki yorum kök neden
-    bug'ının tam anlatımını taşıyor.
+25. **YENİDEN ARAŞTIRILDI (2026-08-31), AYNI SONUÇ — MegaMenu'nün 4
+    panelinin DOM'da her zaman var olması (gerçek ölçüm: 364 element,
+    sayfanın %21.8'i) performans maliyeti yaratıyor** ama kaldırılırsa
+    geçmiş bir focus/kapanma bug'ı geri gelebilir. Bilinçli olarak
+    ertelendi (2026-08-10) — `MegaMenu.tsx` satır 241-253'teki yorum kök
+    neden bug'ının tam anlatımını taşıyor.
+    **2026-08-31 turu — önce yanlışlıkla uygulanıp geri alınan bir
+    deneme, sonra 3 alternatifin sistematik testi:**
+    1. `MobileMenu.tsx`'teki `hasOpened` deseni (Açık nokta #24) MegaMenu'ye
+       BİREBİR uygulandı, `astro check`/`astro build`/8 regresyon script'i
+       hepsi temiz göründü — ama bu YANILTICIYDI. Build çıktısı elle
+       incelenince (`dist/client/index.html`'de `<astro-island>`'ın light
+       DOM'u) panel içeriğinin `client:load` SSR'ında da `hasOpened=false`
+       olduğu, yani TÜM ürün/sektör/hub linklerinin statik HTML'den TAMAMEN
+       kaybolup yalnızca hydration `props` JSON'unda (gerçek `<a href>`
+       DEĞİL) kaldığı görüldü — regresyon script'leri bunu YAKALAYAMADI
+       çünkü onlar da aynı (artık boş) statik HTML'i tarıyor, "kontrol
+       edecek link kalmadığı için" 0 sorun raporladılar. **Değişiklik
+       tamamen geri alındı** (`MegaMenu.tsx`/`MobileMenu.tsx`, `git
+       checkout` ile, çalışma ağacı temiz doğrulandı) — bu, `MobileMenu`'nün
+       AKSİNE MegaMenu'nün bu linklerin BİRİNCİL/TEK statik kaynağı olması
+       yüzünden (MobileMenu'nünki zaten masaüstü MegaMenu'de var olan
+       linklerin bir MOBİL KOPYASI, o yüzden güvenli).
+    2. **Kullanıcı talimatıyla 3 alternatif sistematik test edildi, kod
+       YAZILMADAN önce kanıt istendi:**
+       - **(1) CSS-only aç/kapa, linkler her zaman DOM'da:** bu zaten
+         MEVCUT/orijinal kodun davranışı (panel hiçbir zaman JS ile
+         mount/unmount edilmiyor, yalnızca `opacity`/`pointer-events`
+         değişiyor) — yeni bir kazanım SAĞLAMIYOR, yalnızca güvenli
+         taban çizgisini tanımlıyor.
+       - **(2) `client:load`→`client:visible`/`client:idle` (hydration
+         zamanlamasını ertele):** ampirik test edildi — `client:visible`
+         ile build alınıp Playwright'la yeniden ölçüldü, **sonuç
+         `client:load` ile BİREBİR AYNI** (1666 toplam element, aynı
+         29/12/5/14 anchor dağılımı). Kanıt: Astro'nun hydration
+         direktifleri yalnızca istemci JS'inin NE ZAMAN çalışacağını
+         belirliyor, sunucu tarafında üretilen statik HTML'i
+         ETKİLEMİYOR — MegaMenu zaten header'da (katlanmadan üstte)
+         olduğu için `client:visible` de anında tetikleniyor. **DOM
+         boyutunu HİÇ değiştirmiyor.**
+       - **(3) Footer'da yedekli link var mı (güvenlik ağı):** kontrol
+         edildi — `footer.ts`'in ÜRÜNLER kolonu yalnızca 8 link (29'dan),
+         SEKTÖRLER için 0, KEŞFET'in rapor kartları için 0. Footer
+         kapsamlı bir yedek DEĞİL, bu yaklaşım güvenlik ağı olarak
+         kullanılamaz.
+    3. **Kesin sonuç:** "DOM'da var olma" ile "statik HTML'de crawl
+       edilebilir `<a href>` olma" bu içerik için AYNI ölçümün iki adı —
+       hydration zamanlaması bunu ayıramıyor (kanıtlandı), yalnızca
+       içeriği (link/kolon SAYISINI) fiilen azaltmak DOM'u küçültür ki bu
+       teknik değil bir IA/tasarım kararı. **Kod tabanında hiçbir iz
+       bırakılmadı** — hem deneme hem 3 test tamamen geri alındı, sıfır
+       commit. 2026-08-10'daki erteleme kararı doğrulandı, gizli/kaçırılan
+       bir güvenli optimizasyon YOK.
 27. **BULGU (bilgi notu, aksiyon GEREKMİYOR) — site ~1492 redirect stub
     sayfası içeriyor** (i18n fallback + elle `redirects`'in ürettiği
     `<meta http-equiv="refresh">` sayfaları + 4 özel 404 sayfası), hepsi
