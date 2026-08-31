@@ -18,8 +18,12 @@
 // güncellenmeli (iki ayrı kaynak, otomatik senkron değil).
 import type { MiddlewareHandler } from 'astro';
 
+// Quicksand 2026-08-31'de self-host edildi (bkz. global.css'in @font-face
+// yorumu) — style-src/font-src'te fonts.googleapis.com/fonts.gstatic.com'a
+// artık gerek yok, font-src 'self' yeterli (Keystatic'in KENDİ font
+// yüklemesi ayrı, KEYSTATIC_CSP'ye dokunulmadı).
 const PUBLIC_CSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'";
+  "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'";
 
 const KEYSTATIC_CSP =
   "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com";

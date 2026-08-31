@@ -66,12 +66,22 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		<!-- Quicksand (idenfit.com marka fontu) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Quicksand (idenfit.com marka fontu) — self-hosted, bkz. global.css'in
+		     @font-face yorumu (Google Fonts'un GDPR/IP-sızıntı riski nedeniyle
+		     2026-08-31'de taşındı). -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-			rel="stylesheet"
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin-ext.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
 		/>
 		<title>{title}</title>
 		<!-- JS tamamen kapalıysa scroll-reveal script'i hiç çalışmaz — `.reveal`

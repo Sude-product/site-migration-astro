@@ -10,12 +10,21 @@ import '../styles/global.css';
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="generator" content={Astro.generator} />
-		<!-- Quicksand (idenfit.com marka fontu) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Quicksand (idenfit.com marka fontu) — self-hosted, bkz. global.css'in
+		     @font-face yorumu. -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-			rel="stylesheet"
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin-ext.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
 		/>
 		<title>Astro Basics</title>
 	</head>

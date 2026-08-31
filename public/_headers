@@ -3,10 +3,14 @@
 # şeyi ENGELLEMİYOR, yalnızca ihlalleri tarayıcı DevTools Console'unda
 # raporluyor. Bir report-collection endpoint'i (Cloudflare Pages Function)
 # henüz yok, bu yüzden ihlaller yalnızca elle DevTools'tan izlenebilir.
-# Allowlist kaynağı: src/ genelinde gerçek kod taraması (fonts.googleapis/
-# gstatic.com [Quicksand], youtube.com/img.youtube.com [video kartları],
-# Keystatic Cloud [keystatic.cloud/api.keystatic.cloud/github]) — tahmine
-# dayalı DEĞİL.
+# Allowlist kaynağı: src/ genelinde gerçek kod taraması (youtube.com/
+# img.youtube.com [video kartları], Keystatic Cloud [keystatic.cloud/
+# api.keystatic.cloud/github]) — tahmine dayalı DEĞİL. Quicksand fontu
+# 2026-08-31'de self-host edildi (bkz. global.css'in @font-face yorumu,
+# GDPR/IP-sızıntı riski nedeniyle) — genel site politikasında artık
+# fonts.googleapis.com/fonts.gstatic.com'a hiç gerek yok, font-src 'self'
+# yeterli. Keystatic admin panelinin KENDİ font yüklemesi ayrı/dokunulmadı
+# (aşağıdaki /keystatic/* bloğu).
 #
 # Site genelinde nonce/hash mekanizması YOK (Astro 7.2.4'te yerleşik CSP
 # desteği yok), bu yüzden script-src/style-src 'unsafe-inline' içeriyor:
@@ -36,7 +40,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'
 
 # Keystatic Cloud admin paneli — genel siteden TAMAMEN farklı ihtiyaçları
 # var (OAuth/GitHub/keystatic.cloud API + canlı işbirliği websocket'i).
