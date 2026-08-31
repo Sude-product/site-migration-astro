@@ -2139,6 +2139,63 @@ hâlâ geçerli.)*
     `DIST_DIR ?? 'dist/client'` düzeltmesi uygulanmalı — aksi halde
     Faz 2 doğrulama turu, gerçekte doğru olan hreflang çıktısını
     yüzlerce sahte hatayla raporlayacak.
+54. **KRİTİK BULGU + DÜZELTİLDİ (2026-08-31, 4. tur) — `Intl.DateTimeFormat`/
+    `Intl.NumberFormat`'a runtime'da güvenmek GÜVENSİZ çıktı, `az-AZ`
+    locale'i için hem SUNUCU/TARAYICI ARASI hem de TARAYICI İÇİ tutarsız
+    sonuç veriyordu; tüm locale'ler için sabit/doğrulanmış tablolara
+    geçildi.** Açık nokta #51'in Tier 2 mimarisinde (ay/hafta günü
+    kısaltmaları için) `Intl` kullanma kararı verilmişti ("uydurma riski
+    yok" gerekçesiyle) — bu YANLIŞ çıktı. **Kanıt:** İzin Yönetimi
+    sekmesi Chrome'da doğrulanırken AZ'de "Aylıq İcazə Trendi" grafiğinin
+    ay eksen etiketleri "M03/M04/.../M08" (jenerik ICU fallback) olarak
+    göründü, "Nəfər başına orta" değerleri "2.1" (nokta, virgül DEĞİL)
+    çıktı. `javascript_tool` ile tarayıcı konsolunda doğrudan test
+    edildi: `Intl.DateTimeFormat('az-AZ',{month:'short'}).format(...)`
+    hem KISA hem UZUN ay formatında "M01".."M12" veriyor (locale doğru
+    çözülüyor — `resolvedOptions().locale === 'az-AZ'` — ama stil verisi
+    ICU'da YOK), `Intl.NumberFormat('az-AZ',...)` ondalık ayracı "."
+    veriyor (virgül değil). tr/en/nl/it AYNI tarayıcıda sorunsuzdu — bu
+    yalnızca `az`'a özgü bir ICU/CLDR kapsam boşluğu. **İlginç ikinci
+    katman:** `dist/client/az/...` (build/Node ICU) çıktısı DOĞRUYDU
+    (`grep`'te "M03" hiç bulunamadı) — yalnızca tarayıcıda hydration
+    SONRASI (client-side JS, widget `client:visible`) bozuluyordu, yani
+    SSR HTML ile hydrate edilmiş DOM arasında bir tutarsızlık da vardı.
+    **Düzeltme:** `productPreviewWidgetData.ts`'teki `MONTH_ABBREV`/
+    `WEEKDAY_ABBREV`/`formatDecimal()` artık HİÇBİR runtime `Intl`
+    çağrısı yapmıyor — Node'un tam ICU'suyla üretilip doğrulanmış gerçek
+    değerler (uydurma DEĞİL, gerçek CLDR takvim/sayı verisi, `node -e`
+    ile ayrıca doğrulandı) sabit tablo olarak koda gömüldü; az hafta
+    kısaltmaları gerçek Azerbaycan takvim formatını (B.e/Ç.a/Ç/C.a/C/
+    Ş/B) kullanıyor. **Doğrulama:** düzeltme sonrası tüm 5 locale
+    yeniden build edilip Chrome'da (özellikle AZ, hydration sonrası
+    sekme tıklamasıyla) tekrar test edildi — "mar apr may iyn iyl avq"
+    + "2,1 gün" doğru çıktı; tr/en/nl/it etkilenmedi (aynı doğrulanmış
+    değerler, yalnızca kaynak `Intl`'den sabit tabloya taşındı).
+    **⚠️ İleriye dönük not:** `dates.ts`'in `formatLocalizedDate()`'i
+    (SİTE GENELİNDE blog tarihleri/"Son Güncelleme" için kullanılıyor)
+    HÂLÂ `Intl.DateTimeFormat(...,{month:'long'})`'a dayanıyor — tarayıcı
+    konsolunda `az-AZ` UZUN ay formatının da AYNI şekilde bozuk olduğu
+    (`"M01".."M12"`) doğrulandı. Bu, bu turun kapsamı DIŞINDA (widget'a
+    özel değil, site geneli) ama gerçek bir risk — az sayfalarındaki
+    tarihler tarayıcıda yanlış görünüyor olabilir. Ayrı bir turda
+    incelenmeli/aynı "sabit tabloya geç" ilkesiyle düzeltilmeli.
+55. **TAMAMLANDI (2026-08-31, 4. tur) — "İzin Yönetimi" sekmesi 4 dilde
+    (EN/NL/IT/AZ) çevrildi (kullanıcı onaylı sıra: Zaman → İzin → İK →
+    Performans → Veri Analizi).** `productPreviewWidgetData.ts`'e
+    `getLeaveManagementLabels(locale)` eklendi (Zaman Yönetimi'yle AYNI
+    mimari desen). Şube isimleri (`Merkez/Teknopark/Anadolu/Avrupa Şube`)
+    Zaman Yönetimi'nin `getTimeManagementLabels(locale).branches`'İNDEN
+    PAYLAŞILDI — ikinci bir isim seti İCAT EDİLMEDİ. "Kişi başı ortalama"
+    değerleri (`2,1 gün` vb.) sayıya çevrilip `formatDecimal()` + `dayUnit`
+    ile birleştiriliyor. Çevrilen: sekme başlığı, 6 kart başlık/alt
+    başlık, 4 KPI etiketi, 2 izin türü, 3 onay durumu, "gün" birimi,
+    boş-durum metni ("İzin çakışması verisi yok"), dekoratif "Şube"
+    rozeti. **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
+    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
+    sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İzin Yönetimi sekmesi
+    (tüm 6 kart + şube paylaşımı + ondalık format) görsel doğrulandı —
+    bu doğrulama sırasında #54'teki kritik `Intl`/az bulgusu ortaya
+    çıktı ve AYNI turda düzeltildi.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

@@ -48,7 +48,7 @@ import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
 import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
-import { getTimeManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV } from '../data/productPreviewWidgetData';
+import { getTimeManagementLabels, getLeaveManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV, formatDecimal } from '../data/productPreviewWidgetData';
 import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
@@ -262,27 +262,28 @@ const AVG_HOURS_WEEK: { dayIndex: number; hours: number; overtime: number }[] = 
 
 // --- "İzin" sekmesi — kurgusal veri (2026-08-13, gerçek app.idenfit.com
 // izin ekranı referans alınarak revize edildi — önceki "Bekleyen İzin
-// Talebi tek KPI kartı + izin talebi satırları" sürümünün YERİNE geçti). ---
+// Talebi tek KPI kartı + izin talebi satırları" sürümünün YERİNE geçti).
+// Metin (etiket/isim) BURADA YOK — `getLeaveManagementLabels(locale)`'den
+// geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 4. tur, Tier 2 i18n). ---
 
-const LEAVE_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string; label: string }[] = [
-  { icon: UserCheck, color: '#10B981', value: '3', label: 'Bugün İzinli' },
-  { icon: Clock, color: '#F59E0B', value: '3', label: 'Onay Bekleyen' },
-  { icon: CalendarDays, color: '#3B82F6', value: '24', label: 'Bu Ay Kullanılan Gün' },
-  { icon: XCircle, color: '#EF4444', value: '0', label: 'Reddedilen' },
+const LEAVE_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string }[] = [
+  { icon: UserCheck, color: '#10B981', value: '3' },
+  { icon: Clock, color: '#F59E0B', value: '3' },
+  { icon: CalendarDays, color: '#3B82F6', value: '24' },
+  { icon: XCircle, color: '#EF4444', value: '0' },
 ];
 
-// "15 gün" (14+1) — DonutChart'ın merkez etiketiyle toplamı eşleşiyor.
-const LEAVE_TYPE_SEGMENTS: { label: string; value: number; color: string }[] = [
-  { label: 'Yıllık İzin', value: 14, color: '#3B82F6' },
-  { label: 'Taşınma İzni', value: 1, color: '#F59E0B' },
+const LEAVE_TYPE_SEGMENTS: { value: number; color: string }[] = [
+  { value: 14, color: '#3B82F6' },
+  { value: 1, color: '#F59E0B' },
 ];
 
 // `count`'lar `LEAVE_STATS`'taki "Onay Bekleyen"(3)/"Reddedilen"(0) ile
 // TUTARLI — aynı ayın aynı veri kümesi, iki farklı görselleştirme.
-const APPROVAL_STATS: { label: string; count: number; color: string }[] = [
-  { label: 'Onaylandı', count: 5, color: '#10B981' },
-  { label: 'Bekliyor', count: 3, color: '#F59E0B' },
-  { label: 'Reddedildi', count: 0, color: '#9CA3AF' },
+const APPROVAL_STATS: { count: number; color: string }[] = [
+  { count: 5, color: '#10B981' },
+  { count: 3, color: '#F59E0B' },
+  { count: 0, color: '#9CA3AF' },
 ];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İzin"
@@ -295,15 +296,19 @@ const APPROVAL_STATS: { label: string; count: number; color: string }[] = [
 // — o an giriş yapılmış GERÇEK bir müşteri hesabına ait) DEĞİL, widget'ın
 // KENDİ kurulu `BRANCHES` setinden (Merkez/Teknopark/Anadolu/Avrupa Şube,
 // `OvertimeSummaryCard`'da zaten kullanılıyor) türetildi — ikinci bir
-// isim seti İCAT EDİLMEDİ.
-const LEAVE_TREND_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+// isim seti İCAT EDİLMEDİ. `label` artık `MONTH_ABBREV[locale][monthIndex]`.
+const LEAVE_TREND_MONTHS = [2, 3, 4, 5, 6, 7]; // Mar..Ağu
 const LEAVE_TREND_DATA = [9, 6, 8, 7, 14, 29];
 
-const LEAVE_BY_BRANCH: { name: string; color: string; days: number; avgPerPerson: string }[] = [
-  { name: 'Merkez Şube', color: BRANCHES[0].color, days: 22, avgPerPerson: '2,1 gün' },
-  { name: 'Teknopark Şube', color: BRANCHES[1].color, days: 15, avgPerPerson: '1,6 gün' },
-  { name: 'Anadolu Şube', color: BRANCHES[2].color, days: 8, avgPerPerson: '1,2 gün' },
-  { name: 'Avrupa Şube', color: BRANCHES[3].color, days: 3, avgPerPerson: '0,8 gün' },
+// `name` artık `getTimeManagementLabels(locale).branches[i]`'ten geliyor
+// (Zaman Yönetimi sekmesiyle PAYLAŞILAN aynı çeviri, ikinci bir isim seti
+// İCAT EDİLMEDİ) — `avgPerPerson` sayıya çevrildi, render'da `formatDecimal()`
+// + `dayUnit` ile birleşiyor (ondalık ayracı locale'e göre değişir: "2,1" vs "2.1").
+const LEAVE_BY_BRANCH: { color: string; days: number; avgPerPersonDays: number }[] = [
+  { color: BRANCHES[0].color, days: 22, avgPerPersonDays: 2.1 },
+  { color: BRANCHES[1].color, days: 15, avgPerPersonDays: 1.6 },
+  { color: BRANCHES[2].color, days: 8, avgPerPersonDays: 1.2 },
+  { color: BRANCHES[3].color, days: 3, avgPerPersonDays: 0.8 },
 ];
 
 // --- "İnsan Kaynakları" sekmesi — kurgusal veri ---
@@ -1432,20 +1437,28 @@ function TimeManagementTab() {
 }
 
 function LeaveTypeDistributionCard() {
+  const t = getLeaveManagementLabels(useWidgetLocale());
+  const total = LEAVE_TYPE_SEGMENTS.reduce((sum, s) => sum + s.value, 0);
+  const segments = LEAVE_TYPE_SEGMENTS.map((s, i) => ({ ...s, label: t.leaveTypeSegments[i] }));
   return (
-    <WidgetCard title="İzin Türü Dağılımı" subtitle="Bu ay kullanılan izinler">
-      <DonutChart segments={LEAVE_TYPE_SEGMENTS} centerLabel="15 gün" />
+    <WidgetCard title={t.leaveTypeCard.title} subtitle={t.leaveTypeCard.subtitle}>
+      <DonutChart segments={segments} centerLabel={`${total} ${t.dayUnit}`} />
     </WidgetCard>
   );
 }
 
 function ApprovalStatusCard() {
   const { isDark } = useTheme();
+  const t = getLeaveManagementLabels(useWidgetLocale());
   const total = APPROVAL_STATS.reduce((sum, s) => sum + s.count, 0);
-  const withPercent = APPROVAL_STATS.map((s) => ({ ...s, percent: total > 0 ? Math.round((s.count / total) * 100) : 0 }));
+  const withPercent = APPROVAL_STATS.map((s, i) => ({
+    ...s,
+    label: t.approvalStats[i],
+    percent: total > 0 ? Math.round((s.count / total) * 100) : 0,
+  }));
 
   return (
-    <WidgetCard title="Onay Durumu Özeti" subtitle="Bu ayki izin talepleri">
+    <WidgetCard title={t.approvalCard.title} subtitle={t.approvalCard.subtitle}>
       <SegmentedProgressBar segments={withPercent.filter((s) => s.percent > 0).map((s) => ({ color: s.color, percent: s.percent }))} />
       <div className="mt-4 grid grid-cols-3 gap-2.5">
         {withPercent.map((s) => (
@@ -1470,9 +1483,17 @@ function ApprovalStatusCard() {
 // kullanıldı, ikinci bir grafik motoru eklenmedi.
 function LeaveTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
-    <WidgetCard title="Aylık İzin Trendi" subtitle="Son 6 ay — kullanılan izin günü">
-      <LineChart data={LEAVE_TREND_DATA} labels={LEAVE_TREND_MONTHS} color="#10B981" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+    <WidgetCard title={t.leaveTrendCard.title} subtitle={t.leaveTrendCard.subtitle}>
+      <LineChart
+        data={LEAVE_TREND_DATA}
+        labels={LEAVE_TREND_MONTHS.map((mi) => monthAbbrev[mi])}
+        color="#10B981"
+        dotFill={isDark ? '#1F2937' : '#ffffff'}
+      />
     </WidgetCard>
   );
 }
@@ -1482,20 +1503,27 @@ function LeaveTrendCard() {
 // `BRANCHES` rengini taşıması.
 function BranchLeaveUsageCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const branchNames = getTimeManagementLabels(locale).branches;
   const maxDays = Math.max(...LEAVE_BY_BRANCH.map((b) => b.days));
   return (
-    <WidgetCard title="Birim Bazlı İzin Kullanımı" subtitle="Bu ay — birim başına izin oranı">
+    <WidgetCard title={t.branchLeaveUsageCard.title} subtitle={t.branchLeaveUsageCard.subtitle}>
       <div className="space-y-4">
-        {LEAVE_BY_BRANCH.map((b) => (
+        {LEAVE_BY_BRANCH.map((b, i) => (
           <div
-            key={b.name}
+            key={branchNames[i]}
             className={`-m-2 flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>{b.name}</span>
+            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+              {branchNames[i]}
+            </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
               <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
             </div>
-            <span className={`w-14 shrink-0 text-right text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+            <span className={`w-14 shrink-0 text-right text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
+              {b.days} {t.dayUnit}
+            </span>
           </div>
         ))}
       </div>
@@ -1511,10 +1539,11 @@ function BranchLeaveUsageCard() {
 // AÇMIYOR, yalnızca görsel.
 function LeaveConflictCard() {
   const { isDark } = useTheme();
+  const t = getLeaveManagementLabels(useWidgetLocale());
   return (
     <WidgetCard
-      title="İzin Çakışma Uyarısı"
-      subtitle="Aynı gün izinli olanlar"
+      title={t.leaveConflictCard.title}
+      subtitle={t.leaveConflictCard.subtitle}
       headerRight={
         <span
           className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1522,12 +1551,12 @@ function LeaveConflictCard() {
           }`}
           aria-hidden="true"
         >
-          Şube
+          {t.leaveConflictCard.branchBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       }
     >
-      <p className={`py-10 text-center text-sm ${isDark ? 'text-gray-500' : 'text-muted'}`}>İzin çakışması verisi yok</p>
+      <p className={`py-10 text-center text-sm ${isDark ? 'text-gray-500' : 'text-muted'}`}>{t.leaveConflictCard.emptyState}</p>
     </WidgetCard>
   );
 }
@@ -1539,10 +1568,14 @@ function LeaveConflictCard() {
 // içerik tekrarı kasıtlı).
 function TopLeaveUnitsCard() {
   const { isDark } = useTheme();
-  const sorted = [...LEAVE_BY_BRANCH].sort((a, b) => b.days - a.days);
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const branchNames = getTimeManagementLabels(locale).branches;
+  const indexed = LEAVE_BY_BRANCH.map((b, i) => ({ ...b, name: branchNames[i] }));
+  const sorted = [...indexed].sort((a, b) => b.days - a.days);
   const maxDays = sorted[0]?.days ?? 1;
   return (
-    <WidgetCard title="En Çok İzin Kullanan Birimler" subtitle="Top 5 birim — bu ay">
+    <WidgetCard title={t.topLeaveUnitsCard.title} subtitle={t.topLeaveUnitsCard.subtitle}>
       <div className="space-y-3.5">
         {sorted.map((b, i) => (
           <div key={b.name} className="flex items-center gap-3">
@@ -1556,9 +1589,13 @@ function TopLeaveUnitsCard() {
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <span className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-heading'}`}>{b.name}</span>
-                <span className={`shrink-0 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+                <span className={`shrink-0 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
+                  {b.days} {t.dayUnit}
+                </span>
               </div>
-              <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>Kişi başı ort: {b.avgPerPerson}</p>
+              <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+                {t.topLeaveUnitsCard.avgPerPersonLabel} {formatDecimal(b.avgPerPersonDays, locale)} {t.dayUnit}
+              </p>
               <div className={`mt-1.5 h-2 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
                 <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
               </div>
@@ -1571,12 +1608,14 @@ function TopLeaveUnitsCard() {
 }
 
 function LeaveManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
   return (
     <div>
-      <SectionMiniHeader icon={CalendarClock} title="İzin Yönetimi" href="/yillik-izin-takip-programi/" />
+      <SectionMiniHeader icon={CalendarClock} title={t.sectionTitle} href="/yillik-izin-takip-programi/" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-        {LEAVE_STATS.map((stat) => (
-          <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
+        {LEAVE_STATS.map((stat, i) => (
+          <StatCard key={t.leaveStats[i]} icon={stat.icon} color={stat.color} value={stat.value} label={t.leaveStats[i]} />
         ))}
       </div>
       <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-6">
