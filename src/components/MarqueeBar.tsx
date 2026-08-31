@@ -28,8 +28,14 @@ const HALF_REPEAT = 5;
 const HALF = Array.from({ length: HALF_REPEAT }, () => MODULES).flat();
 
 function Star() {
+  // İdenfit.com'da yıldız (`<span class="scroll-icon">★</span>`) yanındaki
+  // etiket metninden (mor, `text-marquee-text`) BAĞIMSIZ bir renk taşıyor —
+  // canlı sitede computed style ile doğrulandı: tam olarak `rgb(255,0,0)`
+  // (bizim `--color-brand` token'ımızla birebir aynı). Önceki `fill=
+  // "currentColor"` ebeveyn span'ın mor rengini miras alıyordu (2026-08-31'de
+  // bulunan gerçek eksiklik) — `text-brand` ile yıldıza kendi rengi verildi.
   return (
-    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="shrink-0 text-brand">
       <path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z" />
     </svg>
   );
