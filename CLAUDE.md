@@ -1912,6 +1912,18 @@ hâlâ geçerli.)*
     width/height eklemek YERİNE, #45 tamamlanıp bu görseller yerelleştiği
     ZAMAN yapılsın** — o noktada gerçek boyutlar yerel dosyadan doğrudan
     okunabilir, şimdi fetch edip sonra tekrar iş yapmaya gerek kalmaz.
+49. **DÜŞÜK ÖNCELİK, GELECEK PLANLAMASI (2026-08-31) — blog yazı sayısı
+    arttıkça `astro build` süresi izlenmeli.** Şu an 622 yazı, `astro
+    build` ~100-120s (gürültülü ölçüm, bkz. `getAllBlogPosts()`
+    önbellekleme turu). **Eşikler:** build süresi 2 dakikayı aşarsa
+    ÖNCE Astro'nun incremental build seçenekleri araştırılmalı (tam
+    yeniden derleme yerine yalnızca değişen içerik); 5000+ yazıya
+    yaklaşılırsa blogun statik (`prerender=true`, şu anki model) yerine
+    hybrid/SSR modele geçişi değerlendirilmeli — `@astrojs/cloudflare`
+    adapter'ı (Keystatic geçişi için ADIM 1'de kurulmuştu) bu geçişi
+    teknik olarak zaten mümkün kılıyor, yeni bir adapter kurulumu
+    gerekmeyecek. Kod değişikliği YOK, yalnızca ileriye dönük bir eşik/
+    hatırlatma notu.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
