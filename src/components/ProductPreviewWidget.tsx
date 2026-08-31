@@ -48,6 +48,7 @@ import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
 import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
+import { getTimeManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV } from '../data/productPreviewWidgetData';
 import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
@@ -87,6 +88,18 @@ function useTheme() {
 const LabelsContext = createContext<ProductPreviewWidgetLabels>(getProductPreviewWidgetLabels('tr'));
 function useLabels() {
   return useContext(LabelsContext);
+}
+
+// Tier 2 (kurgusal veri etiketleri, 2026-08-31, 3. tur — "canlı dashboard
+// içindeki modüller de çevrilmeli") çevirileri `productPreviewWidgetData.ts`'te
+// `getXLabels(locale)` fonksiyonları olarak tutuluyor — `LabelsContext`
+// (Tier 1) gibi doğrudan çeviri objesini DEĞİL, HAM `locale`'i taşıyan ayrı
+// bir context üzerinden okunuyor, çünkü her sekmenin kendi `getXLabels()`'i
+// var (`LabelsContext`'in TEK `ProductPreviewWidgetLabels` şeklini
+// genişletmek, mevcut ~8 tüketicisinin şeklini bozardı).
+const LocaleContext = createContext<Locale>('tr');
+function useWidgetLocale() {
+  return useContext(LocaleContext);
 }
 
 type TabKey =
@@ -167,32 +180,25 @@ function buildTabs(labels: ProductPreviewWidgetLabels): TabDef[] {
   }));
 }
 
-// --- "Zaman Yönetimi" sekmesi — kurgusal veri ---
+// --- "Zaman Yönetimi" sekmesi — kurgusal veri. Metin (etiket/isim/alt
+// metin) BURADA YOK — `productPreviewWidgetData.ts`'in `getTimeManagementLabels
+// (locale)`'inden geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 3. tur,
+// Tier 2 i18n — bkz. dosya başı `LocaleContext` yorumu). ---
 
-const SHIFTS: { label: string; percent: number }[] = [
-  { label: 'Sabah Vardiyası (08:00-17:00)', percent: 94 },
-  { label: 'Akşam Vardiyası (16:00-24:00)', percent: 88 },
-  { label: 'Gece Vardiyası (00:00-08:00)', percent: 76 },
-  { label: 'Ofis Personeli', percent: 97 },
-  { label: 'Saha Ekibi', percent: 82 },
-];
+const SHIFTS: { percent: number }[] = [{ percent: 94 }, { percent: 88 }, { percent: 76 }, { percent: 97 }, { percent: 82 }];
 
 // Sıra Merkez/Teknopark/Anadolu/Avrupa şubeleriyle sabit — `OVERTIME_MONTHS`
 // her ayın `values` dizisi bu SIRAYLA okunuyor.
-const BRANCHES: { name: string; color: string }[] = [
-  { name: 'Merkez Şube', color: '#3B82F6' },
-  { name: 'Teknopark Şube', color: '#10B981' },
-  { name: 'Anadolu Şube', color: '#F59E0B' },
-  { name: 'Avrupa Şube', color: '#8B5CF6' },
-];
+const BRANCHES: { color: string }[] = [{ color: '#3B82F6' }, { color: '#10B981' }, { color: '#F59E0B' }, { color: '#8B5CF6' }];
 
-const OVERTIME_MONTHS: { label: string; values: number[] }[] = [
-  { label: 'Oca', values: [8, 4, 3, 2] },
-  { label: 'Şub', values: [6, 5, 2, 3] },
-  { label: 'Mar', values: [12, 8, 5, 4] },
-  { label: 'Nis', values: [10, 14, 6, 5] },
-  { label: 'May', values: [14, 10, 9, 7] },
-  { label: 'Haz', values: [11, 13, 8, 6] },
+// `label` artık `MONTH_ABBREV[locale][monthIndex]`'ten geliyor (0=Oca...5=Haz).
+const OVERTIME_MONTHS: { monthIndex: number; values: number[] }[] = [
+  { monthIndex: 0, values: [8, 4, 3, 2] },
+  { monthIndex: 1, values: [6, 5, 2, 3] },
+  { monthIndex: 2, values: [12, 8, 5, 4] },
+  { monthIndex: 3, values: [10, 14, 6, 5] },
+  { monthIndex: 4, values: [14, 10, 9, 7] },
+  { monthIndex: 5, values: [11, 13, 8, 6] },
 ];
 
 // 2026-08-19, kullanıcının paylaştığı gerçek app.idenfit.com "Zaman
@@ -202,52 +208,56 @@ const OVERTIME_MONTHS: { label: string; values: number[] }[] = [
 // widget'ta HENÜZ olmayan öğeler eklendi — gerçek sayılar/şirket verisi
 // DEĞİL, aynı KURGUSAL veri ilkesiyle (dosya başı yorumu) farklı örnek
 // rakamlar kullanıldı.
+// `subtext` artık `getTimeManagementLabels(locale).kpiSubtext[i]`'ten geliyor.
 const TIME_KPIS: {
   icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
   color: string;
   value: string;
   trendUp: boolean;
   trendPercent: string;
-  subtext: string;
   sparkline: number[];
 }[] = [
-  { icon: Users, color: '#3B82F6', value: '156', trendUp: true, trendPercent: '4.20%', subtext: '8 yeni işe alım (bu ay)', sparkline: [40, 44, 42, 48, 52, 58, 62] },
-  { icon: UserCheck, color: '#10B981', value: '142', trendUp: false, trendPercent: '2.10%', subtext: '%91 devam oranı', sparkline: [60, 58, 55, 57, 52, 50, 46] },
-  { icon: CalendarDays, color: '#F59E0B', value: '6', trendUp: true, trendPercent: '50.00%', subtext: 'Bu hafta 2 talep oluşturuldu', sparkline: [2, 3, 2, 4, 3, 5, 6] },
+  { icon: Users, color: '#3B82F6', value: '156', trendUp: true, trendPercent: '4.20%', sparkline: [40, 44, 42, 48, 52, 58, 62] },
+  { icon: UserCheck, color: '#10B981', value: '142', trendUp: false, trendPercent: '2.10%', sparkline: [60, 58, 55, 57, 52, 50, 46] },
+  { icon: CalendarDays, color: '#F59E0B', value: '6', trendUp: true, trendPercent: '50.00%', sparkline: [2, 3, 2, 4, 3, 5, 6] },
 ];
 
-const TIME_MINI_STATS: { color: string; value: string; label: string; sparkline: number[] }[] = [
-  { color: '#EF4444', value: '9', label: 'Devamsız', sparkline: [12, 10, 11, 8, 9, 7, 9] },
-  { color: '#EF4444', value: '2', label: 'Geç Gelen', sparkline: [1, 2, 3, 1, 2, 4, 2] },
-  { color: '#F59E0B', value: '3', label: 'Erken Çıkan', sparkline: [4, 3, 5, 2, 3, 4, 3] },
-  { color: '#8B5CF6', value: '5', label: 'Bugün İzinli', sparkline: [3, 4, 3, 5, 4, 6, 5] },
+// `label` artık `getTimeManagementLabels(locale).miniStats`'tan geliyor
+// (sıra: absent/late/earlyLeave/onLeaveToday).
+const TIME_MINI_STATS: { color: string; value: string; sparkline: number[] }[] = [
+  { color: '#EF4444', value: '9', sparkline: [12, 10, 11, 8, 9, 7, 9] },
+  { color: '#EF4444', value: '2', sparkline: [1, 2, 3, 1, 2, 4, 2] },
+  { color: '#F59E0B', value: '3', sparkline: [4, 3, 5, 2, 3, 4, 3] },
+  { color: '#8B5CF6', value: '5', sparkline: [3, 4, 3, 5, 4, 6, 5] },
 ];
 
 // "Devam Takibi" — 7 günlük giriş-çıkış özeti, 4 kategori (gerçek referansla
 // AYNI renk kodları: Mevcut mavi/Geç Gelen kırmızı/İzinli amber/Erken Çıkan
 // mor). `ATTENDANCE_STATUS_COLORS` sırayla `values` dizisiyle eşleşiyor.
+// `label` artık `WEEKDAY_ABBREV[locale][dayIndex]`'ten geliyor (0=Pzt...6=Paz).
 const ATTENDANCE_STATUS_COLORS = ['#3B82F6', '#EF4444', '#F59E0B', '#8B5CF6'];
-const ATTENDANCE_WEEK: { label: string; values: number[] }[] = [
-  { label: 'Pzt', values: [58, 2, 3, 1] },
-  { label: 'Sal', values: [61, 1, 2, 2] },
-  { label: 'Çar', values: [55, 3, 4, 1] },
-  { label: 'Per', values: [60, 2, 1, 3] },
-  { label: 'Cum', values: [52, 4, 3, 2] },
-  { label: 'Cmt', values: [18, 1, 0, 1] },
-  { label: 'Paz', values: [9, 0, 0, 0] },
+const ATTENDANCE_WEEK: { dayIndex: number; values: number[] }[] = [
+  { dayIndex: 0, values: [58, 2, 3, 1] },
+  { dayIndex: 1, values: [61, 1, 2, 2] },
+  { dayIndex: 2, values: [55, 3, 4, 1] },
+  { dayIndex: 3, values: [60, 2, 1, 3] },
+  { dayIndex: 4, values: [52, 4, 3, 2] },
+  { dayIndex: 5, values: [18, 1, 0, 1] },
+  { dayIndex: 6, values: [9, 0, 0, 0] },
 ];
 
 // "Ortalama Çalışma Saati" — haftalık, 2 seri (temel mesai mavi + fazla
 // mesai kırmızı üst bindirme), `OvertimeSummaryCard`'ın şube-bazlı aylık
-// grafiğinden FARKLI bir kesit (haftalık/tüm şubeler ortalaması).
-const AVG_HOURS_WEEK: { label: string; hours: number; overtime: number }[] = [
-  { label: 'Pzt', hours: 8, overtime: 0.5 },
-  { label: 'Sal', hours: 8.5, overtime: 1.5 },
-  { label: 'Çar', hours: 8, overtime: 0 },
-  { label: 'Per', hours: 8.5, overtime: 0 },
-  { label: 'Cum', hours: 7.5, overtime: 0 },
-  { label: 'Cmt', hours: 4, overtime: 0 },
-  { label: 'Paz', hours: 0, overtime: 0 },
+// grafiğinden FARKLI bir kesit (haftalık/tüm şubeler ortalaması). `label`
+// artık `WEEKDAY_ABBREV[locale][dayIndex]`'ten geliyor.
+const AVG_HOURS_WEEK: { dayIndex: number; hours: number; overtime: number }[] = [
+  { dayIndex: 0, hours: 8, overtime: 0.5 },
+  { dayIndex: 1, hours: 8.5, overtime: 1.5 },
+  { dayIndex: 2, hours: 8, overtime: 0 },
+  { dayIndex: 3, hours: 8.5, overtime: 0 },
+  { dayIndex: 4, hours: 7.5, overtime: 0 },
+  { dayIndex: 5, hours: 4, overtime: 0 },
+  { dayIndex: 6, hours: 0, overtime: 0 },
 ];
 
 // --- "İzin" sekmesi — kurgusal veri (2026-08-13, gerçek app.idenfit.com
@@ -1002,6 +1012,7 @@ function SectionMiniHeader({
   href?: string;
 }) {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div className="mb-4 flex items-center justify-between gap-3">
       <div className="flex items-center gap-2.5">
@@ -1013,7 +1024,7 @@ function SectionMiniHeader({
           href={href}
           className="shrink-0 rounded-full bg-brand-light px-4 py-1.5 text-sm font-semibold whitespace-nowrap text-brand transition-all hover:bg-brand hover:text-white hover:shadow-[0_2px_8px_rgba(255,0,0,0.35)]"
         >
-          Detaya Git →
+          {labels.detailsLinkText}
         </a>
       )}
     </div>
@@ -1055,16 +1066,17 @@ function WidgetCard({
 
 function ShiftAttendanceCard() {
   const { isDark } = useTheme();
+  const t = getTimeManagementLabels(useWidgetLocale());
   return (
-    <WidgetCard title="Vardiya Devam Oranı" subtitle="Vardiya bazlı devam durumu">
+    <WidgetCard title={t.shiftCard.title} subtitle={t.shiftCard.subtitle}>
       <div className="space-y-4">
-        {SHIFTS.map((shift) => (
+        {SHIFTS.map((shift, i) => (
           <div
-            key={shift.label}
+            key={t.shifts[i]}
             className={`flex items-center gap-3 rounded-lg p-2 -m-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
             <span className={`w-36 shrink-0 truncate text-xs sm:w-48 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
-              {shift.label}
+              {t.shifts[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
               <div className="h-full rounded-full bg-brand" style={{ width: `${shift.percent}%` }} />
@@ -1081,12 +1093,15 @@ function ShiftAttendanceCard() {
 
 function OvertimeSummaryCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   const monthTotals = OVERTIME_MONTHS.map((m) => m.values.reduce((a, b) => a + b, 0));
   const axisMax = Math.max(10, Math.ceil(Math.max(...monthTotals) / 10) * 10);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f));
 
   return (
-    <WidgetCard title="Fazla Mesai Özeti" subtitle="Aylık — Şubeye göre">
+    <WidgetCard title={t.overtimeCard.title} subtitle={t.overtimeCard.subtitle}>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
@@ -1097,28 +1112,28 @@ function OvertimeSummaryCard() {
           className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {OVERTIME_MONTHS.map((month) => (
-            <div key={month.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={month.monthIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-10 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
                 {month.values.map((v, i) => (
                   <div
-                    key={BRANCHES[i].name}
+                    key={t.branches[i]}
                     style={{ height: `${(v / axisMax) * 100}%`, backgroundColor: BRANCHES[i].color }}
-                    title={`${BRANCHES[i].name}: ${v} sa`}
+                    title={`${t.branches[i]}: ${v} ${t.hourAbbrev}`}
                   />
                 ))}
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{month.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{monthAbbrev[month.monthIndex]}</span>
             </div>
           ))}
         </div>
       </div>
       <div className={`mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
-        {BRANCHES.map((b) => (
-          <span key={b.name} className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+        {BRANCHES.map((b, i) => (
+          <span key={t.branches[i]} className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: b.color }} aria-hidden="true" />
-            {b.name}
+            {t.branches[i]}
           </span>
         ))}
       </div>
@@ -1178,6 +1193,9 @@ function TrendKpiCard({
   subtext: string;
   sparkline: number[];
 }) {
+  // NOT: `subtext` çağıran yerde (`TimeManagementTab`) `getTimeManagementLabels
+  // (locale).kpiSubtext[i]`'ten dolduruluyor — bu component'in kendisi
+  // locale-agnostik kaldı (`MiniTrendStatCard` ile AYNI ilke).
   const { isDark } = useTheme();
   const TrendIcon = trendUp ? TrendingUp : TrendingDown;
   return (
@@ -1244,18 +1262,21 @@ function MiniTrendStatCard({ color, value, label, sparkline }: { color: string; 
 // şube-bazlı yığılmış çubuk TEKNİĞİNİN aynısı, kategoriler/renkler farklı.
 function AttendanceWeekCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const weekdayAbbrev = WEEKDAY_ABBREV[locale];
   const legend = [
-    { name: 'Mevcut', color: ATTENDANCE_STATUS_COLORS[0] },
-    { name: 'Geç Gelen', color: ATTENDANCE_STATUS_COLORS[1] },
-    { name: 'İzinli', color: ATTENDANCE_STATUS_COLORS[2] },
-    { name: 'Erken Çıkan', color: ATTENDANCE_STATUS_COLORS[3] },
+    { name: t.attendanceLegend.present, color: ATTENDANCE_STATUS_COLORS[0] },
+    { name: t.attendanceLegend.late, color: ATTENDANCE_STATUS_COLORS[1] },
+    { name: t.attendanceLegend.onLeave, color: ATTENDANCE_STATUS_COLORS[2] },
+    { name: t.attendanceLegend.earlyLeave, color: ATTENDANCE_STATUS_COLORS[3] },
   ];
   const dayTotals = ATTENDANCE_WEEK.map((d) => d.values.reduce((a, b) => a + b, 0));
   const axisMax = Math.max(10, Math.ceil(Math.max(...dayTotals) / 10) * 10);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f));
 
   return (
-    <WidgetCard title="Devam Takibi" subtitle="Son 7 günlük giriş-çıkış özeti">
+    <WidgetCard title={t.attendanceCard.title} subtitle={t.attendanceCard.subtitle}>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
@@ -1266,7 +1287,7 @@ function AttendanceWeekCard() {
           className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {ATTENDANCE_WEEK.map((day) => (
-            <div key={day.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
@@ -1278,7 +1299,7 @@ function AttendanceWeekCard() {
                   />
                 ))}
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{day.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{weekdayAbbrev[day.dayIndex]}</span>
             </div>
           ))}
         </div>
@@ -1302,12 +1323,15 @@ function AttendanceWeekCard() {
 // bırak" kuralı).
 function AverageHoursCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const weekdayAbbrev = WEEKDAY_ABBREV[locale];
   const dayTotals = AVG_HOURS_WEEK.map((d) => d.hours + d.overtime);
   const axisMax = Math.max(4, Math.ceil(Math.max(...dayTotals) / 2) * 2);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f * 10) / 10);
 
   return (
-    <WidgetCard title="Ortalama Çalışma Saati" subtitle="Son 7 gün — Tüm Şubeler">
+    <WidgetCard title={t.avgHoursCard.title} subtitle={t.avgHoursCard.subtitle}>
       <div className={`mb-1 flex justify-end`}>
         <span
           className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1315,28 +1339,36 @@ function AverageHoursCard() {
           }`}
           aria-hidden="true"
         >
-          Tüm Şubeler
+          {t.avgHoursCard.allBranchesBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       </div>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
-            <span key={v}>{v}s</span>
+            <span key={v}>{v}{t.hourAbbrev}</span>
           ))}
         </div>
         <div
           className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {AVG_HOURS_WEEK.map((day) => (
-            <div key={day.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
-                <div className="bg-[#3B82F6]" style={{ height: `${(day.hours / axisMax) * 100}%` }} title={`Çalışma: ${day.hours}s`} />
-                <div className="rounded-t-md bg-brand" style={{ height: `${(day.overtime / axisMax) * 100}%` }} title={`Fazla Mesai: ${day.overtime}s`} />
+                <div
+                  className="bg-[#3B82F6]"
+                  style={{ height: `${(day.hours / axisMax) * 100}%` }}
+                  title={`${t.avgHoursCard.workTooltipLabel}: ${day.hours}${t.hourAbbrev}`}
+                />
+                <div
+                  className="rounded-t-md bg-brand"
+                  style={{ height: `${(day.overtime / axisMax) * 100}%` }}
+                  title={`${t.avgHoursCard.overtimeTooltipLabel}: ${day.overtime}${t.hourAbbrev}`}
+                />
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{day.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{weekdayAbbrev[day.dayIndex]}</span>
             </div>
           ))}
         </div>
@@ -1344,11 +1376,11 @@ function AverageHoursCard() {
       <div className={`mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#3B82F6]" aria-hidden="true" />
-          Ortalama Çalışma Saati
+          {t.avgHoursCard.avgWorkLegend}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
-          Ortalama Fazla Mesai
+          {t.avgHoursCard.avgOvertimeLegend}
         </span>
       </div>
     </WidgetCard>
@@ -1356,9 +1388,11 @@ function AverageHoursCard() {
 }
 
 function TimeManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
   return (
     <div>
-      <SectionMiniHeader icon={Clock} title="Zaman" href="/puantaj-takip-programi-modulu/" />
+      <SectionMiniHeader icon={Clock} title={t.sectionTitle} href="/puantaj-takip-programi-modulu/" />
       {/* 2026-08-19 — kullanıcı gerçek app.idenfit.com "Zaman Yönetimi"
           dashboard ekran görüntüsünü paylaşıp "burada olmayanlar da
           eklensin" dedi: KPI kartları + mini istatistik satırı + "Devam
@@ -1372,13 +1406,17 @@ function TimeManagementTab() {
           kart component'leri) küçültüldü — içerik AZALMADI, yalnızca
           daha kompakt yerleşti. */}
       <div className="grid gap-3 sm:grid-cols-3 lg:gap-4">
-        {TIME_KPIS.map((kpi) => (
-          <TrendKpiCard key={kpi.value + kpi.subtext} {...kpi} />
+        {TIME_KPIS.map((kpi, i) => (
+          <TrendKpiCard key={kpi.value + t.kpiSubtext[i]} {...kpi} subtext={t.kpiSubtext[i]} />
         ))}
       </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:mt-4 lg:grid-cols-4 lg:gap-4">
-        {TIME_MINI_STATS.map((stat) => (
-          <MiniTrendStatCard key={stat.label} {...stat} />
+        {TIME_MINI_STATS.map((stat, i) => (
+          <MiniTrendStatCard
+            key={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
+            {...stat}
+            label={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
+          />
         ))}
       </div>
       <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
@@ -2711,6 +2749,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   }, [autoPaused]);
 
   return (
+    <LocaleContext.Provider value={locale}>
     <LabelsContext.Provider value={labels}>
     <ThemeContext.Provider value={{ isDark, toggle }}>
       <div
@@ -2822,5 +2861,6 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
       </div>
     </ThemeContext.Provider>
     </LabelsContext.Provider>
+    </LocaleContext.Provider>
   );
 }

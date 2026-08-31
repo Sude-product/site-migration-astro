@@ -41,6 +41,10 @@ export interface ProductPreviewWidgetLabels {
     egitimAkademisi: string;
   };
   comingSoonBadge: string;
+  /** `SectionMiniHeader`'ın (Tier 2, her sekmede tekrarlanan) "Detaya
+   * Git →" bağlantı metni — sekmeye özgü değil, TÜM sekmelerde aynı,
+   * bu yüzden Tier 1'de (tekrar etmesin diye). */
+  detailsLinkText: string;
   searchPlaceholder: string;
   lightModeAriaLabel: string;
   darkModeAriaLabel: string;
@@ -80,6 +84,7 @@ const tr: ProductPreviewWidgetLabels = {
     egitimAkademisi: 'Eğitim Akademisi',
   },
   comingSoonBadge: 'Yakında',
+  detailsLinkText: 'Detaya Git →',
   searchPlaceholder: 'Personel ara...',
   lightModeAriaLabel: 'Aydınlık moda geç',
   darkModeAriaLabel: 'Karanlık moda geç',
@@ -122,6 +127,7 @@ const en: ProductPreviewWidgetLabels = {
     egitimAkademisi: 'Training Academy',
   },
   comingSoonBadge: 'Coming Soon',
+  detailsLinkText: 'View Details →',
   searchPlaceholder: 'Search employees...',
   lightModeAriaLabel: 'Switch to light mode',
   darkModeAriaLabel: 'Switch to dark mode',
@@ -166,6 +172,7 @@ const nl: ProductPreviewWidgetLabels = {
     egitimAkademisi: 'Opleidingsacademie',
   },
   comingSoonBadge: 'Binnenkort',
+  detailsLinkText: 'Bekijk Details →',
   searchPlaceholder: 'Medewerkers zoeken...',
   lightModeAriaLabel: 'Schakel naar lichte modus',
   darkModeAriaLabel: 'Schakel naar donkere modus',
@@ -212,6 +219,7 @@ const it: ProductPreviewWidgetLabels = {
     egitimAkademisi: 'Accademia della Formazione',
   },
   comingSoonBadge: 'Prossimamente',
+  detailsLinkText: 'Vedi Dettagli →',
   searchPlaceholder: 'Cerca dipendenti...',
   lightModeAriaLabel: 'Passa alla modalità chiara',
   darkModeAriaLabel: 'Passa alla modalità scura',
@@ -256,6 +264,7 @@ const az: ProductPreviewWidgetLabels = {
     egitimAkademisi: 'Təlim Akademiyası',
   },
   comingSoonBadge: 'Tezliklə',
+  detailsLinkText: 'Ətraflı Bax →',
   searchPlaceholder: 'İşçi axtar...',
   lightModeAriaLabel: 'İşıqlı rejimə keç',
   darkModeAriaLabel: 'Qaranlıq rejimə keç',

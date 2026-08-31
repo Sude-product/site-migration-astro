@@ -2035,6 +2035,43 @@ hâlâ geçerli.)*
     planlanıyor (uydurma riski yok, tarayıcının kendi ICU verisi).
     Henüz KOD DEĞİŞİKLİĞİ yapılmadı — mimari + kapsam kullanıcıya
     sunulup onay bekleniyor (bkz. bir sonraki tur).
+    **TUR 1 TAMAMLANDI (2026-08-31, 3. tur) — mimari kuruldu + "Zaman
+    Yönetimi" sekmesi 4 dilde (EN/NL/IT/AZ) çevrildi.** Kullanıcı "sekme
+    sekme, EN önce" seçeneğini onayladı. **Mimari:** `src/data/
+    productPreviewWidgetData.ts` (YENİ dosya) — her sekme için ayrı
+    `getXLabels(locale)` fonksiyonu (Tier 1'in TEK `ProductPreviewWidgetLabels`
+    şeklinden FARKLI olarak, her sekmenin kendi tipi var). Widget'taki
+    modül-seviyesi sabitler (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/vb.) metin
+    alanlarından ARINDIRILIP yalnızca yapısal veriye (renk/sayı/ikon)
+    indirgendi, render'da İNDEKS SIRASIYLA çeviriyle birleştiriliyor.
+    Yeni `LocaleContext`/`useWidgetLocale()` eklendi (`LabelsContext`'in
+    YANINDA, onu DEĞİŞTİRMEDEN — Tier 1'in ~8 tüketicisinin şeklini
+    bozmamak için) — ham `locale`'i taşıyor, her sekme kendi `getXLabels
+    (locale)`'ini bu context'ten türetiyor. Ay/hafta günü kısaltmaları
+    (`MONTH_ABBREV`/`WEEKDAY_ABBREV`) `Intl.DateTimeFormat`'tan ÜRETİLDİ
+    (elle çeviri DEĞİL) — doğrulandı: tr çıktısı widget'ın ÖNCEDEN
+    hardcoded değerleriyle (Oca/Şub/.../Ara, Pzt/Sal/.../Paz) BİREBİR
+    aynı. `dates.ts`'in `BCP47_LOCALE`'i `export` edildi (ikinci bir
+    locale-kodu haritası İCAT EDİLMEDİ). "Detaya Git →" (TÜM sekmelerde
+    paylaşılan, `SectionMiniHeader`) Tier 2'ye DEĞİL, Tier 1'e
+    (`productPreviewWidgetLabels.ts`'in `detailsLinkText` alanı, 5 dilin
+    hepsi dolduruldu) eklendi. **Çevrilen içerik:** sekme başlığı ("Zaman"),
+    4 kart (Vardiya Devam Oranı/Fazla Mesai Özeti/Devam Takibi/Ortalama
+    Çalışma Saati) başlık+alt başlık, 5 vardiya adı, 4 şube adı (İzin
+    Yönetimi sekmesi de AYNI diziyi bir sonraki turda yeniden kullanacak),
+    3 KPI alt metni, 4+4 mini istatistik/lejant etiketi, saat kısaltması
+    (`hourAbbrev`: EN "h"/NL "u"/IT "h"/AZ "saat" — AZ'de tek harfli
+    yaygın kısaltma OLMADIĞI için tam kelime kullanıldı, belirsizliğe
+    yol açmasın diye). **Doğrulama:** `astro check` 0 hata (395 dosya),
+    `astro build` temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
+    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
+    TAMAMINDA Zaman Yönetimi sekmesi tek tek açılıp KPI kartları/mini
+    istatistikler/Devam Takibi/Ortalama Çalışma Saati/Vardiya Devam
+    Oranı/Fazla Mesai Özeti görsel olarak doğrulandı (ay/gün
+    kısaltmaları, saat birimleri, şube/vardiya adları dahil). **Kalan
+    sekmeler (henüz BAŞLANMADI, sıradaki turlar):** İzin Yönetimi →
+    İnsan Kaynakları → Performans Yönetimi → Veri Analizi + paylaşılan
+    panel metinleri (kullanıcı onaylı sıra).
 52. **KAPANDI (2026-08-31) — `check-html-lang-attribute.mjs`'in 196
     "sorunlu sayfa" raporu GERÇEK bir site regresyonu DEĞİLDİ, script'in
     kendi bug'ıydı; kök neden bulunup düzeltildi.** (İlk kayıtta "yalnızca
