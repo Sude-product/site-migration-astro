@@ -33,3 +33,15 @@ scripts/_*.json
 # extracted/used assets already live under public/wp-content/)
 reference/wordpress-export/uploads.zip
 reference/wordpress-export/themes.zip
+
+# media.json (7.6MB raw WP media library export) — 2026-08-31 keşif turunda
+# doğrulandı: src/ içinde HİÇ import/read edilmiyor (yalnızca content.config.ts'te
+# bir yorumda adı geçiyor), yalnızca scripts/extract-blog-posts.mjs +
+# scripts/wp-export.mjs'in (manuel/tek-seferlik blog-yazısı çıkarma araçları)
+# bağımlılığı — astro build/dev'e hiç girmiyor. posts.json/pages.json'ın
+# AKSİNE (ikisi de gerçek runtime bağımlılığı, src/data/pagesJsonModified.ts +
+# src/data/contentLinkAccessibility.ts tarafından doğrudan import ediliyor,
+# DOKUNULMADI) bu dosya güvenle git takibinden çıkarıldı — git geçmişinde
+# duruyor, gerekirse `git show <commit>:reference/wordpress-export/media.json`
+# ile veya wp-export.mjs'i yeniden çalıştırarak geri getirilebilir.
+reference/wordpress-export/media.json
