@@ -362,3 +362,204 @@ const LEAVE_MANAGEMENT_LABELS: Partial<Record<Locale, LeaveManagementLabels>> = 
 export function getLeaveManagementLabels(locale: Locale): LeaveManagementLabels {
   return LEAVE_MANAGEMENT_LABELS[locale] ?? leaveManagementTr;
 }
+
+// --- "İnsan Kaynakları" sekmesi — Tier 2 çevirileri (2026-08-31, 5. tur) ---
+
+export interface HumanResourcesLabels {
+  /** `SectionMiniHeader` başlığı — Tier 1'in `tabs.ik`'siyle AYNI (TR
+   * kaynakta zaten tam form). */
+  sectionTitle: string;
+  headcountCard: { title: string; subtitle: string; totalBadge: string };
+  birthdayCard: { title: string; subtitle: string };
+  /** `HR_EVENTS` yapısal diziyle İNDEKS SIRASIYLA eşleşir — kişi adları
+   * ("Elif Demir" vb.) ÇEVRİLMİYOR, yalnızca `description`. */
+  hrEvents: [string, string, string];
+  turnoverCard: { title: string; subtitle: string; hiredLegend: string; leftLegend: string };
+  /** `TURNOVER_STATS` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  turnoverStats: [string, string, string];
+  pendingApprovalsCard: { title: string; subtitle: string; totalLabel: string };
+  /** `PENDING_APPROVALS` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  pendingApprovals: [string, string, string, string, string];
+  calendarCard: {
+    title: string;
+    subtitle: string;
+    /** Sabit "Ağustos 2026" — `CALENDAR_CELLS`'in KENDİSİ o aya özgü
+     * gerçek takvim matematiği taşıyor, dinamik ÜRETİLMİYOR (widget
+     * dosyasının kendi yorumuyla tutarlı). */
+    monthLabel: string;
+    legendBirthdays: string;
+    legendAnniversaries: string;
+    legendLeaves: string;
+  };
+  probationCard: { title: string; subtitle: string };
+  contractCard: { title: string; subtitle: string };
+  monthUnit: string;
+  yearUnit: string;
+  dayUnit: string;
+}
+
+const humanResourcesTr: HumanResourcesLabels = {
+  sectionTitle: 'İnsan Kaynakları',
+  headcountCard: { title: 'Headcount Trendi', subtitle: '12 aylık çalışan sayısı', totalBadge: 'Toplam' },
+  birthdayCard: { title: 'Doğum Günü & Yıldönümü', subtitle: 'Bu hafta' },
+  hrEvents: ['Doğum Günü — Bugün!', '2. İş Yıldönümü — 15 Ağustos', '3. İş Yıldönümü — 18 Ağustos'],
+  turnoverCard: { title: 'Çalışan Devir Hızı', subtitle: 'Son 6 ay — işe alım vs ayrılma', hiredLegend: 'İşe Giren', leftLegend: 'Ayrılan' },
+  turnoverStats: ['İşe Giren', 'Ayrılan', 'Devir Oranı'],
+  pendingApprovalsCard: { title: 'Onay Bekleyen İşlemler', subtitle: 'Bekleyen onay talepleri', totalLabel: 'Toplam Bekleyen' },
+  pendingApprovals: ['Avans Talepleri', 'Fazla Mesai Talepleri', 'Eğitim Talepleri', 'Evrak Talepleri', 'Eksik Kayıt Talepleri'],
+  calendarCard: {
+    title: 'Takvim',
+    subtitle: 'Doğum günleri, yıldönümleri ve izinler',
+    monthLabel: 'Ağustos 2026',
+    legendBirthdays: 'Doğum Günleri',
+    legendAnniversaries: 'Yıldönümleri',
+    legendLeaves: 'İzinler',
+  },
+  probationCard: { title: 'Deneme Süresi Takibi', subtitle: 'Deneme süresindeki çalışanlar' },
+  contractCard: { title: 'Sözleşme Takibi', subtitle: 'Yenilenmesi gereken sözleşmeler' },
+  monthUnit: 'Ay',
+  yearUnit: 'Yıl',
+  dayUnit: 'gün',
+};
+
+const humanResourcesEn: HumanResourcesLabels = {
+  sectionTitle: 'Human Resources',
+  headcountCard: { title: 'Headcount Trend', subtitle: '12-month employee count', totalBadge: 'Total' },
+  birthdayCard: { title: 'Birthdays & Anniversaries', subtitle: 'This week' },
+  hrEvents: ['Birthday — Today!', '2nd Work Anniversary — August 15', '3rd Work Anniversary — August 18'],
+  turnoverCard: { title: 'Employee Turnover Rate', subtitle: 'Last 6 months — hires vs departures', hiredLegend: 'Hired', leftLegend: 'Left' },
+  turnoverStats: ['Hired', 'Left', 'Turnover Rate'],
+  pendingApprovalsCard: { title: 'Pending Approvals', subtitle: 'Pending approval requests', totalLabel: 'Total Pending' },
+  pendingApprovals: ['Advance Requests', 'Overtime Requests', 'Training Requests', 'Document Requests', 'Missing Record Requests'],
+  calendarCard: {
+    title: 'Calendar',
+    subtitle: 'Birthdays, anniversaries, and leaves',
+    monthLabel: 'August 2026',
+    legendBirthdays: 'Birthdays',
+    legendAnniversaries: 'Anniversaries',
+    legendLeaves: 'Leaves',
+  },
+  probationCard: { title: 'Probation Tracking', subtitle: 'Employees on probation' },
+  contractCard: { title: 'Contract Tracking', subtitle: 'Contracts due for renewal' },
+  // "Months" (çoğul) — `PROBATION_TRACKING_STRUCTURE`'da bu birim
+  // yalnızca 2/6 (>1) değerleriyle kullanılıyor, TR/AZ'ın aksine
+  // İngilizce sayı+isim çoğul eki GEREKTİRİYOR.
+  monthUnit: 'Months',
+  yearUnit: 'Year',
+  dayUnit: 'days',
+};
+
+const humanResourcesNl: HumanResourcesLabels = {
+  sectionTitle: 'HR',
+  headcountCard: { title: 'Headcount-trend', subtitle: 'Medewerkersaantal over 12 maanden', totalBadge: 'Totaal' },
+  birthdayCard: { title: 'Verjaardagen & Jubilea', subtitle: 'Deze week' },
+  hrEvents: ['Verjaardag — Vandaag!', '2e Werkjubileum — 15 augustus', '3e Werkjubileum — 18 augustus'],
+  turnoverCard: {
+    title: 'Personeelsverloop',
+    subtitle: 'Laatste 6 maanden — aannames vs vertrek',
+    hiredLegend: 'Aangenomen',
+    leftLegend: 'Vertrokken',
+  },
+  turnoverStats: ['Aangenomen', 'Vertrokken', 'Verloop'],
+  pendingApprovalsCard: { title: 'Openstaande Goedkeuringen', subtitle: 'Openstaande goedkeuringsverzoeken', totalLabel: 'Totaal Openstaand' },
+  pendingApprovals: [
+    'Voorschotaanvragen',
+    'Overurenaanvragen',
+    'Opleidingsaanvragen',
+    'Documentaanvragen',
+    'Aanvragen Ontbrekende Registratie',
+  ],
+  calendarCard: {
+    title: 'Kalender',
+    subtitle: 'Verjaardagen, jubilea en verlof',
+    monthLabel: 'augustus 2026',
+    legendBirthdays: 'Verjaardagen',
+    legendAnniversaries: 'Jubilea',
+    legendLeaves: 'Verlof',
+  },
+  probationCard: { title: 'Proeftijdregistratie', subtitle: 'Medewerkers in proeftijd' },
+  contractCard: { title: 'Contractregistratie', subtitle: 'Contracten met verlengingsdatum' },
+  // "Maanden" (çoğul) — Hollandaca'da da >1 için çoğul ek gerekiyor
+  // (bkz. EN'deki aynı gerekçe). "Jaar" Hollandaca'da değişmez
+  // (tekil/çoğul aynı), bu yüzden `yearUnit` değişmedi.
+  monthUnit: 'Maanden',
+  yearUnit: 'Jaar',
+  dayUnit: 'dagen',
+};
+
+const humanResourcesIt: HumanResourcesLabels = {
+  sectionTitle: 'Risorse Umane',
+  headcountCard: { title: 'Andamento Organico', subtitle: 'Numero dipendenti su 12 mesi', totalBadge: 'Totale' },
+  birthdayCard: { title: 'Compleanni e Anniversari', subtitle: 'Questa settimana' },
+  hrEvents: ['Compleanno — Oggi!', '2° Anniversario Lavorativo — 15 agosto', '3° Anniversario Lavorativo — 18 agosto'],
+  turnoverCard: {
+    title: 'Tasso di Turnover',
+    subtitle: 'Ultimi 6 mesi — assunzioni vs uscite',
+    hiredLegend: 'Assunti',
+    leftLegend: 'Usciti',
+  },
+  turnoverStats: ['Assunti', 'Usciti', 'Tasso di Turnover'],
+  pendingApprovalsCard: { title: 'Approvazioni in Sospeso', subtitle: 'Richieste di approvazione in sospeso', totalLabel: 'Totale in Sospeso' },
+  pendingApprovals: [
+    'Richieste di Anticipo',
+    'Richieste Straordinari',
+    'Richieste di Formazione',
+    'Richieste Documenti',
+    'Richieste Registrazioni Mancanti',
+  ],
+  calendarCard: {
+    title: 'Calendario',
+    subtitle: 'Compleanni, anniversari e ferie',
+    monthLabel: 'agosto 2026',
+    legendBirthdays: 'Compleanni',
+    legendAnniversaries: 'Anniversari',
+    legendLeaves: 'Ferie',
+  },
+  probationCard: { title: 'Monitoraggio Periodo di Prova', subtitle: 'Dipendenti in periodo di prova' },
+  contractCard: { title: 'Monitoraggio Contratti', subtitle: 'Contratti in scadenza per rinnovo' },
+  // "Mesi" (çoğul) — İtalyanca'da da >1 için çoğul ek gerekiyor.
+  monthUnit: 'Mesi',
+  yearUnit: 'Anno',
+  dayUnit: 'giorni',
+};
+
+const humanResourcesAz: HumanResourcesLabels = {
+  sectionTitle: 'İnsan Resursları',
+  headcountCard: { title: 'İşçi Sayı Trendi', subtitle: '12 aylıq işçi sayı', totalBadge: 'Cəmi' },
+  birthdayCard: { title: 'Ad Günləri və İldönümləri', subtitle: 'Bu həftə' },
+  hrEvents: ['Ad Günü — Bu gün!', '2-ci İş İldönümü — 15 avqust', '3-cü İş İldönümü — 18 avqust'],
+  turnoverCard: {
+    title: 'Kadr Dövriyyəsi',
+    subtitle: 'Son 6 ay — işə qəbul və ayrılma',
+    hiredLegend: 'İşə Qəbul',
+    leftLegend: 'Ayrılan',
+  },
+  turnoverStats: ['İşə Qəbul', 'Ayrılan', 'Dövriyyə Nisbəti'],
+  pendingApprovalsCard: { title: 'Təsdiq Gözləyən Əməliyyatlar', subtitle: 'Gözləyən təsdiq tələbləri', totalLabel: 'Cəmi Gözləyən' },
+  pendingApprovals: ['Avans Tələbləri', 'Əlavə İş Tələbləri', 'Təlim Tələbləri', 'Sənəd Tələbləri', 'Çatışmayan Qeyd Tələbləri'],
+  calendarCard: {
+    title: 'Təqvim',
+    subtitle: 'Ad günləri, ildönümləri və icazələr',
+    monthLabel: 'Avqust 2026',
+    legendBirthdays: 'Ad Günləri',
+    legendAnniversaries: 'İldönümləri',
+    legendLeaves: 'İcazələr',
+  },
+  probationCard: { title: 'Sınaq Müddəti İzlənməsi', subtitle: 'Sınaq müddətindəki işçilər' },
+  contractCard: { title: 'Müqavilə İzlənməsi', subtitle: 'Yenilənməsi lazım olan müqavilələr' },
+  monthUnit: 'Ay',
+  yearUnit: 'İl',
+  dayUnit: 'gün',
+};
+
+const HUMAN_RESOURCES_LABELS: Partial<Record<Locale, HumanResourcesLabels>> = {
+  tr: humanResourcesTr,
+  en: humanResourcesEn,
+  nl: humanResourcesNl,
+  it: humanResourcesIt,
+  az: humanResourcesAz,
+};
+
+export function getHumanResourcesLabels(locale: Locale): HumanResourcesLabels {
+  return HUMAN_RESOURCES_LABELS[locale] ?? humanResourcesTr;
+}

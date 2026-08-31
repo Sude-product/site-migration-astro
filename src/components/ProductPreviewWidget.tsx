@@ -48,7 +48,14 @@ import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
 import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
-import { getTimeManagementLabels, getLeaveManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV, formatDecimal } from '../data/productPreviewWidgetData';
+import {
+  getTimeManagementLabels,
+  getLeaveManagementLabels,
+  getHumanResourcesLabels,
+  MONTH_ABBREV,
+  WEEKDAY_ABBREV,
+  formatDecimal,
+} from '../data/productPreviewWidgetData';
 import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
@@ -311,15 +318,19 @@ const LEAVE_BY_BRANCH: { color: string; days: number; avgPerPersonDays: number }
   { color: BRANCHES[3].color, days: 3, avgPerPersonDays: 0.8 },
 ];
 
-// --- "İnsan Kaynakları" sekmesi — kurgusal veri ---
+// --- "İnsan Kaynakları" sekmesi — kurgusal veri. Metin `getHumanResourcesLabels
+// (locale)`'den geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 5. tur). ---
 
-const HEADCOUNT_MONTHS = ['Eyl', 'Eki', 'Kas', 'Ara', 'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+// Eylül(8)'den başlayıp Ağustos(7)'a döngüsel 12 ay — `MONTH_ABBREV[locale][mi]`.
+const HEADCOUNT_MONTHS = [8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7];
 const HEADCOUNT_DATA = [58, 60, 63, 65, 64, 67, 69, 68, 71, 73, 74, 76];
 
-const HR_EVENTS: { name: string; initials: string; avatarColor: string; description: string; emoji: string }[] = [
-  { name: 'Elif Demir', initials: 'ED', avatarColor: '#EC4899', description: 'Doğum Günü — Bugün!', emoji: '🎂' },
-  { name: 'Can Aydın', initials: 'CA', avatarColor: '#10B981', description: '2. İş Yıldönümü — 15 Ağustos', emoji: '🏆' },
-  { name: 'Zeynep Arslan', initials: 'ZA', avatarColor: '#F59E0B', description: '3. İş Yıldönümü — 18 Ağustos', emoji: '🏆' },
+// `description` artık `getHumanResourcesLabels(locale).hrEvents[i]`'ten
+// geliyor — `name` (kişi adı) ÇEVRİLMİYOR, özel isim.
+const HR_EVENTS: { name: string; initials: string; avatarColor: string; emoji: string }[] = [
+  { name: 'Elif Demir', initials: 'ED', avatarColor: '#EC4899', emoji: '🎂' },
+  { name: 'Can Aydın', initials: 'CA', avatarColor: '#10B981', emoji: '🏆' },
+  { name: 'Zeynep Arslan', initials: 'ZA', avatarColor: '#F59E0B', emoji: '🏆' },
 ];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İnsan
@@ -334,26 +345,25 @@ const HR_EVENTS: { name: string; initials: string; avatarColor: string; descript
 // içeriyor hem de kartın tam başlığı/türü görüntüde kırpılmış, güvenilir
 // şekilde yeniden üretilemez. Sayılar (37/17/%22.8 gibi) gerçek ekrandan
 // KOPYALANMADI, aynı formatta farklı kurgusal rakamlar üretildi.
-const TURNOVER_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+const TURNOVER_MONTHS = [2, 3, 4, 5, 6, 7]; // Mar..Ağu
 const TURNOVER_HIRED = [5, 6, 4, 8, 9, 10];
 const TURNOVER_LEFT = [2, 3, 2, 4, 3, 5];
-const TURNOVER_STATS: { label: string; value: string; color: string }[] = [
-  { label: 'İşe Giren', value: '42', color: '#10B981' },
-  { label: 'Ayrılan', value: '19', color: '#EF4444' },
-  { label: 'Devir Oranı', value: '%18.4', color: '#F59E0B' },
+const TURNOVER_STATS: { value: string; color: string }[] = [
+  { value: '42', color: '#10B981' },
+  { value: '19', color: '#EF4444' },
+  { value: '%18.4', color: '#F59E0B' },
 ];
 
 const PENDING_APPROVALS: {
   icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
   color: string;
-  label: string;
   count: number;
 }[] = [
-  { icon: Wallet, color: '#10B981', label: 'Avans Talepleri', count: 2 },
-  { icon: Clock, color: '#8B5CF6', label: 'Fazla Mesai Talepleri', count: 1 },
-  { icon: GraduationCap, color: '#3B82F6', label: 'Eğitim Talepleri', count: 3 },
-  { icon: FileText, color: '#F59E0B', label: 'Evrak Talepleri', count: 0 },
-  { icon: UserX, color: '#EF4444', label: 'Eksik Kayıt Talepleri', count: 1 },
+  { icon: Wallet, color: '#10B981', count: 2 },
+  { icon: Clock, color: '#8B5CF6', count: 1 },
+  { icon: GraduationCap, color: '#3B82F6', count: 3 },
+  { icon: FileText, color: '#F59E0B', count: 0 },
+  { icon: UserX, color: '#EF4444', count: 1 },
 ];
 
 // Takvim — gerçek Ağustos 2026 takvimi (hafta PZT'den başlıyor, WP/idenfit
@@ -368,7 +378,9 @@ const EVENT_DOT_COLORS: Record<CalendarEventType, string> = {
   anniversary: '#10B981',
   leave: '#EF4444',
 };
-const CALENDAR_WEEKDAYS = ['PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT', 'PAZ'];
+// Büyük harfli görünüm — `WEEKDAY_ABBREV[locale]`'den `.toUpperCase()` ile
+// türetiliyor (render'da), Türkçe "İ" büyütme bug'ı riski YOK: hiçbir
+// dilin kısaltmasında küçük "i" harfi geçmiyor (doğrulandı).
 const CALENDAR_CELLS: { day: number; muted?: boolean; isToday?: boolean; events?: CalendarEventType[] }[] = [
   { day: 27, muted: true },
   { day: 28, muted: true },
@@ -421,15 +433,17 @@ interface TrackingBoxData {
   primaryLabel: string;
   secondaryLabel: string;
 }
-const PROBATION_TRACKING: TrackingBoxData[] = [
-  { color: '#EF4444', bgLight: '#FEE2E2', count: 2, primaryLabel: '2 Ay', secondaryLabel: '30 gün' },
-  { color: '#F59E0B', bgLight: '#FEF3C7', count: 3, primaryLabel: '6 Ay', secondaryLabel: '180 gün' },
-  { color: '#10B981', bgLight: '#D1FAE5', count: 1, primaryLabel: '1 Yıl', secondaryLabel: '365 gün' },
+// Sayı/birim ayrıştırıldı — render'da `getHumanResourcesLabels(locale)`'in
+// `monthUnit`/`yearUnit`/`dayUnit`'iyle birleşiyor (ör. "2 Ay"/"2 Months").
+const PROBATION_TRACKING_STRUCTURE: { color: string; bgLight: string; count: number; primaryValue: number; primaryUnit: 'month' | 'year'; secondaryDays: number }[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 2, primaryValue: 2, primaryUnit: 'month', secondaryDays: 30 },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 3, primaryValue: 6, primaryUnit: 'month', secondaryDays: 180 },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 1, primaryValue: 1, primaryUnit: 'year', secondaryDays: 365 },
 ];
-const CONTRACT_TRACKING: TrackingBoxData[] = [
-  { color: '#EF4444', bgLight: '#FEE2E2', count: 1, primaryLabel: '30 gün', secondaryLabel: '' },
-  { color: '#F59E0B', bgLight: '#FEF3C7', count: 2, primaryLabel: '60 gün', secondaryLabel: '' },
-  { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryLabel: '90 gün', secondaryLabel: '' },
+const CONTRACT_TRACKING_STRUCTURE: { color: string; bgLight: string; count: number; primaryDays: number }[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 1, primaryDays: 30 },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 2, primaryDays: 60 },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryDays: 90 },
 ];
 
 // --- "Performans Yönetimi" sekmesi — kurgusal veri (2026-08-25, kullanıcının
@@ -1638,10 +1652,13 @@ function LeaveManagementTab() {
 // filtre ilkesi (`aria-hidden`, gerçek bir dropdown AÇMIYOR), 2026-08-19.
 function HeadcountTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
     <WidgetCard
-      title="Headcount Trendi"
-      subtitle="12 aylık çalışan sayısı"
+      title={t.headcountCard.title}
+      subtitle={t.headcountCard.subtitle}
       headerRight={
         <span
           className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1649,12 +1666,17 @@ function HeadcountTrendCard() {
           }`}
           aria-hidden="true"
         >
-          Toplam
+          {t.headcountCard.totalBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       }
     >
-      <LineChart data={HEADCOUNT_DATA} labels={HEADCOUNT_MONTHS} color="#3B82F6" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+      <LineChart
+        data={HEADCOUNT_DATA}
+        labels={HEADCOUNT_MONTHS.map((mi) => monthAbbrev[mi])}
+        color="#3B82F6"
+        dotFill={isDark ? '#1F2937' : '#ffffff'}
+      />
     </WidgetCard>
   );
 }
@@ -1662,18 +1684,21 @@ function HeadcountTrendCard() {
 // "Çalışan Devir Hızı" — 3 istatistik kutusu + `DualLineChart`, 2026-08-19.
 function TurnoverRateCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
-    <WidgetCard title="Çalışan Devir Hızı" subtitle="Son 6 ay — işe alım vs ayrılma">
+    <WidgetCard title={t.turnoverCard.title} subtitle={t.turnoverCard.subtitle}>
       <div className="grid grid-cols-3 gap-2">
-        {TURNOVER_STATS.map((s) => (
+        {TURNOVER_STATS.map((s, i) => (
           <div
-            key={s.label}
+            key={t.turnoverStats[i]}
             className={`rounded-lg border p-2 text-center transition-colors ${isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'}`}
           >
             <p className="text-lg font-bold" style={{ color: s.color }}>
               {s.value}
             </p>
-            <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{s.label}</p>
+            <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.turnoverStats[i]}</p>
           </div>
         ))}
       </div>
@@ -1681,7 +1706,7 @@ function TurnoverRateCard() {
         <DualLineChart
           dataA={TURNOVER_HIRED}
           dataB={TURNOVER_LEFT}
-          labels={TURNOVER_MONTHS}
+          labels={TURNOVER_MONTHS.map((mi) => monthAbbrev[mi])}
           colorA="#10B981"
           colorB="#EF4444"
           dotFill={isDark ? '#1F2937' : '#ffffff'}
@@ -1690,11 +1715,11 @@ function TurnoverRateCard() {
       <div className={`mt-2 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-2 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#10B981]" aria-hidden="true" />
-          İşe Giren
+          {t.turnoverCard.hiredLegend}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#EF4444]" aria-hidden="true" />
-          Ayrılan
+          {t.turnoverCard.leftLegend}
         </span>
       </div>
     </WidgetCard>
@@ -1705,13 +1730,14 @@ function TurnoverRateCard() {
 // 2026-08-19.
 function PendingApprovalsCard() {
   const { isDark } = useTheme();
+  const t = getHumanResourcesLabels(useWidgetLocale());
   const total = PENDING_APPROVALS.reduce((sum, p) => sum + p.count, 0);
   return (
-    <WidgetCard title="Onay Bekleyen İşlemler" subtitle="Bekleyen onay talepleri">
+    <WidgetCard title={t.pendingApprovalsCard.title} subtitle={t.pendingApprovalsCard.subtitle}>
       <div className="space-y-0.5">
-        {PENDING_APPROVALS.map((p) => (
+        {PENDING_APPROVALS.map((p, i) => (
           <div
-            key={p.label}
+            key={t.pendingApprovals[i]}
             className={`flex items-center gap-2.5 rounded-lg p-1 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
             <span
@@ -1721,13 +1747,13 @@ function PendingApprovalsCard() {
             >
               <p.icon className="h-3.5 w-3.5" style={{ color: p.color }} strokeWidth={2.5} />
             </span>
-            <span className={`flex-1 text-sm ${isDark ? 'text-gray-200' : 'text-body'}`}>{p.label}</span>
+            <span className={`flex-1 text-sm ${isDark ? 'text-gray-200' : 'text-body'}`}>{t.pendingApprovals[i]}</span>
             <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{p.count}</span>
           </div>
         ))}
       </div>
       <div className={`mt-1.5 flex items-center justify-between border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
-        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Toplam Bekleyen</span>
+        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{t.pendingApprovalsCard.totalLabel}</span>
         <span className="text-sm font-bold text-brand">{total}</span>
       </div>
     </WidgetCard>
@@ -1739,10 +1765,13 @@ function PendingApprovalsCard() {
 // `aria-hidden`, gerçekten ay DEĞİŞTİRMİYOR.
 function HRCalendarCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const weekdayAbbrevUpper = WEEKDAY_ABBREV[locale].map((d) => d.toUpperCase());
   return (
     <WidgetCard
-      title="Takvim"
-      subtitle="Doğum günleri, yıldönümleri ve izinler"
+      title={t.calendarCard.title}
+      subtitle={t.calendarCard.subtitle}
       headerRight={
         <div className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
           <span
@@ -1750,7 +1779,7 @@ function HRCalendarCard() {
           >
             <ChevronLeft className="h-3 w-3" />
           </span>
-          <span className={`text-xs font-medium whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Ağustos 2026</span>
+          <span className={`text-xs font-medium whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>{t.calendarCard.monthLabel}</span>
           <span
             className={`flex h-6 w-6 items-center justify-center rounded-md border ${isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 text-body'}`}
           >
@@ -1760,8 +1789,8 @@ function HRCalendarCard() {
       }
     >
       <div className="grid grid-cols-7 gap-0.5 text-center">
-        {CALENDAR_WEEKDAYS.map((w) => (
-          <span key={w} className={`pb-0.5 text-[9px] font-semibold ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+        {weekdayAbbrevUpper.map((w, i) => (
+          <span key={i} className={`pb-0.5 text-[9px] font-semibold ${isDark ? 'text-gray-500' : 'text-muted'}`}>
             {w}
           </span>
         ))}
@@ -1794,15 +1823,15 @@ function HRCalendarCard() {
       <div className={`mt-1.5 flex flex-wrap gap-x-4 gap-y-1 border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.birthday }} aria-hidden="true" />
-          Doğum Günleri
+          {t.calendarCard.legendBirthdays}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.anniversary }} aria-hidden="true" />
-          Yıldönümleri
+          {t.calendarCard.legendAnniversaries}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.leave }} aria-hidden="true" />
-          İzinler
+          {t.calendarCard.legendLeaves}
         </span>
       </div>
     </WidgetCard>
@@ -1835,27 +1864,46 @@ function TrackingBoxRow({ items }: { items: TrackingBoxData[] }) {
 }
 
 function ProbationTrackingCard() {
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const items: TrackingBoxData[] = PROBATION_TRACKING_STRUCTURE.map((p) => ({
+    color: p.color,
+    bgLight: p.bgLight,
+    count: p.count,
+    primaryLabel: `${p.primaryValue} ${p.primaryUnit === 'month' ? t.monthUnit : t.yearUnit}`,
+    secondaryLabel: `${p.secondaryDays} ${t.dayUnit}`,
+  }));
   return (
-    <WidgetCard title="Deneme Süresi Takibi" subtitle="Deneme süresindeki çalışanlar">
-      <TrackingBoxRow items={PROBATION_TRACKING} />
+    <WidgetCard title={t.probationCard.title} subtitle={t.probationCard.subtitle}>
+      <TrackingBoxRow items={items} />
     </WidgetCard>
   );
 }
 
 function ContractTrackingCard() {
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const items: TrackingBoxData[] = CONTRACT_TRACKING_STRUCTURE.map((c) => ({
+    color: c.color,
+    bgLight: c.bgLight,
+    count: c.count,
+    primaryLabel: `${c.primaryDays} ${t.dayUnit}`,
+    secondaryLabel: '',
+  }));
   return (
-    <WidgetCard title="Sözleşme Takibi" subtitle="Yenilenmesi gereken sözleşmeler">
-      <TrackingBoxRow items={CONTRACT_TRACKING} />
+    <WidgetCard title={t.contractCard.title} subtitle={t.contractCard.subtitle}>
+      <TrackingBoxRow items={items} />
     </WidgetCard>
   );
 }
 
 function BirthdayAnniversaryCard() {
   const { isDark } = useTheme();
+  const t = getHumanResourcesLabels(useWidgetLocale());
   return (
-    <WidgetCard title="Doğum Günü & Yıldönümü" subtitle="Bu hafta">
+    <WidgetCard title={t.birthdayCard.title} subtitle={t.birthdayCard.subtitle}>
       <div className="space-y-1.5">
-        {HR_EVENTS.map((event) => (
+        {HR_EVENTS.map((event, i) => (
           <div
             key={event.name}
             className={`flex items-center gap-2.5 rounded-lg border p-2 transition-colors ${
@@ -1871,7 +1919,7 @@ function BirthdayAnniversaryCard() {
             </span>
             <div className="min-w-0 flex-1">
               <p className={`truncate text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{event.name}</p>
-              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{event.description}</p>
+              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.hrEvents[i]}</p>
             </div>
             <span className="text-lg" aria-hidden="true">
               {event.emoji}
@@ -1884,9 +1932,10 @@ function BirthdayAnniversaryCard() {
 }
 
 function HumanResourcesTab() {
+  const t = getHumanResourcesLabels(useWidgetLocale());
   return (
     <div>
-      <SectionMiniHeader icon={Users} title="İnsan Kaynakları" href="/insan-kaynaklari-yonetimi-modulu/" />
+      <SectionMiniHeader icon={Users} title={t.sectionTitle} href="/insan-kaynaklari-yonetimi-modulu/" />
       <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
         <HeadcountTrendCard />
         <BirthdayAnniversaryCard />

@@ -2196,6 +2196,38 @@ hâlâ geçerli.)*
     (tüm 6 kart + şube paylaşımı + ondalık format) görsel doğrulandı —
     bu doğrulama sırasında #54'teki kritik `Intl`/az bulgusu ortaya
     çıktı ve AYNI turda düzeltildi.
+56. **TAMAMLANDI (2026-08-31, 5. tur) — "İnsan Kaynakları" sekmesi 4
+    dilde (EN/NL/IT/AZ) çevrildi.** `getHumanResourcesLabels(locale)`
+    eklendi (Zaman/İzin Yönetimi'yle AYNI mimari). `HEADCOUNT_MONTHS`/
+    `TURNOVER_MONTHS` ay-adı dizilerinden `monthIndex` dizilerine
+    çevrildi (`MONTH_ABBREV[locale][mi]` — #54'ün SABİT tablosunu
+    kullanıyor). `CALENDAR_WEEKDAYS` sabiti tamamen KALDIRILDI —
+    `WEEKDAY_ABBREV[locale].toUpperCase()` ile TÜRETİLİYOR (hiçbir
+    dilin kısaltmasında küçük "i" harfi olmadığı doğrulandığı için
+    Türkçe büyütme bug'ı riski YOK). `PROBATION_TRACKING`/
+    `CONTRACT_TRACKING` sayı+birim olarak ayrıştırıldı (`primaryValue`/
+    `primaryUnit`/`secondaryDays`), `monthUnit`/`yearUnit`/`dayUnit`
+    ile render'da birleştiriliyor. `HR_EVENTS`'in kişi adları
+    ÇEVRİLMEDİ (özel isim), yalnızca `description` ("Doğum Günü —
+    Bugün!" vb.). **Gramer düzeltmesi (Chrome doğrulamasında
+    yakalandı):** İlk yazımda `monthUnit` EN "Month"/NL "Maand"/IT
+    "Mese" TEKİL'di — ama `PROBATION_TRACKING`'te bu birim yalnızca
+    2/6 (>1) değerleriyle kullanılıyor, "2 Month" gibi dilbilgisel
+    olarak yanlış bir çıktı verdi. TR/AZ'da (Türkçe/Azerice sayı+isim
+    yapısında çoğul eki gerekmez) sorun YOKTU. EN "Months"/NL
+    "Maanden"/IT "Mesi" (çoğul) olarak düzeltildi — `yearUnit`
+    değişmedi (yalnızca 1 değeriyle kullanılıyor, zaten tekil doğru).
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
+    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
+    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İnsan Kaynakları
+    sekmesi (7 kart: Headcount/Doğum Günü/Çalışan Devir/Onay Bekleyen/
+    Takvim/Deneme Süresi/Sözleşme) görsel doğrulandı — IT/AZ için
+    widget'ın kendi `AUTO_TAB_INTERVAL_MS` (6sn) otomatik sekme
+    döngüsü ekran görüntüsü almayı zorlaştırdığından, doğrulama
+    `javascript_tool` ile doğrudan DOM metni okunarak (`innerText`)
+    yapıldı — aynı derecede güvenilir, ekran görüntüsüne muhtaç değil.
+    **Kalan sekmeler:** Performans Yönetimi → Veri Analizi + paylaşılan
+    panel metinleri (sıradaki turlar).
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
