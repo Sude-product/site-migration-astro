@@ -61,7 +61,10 @@ export const nl: Translations = {
       phone: 'Telefoonnummer',
       email: 'E-mail',
       company: 'Bedrijfsnaam',
+      next: 'Doorgaan',
+      back: 'Terug',
     },
+    presentationTrustCaption: 'Sluit u aan bij 1.000+ klanten die idenfit vertrouwen.',
   },
   footer: {
     columnTitles: {
@@ -376,10 +379,9 @@ export const nl: Translations = {
       imageAlt: 'idenfit gebruiksvriendelijk dashboard screenshot',
     },
     suprema: {
-      title: 'Contactloze identificatie & Toegangssystemen',
+      title: 'Een Tijdregistratieplatform Geïntegreerd Met Alle Hardware',
       text:
         'Dankzij de integratie van Idenfit met gezichtsherkenning en vingerafdrukscanners kan de identiteit van medewerkers in realtime worden geverifieerd. Ook het bijhouden van in- en uitklokken tijdens shifts en pauzes kan eenvoudig beheerd worden.',
-      partnerLabel: 'Hardwarepartner',
     },
     testimonials: {
       title: 'Verbeter de werknemerservaring',

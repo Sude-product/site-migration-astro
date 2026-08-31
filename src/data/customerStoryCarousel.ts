@@ -222,11 +222,16 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     // ikinci paylaştığı Wikimedia Commons kaynağı (CC-BY-SA 4.0, gerçek
     // RGBA alfa kanallı, filigransız resmi logo) kullanıldı, yerelleştirildi
     // (`public/images/customer-ibis-styles-logo.png`).
+    // DÜZELTME (aynı gün, ikinci tur) — kullanıcı videoyu DEĞİŞTİRDİ
+    // (`p5XRqskpHVQ` → `UDHFuDB53n8`, farklı bir video). `loopStart`/
+    // `loopEnd` (31-59sn) kullanıcının AÇIK KARARIYLA aynen korundu —
+    // yeni videonun içeriği bu turda izlenmedi/doğrulanmadı, kullanıcı
+    // saniye aralığını kasıtlı olarak değiştirmeden bırakmayı seçti.
     type: 'video',
     storyKey: 'ibisStyles',
     companyName: 'ibis Styles Hotels',
     logo: { url: '/images/customer-ibis-styles-logo.png', width: 200, height: 200 },
-    videoUrl: 'https://youtu.be/p5XRqskpHVQ',
+    videoUrl: 'https://youtu.be/UDHFuDB53n8',
     loopStart: 31,
     loopEnd: 59,
   },

@@ -3,10 +3,14 @@
 idenfit.com (İK/HR SaaS) WordPress'ten Astro'ya migrasyon. Astro + React
 island mimarisi, i18n (tr/en/nl/it + **az** — ana sayfa/tekil sayfalar/
 sektörler/ürünler/hub'lar dahil büyük ölçüde tamamlandı, SSS/hukuki aile
-TR'ye fallback ediyor, bkz. §Açık noktalar #37), Tailwind v4, `output:'static'` →
-Cloudflare Pages. Genel durum: ana sayfa, mega-menü, tüm ürün/modül
+TR'ye fallback ediyor, bkz. §Açık noktalar #37), Tailwind v4. **2026-08-27'de
+`output:'static'` → `output:'server'` + `@astrojs/cloudflare` adapter'a
+geçildi** (Keystatic CMS geçişinin ADIM 1'i, bkz. aşağıdaki "KEYSTATIC
+GEÇİŞİ" bölümü) — Cloudflare Pages yerine artık Cloudflare Workers+Assets
+deploy modeli hedefleniyor. Genel durum: ana sayfa, mega-menü, tüm ürün/modül
 sayfaları (18 modül + Puantaj + 2 hub + Demirbaş/Seyahat), 12 sektör
-sayfası, 622 blog yazısı (618 JSON + 4 Markdown pilot), Müşteriler,
+sayfası, 622 blog yazısı (622/622 Markdown, `posts.json` göçü 2026-08-29'da
+tamamlandı), Müşteriler,
 Destek Talebi, Hesaplama Araçları, Dijital İK Olgunluk Testi, Fiyatlar,
 Hakkımızda, İletişim, SSS, KVKK/hukuki sayfa ailesi (+ KVK Protokol),
 Footer/Header tamamlandı. Site denetim raporu (14 madde) + kapsamlı URL
@@ -14,9 +18,15 @@ denetimi (853 canlı URL karşılaştırması) kapandı. Landing Page (/demo)
 tamamlandı (2026-08-11, f21f863). Ana sayfa interaktif Ürün Önizleme
 widget'ı (11/11 sekme + üst header'ın 9/9 ikon paneli) tamamlanıp commit
 edildi, sonrasında birden fazla iyileştirme turu (renk/boyut/dashboard
-içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Şu anki
-odak: Blog CMS (Decap) kademeli üretimi + SEO/erişilebilirlik/GEO takip
-turları (bkz. §Açık noktalar #28).
+içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Blog CMS
+göçü (Decap→Keystatic, 2026-08-27'de başladı) ADIM 1/2 tamamlandı, 622/622
+yazı Markdown'a taşındı (2026-08-29) — ADIM 3 (son doğrulama/commit onayı)
+kullanıcıyı bekliyor, bkz. aşağıdaki "KEYSTATIC GEÇİŞİ" bölümü. **Şu anki
+odak (2026-08-29/30): Online Sunum Talebi sayfasının baştan tasarımı**
+(bkz. aşağıdaki "Güncel durum" — çok turlu bir yeniden tasarım süreci,
+kullanıcı geri bildirimiyle ilerledi, hâlâ devam edebilir); ardından SEO/
+erişilebilirlik/GEO takip turlarına (bkz. §Açık noktalar #28) geri
+dönülecek.
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 `docs/claude-md-archive-2026-08-18.md` (2026-08-13→2026-08-19 tam
@@ -27,6 +37,198 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 `docs/claude-md-archive-2026-08-06.md` (2026-07-21→2026-08-06),
 `docs/claude-md-archive-2026-07-31.md`, `docs/claude-md-archive-2026-07-28.md`,
 `docs/claude-md-archive-2026-07-23.md`.
+
+---
+
+## 🔶 KEYSTATIC GEÇİŞİ — devam ediyor, karar bekleniyor (2026-08-27'de başladı)
+
+Blog CMS aracı Decap CMS'ten Keystatic'e geçiriliyor. Projenin temel render
+mimarisini (`astro.config.mjs`) etkileyen bir değişiklik olduğu için ADIM
+ADIM, her adım sonrası doğrulama + kullanıcı onayıyla ilerleniyor —
+927+ sayfalık SEO/GEO emeğinin KORUNMASI öncelik. **Güvenlik ağı:**
+`keystatic-oncesi-yedek` dalı hem `origin` hem `idenfit` remote'unda,
+`ef3666b` commit'inde duruyor — bu turdaki HERHANGİ bir değişiklikten geri
+dönüş her zaman mümkün.
+
+**ADIM 0 (referans nokta) — ✅ TAMAMLANDI.** Değişiklik öncesi `astro
+build` çıktısı referans alındı: `dist/` toplam **3114 HTML dosyası** (3113
+gerçek içerik sayfası + 1 `admin/index.html` Decap kabuğu). 8
+`check-*.mjs` regresyon script'i çalıştırılıp sonuçlar kayıt altına
+alındı — hepsi bilinen/kabul edilmiş taban çizgisiyle uyumluydu (heading
+6 sorunlu [5'i bilinen ana sayfa H1→H3 + 1 admin], hreflang 0 [site alanı
+boş, beklenen], html-lang 0 sorunlu gerçek sayfa, image-alt 0, json-ld
+2630 blok/0 geçersiz, link-accessibility 0, meta-description 1 sorunlu
+[admin], title-length 1 sorunlu [admin]).
+
+**ADIM 1 (output modu değişikliği) — ✅ TAMAMLANDI.**
+- `astro.config.mjs`: `output:'server'` + `@astrojs/cloudflare` adapter
+  eklendi (Astro 5+'ta `hybrid` kaldırıldığı doğrulandı, modern eşdeğeri
+  budur). **201/201 mevcut sayfa dosyasına** `export const prerender =
+  true;` script ile eklendi (config seviyesinde toplu seçenek yok, tek
+  tek eklenmesi şart) — hiçbiri yanlışlıkla server-render'a kaymadı.
+- `npm install` → `npm ci` temiz kurulum doğrulandı, `astro build` exit 0.
+- **Referans sayı karşılaştırması, kullanıcı onayıyla kriter güncellendi:**
+  3114 → **3091** HTML dosyası (23 azaldı). Fark TAM açıklanıyor, regresyon
+  DEĞİL: Cloudflare adapter, `astro.config.mjs`'teki 23 manuel `redirects`
+  girdisini artık statik meta-refresh HTML yerine native Cloudflare
+  `_redirects` dosyasında GERÇEK 301 kuralı olarak yazıyor (`wrangler dev`
+  ile `/suprema`→301→`/donanim` doğrulandı) — SEO açısından ÖNCEKİNDEN
+  DAHA İYİ bir mekanizma. Otomatik i18n fallback stub'ları (2163 sayfa)
+  hiç değişmeden statik kaldı. **928 gerçek içerik sayfası birebir
+  korundu.**
+- 8 regresyon script'i `DIST_DIR=dist/client` ile (script dosyalarına
+  DOKUNULMADAN, zaten var olan env değişkeniyle) yeniden çalıştırıldı —
+  ADIM 0 taban çizgisiyle birebir aynı, sıfır yeni regresyon.
+- **Açık nokta olarak kaydedildi (bkz. §Açık noktalar #40) — düşük
+  öncelik, ayrı bir turda ele alınacak:** var olmayan `/en/`, `/nl/`,
+  `/it/`, `/az/` URL'lerinde HTTP status kodu her zaman doğru 404
+  dönüyor (SEO sinyali sağlam) ama içerik artık HER ZAMAN TR gösteriliyor
+  (kök neden: Astro'nun i18n `fallback` mekanizması `output:'server'`'da
+  bilinmeyen yollar için de dinamik yönlendirme davranışına sahip oldu,
+  2 çözüm denendi ikisi de bu önceliğe yenildi — detay CLAUDE.md #40'ta).
+  **927+ gerçek sayfa ETKİLENMİYOR.**
+
+**ADIM 2 (Keystatic kurulumu) — 🔶 YARIDA, KARAR BEKLİYOR.**
+- `@keystatic/core` + `@keystatic/astro` kuruldu, `astro.config.mjs`'e
+  `keystatic()` integration'ı eklendi.
+- **BÜYÜK BULGU — Keystatic'in `storage:{kind:'local'}` modu Cloudflare
+  Workers runtime'ıyla (workerd) MİMARİ OLARAK UYUMSUZ.** `local` mod
+  git çalışma dizinine doğrudan `fs` (dosya sistemi) erişimi gerektiriyor
+  — Workers (hem `astro dev` hem `wrangler dev`'de, hatta prod'da) bunu
+  sağlamıyor. Kanıt: `wrangler dev` üzerinde gerçek build'i test ederken
+  Keystatic'in kendi API'si açıkça şu hatayı döndürdü: *"The Keystatic
+  API route is running in a non-Node.js environment which is not
+  supported with `storage: { kind: 'local' }`"*. (`astro dev`'de ayrıca
+  farklı bir "exports is not defined" Vite SSR/CJS-bundling çökmesi de
+  vardı — muhtemelen aynı kök nedenin farklı bir belirtisi, `nodejs_compat`
+  ve `vite.ssr.external` denendi, ikisi de çözmedi.) Bu, config'le
+  düzeltilemeyecek bir mimari sınır.
+- **İki gerçek seçenek belirlendi, kullanıcı ekibiyle görüşüp KARAR
+  VERDİ (2026-08-28): (A) Keystatic Cloud.** Seçenekler:
+  - **(A) `storage:{kind:'cloud'}` + `cloud:{project:'takım/proje'}`**
+    — Keystatic Cloud'un ücretsiz katmanı (takım başına 3 kullanıcıya
+    kadar, sınırsız takım/proje). Keystatic'in kendi ifadesiyle: *"No
+    need to deal with environment variables and a custom GitHub app."*
+    Manuel GitHub OAuth App kurulumu GEREKMİYOR — ama üçüncü taraf bir
+    kimlik doğrulama/aracı bağımlılığı yaratıyor (İÇERİK'in kendisi HİÇBİR
+    ZAMAN Keystatic'in sunucularında durmuyor, yalnızca giriş/token
+    değişimi oradan geçiyor — asıl veri her zaman GitHub'da kalıyor).
+    Cloudflare Workers runtime'ıyla uyumlu olması BEKLENİYOR (saf
+    HTTP/API çağrıları, `local` modun fs sorunu burada yok) — henüz
+    CANLI test edilmedi.
+  - **(B) `storage:{kind:'github'}`** — kendi GitHub OAuth App'imiz,
+    sıfır üçüncü taraf bağımlılığı, ama Decap'te kaçınılmaya çalışılan
+    AYNI yükü taşıyor (client ID/secret env değişkenleri, kendi
+    token-exchange backend route'u) — Cloudflare adapter zaten kurulu
+    olduğu için bu backend route'u barındırmak artık daha az ek iş
+    (ADIM 1 sayesinde zaten SSR var), ama yine de manuel kurulum şart.
+  - İlk yanlış öneri (düz "GitHub moduna geç") kullanıcı tarafından
+    doğru şekilde sorgulandı — 2 modun (`github` vs `cloud`) OAuth App
+    gereksinimi bakımından TAMAMEN FARKLI olduğu netleştirildi, kesin
+    cevap kurulu paketin TypeScript tip tanımları (`config.d.ts`) +
+    Keystatic'in resmi `/docs/cloud` sayfası okunarak doğrulandı.
+  - **KARAR NETLİĞİ (kullanıcı notu, 2026-08-28):** (A) Cloud, KALICI bir
+    mimari karar DEĞİL — geçici bir tercih. Canlıya çıkış sonrası, iş
+    yükü azaldığında (B)'ye (kendi GitHub OAuth App'imiz) geçiş
+    PLANLANIYOR. Bu geçiş düşük risklidir — yalnızca `keystatic.config.ts`'in
+    `storage`/`cloud` satırlarını ve yeni bir OAuth App kurulumunu
+    etkiler, sitenin geri kalanına (şema, sayfalar, veri) dokunmaz.
+- **Uygulandı (2026-08-28):** `keystatic.config.ts`'e `storage:{kind:'cloud'}`
+  + `cloud:{project:'idenfit/idenfit-astro'}` yazıldı — **proje adı
+  PLACEHOLDER**, kullanıcı keystatic.cloud'da gerçek hesap/proje
+  oluşturunca gerçek `takım-slug/proje-slug` ile değiştirilecek. Şu anki
+  kod durumu (commit EDİLMEDİ): `.keystatic-scratch-test/` hâlâ geçici
+  test koleksiyonu taşıyor (gerçek blog şeması bir sonraki adımda proje
+  adı netleşince yazılacak). `wrangler.json` (`compatibility_flags:
+  ["nodejs_compat"]`) + `astro.config.mjs`'teki `keystatic()` integration'ı
+  + `package.json`'daki `@keystatic/core`/`@keystatic/astro` bağımlılığı
+  ADIM 2'nin önceki turundan aynen duruyor.
+
+**ADIM 2 devamı — ✅ TAMAMLANDI (2026-08-28).**
+1. **keystatic.cloud proje kurulumu doğrulandı.** `keystatic.config.ts`'teki
+   `cloud:{project:'idenfit/idenfit-astro'}` kullanıcının GERÇEK
+   kurulumuyla birebir eşleşti (placeholder değil). `localhost:4321/keystatic`
+   → otomatik `127.0.0.1` loopback'e yönlenip "Log in with Keystatic
+   Cloud" ile sorunsuz giriş yapıldı — **dashboard'daki "Primary URL"
+   alanı yalnızca kozmetik/bilgi amaçlı**, OAuth `redirect_uri`'si
+   `window.location.origin`'e (o anki origin, ne olursa olsun) dayanıyor
+   — kanıt: `@keystatic/core`'un kendi `keystatic-core-ui.js` kaynağı,
+   `redirect_uri: \`${window.location.origin}/keystatic/cloud/oauth/callback\``.
+2. **Gerçek blog şeması yazıldı**, `scratchTest` koleksiyonu kaldırıldı.
+   Şema, eski Decap config.yml'nin (`public/admin/config.yml`) alan
+   seçimini birebir taşıyor + `content.config.ts`'in zod şemasındaki
+   TÜM alanları kapsıyor (`slug`/`title`/`metaTitle`/`date`/
+   `modifiedDate`/`excerpt`/`featuredImage`{url,alt,width,height}/
+   `categories`/`tags`/`authorName`/`content`). **Not: ayrı bir
+   "description" alanı YOK** — `excerpt` hem blog listesinde hem
+   `<meta name="description">`/`og:description`'da kullanılıyor
+   (`[slug].astro:90,115`), bu tasarım gereği tek alan.
+3. **Cloud modda canlı git commit testi yapıldı ve onaylandı.**
+   `idenfit-yatirim-duyurusu.md`'nin Özet alanına test metni eklenip
+   Save'e basıldı → gerçek commit `66fea5e` (`keystatic-cloud[bot]`,
+   `idenfit/idenfit.com` reposu — yerel `master` dalının zaten takip
+   ettiği repo) doğru dosyayı değiştirdi. **3 istenmeyen yan etki
+   bulundu** (yalnızca excerpt'e dokunulmuştu): (a) gövdede 2 çift
+   boşluk sessizce `&nbsp;`'ye döndü, (b) `date` `'2024-10-02T09:30:00'`
+   (tırnaklı/naive) → `2024-10-02T09:30:00.000Z` (UTC "Z" damgalı,
+   3 saatlik anlamsal kayma riski, bugün görünür etkisi yok çünkü saat
+   gösterilmiyor), (c) YAML biçimi değişti (uzun string'ler `>-` katlanmış
+   bloğa döndü, frontmatter sonrası boş satır kayboldu) — **kalıcı ders:
+   Keystatic'in markdoc editörü SAVE'de dokunulmayan alanları bile
+   yeniden serileştiriyor.** `date`/`datetime` alanı ayrıca saniye
+   içeren mevcut değerlerde (`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$` regex'i,
+   saniye YOK) "is not a valid datetime" hatası verip Save'i
+   engelliyordu — saat alanına dokunup (değer aynı kalacak şekilde)
+   onChange tetiklenerek aşıldı. Test commit'i `git revert 66fea5e`
+   ile (Keystatic panelinden TEKRAR düzenleme DEĞİL — o da aynı
+   yeniden-biçimlendirmeyi tekrar tetiklerdi) byte-byte orijinale
+   döndürülüp `idenfit` remote'una push edildi (`74e3fca`). **Not:**
+   `origin` (Sude-product/site-migration-astro) bu commit çiftini
+   almadı, iki remote arasında senkron açık nokta olarak kaldı — bkz.
+   Açık nokta #41.
+4. **`featuredImage: null` riski bulunup DÜZELTİLDİ.** Görseli olmayan
+   tek yazı (`zirve-katilim-ix-kurumsal-egitim-ve-gelisim-zirvesi.md`)
+   panelde hatasız açıldı ama Keystatic'in `fields.object()`'i asla
+   `null` YAZAMIYOR — SAVE edilirse boş-string'li ama TRUTHY bir objeye
+   dönüşüp `<img src="">` kırık etiketi render edebilirdi.
+   `fields.conditional` izole bir scratch-test'te denendi
+   (`.keystatic-scratch-image-test/`, sonra temizlendi) — YAML'a düz
+   `null` DEĞİL `{discriminant, value}` sarmalayıcısı yazdığı görüldü,
+   mevcut zod şemasıyla uyuşmuyor. Bunun yerine **render tarafı
+   sağlamlaştırıldı**: `src/pages/blog/[slug].astro`'daki 2 truthy
+   kontrolü (hero görseli + "Benzer Yazılar" kartları)
+   `featuredImage &&` → `featuredImage?.url &&`'e çevrildi — hem `null`
+   hem boş-string'li obje için doğru çalışıyor, commit EDİLMEDİ (diğer
+   Keystatic değişiklikleriyle birlikte bekliyor).
+
+**ADIM 3 (son doğrulama) — henüz başlanmadı**, ADIM 2 tamamlandı, sıradaki
+adım kullanıcının bu turu gözden geçirip commit onayı vermesi.
+
+**✅ TAMAMLANDI (2026-08-29) — Kademeli blog göçü (Açık nokta #21'in ilk
+maddesi) bitti: 622/622 yazı artık `.md`.** `posts.json`'da kalan 618
+yazı 4 grup halinde (151+151+151+151, `scripts/migrate-blog-to-markdown.mjs`)
+taşındı — grup öncesi her seferinde pilot turda bulunan 3 bug'ın (aşağıda)
+kalıcılığı doğrulandı, grup sonrası `astro build` + 8 regresyon script'i
++ 8 rastgele yazının satır satır orijinaliyle karşılaştırması yapıldı.
+**Sıfır veri kaybı, sıfır regresyon** — `check-json-ld` boyunca
+`BlogPosting: 622` sabit kaldı, `check-link-accessibility` her turda 0.
+`posts.json` şu an boş dizi. 4 commit (`8a53134`, `7ac70ce`, `f077f43`,
+`f47e313`), hem `origin` hem `idenfit` remote'una push edildi.
+
+**Süreçte migrasyon script'inde bulunup düzeltilen 3 sessiz veri kaybı
+(pilot turda, gerçek migrasyon başlamadan önce yakalandı):**
+1. `scripts/lib/html-to-markdown.mjs` — Turndown `<cite>`/`<sup>`
+   etiketlerini unwrap ediyordu (19 cite'lı yazının GEO atıf işaretlemesi
+   + KPMG `<sup>` dipnotu migrasyonda tamamen silinirdi). Düzeltme:
+   `td.keep(['iframe','cite','sup'])`.
+2. `scripts/migrate-blog-to-markdown.mjs`'in frontmatter builder'ı
+   `metaTitle`/`modifiedDate`/`authorName`'i hiç kopyalamıyordu (431/618
+   yazının `<title>` SEO optimizasyonu + JSON-LD `dateModified` kaybolurdu).
+3. `fixLinkAccessibility()`'nin eklediği `aria-label`, Turndown'ın
+   varsayılan link kuralında (`[metin](url)`) taşınamadığı için sessizce
+   atılıyordu — hem `fixLinkAccessibility()` migrasyona eklendi hem
+   `aria-label` taşıyan `<a>`'lar ham HTML olarak korunacak yeni bir
+   Turndown kuralı yazıldı.
 
 ---
 
@@ -82,9 +284,81 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-24)
+## Güncel durum (son güncelleme: 2026-08-29/30)
 
-**🟡 2026-08-24, en son — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
+**🟡 2026-08-29/30, en son — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
+Kaynağın (idenfit.com/online-sunum-talep-et/) BİREBİR DOM yapısına
+(şeffaf sol kolon + kırmızı arka plan + sağ form kartı) sadık kalan eski
+tasarım kullanıcı isteğiyle TAMAMEN terk edildi. Yeni tasarım kullanıcının
+paylaştığı bir mockup + `/demo` (Landing Page) sayfasının birkaç
+parçasının harmanı — **içerik hiçbir yerde uydurulmadı**, tüm metin/görsel
+zaten onaylı gerçek veri (`misc-pages.json`, Müşteriler sayfasının logo
+şeridi, `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" metinleri),
+yalnızca YENİDEN DÜZENLENDİ. Kronolojik özet (aynı gün 6 geri bildirim
+turu):
+1. **Baştan kurulum:** Ortalanmış hero (radyal gradyan, ana sayfanın
+   `#FFDCDC→#FFF3F3→#FFFFFF` tonlarıyla AYNI) + form kartı (`/demo`'nun
+   nabız/halka dekorasyonu `LandingPulseDecoration.tsx` arkasında) + form
+   2 ADIMA bölündü (Adım 1: e-posta+firma, Adım 2: telefon+ad soyad —
+   kullanıcı talimatıyla bu sıra, `/demo`'nun `LandingRequestForm.tsx`
+   iskeleti temel alınıp yeni `PresentationRequestForm.tsx` yazıldı,
+   `t.hero.presentationForm.next`/`back` 5 dilde eklendi).
+2. Başlık-form arası "chip" şeridi + sayfa altındaki 2 logo şeridi
+   (referanslar/entegrasyonlar) kaldırıldı (sadeleştirme).
+3. `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" bölümleri, bu
+   sayfaya özel daha zarif bir tasarımla eklendi (`PresentationTimeline.astro`/
+   `PresentationFeatureGrid.astro`) — kart yüzeyleri + idenfit'in gerçek
+   logo yıldızı her kartın köşesinde dönüyor (`IdenfitStar` +
+   `idenfit-star-spin`, Müşteri Hikayeleri carousel'indeki AYNI, zaten
+   onaylı animasyon deseni yeniden kullanıldı). **Yan bulgu, aynı turda
+   düzeltildi:** `BaseLayout.astro` `.reveal` scroll-fade script'ini
+   (`scroll-reveal.js`) OTOMATİK yüklemiyor — yalnızca `/demo`/ana sayfa
+   gibi onu elle ekleyen sayfalarda çalışıyor, bu yeni sayfaya da eklendi
+   (aksi halde yeni bölümler kalıcı görünmez kalırdı).
+4. Yıldız dokusu çoğaltılıp KARIŞIK/asimetrik yerleştirildi + üstten
+   kesilme sorunu (`overflow-hidden`) düzeltildi; "Hemen Ara" satırı
+   kaldırıldı; H1 kırmızıya çevrildi; Müşteriler sayfasının GERÇEK 14
+   logoluk şeridi (`CustomerLogoMarquee.astro`) + yeni bir güven cümlesi
+   form kartının altına eklendi. **Rakam notu:** kullanıcı "5.000+" dedi,
+   ama sitenin HER YERİNDE (ana sayfa `logoStrip.caption`, `/demo`
+   BENEFITS) onaylı rakam "1.000+" — çelişki bildirildi, netleşene kadar
+   "1.000+" ile yazıldı (`t.hero.presentationTrustCaption`, 5 dilde,
+   rakam UYDURULMADI).
+5. Form kartı içindeki "Online Sunum Talebi" başlığı kırmızı yapıldı,
+   hero'ya 2 yıldız daha eklendi, sayfa altındaki LastUpdated şeridine
+   `#FAFAFA` arka planı verilip footer'a kesintisiz akması sağlandı
+   (önceden şeffaf/beyazdı, gri footer'dan önce kopuk bir şerit gibi
+   duruyordu).
+6. **Site geneli bir mimari düzeltme:** breadcrumb ("Ana Sayfa / ...")
+   HER sayfada düz beyaz zeminde render ediliyor, hemen altındaki renkli/
+   gradyanlı bir hero varsa aralarında görünür bir "dikiş" bırakıyordu —
+   kullanıcı bunun sitedeki GENEL bir sorun olduğunu belirtti.
+   `BaseLayout.astro`'ya YENİ, opsiyonel bir `heroBackground` prop'u
+   eklendi (breadcrumb'ı saran kutuya düz renk uygular — hero'nun
+   gradyanının TAMAMINI değil, yalnızca 0% rengini, iki ayrı kutuda aynı
+   gradyanı hizalamaya çalışmak kırılgan olurdu). Verilmezse (varsayılan)
+   TÜM diğer sayfalarda DAVRANIŞ DEĞİŞMEZ — spot-check + tam regresyon
+   suite'iyle doğrulandı. Bu sayfa `heroBackground="#FFDCDC"` kullanıyor.
+   Güven cümlesi/logo şeridi de bu turda bir kez daha aşağı kaydırıldı.
+
+**Doğrulama (her turda tekrarlandı):** `astro check` 0 hata, `astro
+build` 3097 dosya, 8 regresyon script'i (json-ld/link-accessibility/
+heading-hierarchy/image-alt-text/meta-description/title-length/html-lang/
+hreflang) HER SEFERİNDE bilinen taban çizgisiyle birebir aynı — sıfır yeni
+regresyon. Chrome'da her turda görsel doğrulama yapıldı. Yeni dosyalar:
+`PresentationRequestForm.tsx`, `PresentationTimeline.astro`,
+`PresentationFeatureGrid.astro`. Commit'ler (kronolojik):
+`ba25806`→`81b2edc`→`f570d9b`→`75e9803`→`34c3f14`, her biri hem `origin`
+hem `idenfit` remote'una push edildi — **çalışma ağacı şu an TEMİZ,
+bekleyen commit yok.** Kullanıcı "yarın devam ederiz" dedi — sayfa muhtemelen
+daha fazla ince ayar geçirecek, bu KAPANMIŞ bir iş değil, bir sonraki
+oturumda bu günlüğün devamı beklenmeli.
+
+Aynı gün, ayrıca ana sayfanın hero headline'ı (`t.hero.headline`, TÜM
+locale'lerin PAYLAŞTIĞI `HeroSection.astro`) `text-heading`'den
+`text-brand`'a (kırmızı) çevrildi — kullanıcı talimatı, içerik değişmedi.
+
+**🟡 2026-08-24, ayrıca — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
 `curl` ile `dist/index.html`'de tekrar doğrulandı: LinkedIn `sameAs`'te
 (`linkedin.com/company/idenfithr/`, kanonik adres, bkz. 2026-08-22 notu).
 `check-meta-description-length.mjs`: 927/928 sayfa tamam, tek istisna
@@ -1011,25 +1285,112 @@ hâlâ geçerli.)*
    ekiple görüşülüp netleşmeyi bekliyor; şimdilik üretilmiyor.
    **İstisna:** Online Sunum Talebi'nin NL versiyonu kullanıcının açık
    talimatıyla eklendi (`PRESENTATION_NL_OVERRIDE`).
-2. **Faz 2 backend yok** — Hero formu + HR Maturity Test sonuç
-   sayfasının "raporu e-postama gönder" butonu `console.log` stub/devre
-   dışı. Faz 2'de (Cloudflare Pages Functions) gerçek backend'e
-   bağlanacak.
+2. **GENİŞLETİLDİ (2026-08-30) — Faz 2 backend yok, 6 form etkileniyor,
+   +KVKK hukuki risk notu.** Bu maddenin eski/eksik hali yalnızca Hero
+   formu + HR Maturity Test'ten bahsediyordu — tam liste + KVKK onay
+   metniyle çelişen hukuki risk notu artık CLAUDE.md'de "## Deployment"
+   bölümünün HEMEN ÜSTÜNDEKİ "🔶 AÇIK NOKTA (2026-08-30)" bloğunda
+   kayıtlı, bkz. orası. Kod değişikliği HENÜZ YAPILMADI.
 6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
 8. Puantaj modülünün gerçek YouTube `video_url`'i var ama bilinçli
    olarak embed edilmedi.
 9. İzin Yönetimi modülünün testimonial bloğu veride var ama PDKS
    şablonuna sadık kalmak için render edilmiyor.
-10. `tesekkurler-destek` (id 16712) bulundu ama migrate edilmedi.
+10. **İÇERİK TAMAMLANDI (2026-08-29), BAĞLANTI Faz 2'yi bekliyor —
+    `tesekkurler-destek` (id 16712) migrate edildi.** Destek Talebi
+    formunun (`/destek-talebi/`) teşekkür sayfası — KARIŞTIRILMASIN,
+    `/tesekkurler/`'deki (Online Sunum Talebi'nin teşekkür sayfası,
+    `thankYouContent.ts`) BAMBAŞKA bir sayfa. Yeni dosyalar:
+    `src/data/supportThankYouContent.ts`, `src/components/SupportThankYouPage.astro`,
+    `src/pages/tesekkurler-destek.astro` (TR), `src/pages/en/thank-you.astro`
+    (EN). TR/EN gerçek WP sayfaları (id 16712/16742) — IT/NL kaynakta hiç
+    yok, IT/AZ genel `it:'tr'`/`az:'tr'` fallback'iyle otomatik bare TR'ye
+    düşüyor, NL'de per-locale slug FARKLI olduğu için `astro.config.mjs`'e
+    elle `'/nl/tesekkurler-destek': '/en/thank-you'` redirect'i eklendi
+    (KVKK/`tesekkurler`/`destek-talebi` sınıfının aynısı). **URL doğrulaması
+    yapıldı — 1 gerçek bug bulunup düzeltildi:** `astro.config.mjs`'te
+    ÖNCEDEN var olan `'/en/thank-you': '/en/thanks'` girdisi (2026-08-05
+    URL denetiminden kalma) YANLIŞTI — canlı sitede `idenfit.com/en/thank-you/`
+    doğrudan ziyaret edilip doğrulandı: bu, Online Sunum Talebi'nin
+    "thanks" sayfasının bir takma adı DEĞİL, tamamen ayrı ve GERÇEK bir
+    sayfa (id 16742, içerik birebir eşleşti). Yanlış redirect KALDIRILDI,
+    yeni EN sayfamız artık kendi gerçek URL'inde. **`<title>` uzunluk
+    düzeltmesi:** EN başlığı (`buildIdenfitTitle()`'ın otomatik niteleyicisi
+    60 karakteri aşıyordu) `SupportThankYouPage.astro`'ya eklenen `title`
+    override prop'uyla (`ProductPage.astro`'daki AYNI desen) kısaltıldı, H1
+    DEĞİŞMEDİ. `astro check` 0 hata, `astro build` 3097 sayfa, 8 regresyon
+    script'i (json-ld/link-accessibility/heading-hierarchy/image-alt-text/
+    meta-description/title-length/html-lang/hreflang) bilinen taban
+    çizgisiyle birebir aynı — sıfır yeni regresyon. Chrome'da TR+EN görsel
+    doğrulandı (görsel/breadcrumb/linkler/Son Güncelleme tarihi hepsi
+    canlı kaynakla eşleşiyor). **⚠️ BİLEREK YAPILMADI —
+    `SupportRequestForm.tsx`'in bu sayfaya yönlendirilmesi:** form hâlâ
+    backend'siz (`console.log` stub, Faz 2/Cloudflare Pages Functions
+    bekliyor) — "başarılı" bir onay sayfasına yönlendirmek, form aslında
+    hiçbir yere gitmediği için kullanıcıya YANLIŞ bilgi verirdi. Form
+    gerçek submit işlevine kavuştuğunda (Faz 2) bağlantı eklenecek — bkz.
+    `ThankYouPage.astro`'daki (Online Sunum Talebi'nin teşekkür sayfası)
+    AYNI bekleyen-durum, madde 2/12 ile aynı kategori.
 12. **TODO — HR Maturity Test sonuç sayfasının PDF rapor gönderimi
     backend'siz** (madde 2 ile aynı Faz 2 kategorisi).
 13. **BULGU — site geneli sabit WhatsApp/Ara widget'ı yok, kaynakta
     var.** Kapsam dışı, istenirse eklenebilir.
-14. **Görsel yerelleştirme kısmen tamamlandı** — yalnızca İK Olgunluk
-    Testi + `pdks-nedir` blog yazısı yerelleştirildi. **Kalan ~1260
-    görsel (618 blog yazısı + 10 veri dosyası) hâlâ hotlink** — kademeli
-    üretim onayı bekliyor. Script: `scripts/localize-images.mjs`.
-    **Karar (2026-08-12):** Faz 2'ye geçmeden hemen önce ele alınacak.
+14. **TAMAMEN KAPANDI (2026-08-30) — 622 blog yazısının TÜM görselleri
+    yerelleştirildi VE `.md`'lerdeki URL'ler göreliye çevrildi, blog
+    artık `idenfit.com` domainine hiç bağımlı değil.** Kullanıcının
+    paylaştığı bir denetim raporu "973 blog görseli eski WordPress'e
+    mutlak URL'yle bağlı, DNS geçişinde hepsi 404 verir" bulgusunu
+    getirdi, 2 turda kapatıldı:
+    1. **Yerelleştirme:** 976 benzersiz görsel dosyası doğrulandı (622
+       `.md`'de, `public/wp-content/uploads/`'da 0'ı mevcuttu).
+       `reference/wordpress-export/uploads.zip` bu makinede YOK
+       (gitignore'da, hiç commit edilmemiş) — `scripts/localize-images.mjs`
+       bu yüzden kullanılamadı. Bunun yerine eski WP sitesinin
+       (`idenfit.com`) hâlâ canlı olduğu doğrulanıp yeni
+       `scripts/download-blog-images.mjs` yazıldı — 622 `.md`'yi tarayıp
+       benzersiz görselleri doğrudan HTTP ile indirip AYNI göreli yola
+       yazıyor, her dosya için 0-byte + magic-byte (PNG/JPEG/GIF/WEBP/SVG
+       imzası) doğrulaması yapıyor. **976/976 indirildi, 0 hata** (25'lik
+       pilot + 951'lik toplu tur).
+    2. **URL göreliye çevirme:** yeni `scripts/relativize-blog-image-urls.mjs`
+       ile 620 `.md` dosyasındaki `https://idenfit.com/wp-content/uploads/`
+       önekleri `/wp-content/uploads/`'a çevrildi (25'lik pilot + 595'lik
+       toplu tur, **toplam 1039 URL, 0 kalan mutlak referans**).
+    **Doğrulama (her iki turda da tekrarlandı):** `astro build` (3097
+    sayfa) + `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
+    sıfır regresyon. `dist/`'teki TÜM `/wp-content/uploads/` referansları
+    (URL-decode edilerek) dosya varlığına karşı tek tek doğrulandı:
+    981/991 gerçek blog-görseli referansı sağlam, kalan 10'u blog
+    içeriğiyle İLGİSİZ (`src/data/navigation.ts`'teki KEŞFET mega-menü
+    "Raporlar" kartlarının PDF/PNG'leri — muhtemelen bu maddenin eski
+    "10 veri dosyası" notuna karşılık geliyor, AYRI/dokunulmamış bir
+    kapsam, bilinçli olarak bu turun dışında bırakıldı). Chrome'da
+    `astro preview` ile 4 yazı (mojibake dosya adı içeren
+    `is-gorusmesinde-ne-giyilmeli` dahil) `read_network_requests` ile
+    tek tek doğrulandı — TÜM görsel istekleri artık `localhost:4321`'e
+    gidiyor, `idenfit.com`'a HİÇ istek atılmıyor (URL göreli
+    olduğu için domain'e bağımlılık tamamen kalktı). Script'ler:
+    `scripts/download-blog-images.mjs` + `scripts/relativize-blog-image-urls.mjs`
+    (ikisi de yeni, kalıcı/yeniden kullanılabilir). `scripts/localize-images.mjs`
+    (eski, zip tabanlı) hâlâ duruyor ama artık kullanılmıyor.
+    **Ek tur (2026-08-30, aynı gün) — `src/data/navigation.ts`'teki
+    KEŞFET mega-menü "Raporlar" kartları (9 URL) + `src/pages/blog/
+    [slug].astro`'daki site logosu (OG/JSON-LD publisher fallback'i, 1
+    URL) da AYNI yöntemle (yeni `scripts/download-report-assets.mjs`,
+    PNG/SVG/PDF magic-byte doğrulamalı) yerelleştirildi ve göreliye
+    çevrildi — 10/10 dosya, 0 hata.** Artık **blog + mega-menü, eski
+    idenfit.com'a SIFIR bağımlı** — `astro build` +
+    `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
+    sıfır regresyon, Chrome'da KEŞFET menüsü açılıp 4 rapor kartının
+    `localhost:4321`'den yüklendiği `read_network_requests` ile
+    doğrulandı. **YENİ bulgu (bu turda keşfedildi, KAPSAM DIŞI
+    bırakıldı) — bkz. Açık nokta #45:** `dist/` genelinde
+    TARANDIĞINDA, blog+navigation dışında **~300 sayfada yüzlerce**
+    başka `idenfit.com/wp-content/uploads/...` hotlink'i daha var
+    (ürün/sektör sayfası bölüm görselleri, Müşteri Hikayeleri
+    carousel'inin bazı portreleri, hesaplama araçları ikonları, KVKK/
+    güvenlik PDF'leri, 404 sayfası arka planı vb.) — bu maddenin
+    kapsamına hiç girmemiş, çok daha büyük ve AYRI bir iş.
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).
@@ -1039,11 +1400,14 @@ hâlâ geçerli.)*
 19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
     her önemli değişiklik/deploy öncesi). Şu an 0 açık.
-21. **Blog CMS (Decap) — 3 açık uç:** Kademeli üretim (kalan 618 yazı
-    `scripts/migrate-blog-to-markdown.mjs <slug...>` ile); `verify-blog-posts.mjs`
+21. **Blog CMS — kalan 2 açık uç (ilk madde 2026-08-29'da KAPANDI):**
+    ~~Kademeli üretim (kalan 618 yazı `scripts/migrate-blog-to-markdown.mjs
+    <slug...>` ile)~~ — 622/622 tamamlandı, bkz. yukarıdaki "KEYSTATIC
+    GEÇİŞİ" bölümünün kapanış notu. Kalanlar: `verify-blog-posts.mjs`
     göç etmiş `.md` yazıları görmüyor, güncel değil; `/admin/`
-    trailing-slash davranışı Cloudflare Pages'te henüz doğrulanmadı;
-    OAuth App onayı IT'den bekleniyor.
+    trailing-slash davranışı Cloudflare Pages'te henüz doğrulanmadı
+    (Decap zaten Keystatic'e geçtiği için bu madde muhtemelen artık
+    ilgisiz, ayrı bir turda değerlendirilmeli).
 22. **YENİ — Kategori arşiv sayfaları (`/category/<slug>/`, 12 taksonomi
     sayfası) migrate edilmedi**, ayrı bir yapısal karar bekliyor.
 24. **KAPANDI — DOM boyutu (Chrome "1587/1501 element" uyarısı):**
@@ -1051,11 +1415,59 @@ hâlâ geçerli.)*
     düzeltildi (`hasOpened` state, ilk tıklamaya kadar hiç mount
     edilmiyor). Son ölçüm: 1587→1327 element (-%16.4). MegaMenu hâlâ
     BİLİNÇLİ olarak ertelenmiş durumda, bkz. madde 25.
-25. **TODO — MegaMenu'nün 4 panelinin DOM'da her zaman var olması (447
-    element) performans maliyeti yaratıyor** ama kaldırılırsa geçmiş bir
-    focus/kapanma bug'ı geri gelebilir. Bilinçli olarak ertelendi
-    (2026-08-10) — `MegaMenu.tsx` satır 241-253'teki yorum kök neden
-    bug'ının tam anlatımını taşıyor.
+25. **YENİDEN ARAŞTIRILDI (2026-08-31), AYNI SONUÇ — MegaMenu'nün 4
+    panelinin DOM'da her zaman var olması (gerçek ölçüm: 364 element,
+    sayfanın %21.8'i) performans maliyeti yaratıyor** ama kaldırılırsa
+    geçmiş bir focus/kapanma bug'ı geri gelebilir. Bilinçli olarak
+    ertelendi (2026-08-10) — `MegaMenu.tsx` satır 241-253'teki yorum kök
+    neden bug'ının tam anlatımını taşıyor.
+    **2026-08-31 turu — önce yanlışlıkla uygulanıp geri alınan bir
+    deneme, sonra 3 alternatifin sistematik testi:**
+    1. `MobileMenu.tsx`'teki `hasOpened` deseni (Açık nokta #24) MegaMenu'ye
+       BİREBİR uygulandı, `astro check`/`astro build`/8 regresyon script'i
+       hepsi temiz göründü — ama bu YANILTICIYDI. Build çıktısı elle
+       incelenince (`dist/client/index.html`'de `<astro-island>`'ın light
+       DOM'u) panel içeriğinin `client:load` SSR'ında da `hasOpened=false`
+       olduğu, yani TÜM ürün/sektör/hub linklerinin statik HTML'den TAMAMEN
+       kaybolup yalnızca hydration `props` JSON'unda (gerçek `<a href>`
+       DEĞİL) kaldığı görüldü — regresyon script'leri bunu YAKALAYAMADI
+       çünkü onlar da aynı (artık boş) statik HTML'i tarıyor, "kontrol
+       edecek link kalmadığı için" 0 sorun raporladılar. **Değişiklik
+       tamamen geri alındı** (`MegaMenu.tsx`/`MobileMenu.tsx`, `git
+       checkout` ile, çalışma ağacı temiz doğrulandı) — bu, `MobileMenu`'nün
+       AKSİNE MegaMenu'nün bu linklerin BİRİNCİL/TEK statik kaynağı olması
+       yüzünden (MobileMenu'nünki zaten masaüstü MegaMenu'de var olan
+       linklerin bir MOBİL KOPYASI, o yüzden güvenli).
+    2. **Kullanıcı talimatıyla 3 alternatif sistematik test edildi, kod
+       YAZILMADAN önce kanıt istendi:**
+       - **(1) CSS-only aç/kapa, linkler her zaman DOM'da:** bu zaten
+         MEVCUT/orijinal kodun davranışı (panel hiçbir zaman JS ile
+         mount/unmount edilmiyor, yalnızca `opacity`/`pointer-events`
+         değişiyor) — yeni bir kazanım SAĞLAMIYOR, yalnızca güvenli
+         taban çizgisini tanımlıyor.
+       - **(2) `client:load`→`client:visible`/`client:idle` (hydration
+         zamanlamasını ertele):** ampirik test edildi — `client:visible`
+         ile build alınıp Playwright'la yeniden ölçüldü, **sonuç
+         `client:load` ile BİREBİR AYNI** (1666 toplam element, aynı
+         29/12/5/14 anchor dağılımı). Kanıt: Astro'nun hydration
+         direktifleri yalnızca istemci JS'inin NE ZAMAN çalışacağını
+         belirliyor, sunucu tarafında üretilen statik HTML'i
+         ETKİLEMİYOR — MegaMenu zaten header'da (katlanmadan üstte)
+         olduğu için `client:visible` de anında tetikleniyor. **DOM
+         boyutunu HİÇ değiştirmiyor.**
+       - **(3) Footer'da yedekli link var mı (güvenlik ağı):** kontrol
+         edildi — `footer.ts`'in ÜRÜNLER kolonu yalnızca 8 link (29'dan),
+         SEKTÖRLER için 0, KEŞFET'in rapor kartları için 0. Footer
+         kapsamlı bir yedek DEĞİL, bu yaklaşım güvenlik ağı olarak
+         kullanılamaz.
+    3. **Kesin sonuç:** "DOM'da var olma" ile "statik HTML'de crawl
+       edilebilir `<a href>` olma" bu içerik için AYNI ölçümün iki adı —
+       hydration zamanlaması bunu ayıramıyor (kanıtlandı), yalnızca
+       içeriği (link/kolon SAYISINI) fiilen azaltmak DOM'u küçültür ki bu
+       teknik değil bir IA/tasarım kararı. **Kod tabanında hiçbir iz
+       bırakılmadı** — hem deneme hem 3 test tamamen geri alındı, sıfır
+       commit. 2026-08-10'daki erteleme kararı doğrulandı, gizli/kaçırılan
+       bir güvenli optimizasyon YOK.
 27. **BULGU (bilgi notu, aksiyon GEREKMİYOR) — site ~1492 redirect stub
     sayfası içeriyor** (i18n fallback + elle `redirects`'in ürettiği
     `<meta http-equiv="refresh">` sayfaları + 4 özel 404 sayfası), hepsi
@@ -1248,7 +1660,542 @@ hâlâ geçerli.)*
     (`http://localhost:4321`, pid 20612, `npm run dev`).
     **Yarın planı:** 5/6 kapandı, sırada 1/2/3/4 (heading düzeltmesi,
     QR bölümü, H2 rename, FAQ) kod uygulaması var.
+40. **YENİ (2026-08-27, Keystatic geçişi ADIM 1) — Locale'e özel 404 sayfası
+    İÇERİĞİ (en/nl/it/az) `output:'server'`'a geçişten SONRA çalışmıyor,
+    kullanıcı onayıyla ERTELENDİ.** `astro.config.mjs` `output:'static'`
+    (adapter yok) → `output:'server'` + `@astrojs/cloudflare` adapter'a
+    geçti (Keystatic'in kendi dokümantasyonu: admin panelinin dosya-sistemi
+    işlemleri Node.js API'lerine ihtiyaç duyduğu için adapter ZORUNLU;
+    Astro 5+'ta eski `output:'hybrid'` KALDIRILDI, modern eşdeğeri
+    `output:'server'` + her sayfada ayrı `export const prerender = true`
+    — mevcut 201 sayfa dosyasının TAMAMINA bu export script ile eklendi).
+    **Bulgu:** 2026-08-11'de kurulan locale-özel 404 mekanizması
+    (`public/_redirects`'in `/en/* /en/not-found/ 404` gibi 4 satırı,
+    Cloudflare Pages'in ESKİ statik-hosting `_redirects` "404" status
+    konvansiyonuna dayanıyordu) yeni Workers+Assets deploy modelinde
+    geçersiz status kodu hatası verip sessizce devre dışı kaldı — TÜM
+    locale'lerde jenerik TR 404 içeriğine düşülüyordu (`wrangler dev` ile
+    yerel testte yakalandı, `astro build`'in kendi check-*.mjs script'leri
+    bunu YAKALAMAZ — dinamik/runtime davranış, statik dist/ dosyası
+    taraması değil). **2 alternatif denendi, ikisi de ÇALIŞMADI:**
+    (a) Cloudflare'in statik-varlık seviyesi "en yakın 404.html" araması
+    (`assets.not_found_handling`) — `output:'server'`'da eşleşmeyen
+    route'lar statik varlık katmanına hiç uğramıyor, Astro/Cloudflare
+    adapter'ının `entry.mjs`'i doğrudan kendi dahili TEK/global
+    prerendered-hata-sayfası fetch'ine (`prerenderedErrorPageFetch`, her
+    zaman kökteki `404.astro`'yu/TR'yi bulur) düşüyor. (b) her locale'de
+    gerçek bir `src/pages/<locale>/[...path].astro` (`prerender=false`)
+    catch-all route'u — Astro'nun i18n `fallback` mekanizması
+    (`fallback:{en:'tr',...}`) `output:'server'`'da BİLİNMEYEN/rastgele
+    yollar için de ARTIK dinamik bir "üst locale'e yönlendir" davranışına
+    sahip ve bu, kendi catch-all route'umuzdan DAHA YÜKSEK önceliğe sahip
+    — `/en/rastgele/` gibi bir istek `/rastgele/`'ye (bare TR) 302 ile
+    düşüp oradan TR'nin kendi 404'üne varıyor, catch-all'a hiç ulaşmıyor.
+    **Etki (kullanıcı onayıyla değerlendirildi, düşük öncelik):** HTTP
+    status kodu HER ZAMAN doğru 404 (SEO'yu etkileyen asıl sinyal sağlam),
+    yalnızca içerik dili şu an TÜM locale'lerde TR'ye düşüyor — **927+
+    gerçek sayfa ETKİLENMİYOR**, yalnızca var olmayan URL'lerin 404
+    içeriği (düşük trafikli, yalnızca kırık link/typo senaryosu).
+    **Uygulama durumu:** eski 4 satır + denenen catch-all dosyaları
+    (`src/pages/{en,nl,it,az}/[...path].astro`) GERİ ALINDI, kod
+    tabanında iz bırakmıyor. `public/_redirects`'in başına bu bulgunun
+    tam teknik dökümü yorum olarak yazıldı (dosyanın gerçek redirect
+    kuralları — 23 manuel `astro.config.mjs` girdisi, build sırasında
+    adapter tarafından otomatik ekleniyor — etkilenmedi, doğrulandı).
+    **Kalıcı çözüm için muhtemel yön (ayrı bir turda):** Astro'nun i18n
+    `fallback`'ini bu spesifik/bilinmeyen-yol senaryosu için bypass eden
+    özel bir middleware, veya `fallback` haritasından geçici çıkarma.
+    **Ayrıca aynı turda doğrulanan, regresyon OLMAYAN bir davranış
+    değişikliği:** `dist/` artık `dist/client/`+`dist/server/` alt
+    klasörlerine ayrıldı (Cloudflare adapter çıktısı) — 8 `check-*.mjs`
+    script'i zaten sahip olduğu `DIST_DIR` env değişkeniyle (script
+    dosyalarına DOKUNULMADAN) `dist/client`'a yönlendirildi. Toplam HTML
+    sayısı 3114→3091 (23 azaldı) — 23 manuel `redirects` girdisi artık
+    statik meta-refresh stub DEĞİL, native Cloudflare `_redirects`
+    dosyasında gerçek 301 kuralı (adapter'ın kendi davranışı, SEO açısından
+    DAHA İYİ) — 928 gerçek içerik sayfası + 2163 i18n-fallback stub'ı
+    BİREBİR korundu, 8 script de ADIM 0 taban çizgisiyle birebir aynı
+    sonucu verdi (sıfır yeni regresyon).
+41. **YENİ (2026-08-28, Keystatic ADIM 2 test turu) — `origin`
+    (Sude-product/site-migration-astro) ve `idenfit` (idenfit/idenfit.com)
+    remote'ları artık senkron DEĞİL, düşük öncelik.** Keystatic Cloud'un
+    canlı commit testi + revert'i (2 commit: `66fea5e`+`74e3fca`) yalnızca
+    `idenfit` remote'una gitti (yerel `master` dalının zaten takip ettiği
+    repo) — `origin` bu 2 commit'i almadı. Net içerik farkı YOK (test
+    edit zaten revert edildi) ama commit GEÇMİŞİ artık iki remote arasında
+    farklı. Kalıcı çözüm: Keystatic Cloud projesinin hangi tek repoyu
+    kaynak alacağı netleşince (muhtemelen `idenfit`), `origin`'in bu
+    repo'ya senkronize edilip edilmeyeceğine karar verilmeli.
 
+42. **YENİ (2026-08-28) — Blog `date`/`modifiedDate` saat dilimi düzeltmesi
+    (`src/content.config.ts`) uygulandı, ama 622 yazının 60'ında (%9.6)
+    HALA yanlış değer üretiyor, ayrı bir karar gerektiriyor.** Kullanıcının
+    doğruladığı Cloudflare bilgisi ("Pages/Workers build ortamı HER ZAMAN
+    UTC") üzerine, naive tarih string'lerinin (`'2024-10-02T09:30:00'`
+    gibi, saat dilimsiz) yerel makine (Türkiye, UTC+3) ile Cloudflare
+    build ortamı (UTC) arasında SESSİZ 3 saatlik kaymaya yol açtığı
+    kesinleşti (bkz. yukarıdaki KALICI GOTCHA maddesi). Çözüm:
+    `content.config.ts`'e `normalizeNaiveDateToTurkeyOffset()` +
+    `z.preprocess()` eklendi — Z/ofset damgası TAŞIMAYAN her `date`/
+    `modifiedDate` string'ine açıkça `+03:00` ekleniyor, bu da
+    `new Date()` yorumunu ÇALIŞTIĞI MAKİNEDEN TAMAMEN BAĞIMSIZ hale
+    getiriyor (ECMAScript spesifikasyonu gereği). **Çift ortam testiyle
+    doğrulandı:** yerel Europe/Istanbul build VE `TZ=UTC` zorlanmış build
+    aynı yazı için BİREBİR AYNI `datePublished` ürettü
+    (`idenfit-yatirim-duyurusu`: ikisinde de `2024-10-02T06:30:00.000Z`,
+    WP'nin gerçek `date_gmt`'iyle birebir eşleşiyor — TAM DOĞRU).
+    **AMA:** 622 yazının **60'ında** (WP'nin ham `posts.json`'ında
+    `date`=`date_gmt`, ör. `calisan-performans-iyilestirme-plani-nasil-
+    hazirlanir`) bu +03:00 varsayımı YANLIŞ — bu yazılar için ham veri
+    zaten UTC-eşdeğeri olabilir, +03:00 eklemek YENİ bir 3 saatlik hataya
+    yol açıyor (test edildi: `calisan-performans-...` için üretilen
+    değer `12:18:47Z`, WP'nin gerçek `date_gmt`'i `15:18:47` — 3 saat
+    erken). **Bilinçli olarak DÜZELTİLMEDİ** — şema seviyesinde hangi
+    kaydın bu 60 anomaliden biri olduğunu ayırt etmenin bir yolu yok
+    (yalnızca tek bir naive string görülüyor, `date_gmt`'e erişim yok).
+    **Kazanç:** önceden bu 60 yazının değeri HANGİ MAKİNEDE build
+    edildiğine göre RASTGELE yanlıştı (deterministik bile değildi);
+    şimdi en azından HER ZAMAN aynı (tutarlı) yanlış değeri üretiyor.
+    **Kalıcı çözüm için öneri (ayrı bir tur):** `extract-blog-posts.mjs`
+    60 anomali slug'ı için WP'nin `date_gmt`/`modified_gmt` alanını
+    doğrudan (ofset eklemeden, zaten UTC) kullanacak şekilde
+    güncellenmeli — hangi alanın (`date` mi `date_gmt` mi) o 60 kayıt
+    için "doğru" kabul edileceğine kullanıcıyla karar verilmesi
+    gerekiyor.
+43. **YENİ (2026-08-28) — Ürün/sektör/fiyat/donanım/hukuki sayfaların
+    "Son Güncelleme" (`dateModified`) sistemi AYNI naive-tarih riskini
+    taşıyor ama bu turun KAPSAMI DIŞINDA bırakıldı, kanıtlanamıyor.**
+    `productContent.ts`/`sectorContent.ts`/`hardwareContent.ts`/
+    `pricingContent.ts`/`miscPagesContent.ts`'in hepsi AYNI
+    `new Date(rawNaiveString)` desenini kullanıyor (~161 sayfa,
+    2026-08-19 turunda eklenen `dateModified` JSON-LD'si). **Ama** bu
+    dosyaların kaynağı olan `products.json`/`sectors.json`/`pricing.json`/
+    `hardware.json`/`misc-pages.json`'ın extraction script'leri
+    `_gmt` karşılığını HİÇ saklamamış — yalnızca naive `modified` var,
+    karşılaştıracak bir referans yok. En yakın kıyaslanabilir ham kaynak
+    (`pages.json`, 170 sayfanın TAMAMINDA `date`=`date_gmt`) bu grubun
+    MUHTEMELEN zaten UTC-eşdeğeri olduğuna işaret ediyor — yani #42'deki
+    +03:00 düzeltmesini buraya da uygulamak muhtemelen YANLIŞ olurdu.
+    **Bilinçli olarak dokunulmadı:** Keystatic bu sistemlere hiç
+    dokunmuyor (aktif bir bozulma kaynağı yok, yalnızca teorik/ölçülemeyen
+    bir risk), doğru düzeltmenin ne olduğu kanıtlanamıyor. Ayrı bir
+    araştırma turu gerektiriyor (muhtemelen kaynak WP'nin ilgili custom
+    post type'ları için `_gmt` alanının yeniden çekilmesi).
+44. **DÜŞÜK ÖNCELİK (2026-08-29) — `content.config.ts`'teki composite
+    loader mimarisi artık gereksiz karmaşıklık taşıyor, sadeleştirilebilir.**
+    Blog'un tüm 622 yazısı `.md`'ye göç ettiği için (bkz. yukarıdaki
+    "KEYSTATIC GEÇİŞİ" kapanış notu) `legacyJsonLoader` artık boş bir
+    `posts.json`'ı okuyor — işlevsel bir sorun YOK (boş dizide döngü hiç
+    çalışmıyor, `astro build` sorunsuz) ama `glob()`+`file()` sıralamasına
+    dikkat eden özel loader, `fixLinkAccessibility()`/`demoteBodyH1s()`/
+    `normalizeHeadingLevels()` render-time çağrıları gibi tüm o karmaşıklık
+    artık kullanılmayan bir kod yolu. **Acil değil, isteğe bağlı bir
+    temizlik turu:** `content.config.ts` saf `glob()` koleksiyonuna
+    indirgenebilir, `posts.json` + `legacyJsonLoader` kaldırılabilir.
+    Dokunulmadı — kullanıcı isteğiyle bilinçli olarak ertelendi.
+45. **KAPSAMI NETLEŞTİRİLDİ (2026-08-30) — Blog+navigation DIŞINDA,
+    sitenin geri kalanında hâlâ 307 sayfada 293 benzersiz
+    `idenfit.com/wp-content/...` hotlink'i var, henüz DOKUNULMADI.**
+    Yeni kalıcı denetim script'i (`scripts/audit-remote-hotlinks.mjs`,
+    `dist/`'i tarar, indirme/değiştirme YAPMAZ) ile tam site taraması
+    yapıldı. **Sonuç:** 3097 HTML dosyasının 307'sinde (%9.9) toplam 293
+    benzersiz uzak dosya referansı — 119 PNG, 93 WEBP, 59 SVG, 14 PDF,
+    7 JPG, 1 JPEG. En sık geçen tekil dosya `pnl-img-1024x644.webp`
+    (`homeContent.ts`, 111 sayfada — ürün/modül sayfalarının paylaştığı
+    "Verimlilik" CTA paneli + blog liste/sayfalama sayfaları); 6 sektör
+    ikonu (`sektor-*-icon.svg`) 8-25 sayfa arasında tekrarlanıyor.
+    **İki farklı kaynak/düzeltme yolu var:**
+    (A) **19 TypeScript dosyasında LİTERAL mutlak URL** (~392 tekil
+    occurrence, çoğu tekrarlayan ikon): `productTranslationOverrides.ts`
+    (107) + `...OverridesAz.ts` (70), `sectorTranslationOverrides.ts`
+    (56), `homeContent.ts` (37), `miscPagesTranslationOverrides.ts` (24),
+    `hubTranslationOverrides.ts` (24) + `...OverridesAz.ts` (23),
+    `hardwareTranslationOverrides.ts` (16), `customerStories.ts` (10),
+    `calculatorDefinitions.ts` (8), `thankYouContent.ts` (4),
+    `miscPagesContent.ts` (3), `faqContent.ts` (3),
+    `customerStoryCarousel.ts` (2), `supportThankYouContent.ts` (1),
+    `PricingPage.astro` (1), `NotFoundPage.astro` (1),
+    `IdenfitLogo.tsx` (1), `CalculatorsPage.astro` (1) — bunlar Açık
+    nokta #14'teki blog/navigation'la BİREBİR AYNI yöntemle (indir +
+    göreliye çevir) düzeltilebilir.
+    (B) **Ham WordPress export JSON'larından RUNTIME'da okunan `image`
+    alanları** (literal string DEĞİL, `b.image` gibi pass-through) —
+    `productContent.ts`←`products.json`, `sectorContent.ts`←`sectors.json`,
+    `hardwareContent.ts`←`hardware.json`, `hubContent.ts`←`hubs.json`,
+    `miscPagesContent.ts`←`misc-pages.json`. Bunlar bul-değiştir ile
+    düzeltilemez — ya (i) her `*Content.ts`'te alanı okurken tek satırlık
+    bir `.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/')`
+    dönüşümü eklenir (blog `date`'in `+03:00` normalizasyonuyla AYNI
+    desen, düşük risk) ya da (ii) ham JSON dosyalarının kendisi
+    güncellenir (5 dosya, çok daha büyük/riskli bir diff). **(i) önerilir.**
+    Ayrıca `404.html`'in arka plan görseli `wp-content/themes/vault/...`
+    yoluna gidiyor — bu `uploads/` bile değil, farklı bir WP tema
+    varlığı, ayrı ele alınmalı (muhtemelen tek dosya, `NotFoundPage.astro`).
+    **Tahmini efor:** (A) yolu blog/navigation turlarıyla aynı ölçekte
+    (~1-2 saat, script zaten hazır — yalnızca kaynak dosya listesi
+    genişletilip yeniden çalıştırılır). (B) yolu kod olarak küçük (5
+    dosyada birer satır) ama önce 293 benzersiz dosyanın TAMAMININ
+    indirilip doğrulanması gerekir (aynı `download-*.mjs` deseniyle,
+    tahmini 30-60 dk) + build/regresyon/Chrome doğrulaması (~1 saat).
+    **Toplam kaba tahmin: 3-5 saat, tek turda yapılabilir.** Kod
+    değişikliği HENÜZ YAPILMADI — yalnızca kapsam netleştirildi,
+    kullanıcı onayı bekliyor. **Sıradaki oturum için plan (kullanıcı
+    kararı, 2026-08-30):** ÖNCE (A) yolu (19 sabit-kodlu dosya, ~1-2
+    saat, daha hızlı/düşük riskli) tamamlanıp SONUÇ GÖSTERİLECEK —
+    kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
+    saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
+    turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
+46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
+    ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
+    `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi
+    ENGELLEMİYOR, yalnızca ihlalleri tarayıcı konsoluna logluyor.
+    Enforcing moda (`Content-Security-Policy`, `-Report-Only` olmadan)
+    geçmeden önce **3 koşul sağlanmalı:**
+    1. Site gerçekten canlıya alınmış olmalı — gerçek ziyaretçi trafiği
+       olmadan Report-Only'nin gözlem amacı yerine gelmiyor.
+    2. Otomatik CSP ihlal raporu toplama (`report-uri`, küçük bir
+       Cloudflare Pages Function) kurulmalı — şu an ihlaller yalnızca
+       elle, tarayıcı konsolundan görülebiliyor, otomatik/uzaktan izleme
+       yok.
+    3. En az 1-2 haftalık sessiz gözlem süresi geçmeli (hiç beklenmedik
+       ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
+       sıfırdan başlar.
+    Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
+47. **HATIRLATMA — yukarıdaki "🔶 AÇIK NOKTA (2026-08-30)" bloğundaki 5
+    form dosyasının `console.log`'u backend bağlanırken kaldırılmalı.**
+    Ad/e-posta/telefon gibi kişisel veri şu an yalnızca tarayıcı
+    konsoluna yazılıyor (hiçbir yere gönderilmiyor/saklanmıyor) — bkz. o
+    bölümdeki tam dosya listesi/tablo ve KVKK tutarsızlığı notu. `[ ]
+    Backend bağlanırken bu satırları kaldır.`
+48. **YENİ (2026-08-31) — Görsel optimizasyonu (`astro:assets`/`<Image>`),
+    kesin SIRALAMA kararı verildi, henüz başlanmadı.** Bir denetim
+    bulgusu "60 raw `<img>`, format/srcset/CLS optimizasyonu yok" dedi —
+    gerçek kapsam çok daha büyük çıktı (~83 elle yazılmış `<img>` +
+    ürün/sektör/hub/misc/donanım JSON'larından üretilen **780 uzak görsel
+    referansı**, Açık nokta #45'in 293 benzersiz dosyasıyla ÖRTÜŞÜYOR).
+    **Mimari bulgu:** `@astrojs/cloudflare` adapter'ı VARSAYILAN olarak
+    (`cloudflare()`, parametresiz) Cloudflare'ın gerçek IMAGES binding'ini
+    kullanan ÇALIŞIR bir görsel dönüştürme hattı kuruyor (Sharp'a gerek
+    yok, "bozuk" değil — yalnızca `astro:assets` hiç kullanılmadığı için
+    şu ana dek devre dışı durdu). Ama bu, Cloudflare Images ürününü
+    (olası maliyet) devreye sokmak anlamına geliyor — kullanıcı onayı
+    olmadan aktive EDİLMEDİ. **Kesin sıralama (kullanıcı kararı,
+    2026-08-31):**
+    1. **Önce Açık nokta #45 (hotlink temizliği) tamamlanmalı** —
+       optimize edilecek görsellerin taşınacağı zaten biliniyorken önce
+       optimize edip sonra taşımak anlamsız.
+    2. **Sonra Cloudflare Images maliyet araştırması** — Cloudflare
+       Dashboard'dan hesabın gerçek fiyatlandırma/plan durumu kontrol
+       edilmeli (kod içinden/dokümantasyondan kesin rakam çıkarılamadı).
+    3. **En son mimari karar** — Cloudflare Images binding'i kullan
+       (gerçek sunucu-taraflı WebP/AVIF+resize, adapter zaten hazır) vs.
+       build-time ön-dönüşüm (Node/Sharp ile statik WebP üretimi, sıfır
+       Cloudflare maliyeti ama daha az esnek/responsive).
+    **Bu turda YAPILAN (mimari karara bağlı DEĞİL, bağımsız/güvenli
+    CLS düzeltmesi — pilot):** `TRUST_BADGE_LOGOS` (`footer.ts`) ve
+    `CUSTOMER_LOGOS`'un (`LogoStrip.astro`'nun statik dalı, veri zaten
+    `homeContent.ts`'te vardı, tek satır) eksik `width`/`height`'ı
+    dosyaların gerçek piksel boyutlarından/mevcut veriden dolduruldu +
+    blog öne çıkan görseline (622 yazı, `[slug].astro`) `loading="eager"`
+    eklendi (LCP, `ProductPage.astro`'daki AYNI kurala uydu). `astro
+    check` 0 hata, `astro build` temiz, 8 regresyon script'i sıfır yeni
+    sorun, Chrome'da footer rozetleri + logo şeridi görsel doğrulandı.
+    **Kalan iş — BİLİNÇLİ OLARAK ERTELENDİ (kullanıcı kararı, 2026-08-31):**
+    `CertificationBadges.astro` (`homeContent.ts:44-50`), `ThankYouPage.astro`
+    (`thankYouContent.ts:77-78`, `CIVIL_LOGO_URL`/`FEMAS_LOGO_URL`),
+    `CustomerStoriesPage.astro` (`customerStories.ts:169-170`,
+    `CUSTOMER_STORIES_HERO_IMAGE`) — üçü de doğrulandı, hepsi
+    `idenfit.com/wp-content/...` hotlink'i, yani Açık nokta #45'in
+    ZATEN kapsamındaki 293 dosyanın bir parçası (`homeContent.ts`/
+    `customerStories.ts`/`thankYouContent.ts` #45'in kendi 19 dosyalık
+    envanterinde kayıtlı). **Karar: şimdi uzaktan fetch ile ölçüp
+    width/height eklemek YERİNE, #45 tamamlanıp bu görseller yerelleştiği
+    ZAMAN yapılsın** — o noktada gerçek boyutlar yerel dosyadan doğrudan
+    okunabilir, şimdi fetch edip sonra tekrar iş yapmaya gerek kalmaz.
+49. **DÜŞÜK ÖNCELİK, GELECEK PLANLAMASI (2026-08-31) — blog yazı sayısı
+    arttıkça `astro build` süresi izlenmeli.** Şu an 622 yazı, `astro
+    build` ~100-120s (gürültülü ölçüm, bkz. `getAllBlogPosts()`
+    önbellekleme turu). **Eşikler:** build süresi 2 dakikayı aşarsa
+    ÖNCE Astro'nun incremental build seçenekleri araştırılmalı (tam
+    yeniden derleme yerine yalnızca değişen içerik); 5000+ yazıya
+    yaklaşılırsa blogun statik (`prerender=true`, şu anki model) yerine
+    hybrid/SSR modele geçişi değerlendirilmeli — `@astrojs/cloudflare`
+    adapter'ı (Keystatic geçişi için ADIM 1'de kurulmuştu) bu geçişi
+    teknik olarak zaten mümkün kılıyor, yeni bir adapter kurulumu
+    gerekmeyecek. Kod değişikliği YOK, yalnızca ileriye dönük bir eşik/
+    hatırlatma notu.
+50. **TAMAMLANDI (2026-08-31) — "pipefail eksikliği" denetimi, kod
+    değişikliği GEREKMEDİ; ileriye dönük Cloudflare Pages notu eklendi.**
+    Kapsamlı tarama: `package.json`'ın 8 script'i (build/dev/dev:clean/
+    audit/vb.) VE bunların çağırdığı `scripts/dev-clean-restart.mjs`/
+    `scripts/run-audit.mjs` dosyaları — hiçbirinde shell pipe (`|`)
+    kullanımı YOK, hepsi tekil komut. Repo'da `.sh` dosyası veya CI YAML
+    config'i de yok. **Yani düzeltilecek bozuk bir script mevcut değildi**
+    — `set -o pipefail` eklemek için gerçek bir hedef yoktu.
+    **Gerçek risk, projenin kendi kod tabanında DEĞİL, build'i elle
+    doğrularken kullanılan `komut 2>&1 | tail -N` deseninde** (bu
+    projenin çalışma tarihi boyunca doğrulama turlarında sıkça kullanıldı)
+    — canlı olarak kanıtlandı: kasıtlı bozuk bir sayfa eklenip `astro
+    build 2>&1 | tail -5` çalıştırıldığında build GERÇEKTEN çöktü (stack
+    trace görünür) ama `$?` **0** (başarılı!) döndü — `pipefail`
+    açıkken AYNI komut doğru şekilde **127** (başarısız) döndü. Test
+    dosyası hemen kaldırıldı, temiz build + regresyon script'leriyle
+    doğrulandı. **Kalıcı disiplin:** bundan sonra build/test çıktısı
+    `tail`/`grep` gibi bir komuta yönlendirilecekse önce `set -o
+    pipefail` (veya exit code'u pipe'tan ÖNCE ayrıca `; echo $?` ile
+    kontrol etmek) kullanılmalı — yalnızca son komutun durumuna
+    güvenilmemeli.
+    **İleriye dönük not:** Cloudflare Pages'e henüz bir build komutu
+    YAPILANDIRILMADI (site henüz deploy edilmedi). Deploy ayarlarında
+    build komutu girilirken, komut bir pipe içeriyorsa exit code'un
+    gerçek build sonucunu yansıttığından emin olunmalı (`pipefail` ile) —
+    aksi halde başarısız bir build Cloudflare tarafından "başarılı"
+    sanılıp eski/bozuk bir sürüm sessizce yayında kalabilir.
+    **Ek bulgu (aynı gün, `pipefail` disiplinini gerçekten uygulayınca
+    ortaya çıktı):** projenin 8 kalıcı `check-*.mjs` script'i hepsi AYNI
+    kalıbı izliyor — `process.exit(0)` sıfır sorunda, `process.exit(1)`
+    HERHANGİ bir sorun bulunursa (bilinen/kabul edilmiş bir açık nokta
+    olsa BİLE). Şu an yalnızca `check-heading-hierarchy.mjs` **exit 1**
+    veriyor — Açık nokta #36'daki 5 bilinen "ana sayfa H1→H3" sorunu
+    yüzünden (YENİ bir regresyon DEĞİL, sayı değişmedi). Bu script'i bu
+    konuşma boyunca hep `| tail -N` ile çalıştırıp yalnızca İÇERİĞE
+    bakıldığı için exit code'un aslında sürekli 1 olduğu hiç fark
+    edilmemişti — tam da yukarıdaki pipefail dersinin somut kanıtı.
+    **Sonuç/hatırlatma:** bu script'ler ileride bir CI gate'i olarak
+    kullanılacaksa, `check-heading-hierarchy.mjs` Açık nokta #36
+    kapanana kadar gate'i KIRACAK — ya #36 önce kapatılmalı ya da gate
+    mantığı bu bilinen istisnayı hesaba katmalı.
+51. **TAMAMLANDI (2026-08-31) — "Canlı dashboard" widget'ı (`ProductPreviewWidget.tsx`)
+    site locale'ine göre dil değiştiriyor artık (Tier 1: yapısal arayüz
+    metni), + aynı dosyadaki mobil "tek parça" düzeltmesiyle birlikte
+    commit edildi.** Kullanıcı isteği: "anasayfada dil değişimi yapınca
+    dashboardın da dilinin değişmesi lazım". Widget 2753 satır, 30+
+    kurgusal veri sabiti taşıyor (her biri içine gömülü Türkçe etiketli,
+    ör. `{ label: 'İşe Giren', value: '42' }`) — TAMAMININ çevrilmesi
+    çok büyük bir iş olduğundan kullanıcı onayıyla İKİ AŞAMAYA bölündü:
+    **Tier 1 (bu turda YAPILDI)** — sekme adları, header panel
+    başlıkları/aria-label'ları, arama placeholder'ı, görünürlük/avatar/
+    bildirim/görev menü öğeleri gibi yapısal arayüz metni; **Tier 2
+    (BİLİNÇLİ ERTELENDİ)** — her sekmenin kart içeriğindeki kurgusal
+    veri etiketleri, şimdilik TÜM locale'lerde Türkçe kalıyor. **Dil
+    kapsamı:** önce TR+EN (kullanıcı seçimi "Önce TR+EN, sonra
+    kademeli"), NL/IT/AZ ayrı bir turda eklenecek. **Mimari:**
+    `src/data/productPreviewWidgetLabels.ts` (YENİ dosya) —
+    `ProductPreviewWidgetLabels` arayüzü + `tr`/`en` implementasyonları,
+    `getProductPreviewWidgetLabels(locale)` eksik locale için `tr`'ye
+    düşüyor. `Partial<Record<Locale,X>>` KULLANILDI (KARAR 1'in "uydurma
+    çeviri yok" kuralı yüzünden `Record<Locale,X>` DEĞİL — TypeScript
+    nl/it/az'ı da doldurmaya ZORLARDI). `ProductPreviewWidget.tsx`'e
+    `locale: Locale` prop'u eklendi, mevcut `ThemeContext`/`useTheme()`
+    kalıbı mirror edilerek yeni `LabelsContext`/`useLabels()` eklendi
+    (59 alt bileşen boyunca prop-drilling'den kaçınmak için), modül
+    seviyesi `TABS` sabiti `buildTabs(labels)` fonksiyonuna çevrildi.
+    `HeroSection.astro`'da `<ProductPreviewWidget client:visible
+    locale={locale} />` (zaten scope'ta olan `locale` değişkeni
+    yeniden kullanıldı). Kişi adları ("Deniz Aydın"), marka adı
+    ("HRTECHTOOLS"), kasıtlı İngilizce slogan ("LATER IS NEVER") ve
+    dil seçicinin 11 dilinin isimleri (dekoratif, Tier 1 kapsamı
+    dışı) ÇEVRİLMEDİ. **Doğrulama:** `astro check` 0 hata, `astro
+    build` 3096 sayfa temiz, 8 regresyon script'inden 6'sı temiz;
+    `check-heading-hierarchy` (5, bilinen #36) ve
+    `check-html-lang-attribute` (196, bkz. Açık nokta #52) hataları bu
+    turdan ÖNCE de aynen vardı — `git stash` ile doğrulandı, bu turun
+    değişikliğiyle İLGİSİZ. Chrome'da görsel doğrulama: TR anasayfa
+    değişmedi, `/en/` sayfasında sekme adları/placeholder/avatar
+    menüsü/bildirimler/görünürlük ayarları İngilizce, Tier 2 veri
+    içeriği (grafik başlıkları, kişi adları) plana uygun şekilde
+    Türkçe kaldı; iframe-viewport tekniğiyle 387px mobil görünümde
+    yatay sekme çubuğu + İngilizce etiketler birlikte doğru çalıştı.
+    **GÜNCELLEME (2026-08-31, 2. tur) — Tier 1 NL/IT/AZ'a genişletildi,
+    TAMAMLANDI.** Kullanıcı isteği: "diğer diller içinde yap". Terminoloji
+    UYDURULMADI — `src/i18n/{nl,it,az}.ts`'in kendi nav/hero içeriğinde
+    ZATEN kullandığı gerçek modül adları birebir yeniden kullanıldı (ör.
+    NL "Verlofbeheer"/"Salarisadministratie", IT "Gestione Ferie e
+    Permessi"/"Buste Paga"/"Controllo Accessi" [site'ın kendi seçtiği
+    "Zaman Yönetimi" karşılığı], AZ "İcazə İdarəçiliyi"/"Əmək Haqqı");
+    `jobTitle` alanı IT/AZ'da o dildeki gerçek "İK Müdürü" ifadesiyle
+    (`it.ts`'in "Responsabile Risorse Umane", `az.ts`'in "İnsan
+    Resursları Müdiri" — ikisi de customer-story rolü olarak zaten
+    vardı) BİREBİR eşleşti. Karşılığı olmayan birkaç alan ("Veri
+    Analizi"/"Eğitim Akademisi") için KARAR 1'e uygun profesyonel çeviri
+    üretildi. **Doğrulama:** `astro check` 0 hata, `astro build` temiz,
+    8 regresyon script'i (yalnızca bilinen 5 H1→H3 taban çizgisi hariç)
+    sıfır yeni sorun, Chrome'da `/nl/`/`/it/`/`/az/` üzerinde sekme
+    adları + arama placeholder'ı + jobTitle doğrulandı.
+    **Kapsam netleştirmesi (Tier 2 için) — kullanıcı aynı turda "canlı
+    dashboard içindeki modüller de çevrilmeli" dedi, kapsam ölçüldü:**
+    Tier 2 önceden düşünülenden ÇOK daha büyük — ~30 modül-seviyesi
+    kurgusal veri sabiti (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/`HR_EVENTS`/
+    `PERFORMANCE_GOALS`/vb.) + render ağacına gömülü ~40 `WidgetCard`
+    title/subtitle gibi JSX metni — toplam tahmini 250-300 ayrı çevrilebilir
+    alan × 4 eksik dil (EN dahil, Tier 2 EN de ERTELENMİŞTİ) = ~1000-1200
+    string. Ayrıca ay/gün kısaltmaları (`Oca`/`Şub`/`Pzt`/`Sal` vb., 6
+    farklı sabitte tekrarlanıyor) için elle çeviri yerine `dates.ts`'teki
+    `BCP47_LOCALE` ile `Intl.DateTimeFormat(...,{month:'short'})` kullanımı
+    planlanıyor (uydurma riski yok, tarayıcının kendi ICU verisi).
+    Henüz KOD DEĞİŞİKLİĞİ yapılmadı — mimari + kapsam kullanıcıya
+    sunulup onay bekleniyor (bkz. bir sonraki tur).
+    **TUR 1 TAMAMLANDI (2026-08-31, 3. tur) — mimari kuruldu + "Zaman
+    Yönetimi" sekmesi 4 dilde (EN/NL/IT/AZ) çevrildi.** Kullanıcı "sekme
+    sekme, EN önce" seçeneğini onayladı. **Mimari:** `src/data/
+    productPreviewWidgetData.ts` (YENİ dosya) — her sekme için ayrı
+    `getXLabels(locale)` fonksiyonu (Tier 1'in TEK `ProductPreviewWidgetLabels`
+    şeklinden FARKLI olarak, her sekmenin kendi tipi var). Widget'taki
+    modül-seviyesi sabitler (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/vb.) metin
+    alanlarından ARINDIRILIP yalnızca yapısal veriye (renk/sayı/ikon)
+    indirgendi, render'da İNDEKS SIRASIYLA çeviriyle birleştiriliyor.
+    Yeni `LocaleContext`/`useWidgetLocale()` eklendi (`LabelsContext`'in
+    YANINDA, onu DEĞİŞTİRMEDEN — Tier 1'in ~8 tüketicisinin şeklini
+    bozmamak için) — ham `locale`'i taşıyor, her sekme kendi `getXLabels
+    (locale)`'ini bu context'ten türetiyor. Ay/hafta günü kısaltmaları
+    (`MONTH_ABBREV`/`WEEKDAY_ABBREV`) `Intl.DateTimeFormat`'tan ÜRETİLDİ
+    (elle çeviri DEĞİL) — doğrulandı: tr çıktısı widget'ın ÖNCEDEN
+    hardcoded değerleriyle (Oca/Şub/.../Ara, Pzt/Sal/.../Paz) BİREBİR
+    aynı. `dates.ts`'in `BCP47_LOCALE`'i `export` edildi (ikinci bir
+    locale-kodu haritası İCAT EDİLMEDİ). "Detaya Git →" (TÜM sekmelerde
+    paylaşılan, `SectionMiniHeader`) Tier 2'ye DEĞİL, Tier 1'e
+    (`productPreviewWidgetLabels.ts`'in `detailsLinkText` alanı, 5 dilin
+    hepsi dolduruldu) eklendi. **Çevrilen içerik:** sekme başlığı ("Zaman"),
+    4 kart (Vardiya Devam Oranı/Fazla Mesai Özeti/Devam Takibi/Ortalama
+    Çalışma Saati) başlık+alt başlık, 5 vardiya adı, 4 şube adı (İzin
+    Yönetimi sekmesi de AYNI diziyi bir sonraki turda yeniden kullanacak),
+    3 KPI alt metni, 4+4 mini istatistik/lejant etiketi, saat kısaltması
+    (`hourAbbrev`: EN "h"/NL "u"/IT "h"/AZ "saat" — AZ'de tek harfli
+    yaygın kısaltma OLMADIĞI için tam kelime kullanıldı, belirsizliğe
+    yol açmasın diye). **Doğrulama:** `astro check` 0 hata (395 dosya),
+    `astro build` temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
+    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
+    TAMAMINDA Zaman Yönetimi sekmesi tek tek açılıp KPI kartları/mini
+    istatistikler/Devam Takibi/Ortalama Çalışma Saati/Vardiya Devam
+    Oranı/Fazla Mesai Özeti görsel olarak doğrulandı (ay/gün
+    kısaltmaları, saat birimleri, şube/vardiya adları dahil). **Kalan
+    sekmeler (henüz BAŞLANMADI, sıradaki turlar):** İzin Yönetimi →
+    İnsan Kaynakları → Performans Yönetimi → Veri Analizi + paylaşılan
+    panel metinleri (kullanıcı onaylı sıra).
+52. **KAPANDI (2026-08-31) — `check-html-lang-attribute.mjs`'in 196
+    "sorunlu sayfa" raporu GERÇEK bir site regresyonu DEĞİLDİ, script'in
+    kendi bug'ıydı; kök neden bulunup düzeltildi.** (İlk kayıtta "yalnızca
+    nl, 196 sayfa, henüz araştırılmadı" yazılmıştı — bu YANLIŞTI, örnekler
+    `tail`'in son 20 satırına rastladığı için yalnızca nl görünüyordu;
+    gerçekte 4 locale'in TAMAMI etkileniyordu: 46 az + 56 en + 52 it + 42
+    nl.) **Kök neden:** `expectedLocaleFor()` beklenen locale'i, `DIST_DIR`
+    (varsayılan `'dist'`) köküne göre relatif yolun İLK segmentinden
+    (`parts[0]`) çıkarıyordu. `output:'static'` döneminde bu doğruydu
+    (`dist/<locale>/...`). Ama commit `b73428a`'nın (2026-08-28, "Migrate
+    to output:server + Cloudflare adapter") `output:'server'`'a geçişiyle
+    `@astrojs/cloudflare` adapter'ı TÜM statik çıktıyı `dist/client/`
+    altına sarmaya başladı — artık her sayfanın yolu `client/<locale>/...`
+    ile başlıyor, `parts[0]` HER ZAMAN `"client"` (asla `VALID_LOCALES`
+    içinde değil), fonksiyon her sayfa için `'tr'`'ye düşüyordu. Bulunan
+    değerler (`"az"`/`"en"`/`"it"`/`"nl"`) her zaman DOĞRUYDU — canlı
+    dosyalardan doğrudan doğrulandı (`grep '<html lang' dist/client/
+    {nl,en,az,it}/.../index.html`) — yalnızca yanlış bir "beklenen" ile
+    karşılaştırılıyordu. **Ne zaman başladı:** commit `b73428a`
+    (2026-08-28 17:30:34 +0300). **Neden günlerce fark edilmedi:** Açık
+    nokta #50'deki aynı alışkanlık — script'in ÖZET satırı hep doğru
+    sayıyı veriyordu ama doğrulama turlarında `tail`/göz atma ile
+    okunduğu için kaçırıldı; ilk yanlış "sıfır yeni regresyon" iddiası
+    2026-08-29 tarihli (Destek/Teşekkürler sayfası) turda görülüyor.
+    İlginç not: proje bu `dist/client/` değişikliğini BİR KEZ zaten
+    keşfetmişti — `scripts/audit-remote-hotlinks.mjs` (2026-08-30, hotlink
+    denetimi) kendi başında `DIST_DIR=dist/client` çağrı kalıbını
+    belgeliyordu, ama bu düzeltme `check-html-lang-attribute.mjs`'e geri
+    uygulanmamıştı. **Düzeltme (uygulandı):** `check-html-lang-attribute.mjs`'te
+    `DIST_DIR` varsayılanı `'dist'` yerine `'dist/client'` yapıldı (tek
+    satır, `audit-remote-hotlinks.mjs`'teki emsalin birebir aynısı) — bu
+    otomatik olarak `dist/server/`'ı (SSR worker kodu, HTML sayfası değil)
+    taramadan da hariç bırakıyor. **Kapsam kontrolü:** diğer 7
+    `check-*.mjs` script'i relatif yolu YALNIZCA raporlamada (hangi
+    dosyada sorun var) kullanıyor, locale'e bağlı bir "beklenen değer"
+    hesaplamıyor — bu yüzden mantıkları etkilenmedi, DOKUNULMADI (bkz.
+    Açık nokta #53'teki TEK istisna). **Doğrulama:** düzeltme sonrası
+    script 0 sorunlu sayfa raporladı (exit 0); script'in gerçek bir
+    sorunu hâlâ yakaladığını kanıtlamak için `dist/client/en/about/
+    index.html`'e kasıtlı bozuk `lang="xx-BROKEN"` enjekte edilip script
+    tekrar çalıştırıldı — 1 sorun + exit 1 doğru şekilde raporlandı,
+    test değişikliği hemen geri alındı (Açık nokta #50'deki disiplinin
+    aynısı). Diğer 7 regresyon script'i + `astro check`/`astro build`
+    yeniden çalıştırılıp bu değişiklikten etkilenmedikleri doğrulandı.
+53. **YENİ, DORMANT/ETKİSİZ (2026-08-31) — `check-hreflang.mjs`'de
+    AYNI KÖKENLİ bir bug pusuda bekliyor, Faz 2'de hreflang aktifleşince
+    patlayacak.** Açık nokta #52'nin araştırması sırasında bulundu.
+    `check-hreflang.mjs`'in `hrefToDistRelPath()`'i hreflang `<link>`
+    etiketlerinin `href` URL'sini (`new URL(href).pathname`, ör.
+    `nl/over/index.html`) sayfanın KENDİ disk-relatif yoluyla (`rel`,
+    `DIST_DIR='dist'` köküne göre — düzeltilmezse `client/nl/over/
+    index.html`) karşılaştırıyor/`Map`'te arıyor (`pages.get(targetRel)`,
+    satır 87). Bu ikisi `client/` önekiyle ASLA eşleşmeyecek — Faz 2'de
+    `astro.config.mjs`'in `site` alanı doldurulup hreflang üretilmeye
+    başlandığı AN, bu script'in "kendi kendine referans eksik" +
+    "geçersiz hedefe işaret ediyor (dosya bulunamadı)" bulguları HER
+    hreflang'lı sayfa için sahte şekilde patlayacak (`check-html-
+    attribute.mjs`'in düzeltilmeden önceki haliyle birebir aynı hata
+    sınıfı). **Şu an ETKİSİZ** çünkü `pagesWithHreflang === 0` erken
+    çıkışı (satır 121-129) bu mantığa hiç girmiyor — `check-hreflang`
+    hâlâ 0 ile çıkıyor, kod değişikliği bu turda YAPILMADI (kullanıcı
+    onayı yalnızca `check-html-lang-attribute.mjs`'i kapsıyordu).
+    **Aksiyon:** Faz 2'de `site` alanı doldurulmadan HEMEN ÖNCE (veya
+    o turun bir parçası olarak) `check-hreflang.mjs`'e de aynı
+    `DIST_DIR ?? 'dist/client'` düzeltmesi uygulanmalı — aksi halde
+    Faz 2 doğrulama turu, gerçekte doğru olan hreflang çıktısını
+    yüzlerce sahte hatayla raporlayacak.
+54. **KRİTİK BULGU + DÜZELTİLDİ (2026-08-31, 4. tur) — `Intl.DateTimeFormat`/
+    `Intl.NumberFormat`'a runtime'da güvenmek GÜVENSİZ çıktı, `az-AZ`
+    locale'i için hem SUNUCU/TARAYICI ARASI hem de TARAYICI İÇİ tutarsız
+    sonuç veriyordu; tüm locale'ler için sabit/doğrulanmış tablolara
+    geçildi.** Açık nokta #51'in Tier 2 mimarisinde (ay/hafta günü
+    kısaltmaları için) `Intl` kullanma kararı verilmişti ("uydurma riski
+    yok" gerekçesiyle) — bu YANLIŞ çıktı. **Kanıt:** İzin Yönetimi
+    sekmesi Chrome'da doğrulanırken AZ'de "Aylıq İcazə Trendi" grafiğinin
+    ay eksen etiketleri "M03/M04/.../M08" (jenerik ICU fallback) olarak
+    göründü, "Nəfər başına orta" değerleri "2.1" (nokta, virgül DEĞİL)
+    çıktı. `javascript_tool` ile tarayıcı konsolunda doğrudan test
+    edildi: `Intl.DateTimeFormat('az-AZ',{month:'short'}).format(...)`
+    hem KISA hem UZUN ay formatında "M01".."M12" veriyor (locale doğru
+    çözülüyor — `resolvedOptions().locale === 'az-AZ'` — ama stil verisi
+    ICU'da YOK), `Intl.NumberFormat('az-AZ',...)` ondalık ayracı "."
+    veriyor (virgül değil). tr/en/nl/it AYNI tarayıcıda sorunsuzdu — bu
+    yalnızca `az`'a özgü bir ICU/CLDR kapsam boşluğu. **İlginç ikinci
+    katman:** `dist/client/az/...` (build/Node ICU) çıktısı DOĞRUYDU
+    (`grep`'te "M03" hiç bulunamadı) — yalnızca tarayıcıda hydration
+    SONRASI (client-side JS, widget `client:visible`) bozuluyordu, yani
+    SSR HTML ile hydrate edilmiş DOM arasında bir tutarsızlık da vardı.
+    **Düzeltme:** `productPreviewWidgetData.ts`'teki `MONTH_ABBREV`/
+    `WEEKDAY_ABBREV`/`formatDecimal()` artık HİÇBİR runtime `Intl`
+    çağrısı yapmıyor — Node'un tam ICU'suyla üretilip doğrulanmış gerçek
+    değerler (uydurma DEĞİL, gerçek CLDR takvim/sayı verisi, `node -e`
+    ile ayrıca doğrulandı) sabit tablo olarak koda gömüldü; az hafta
+    kısaltmaları gerçek Azerbaycan takvim formatını (B.e/Ç.a/Ç/C.a/C/
+    Ş/B) kullanıyor. **Doğrulama:** düzeltme sonrası tüm 5 locale
+    yeniden build edilip Chrome'da (özellikle AZ, hydration sonrası
+    sekme tıklamasıyla) tekrar test edildi — "mar apr may iyn iyl avq"
+    + "2,1 gün" doğru çıktı; tr/en/nl/it etkilenmedi (aynı doğrulanmış
+    değerler, yalnızca kaynak `Intl`'den sabit tabloya taşındı).
+    **⚠️ İleriye dönük not:** `dates.ts`'in `formatLocalizedDate()`'i
+    (SİTE GENELİNDE blog tarihleri/"Son Güncelleme" için kullanılıyor)
+    HÂLÂ `Intl.DateTimeFormat(...,{month:'long'})`'a dayanıyor — tarayıcı
+    konsolunda `az-AZ` UZUN ay formatının da AYNI şekilde bozuk olduğu
+    (`"M01".."M12"`) doğrulandı. Bu, bu turun kapsamı DIŞINDA (widget'a
+    özel değil, site geneli) ama gerçek bir risk — az sayfalarındaki
+    tarihler tarayıcıda yanlış görünüyor olabilir. Ayrı bir turda
+    incelenmeli/aynı "sabit tabloya geç" ilkesiyle düzeltilmeli.
+55. **TAMAMLANDI (2026-08-31, 4. tur) — "İzin Yönetimi" sekmesi 4 dilde
+    (EN/NL/IT/AZ) çevrildi (kullanıcı onaylı sıra: Zaman → İzin → İK →
+    Performans → Veri Analizi).** `productPreviewWidgetData.ts`'e
+    `getLeaveManagementLabels(locale)` eklendi (Zaman Yönetimi'yle AYNI
+    mimari desen). Şube isimleri (`Merkez/Teknopark/Anadolu/Avrupa Şube`)
+    Zaman Yönetimi'nin `getTimeManagementLabels(locale).branches`'İNDEN
+    PAYLAŞILDI — ikinci bir isim seti İCAT EDİLMEDİ. "Kişi başı ortalama"
+    değerleri (`2,1 gün` vb.) sayıya çevrilip `formatDecimal()` + `dayUnit`
+    ile birleştiriliyor. Çevrilen: sekme başlığı, 6 kart başlık/alt
+    başlık, 4 KPI etiketi, 2 izin türü, 3 onay durumu, "gün" birimi,
+    boş-durum metni ("İzin çakışması verisi yok"), dekoratif "Şube"
+    rozeti. **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
+    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
+    sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İzin Yönetimi sekmesi
+    (tüm 6 kart + şube paylaşımı + ondalık format) görsel doğrulandı —
+    bu doğrulama sırasında #54'teki kritik `Intl`/az bulgusu ortaya
+    çıktı ve AYNI turda düzeltildi.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
@@ -1787,6 +2734,25 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   bu durumda `ProductPage.astro`'ya `ctaKeyword` prop'uyla kısa, gerçek
   bir anahtar kelime geçirilmeli. Yeni bir jenerik/tekrarlayan metin
   kalıbı keşfedilirse `GENERIC_CTA_TEXTS` set'ine eklenmeli.
+- **Görsel bağımlılık kuralı (2026-08-30'da GÜNCELLENDİ — eski
+  "hotlink kabul edilebilir" yaklaşımının YERİNE geçti):** Önceden
+  (`docs/remaining-work-report.md`'nin eski notu, bkz. Açık nokta #45)
+  "ihtiyaç duyulan görsel canlı idenfit.com'dan hotlink ile bulunabilir,
+  `uploads.zip`'i açmaya somut bir ihtiyaç yok" denilen bilinçli bir
+  tolerans vardı. **Bu tolerans artık GEÇERSİZ.** Kural: yeni eklenen/
+  düzenlenen HİÇBİR içerik `https://idenfit.com/wp-content/...`
+  adresine hotlink YAPMAMALI — DNS geçişinden sonra `idenfit.com` YENİ
+  siteye işaret edeceği için eski sunucudan görsel çekmeye güvenmek
+  kendi kendini kıran bir bağımlılıktır (bkz. Açık nokta #14'ün kapanış
+  günlüğü, ilk somut örnek). Yeni bir görsel eklenirken: dosya
+  `public/wp-content/uploads/<YYYY>/<AA>/...` altına (WP'nin kendi
+  yol yapısı korunarak) yerleştirilmeli, kaynakta `url:` alanı GÖRELİ
+  (`/wp-content/uploads/...`) yazılmalı. Blog + mega-menü bu kurala göre
+  TAMAMEN temizlendi (Açık nokta #14); sitenin geri kalanındaki mevcut
+  ihlaller (~307 sayfa/293 benzersiz dosya) Açık nokta #45'te kayıtlı,
+  kademeli olarak aynı kurala getirilecek. Doğrulama:
+  `DIST_DIR=dist/client node scripts/audit-remote-hotlinks.mjs` (yeni,
+  kalıcı — `astro build` sonrası sıfır sonuç vermesi hedef).
 - **Open Graph görsel kuralı:** Yeni bir sayfa/component eklendiğinde,
   sayfanın gerçek/temsili bir görseli varsa (`hero.image`,
   `featuredImage` gibi) `<BaseLayout>`/`<LandingLayout>` çağrısına
@@ -1803,12 +2769,91 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   `.md` yazıları için editörün frontmatter'a elle bir `modifiedDate:`
   alanı eklemesi/güncellemesi gerekir (şema destekliyor, Decap
   arayüzünde henüz widget yok). Doğrulama: `node scripts/check-json-ld.mjs`.
+- **KALICI GOTCHA (2026-08-28) — Keystatic'in markdoc editörü SAVE anında
+  DOKUNULMAYAN alanları bile yeniden yazıyor, bu SÜRPRİZ OLMAMALI.**
+  Gerçek bir canlı test turunda (`idenfit-yatirim-duyurusu.md`'nin yalnızca
+  `excerpt`'ine bir kelime eklenip Save'e basıldı) commit diff'i (`66fea5e`,
+  git seviyesinde `74e3fca` ile revert edildi) 3 istenmeyen yan etki
+  gösterdi:
+  1. **Gövdede `&nbsp;` sızıntısı** — Markdown'daki 2 çift-boşluk sessizce
+     `&nbsp;`'ye dönüştü (editör hiç dokunulmayan paragrafları da
+     yeniden serileştiriyor).
+  2. **`date`/`modifiedDate` saat dilimi damgası değişti** —
+     `'2024-10-02T09:30:00'` (tırnaklı, saat dilimsiz/"naive") →
+     `2024-10-02T09:30:00.000Z` (tırnaksız, UTC "Z" damgalı).
+  3. **YAML biçimi değişti** (uzun string'ler `>-` katlanmış bloğa
+     döndü, frontmatter kapanışından sonraki boş satır kayboldu) —
+     `astro build`'i bozmuyor ama git diff'lerini kirletiyor.
+
+  **#2'nin GERÇEK boyutu, Keystatic'in ötesinde site-geneli bir risk:**
+  Node'un `new Date(string)`'i saat dilimsiz ("naive") bir string'i
+  ÇALIŞTIĞI MAKİNENİN sistem saat dilimine göre yorumluyor — ampirik
+  olarak doğrulandı (`node -e "new Date('2024-10-02T09:30:00').toISOString()"`
+  bu makinede/Europe-Istanbul'da `2024-10-02T06:30:00.000Z` veriyor,
+  UTC "Z" damgalı hali ise DOĞRUDAN `2024-10-02T09:30:00.000Z` — **tam 3
+  saatlik fark**, `[slug].astro`'nun `date.toISOString()` çağırdığı HER
+  yerde (JSON-LD `datePublished`/`dateModified`, OG `article:published_time`/
+  `modified_time`, görünür `<time datetime>`) aynen yansıyor). Bu, yalnızca
+  Keystatic'in bir yan etkisi DEĞİL — **`posts.json`'daki 618 legacy yazının
+  TAMAMI hâlâ naive tarih formatı kullanıyor** (bkz. örnek: `date:
+  '2026-07-03T15:18:47'`), yani bu yazıların SEO/GEO'ya giden gerçek UTC
+  tarihleri, `astro build`'in ÇALIŞTIĞI ortamın sistem saat dilimine göre
+  DEĞİŞKEN — yerel geliştirme makinesi (Türkiye, UTC+3) ile gerçek
+  deploy/CI ortamı (Cloudflare Pages/Workers build container'ları
+  TİPİK OLARAK UTC) FARKLI sonuç üretebilir. **Doğrulanmadı, kontrol
+  edilmeli:** gerçek Cloudflare Pages build ortamının sistem saat dilimi
+  — eğer UTC ise, 622 yazının TAMAMININ canlıdaki JSON-LD `datePublished`'i
+  şu an bu makinedeki önizlemeden 3 saat farklı olabilir (İÇERİK
+  değişmiyor, yalnızca makine-okunur tarih damgası — düşük ama gerçek bir
+  SEO/GEO doğruluk riski). **Kalıcı çözüm için öneri (ayrı bir tur):**
+  yeni/düzenlenen yazılarda tarih her zaman açık UTC ("Z" damgalı) veya
+  açık ofsetli (`+03:00`) yazılmalı, naive format hiç kullanılmamalı.
+  **`check-json-ld.mjs` bu sınıfı YAKALAMAZ** — yalnızca ISO 8601 SÖZ
+  DİZİMİNİ doğruluyor (`^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(\.\d+)?(Z|
+  [+-]\d{2}:\d{2})$`), hem naive-yorumlanmış hem UTC-yorumlanmış değer
+  `.toISOString()`'tan geçtikten SONRA HER ZAMAN "Z" damgalı çıkıyor —
+  yani script FORMAT açısından ikisini de geçerli görür, DEĞER kaymasını
+  (saat dilimi belirsizliğinden kaynaklanan) hiç fark edemez — bu KÖR
+  NOKTA elle test edilip doğrulandı (bozuk hâli geçici olarak `astro
+  build`'e sokup `check-json-ld.mjs` çalıştırıldı: **0 geçersiz blok**,
+  ne `&nbsp;` sızıntısı ne tarih kayması yakalandı).
+
+  **Sonuç — editörler panelden düzenleme yapmaya başladığında beklenmesi
+  gerekenler:** (a) SAVE sonrası git diff'i "beklenenden büyük" görünebilir
+  (yalnızca dokunulan alan değil, TÜM dosya yeniden biçimleniyor) — bu
+  BOZULMA değil, editörün normal davranışı; (b) çift boşluk kullanan eski
+  içerik `&nbsp;`'ye dönüşebilir — görsel etkisi yok (tarayıcı ikisini de
+  aynı gösterir) ama kaynak metin değişir; (c) naive tarihli eski
+  yazılar SAVE edilirse tarihleri UTC'ye kayabilir — yayın tarihini/saatini
+  KORUMAK için editör Save'den ÖNCE tarih/saat alanını gözden geçirip
+  gerekiyorsa elle düzeltmeli.
 - **Vite bağımlılık önbelleği bozulması — KALICI ÇÖZÜM:**
-  `astro.config.mjs`'in `vite.optimizeDeps`'i iki katmanlı: `force: true`
+  `astro.config.mjs`'in `vite.optimizeDeps`'i şu an ÜÇ katmanlı: `force: true`
   (her başlangıçta önbelleği sıfırdan kurar) + `include: ['react',
-  'react-dom', 'react-dom/client', 'lucide-react']`. **Elle
+  'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web',
+  'astro/virtual-modules/i18n.js', 'astro/logger/json']`. **Elle
   `node_modules/.vite` silme adımı artık hiçbir senaryoda GEREKMİYOR.**
-  Kalan sınıf için iki kalıcı disiplin kuralı şart:
+  **ÜÇÜNCÜ KATMAN (2026-08-29 eklendi) — canlı/runtime keşif kaynaklı YENİ
+  bir alt sınıf bulundu:** `astro/virtual-modules/i18n.js` ve
+  `astro/logger/json` (framework-içi sanal modüller, kullanıcı kodundan
+  statik `import` ile hiç erişilemiyor — yalnızca `getRelativeLocaleUrl()`
+  gibi runtime çağrılarıyla İLK GERÇEK sayfa isteğinde keşfediliyordu) `include`
+  listesinde YOKTU. Sonuç: ana sayfaya (veya i18n kullanan HERHANGİ bir
+  sayfaya) gelen İLK istek Vite'ın dev server ÇALIŞIRKEN "optimized
+  dependencies changed, reloading" tetiklemesine yol açıyor, bu da SSR modül
+  kaydını invalidate edip zaten yüklenmiş React-tüketen island'ların
+  (`MegaMenu`/`LanguageSwitcher`/`MobileMenu`/`ProductPreviewWidget`/
+  `CustomerStoryCarousel`/`YoutubeClickToPlay`) İKİ FARKLI React kopyası
+  arasında kalmasına, "Invalid hook call"/`Cannot read properties of null
+  (reading 'useState')` hatasıyla çökmesine yol açıyordu — **3 art arda
+  `npm run dev:clean` denemesinde bile KENDİLİĞİNDEN düzelmedi** (önceki
+  bilinen sınıfların aksine), kök nedeni `.astro/dev.log`'da ana sayfaya
+  TEK bir `curl` isteği atılıp reload zincirinin canlı yakalanmasıyla
+  bulundu. **Çözüm:** bu 2 modül de `include`'a eklendi, cold start'ta
+  önceden paketleniyor — canlı yeniden-optimizasyon artık hiç tetiklenmiyor
+  (temiz restart sonrası ana sayfa + 3 farklı sayfa `curl` ile ayrı ayrı
+  denenip loglarda sıfır yeni "[optimizer]"/"Invalid hook call" olduğu
+  doğrulandı). Kalan sınıf için iki kalıcı disiplin kuralı şart:
   1. `npm install`/`npm uninstall` çalıştırılmadan ÖNCE dev server
      durdurulmalı, sonrasında `npm run dev:clean` (durdur + `dist`/`.vite`
      temizle + arka planda yeniden başlat, TEK komut) ile yeniden
@@ -1856,6 +2901,50 @@ Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:
 olsun olmasın) `npm run dev:clean` ile yeniden başlatın. Üretim build
 testi (`astro build`) sonrası dev server'a dönerken de aynı komut
 kullanılabilir (`dist/` çıktısını da temizler).
+
+## 🔶 AÇIK NOKTA (2026-08-30) — Sitedeki 6 form da backend'siz `console.log`
+stub'ı, ayrıca KVKK onay metniyle çelişen bir hukuki risk taşıyor. Kod
+değişikliği HENÜZ YAPILMADI — 2 gün sonra ele alınacak.
+
+Açık nokta #2'nin ("Faz 2 backend yok") eski, eksik listesi
+(yalnızca Hero formu + HR Maturity Test'ten bahsediyordu) bu turda tam
+taranıp genişletildi/güncellendi — kaynak kodda doğrulandı
+(`grep console.log src/components/*.tsx`):
+
+| Form (component) | Kullanıldığı sayfa(lar) | Durum |
+|---|---|---|
+| `HeroForm.tsx` | Ana Sayfa hero **VE** İletişim sayfası (ikisi de AYNI component'i reuse ediyor, `ContactPage.astro:66,183`) | `console.log`, backend yok |
+| `LandingRequestForm.tsx` | `/demo` (Landing Page) | `console.log`, "raporunuz e-postanıza gönderildi" mesajı gösteriyor ama hiçbir yere gönderilmiyor |
+| `SupportRequestForm.tsx` | Destek Talebi (`/destek-talebi/`) | `console.log`; teşekkür sayfasına (`tesekkurler-destek`) bağlantı da bilinçli olarak kurulmadı (bkz. Açık nokta #10) |
+| `HrMaturityTest.tsx` | Dijital İK Olgunluk Testi sonuç ekranı | `console.log('HR Maturity Test — rapor talebi:', ...)`, "raporu e-postama gönder" butonu |
+| `PresentationRequestForm.tsx` | Online Sunum Talebi | `console.log('Online Sunum Talebi formu gönderildi:', ...)` — **kullanıcının orijinal 5'lik listesinde yoktu, bu taramada bulunup eklendi** |
+
+**Hukuki risk notu (kullanıcı bulgusu):** Bu 6 formun HEPSİ, gönderim
+öncesi kullanıcıya gerçek bir KVKK onay metni gösteriyor (`src/i18n/
+tr.ts`'teki `kvkkNotice`: *"İletişim Web KVKK İbaresi ve Kullanım
+Koşullarını kabul ediyorum."*, kaynak koddaki yorumlarda "AYNI dürüst
+desen" olarak anılıyor — bkz. `LandingRequestForm.tsx:47-48`,
+`SupportRequestForm.tsx:24-25`). Kullanıcı bu onayı verip formu
+gönderdiğinde, sistem KİŞİSEL VERİYİ (ad/telefon/e-posta/firma) fiilen
+HİÇBİR YERE göndermiyor/saklamıyor — yalnızca tarayıcı konsoluna
+yazıyor. Yani kullanıcıya biçimsel bir KVKK/veri işleme onayı
+sunulurken, o onayın konu ettiği veri işleme fiilen HİÇ gerçekleşmiyor
+— gösterilen hukuki metinle sistemin gerçek davranışı arasında bir
+TUTARSIZLIK var. (Bu bir hukuki görüş DEĞİL, yalnızca kod davranışının
+tespitidir — nihai değerlendirme için hukuk danışmanına başvurulmalı.)
+
+**Kapsam netliği:** Bu madde yalnızca KAYDA GEÇİRİLDİ, hiçbir form/
+metin/backend değişikliği yapılmadı. Faz 2'de (aşağıdaki plan) ele
+alınacak — kullanıcı "2 gün sonra" (tahmini 2026-09-01) bu işe
+başlanacağını belirtti.
+
+**TODO:**
+- [ ] Backend bağlanırken bu satırları kaldır (yukarıdaki tablodaki 5
+      dosyanın `console.log(...)` çağrıları — Ad/e-posta/telefon artık
+      gerçek bir backend'e gönderileceği için tarayıcı konsoluna
+      basılmamalı).
+
+---
 
 ## Deployment
 **Faz 1 (mevcut):** Tüm statik içerik Astro ile migrate edilip Cloudflare

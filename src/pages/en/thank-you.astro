@@ -1,0 +1,20 @@
+---
+export const prerender = true;
+import SupportThankYouPage from '../../components/SupportThankYouPage.astro';
+import {
+  getSupportThankYouContent,
+  getSupportThankYouLocaleUrls,
+  getSupportThankYouModifiedDate,
+} from '../../data/supportThankYouContent';
+
+const content = getSupportThankYouContent('en')!;
+const localeUrls = getSupportThankYouLocaleUrls();
+const modified = getSupportThankYouModifiedDate('en');
+// `buildIdenfitTitle()`'ın otomatik EN niteleyicisi 60 karakteri aşıyordu
+// (base 49 karakter, en kısa niteleyici bile +14 ekliyor) — H1/içerik
+// DEĞİŞMEDEN, yalnızca `<title>` için kısa/gerçek bir özet (2026-08-29,
+// `check-title-length.mjs` bulgusu).
+const title = 'idenfit — Support Request Received, We Will Contact You';
+---
+
+<SupportThankYouPage content={content} localeUrls={localeUrls} modified={modified} title={title} />

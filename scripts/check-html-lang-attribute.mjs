@@ -19,7 +19,16 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const DIST_DIR = process.env.DIST_DIR ?? 'dist';
+// DÜZELTME (2026-08-31, Açık nokta #52) — varsayılan `'dist'` DEĞİL
+// `'dist/client'`: `@astrojs/cloudflare` adapter'ı (server modu,
+// b73428a'dan beri) statik sayfaları `dist/client/` altına sarıyor,
+// bu yüzden `expectedLocaleFor()`'un `parts[0]` varsayımı `dist`
+// köküyle her sayfa için "client" görüp HER locale'i (az/en/it/nl,
+// 196 sayfa) sahte "yanlış" olarak raporluyordu — gerçek `<html lang>`
+// değerleri hep doğruydu. Emsal: `scripts/audit-remote-hotlinks.mjs`
+// aynı düzeltmeyi (2026-08-30) zaten `DIST_DIR=dist/client` çağrı
+// kalıbıyla belgelemişti.
+const DIST_DIR = process.env.DIST_DIR ?? 'dist/client';
 const VALID_LOCALES = ['tr', 'en', 'nl', 'it', 'az'];
 
 async function findHtmlFiles(dir) {

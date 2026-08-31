@@ -422,7 +422,7 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
         // önceki taramada bulunamamıştı çünkü mega-menü içeriği ayrı bir
         // Elementor header template parçası, ana sayfanın `content.rendered`'ında
         // değil.
-        image: 'https://idenfit.com/wp-content/uploads/2025/08/header-image.webp',
+        image: '/wp-content/uploads/2025/08/header-image.webp',
         imageAlt: mega.urunler.promo.imageAlt,
       },
     },
@@ -555,34 +555,34 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
             {
               category: mega.kesfet.generationsWorkforce.category,
               title: mega.kesfet.generationsWorkforce.title,
-              image: 'https://idenfit.com/wp-content/uploads/2026/04/Group-1365421434.png',
+              image: '/wp-content/uploads/2026/04/Group-1365421434.png',
               imageAlt: mega.kesfet.generationsWorkforce.imageAlt,
-              href: 'https://idenfit.com/wp-content/uploads/2026/04/Kusaklarin-is-Gucune-Etkisi.pdf',
+              href: '/wp-content/uploads/2026/04/Kusaklarin-is-Gucune-Etkisi.pdf',
               external: true,
             },
             {
               category: mega.kesfet.dataDrivenRecruitment.category,
               title: mega.kesfet.dataDrivenRecruitment.title,
-              image: 'https://idenfit.com/wp-content/uploads/2026/04/Veri-Odakli-Ise-Alim-Rehberi-1-1.png',
+              image: '/wp-content/uploads/2026/04/Veri-Odakli-Ise-Alim-Rehberi-1-1.png',
               imageAlt: mega.kesfet.dataDrivenRecruitment.imageAlt,
-              href: 'https://idenfit.com/wp-content/uploads/2026/04/Veri-Odakli-Ise-Alim-Rehberi.pdf',
+              href: '/wp-content/uploads/2026/04/Veri-Odakli-Ise-Alim-Rehberi.pdf',
               external: true,
             },
             {
               category: mega.kesfet.digitalTransformation.category,
               title: mega.kesfet.digitalTransformation.title,
               image:
-                'https://idenfit.com/wp-content/uploads/2026/04/2026ya-Hazirlik-10-Adimda-Dijital-IK-Donusum-Rehberi-1-1.png',
+                '/wp-content/uploads/2026/04/2026ya-Hazirlik-10-Adimda-Dijital-IK-Donusum-Rehberi-1-1.png',
               imageAlt: mega.kesfet.digitalTransformation.imageAlt,
-              href: 'https://idenfit.com/wp-content/uploads/2026/04/2026ya-Hazirlik-10-Adimda-Dijital-IK-Donusum-Rehberi.pdf',
+              href: '/wp-content/uploads/2026/04/2026ya-Hazirlik-10-Adimda-Dijital-IK-Donusum-Rehberi.pdf',
               external: true,
             },
             {
               category: mega.kesfet.strategicHr.category,
               title: mega.kesfet.strategicHr.title,
-              image: 'https://idenfit.com/wp-content/uploads/2026/04/2026-Stratejik-IK-Rehberi-1-1-1.png',
+              image: '/wp-content/uploads/2026/04/2026-Stratejik-IK-Rehberi-1-1-1.png',
               imageAlt: mega.kesfet.strategicHr.imageAlt,
-              href: 'https://idenfit.com/wp-content/uploads/2026/04/2026-Stratejik-IK-Rehberi-1.pdf',
+              href: '/wp-content/uploads/2026/04/2026-Stratejik-IK-Rehberi-1.pdf',
               external: true,
             },
           ],

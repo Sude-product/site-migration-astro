@@ -1,4 +1,5 @@
 ---
+export const prerender = true;
 // Düzen idenfit.com'un canlı tekil yazı sayfası incelenerek güncellendi
 // (2026-07-24, bkz. CLAUDE.md "Blog tasarımı"): sağda sabit genişlikte bir
 // sidebar (Popüler İçerikler + Yaklaşan Etkinlikler) var, "Benzer Yazılar"
@@ -57,7 +58,7 @@ const showModifiedDate = modifiedDate && Math.abs(modifiedDate.getTime() - date.
 // `Astro.site` tabanlı mutlak bir URL eklenmeli. `publisher.logo` gerçek,
 // canlı idenfit.com barındırılan logo dosyası (bkz. `IdenfitLogo.tsx`'in
 // kaynak yorumu) — uydurulmadı.
-const IDENFIT_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/07/idenfit-logo.svg';
+const IDENFIT_LOGO_URL = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 // `image` Google'ın Article/BlogPosting rich result'ları için ZORUNLU —
 // `featuredImage: null` olan tek bilinen yazıda (bkz. CLAUDE.md "617/618
 // geçerli featured_media", kaynağın kendi eksikliği) gerçek marka logosuna
@@ -146,12 +147,13 @@ const jsonLd = {
         </header>
 
         {
-          featuredImage && (
+          featuredImage?.url && (
             <img
               src={featuredImage.url}
               alt={featuredImage.alt}
               width={featuredImage.width}
               height={featuredImage.height}
+              loading="eager"
               class="mt-8 w-full rounded-2xl object-cover"
             />
           )
@@ -176,7 +178,7 @@ const jsonLd = {
                 class="reveal group"
                 style={`transition-delay: ${Math.min(i, 6) * 60}ms`}
               >
-                {related.data.featuredImage && (
+                {related.data.featuredImage?.url && (
                   <span class="block aspect-[4/3] w-full overflow-hidden rounded-md">
                     <img
                       src={related.data.featuredImage.url}

@@ -84,6 +84,21 @@ interface Props {
    * `dateModified`/`LastUpdated` ile AYNI "yalnızca gerçek veri varsa"
    * ilkesi. */
   breadcrumb?: BreadcrumbItem[];
+  /** Sayfanın kendi hero'sunun İLK rengi (2026-08-29, kullanıcı bulgusu —
+   * "her sayfada bulunan bu beyaz boşluk"): breadcrumb her zaman düz
+   * beyaz zeminde render edilir, hemen altındaki sayfaya özel renkli/
+   * gradyanlı hero'yla arasında (renkli hero kullanan sayfalarda) görünür
+   * bir "dikiş"/beyaz şerit bırakırdı. Verilirse breadcrumb'ı saran
+   * kutuya AYNI düz renk uygulanır — hero'nun KENDİ gradyanının en üst
+   * (0%) rengiyle birebir eşleştirilmeli (ör.
+   * `PresentationRequestPage.astro`'nun `#FFDCDC`'si) ki breadcrumb'ın
+   * alt kenarıyla hero'nun üst kenarı aynı renkte buluşup KESİNTİSİZ
+   * görünsün — gradyanın TAMAMINI burada tekrar ÜRETMEYE çalışmak
+   * (farklı yükseklikteki 2 ayrı kutuda aynı yüzde-tabanlı gradyanı
+   * hizalamak) kırılgan/tutarsız olurdu, bu yüzden bilinçli olarak yalnızca
+   * DÜZ renk. Verilmezse (varsayılan, mevcut TÜM sayfaların davranışı)
+   * breadcrumb şeffaf/beyaz kalır — DEĞİŞİKLİK YOK. */
+  heroBackground?: string;
 }
 
 const {
@@ -98,6 +113,7 @@ const {
   articleModifiedTime,
   dateModified,
   breadcrumb,
+  heroBackground,
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
@@ -248,12 +264,25 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		<!-- Quicksand (idenfit.com marka fontu) -->
-		<link rel="preconnect" href="https://fonts.googleapis.com" />
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<!-- Quicksand (idenfit.com marka fontu) — self-hosted, bkz. global.css'in
+		     @font-face yorumu (Google Fonts'un GDPR/IP-sızıntı riski nedeniyle
+		     2026-08-31'de taşındı). "latin" iki subset'ten biri değil, TEK
+		     BAŞINA en kritik olanı (temel Latin karakterler + noktasız ı) —
+		     ikisi de preload edildi çünkü büyük İ (latin-ext) site adının
+		     kendisinde ("İK") her sayfada geçiyor. -->
 		<link
-			href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap"
-			rel="stylesheet"
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
+		/>
+		<link
+			rel="preload"
+			href="/fonts/quicksand/quicksand-latin-ext.woff2"
+			as="font"
+			type="font/woff2"
+			crossorigin
 		/>
 		<title>{title}</title>
 		<!-- JS tamamen kapalıysa scroll-reveal script'i hiç çalışmaz — `.reveal`
@@ -278,7 +307,8 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			     ilke). Son öğe tıklanamaz düz metin (`aria-current="page"`) —
 			     mevcut sayfa. -->
 			{breadcrumbTrail.length > 0 && (
-				<nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
+				<div class="pb-3" style={heroBackground ? `background: ${heroBackground};` : undefined}>
+					<nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">
 					<ol class="flex flex-wrap items-center gap-1.5 text-xs text-muted">
 						{breadcrumbTrail.map((item, i) => (
 							<li class="flex items-center gap-1.5">
@@ -296,6 +326,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 						))}
 					</ol>
 				</nav>
+				</div>
 			)}
 			<slot />
 		</main>

@@ -65,7 +65,10 @@ export const tr: Translations = {
       phone: 'Telefon Numarası',
       email: 'Şirket E-postanız',
       company: 'Firmanızın Adı',
+      next: 'Devam Et',
+      back: 'Geri',
     },
+    presentationTrustCaption: '1.000’den fazla müşterinin güvendiği idenfit’e katılın.',
   },
   footer: {
     columnTitles: {
@@ -386,10 +389,9 @@ export const tr: Translations = {
       imageAlt: 'idenfit kullanıcı dostu panel ekran görüntüsü',
     },
     suprema: {
-      title: 'Temassız Tanımlama & Geçiş Sistemleri',
+      title: 'Tüm Donanımlar ile Entegre PDKS Platformu',
       text:
         'İdenfit, yüz tanıma ve parmak okuma cihazlarına entegre sistem sayesinde çalışanların kimlik doğrulaması gerçek zamanlı yapılabilir. Aynı zamanda giriş-çıkış ve mola süreleri takibi kolaylıkla yönetilebilir.',
-      partnerLabel: 'Hardware partner',
     },
     testimonials: {
       title: 'Geliştirilebilir Çalışan Deneyimi',

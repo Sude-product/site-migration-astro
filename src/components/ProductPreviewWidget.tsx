@@ -47,6 +47,9 @@ import {
 import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
+import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
+import { getTimeManagementLabels, getLeaveManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV, formatDecimal } from '../data/productPreviewWidgetData';
+import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
 // panel ekran görüntülerinden (kullanıcı tarafından sağlandı) çıkarılan
@@ -75,6 +78,30 @@ function useTheme() {
   return useContext(ThemeContext);
 }
 
+// Dil desteği (2026-08-31, kullanıcı isteği — "dil değişince dashboard'un
+// da dili değişsin"). `ThemeContext`'le AYNI desen: iç içe geçmiş 59 alt
+// bileşenin her birine `labels` prop'u elle taşımak (prop drilling) yerine
+// Context kullanılıyor. Yalnızca YAPISAL/arayüz metni (Tier 1) buradan
+// geliyor — kurgusal veri etiketleri (Tier 2, ör. "İşe Giren"/"Ayrılan")
+// henüz kapsam dışı, bkz. `productPreviewWidgetLabels.ts`'in dosya başı
+// yorumu.
+const LabelsContext = createContext<ProductPreviewWidgetLabels>(getProductPreviewWidgetLabels('tr'));
+function useLabels() {
+  return useContext(LabelsContext);
+}
+
+// Tier 2 (kurgusal veri etiketleri, 2026-08-31, 3. tur — "canlı dashboard
+// içindeki modüller de çevrilmeli") çevirileri `productPreviewWidgetData.ts`'te
+// `getXLabels(locale)` fonksiyonları olarak tutuluyor — `LabelsContext`
+// (Tier 1) gibi doğrudan çeviri objesini DEĞİL, HAM `locale`'i taşıyan ayrı
+// bir context üzerinden okunuyor, çünkü her sekmenin kendi `getXLabels()`'i
+// var (`LabelsContext`'in TEK `ProductPreviewWidgetLabels` şeklini
+// genişletmek, mevcut ~8 tüketicisinin şeklini bozardı).
+const LocaleContext = createContext<Locale>('tr');
+function useWidgetLocale() {
+  return useContext(LocaleContext);
+}
+
 type TabKey =
   | 'zaman'
   | 'izin'
@@ -100,53 +127,78 @@ interface TabDef {
   badge?: string;
 }
 
-const TABS: TabDef[] = [
-  { key: 'zaman', label: 'Zaman Yönetimi', icon: Clock, enabled: true },
-  { key: 'izin', label: 'İzin', icon: CalendarClock, enabled: true },
-  { key: 'ik', label: 'İnsan Kaynakları', icon: Users, enabled: true },
-  { key: 'performans', label: 'Performans Yönetimi', icon: Target, enabled: true },
-  { key: 'bordro', label: 'Bordro', icon: Wallet, enabled: false, badge: 'Yakında' },
-  { key: 'ise-alim', label: 'İşe Alım', icon: UserPlus, enabled: false, badge: 'Yakında' },
-  { key: 'calisan-deneyimi', label: 'Çalışan Deneyimi', icon: Heart, enabled: false },
-  { key: 'moduller', label: 'Modüller', icon: LayoutGrid, enabled: false },
-  { key: 'raporlar', label: 'Raporlar', icon: FileText, enabled: false },
-  { key: 'veri-analizi', label: 'Veri Analizi', icon: BarChart3, enabled: true },
-  { key: 'egitim-akademisi', label: 'Eğitim Akademisi', icon: GraduationCap, enabled: false },
+// DÜZELTME (2026-08-27, kullanıcı isteği) — sekme SIRASI değişti (İK en
+// üstte, sonra İzin Yönetimi, Zaman Yönetimi, Performans Yönetimi) ve
+// "İzin" etiketi "İzin Yönetimi"ye çevrildi — içerik (LeaveManagementTab
+// vb.) DEĞİŞMEDİ, yalnızca bu diziideki sıra + `label`/başlık metni.
+//
+// Dil desteği (2026-08-31) — `label`/`badge` artık burada SABİT
+// yazılmıyor, `TAB_DEFS` yalnızca yapıyı (key/icon/enabled) taşıyor;
+// gerçek metin `useLabels()`'ten `buildTabs()` ile locale'e göre
+// derleniyor (aşağıya bkz.) — `TabKey` (kebab-case, `activeTab` state'i
+// için) ile `ProductPreviewWidgetLabels['tabs']`in alan adları
+// (camelCase) arasındaki eşleme `TAB_LABEL_KEYS`'te.
+interface TabStructureDef {
+  key: TabKey;
+  icon: ComponentType<{ className?: string; strokeWidth?: number }>;
+  enabled: boolean;
+  hasComingSoonBadge?: boolean;
+}
+const TAB_DEFS: TabStructureDef[] = [
+  { key: 'ik', icon: Users, enabled: true },
+  { key: 'izin', icon: CalendarClock, enabled: true },
+  { key: 'zaman', icon: Clock, enabled: true },
+  { key: 'performans', icon: Target, enabled: true },
+  { key: 'bordro', icon: Wallet, enabled: false, hasComingSoonBadge: true },
+  { key: 'ise-alim', icon: UserPlus, enabled: false, hasComingSoonBadge: true },
+  { key: 'calisan-deneyimi', icon: Heart, enabled: false },
+  { key: 'moduller', icon: LayoutGrid, enabled: false },
+  { key: 'raporlar', icon: FileText, enabled: false },
+  { key: 'veri-analizi', icon: BarChart3, enabled: true },
+  { key: 'egitim-akademisi', icon: GraduationCap, enabled: false },
 ];
+const TAB_LABEL_KEYS: Record<TabKey, keyof ProductPreviewWidgetLabels['tabs']> = {
+  ik: 'ik',
+  izin: 'izin',
+  zaman: 'zaman',
+  performans: 'performans',
+  bordro: 'bordro',
+  'ise-alim': 'iseAlim',
+  'calisan-deneyimi': 'calisanDeneyimi',
+  moduller: 'moduller',
+  raporlar: 'raporlar',
+  'veri-analizi': 'veriAnalizi',
+  'egitim-akademisi': 'egitimAkademisi',
+};
+function buildTabs(labels: ProductPreviewWidgetLabels): TabDef[] {
+  return TAB_DEFS.map((def) => ({
+    key: def.key,
+    icon: def.icon,
+    enabled: def.enabled,
+    label: labels.tabs[TAB_LABEL_KEYS[def.key]],
+    badge: def.hasComingSoonBadge ? labels.comingSoonBadge : undefined,
+  }));
+}
 
-// Otomatik sekme gezinmesi (2026-08-20, kullanıcı isteği — Personio.com'un
-// ana sayfasındaki canlı dashboard gibi widget'ın kendi kendine gezinmesi)
-// yalnızca FONKSİYONEL sekmeler arasında döngü yapıyor — "Yakında" rozetli/
-// pasif dolgu sekmeler (Bordro/İşe Alım vb.) zaten tıklanamaz durumda,
-// otomatik gezinme de bunları atlıyor.
-const ENABLED_TABS = TABS.filter((t) => t.enabled);
+// --- "Zaman Yönetimi" sekmesi — kurgusal veri. Metin (etiket/isim/alt
+// metin) BURADA YOK — `productPreviewWidgetData.ts`'in `getTimeManagementLabels
+// (locale)`'inden geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 3. tur,
+// Tier 2 i18n — bkz. dosya başı `LocaleContext` yorumu). ---
 
-// --- "Zaman Yönetimi" sekmesi — kurgusal veri ---
-
-const SHIFTS: { label: string; percent: number }[] = [
-  { label: 'Sabah Vardiyası (08:00-17:00)', percent: 94 },
-  { label: 'Akşam Vardiyası (16:00-24:00)', percent: 88 },
-  { label: 'Gece Vardiyası (00:00-08:00)', percent: 76 },
-  { label: 'Ofis Personeli', percent: 97 },
-  { label: 'Saha Ekibi', percent: 82 },
-];
+const SHIFTS: { percent: number }[] = [{ percent: 94 }, { percent: 88 }, { percent: 76 }, { percent: 97 }, { percent: 82 }];
 
 // Sıra Merkez/Teknopark/Anadolu/Avrupa şubeleriyle sabit — `OVERTIME_MONTHS`
 // her ayın `values` dizisi bu SIRAYLA okunuyor.
-const BRANCHES: { name: string; color: string }[] = [
-  { name: 'Merkez Şube', color: '#3B82F6' },
-  { name: 'Teknopark Şube', color: '#10B981' },
-  { name: 'Anadolu Şube', color: '#F59E0B' },
-  { name: 'Avrupa Şube', color: '#8B5CF6' },
-];
+const BRANCHES: { color: string }[] = [{ color: '#3B82F6' }, { color: '#10B981' }, { color: '#F59E0B' }, { color: '#8B5CF6' }];
 
-const OVERTIME_MONTHS: { label: string; values: number[] }[] = [
-  { label: 'Oca', values: [8, 4, 3, 2] },
-  { label: 'Şub', values: [6, 5, 2, 3] },
-  { label: 'Mar', values: [12, 8, 5, 4] },
-  { label: 'Nis', values: [10, 14, 6, 5] },
-  { label: 'May', values: [14, 10, 9, 7] },
-  { label: 'Haz', values: [11, 13, 8, 6] },
+// `label` artık `MONTH_ABBREV[locale][monthIndex]`'ten geliyor (0=Oca...5=Haz).
+const OVERTIME_MONTHS: { monthIndex: number; values: number[] }[] = [
+  { monthIndex: 0, values: [8, 4, 3, 2] },
+  { monthIndex: 1, values: [6, 5, 2, 3] },
+  { monthIndex: 2, values: [12, 8, 5, 4] },
+  { monthIndex: 3, values: [10, 14, 6, 5] },
+  { monthIndex: 4, values: [14, 10, 9, 7] },
+  { monthIndex: 5, values: [11, 13, 8, 6] },
 ];
 
 // 2026-08-19, kullanıcının paylaştığı gerçek app.idenfit.com "Zaman
@@ -156,77 +208,82 @@ const OVERTIME_MONTHS: { label: string; values: number[] }[] = [
 // widget'ta HENÜZ olmayan öğeler eklendi — gerçek sayılar/şirket verisi
 // DEĞİL, aynı KURGUSAL veri ilkesiyle (dosya başı yorumu) farklı örnek
 // rakamlar kullanıldı.
+// `subtext` artık `getTimeManagementLabels(locale).kpiSubtext[i]`'ten geliyor.
 const TIME_KPIS: {
   icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
   color: string;
   value: string;
   trendUp: boolean;
   trendPercent: string;
-  subtext: string;
   sparkline: number[];
 }[] = [
-  { icon: Users, color: '#3B82F6', value: '156', trendUp: true, trendPercent: '4.20%', subtext: '8 yeni işe alım (bu ay)', sparkline: [40, 44, 42, 48, 52, 58, 62] },
-  { icon: UserCheck, color: '#10B981', value: '142', trendUp: false, trendPercent: '2.10%', subtext: '%91 devam oranı', sparkline: [60, 58, 55, 57, 52, 50, 46] },
-  { icon: CalendarDays, color: '#F59E0B', value: '6', trendUp: true, trendPercent: '50.00%', subtext: 'Bu hafta 2 talep oluşturuldu', sparkline: [2, 3, 2, 4, 3, 5, 6] },
+  { icon: Users, color: '#3B82F6', value: '156', trendUp: true, trendPercent: '4.20%', sparkline: [40, 44, 42, 48, 52, 58, 62] },
+  { icon: UserCheck, color: '#10B981', value: '142', trendUp: false, trendPercent: '2.10%', sparkline: [60, 58, 55, 57, 52, 50, 46] },
+  { icon: CalendarDays, color: '#F59E0B', value: '6', trendUp: true, trendPercent: '50.00%', sparkline: [2, 3, 2, 4, 3, 5, 6] },
 ];
 
-const TIME_MINI_STATS: { color: string; value: string; label: string; sparkline: number[] }[] = [
-  { color: '#EF4444', value: '9', label: 'Devamsız', sparkline: [12, 10, 11, 8, 9, 7, 9] },
-  { color: '#EF4444', value: '2', label: 'Geç Gelen', sparkline: [1, 2, 3, 1, 2, 4, 2] },
-  { color: '#F59E0B', value: '3', label: 'Erken Çıkan', sparkline: [4, 3, 5, 2, 3, 4, 3] },
-  { color: '#8B5CF6', value: '5', label: 'Bugün İzinli', sparkline: [3, 4, 3, 5, 4, 6, 5] },
+// `label` artık `getTimeManagementLabels(locale).miniStats`'tan geliyor
+// (sıra: absent/late/earlyLeave/onLeaveToday).
+const TIME_MINI_STATS: { color: string; value: string; sparkline: number[] }[] = [
+  { color: '#EF4444', value: '9', sparkline: [12, 10, 11, 8, 9, 7, 9] },
+  { color: '#EF4444', value: '2', sparkline: [1, 2, 3, 1, 2, 4, 2] },
+  { color: '#F59E0B', value: '3', sparkline: [4, 3, 5, 2, 3, 4, 3] },
+  { color: '#8B5CF6', value: '5', sparkline: [3, 4, 3, 5, 4, 6, 5] },
 ];
 
 // "Devam Takibi" — 7 günlük giriş-çıkış özeti, 4 kategori (gerçek referansla
 // AYNI renk kodları: Mevcut mavi/Geç Gelen kırmızı/İzinli amber/Erken Çıkan
 // mor). `ATTENDANCE_STATUS_COLORS` sırayla `values` dizisiyle eşleşiyor.
+// `label` artık `WEEKDAY_ABBREV[locale][dayIndex]`'ten geliyor (0=Pzt...6=Paz).
 const ATTENDANCE_STATUS_COLORS = ['#3B82F6', '#EF4444', '#F59E0B', '#8B5CF6'];
-const ATTENDANCE_WEEK: { label: string; values: number[] }[] = [
-  { label: 'Pzt', values: [58, 2, 3, 1] },
-  { label: 'Sal', values: [61, 1, 2, 2] },
-  { label: 'Çar', values: [55, 3, 4, 1] },
-  { label: 'Per', values: [60, 2, 1, 3] },
-  { label: 'Cum', values: [52, 4, 3, 2] },
-  { label: 'Cmt', values: [18, 1, 0, 1] },
-  { label: 'Paz', values: [9, 0, 0, 0] },
+const ATTENDANCE_WEEK: { dayIndex: number; values: number[] }[] = [
+  { dayIndex: 0, values: [58, 2, 3, 1] },
+  { dayIndex: 1, values: [61, 1, 2, 2] },
+  { dayIndex: 2, values: [55, 3, 4, 1] },
+  { dayIndex: 3, values: [60, 2, 1, 3] },
+  { dayIndex: 4, values: [52, 4, 3, 2] },
+  { dayIndex: 5, values: [18, 1, 0, 1] },
+  { dayIndex: 6, values: [9, 0, 0, 0] },
 ];
 
 // "Ortalama Çalışma Saati" — haftalık, 2 seri (temel mesai mavi + fazla
 // mesai kırmızı üst bindirme), `OvertimeSummaryCard`'ın şube-bazlı aylık
-// grafiğinden FARKLI bir kesit (haftalık/tüm şubeler ortalaması).
-const AVG_HOURS_WEEK: { label: string; hours: number; overtime: number }[] = [
-  { label: 'Pzt', hours: 8, overtime: 0.5 },
-  { label: 'Sal', hours: 8.5, overtime: 1.5 },
-  { label: 'Çar', hours: 8, overtime: 0 },
-  { label: 'Per', hours: 8.5, overtime: 0 },
-  { label: 'Cum', hours: 7.5, overtime: 0 },
-  { label: 'Cmt', hours: 4, overtime: 0 },
-  { label: 'Paz', hours: 0, overtime: 0 },
+// grafiğinden FARKLI bir kesit (haftalık/tüm şubeler ortalaması). `label`
+// artık `WEEKDAY_ABBREV[locale][dayIndex]`'ten geliyor.
+const AVG_HOURS_WEEK: { dayIndex: number; hours: number; overtime: number }[] = [
+  { dayIndex: 0, hours: 8, overtime: 0.5 },
+  { dayIndex: 1, hours: 8.5, overtime: 1.5 },
+  { dayIndex: 2, hours: 8, overtime: 0 },
+  { dayIndex: 3, hours: 8.5, overtime: 0 },
+  { dayIndex: 4, hours: 7.5, overtime: 0 },
+  { dayIndex: 5, hours: 4, overtime: 0 },
+  { dayIndex: 6, hours: 0, overtime: 0 },
 ];
 
 // --- "İzin" sekmesi — kurgusal veri (2026-08-13, gerçek app.idenfit.com
 // izin ekranı referans alınarak revize edildi — önceki "Bekleyen İzin
-// Talebi tek KPI kartı + izin talebi satırları" sürümünün YERİNE geçti). ---
+// Talebi tek KPI kartı + izin talebi satırları" sürümünün YERİNE geçti).
+// Metin (etiket/isim) BURADA YOK — `getLeaveManagementLabels(locale)`'den
+// geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 4. tur, Tier 2 i18n). ---
 
-const LEAVE_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string; label: string }[] = [
-  { icon: UserCheck, color: '#10B981', value: '3', label: 'Bugün İzinli' },
-  { icon: Clock, color: '#F59E0B', value: '3', label: 'Onay Bekleyen' },
-  { icon: CalendarDays, color: '#3B82F6', value: '24', label: 'Bu Ay Kullanılan Gün' },
-  { icon: XCircle, color: '#EF4444', value: '0', label: 'Reddedilen' },
+const LEAVE_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string }[] = [
+  { icon: UserCheck, color: '#10B981', value: '3' },
+  { icon: Clock, color: '#F59E0B', value: '3' },
+  { icon: CalendarDays, color: '#3B82F6', value: '24' },
+  { icon: XCircle, color: '#EF4444', value: '0' },
 ];
 
-// "15 gün" (14+1) — DonutChart'ın merkez etiketiyle toplamı eşleşiyor.
-const LEAVE_TYPE_SEGMENTS: { label: string; value: number; color: string }[] = [
-  { label: 'Yıllık İzin', value: 14, color: '#3B82F6' },
-  { label: 'Taşınma İzni', value: 1, color: '#F59E0B' },
+const LEAVE_TYPE_SEGMENTS: { value: number; color: string }[] = [
+  { value: 14, color: '#3B82F6' },
+  { value: 1, color: '#F59E0B' },
 ];
 
 // `count`'lar `LEAVE_STATS`'taki "Onay Bekleyen"(3)/"Reddedilen"(0) ile
 // TUTARLI — aynı ayın aynı veri kümesi, iki farklı görselleştirme.
-const APPROVAL_STATS: { label: string; count: number; color: string }[] = [
-  { label: 'Onaylandı', count: 5, color: '#10B981' },
-  { label: 'Bekliyor', count: 3, color: '#F59E0B' },
-  { label: 'Reddedildi', count: 0, color: '#9CA3AF' },
+const APPROVAL_STATS: { count: number; color: string }[] = [
+  { count: 5, color: '#10B981' },
+  { count: 3, color: '#F59E0B' },
+  { count: 0, color: '#9CA3AF' },
 ];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İzin"
@@ -239,15 +296,19 @@ const APPROVAL_STATS: { label: string; count: number; color: string }[] = [
 // — o an giriş yapılmış GERÇEK bir müşteri hesabına ait) DEĞİL, widget'ın
 // KENDİ kurulu `BRANCHES` setinden (Merkez/Teknopark/Anadolu/Avrupa Şube,
 // `OvertimeSummaryCard`'da zaten kullanılıyor) türetildi — ikinci bir
-// isim seti İCAT EDİLMEDİ.
-const LEAVE_TREND_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+// isim seti İCAT EDİLMEDİ. `label` artık `MONTH_ABBREV[locale][monthIndex]`.
+const LEAVE_TREND_MONTHS = [2, 3, 4, 5, 6, 7]; // Mar..Ağu
 const LEAVE_TREND_DATA = [9, 6, 8, 7, 14, 29];
 
-const LEAVE_BY_BRANCH: { name: string; color: string; days: number; avgPerPerson: string }[] = [
-  { name: 'Merkez Şube', color: BRANCHES[0].color, days: 22, avgPerPerson: '2,1 gün' },
-  { name: 'Teknopark Şube', color: BRANCHES[1].color, days: 15, avgPerPerson: '1,6 gün' },
-  { name: 'Anadolu Şube', color: BRANCHES[2].color, days: 8, avgPerPerson: '1,2 gün' },
-  { name: 'Avrupa Şube', color: BRANCHES[3].color, days: 3, avgPerPerson: '0,8 gün' },
+// `name` artık `getTimeManagementLabels(locale).branches[i]`'ten geliyor
+// (Zaman Yönetimi sekmesiyle PAYLAŞILAN aynı çeviri, ikinci bir isim seti
+// İCAT EDİLMEDİ) — `avgPerPerson` sayıya çevrildi, render'da `formatDecimal()`
+// + `dayUnit` ile birleşiyor (ondalık ayracı locale'e göre değişir: "2,1" vs "2.1").
+const LEAVE_BY_BRANCH: { color: string; days: number; avgPerPersonDays: number }[] = [
+  { color: BRANCHES[0].color, days: 22, avgPerPersonDays: 2.1 },
+  { color: BRANCHES[1].color, days: 15, avgPerPersonDays: 1.6 },
+  { color: BRANCHES[2].color, days: 8, avgPerPersonDays: 1.2 },
+  { color: BRANCHES[3].color, days: 3, avgPerPersonDays: 0.8 },
 ];
 
 // --- "İnsan Kaynakları" sekmesi — kurgusal veri ---
@@ -956,6 +1017,7 @@ function SectionMiniHeader({
   href?: string;
 }) {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div className="mb-4 flex items-center justify-between gap-3">
       <div className="flex items-center gap-2.5">
@@ -967,7 +1029,7 @@ function SectionMiniHeader({
           href={href}
           className="shrink-0 rounded-full bg-brand-light px-4 py-1.5 text-sm font-semibold whitespace-nowrap text-brand transition-all hover:bg-brand hover:text-white hover:shadow-[0_2px_8px_rgba(255,0,0,0.35)]"
         >
-          Detaya Git →
+          {labels.detailsLinkText}
         </a>
       )}
     </div>
@@ -1009,16 +1071,17 @@ function WidgetCard({
 
 function ShiftAttendanceCard() {
   const { isDark } = useTheme();
+  const t = getTimeManagementLabels(useWidgetLocale());
   return (
-    <WidgetCard title="Vardiya Devam Oranı" subtitle="Vardiya bazlı devam durumu">
+    <WidgetCard title={t.shiftCard.title} subtitle={t.shiftCard.subtitle}>
       <div className="space-y-4">
-        {SHIFTS.map((shift) => (
+        {SHIFTS.map((shift, i) => (
           <div
-            key={shift.label}
+            key={t.shifts[i]}
             className={`flex items-center gap-3 rounded-lg p-2 -m-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
             <span className={`w-36 shrink-0 truncate text-xs sm:w-48 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
-              {shift.label}
+              {t.shifts[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
               <div className="h-full rounded-full bg-brand" style={{ width: `${shift.percent}%` }} />
@@ -1035,12 +1098,15 @@ function ShiftAttendanceCard() {
 
 function OvertimeSummaryCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   const monthTotals = OVERTIME_MONTHS.map((m) => m.values.reduce((a, b) => a + b, 0));
   const axisMax = Math.max(10, Math.ceil(Math.max(...monthTotals) / 10) * 10);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f));
 
   return (
-    <WidgetCard title="Fazla Mesai Özeti" subtitle="Aylık — Şubeye göre">
+    <WidgetCard title={t.overtimeCard.title} subtitle={t.overtimeCard.subtitle}>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
@@ -1051,28 +1117,28 @@ function OvertimeSummaryCard() {
           className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {OVERTIME_MONTHS.map((month) => (
-            <div key={month.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={month.monthIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-10 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
                 {month.values.map((v, i) => (
                   <div
-                    key={BRANCHES[i].name}
+                    key={t.branches[i]}
                     style={{ height: `${(v / axisMax) * 100}%`, backgroundColor: BRANCHES[i].color }}
-                    title={`${BRANCHES[i].name}: ${v} sa`}
+                    title={`${t.branches[i]}: ${v} ${t.hourAbbrev}`}
                   />
                 ))}
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{month.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{monthAbbrev[month.monthIndex]}</span>
             </div>
           ))}
         </div>
       </div>
       <div className={`mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
-        {BRANCHES.map((b) => (
-          <span key={b.name} className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
+        {BRANCHES.map((b, i) => (
+          <span key={t.branches[i]} className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
             <span className="h-2 w-2 rounded-full" style={{ backgroundColor: b.color }} aria-hidden="true" />
-            {b.name}
+            {t.branches[i]}
           </span>
         ))}
       </div>
@@ -1132,6 +1198,9 @@ function TrendKpiCard({
   subtext: string;
   sparkline: number[];
 }) {
+  // NOT: `subtext` çağıran yerde (`TimeManagementTab`) `getTimeManagementLabels
+  // (locale).kpiSubtext[i]`'ten dolduruluyor — bu component'in kendisi
+  // locale-agnostik kaldı (`MiniTrendStatCard` ile AYNI ilke).
   const { isDark } = useTheme();
   const TrendIcon = trendUp ? TrendingUp : TrendingDown;
   return (
@@ -1198,18 +1267,21 @@ function MiniTrendStatCard({ color, value, label, sparkline }: { color: string; 
 // şube-bazlı yığılmış çubuk TEKNİĞİNİN aynısı, kategoriler/renkler farklı.
 function AttendanceWeekCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const weekdayAbbrev = WEEKDAY_ABBREV[locale];
   const legend = [
-    { name: 'Mevcut', color: ATTENDANCE_STATUS_COLORS[0] },
-    { name: 'Geç Gelen', color: ATTENDANCE_STATUS_COLORS[1] },
-    { name: 'İzinli', color: ATTENDANCE_STATUS_COLORS[2] },
-    { name: 'Erken Çıkan', color: ATTENDANCE_STATUS_COLORS[3] },
+    { name: t.attendanceLegend.present, color: ATTENDANCE_STATUS_COLORS[0] },
+    { name: t.attendanceLegend.late, color: ATTENDANCE_STATUS_COLORS[1] },
+    { name: t.attendanceLegend.onLeave, color: ATTENDANCE_STATUS_COLORS[2] },
+    { name: t.attendanceLegend.earlyLeave, color: ATTENDANCE_STATUS_COLORS[3] },
   ];
   const dayTotals = ATTENDANCE_WEEK.map((d) => d.values.reduce((a, b) => a + b, 0));
   const axisMax = Math.max(10, Math.ceil(Math.max(...dayTotals) / 10) * 10);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f));
 
   return (
-    <WidgetCard title="Devam Takibi" subtitle="Son 7 günlük giriş-çıkış özeti">
+    <WidgetCard title={t.attendanceCard.title} subtitle={t.attendanceCard.subtitle}>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
@@ -1220,7 +1292,7 @@ function AttendanceWeekCard() {
           className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {ATTENDANCE_WEEK.map((day) => (
-            <div key={day.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
@@ -1232,7 +1304,7 @@ function AttendanceWeekCard() {
                   />
                 ))}
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{day.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{weekdayAbbrev[day.dayIndex]}</span>
             </div>
           ))}
         </div>
@@ -1256,12 +1328,15 @@ function AttendanceWeekCard() {
 // bırak" kuralı).
 function AverageHoursCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
+  const weekdayAbbrev = WEEKDAY_ABBREV[locale];
   const dayTotals = AVG_HOURS_WEEK.map((d) => d.hours + d.overtime);
   const axisMax = Math.max(4, Math.ceil(Math.max(...dayTotals) / 2) * 2);
   const axisLabels = [1, 0.75, 0.5, 0.25, 0].map((f) => Math.round(axisMax * f * 10) / 10);
 
   return (
-    <WidgetCard title="Ortalama Çalışma Saati" subtitle="Son 7 gün — Tüm Şubeler">
+    <WidgetCard title={t.avgHoursCard.title} subtitle={t.avgHoursCard.subtitle}>
       <div className={`mb-1 flex justify-end`}>
         <span
           className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1269,28 +1344,36 @@ function AverageHoursCard() {
           }`}
           aria-hidden="true"
         >
-          Tüm Şubeler
+          {t.avgHoursCard.allBranchesBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       </div>
       <div className="flex gap-4">
         <div className={`flex h-36 flex-col justify-between text-right text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           {axisLabels.map((v) => (
-            <span key={v}>{v}s</span>
+            <span key={v}>{v}{t.hourAbbrev}</span>
           ))}
         </div>
         <div
           className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {AVG_HOURS_WEEK.map((day) => (
-            <div key={day.label} className="flex flex-1 flex-col items-center gap-2.5">
+            <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
               <div
                 className={`flex h-36 w-full max-w-8 flex-col-reverse overflow-hidden rounded-t-md ${isDark ? 'bg-gray-900' : 'bg-gray-50'}`}
               >
-                <div className="bg-[#3B82F6]" style={{ height: `${(day.hours / axisMax) * 100}%` }} title={`Çalışma: ${day.hours}s`} />
-                <div className="rounded-t-md bg-brand" style={{ height: `${(day.overtime / axisMax) * 100}%` }} title={`Fazla Mesai: ${day.overtime}s`} />
+                <div
+                  className="bg-[#3B82F6]"
+                  style={{ height: `${(day.hours / axisMax) * 100}%` }}
+                  title={`${t.avgHoursCard.workTooltipLabel}: ${day.hours}${t.hourAbbrev}`}
+                />
+                <div
+                  className="rounded-t-md bg-brand"
+                  style={{ height: `${(day.overtime / axisMax) * 100}%` }}
+                  title={`${t.avgHoursCard.overtimeTooltipLabel}: ${day.overtime}${t.hourAbbrev}`}
+                />
               </div>
-              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{day.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{weekdayAbbrev[day.dayIndex]}</span>
             </div>
           ))}
         </div>
@@ -1298,11 +1381,11 @@ function AverageHoursCard() {
       <div className={`mt-4 flex flex-wrap gap-x-4 gap-y-2 border-t pt-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#3B82F6]" aria-hidden="true" />
-          Ortalama Çalışma Saati
+          {t.avgHoursCard.avgWorkLegend}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-brand" aria-hidden="true" />
-          Ortalama Fazla Mesai
+          {t.avgHoursCard.avgOvertimeLegend}
         </span>
       </div>
     </WidgetCard>
@@ -1310,9 +1393,11 @@ function AverageHoursCard() {
 }
 
 function TimeManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getTimeManagementLabels(locale);
   return (
     <div>
-      <SectionMiniHeader icon={Clock} title="Zaman" href="/puantaj-takip-programi-modulu/" />
+      <SectionMiniHeader icon={Clock} title={t.sectionTitle} href="/puantaj-takip-programi-modulu/" />
       {/* 2026-08-19 — kullanıcı gerçek app.idenfit.com "Zaman Yönetimi"
           dashboard ekran görüntüsünü paylaşıp "burada olmayanlar da
           eklensin" dedi: KPI kartları + mini istatistik satırı + "Devam
@@ -1326,13 +1411,17 @@ function TimeManagementTab() {
           kart component'leri) küçültüldü — içerik AZALMADI, yalnızca
           daha kompakt yerleşti. */}
       <div className="grid gap-3 sm:grid-cols-3 lg:gap-4">
-        {TIME_KPIS.map((kpi) => (
-          <TrendKpiCard key={kpi.value + kpi.subtext} {...kpi} />
+        {TIME_KPIS.map((kpi, i) => (
+          <TrendKpiCard key={kpi.value + t.kpiSubtext[i]} {...kpi} subtext={t.kpiSubtext[i]} />
         ))}
       </div>
       <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:mt-4 lg:grid-cols-4 lg:gap-4">
-        {TIME_MINI_STATS.map((stat) => (
-          <MiniTrendStatCard key={stat.label} {...stat} />
+        {TIME_MINI_STATS.map((stat, i) => (
+          <MiniTrendStatCard
+            key={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
+            {...stat}
+            label={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
+          />
         ))}
       </div>
       <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
@@ -1348,20 +1437,28 @@ function TimeManagementTab() {
 }
 
 function LeaveTypeDistributionCard() {
+  const t = getLeaveManagementLabels(useWidgetLocale());
+  const total = LEAVE_TYPE_SEGMENTS.reduce((sum, s) => sum + s.value, 0);
+  const segments = LEAVE_TYPE_SEGMENTS.map((s, i) => ({ ...s, label: t.leaveTypeSegments[i] }));
   return (
-    <WidgetCard title="İzin Türü Dağılımı" subtitle="Bu ay kullanılan izinler">
-      <DonutChart segments={LEAVE_TYPE_SEGMENTS} centerLabel="15 gün" />
+    <WidgetCard title={t.leaveTypeCard.title} subtitle={t.leaveTypeCard.subtitle}>
+      <DonutChart segments={segments} centerLabel={`${total} ${t.dayUnit}`} />
     </WidgetCard>
   );
 }
 
 function ApprovalStatusCard() {
   const { isDark } = useTheme();
+  const t = getLeaveManagementLabels(useWidgetLocale());
   const total = APPROVAL_STATS.reduce((sum, s) => sum + s.count, 0);
-  const withPercent = APPROVAL_STATS.map((s) => ({ ...s, percent: total > 0 ? Math.round((s.count / total) * 100) : 0 }));
+  const withPercent = APPROVAL_STATS.map((s, i) => ({
+    ...s,
+    label: t.approvalStats[i],
+    percent: total > 0 ? Math.round((s.count / total) * 100) : 0,
+  }));
 
   return (
-    <WidgetCard title="Onay Durumu Özeti" subtitle="Bu ayki izin talepleri">
+    <WidgetCard title={t.approvalCard.title} subtitle={t.approvalCard.subtitle}>
       <SegmentedProgressBar segments={withPercent.filter((s) => s.percent > 0).map((s) => ({ color: s.color, percent: s.percent }))} />
       <div className="mt-4 grid grid-cols-3 gap-2.5">
         {withPercent.map((s) => (
@@ -1386,9 +1483,17 @@ function ApprovalStatusCard() {
 // kullanıldı, ikinci bir grafik motoru eklenmedi.
 function LeaveTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
-    <WidgetCard title="Aylık İzin Trendi" subtitle="Son 6 ay — kullanılan izin günü">
-      <LineChart data={LEAVE_TREND_DATA} labels={LEAVE_TREND_MONTHS} color="#10B981" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+    <WidgetCard title={t.leaveTrendCard.title} subtitle={t.leaveTrendCard.subtitle}>
+      <LineChart
+        data={LEAVE_TREND_DATA}
+        labels={LEAVE_TREND_MONTHS.map((mi) => monthAbbrev[mi])}
+        color="#10B981"
+        dotFill={isDark ? '#1F2937' : '#ffffff'}
+      />
     </WidgetCard>
   );
 }
@@ -1398,20 +1503,27 @@ function LeaveTrendCard() {
 // `BRANCHES` rengini taşıması.
 function BranchLeaveUsageCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const branchNames = getTimeManagementLabels(locale).branches;
   const maxDays = Math.max(...LEAVE_BY_BRANCH.map((b) => b.days));
   return (
-    <WidgetCard title="Birim Bazlı İzin Kullanımı" subtitle="Bu ay — birim başına izin oranı">
+    <WidgetCard title={t.branchLeaveUsageCard.title} subtitle={t.branchLeaveUsageCard.subtitle}>
       <div className="space-y-4">
-        {LEAVE_BY_BRANCH.map((b) => (
+        {LEAVE_BY_BRANCH.map((b, i) => (
           <div
-            key={b.name}
+            key={branchNames[i]}
             className={`-m-2 flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>{b.name}</span>
+            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+              {branchNames[i]}
+            </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
               <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
             </div>
-            <span className={`w-14 shrink-0 text-right text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+            <span className={`w-14 shrink-0 text-right text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
+              {b.days} {t.dayUnit}
+            </span>
           </div>
         ))}
       </div>
@@ -1427,10 +1539,11 @@ function BranchLeaveUsageCard() {
 // AÇMIYOR, yalnızca görsel.
 function LeaveConflictCard() {
   const { isDark } = useTheme();
+  const t = getLeaveManagementLabels(useWidgetLocale());
   return (
     <WidgetCard
-      title="İzin Çakışma Uyarısı"
-      subtitle="Aynı gün izinli olanlar"
+      title={t.leaveConflictCard.title}
+      subtitle={t.leaveConflictCard.subtitle}
       headerRight={
         <span
           className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1438,12 +1551,12 @@ function LeaveConflictCard() {
           }`}
           aria-hidden="true"
         >
-          Şube
+          {t.leaveConflictCard.branchBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       }
     >
-      <p className={`py-10 text-center text-sm ${isDark ? 'text-gray-500' : 'text-muted'}`}>İzin çakışması verisi yok</p>
+      <p className={`py-10 text-center text-sm ${isDark ? 'text-gray-500' : 'text-muted'}`}>{t.leaveConflictCard.emptyState}</p>
     </WidgetCard>
   );
 }
@@ -1455,10 +1568,14 @@ function LeaveConflictCard() {
 // içerik tekrarı kasıtlı).
 function TopLeaveUnitsCard() {
   const { isDark } = useTheme();
-  const sorted = [...LEAVE_BY_BRANCH].sort((a, b) => b.days - a.days);
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
+  const branchNames = getTimeManagementLabels(locale).branches;
+  const indexed = LEAVE_BY_BRANCH.map((b, i) => ({ ...b, name: branchNames[i] }));
+  const sorted = [...indexed].sort((a, b) => b.days - a.days);
   const maxDays = sorted[0]?.days ?? 1;
   return (
-    <WidgetCard title="En Çok İzin Kullanan Birimler" subtitle="Top 5 birim — bu ay">
+    <WidgetCard title={t.topLeaveUnitsCard.title} subtitle={t.topLeaveUnitsCard.subtitle}>
       <div className="space-y-3.5">
         {sorted.map((b, i) => (
           <div key={b.name} className="flex items-center gap-3">
@@ -1472,9 +1589,13 @@ function TopLeaveUnitsCard() {
             <div className="min-w-0 flex-1">
               <div className="flex items-baseline justify-between gap-2">
                 <span className={`truncate text-sm font-medium ${isDark ? 'text-white' : 'text-heading'}`}>{b.name}</span>
-                <span className={`shrink-0 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{b.days} gün</span>
+                <span className={`shrink-0 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
+                  {b.days} {t.dayUnit}
+                </span>
               </div>
-              <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>Kişi başı ort: {b.avgPerPerson}</p>
+              <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+                {t.topLeaveUnitsCard.avgPerPersonLabel} {formatDecimal(b.avgPerPersonDays, locale)} {t.dayUnit}
+              </p>
               <div className={`mt-1.5 h-2 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
                 <div className="h-full rounded-full" style={{ width: `${(b.days / maxDays) * 100}%`, backgroundColor: b.color }} />
               </div>
@@ -1487,12 +1608,14 @@ function TopLeaveUnitsCard() {
 }
 
 function LeaveManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getLeaveManagementLabels(locale);
   return (
     <div>
-      <SectionMiniHeader icon={CalendarClock} title="İzin" href="/yillik-izin-takip-programi/" />
+      <SectionMiniHeader icon={CalendarClock} title={t.sectionTitle} href="/yillik-izin-takip-programi/" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-        {LEAVE_STATS.map((stat) => (
-          <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
+        {LEAVE_STATS.map((stat, i) => (
+          <StatCard key={t.leaveStats[i]} icon={stat.icon} color={stat.color} value={stat.value} label={t.leaveStats[i]} />
         ))}
       </div>
       <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-6">
@@ -2171,9 +2294,10 @@ function IconDropdown({
 
 function ShortcutsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
-      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Kısayollar</h4>
+      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.shortcuts.title}</h4>
       <div className="grid grid-cols-3 gap-1" aria-hidden="true">
         {HEADER_SHORTCUTS.map((shortcut) => (
           <span
@@ -2199,14 +2323,15 @@ function ShortcutsPanelContent() {
 
 function NotificationsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-1 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
-        Bildirimler
+        {labels.notifications.title}
       </h4>
       <div className="flex flex-col items-center justify-center gap-2 py-7 text-center" aria-hidden="true">
         <Bell className={`h-7 w-7 ${isDark ? 'text-gray-600' : 'text-gray-300'}`} />
-        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-muted'}`}>Henüz bildirim yok</p>
+        <p className={`text-sm ${isDark ? 'text-gray-400' : 'text-muted'}`}>{labels.notifications.empty}</p>
       </div>
     </div>
   );
@@ -2320,10 +2445,11 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
 
 function LanguagePanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
-        Dil Seçin
+        {labels.languageSelector.title}
       </h4>
       <div className="space-y-0.5 pt-1" aria-hidden="true">
         {LANGUAGE_LIST.map((lang) => (
@@ -2336,12 +2462,13 @@ function LanguagePanelContent() {
 
 function TasksPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4
         className={`mb-1 flex items-center gap-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}
       >
-        Görevler
+        {labels.tasks.title}
         <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS.length}</span>
       </h4>
       <div className="space-y-3 pt-2" aria-hidden="true">
@@ -2360,10 +2487,11 @@ function TasksPanelContent() {
 
 function AvatarPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   const items = [
-    { icon: User, label: 'Profil' },
-    { icon: Settings, label: 'Ayarlar' },
-    { icon: LogOut, label: 'Çıkış Yap' },
+    { icon: User, label: labels.avatar.profile },
+    { icon: Settings, label: labels.avatar.settings },
+    { icon: LogOut, label: labels.avatar.logout },
   ];
   return (
     <div className="space-y-0.5" aria-hidden="true">
@@ -2385,9 +2513,10 @@ function AvatarPanelContent() {
 
 function AnalyticsPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
-      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Bugünün Özeti</h4>
+      <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.analytics.title}</h4>
       <div className="space-y-3" aria-hidden="true">
         {TODAY_SUMMARY.map((row) => (
           <div key={row.label} className="flex items-center justify-between gap-3">
@@ -2427,16 +2556,17 @@ function VisibilityToggleRow({ label, on }: { label: string; on: boolean }) {
 
 function VisibilityPanelContent() {
   const { isDark } = useTheme();
+  const labels = useLabels();
   return (
     <div>
       <h4 className={`mb-3 flex items-center gap-2 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>
         <EyeOff className="h-4 w-4" strokeWidth={2.5} aria-hidden="true" />
-        Görünürlük Ayarları
+        {labels.visibility.title}
       </h4>
       <div className="space-y-3">
-        <VisibilityToggleRow label="Bekleyen onayları göster" on={true} />
-        <VisibilityToggleRow label="Devre dışı çalışanları gizle" on={true} />
-        <VisibilityToggleRow label="Kompakt görünüm" on={false} />
+        <VisibilityToggleRow label={labels.visibility.toggles.pendingApprovals} on={true} />
+        <VisibilityToggleRow label={labels.visibility.toggles.hideInactive} on={true} />
+        <VisibilityToggleRow label={labels.visibility.toggles.compactView} on={false} />
       </div>
     </div>
   );
@@ -2463,6 +2593,7 @@ function VisibilityPanelContent() {
 // İCAT EDİLMEDİ.
 function AppHeaderBar() {
   const { isDark, toggle } = useTheme();
+  const labels = useLabels();
   const iconBtnClass = `flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border transition-colors hover:scale-105 ${
     isDark ? 'border-gray-700 text-gray-200 hover:bg-gray-800' : 'border-gray-200 text-heading hover:bg-gray-50'
   }`;
@@ -2496,7 +2627,7 @@ function AppHeaderBar() {
       <div className="flex items-center gap-2.5">
         <IconDropdown
           icon={BarChart3}
-          label="Analiz"
+          label={labels.analytics.ariaLabel}
           panelKey="analytics"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2507,7 +2638,7 @@ function AppHeaderBar() {
         </IconDropdown>
         <IconDropdown
           icon={Grid2x2}
-          label="Kısayollar"
+          label={labels.shortcuts.ariaLabel}
           panelKey="shortcuts"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2522,15 +2653,15 @@ function AppHeaderBar() {
           }`}
         >
           <Search className="h-4 w-4" aria-hidden="true" />
-          Personel ara...
+          {labels.searchPlaceholder}
         </span>
       </div>
       <div className="flex items-center gap-2.5">
-        <IconDropdown icon={Eye} label="Görünürlük Ayarları" panelKey="visibility" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass}>
+        <IconDropdown icon={Eye} label={labels.visibility.ariaLabel} panelKey="visibility" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass}>
           <VisibilityPanelContent />
         </IconDropdown>
         <IconDropdown
-          label="Dil seçici"
+          label={labels.languageSelector.ariaLabel}
           panelKey="language"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2551,7 +2682,7 @@ function AppHeaderBar() {
         <button
           type="button"
           onClick={toggle}
-          aria-label={isDark ? 'Aydınlık moda geç' : 'Karanlık moda geç'}
+          aria-label={isDark ? labels.lightModeAriaLabel : labels.darkModeAriaLabel}
           aria-pressed={isDark}
           className={iconBtnClass}
           style={{ color: '#F59E0B' }}
@@ -2560,7 +2691,7 @@ function AppHeaderBar() {
         </button>
         <IconDropdown
           icon={Bell}
-          label="Bildirimler"
+          label={labels.notifications.ariaLabel}
           panelKey="notifications"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2569,7 +2700,7 @@ function AppHeaderBar() {
         >
           <NotificationsPanelContent />
         </IconDropdown>
-        <IconDropdown icon={Bell} label="Görevler" panelKey="tasks" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass} hiddenSm>
+        <IconDropdown icon={Bell} label={labels.tasks.ariaLabel} panelKey="tasks" openPanel={openPanel} onToggle={togglePanel} iconBtnClass={iconBtnClass} hiddenSm>
           <TasksPanelContent />
         </IconDropdown>
         <IconDropdown
@@ -2592,7 +2723,7 @@ function AppHeaderBar() {
           <AppsPanelContent onNavigate={() => setOpenPanel(null)} />
         </IconDropdown>
         <IconDropdown
-          label="Kullanıcı menüsü"
+          label={labels.userMenuAriaLabel}
           panelKey="avatar"
           openPanel={openPanel}
           onToggle={togglePanel}
@@ -2603,7 +2734,7 @@ function AppHeaderBar() {
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
               <span className="hidden leading-tight sm:block">
                 <span className={`block text-xs font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Deniz Aydın</span>
-                <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>İK Yöneticisi</span>
+                <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>{labels.jobTitle}</span>
               </span>
             </>
           }
@@ -2620,11 +2751,22 @@ function AppHeaderBar() {
 // AYNI değer, projede zaten kanıtlanmış bir süre).
 const AUTO_TAB_INTERVAL_MS = 6000;
 
-export default function ProductPreviewWidget() {
-  const [activeTab, setActiveTab] = useState<TabKey>('zaman');
+export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
+  // DÜZELTME (2026-08-27) — varsayılan aktif sekme `TABS`'in YENİ ilk
+  // öğesiyle ('ik') eşleşecek şekilde güncellendi (önceden 'zaman'), sayfa
+  // yüklendiğinde sidebar'da en üstteki sekmenin seçili görünmesi için.
+  const [activeTab, setActiveTab] = useState<TabKey>('ik');
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
+
+  // Dil desteği (2026-08-31) — bkz. `LabelsContext` yorumu. `TABS`/
+  // `ENABLED_TABS` artık modül-seviyesinde SABİT değil, `locale`'e göre
+  // her render'da türetiliyor (`buildTabs()` ucuz bir map, `useMemo`
+  // GEREKMİYOR).
+  const labels = getProductPreviewWidgetLabels(locale);
+  const TABS = buildTabs(labels);
+  const ENABLED_TABS = TABS.filter((t) => t.enabled);
 
   // Otomatik sekme gezinmesi — widget hover/focus edilince VEYA
   // `prefers-reduced-motion` tercih edilmişse durur (`TestimonialCarousel.tsx`
@@ -2646,6 +2788,8 @@ export default function ProductPreviewWidget() {
   }, [autoPaused]);
 
   return (
+    <LocaleContext.Provider value={locale}>
+    <LabelsContext.Provider value={labels}>
     <ThemeContext.Provider value={{ isDark, toggle }}>
       <div
         className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
@@ -2675,7 +2819,20 @@ export default function ProductPreviewWidget() {
             (daha açık) — önceki sürümde bu ilişki TERSTİ. */}
         <div className={`shrink-0 border-b p-5 lg:w-72 lg:border-r lg:border-b-0 lg:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
           <IdenfitLogo className={`h-6 w-auto sm:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
-          <nav aria-label="Panel önizleme modülleri" className="mt-6 space-y-1">
+          {/* Mobil/tablet (< lg): dikey modül listesi widget'ı çok
+              uzatıyordu — sidebar (11 öğe) içerikle YAN YANA değil, ÜST
+              ÜSTE dizilince (bkz. dış sarmalayıcının `flex-col lg:flex-row`'u)
+              toplam yükseklik masaüstünün (~620-650px) neredeyse 2 katına
+              (~1150-1200px) çıkıyor, "tek parça" hissi kayboluyordu
+              (2026-08-31, kullanıcı bulgusu — iframe-viewport tekniğiyle
+              390px'te doğrulandı). Düzeltme: `lg:` ALTINDA nav yatay
+              kaydırılabilir bir sekme çubuğuna dönüşüyor (`flex` + `overflow-x-auto`,
+              her buton `shrink-0` — sıkışmıyor, doğal genişliğinde kalıyor),
+              `lg:` ve ÜZERİNDE davranış BİREBİR korunuyor (`lg:flex-col`,
+              dikey liste, `lg:w-full` butonlar). Aynı 11 modül/ikon/rozet
+              — içerik/işlevsellik DEĞİŞMEDİ, yalnızca küçük ekranda
+              yerleşim yönü. */}
+          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-6 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -2686,7 +2843,7 @@ export default function ProductPreviewWidget() {
                   aria-selected={isActive}
                   disabled={!tab.enabled}
                   onClick={() => tab.enabled && setActiveTab(tab.key)}
-                  className={`flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors ${
+                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors lg:w-full ${
                     isActive
                       ? 'bg-brand text-white'
                       : tab.enabled
@@ -2699,7 +2856,7 @@ export default function ProductPreviewWidget() {
                   }`}
                 >
                   <tab.icon className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
-                  <span className="flex-1 truncate">{tab.label}</span>
+                  <span className="whitespace-nowrap lg:flex-1 lg:truncate">{tab.label}</span>
                   {tab.badge && (
                     <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
                       {tab.badge}
@@ -2742,5 +2899,7 @@ export default function ProductPreviewWidget() {
         </div>
       </div>
     </ThemeContext.Provider>
+    </LabelsContext.Provider>
+    </LocaleContext.Provider>
   );
 }

@@ -1,0 +1,15 @@
+---
+export const prerender = true;
+import SupportThankYouPage from '../components/SupportThankYouPage.astro';
+import {
+  getSupportThankYouContent,
+  getSupportThankYouLocaleUrls,
+  getSupportThankYouModifiedDate,
+} from '../data/supportThankYouContent';
+
+const content = getSupportThankYouContent('tr')!;
+const localeUrls = getSupportThankYouLocaleUrls();
+const modified = getSupportThankYouModifiedDate('tr');
+---
+
+<SupportThankYouPage content={content} localeUrls={localeUrls} modified={modified} />

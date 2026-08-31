@@ -114,7 +114,17 @@ export interface HeroLabels {
     phone: string;
     email: string;
     company: string;
+    /** 2 adımlı forma geçişte (2026-08-29 yeniden tasarım) eklendi —
+     * Adım 1'den Adım 2'ye devam butonu. */
+    next: string;
+    /** Adım 2'den Adım 1'e dönüş linki. */
+    back: string;
   };
+  /** Online Sunum Talebi sayfasında form kartının altına eklenen güven
+   * satırı (2026-08-29, kullanıcı talimatı) — `home.logoStrip.caption`
+   * ile AYNI onaylı "1000+" rakamını taşır, yalnızca farklı bir cümle
+   * kalıbıyla ("X+ müşteriye katılın" — kullanıcının istediği ifade). */
+  presentationTrustCaption: string;
 }
 
 export interface FooterColumnTitles {
@@ -473,8 +483,6 @@ export interface HomePanelLabels {
 export interface HomeSupremaLabels {
   title: string;
   text: string;
-  /** "Hardware partner" etiketi. */
-  partnerLabel: string;
 }
 
 /** Tek bir testimonial'ın çevrilen metni (isim/fotoğraf gibi dile bağlı

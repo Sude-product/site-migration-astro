@@ -5,7 +5,7 @@ metaTitle: Yaz Aylarında Yıllık İzin Yoğunluğu Yönetimi
 date: '2026-07-11T08:06:33'
 excerpt: Yaz ayları geldiğinde izin yönetimi birçok şirket için teknik bir takvim konusu olmaktan çıkar ve doğrudan operasyonel dayanıklılık başlığına dönüşür. Temmuz…
 featuredImage:
-  url: https://idenfit.com/wp-content/uploads/2026/07/YazAylarindaIzinYonetimi.png
+  url: /wp-content/uploads/2026/07/YazAylarindaIzinYonetimi.png
   alt: Yaz Aylarında Yıllık İzin Yoğunluğunu Yönetmenin Yolları
   width: 1536
   height: 1024

@@ -38,7 +38,12 @@ function createTurndownService() {
   // Markdown dosyasının içinde geçerli kalır, yalnızca bu tek blok CMS'in
   // Rich Text görünümünde HTML olarak kalmaya devam eder — dokümante
   // edilmiş, bilinçli bir sınır).
-  td.keep(['iframe']);
+  // `<cite>` (dış kaynak atfı, 2026-08-24 GEO turu) ve `<sup>` (dipnot,
+  // ör. KPMG) Turndown'ın tanımadığı etiketler — varsayılan davranış
+  // bunları SESSİZCE unwrap eder (metin kalır, etiket kaybolur). Markdown'da
+  // karşılığı olmadığı için ham HTML olarak KORUNUYOR (CommonMark
+  // raw-HTML-inline geçirme kuralı, `iframe`'le aynı ilke).
+  td.keep(['iframe', 'cite', 'sup']);
 
   // `<mark>` yalnızca WP'nin inline vurgu/renk stilini taşıyor
   // (background-color/color) — Markdown'da karşılığı yok, kaldırılıp
@@ -46,6 +51,19 @@ function createTurndownService() {
   td.addRule('stripMark', {
     filter: 'mark',
     replacement: (content) => content,
+  });
+
+  // `aria-label` taşıyan `<a>` etiketleri (2026-08-10/19 erişilebilirlik
+  // turlarının `fixLinkAccessibility()` çıktısı, ör. boş/jenerik linklere
+  // eklenen ekran-okuyucu etiketi) — Markdown link söz dizimi
+  // (`[metin](url)`) `aria-label` gibi rastgele HTML nitelikleri
+  // TAŞIYAMAZ. Varsayılan link kuralına bırakılırsa etiket SESSİZCE
+  // kaybolur (`href`/görünür metin dışındaki her şeyi atar) — bu yüzden
+  // bu tür linkler ham HTML olarak KORUNUYOR (`cite`/`sup`/`iframe`'le
+  // aynı ilke).
+  td.addRule('keepAriaLabelledLinks', {
+    filter: (node) => node.nodeName === 'A' && !!node.getAttribute('aria-label'),
+    replacement: (_content, node) => node.outerHTML,
   });
 
   // Varsayılan `<br>` kuralı (iki boşluk + satır sonu) git/editör

@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { dump } from 'js-yaml';
 import { htmlToMarkdown } from './lib/html-to-markdown.mjs';
+import { fixLinkAccessibility } from '../src/data/contentLinkAccessibility.ts';
 
 const ROOT = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const POSTS_JSON = path.join(ROOT, 'src/content/blog/posts.json');
@@ -55,6 +56,12 @@ for (const post of posts) {
     categories: post.categories.map((c) => c.slug),
     tags: post.tags.map((t) => t.slug),
   };
+  // `content.config.ts`'in zod şemasındaki opsiyonel alanlar — yalnızca
+  // kaynakta gerçekten varsa yazılıyor (yoksa frontmatter'da hiç
+  // görünmemeli, `undefined` yazılıp js-yaml'e güvenilmiyor).
+  if (post.metaTitle) frontmatter.metaTitle = post.metaTitle;
+  if (post.modifiedDate) frontmatter.modifiedDate = post.modifiedDate;
+  if (post.authorName) frontmatter.authorName = post.authorName;
 
   const yamlText = dump(frontmatter, { lineWidth: -1 });
   // `post.content` posts.json'da ham WP/Gutenberg HTML'i olarak duruyor —
@@ -62,7 +69,14 @@ for (const post of posts) {
   // (`<p class="wp-block-paragraph">` vb.) olduğu gibi yazarsak editörde
   // kod gibi görünüyor (bkz. CLAUDE.md göç günlüğü). `htmlToMarkdown()`
   // ile temiz Markdown'a çevriliyor.
-  const markdownBody = htmlToMarkdown(post.content);
+  // `fixLinkAccessibility()` — `content.config.ts`'in `legacyJsonLoader`'ının
+  // JSON'da kalan yazılara render-time'da uyguladığı AYNI erişilebilirlik
+  // düzeltmesi (boş `<a></a>`/jenerik "buradan" linkleri). Göç etmiş `.md`
+  // yazıları o render yolundan GEÇMEZ (Astro'nun kendi glob() loader'ı
+  // kullanılır) — bu yüzden düzeltme burada, dönüşümden ÖNCE, kalıcı
+  // olarak markdown kaynağına gömülüyor (aksi halde migrasyon anında
+  // sessizce kaybolurdu, bkz. göç günlüğü).
+  const markdownBody = htmlToMarkdown(fixLinkAccessibility(post.content));
   const fileContent = `---\n${yamlText}---\n\n${markdownBody}\n`;
   writeFileSync(path.join(BLOG_DIR, `${post.slug}.md`), fileContent, 'utf-8');
   migrated++;

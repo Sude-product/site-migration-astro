@@ -4,6 +4,8 @@ import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 import { unified } from '@astrojs/markdown-remark';
+import cloudflare from '@astrojs/cloudflare';
+import keystatic from '@keystatic/astro';
 
 // Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
 // `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
@@ -77,7 +79,28 @@ function rehypeNormalizeHeadingLevels() {
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [react()],
+  // DÜZELTME (2026-08-27, Keystatic geçişi ADIM 1) — önceki `output:'static'`
+  // (adapter yok) yerine `output:'server'` + Cloudflare adapter. Keystatic'in
+  // kendi dokümantasyonu: admin panelinin dosya-sistemi işlemleri Node.js
+  // API'lerine ihtiyaç duyuyor, bu yüzden bir adapter ZORUNLU. Astro 5+'ta
+  // eski `output:'hybrid'` KALDIRILDI — modern eşdeğeri `output:'server'` +
+  // her sayfada AYRI AYRI `export const prerender = true` (config seviyesinde
+  // toplu bir "varsayılan statik" seçeneği YOK, Astro'nun kendi dokümantasyonu
+  // bunu teyit ediyor). Mevcut 201 sayfa dosyasının TAMAMINA bu export
+  // eklendi (bkz. git diff) — hiçbiri yanlışlıkla server-render'a KAYMADI.
+  //
+  // BİLİNÇLİ MİMARİ DEĞİŞİKLİK (kullanıcı onayıyla, 2026-08-27): aşağıdaki
+  // `redirects` bloğu ve i18n `fallback` mekanizmasının ürettiği ~2186
+  // redirect sayfası artık `output:'static'`'te olduğu gibi statik
+  // `<meta http-equiv="refresh">` HTML dosyası ÜRETMİYOR — Astro'nun kendi
+  // dokümantasyonu: bu davranış yalnızca `output:'static'`'e özgü, adapter'lı
+  // `server` modunda TÜM redirect'ler adapter'ın runtime'ında gerçek HTTP
+  // 301/308 olarak işleniyor. Bu bir regresyon DEĞİL (meta-refresh'ten daha
+  // güvenilir bir SEO mekanizması) ama `dist/` dosya sayısı bu yüzden
+  // yapısal olarak düşüyor — bkz. Keystatic geçiş günlüğü ADIM 1 raporu.
+  output: 'server',
+  adapter: cloudflare(),
+  integrations: [react(), keystatic()],
   markdown: {
     processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s, rehypeNormalizeHeadingLevels] }),
   },
@@ -148,7 +171,20 @@ export default defineConfig({
     // edilmeli, config'e dördüncü bir katman eklemeden önce.
     optimizeDeps: {
       force: true,
-      include: ['react', 'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web'],
+      // `astro/virtual-modules/i18n.js`/`astro/logger/json` (2026-08-29
+      // eklendi): Vite'ın başlangıç taraması bunları KAÇIRIYOR (framework-
+      // içi sanal modüller, kullanıcı kodundan statik `import` ile
+      // ERİŞİLEMİYOR — yalnızca `getRelativeLocaleUrl()` gibi runtime
+      // çağrılarıyla ilk gerçek sayfa isteğinde keşfediliyor). Bu YAŞAYAN
+      // (dev server ayaktayken) keşif, yukarıdaki `force`'un önlediği sınıfın
+      // AYNISI bir "optimized dependencies changed, reloading" döngüsü
+      // tetikleyip SSR modül kaydını invalidate ediyor — zaten yüklenmiş
+      // React tüketen island'lar (`MegaMenu`/`LanguageSwitcher`/`MobileMenu`
+      // vb.) İKİ FARKLI React kopyası arasında kalıp "Invalid hook call"
+      // hatasıyla çöküyordu (ana sayfaya İLK isteğin bile tetiklediği
+      // doğrulandı). Bu iki modül de `include`'a eklenerek COLD START'ta
+      // önceden paketleniyor, canlı yeniden-optimizasyon hiç tetiklenmiyor.
+      include: ['react', 'react-dom', 'react-dom/client', 'lucide-react', 'lottie-web', 'astro/virtual-modules/i18n.js', 'astro/logger/json'],
     },
   },
   i18n: {
@@ -213,6 +249,7 @@ export default defineConfig({
     '/nl/sozlesme/gizlilik-ve-guvenlik-politikasi': '/en/contract/privacy-and-security-policy',
     '/nl/tesekkurler': '/en/thanks',
     '/nl/destek-talebi': '/en/support-request',
+    '/nl/tesekkurler-destek': '/en/thank-you',
     // 2026-07-28'de bulunan bir bug'ın düzeltmesi: `nl:'en'` + `en:'tr'`
     // fallback ZİNCİRİ yalnızca Astro'nun dev server SSR yönlendirmesinde
     // çalışıyor — statik `astro build` çıktısında (`astro preview` ile
@@ -275,7 +312,16 @@ export default defineConfig({
     '/nl/klanten': '/nl/musteriler',
     '/en/request-online-presentation': '/en/online-sunum-talebi',
     '/it/richiedi-presentazione-online': '/it/online-sunum-talebi',
-    '/en/thank-you': '/en/thanks',
+    // ⚠️ DÜZELTME (2026-08-29): yukarıdaki 2026-08-05 denetiminin
+    // `/en/thank-you` → `/en/thanks` eşlemesi YANLIŞ ÇIKTI — canlı sitede
+    // `curl`/tarayıcı ile doğrulandı: `/en/thank-you/` Online Sunum
+    // Talebi'nin "thanks" sayfası DEĞİL, tamamen AYRI ve GERÇEK bir sayfa
+    // (Destek Talebi'nin teşekkür sayfası, WP id 16742 — bkz.
+    // `supportThankYouContent.ts`). 2026-08-05 denetimi muhtemelen bu
+    // sayfanın o an henüz migrate edilmediğini (Açık nokta #10) bir
+    // "unutulmuş redirect" sanıp yanlışlıkla `/en/thanks`'e eşlemişti. Artık
+    // `src/pages/en/thank-you.astro` kendi gerçek içeriğini sunuyor, bu
+    // yanlış redirect KALDIRILDI.
     '/suprema': '/donanim',
     '/en/suprema-tools': '/en/hardware',
     '/it/dispositivi-suprema': '/it/hardware',

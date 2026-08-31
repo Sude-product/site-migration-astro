@@ -295,7 +295,7 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-white/10 pt-6 sm:justify-start">
 			{
 				TRUST_BADGE_LOGOS.map((badge) => (
-					<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+					<img src={badge.src} alt={t.footer.trustBadges[badge.key]} loading="lazy" width={badge.width} height={badge.height} class="h-10 w-auto object-contain sm:h-12" />
 				))
 			}
 		</div>

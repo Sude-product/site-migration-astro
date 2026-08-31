@@ -1,0 +1,74 @@
+---
+// Destek Talebi (`/destek-talebi/`) formu gönderildikten sonra kaynak
+// sitede gösterilen teşekkür sayfası — bkz. `supportThankYouContent.ts`.
+// ⚠️ Form gönderiminden buraya OTOMATİK yönlendirme YOK (ve şimdilik
+// eklenmeyecek) — `SupportRequestForm.tsx` hâlâ backend'siz (`console.log`
+// stub), bu bağlantı Faz 2'de (Cloudflare Pages Functions) kurulacak. Şu an
+// bu sayfaya yalnızca doğrudan URL ile ulaşılabiliyor — bkz. CLAUDE.md Açık
+// nokta #10 ve `ThankYouPage.astro`'daki AYNI bekleyen-durum.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LastUpdated from './LastUpdated.astro';
+import { SUPPORT_THANK_YOU_IMAGE, type SupportThankYouContent } from '../data/supportThankYouContent';
+import { buildIdenfitTitle } from '../data/pageTitle';
+import type { Locale } from '../data/nav';
+
+interface Props {
+  content: SupportThankYouContent;
+  localeUrls: Record<string, string | undefined>;
+  /** "No visible content dates" GEO bulgusu (2026-08-17) — bkz. `LastUpdated.astro`. */
+  modified?: Date;
+  /** `<title>` için elle kısa başlık (H1 DEĞİŞMEZ) — bkz. `ProductPage.astro`'daki
+   * AYNI desen. `buildIdenfitTitle()`'ın otomatik EN niteleyicisi
+   * ("Your support request has been received." uzun olduğu için) 60
+   * karakteri aşıyordu (`check-title-length.mjs` bulgusu, 2026-08-29). */
+  title?: string;
+}
+
+const { content, localeUrls, modified, title: titleOverride } = Astro.props;
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const title = titleOverride ?? buildIdenfitTitle(content.title, locale);
+const description = `${content.textLines[0]} ${content.textLines[1]}`;
+---
+
+<!-- IT/AZ'de kaynak sayfa yok (bare slug TR ile aynı olduğu için genel
+     `it:'tr'`/`az:'tr'` fallback'i otomatik çalışıyor), NL'de de yok (per-locale
+     slug FARKLI olduğu için elle bir `redirects` girdisi gerekiyor, bkz.
+     `astro.config.mjs`) — hreflang bu yüzden yalnızca gerçek 2 dili bildiriyor. -->
+<BaseLayout
+  title={title}
+  description={description}
+  localeUrls={localeUrls}
+  hreflangLocales={['tr', 'en']}
+  dateModified={modified?.toISOString()}
+  breadcrumb={[{ label: content.title }]}
+>
+  <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+    <div class="grid items-center gap-10 lg:grid-cols-2">
+      <div>
+        <h1 class="text-3xl font-bold text-heading sm:text-4xl">{content.title}</h1>
+        <h2 class="mt-3 text-xl font-semibold text-muted sm:text-2xl">{content.subtitle}</h2>
+        <p class="mt-4 text-lg text-body">
+          {content.textLines[0]}
+          <br />
+          {content.textLines[1]}
+        </p>
+        <div class="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+          <a href={content.faqHref} class="text-sm font-semibold text-brand hover:underline">{content.faqText}</a>
+          <a href={content.homeHref} class="text-sm font-semibold text-brand hover:underline">{content.homeText}</a>
+        </div>
+      </div>
+      <img
+        src={SUPPORT_THANK_YOU_IMAGE.url}
+        alt=""
+        loading="lazy"
+        width={SUPPORT_THANK_YOU_IMAGE.width}
+        height={SUPPORT_THANK_YOU_IMAGE.height}
+        class="mx-auto w-full max-w-md"
+      />
+    </div>
+
+    <div class="mt-12">
+      <LastUpdated date={modified} locale={locale} />
+    </div>
+  </section>
+</BaseLayout>

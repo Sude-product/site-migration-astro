@@ -10,10 +10,29 @@ export type BlogPost = CollectionEntry<'blog'>;
 /** Sayfa başına yazı sayısı (kullanıcı talebi: 12). */
 export const BLOG_PAGE_SIZE = 12;
 
+// Modül-seviyesi promise cache (2026-08-31) — `getAllBlogPosts()` aynı
+// build içinde onlarca kez çağrılıyor: `[slug].astro` hem `getStaticPaths()`'ta
+// (1 kez) hem her sayfa gövdesinde (622 kez, sayfa başına 1); `page/[page].astro`
+// da benzer şekilde getStaticPaths + sayfa başına tekrar çağırıyor;
+// `blog/index.astro` 1 kez. Geçici bir sayaçla ÖLÇÜLDÜ (commit edilmedi):
+// tam build boyunca gerçek çağrı sayısı 676, bunun yalnızca 1'i `getCollection`+
+// `.sort()`'u fiilen çalıştırıyor, kalan 675'i önbellekten dönüyor. Döndürülen
+// dizi hiçbir çağıran tarafından YERİNDE değiştirilmiyor (yalnızca `.slice()`/
+// `.filter()` — kod taraması ile doğrulandı), bu yüzden AYNI dizi referansını
+// paylaşmak güvenli. `let` (modül-seviyesi değişken) her `astro build`/`astro
+// dev` yeni bir Node process'i olduğu için BUILD'LER ARASI hiçbir zaman
+// kalıcı değil — ekstra bir "temizleme" adımına gerek yok, süreç sonlanınca
+// kendiliğinden sıfırlanıyor.
+let cachedPostsPromise: Promise<BlogPost[]> | null = null;
+
 /** Tüm yazılar, en yeniden en eskiye sıralı. */
 export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  const posts = await getCollection('blog');
-  return posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+  if (!cachedPostsPromise) {
+    cachedPostsPromise = getCollection('blog').then((posts) =>
+      posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime()),
+    );
+  }
+  return cachedPostsPromise;
 }
 
 export interface PaginatedResult<T> {

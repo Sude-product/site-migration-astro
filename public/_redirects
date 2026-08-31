@@ -1,24 +1,28 @@
-# Cloudflare Pages özel 404 sayfaları (2026-08-11).
-#
-# Cloudflare Pages, `404.html` adlı bir dosyayı OTOMATİK olarak (bu dosyaya
-# HİÇ gerek kalmadan) istenen dizinden köke doğru yukarı tarayarak bulur —
-# bu yüzden TR (prefix'siz kök, `dist/404.html`, Astro'nun `404.astro`
-# dosya adını ÖZEL tanıyıp ürettiği bare-file) için elle bir kural GEREKMEZ.
-#
-# `en/nl/it` için AYRICA `src/pages/<locale>/404.astro` DENENDİ ama
-# Astro'nun "404" dosya adına verdiği ÖZEL muamele `i18n.fallback`
-# mekanizmasıyla çakıştı — Astro bu dosyayı normal bir EN/NL/IT sayfası
-# olarak DEĞİL, TR'nin `/404.html` route'unun "eksik karşılığı" sanıp
-# otomatik bir redirect stub'una çeviriyordu (2026-08-11'de derlenip
-# bulundu). Çözüm: locale'e özel 404 içeriği "404" adı OLMAYAN normal
-# sayfalarda tutuluyor (`src/pages/en/not-found.astro` vb., bkz. o
-# dosyaların kendi yorumu) — aşağıdaki kurallar `/en/*`/`/nl/*`/`/it/*`
-# altındaki HERHANGİ bir eşleşmeyen isteği ilgili dilin GERÇEK 404
-# içeriğine yönlendirir. Statik dosya eşleşmesi `_redirects`
-# kurallarından ÖNCE gelir (Cloudflare Pages'in dokümante davranışı) —
-# yani var olan gerçek sayfalar bu kurallardan ETKİLENMEZ, yalnızca
-# hiçbir dosyayla eşleşmeyen istekler buraya düşer.
-/en/*  /en/not-found/  404
-/nl/*  /nl/not-found/  404
-/it/*  /it/not-found/  404
-/az/*  /az/not-found/  404
+# AÇIK NOKTA (2026-08-27, Keystatic geçişi ADIM 1, output:'server' +
+# Cloudflare adapter'a geçiş) — locale'e özel 404 sayfaları (en/nl/it/az)
+# şu an ÇALIŞMIYOR, kullanıcı kararı bekliyor. Durum:
+# 1. 2026-08-11'de kurulan orijinal mekanizma (`/en/* /en/not-found/ 404`
+#    gibi 4 satır, BURADAN kaldırıldı) `output:'static'`'in Cloudflare
+#    Pages'inde çalışıyordu.
+# 2. `output:'server'`'a geçilince bu satırlar geçersiz status kodu hatası
+#    verip (`wrangler dev` reddetti) sessizce devre dışı kaldı.
+# 3. 2 alternatif denendi, ikisi de ÇALIŞMADI: (a) Cloudflare'in statik-
+#    varlık seviyesi "en yakın 404.html" araması — `output:'server'`'da
+#    eşleşmeyen route'lar statik varlık katmanına hiç uğramıyor,
+#    Astro/Cloudflare adapter'ı doğrudan kendi dahili TEK/global
+#    prerendered-hata-sayfası fetch'ine (`prerenderedErrorPageFetch`,
+#    her zaman kökteki `404.astro`'yu/TR'yi bulur) düşüyor. (b) her
+#    locale'de gerçek bir `[...path].astro` (`prerender=false`) catch-all
+#    route'u — Astro'nun i18n `fallback` mekanizması (`fallback:{en:'tr',
+#    ...}`) `output:'server'`'da BİLİNMEYEN/rastgele yollar için de ARTIK
+#    dinamik bir "üst locale'e yönlendir" davranışına sahip ve bu, kendi
+#    catch-all route'umuzdan DAHA YÜKSEK önceliğe sahip — `/en/rastgele/`
+#    gibi bir istek `/rastgele/`'ye (bare TR) 302 ile düşüp oradan TR'nin
+#    kendi 404'üne varıyor.
+# SONUÇ: durum GERİ ALINDI (regresyon değil ama düzeltilmedi) — HTTP
+# status kodu HER ZAMAN doğru 404 (SEO'yu etkileyen asıl sinyal sağlam),
+# yalnızca içerik dili şu an TÜM locale'lerde TR'ye düşüyor (gerçek
+# sayfalar/927+ ETKİLENMİYOR, yalnızca var olmayan URL'lerin 404 içeriği
+# etkileniyor). Kalıcı çözüm ayrı bir turda ele alınabilir (muhtemel yön:
+# Astro'nun i18n fallback'ini bu spesifik yol için bypass eden özel bir
+# middleware, veya i18n `fallback` haritasından geçici çıkarma).

@@ -118,6 +118,29 @@ export const HOME_PANEL_IMAGE: Record<Locale, LocaleImage> = {
 // bir hata değil). Suprema logosu 4 dilde aynı.
 export const SUPREMA_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/08/suprema-logo.png';
 
+// "Donanım Özgürlüğü" mini-bölümü (2026-08-27, kullanıcının verdiği
+// referans görsel/metin) — Suprema'nın YANINA eklenen 3 yeni marka logosu.
+// Kaynak sitede bu 4'lü liste hiç yoktu (yalnızca düz metin "Suprema/
+// ZKTeco/Bab" listesi vardı, `/donanim/`'in "Onaylı Markalar" bölümünde) —
+// kullanıcı GÜNCEL/doğru markaları (Suprema/Hikvision/ZKTeco/Dahua) verdi.
+// Suprema: `SUPREMA_LOGO_URL` ile AYNI (tek kaynaktan, ikinci bir dosya
+// YOK). Hikvision/Dahua: Wikimedia Commons'tan (CC0/public domain, basit
+// geometrik logo — telif korumasına tabi değil) indirilip yerelleştirildi.
+// ZKTeco: Wikimedia Commons'ta yok, resmi `zkteco.com` sitesinin kendi
+// header logosu (`/en/public/static/modules/cms/images/logo.png`)
+// yerelleştirildi — gerçek/güncel marka logosu, kaynak Wikimedia'daki
+// diğer ikisiyle AYNI "resmi kaynak" ilkesini izliyor.
+// `width`/`height` her logonun GERÇEK oranını yansıtıyor (24px ortak
+// yükseklikte ölçeklendi — `SupremaSection.astro`'nun `h-6 w-auto
+// object-contain` render kuralıyla, `CUSTOMER_LOGO_MARQUEE`'nin AYNI
+// ilkesiyle) — CLS'i önlemek için gerçek en-boy oranı korunmalı.
+export const HARDWARE_BRAND_LOGOS: { name: string; url: string; width: number; height: number }[] = [
+  { name: 'Suprema', url: SUPREMA_LOGO_URL, width: 170, height: 24 },
+  { name: 'Hikvision', url: '/images/brand-hikvision.svg', width: 179, height: 24 },
+  { name: 'ZKTeco', url: '/images/brand-zkteco.png', width: 104, height: 24 },
+  { name: 'Dahua', url: '/images/brand-dahua.svg', width: 77, height: 24 },
+];
+
 export const HOME_SUPREMA_IMAGE: Record<Locale, LocaleImage> = {
   tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
   en: { url: 'https://idenfit.com/wp-content/uploads/2025/09/temassiz-1-1024x996.webp', width: 1000, height: 973 },

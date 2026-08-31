@@ -30,6 +30,13 @@ export interface ProductBlock {
    * mega-menü/dış linklerin `#rfid` gibi belirli bir bloğa atlaması için
    * gerekir (bkz. `hardwareContent.ts`). */
   id?: string;
+  /** Tek görsel yerine küçük bir galeri (2026-08-29, Donanım sayfasının
+   * `turnikeler` bölümü — kullanıcı 5 farklı turnike modeli fotoğrafı
+   * sağladı, TEK bir "kapak görseli" değil, hepsi eşit ağırlıkta
+   * gösterilmeli). Verilmişse `ProductSectionBlock.astro` `image`'ı YOK
+   * SAYAR, ızgara olarak render eder — diğer TÜM bloklarda bu alan boş,
+   * mevcut tek-görsel davranışı DEĞİŞMEDİ. */
+  images?: ProductImage[];
 }
 
 export interface ProductFaqItem {
