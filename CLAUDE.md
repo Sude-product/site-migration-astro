@@ -1819,6 +1819,51 @@ hâlâ geçerli.)*
     konsoluna yazılıyor (hiçbir yere gönderilmiyor/saklanmıyor) — bkz. o
     bölümdeki tam dosya listesi/tablo ve KVKK tutarsızlığı notu. `[ ]
     Backend bağlanırken bu satırları kaldır.`
+48. **YENİ (2026-08-31) — Görsel optimizasyonu (`astro:assets`/`<Image>`),
+    kesin SIRALAMA kararı verildi, henüz başlanmadı.** Bir denetim
+    bulgusu "60 raw `<img>`, format/srcset/CLS optimizasyonu yok" dedi —
+    gerçek kapsam çok daha büyük çıktı (~83 elle yazılmış `<img>` +
+    ürün/sektör/hub/misc/donanım JSON'larından üretilen **780 uzak görsel
+    referansı**, Açık nokta #45'in 293 benzersiz dosyasıyla ÖRTÜŞÜYOR).
+    **Mimari bulgu:** `@astrojs/cloudflare` adapter'ı VARSAYILAN olarak
+    (`cloudflare()`, parametresiz) Cloudflare'ın gerçek IMAGES binding'ini
+    kullanan ÇALIŞIR bir görsel dönüştürme hattı kuruyor (Sharp'a gerek
+    yok, "bozuk" değil — yalnızca `astro:assets` hiç kullanılmadığı için
+    şu ana dek devre dışı durdu). Ama bu, Cloudflare Images ürününü
+    (olası maliyet) devreye sokmak anlamına geliyor — kullanıcı onayı
+    olmadan aktive EDİLMEDİ. **Kesin sıralama (kullanıcı kararı,
+    2026-08-31):**
+    1. **Önce Açık nokta #45 (hotlink temizliği) tamamlanmalı** —
+       optimize edilecek görsellerin taşınacağı zaten biliniyorken önce
+       optimize edip sonra taşımak anlamsız.
+    2. **Sonra Cloudflare Images maliyet araştırması** — Cloudflare
+       Dashboard'dan hesabın gerçek fiyatlandırma/plan durumu kontrol
+       edilmeli (kod içinden/dokümantasyondan kesin rakam çıkarılamadı).
+    3. **En son mimari karar** — Cloudflare Images binding'i kullan
+       (gerçek sunucu-taraflı WebP/AVIF+resize, adapter zaten hazır) vs.
+       build-time ön-dönüşüm (Node/Sharp ile statik WebP üretimi, sıfır
+       Cloudflare maliyeti ama daha az esnek/responsive).
+    **Bu turda YAPILAN (mimari karara bağlı DEĞİL, bağımsız/güvenli
+    CLS düzeltmesi — pilot):** `TRUST_BADGE_LOGOS` (`footer.ts`) ve
+    `CUSTOMER_LOGOS`'un (`LogoStrip.astro`'nun statik dalı, veri zaten
+    `homeContent.ts`'te vardı, tek satır) eksik `width`/`height`'ı
+    dosyaların gerçek piksel boyutlarından/mevcut veriden dolduruldu +
+    blog öne çıkan görseline (622 yazı, `[slug].astro`) `loading="eager"`
+    eklendi (LCP, `ProductPage.astro`'daki AYNI kurala uydu). `astro
+    check` 0 hata, `astro build` temiz, 8 regresyon script'i sıfır yeni
+    sorun, Chrome'da footer rozetleri + logo şeridi görsel doğrulandı.
+    **Kalan iş — BİLİNÇLİ OLARAK ERTELENDİ (kullanıcı kararı, 2026-08-31):**
+    `CertificationBadges.astro` (`homeContent.ts:44-50`), `ThankYouPage.astro`
+    (`thankYouContent.ts:77-78`, `CIVIL_LOGO_URL`/`FEMAS_LOGO_URL`),
+    `CustomerStoriesPage.astro` (`customerStories.ts:169-170`,
+    `CUSTOMER_STORIES_HERO_IMAGE`) — üçü de doğrulandı, hepsi
+    `idenfit.com/wp-content/...` hotlink'i, yani Açık nokta #45'in
+    ZATEN kapsamındaki 293 dosyanın bir parçası (`homeContent.ts`/
+    `customerStories.ts`/`thankYouContent.ts` #45'in kendi 19 dosyalık
+    envanterinde kayıtlı). **Karar: şimdi uzaktan fetch ile ölçüp
+    width/height eklemek YERİNE, #45 tamamlanıp bu görseller yerelleştiği
+    ZAMAN yapılsın** — o noktada gerçek boyutlar yerel dosyadan doğrudan
+    okunabilir, şimdi fetch edip sonra tekrar iş yapmaya gerek kalmaz.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

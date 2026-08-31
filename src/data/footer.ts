@@ -119,9 +119,12 @@ export const FOOTER_APPS = [
 // gerçek alfa kanallı `.png`'ye çevrildi — görsel İÇERİK (metin/ikon)
 // DEĞİŞMEDİ, yalnızca beyaz zemin şeffaflaştı. `Footer.astro`'daki
 // beyaz kart sarmalayıcısı (`bg-white/95`) bu yüzden kaldırılabildi.
-export const TRUST_BADGE_LOGOS: { key: 'ssl' | 'iso' | 'peryon' | 'gdpr'; src: string }[] = [
-  { key: 'ssl', src: '/images/trust-badge-ssl.png' },
-  { key: 'iso', src: '/images/trust-badge-iso27001.png' },
-  { key: 'peryon', src: '/images/trust-badge-peryon.png' },
-  { key: 'gdpr', src: '/images/trust-badge-gdpr.png' },
+// `width`/`height` PNG dosyalarının kendi IHDR chunk'ından ölçüldü (2026-08-31,
+// CLS önleme turu) — `class="h-10 w-auto"` yalnızca yüksekliği sabitliyor,
+// genişlik görsel yüklenene kadar tarayıcı için bilinmiyordu.
+export const TRUST_BADGE_LOGOS: { key: 'ssl' | 'iso' | 'peryon' | 'gdpr'; src: string; width: number; height: number }[] = [
+  { key: 'ssl', src: '/images/trust-badge-ssl.png', width: 800, height: 400 },
+  { key: 'iso', src: '/images/trust-badge-iso27001.png', width: 600, height: 600 },
+  { key: 'peryon', src: '/images/trust-badge-peryon.png', width: 720, height: 360 },
+  { key: 'gdpr', src: '/images/trust-badge-gdpr.png', width: 1574, height: 1574 },
 ];

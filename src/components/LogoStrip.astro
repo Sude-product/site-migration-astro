@@ -53,7 +53,7 @@ const sequence = animated ? [...CUSTOMER_LOGOS, ...CUSTOMER_LOGOS] : CUSTOMER_LO
     ) : (
       <div class="reveal mt-8 flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
         {CUSTOMER_LOGOS.map((logo) => (
-          <img src={logo.url} alt={logo.name} loading="lazy" class="h-10 w-auto object-contain sm:h-12" />
+          <img src={logo.url} alt={logo.name} loading="lazy" width={logo.width} height={logo.height} class="h-10 w-auto object-contain sm:h-12" />
         ))}
       </div>
     )
