@@ -1,0 +1,53 @@
+# Güvenlik başlıkları (Cloudflare Pages/Workers `_headers` formatı).
+# CSP şu an Content-Security-Policy-Report-Only olarak devrede — hiçbir
+# şeyi ENGELLEMİYOR, yalnızca ihlalleri tarayıcı DevTools Console'unda
+# raporluyor. Bir report-collection endpoint'i (Cloudflare Pages Function)
+# henüz yok, bu yüzden ihlaller yalnızca elle DevTools'tan izlenebilir.
+# Allowlist kaynağı: src/ genelinde gerçek kod taraması (fonts.googleapis/
+# gstatic.com [Quicksand], youtube.com/img.youtube.com [video kartları],
+# Keystatic Cloud [keystatic.cloud/api.keystatic.cloud/github]) — tahmine
+# dayalı DEĞİL.
+#
+# Site genelinde nonce/hash mekanizması YOK (Astro 7.2.4'te yerleşik CSP
+# desteği yok), bu yüzden script-src/style-src 'unsafe-inline' içeriyor:
+# - style-src: React island'ların (ProductPreviewWidget, PricingPage
+#   karşılaştırma tablosu, MarqueeBar) doğrudan style="..." ile yazdığı
+#   dinamik gradyan/grid değerleri.
+# - script-src: Header.astro'nun marquee scroll-hide script'i (bundler
+#   tarafından inline edilmiş) + StickyDemoBar.astro'nun is:inline IIFE'si.
+# Bu ikisi statik içerik taşıdığı için ileride SHA256 hash'e çevrilip
+# 'unsafe-inline' kaldırılabilir — Report-Only testi sonrası ayrı bir
+# sıkılaştırma turu olarak ele alınmalı.
+#
+# BİLİNÇLİ AÇIK NOKTA: img-src'e https://idenfit.com eklendi çünkü ~307
+# sayfa hâlâ eski WP sunucusundan görsel/PDF hotlink'i taşıyor (CLAUDE.md
+# Açık nokta #45, henüz kapatılmadı). Bu madde kapandığında img-src'ten
+# bu domain kaldırılmalı.
+#
+# public/admin/ (eski Decap CMS kabuğu, unpkg.com'dan script yüklüyor)
+# Keystatic Cloud'a geçişten SONRA (2026-08-28) kullanılmıyor ama hâlâ
+# dist/'e build ediliyor — bilerek ayrı bir CSP istisnası YAZILMADI, bu
+# yüzden /admin/ ziyaret edilirse global politika altında unpkg.com için
+# Report-Only ihlali görülecek (bu KASITLI bir sinyal — kalıcı çözüm bu
+# klasörü silmek, bkz. konuşma).
+
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'
+
+# Keystatic Cloud admin paneli — genel siteden TAMAMEN farklı ihtiyaçları
+# var (OAuth/GitHub/keystatic.cloud API + canlı işbirliği websocket'i).
+# Kaynak: node_modules/@keystatic/core'un UI bundle'ında hardcoded origin'ler.
+# 'unsafe-eval' temkinli eklendi (zengin metin editörü/markdoc alanı
+# muhtemelen ihtiyaç duyar) — canlı DevTools testiyle doğrulanmadı, bu
+# blok gerçek kullanımla (bir editör /keystatic'i ziyaret edip Console'u
+# kontrol ederek) ayrıca doğrulanmalı.
+/keystatic/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com
