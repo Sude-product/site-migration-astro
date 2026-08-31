@@ -1797,6 +1797,28 @@ hâlâ geçerli.)*
     kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
     saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
     turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
+46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
+    ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
+    `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi
+    ENGELLEMİYOR, yalnızca ihlalleri tarayıcı konsoluna logluyor.
+    Enforcing moda (`Content-Security-Policy`, `-Report-Only` olmadan)
+    geçmeden önce **3 koşul sağlanmalı:**
+    1. Site gerçekten canlıya alınmış olmalı — gerçek ziyaretçi trafiği
+       olmadan Report-Only'nin gözlem amacı yerine gelmiyor.
+    2. Otomatik CSP ihlal raporu toplama (`report-uri`, küçük bir
+       Cloudflare Pages Function) kurulmalı — şu an ihlaller yalnızca
+       elle, tarayıcı konsolundan görülebiliyor, otomatik/uzaktan izleme
+       yok.
+    3. En az 1-2 haftalık sessiz gözlem süresi geçmeli (hiç beklenmedik
+       ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
+       sıfırdan başlar.
+    Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
+47. **HATIRLATMA — yukarıdaki "🔶 AÇIK NOKTA (2026-08-30)" bloğundaki 5
+    form dosyasının `console.log`'u backend bağlanırken kaldırılmalı.**
+    Ad/e-posta/telefon gibi kişisel veri şu an yalnızca tarayıcı
+    konsoluna yazılıyor (hiçbir yere gönderilmiyor/saklanmıyor) — bkz. o
+    bölümdeki tam dosya listesi/tablo ve KVKK tutarsızlığı notu. `[ ]
+    Backend bağlanırken bu satırları kaldır.`
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
@@ -2539,6 +2561,12 @@ tespitidir — nihai değerlendirme için hukuk danışmanına başvurulmalı.)
 metin/backend değişikliği yapılmadı. Faz 2'de (aşağıdaki plan) ele
 alınacak — kullanıcı "2 gün sonra" (tahmini 2026-09-01) bu işe
 başlanacağını belirtti.
+
+**TODO:**
+- [ ] Backend bağlanırken bu satırları kaldır (yukarıdaki tablodaki 5
+      dosyanın `console.log(...)` çağrıları — Ad/e-posta/telefon artık
+      gerçek bir backend'e gönderileceği için tarayıcı konsoluna
+      basılmamalı).
 
 ---
 
