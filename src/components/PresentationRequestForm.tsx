@@ -93,7 +93,7 @@ export default function PresentationRequestForm({
   };
 
   const inputClass =
-    'w-full rounded-full border border-[#DDDDDD] bg-white px-6 py-3 text-base font-normal text-heading placeholder:text-muted transition-colors focus:border-brand focus:outline-none';
+    'w-full rounded-full border-2 border-brand bg-white px-6 py-3 text-base font-normal text-heading placeholder:text-muted transition-colors focus:outline-none';
 
   return (
     <form onSubmit={handleSubmit} className="space-y-3" aria-label={step === 1 ? labels.next : labels.submit}>
@@ -137,8 +137,8 @@ export default function PresentationRequestForm({
               {labels.phone}
             </label>
             <div
-              className={`flex items-stretch rounded-full border bg-white transition-colors ${
-                showPhoneError ? 'border-red-500' : 'border-[#DDDDDD] focus-within:border-brand'
+              className={`flex items-stretch rounded-full border-2 bg-white transition-colors ${
+                showPhoneError ? 'border-red-500' : 'border-brand'
               }`}
             >
               <input
