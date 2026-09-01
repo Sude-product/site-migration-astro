@@ -438,6 +438,36 @@ export default function MobileMenu({
                 </button>
               </div>
 
+              {/* Üst: dil + giriş + CTA (2026-09-02, kullanıcı isteği —
+                  önceden panelin EN ALTINDAYDI; dil değiştirici o konumda
+                  ekran altına çok yakın kaldığı için açılır liste
+                  kırpılıyor/tıklanamıyor gibi görünüyordu — buraya, panelin
+                  ÜSTÜNE taşındı. "Giriş Yap" da artık düz metin DEĞİL,
+                  masaüstünün "Online Sunum Talebi" butonunda zaten kullanılan
+                  AYNI `.btn-cta` (beyaz zemin + kırmızı çerçeve) sınıfıyla
+                  gerçek bir butona sarmalandı. */}
+              <div className="border-b border-gray-100 px-5 py-4">
+                <div className="flex justify-center">
+                  <LanguageSwitcher currentLocale={currentLocale} urls={localeUrls} />
+                </div>
+                <div className="mt-3 flex gap-2">
+                  <a
+                    href={login.href}
+                    onClick={close}
+                    className="btn-cta inline-flex flex-1 items-center justify-center px-4 py-2.5 text-center text-sm"
+                  >
+                    {login.label}
+                  </a>
+                  <a
+                    href={demo.href}
+                    onClick={close}
+                    className="inline-flex flex-1 items-center justify-center rounded-full bg-brand px-4 py-2.5 text-center text-sm font-semibold text-white transition-colors hover:bg-brand/90"
+                  >
+                    {demo.label}
+                  </a>
+                </div>
+              </div>
+
               {/* Navigasyon */}
               <nav aria-label={labels.nav} className="flex-1 overflow-y-auto px-5 py-4">
                 <ul className="flex flex-col gap-1">
@@ -463,40 +493,6 @@ export default function MobileMenu({
                   )}
                 </ul>
               </nav>
-
-              {/* Alt: giriş + CTA + dil */}
-              <div className="border-t border-gray-100 px-5 py-4">
-                <a
-                  href={login.href}
-                  onClick={close}
-                  className="block rounded-md px-3 py-3 text-center text-sm font-medium text-heading transition-colors hover:text-brand"
-                >
-                  {login.label}
-                </a>
-                {/* 2026-07-28 (altıncı tur, KONU 3): masaüstü header'ın GERÇEK
-                    stiliyle (solid kırmızı + beyaz metin, bkz. global.css
-                    `.btn-cta-solid` yorumu) tutarlı olsun diye `.btn-cta`
-                    (beyaz+kırmızı çerçeve — o form gönder butonuna özel)
-                    yerine aynı renk mantığı kullanıldı. Masaüstünün kendi
-                    `.btn-cta-solid`'i (11px font/10px padding) BİLİNÇLİ
-                    olarak burada KULLANILMADI — mobil off-canvas menü zaten
-                    kaynakta yok (bizim kendi ürettiğimiz akordeon), bu
-                    boyutta bir metni tam-genişlik bir butonda göstermek
-                    dokunma hedefi/okunabilirlik açısından kötü olurdu;
-                    rengi kaynakla eşleştirip boyutu mobil için rahat
-                    tutuldu (Tailwind utility'leri burada `.btn-cta-solid`
-                    gibi bir çakışma yaratmıyor çünkü sınıf adı farklı). */}
-                <a
-                  href={demo.href}
-                  onClick={close}
-                  className="mt-2 block rounded-full bg-brand px-4 py-3 text-center text-sm font-semibold text-white transition-colors hover:bg-brand/90"
-                >
-                  {demo.label}
-                </a>
-                <div className="mt-4 flex justify-center">
-                  <LanguageSwitcher currentLocale={currentLocale} urls={localeUrls} />
-                </div>
-              </div>
             </div>
           </>,
           document.body,
