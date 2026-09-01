@@ -94,6 +94,14 @@ function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
   // sayfadan tıklanırsa tıklansın) doğrudan EN'in gerçek URL'ine gider —
   // tutarsız ara-adım/404 riski kalmadı.
   if (!result.nl && result.en) result.nl = result.en;
+  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu —
+  // `/az/richiesta-supporto/` 404 veriyordu, bkz. `supportRequestContent.ts`'teki
+  // eşdeğer düzeltmenin yorumu). Bu sayfa ailesi (KVKK/Tüketici Hakları/
+  // Mesafeli Satış/Güvenlik) az'de KAPSAM DIŞI (Açık nokta #37) — gerçek
+  // az içeriği yok, `result.tr` (bare TR URL'i, zaten yukarıdaki döngüde
+  // hesaplandı) doğrudan kullanılıyor, `/az/...` üzerinden gereksiz bir
+  // redirect adımına GEREK YOK.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

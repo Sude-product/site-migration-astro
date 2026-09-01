@@ -201,6 +201,11 @@ export function getThankYouLocaleUrls(): Partial<Record<Locale, string>> {
   // eşitleniyor (KVKK/Hub ailesindeki aynı düzeltme, site denetim raporu
   // madde 3/6'da bulunan hatayı bu YENİ sayfada baştan tekrarlamamak için).
   if (!result.nl && result.en) result.nl = result.en;
+  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu — bkz.
+  // `supportRequestContent.ts`'teki eşdeğer düzeltmenin yorumu).
+  // Teşekkürler az'de KAPSAM DIŞI (Açık nokta #37) — `result.tr` (bare
+  // TR URL'i) doğrudan kullanılıyor.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

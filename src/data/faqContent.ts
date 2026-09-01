@@ -110,6 +110,11 @@ export function getFaqLocaleUrls(): Partial<Record<Locale, string>> {
   // NL sayfası yok, ziyaretçi zaten EN içeriğe düşecek — bu artık dil
   // değiştiriciden de görünür/doğru şekilde gerçekleşiyor, kırık ara adım yok).
   result.nl = result.en;
+  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu — bkz.
+  // `supportRequestContent.ts`'teki eşdeğer düzeltmenin yorumu). SSS
+  // az'de KAPSAM DIŞI (Açık nokta #37) — `result.tr` (bare TR URL'i,
+  // `sss`) doğrudan kullanılıyor.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

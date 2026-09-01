@@ -102,6 +102,15 @@ export function getSupportThankYouLocaleUrls(): Partial<Record<Locale, string>> 
   for (const [locale, slug] of Object.entries(SLUGS) as [SupportThankYouLocale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
   }
+  // Yukarıdaki yorumun "elle bir şey gerekmez" varsayımı EN sayfasından
+  // (bare slug 'thank-you') dil değiştirilirse GEÇERSİZ kalıyordu —
+  // Header'ın generic fallback'i o zaman `/az/thank-you/`/`/it/thank-you/`
+  // üretir, TR'de böyle bir slug olmadığı için gerçek 404 verir (2026-09-02,
+  // `supportRequestContent.ts`'teki eşdeğer düzeltmenin bulunduğu tur —
+  // bkz. o dosyadaki bug açıklaması). IT/az az'de KAPSAM DIŞI — `result.tr`
+  // (bare TR URL'i, 'tesekkurler-destek') doğrudan kullanılıyor.
+  if (!result.it) result.it = result.tr;
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

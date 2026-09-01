@@ -2402,6 +2402,56 @@ hâlâ geçerli.)*
     check` 0 hata, `astro build` temiz, 7 regresyon script'i sıfır yeni
     sorun, `dist/client/**/index.html`'de 4 dilin hepsinde yeni `alt`
     metni `grep` ile doğrulandı.
+62. **KAPANDI (2026-09-02) — Dil değiştiricide az/it için sistemik bir
+    404 bug'ı vardı, kullanıcı `/az/richiesta-supporto/`'nun 404
+    verdiğini bulunca ortaya çıktı, TÜM benzer sayfalar için düzeltildi.**
+    Kök neden: `Header.astro`'nun dil değiştiricisi, bir sayfanın
+    `localeUrls` prop'unda BİR locale hiç YOKSA (`Object.entries` o
+    anahtarı hiç üretmediği için, `undefined` bile değil, tamamen YOK),
+    `computeGenericLocaleUrls()`'in (`src/i18n/localeUrls.ts`) "aktif
+    path'in bare slug'ını yeni locale önekiyle birleştir" varsayımına
+    sessizce düşüyordu — bu, slug'ın locale'ler arasında GERÇEKTEN aynı
+    olmadığı sayfalarda (IT'nin "richiesta-supporto"su TR'nin
+    "destek-talebi"sinden FARKLI) anlamsız bir URL (`/az/richiesta-supporto/`)
+    üretip Astro'nun `az:'tr'` fallback'i üzerinden GERÇEK 404'e
+    düşüyordu. **Bu AYNI bug sınıfı, 2026-07-22'de NL için bulunup
+    yalnızca NL'de düzeltilmişti (bkz. `miscPagesContent.ts`'teki
+    `localeUrlsFor()` yorumu) — az eklendiğinde (2026-08-21) bu düzeltme
+    az'e GENİŞLETİLMEMİŞTİ.** Etkilenen TÜM fonksiyonlar taranıp (aynı
+    "az kapsam dışı" — Açık nokta #37 — sayfa ailesi) tek seferde
+    düzeltildi:
+    - `miscPagesContent.ts`'in paylaşılan `localeUrlsFor()`'u (KVKK/KVK
+      Protokol/Tüketici Hakları/Mesafeli Satış/Gizlilik ve Güvenlik
+      Politikası/Güvenlik'in TAMAMI bunu kullanıyor — tek düzeltme 6+
+      sayfayı kapsadı).
+    - `supportRequestContent.ts` → `getSupportRequestLocaleUrls()`
+      (Destek Talebi — kullanıcının bulduğu ORİJİNAL örnek).
+    - `thankYouContent.ts` → `getThankYouLocaleUrls()` (Online Sunum
+      Talebi'nin Teşekkürler sayfası).
+    - `faqContent.ts` → `getFaqLocaleUrls()` (SSS).
+    - `supportThankYouContent.ts` → `getSupportThankYouLocaleUrls()` —
+      buradaki eski yorum ("bare slug TR ile aynı olduğu için elle bir
+      şey gerekmez") YANLIŞTI: yalnızca TR sayfasından geçiliyorsa
+      doğruydu, EN sayfasından (`thank-you`) geçilirse aynı sınıf 404
+      geçerliydi — **az YANINDA IT için de** aynı düzeltme eklendi (bu
+      sayfanın `SLUGS` haritasında `it` hiç yoktu, aynı risk).
+    Düzeltme deseni HER YERDE aynı: `if (!result.az) result.az =
+    result.tr;` (döngüde zaten hesaplanmış bare TR URL'i doğrudan
+    kullanılıyor — `/az/<slug>/` üzerinden gereksiz bir redirect adımına
+    gerek yok, NL'nin `result.en`'e eşitlenmesiyle AYNI ilke).
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8 regresyon
+    script'i sıfır yeni sorun, `dist/client/it/**/index.html`'de
+    `LanguageSwitcher` props'unun `az` alanı `grep` ile tek tek
+    doğrulandı (`/guvenlik/`, `/sss/`, `/destek-talebi/` — hepsi bare TR),
+    Chrome'da GERÇEK tıklama testi yapıldı: IT Destek Talebi sayfasında
+    dil değiştiriciden "Azərbaycan"a tıklanınca artık `/destek-talebi/`'ne
+    (200, gerçek içerik) gidiyor — düzeltmeden ÖNCE bu aynı tıklama
+    `/az/richiesta-supporto/`'ya (404) giderdi. **Not:** kullanıcı aynı
+    mesajda "Hollanda dili de İngilizce veriliyor" da dedi — bu AYRI ve
+    KASITLI bir davranış (KARAR 2, `astro.config.mjs`'in `fallback:{nl:'en'}`'i
+    — kaynak WordPress sitesinde NL içeriği birçok sayfada hiç yok,
+    sessiz/bildirimsiz EN'e düşme bilinçli bir UX kararı) — bug OLARAK
+    ele alınmadı, kullanıcıya AÇIKLANDI.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
