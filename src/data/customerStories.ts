@@ -222,8 +222,9 @@ export function youtubeId(url: string): string {
 
 /** `youtu.be/<id>` kısa linkini embed URL'ine çevirir (otomatik oynatmalı —
  * yalnızca kullanıcı tıkladıktan SONRA render edilen iframe için). */
-export function toYoutubeEmbedUrl(url: string): string {
-  return `https://www.youtube.com/embed/${youtubeId(url)}?autoplay=1`;
+export function toYoutubeEmbedUrl(url: string, options?: { autoplay?: boolean }): string {
+  const id = youtubeId(url);
+  return options?.autoplay ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://www.youtube.com/embed/${id}`;
 }
 
 /** Gerçek YouTube thumbnail — tıkla-oynat kartının kapanış görseli
