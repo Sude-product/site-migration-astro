@@ -61,6 +61,25 @@ export const az: Translations = {
       back: 'Geri',
     },
     presentationTrustCaption: 'idenfit-ə güvənən 1.000-dən çox müştəriyə qoşulun.',
+    presentationTimeline: {
+      title: '3 Addımda idenfit',
+      steps: [
+        { title: '1. Qeydiyyatdan keçin', text: 'Hesabınızı açın — quraşdırma 48 saat ərzində tamamlanır.' },
+        { title: '2. Məlumatlarınızı Ötürün', text: 'Excel vasitəsilə toplu məlumat ötürməsi ilə işçi məlumatlarınızı sistemə yükləyin.' },
+        { title: '3. İdarəetməyə Başlayın', text: 'Canlı paneldən giriş-çıxış, icazə və əmək haqqı proseslərini anında idarə edin.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Əsas Xüsusiyyətlər',
+      items: [
+        { title: 'Bütöv İK İdarəçiliyi', text: 'Şəxsi məlumatlar tək mərkəzdən, işə başlama/işdən çıxma tapşırıq əsaslı izlənir.' },
+        { title: 'Vaxt, Növbə və Davamiyyət İzləmə', text: 'Canlı monitorla giriş-çıxış izlənməsi, mobil vasitəsilə əskik qeydlərin tamamlanması.' },
+        { title: 'Təsdiq və Tələb Axınları', text: 'İcazə, xərc, avans, əlavə iş vaxtı, ezamiyyət — iyerarxik təsdiq mexanizmləri ilə.' },
+        { title: 'Əmək Haqqı və Sənəd İdarəçiliyi', text: 'Şifrələnmiş mobil giriş, şəxsi sənədlər təhlükəsiz saxlanılır.' },
+        { title: 'Performans, Təlim, Ünsiyyət', text: '360 dərəcə qiymətləndirmə, təlim planlaması, anonim rəy bildirimi.' },
+        { title: 'Toplu Əməliyyat Çevikliyi', text: 'Excel vasitəsilə toplu məlumat ötürməsi, bir kliklə yüzlərlə işçiyə rol/növbə/icazə təyinatı.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {

@@ -71,6 +71,25 @@ export const it: Translations = {
       back: 'Indietro',
     },
     presentationTrustCaption: 'Unisciti a oltre 1.000 clienti che si fidano di idenfit.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Passi',
+      steps: [
+        { title: '1. Registrati', text: 'Crea il tuo account: la configurazione si completa entro 48 ore.' },
+        { title: '2. Importa i Tuoi Dati', text: 'Carica i dati dei dipendenti con importazione massiva tramite Excel.' },
+        { title: '3. Inizia a Gestire', text: 'Gestisci entrate/uscite, ferie e buste paga in tempo reale dal pannello live.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Funzionalità Principali',
+      items: [
+        { title: 'Gestione HR Completa', text: 'Dati anagrafici centralizzati, onboarding/offboarding monitorati per attività.' },
+        { title: 'Tempo, Turni e Rilevazione Presenze', text: 'Monitoraggio live di entrate/uscite, completamento da mobile dei dati mancanti.' },
+        { title: 'Flussi di Approvazione e Richieste', text: 'Ferie, spese, anticipi, straordinari, trasferte — con meccanismi di approvazione gerarchici.' },
+        { title: 'Buste Paga e Gestione Documentale', text: 'Accesso mobile criptato, documenti del personale conservati in sicurezza.' },
+        { title: 'Performance, Formazione, Comunicazione', text: 'Valutazione a 360 gradi, pianificazione della formazione, feedback anonimo.' },
+        { title: 'Flessibilità nelle Operazioni Massive', text: 'Importazione massiva dei dati tramite Excel, assegnazione di ruoli/turni/ferie a centinaia di dipendenti con un clic.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {

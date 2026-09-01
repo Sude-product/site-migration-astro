@@ -65,6 +65,25 @@ export const nl: Translations = {
       back: 'Terug',
     },
     presentationTrustCaption: 'Sluit u aan bij 1.000+ klanten die idenfit vertrouwen.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Stappen',
+      steps: [
+        { title: '1. Meld u aan', text: 'Maak uw account aan — de installatie is binnen 48 uur voltooid.' },
+        { title: '2. Importeer uw gegevens', text: 'Upload uw medewerkersgegevens via bulkimport met Excel.' },
+        { title: '3. Begin met beheren', text: 'Beheer in- en uitklokken, verlof en salarisprocessen direct vanuit het live paneel.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Belangrijkste Functies',
+      items: [
+        { title: 'Volledig HR-beheer', text: 'Personeelsgegevens vanuit één centrum, onboarding/offboarding per taak bijgehouden.' },
+        { title: 'Tijd, Dienstroosters en Urenregistratie', text: 'Live monitoring van in- en uitklokken, ontbrekende gegevens aanvullen via mobiel.' },
+        { title: 'Goedkeurings- en Aanvraagstromen', text: 'Verlof, onkosten, voorschotten, overwerk, reizen — met hiërarchische goedkeuringsmechanismen.' },
+        { title: 'Salarisadministratie en Documentbeheer', text: 'Versleutelde mobiele toegang, personeelsdocumenten veilig opgeslagen.' },
+        { title: 'Prestaties, Training, Communicatie', text: '360-gradenbeoordeling, trainingsplanning, anonieme feedback.' },
+        { title: 'Flexibiliteit bij Bulkbewerkingen', text: 'Bulkimport van gegevens via Excel, met één klik rollen/diensten/verlof toewijzen aan honderden medewerkers.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {

@@ -125,6 +125,24 @@ export interface HeroLabels {
    * ile AYNI onaylı "1000+" rakamını taşır, yalnızca farklı bir cümle
    * kalıbıyla ("X+ müşteriye katılın" — kullanıcının istediği ifade). */
   presentationTrustCaption: string;
+  /** "3 Adımda idenfit" (`PresentationTimeline.astro`) — 2026-09-02'ye
+   * kadar bu component TAMAMEN hardcoded Türkçe idi (kullanıcı bulgusu:
+   * "panelden sonraki yerlerde çeviri olmuyor"), `/demo`'nun (TR-only
+   * Landing Page) İÇERİĞİNDEN alınmıştı, hiçbir çeviri altyapısı yoktu.
+   * `steps` her zaman TAM 3 eleman taşır — component kendi `STEPS`
+   * dizisindeki ikonlarla 0-tabanlı INDEX'e göre eşleştiriyor. */
+  presentationTimeline: {
+    title: string;
+    steps: { title: string; text: string }[];
+  };
+  /** "Öne Çıkan Özellikler" (`PresentationFeatureGrid.astro`) — AYNI bulgu/
+   * AYNI kök neden (`presentationTimeline` yorumuna bkz.). `items` her
+   * zaman TAM 6 eleman taşır — component kendi `ITEMS` dizisindeki
+   * ikonlarla 0-tabanlı INDEX'e göre eşleştiriyor. */
+  presentationFeatures: {
+    title: string;
+    items: { title: string; text: string }[];
+  };
 }
 
 export interface FooterColumnTitles {

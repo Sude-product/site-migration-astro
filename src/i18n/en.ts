@@ -65,6 +65,25 @@ export const en: Translations = {
       back: 'Back',
     },
     presentationTrustCaption: 'Join 1,000+ customers who trust idenfit.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Steps',
+      steps: [
+        { title: '1. Sign Up', text: 'Create your account — setup is completed within 48 hours.' },
+        { title: '2. Import Your Data', text: 'Upload your employee data with bulk import via Excel.' },
+        { title: '3. Start Managing', text: 'Manage check-in/check-out, leave, and payroll processes instantly from the live panel.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Key Features',
+      items: [
+        { title: 'Comprehensive HR Management', text: 'Personnel records from a single hub, onboarding/offboarding tracked task by task.' },
+        { title: 'Time, Shift, and Timesheet Tracking', text: 'Live monitoring of check-in/check-out, complete missing records via mobile.' },
+        { title: 'Approval and Request Workflows', text: 'Leave, expenses, advances, overtime, travel — with hierarchical approval mechanisms.' },
+        { title: 'Payroll and Document Management', text: 'Encrypted mobile access, personnel documents stored securely.' },
+        { title: 'Performance, Training, Communication', text: '360-degree evaluation, training planning, anonymous feedback.' },
+        { title: 'Bulk Operation Flexibility', text: 'Bulk data import via Excel, assign roles/shifts/leave to hundreds of employees in one click.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {

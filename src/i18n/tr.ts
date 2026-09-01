@@ -69,6 +69,25 @@ export const tr: Translations = {
       back: 'Geri',
     },
     presentationTrustCaption: '1.000’den fazla müşterinin güvendiği idenfit’e katılın.',
+    presentationTimeline: {
+      title: '3 Adımda idenfit',
+      steps: [
+        { title: '1. Kaydolun', text: 'Hesabınızı açın — kurulum 48 saat içinde tamamlanır.' },
+        { title: '2. Verilerinizi Aktarın', text: 'Excel ile toplu veri aktarımıyla çalışan bilgilerinizi sisteme yükleyin.' },
+        { title: '3. Yönetmeye Başlayın', text: 'Canlı panelden giriş-çıkış, izin ve bordro süreçlerini anlık yönetin.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Öne Çıkan Özellikler',
+      items: [
+        { title: 'Bütüncül İK Yönetimi', text: 'Özlük bilgileri tek merkezden, onboarding/offboarding görev bazlı takip edilir.' },
+        { title: 'Zaman, Vardiya ve Puantaj', text: 'Canlı monitörle giriş-çıkış takibi, mobil üzerinden eksik kayıt tamamlama.' },
+        { title: 'Onay ve Talep Akışları', text: 'İzin, harcama, avans, fazla mesai, seyahat — hiyerarşik onay mekanizmalarıyla.' },
+        { title: 'Bordro ve Doküman Yönetimi', text: 'Şifreli mobil erişim, özlük evrakları güvenle depolanır.' },
+        { title: 'Performans, Eğitim, İletişim', text: '360 derece değerlendirme, eğitim planlama, anonim geri bildirim.' },
+        { title: 'Toplu İşlem Esnekliği', text: 'Excel ile toplu veri aktarımı, tek tıkla yüzlerce çalışana rol/vardiya/izin atama.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
