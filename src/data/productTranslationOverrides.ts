@@ -26,6 +26,30 @@ import type { Locale } from './nav';
 // hep bu sentinel kullanılıyor.
 const DEMO_CTA_URL = 'https://idenfit.com/tr/online-sunum-talep-et/';
 
+// İşe Alım Modülü/Hiringoz hero'sunun dekoratif arka plan illüstrasyonu
+// (2026-09-02) — canlı sitede TR/EN/IT'nin ÜÇÜNÜN de AYNI dosyayı
+// (`ise-alim-hero-2.png`, metinsiz/dilden bağımsız) kullandığı doğrulandı
+// (`curl` ile EN'in kendi post CSS'i kontrol edildi) — locale'e özel bir
+// kopya YOK, tek indirilmiş dosya paylaşılıyor.
+export const HERO_BG_IMAGE = { url: '/wp-content/uploads/2025/11/ise-alim-hero-2.png', width: 2093, height: 1416 };
+
+// Hero'daki "hiringoz →" marka rozeti (2026-09-02) — canlı sitede bu görsel
+// bir LİNK değil (Elementor image widget'ında `link` alanı boş, `<a>`
+// sarmalayıcısı yok), yalnızca CTA butonunun yanında duran dekoratif bir
+// marka logosu. Dosya adı "en" içerse de TR sayfasında da AYNEN kullanılıyor
+// (curl ile doğrulandı) — locale'e özel değil, tek paylaşılan dosya.
+export const HIRINGOZ_PARTNER_LOGO = {
+  url: '/wp-content/uploads/2025/11/hiringoz-logo-en.svg',
+  alt: 'Hiringoz',
+  width: 164,
+  height: 44,
+};
+
+// Kapanış bölümünün ("Şimdi Başlayın"/"Start Now" vb.) dekoratif zemin
+// deseni (2026-09-02) — canlı sitede aynı bölüm bu görseli `#EDEDED`
+// zemin üzerinde `contain` olarak kullanıyor.
+const CLOSING_BG_IMAGE = '/wp-content/uploads/2025/11/ise-alim-footer.png';
+
 export interface ProductOverride {
   hero?: ProductBlock;
   sections?: ProductBlock[];
@@ -298,36 +322,37 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
         text: '<p>Hiringoz, işe alım süreçlerini dijitalleştirerek işe alımda hız, doğruluk, sürdürülebilir verimlilik sağlar ve stratejik öngörüler sunar.</p><p>Yapay zeka destekli değerlendirmeler, akıllı mülakat planlaması ve aday analizleri sayesinde operasyonel yük azalır; siz stratejik karar alma ve aday deneyimi süreçlerine odaklanabilirsiniz.</p>',
         ctaText: 'Hemen Başvur',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: '/wp-content/uploads/2025/11/ise-alim-2.png', alt: 'Hiringoz panelini kullanan bir işe alım uzmanı', width: 1108, height: 793 },
+        image: { url: HERO_BG_IMAGE.url, alt: 'Beş sandalyeden birinin (kırmızı) öne çıkarıldığı, doğru adayın seçilmesini simgeleyen illüstrasyon', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
       },
       sections: [
         {
           title: 'İşe Alımda Hız, Objektiflik ve Stratejik Değer',
           text: '<p>İşe alım profesyonellerinin büyük kısmı zamanını operasyonel işlere harcıyor.</p><p>Hiringoz ile ekibinize bir AI Agent dahil ederek size özel bir dijital işe alımcı kazanırsınız.</p><p>Hiringoz, operasyonel yükünüzün %74’ünü üstlenir, süreçleri otomatikleştirir. Siz, stratejiye ve aday deneyimine odaklanırsınız.</p><ul><li>İşe alım sürecini hızlandırır</li><li>Değerlendirmelerde objektiflik sağlar</li><li>Aday deneyimini güçlendirir</li></ul>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/ise-alim-3.png', alt: 'Hiringoz gösterge paneli: toplam başvuru ve nitelikli aday istatistikleri', width: 1170, height: 693 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-2.png', alt: 'Hiringoz panelini kullanan bir işe alım uzmanı', width: 1108, height: 793 },
         },
         {
           title: 'Daha Akıllı ve Hızlı İşe Alım',
           text: '<p>Hiringoz, kaynak bulma, değerlendirme ve mülakat aşamalarını yapay zeka ile otomatikleştirir.</p><p>Zaman kazandırır, maliyetleri düşürür, insan hatasını en aza indirir.</p><p>Tüm süreci tek panelden yönetin, işe alımı kolaylaştırın!</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/ise-alim-4.png', alt: 'Hiringoz aday değerlendirme panosu ve mülakat skor grafiği', width: 1230, height: 890 },
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-3.png', alt: 'Hiringoz gösterge paneli: toplam başvuru ve nitelikli aday istatistikleri', width: 1170, height: 693 },
         },
         {
           title: 'Doğru Aday, Doğru Karar',
           text: '<p>Hiringoz, sadece özgeçmişleri değil, gerçek becerileri ve potansiyeli değerlendirir.</p><p>AI destekli testler ve simülasyonlarla doğru adayları objektif biçimde belirleyin.</p><p>Gözden kaçan yetenekleri keşfedin, doğru kararı verin.</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/ise-alim-5.png', alt: 'Hiringoz yetkinlik testi seçim ekranı', width: 1142, height: 865 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-4.png', alt: 'Hiringoz aday değerlendirme panosu ve mülakat skor grafiği', width: 1230, height: 890 },
         },
         {
           title: 'Güvenilir Yetenek Doğrulaması',
           text: '<p>İşe alımda başarı; hız, doğruluk ve güvenilirliğe dayanır. Hiringoz, her adayın yetkinliğini yapay zeka destekli testler ve mülakatlarla doğrular. Her işe alım şirket standartlarınıza uygun hale gelir.</p><p>Hiringoz, yetenekleri objektif biçimde değerlendirilmiş, güçlü yönleri doğrulanmış ve pratik deneyimi kanıtlanmış adayları kurumlarla buluşturur.</p>',
-          ctaText: '', ctaUrl: '', image: null,
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-5.png', alt: 'Hiringoz yetkinlik testi seçim ekranı', width: 1142, height: 865 },
         },
         {
           title: 'Şimdi Başlayın',
           text: '<p>Hiringoz ile işe alımda yeni bir döneme adım atın.</p><p>Operasyonel yükleri geride bırakın, stratejiye ve potansiyele odaklanın.</p><p>Doğru adayları keşfedin, güçlü ekipler kurun.</p>',
-          ctaText: 'Hemen Başvur', ctaUrl: DEMO_CTA_URL, image: null,
+          ctaText: 'Hemen Başvur', ctaUrl: DEMO_CTA_URL, image: null, backgroundImage: CLOSING_BG_IMAGE,
         },
       ],
       faq: [
@@ -345,36 +370,37 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
         text: '<p>By digitalizing recruitment processes, Hiringoz provides speed, accuracy, and sustainable efficiency in hiring while offering strategic insights.</p><p>With AI-powered assessments, smart interview scheduling, and candidate analytics, the operational workload decreases; allowing you to focus on strategic decision-making and candidate experience.</p>',
         ctaText: 'Get Started',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'A recruiter using the Hiringoz dashboard', width: 1108, height: 793 },
+        image: { url: HERO_BG_IMAGE.url, alt: 'Illustration of five chairs with one (red) highlighted, symbolizing choosing the right candidate', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
       },
       sections: [
         {
           title: 'Speed, Objectivity, and Strategic Value in Recruitment',
           text: '<p>Most recruitment professionals spend their time on operational tasks.</p><p>With Hiringoz, you add an AI Agent to your team and gain a digital recruiter tailored to you.</p><p>Hiringoz takes on 74% of your operational workload and automates processes, allowing you to focus on strategy and candidate experience.</p><ul><li>Accelerates the recruitment process</li><li>Ensures objectivity in evaluations</li><li>Enhances candidate experience</li></ul>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz dashboard showing applicant statistics', width: 1166, height: 690 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'A recruiter using the Hiringoz dashboard', width: 1108, height: 793 },
         },
         {
           title: 'Smarter and Faster Hiring',
           text: '<p>Hiringoz automates sourcing, evaluation, and interview stages using artificial intelligence.</p><p>It saves time, reduces costs, and minimizes human error.</p><p>Manage the entire process from a single panel — simplify recruitment!</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz candidate pipeline and interview score chart', width: 1230, height: 890 },
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz dashboard showing applicant statistics', width: 1166, height: 690 },
         },
         {
           title: 'Right Candidate, Right Decision',
           text: '<p>Hiringoz evaluates not only resumes but also real skills and potential.</p><p>Identify the right candidates objectively through AI-powered tests and simulations.</p><p>Discover overlooked talents and make the right decision.</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz skills assessment selection screen', width: 1142, height: 864 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz candidate pipeline and interview score chart', width: 1230, height: 890 },
         },
         {
           title: 'Reliable Talent Verification',
           text: '<p>Success in recruitment depends on speed, accuracy, and reliability. Hiringoz verifies each candidate’s competencies through AI-assisted tests and interviews. Each recruitment becomes aligned with your company standards.</p><p>Hiringoz connects organizations with candidates whose strengths are validated, skills objectively assessed, and practical experience proven.</p>',
-          ctaText: '', ctaUrl: '', image: null,
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz skills assessment selection screen', width: 1142, height: 864 },
         },
         {
           title: 'Start Now',
           text: '<p>Step into a new era of recruitment with Hiringoz.</p><p>Leave operational burdens behind and focus on strategy and potential.</p><p>Discover the right candidates and build strong teams.</p>',
-          ctaText: 'Get Started', ctaUrl: DEMO_CTA_URL, image: null,
+          ctaText: 'Get Started', ctaUrl: DEMO_CTA_URL, image: null, backgroundImage: CLOSING_BG_IMAGE,
         },
       ],
       faq: [
@@ -392,36 +418,37 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
         text: '<p>Digitalizzando i processi di reclutamento, Hiringoz offre velocità, precisione ed efficienza nell’automazione delle assunzioni, fornendo al contempo approfondimenti strategici.</p><p>Con valutazioni basate sull’intelligenza artificiale, pianificazione intelligente dei colloqui e analisi dei candidati, il carico di lavoro operativo diminuisce, consentendoti di concentrarti sul processo decisionale strategico e sull’esperienza del candidato.</p>',
         ctaText: 'Invia Richiesta',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Un recruiter che utilizza la dashboard di Hiringoz', width: 1108, height: 793 },
+        image: { url: HERO_BG_IMAGE.url, alt: 'Illustrazione di cinque sedie con una (rossa) in evidenza, che simboleggia la scelta del candidato giusto', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
       },
       sections: [
         {
           title: 'Velocità, obiettività e valore strategico nel reclutamento',
           text: '<p>La maggior parte dei professionisti del reclutamento impiega il proprio tempo in attività operative.</p><p>Con Hiringoz, aggiungi un agente AI al tuo team e ottieni un reclutatore digitale su misura per te.</p><p>Hiringoz si fa carico del 74% del tuo carico di lavoro operativo e automatizza i processi, permettendoti di concentrarti sulla strategia e sull’esperienza del candidato.</p><ul><li>Accelera il processo di reclutamento</li><li>Garantisce l’obiettività nelle valutazioni</li><li>Migliora l’esperienza del candidato</li></ul>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Dashboard Hiringoz con le statistiche dei candidati', width: 1166, height: 690 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Un recruiter che utilizza la dashboard di Hiringoz', width: 1108, height: 793 },
         },
         {
           title: 'Assunzioni più intelligenti e veloci',
           text: '<p>Hiringoz automatizza le fasi di screening, valutazione e colloquio utilizzando l’intelligenza artificiale.</p><p>Risparmia tempo, riduce i costi e riduce al minimo l’errore umano.</p><p>Gestisci l’intero processo da un unico pannello: semplifica il reclutamento!</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Pipeline candidati Hiringoz e grafico dei punteggi dei colloqui', width: 1230, height: 890 },
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Dashboard Hiringoz con le statistiche dei candidati', width: 1166, height: 690 },
         },
         {
           title: 'Candidato giusto, decisione giusta',
           text: '<p>Hiringoz valuta non solo i curriculum ma anche le competenze reali e il potenziale.</p><p>Identifica i candidati giusti in modo oggettivo attraverso test e simulazioni basati sull’intelligenza artificiale.</p><p>Scopri talenti trascurati e prendi la decisione giusta.</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Schermata di selezione dei test di valutazione delle competenze Hiringoz', width: 1142, height: 864 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Pipeline candidati Hiringoz e grafico dei punteggi dei colloqui', width: 1230, height: 890 },
         },
         {
           title: 'Verifica affidabile dei talenti',
           text: '<p>Il successo nel reclutamento dipende da velocità, precisione e affidabilità. Hiringoz verifica le competenze di ogni candidato attraverso test e colloqui assistiti dall’intelligenza artificiale. Ogni assunzione diventa allineata agli standard della tua azienda.</p><p>Hiringoz connette le organizzazioni con candidati i cui punti di forza sono convalidati, le competenze valutate oggettivamente e l’esperienza pratica comprovata.</p>',
-          ctaText: '', ctaUrl: '', image: null,
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Schermata di selezione dei test di valutazione delle competenze Hiringoz', width: 1142, height: 864 },
         },
         {
           title: 'Inizia Ora',
           text: '<p>Entra in una nuova era del reclutamento con Hiringoz.</p><p>Lasciati alle spalle gli oneri operativi e concentrati su strategia e potenziale.</p><p>Scopri i candidati giusti e costruisci team forti.</p>',
-          ctaText: 'Invia Richiesta', ctaUrl: DEMO_CTA_URL, image: null,
+          ctaText: 'Invia Richiesta', ctaUrl: DEMO_CTA_URL, image: null, backgroundImage: CLOSING_BG_IMAGE,
         },
       ],
       faq: [
@@ -441,36 +468,37 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
         text: '<p>Door wervingsprocessen te digitaliseren, biedt Hiringoz snelheid, nauwkeurigheid en duurzame efficiëntie bij het werven van personeel, en levert het strategische inzichten.</p><p>Met AI-gestuurde beoordelingen, slimme interviewplanning en kandidaatanalyses neemt de operationele werklast af, zodat u zich kunt richten op strategische besluitvorming en de kandidaatervaring.</p>',
         ctaText: 'Direct Aanvragen',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Een recruiter die het Hiringoz-dashboard gebruikt', width: 1108, height: 793 },
+        image: { url: HERO_BG_IMAGE.url, alt: 'Illustratie van vijf stoelen waarvan er één (rood) is uitgelicht, symbool voor het kiezen van de juiste kandidaat', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
       },
       sections: [
         {
           title: 'Snelheid, objectiviteit en strategische waarde bij werving',
           text: '<p>De meeste wervingsprofessionals besteden hun tijd aan operationele taken.</p><p>Met Hiringoz voegt u een AI Agent toe aan uw team en krijgt u een digitale recruiter op maat.</p><p>Hiringoz neemt 74% van uw operationele werklast over en automatiseert processen, zodat u zich kunt richten op strategie en kandidaatervaring.</p><ul><li>Versnelt het wervingsproces</li><li>Zorgt voor objectiviteit bij beoordelingen</li><li>Verbetert de kandidaatervaring</li></ul>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz-dashboard met sollicitatiestatistieken', width: 1166, height: 690 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Een recruiter die het Hiringoz-dashboard gebruikt', width: 1108, height: 793 },
         },
         {
           title: 'Slimmer en sneller werven',
           text: '<p>Hiringoz automatiseert sourcing, beoordeling en interviewfasen met behulp van kunstmatige intelligentie.</p><p>Het bespaart tijd, verlaagt kosten en minimaliseert menselijke fouten.</p><p>Beheer het hele proces vanuit één paneel — vereenvoudig werving!</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz kandidatenpijplijn en interviewscoregrafiek', width: 1230, height: 890 },
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz-dashboard met sollicitatiestatistieken', width: 1166, height: 690 },
         },
         {
           title: 'De juiste kandidaat, de juiste beslissing',
           text: '<p>Hiringoz beoordeelt niet alleen cv’s, maar ook echte vaardigheden en potentieel.</p><p>Identificeer de juiste kandidaten objectief met AI-gestuurde tests en simulaties.</p><p>Ontdek over het hoofd geziene talenten en neem de juiste beslissing.</p>',
-          ctaText: '', ctaUrl: '',
-          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz selectiescherm voor vaardigheidstests', width: 1142, height: 864 },
+          ctaText: '', ctaUrl: '', reverse: true,
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz kandidatenpijplijn en interviewscoregrafiek', width: 1230, height: 890 },
         },
         {
           title: 'Betrouwbare talentverificatie',
           text: '<p>Succes bij werving hangt af van snelheid, nauwkeurigheid en betrouwbaarheid. Hiringoz verifieert de competenties van elke kandidaat via AI-ondersteunde tests en interviews. Elke aanwerving sluit aan bij uw bedrijfsstandaarden.</p><p>Hiringoz brengt organisaties in contact met kandidaten van wie de sterke punten zijn gevalideerd, vaardigheden objectief zijn beoordeeld en praktijkervaring is bewezen.</p>',
-          ctaText: '', ctaUrl: '', image: null,
+          ctaText: '', ctaUrl: '', reverse: false,
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz selectiescherm voor vaardigheidstests', width: 1142, height: 864 },
         },
         {
           title: 'Begin nu',
           text: '<p>Stap met Hiringoz een nieuw tijdperk van werving binnen.</p><p>Laat operationele lasten achter u en focus op strategie en potentieel.</p><p>Ontdek de juiste kandidaten en bouw sterke teams.</p>',
-          ctaText: 'Direct Aanvragen', ctaUrl: DEMO_CTA_URL, image: null,
+          ctaText: 'Direct Aanvragen', ctaUrl: DEMO_CTA_URL, image: null, backgroundImage: CLOSING_BG_IMAGE,
         },
       ],
       faq: [

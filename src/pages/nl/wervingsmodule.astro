@@ -11,6 +11,7 @@ export const prerender = true;
 import ProductPage from '../../components/ProductPage.astro';
 import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
 import { buildIdenfitTitle } from '../../data/pageTitle';
+import { HIRINGOZ_PARTNER_LOGO } from '../../data/productTranslationOverrides';
 
 const trSlug = 'ise-alim-modulu';
 const content = getProductContent(trSlug, 'nl')!;
@@ -21,4 +22,13 @@ const localeUrls = getProductLocaleUrls(trSlug);
 const modified = getProductModifiedDate(trSlug, 'nl');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />
+<ProductPage
+  content={content}
+  pageTitle={pageTitle}
+  title={title}
+  ctaKeyword={ctaKeyword}
+  localeUrls={localeUrls}
+  modified={modified}
+  heroLayout="stacked"
+  heroPartnerLogo={HIRINGOZ_PARTNER_LOGO}
+/>

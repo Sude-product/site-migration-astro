@@ -2495,6 +2495,72 @@ hâlâ geçerli.)*
     "Total Applicants 16"/"Qualified Applicants 4"/"453 AI Calls"/
     "Assessment Rate %87,6"/"Qualification Rate %33,2") + TR'de ayrıca
     5 bölüm+FAQ accordion+"Son güncelleme" şeridi görsel doğrulandı.
+64. **KAPANDI (2026-09-02, madde 63'ün DEVAMI) — kullanıcı "hâlâ en üstte
+    olan hiringoz.com'a yönlendirmesi olan kısım eksik" + "aşağıdaki
+    görsellerde de eksik ve yerlerinden kayma var" dedi; madde 63'teki
+    hero ve bölüm-görsel eşleşmesi CANLI SİTENİN GÜNCEL/YENİDEN
+    TASARLANMIŞ halini yansıtmıyormuş — kullanıcının paylaştığı ekran
+    görüntüsü + kullanıcının kaydettiği TAM sayfa HTML'i (`İşe Alım
+    Modülü - idenfit.html` + `..._files/`) kullanılarak yeniden
+    incelendi.** Kök neden: madde 63'teki DOM taraması hero'nun ASIL
+    görsel elemanlarını kaçırmıştı — (1) hero'nun "chairs" illüstrasyonu
+    bir `<img>` DEĞİL, `.elementor-motion-effects-layer`'ın CSS
+    `background-image`'ı (`ise-alim-hero-2.png`) — normal `<img>`
+    taramasında hiç görünmüyordu; (2) hero'daki "hiringoz →" marka
+    logosu (`hiringoz-logo-en.svg`, bir LİNK değil, dekoratif rozet)
+    ekran görüntüsünün alt kısmında kalmıştı, taramaya hiç dahil
+    edilmemişti; (3) bölüm görselleri madde 63'te BİR KAYDIRMA hatasıyla
+    yanlış bölüme atanmıştı — kaynağın kaydedilmiş HTML'i satır satır
+    incelenince gerçek eşleşme çıktı: hero=`ise-alim-hero-2.png`
+    (dekoratif), section0("İşe Alımda Hız...")=`ise-alim-2.png`
+    (önceden YANLIŞLIKLA hero'daydı), section1("Daha Akıllı...")=
+    `ise-alim-3.png`, section2("Doğru Aday...")=`ise-alim-4.png`,
+    section3("Güvenilir Yetenek Doğrulaması")=`ise-alim-5.png` (önceden
+    `image:null` idi — MADDE 63'ÜN "eksik görsel" BULGUSU BUYDU),
+    section4("Şimdi Başlayın")=görselsiz (kaynakta da yalnızca metin+buton,
+    yanındaki `hiringoz-logo-1.svg` HÂLÂ 404 — `curl` ile yeniden
+    doğrulandı, BİLEREK migrate edilmedi). Ayrıca canlı sitede sütun
+    sırası ALTERNE ediyor ama `ProductPage.astro`'nun varsayılan
+    `i % 2 === 1` formülünün TAM TERSİ fazda başlıyor (section0/2:
+    metin-sol/görsel-sağ, section1/3: görsel-sol/metin-sağ). **Mimari
+    eklemeler (opt-in, diğer 22 ürün sayfası grubunu ETKİLEMİYOR):**
+    (a) `ProductBlock`'a `reverse?: boolean` eklendi,
+    `ProductPage.astro`'nun bölüm döngüsü `effectiveSection.reverse ??
+    i % 2 === 1` kullanıyor — verilmezse eski davranış AYNEN kalıyor;
+    (b) `ProductBlock`'a `backgroundImage?: string` eklendi (kapanış
+    bölümünün `#EDEDED` zemin + `ise-alim-footer.png` dekoratif
+    deseni için, canlı sitede AYNI teknik); (c) `ProductPage.astro`'ya
+    `heroLayout?: 'side'|'stacked'` + `heroPartnerLogo?: {...}` prop'ları
+    eklendi — `'stacked'` (yalnızca bu sayfa kullanıyor) ortalanmış
+    H1/paragraf + ALTINDA görsel + ALTINDA marka logosu/CTA satırı
+    render ediyor, verilmezse (`'side'`, varsayılan, diğer TÜM sayfalar)
+    davranış DEĞİŞMİYOR. **Yakalanıp düzeltilen GERÇEK bir bug (bu turun
+    kendi içinde):** `productContent.ts`'in `getProductContent()`'indeki
+    `resolveBlock()` yardımcı fonksiyonu her `ProductBlock`'u yalnızca
+    `title/text/ctaText/ctaUrl/image` alanlarıyla YENİDEN inşa ediyordu
+    — yeni eklenen `reverse`/`backgroundImage` (ve zaten var olan ama
+    aynı şekilde sessizce düşen `id`/`images`) alanları override
+    verisinde YAZILI olsa bile render'a hiç ULAŞMIYORDU. İlk build+Chrome
+    doğrulamasında (`reverse` etkisiz, kapanış bölümünün zemin deseni
+    hiç görünmüyor) yakalanıp `resolveBlock()`'un hem `az` hem
+    `tr/en/it/nl` dalına `id`/`images`/`reverse`/`backgroundImage` passthrough'u
+    eklenerek düzeltildi — İKİNCİ build+Chrome turunda hepsi doğru
+    çalıştı. **Görseller:** `ise-alim-hero-2.png` (2093×1416),
+    `ise-alim-footer.png` (1662×732), `hiringoz-logo-en.svg` — üçü de
+    idenfit.com'dan indirilip magic-byte doğrulamasıyla
+    `public/wp-content/uploads/2025/11/`'e eklendi. **`curl` ile
+    doğrulanan önemli bulgu:** bu 3 dosyanın hepsi TR/EN/IT'nin ÜÇÜNDE
+    de AYNI (locale'e özel kopya YOK, `hiringoz-logo-en.svg` adı "en"
+    içerse de TR sayfasında da kullanılıyor) — NL/AZ için de aynı
+    paylaşılan dosyalar kullanıldı. **Doğrulama:** `astro check` 0 hata,
+    `astro build` 3097 sayfa temiz (2 turda — `resolveBlock` düzeltmesi
+    sonrası yeniden), 8 regresyon script'i sıfır yeni sorun (bilinen 5
+    H1→H3 taban çizgisi hariç), `audit-remote-hotlinks.mjs`'de 3 yeni
+    dosya hotlink olarak GÖRÜNMÜYOR. Chrome'da TR (tam sayfa, hero'dan
+    footer'a) + EN (hero) görsel doğrulandı — hero'nun sandalye
+    illüstrasyonu + "hiringoz →" rozeti + CTA satırı, section0-3'ün
+    doğru görsel/sütun sırası, section3'ün artık dolu görseli, kapanış
+    bölümünün gri zemin deseni hepsi canlı siteyle eşleşiyor.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

@@ -37,6 +37,18 @@ export interface ProductBlock {
    * SAYAR, ızgara olarak render eder — diğer TÜM bloklarda bu alan boş,
    * mevcut tek-görsel davranışı DEĞİŞMEDİ. */
   images?: ProductImage[];
+  /** Görsel/metin sütun sırasını `ProductPage.astro`'nun varsayılan
+   * `i % 2 === 1` alternasyonunun YERİNE geçirir (2026-09-02, İşe Alım
+   * Modülü/Hiringoz — canlı sitede bu sayfanın kendi alternasyonu
+   * varsayılandan TERS başlıyor). Verilmezse (varsayılan, diğer TÜM
+   * sayfalarda) davranış DEĞİŞMEZ. */
+  reverse?: boolean;
+  /** Bölümün zemin rengine EKLENEN, ortalanmış/`contain` dekoratif arka
+   * plan görseli (2026-09-02, İşe Alım Modülü/Hiringoz'un "Şimdi Başlayın"
+   * kapanış bölümü — canlı sitede `ise-alim-footer.png` bu şekilde
+   * kullanılıyor, `image`'dan FARKLI: içerik görseli değil, salt dekoratif
+   * zemin deseni). Verilmezse (diğer TÜM bölümlerde) davranış DEĞİŞMEZ. */
+  backgroundImage?: string;
 }
 
 export interface ProductFaqItem {
@@ -264,6 +276,10 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
       ctaText: b.ctaText,
       ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
       image: b.image,
+      id: b.id,
+      images: b.images,
+      reverse: b.reverse,
+      backgroundImage: b.backgroundImage,
     });
     return {
       hero: resolveBlock(azOverride.hero),
@@ -282,6 +298,10 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
     image: b.image,
+    id: b.id,
+    images: b.images,
+    reverse: b.reverse,
+    backgroundImage: b.backgroundImage,
   });
 
   const heroRaw = override?.hero ?? entry?.hero;

@@ -6,6 +6,7 @@
 // dosyayı `locale === 'az'` durumunda AYRI bir öncelik olarak kontrol
 // ediyor (bkz. o dosyadaki değişiklik).
 import type { ProductBlock, ProductFaqItem } from './productContent';
+import { HERO_BG_IMAGE } from './productTranslationOverrides';
 
 const DEMO_CTA_URL = 'https://idenfit.com/tr/online-sunum-talep-et/';
 
@@ -112,36 +113,38 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'İşə alım xərclərini azaldın, vaxta qənaət edin, obyektiv qiymətləndirmələr aparın və Hiringoz ilə səmərəliliyə çatın.',
       text: '<p>Hiringoz, işə alım proseslərini rəqəmsallaşdıraraq işə alımda sürət, dəqiqlik, davamlı səmərəlilik təmin edir və strateji uzaqgörənlik təqdim edir.</p><p>Süni intellekt dəstəkli qiymətləndirmələr, ağıllı müsahibə planlaması və namizəd analizləri sayəsində əməliyyat yükü azalır; siz strateji qərar qəbulu və namizəd təcrübəsi proseslərinə fokuslana bilərsiniz.</p>',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Hiringoz panelindən istifadə edən işə alım mütəxəssisi', width: 1108, height: 793 },
+      image: { url: HERO_BG_IMAGE.url, alt: 'Beş oturacaqdan birinin (qırmızı) önə çıxarıldığı, doğru namizədin seçilməsini simvolizə edən illüstrasiya', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
     },
     sections: [
       {
         title: 'İşə Alımda Sürət, Obyektivlik və Strateji Dəyər',
         text: '<p>İşə alım mütəxəssislərinin böyük hissəsi vaxtını əməliyyat işlərinə sərf edir.</p><p>Hiringoz ilə komandanıza bir AI Agent daxil edərək sizə xas rəqəmsal bir işə alımçı qazanırsınız.</p><p>Hiringoz, əməliyyat yükünüzün 74%-ini öz üzərinə götürür, prosesləri avtomatlaşdırır. Siz strategiyaya və namizəd təcrübəsinə fokuslana bilərsiniz.</p><ul><li>İşə alım prosesini sürətləndirir</li><li>Qiymətləndirmələrdə obyektivlik təmin edir</li><li>Namizəd təcrübəsini gücləndirir</li></ul>',
-        ctaText: '', ctaUrl: '',
-        image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz idarəetmə paneli: ümumi müraciət və keyfiyyətli namizəd statistikaları', width: 1166, height: 690 },
+        ctaText: '', ctaUrl: '', reverse: true,
+        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Hiringoz panelindən istifadə edən işə alım mütəxəssisi', width: 1108, height: 793 },
       },
       {
         title: 'Daha Ağıllı və Sürətli İşə Alım',
         text: '<p>Hiringoz, mənbə tapma, qiymətləndirmə və müsahibə mərhələlərini süni intellekt ilə avtomatlaşdırır.</p><p>Vaxta qənaət etdirir, xərcləri azaldır, insan səhvini minimuma endirir.</p><p>Bütün prosesi tək paneldən idarə edin, işə alımı asanlaşdırın!</p>',
-        ctaText: '', ctaUrl: '',
-        image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz namizəd qiymətləndirmə lövhəsi və müsahibə bal qrafiki', width: 1230, height: 890 },
+        ctaText: '', ctaUrl: '', reverse: false,
+        image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz idarəetmə paneli: ümumi müraciət və keyfiyyətli namizəd statistikaları', width: 1166, height: 690 },
       },
       {
         title: 'Doğru Namizəd, Doğru Qərar',
         text: '<p>Hiringoz, yalnız CV-ləri deyil, real bacarıqları və potensialı qiymətləndirir.</p><p>AI dəstəkli testlər və simulyasiyalarla doğru namizədləri obyektiv şəkildə müəyyənləşdirin.</p><p>Gözdən qaçan istedadları kəşf edin, doğru qərarı verin.</p>',
-        ctaText: '', ctaUrl: '',
-        image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz bacarıq testi seçim ekranı', width: 1142, height: 864 },
+        ctaText: '', ctaUrl: '', reverse: true,
+        image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz namizəd qiymətləndirmə lövhəsi və müsahibə bal qrafiki', width: 1230, height: 890 },
       },
       {
         title: 'Etibarlı İstedad Doğrulaması',
         text: '<p>İşə alımda uğur; sürət, dəqiqlik və etibarlılığa əsaslanır. Hiringoz, hər namizədin bacarığını süni intellekt dəstəkli testlər və müsahibələrlə doğrulayır. Hər işə alım şirkət standartlarınıza uyğun hala gəlir.</p><p>Hiringoz, bacarıqları obyektiv şəkildə qiymətləndirilmiş, güclü tərəfləri doğrulanmış və praktiki təcrübəsi sübut edilmiş namizədləri qurumlarla birləşdirir.</p>',
-        ctaText: '', ctaUrl: '', image: null,
+        ctaText: '', ctaUrl: '', reverse: false,
+        image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz bacarıq testi seçim ekranı', width: 1142, height: 864 },
       },
       {
         title: 'İndi Başlayın',
         text: '<p>Hiringoz ilə işə alımda yeni bir dövrə addım atın.</p><p>Əməliyyat yüklərini arxada buraxın, strategiyaya və potensiala fokuslanın.</p><p>Doğru namizədləri kəşf edin, güclü komandalar qurun.</p>',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL, image: null,
+        backgroundImage: '/wp-content/uploads/2025/11/ise-alim-footer.png',
       },
     ],
     faq: [
