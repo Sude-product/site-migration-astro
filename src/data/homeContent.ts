@@ -163,15 +163,17 @@ export interface PartnerCategory {
 // çevriliyor). `anzera.svg` kaynakta beyaz-dolgulu (koyu zemin için
 // tasarlanmış) — açık zeminde görünür olması için `#1A1A1A`'ya yeniden
 // renklendirildi (markanın ŞEKLİ/İÇERİĞİ değişmedi, yalnızca kontrast
-// düzeltmesi). `ozak.svg`nin görseli artık "CAME ÖZAK" (2023 satın alma
-// sonrası güncel marka adı) — kullanıcının istediği "ÖZAK" firmasının
-// GÜNCEL/gerçek logosu bu.
+// düzeltmesi). `ozak.png` — kaynak dosya artık "CAME ÖZAK" ortak markalı
+// (2023 satın alma sonrası) ama kullanıcının listesinde yalnızca "ÖZAK"
+// vardı, "CAME" adında bir firma YOK — `sharp` ile sağ taraftaki saf
+// "ÖZAK" wordmark'ı (T-ikonu + ÖZAK) kırpılıp CAME kısmı çıkarıldı
+// (markanın kendi şekli/rengi DEĞİŞMEDİ, yalnızca kadraj).
 export const PARTNER_CATEGORIES: PartnerCategory[] = [
   {
     key: 'turnstile',
     logos: [
       { name: 'Tansa', url: '/images/partners/tansa.png', width: 107, height: 60 },
-      { name: 'CAME ÖZAK', url: '/images/partners/ozak.png', width: 2508, height: 360 },
+      { name: 'ÖZAK', url: '/images/partners/ozak.png', width: 1370, height: 355 },
     ],
   },
   {

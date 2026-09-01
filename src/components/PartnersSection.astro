@@ -27,14 +27,16 @@ const { partners } = t.home;
           <span class="text-xs font-semibold uppercase tracking-wide text-muted">{partners.categories[category.key]}</span>
           <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
             {category.logos.map((logo) => (
-              <img
-                src={logo.url}
-                alt={logo.name}
-                loading="lazy"
-                width={logo.width}
-                height={logo.height}
-                class="h-6 w-auto object-contain"
-              />
+              <div class="flex h-10 w-24 items-center justify-center">
+                <img
+                  src={logo.url}
+                  alt={logo.name}
+                  loading="lazy"
+                  width={logo.width}
+                  height={logo.height}
+                  class="max-h-full max-w-full object-contain"
+                />
+              </div>
             ))}
           </div>
         </div>
