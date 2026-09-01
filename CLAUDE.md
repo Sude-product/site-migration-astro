@@ -2561,6 +2561,74 @@ hâlâ geçerli.)*
     illüstrasyonu + "hiringoz →" rozeti + CTA satırı, section0-3'ün
     doğru görsel/sütun sırası, section3'ün artık dolu görseli, kapanış
     bölümünün gri zemin deseni hepsi canlı siteyle eşleşiyor.
+65. **KAPANDI (2026-09-02, aynı gece — tek turda birçok küçük/orta bulgu)
+    — oturum özeti, sabah devam edilecek.** Kullanıcı ardışık olarak
+    şunları bildirdi/istedi, hepsi ayrı commit'lerle kapatıldı (hepsi
+    push edildi, `df087ff`'e kadar):
+    - **Homepage font büyütme:** `FeatureGrid`/`EfficiencySection`/
+      `SupremaSection`/`CertificationBadges`'in H2 altındaki intro
+      paragrafları 16px→18px (`984c6e9`).
+    - **Destek Talebi (`/destek-talebi/`) görsel tutarlılığı:** hero
+      zemini düz kırmızıdan (`bg-brand`) Online Sunum Talebi'yle AYNI
+      radyal pembe→beyaz gradyana çevrildi + `heroBackground` eklendi
+      (`21754ee`), 4 dekoratif `IdenfitStar` eklendi (`fc27b6e`), "Sıkça
+      Sorulan Sorular" link'i 14px→16px büyütüldü (`81516fb`).
+    - **Teşekkürler (`/tesekkurler/`) sayfası 3 bulgu:** `toYoutubeEmbedUrl()`
+      `?autoplay=1`'i HER ZAMAN ekliyordu (tek çağrı yeri bu sayfaydı) —
+      artık opt-in, varsayılan otomatik oynatma YOK; kullanıcının
+      istemediği koyu "idenfit" marka şeridi kaldırıldı; birkaç metin
+      büyütüldü (`702df5e`). **Ayrıca kullanıcı "az'a geçmiyor" dedi** —
+      kök neden: az için gerçek içerik hiç YOKTU, dil değiştirici sessizce
+      bare TR URL'ine düşüyordu (görünürde hiçbir şey değişmiyordu) — TR'den
+      gerçek/profesyonel AZ çevirisi eklenip `/az/tesekkurler/` sayfası
+      oluşturuldu (`34dd691`, yan etki: `ContactPage.astro`'nun az için
+      kırık `/az/thanks/` linkini de düzeltti).
+    - **YENİ — Anasayfaya "Partnerlerimiz" bölümü eklendi**
+      (`SupremaSection`'ın/donanım entegrasyonu vurgusunun HEMEN ALTINA,
+      AYNI minimal `HARDWARE_BRAND_LOGOS` deseniyle) — kullanıcının
+      verdiği liste: Turnike (Tansa/Özak), Bordro (SAP/Oracle/Mikro/
+      Logo/Datassist), LMS (Anzera/Enocta), Görev Yönetimi (Jira), SSO
+      (Google/Microsoft/Amazon). 13 logo hepsinin KENDİ resmi sitesinden
+      indirildi (magic-byte doğrulamalı, hotlink YOK), 5 dilde başlık/alt
+      metin/kategori etiketi çevrildi (`0903f6b`). **Takip turu:**
+      kullanıcı "CAME diye bir firma yok, kaldır" dedi — Özak'ın güncel
+      logosu satın alma sonrası "CAME ÖZAK" ortak markalı çıktı, `sharp`
+      ile sağdaki saf "ÖZAK" wordmark'ı kırpılıp CAME kısmı çıkarıldı;
+      ayrıca TÜM logolar `h-10 w-24` sabit kutuya (`object-contain`)
+      alınıp "benzer boyuta" getirildi (`1acfc88`). Sonra AYRICA
+      "Bulut Teknolojisi & Kalite Standartları" (`CertificationBadges`)
+      paragrafı `max-w-2xl`→`max-w-4xl` genişletildi, 18px büyütmeden
+      sonra çok dar/üst üste stack olmuştu (`7108999`).
+    - **Mobil menü:** kullanıcı ekran görüntüsüyle "dili değiştiremiyorum,
+      giriş yap/online sunum talebi/dil butonunu yukarı al, giriş yap'ı
+      butonla sarmala" dedi — dil değiştirici/Giriş Yap/Online Sunum
+      Talebi bloğu panelin EN ALTINDAN başlığın HEMEN ALTINA taşındı
+      (önceki konumda ekran altına çok yakındı), "Giriş Yap" artık düz
+      metin değil `.btn-cta` (beyaz+kırmızı çerçeve) gerçek bir buton
+      (`ca05733`). Chrome'da mobil viewport'ta GERÇEK doğrulama yapıldı
+      (dropdown artık tam açılıyor, dil değişimi çalışıyor — test
+      sırasında ilk denemede YANLIŞLIKLA `ProductPreviewWidget`'ın kendi
+      dekoratif "Dil Seçin" panelindeki AYNI metinli "TR" butonu
+      hedeflenmişti, o bir kod hatası DEĞİLDİ, salt test-script hatasıydı).
+    - **Online Sunum Talebi'nde (`/en/online-sunum-talebi/` dahil 4 dil)
+      "panelden sonraki yerler çeviri olmuyor" bulgusu:** kök neden,
+      2026-08-29'da eklenen `PresentationTimeline.astro`
+      ("3 Adımda idenfit") ve `PresentationFeatureGrid.astro`
+      ("Öne Çıkan Özellikler") hiç i18n ALTYAPISI OLMADAN tamamen
+      hardcoded Türkçe yazılmıştı (`/demo`'dan içerik taşınırken
+      atlanmış). `t.hero.presentationTimeline`/`presentationFeatures`
+      eklenip 5 dilde gerçek çeviri yazıldı (KARAR 1), iki component
+      `getTranslations()`'a bağlandı — ikonlar/`wide` bayrağı sabit
+      kalıp INDEX'e göre eşleşiyor (`df087ff`). Chrome'da EN sayfasında
+      doğrulandı.
+    **Her turda:** `astro check` 0 hata, `astro build` temiz, ilgili
+    regresyon script'leri (`check-heading-hierarchy`/`check-image-alt-text`/
+    `check-json-ld`/`check-link-accessibility`/`check-meta-description-length`/
+    `check-title-length`/`check-html-lang-attribute`, çoğu turda tam 8'i)
+    bilinen taban çizgisiyle (5 H1→H3 hariç) birebir aynı — sıfır yeni
+    regresyon. **Sabah devam için özel bir yarım iş YOK** — bu gece
+    bildirilen HER madde kapatıldı ve push edildi; bir sonraki oturum
+    kullanıcının yeni bir bulgu/isteğiyle başlayabilir.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
