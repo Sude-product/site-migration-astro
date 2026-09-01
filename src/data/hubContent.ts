@@ -126,10 +126,36 @@ function relativizeWpUrl(url: string): string {
   return url.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/');
 }
 
-function getHeroImage(trSlug: string): HubBlock['image'] {
+// Ham `alt` metni dosya adından türetilmiş, anlamsız (ör. "workforce
+// banner en@2x") — `productTranslationOverrides.ts`'teki elle-yazılmış
+// override görsellerinin AYNI kalıcı ilkesiyle (bkz. "sistemi a
+// tornello"/"leave management" gibi gerçek/açıklayıcı, dile göre yazılmış
+// alt'lar) gerçek içerik açıklamasıyla değiştiriliyor — görselin
+// kendisi izlenip (laptop paneli: aktif çalışan/devam/izin sayaçları +
+// GPS/beacon/wifi/nfc/QR doğrulamalı mobil PDKS uygulaması; HR görseli:
+// performans/mesajlaşma/masraf takibi mobil ekranları) UYDURMA içerik
+// EKLENMEDEN yazıldı. NL hub sayfaları hiç render edilmiyor (EN'e
+// yönleniyor, bkz. `getHubLocaleUrls()`), bu yüzden `nl` girdisi yok.
+const HERO_IMAGE_ALT: Record<string, Partial<Record<Locale, string>>> = {
+  'insan-kaynaklari-isgucu-yonetimi': {
+    tr: 'işgücü yönetimi paneli ve GPS, beacon, wifi, NFC, QR ile giriş-çıkış yapılan mobil PDKS uygulaması',
+    en: 'workforce management dashboard and mobile clock-in app with GPS, beacon, wifi, NFC and QR verification',
+    it: 'pannello di gestione della forza lavoro e app mobile di rilevazione presenze con verifica GPS, beacon, wifi, NFC e QR',
+    az: 'işçi qüvvəsi idarəçiliyi paneli və GPS, beacon, wifi, NFC, QR ilə giriş-çıxış edilən mobil PDKS tətbiqi',
+  },
+  'insan-kaynaklari-yonetimi-modulu': {
+    tr: 'idenfit mobil uygulamasında performans değerlendirme, mesajlaşma ve masraf takibi ekranları',
+    en: 'idenfit mobile app screens for performance evaluation, messaging and expense tracking',
+    it: 'schermate dell’app mobile idenfit per valutazione delle performance, messaggistica e gestione spese',
+    az: 'idenfit mobil tətbiqində performans qiymətləndirmə, mesajlaşma və xərc izləmə ekranları',
+  },
+};
+
+function getHeroImage(trSlug: string, locale: Locale): HubBlock['image'] {
   const baseHero = DATA.hubs.find((g) => g.trSlug === trSlug)?.locales.tr?.hero;
   if (!baseHero?.image) return null;
-  return { ...baseHero.image, url: relativizeWpUrl(baseHero.image.url) };
+  const alt = HERO_IMAGE_ALT[trSlug]?.[locale] ?? HERO_IMAGE_ALT[trSlug]?.tr ?? baseHero.image.alt;
+  return { ...baseHero.image, url: relativizeWpUrl(baseHero.image.url), alt };
 }
 
 // az (2026-08-21) — kaynakta hiç az verisi yok, TR kaynaktan gerçek
@@ -152,7 +178,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
         text: cleanRichText(az.hero.text),
         ctaText: az.hero.ctaText,
         ctaUrl: az.hero.ctaUrl ? localizeCtaUrl(az.hero.ctaUrl, locale) : '',
-        image: getHeroImage(trSlug),
+        image: getHeroImage(trSlug, locale),
       },
       intro: az.intro ? { title: cleanRichText(az.intro.title), text: cleanRichText(az.intro.text) } : null,
       tiles: az.tiles.map((t) => {
@@ -189,7 +215,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
       text: cleanRichText(heroRaw.text),
       ctaText: heroRaw.ctaText,
       ctaUrl: heroRaw.ctaUrl ? localizeCtaUrl(heroRaw.ctaUrl, locale) : '',
-      image: getHeroImage(trSlug),
+      image: getHeroImage(trSlug, locale),
     },
     intro: introRaw ? { title: cleanRichText(introRaw.title), text: cleanRichText(introRaw.text) } : null,
     tiles: tilesRaw

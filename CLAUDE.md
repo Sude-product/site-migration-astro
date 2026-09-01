@@ -2384,6 +2384,24 @@ hâlâ geçerli.)*
     hâlâ hotlink (7+16 referans, `audit-remote-hotlinks.mjs` çıktısında
     görünüyor) — bu turun kapsamı yalnızca HERO görseliydi, tile
     görselleri #45'in bekleyen genel temizliğinde ele alınacak.
+    **Aynı gün, ek tur — kullanıcı `alt` metninin gerçek/anlamlı olup
+    olmadığını sordu, DOĞRULANDI + DÜZELTİLDİ.** Ham veride her iki
+    görselin `alt`'ı dosya adından türetilmiş, anlamsızdı ("workforce
+    banner en@2x" / "hr banner en@2x") — sitenin GERİ KALANINDAKİ tüm
+    hero görselleri de aynı ham-geçiş kuralını izliyor (`hero.image.alt`
+    hiçbir yerde işlenmiyor), AMA `productTranslationOverrides.ts`'teki
+    ELLE-YAZILMIŞ override görselleri ("sistemi a tornello"/"leave
+    management" gibi) zaten gerçek/açıklayıcı, dile göre yazılmış alt
+    taşıyor — bu turda AYNI ilke uygulandı: her iki görsel TEKRAR
+    izlenip (workforce: laptop paneli + GPS/beacon/wifi/NFC/QR doğrulamalı
+    mobil PDKS uygulaması; HR: performans/mesajlaşma/masraf takibi mobil
+    ekranları) UYDURMA içerik EKLENMEDEN gerçek açıklama yazıldı, 4 dilde
+    (tr/en/it/az — NL hub sayfaları hiç render edilmiyor, EN'e
+    yönleniyor). Yeni `getHeroImage(trSlug, locale)` artık `locale`
+    parametresi alıyor, `HERO_IMAGE_ALT` haritasından okuyor. `astro
+    check` 0 hata, `astro build` temiz, 7 regresyon script'i sıfır yeni
+    sorun, `dist/client/**/index.html`'de 4 dilin hepsinde yeni `alt`
+    metni `grep` ile doğrulandı.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
