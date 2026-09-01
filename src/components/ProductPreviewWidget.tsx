@@ -54,6 +54,7 @@ import {
   getHumanResourcesLabels,
   getPerformanceManagementLabels,
   getDataAnalysisLabels,
+  getSharedPanelLabels,
   MONTH_ABBREV,
   WEEKDAY_ABBREV,
   formatDecimal,
@@ -611,13 +612,15 @@ function buildWeekDayLabelsAug(locale: Locale): string[] {
 // görüntüsünden verilen AYNI sırayla. Gerçek bir hedef/işlev YOK
 // (`RecalculateButton`/`EvaluationRow`'un dekoratif eylem butonlarıyla
 // AYNI ilke) — panel yalnızca görsel olarak dolu durmalı. ---
-const HEADER_SHORTCUTS: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; label: string; color: string }[] = [
-  { icon: UserPlus, label: 'Çalışan Oluştur', color: '#3B82F6' },
-  { icon: CalendarPlus, label: 'İzin Oluştur', color: '#F59E0B' },
-  { icon: FileText, label: 'Rapor Oluştur', color: '#10B981' },
-  { icon: MessageSquare, label: 'Mesaj Gönder', color: '#8B5CF6' },
-  { icon: ClipboardCheck, label: 'Günlük Puantaj', color: '#EC4899' },
-  { icon: CalendarRange, label: 'Vardiya Takvimi', color: '#06B6D4' },
+// 2026-09-01 — Tier 2: `label` `getSharedPanelLabels().shortcuts`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (ikon/renk) veri.
+const HEADER_SHORTCUTS_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string }[] = [
+  { icon: UserPlus, color: '#3B82F6' },
+  { icon: CalendarPlus, color: '#F59E0B' },
+  { icon: FileText, color: '#10B981' },
+  { icon: MessageSquare, color: '#8B5CF6' },
+  { icon: ClipboardCheck, color: '#EC4899' },
+  { icon: CalendarRange, color: '#06B6D4' },
 ];
 
 // --- "HRTECHTOOLS" paneli (3x3 ızgara ikonu) — kullanıcının verdiği TAM
@@ -682,19 +685,15 @@ const APP_DARK_TILE_BG = '#27272A';
 // GEREKMEDİ, ikinci bir kaynak İCAT EDİLMEDİ. **Tıklanınca gerçekten dil
 // DEĞİŞTİRMEZ** — diğer dekoratif panellerle AYNI ilke, yalnızca görsel
 // bir liste (kritik kısıtlama, kullanıcı talimatı). ---
-const LANGUAGE_LIST: { code: CountryFlagCode; name: string }[] = [
-  { code: 'TR', name: 'Türkçe' },
-  { code: 'GB', name: 'İngilizce' },
-  { code: 'DE', name: 'Almanca' },
-  { code: 'ES', name: 'İspanyolca' },
-  { code: 'PT', name: 'Portekizce' },
-  { code: 'IT', name: 'İtalyanca' },
-  { code: 'FR', name: 'Fransızca' },
-  { code: 'NL', name: 'Flemenkçe' },
-  { code: 'SA', name: 'Arapça' },
-  { code: 'RU', name: 'Rusça' },
-  { code: 'AZ', name: 'Azerbaycanca' },
-];
+// 2026-09-01 — Tier 2: `name` `getSharedPanelLabels().languageNames`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (bayrak kodu) veri.
+const LANGUAGE_LIST_CODES: CountryFlagCode[] = ['TR', 'GB', 'DE', 'ES', 'PT', 'IT', 'FR', 'NL', 'SA', 'RU', 'AZ'];
+// Widget'ın gerçek 5 site locale'i ile bu dekoratif listedeki bayrak
+// kodu eşlemesi — "aktif" işareti artık `useWidgetLocale()`'e göre
+// DOĞRU dili gösteriyor (önceden hep 'TR' sabitti, dekoratif panel
+// widget'ın geri kalanı gerçek locale'e duyarlı hale geldikten sonra
+// bu sabitlik tutarsız görünürdü — yan bulgu, aynı turda düzeltildi).
+const LOCALE_TO_LANGUAGE_LIST_CODE: Record<Locale, CountryFlagCode> = { tr: 'TR', en: 'GB', nl: 'NL', it: 'IT', az: 'AZ' };
 
 // --- 2. zil ("Görevler") — kullanıcı "aynı Bildirimler panelini açabilir
 // veya farklı içerik, sen karar ver" dedi. Karar: FARKLI içerik — ilk
@@ -703,20 +702,25 @@ const LANGUAGE_LIST: { code: CountryFlagCode; name: string }[] = [
 // "Onay Bekleyen" temasıyla tutarlı) — iki zilin farklı bir amacı
 // olduğunu gösteriyor, aksi halde aynı boş paneli iki kez göstermek
 // anlamsız olurdu. ---
-const PENDING_TASKS: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; text: string }[] = [
-  { icon: CalendarDays, color: '#F59E0B', text: '3 izin talebi onayını bekliyor' },
-  { icon: FileText, color: '#3B82F6', text: '1 rapor incelemeni bekliyor' },
-  { icon: Target, color: '#8B5CF6', text: 'Q3 performans değerlendirmesi tamamlanmadı' },
+// 2026-09-01 — Tier 2: `text` `getSharedPanelLabels().pendingTasks`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (ikon/renk) veri.
+const PENDING_TASKS_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string }[] = [
+  { icon: CalendarDays, color: '#F59E0B' },
+  { icon: FileText, color: '#3B82F6' },
+  { icon: Target, color: '#8B5CF6' },
 ];
 
 // --- Analiz (mini bar-chart ikonu) — kullanıcı "sen öner" dedi, referans
 // görüntüde net değildi. Kısa bir "Bugünün Özeti" — widget'ın kurgusal
 // veri ilkesiyle tutarlı, `LEAVE_STATS`'ın "Onay Bekleyen"(3) sayısıyla
 // UYUMLU (aynı kurgusal ay/durum). ---
-const TODAY_SUMMARY: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; label: string; value: string }[] = [
-  { icon: UserCheck, color: '#10B981', label: 'Bugün Giriş Yapan', value: '142 / 150' },
-  { icon: Clock, color: '#3B82F6', label: 'Ortalama Çalışma Süresi', value: '7s 42dk' },
-  { icon: ClipboardCheck, color: '#F59E0B', label: 'Açık Talepler', value: '5' },
+// 2026-09-01 — Tier 2: `label` `getSharedPanelLabels().todaySummaryLabels`ten,
+// ortadaki (saat/dakika birimli) `value` `avgWorkTimeValue`den geliyor
+// — diğer iki `value` ("142 / 150"/"5") sayısal/evrensel, burada sabit.
+const TODAY_SUMMARY_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; staticValue?: string }[] = [
+  { icon: UserCheck, color: '#10B981', staticValue: '142 / 150' },
+  { icon: Clock, color: '#3B82F6' },
+  { icon: ClipboardCheck, color: '#F59E0B', staticValue: '5' },
 ];
 
 // --- Paylaşılan görsel parçalar ---
@@ -2347,13 +2351,14 @@ function IconDropdown({
 function ShortcutsPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.shortcuts.title}</h4>
       <div className="grid grid-cols-3 gap-1" aria-hidden="true">
-        {HEADER_SHORTCUTS.map((shortcut) => (
+        {HEADER_SHORTCUTS_STRUCTURE.map((shortcut, i) => (
           <span
-            key={shortcut.label}
+            key={shared.shortcuts[i]}
             role="button"
             className={`flex cursor-default flex-col items-center gap-1.5 rounded-lg p-2 text-center transition-colors ${
               isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
@@ -2365,7 +2370,7 @@ function ShortcutsPanelContent() {
             >
               <shortcut.icon className="h-4 w-4" style={{ color: shortcut.color }} />
             </span>
-            <span className={`text-[10.5px] leading-tight font-medium ${isDark ? 'text-gray-200' : 'text-body'}`}>{shortcut.label}</span>
+            <span className={`text-[10.5px] leading-tight font-medium ${isDark ? 'text-gray-200' : 'text-body'}`}>{shared.shortcuts[i]}</span>
           </span>
         ))}
       </div>
@@ -2473,12 +2478,17 @@ function AppsPanelContent({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-// Dil seçici satırı — Türkçe (aktif) `bg-brand-light`+kırmızı+onay ikonuyla
+// Dil seçici satırı — aktif dil `bg-brand-light`+kırmızı+onay ikonuyla
 // vurgulanıyor, `LanguageSwitcher.tsx`'in (site geneli gerçek dil
 // değiştirici) AYNI görsel dilini izliyor ama TAMAMEN dekoratif.
-function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
+// 2026-09-01 — "aktif" işareti artık widget'ın GERÇEK `locale` prop'una
+// göre (`LOCALE_TO_LANGUAGE_LIST_CODE`) — önceden `code === 'TR'` sabitti,
+// widget'ın geri kalanı locale'e duyarlı hale geldikten sonra bu sabitlik
+// tutarsız görünürdü (yan bulgu, aynı turda düzeltildi).
+function LanguageRow({ code, name }: { code: CountryFlagCode; name: string }) {
   const { isDark } = useTheme();
-  const isActive = lang.code === 'TR';
+  const locale = useWidgetLocale();
+  const isActive = code === LOCALE_TO_LANGUAGE_LIST_CODE[locale];
   return (
     <span
       role="button"
@@ -2487,8 +2497,8 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
       }`}
     >
       <span className="flex items-center gap-2.5">
-        <CountryFlagIcon code={lang.code} />
-        <span>{lang.name}</span>
+        <CountryFlagIcon code={code} />
+        <span>{name}</span>
       </span>
       {isActive && <Check className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />}
     </span>
@@ -2498,14 +2508,15 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
 function LanguagePanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
         {labels.languageSelector.title}
       </h4>
       <div className="space-y-0.5 pt-1" aria-hidden="true">
-        {LANGUAGE_LIST.map((lang) => (
-          <LanguageRow key={lang.code} lang={lang} />
+        {LANGUAGE_LIST_CODES.map((code, i) => (
+          <LanguageRow key={code} code={code} name={shared.languageNames[i]} />
         ))}
       </div>
     </div>
@@ -2515,21 +2526,22 @@ function LanguagePanelContent() {
 function TasksPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4
         className={`mb-1 flex items-center gap-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}
       >
         {labels.tasks.title}
-        <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS.length}</span>
+        <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS_STRUCTURE.length}</span>
       </h4>
       <div className="space-y-3 pt-2" aria-hidden="true">
-        {PENDING_TASKS.map((task) => (
-          <div key={task.text} className="flex items-start gap-2.5">
+        {PENDING_TASKS_STRUCTURE.map((task, i) => (
+          <div key={shared.pendingTasks[i]} className="flex items-start gap-2.5">
             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${task.color}1A` }}>
               <task.icon className="h-3.5 w-3.5" style={{ color: task.color }} />
             </span>
-            <p className={`text-xs leading-snug ${isDark ? 'text-gray-300' : 'text-body'}`}>{task.text}</p>
+            <p className={`text-xs leading-snug ${isDark ? 'text-gray-300' : 'text-body'}`}>{shared.pendingTasks[i]}</p>
           </div>
         ))}
       </div>
@@ -2566,19 +2578,22 @@ function AvatarPanelContent() {
 function AnalyticsPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.analytics.title}</h4>
       <div className="space-y-3" aria-hidden="true">
-        {TODAY_SUMMARY.map((row) => (
-          <div key={row.label} className="flex items-center justify-between gap-3">
+        {TODAY_SUMMARY_STRUCTURE.map((row, i) => (
+          <div key={shared.todaySummaryLabels[i]} className="flex items-center justify-between gap-3">
             <span className="flex items-center gap-2.5">
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${row.color}1A` }}>
                 <row.icon className="h-3.5 w-3.5" style={{ color: row.color }} />
               </span>
-              <span className={`text-xs ${isDark ? 'text-gray-300' : 'text-body'}`}>{row.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-300' : 'text-body'}`}>{shared.todaySummaryLabels[i]}</span>
             </span>
-            <span className={`text-sm font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>{row.value}</span>
+            <span className={`text-sm font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>
+              {row.staticValue ?? shared.avgWorkTimeValue}
+            </span>
           </div>
         ))}
       </div>

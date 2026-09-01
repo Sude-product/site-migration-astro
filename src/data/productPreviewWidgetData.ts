@@ -946,3 +946,83 @@ const DATA_ANALYSIS_LABELS: Partial<Record<Locale, DataAnalysisLabels>> = {
 export function getDataAnalysisLabels(locale: Locale): DataAnalysisLabels {
   return DATA_ANALYSIS_LABELS[locale] ?? dataAnalysisTr;
 }
+
+// --- Paylaşılan üst header panelleri — Tier 2 çevirileri (2026-09-01).
+// Panel BAŞLIKLARI (`labels.shortcuts.title` vb.) zaten Tier 1'de
+// çevrilmişti (`productPreviewWidgetLabels.ts`) — burada yalnızca panel
+// İÇERİĞİ (kısayol etiketleri, bekleyen görev metinleri, "Bugünün
+// Özeti" satırları, dil seçici listesi) çevriliyor. ---
+
+export interface SharedPanelLabels {
+  /** `HEADER_SHORTCUTS` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  shortcuts: [string, string, string, string, string, string];
+  /** `PENDING_TASKS` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  pendingTasks: [string, string, string];
+  /** `TODAY_SUMMARY` yapısal diziyle İNDEKS SIRASIYLA eşleşir (yalnızca
+   * `label` alanları — `value` alanları çoğunlukla sayısal/evrensel). */
+  todaySummaryLabels: [string, string, string];
+  /** `TODAY_SUMMARY[1]`ın ("Ortalama Çalışma Süresi") saat+dakika
+   * birimli değeri — tam biçimlendirilmiş tek metin (sayı sabit "7"/"42",
+   * yalnızca birim kısaltması dile göre değişiyor). */
+  avgWorkTimeValue: string;
+  /** `LANGUAGE_LIST` yapısal diziyle İNDEKS SIRASIYLA eşleşir (TR/GB/DE/
+   * ES/PT/IT/FR/NL/SA/RU/AZ bayrak kodu sırası) — dekoratif dil seçici
+   * panelinin 11 dil adı. */
+  languageNames: [string, string, string, string, string, string, string, string, string, string, string];
+}
+
+const sharedPanelTr: SharedPanelLabels = {
+  shortcuts: ['Çalışan Oluştur', 'İzin Oluştur', 'Rapor Oluştur', 'Mesaj Gönder', 'Günlük Puantaj', 'Vardiya Takvimi'],
+  pendingTasks: ['3 izin talebi onayını bekliyor', '1 rapor incelemeni bekliyor', 'Q3 performans değerlendirmesi tamamlanmadı'],
+  todaySummaryLabels: ['Bugün Giriş Yapan', 'Ortalama Çalışma Süresi', 'Açık Talepler'],
+  avgWorkTimeValue: '7s 42dk',
+  languageNames: ['Türkçe', 'İngilizce', 'Almanca', 'İspanyolca', 'Portekizce', 'İtalyanca', 'Fransızca', 'Flemenkçe', 'Arapça', 'Rusça', 'Azerbaycanca'],
+};
+
+const sharedPanelEn: SharedPanelLabels = {
+  shortcuts: ['Create Employee', 'Create Leave', 'Create Report', 'Send Message', 'Daily Timesheet', 'Shift Calendar'],
+  pendingTasks: ['3 leave requests awaiting approval', '1 report awaiting your review', 'Q3 performance review not completed'],
+  todaySummaryLabels: ['Checked In Today', 'Average Work Time', 'Open Requests'],
+  avgWorkTimeValue: '7h 42m',
+  languageNames: ['Turkish', 'English', 'German', 'Spanish', 'Portuguese', 'Italian', 'French', 'Dutch', 'Arabic', 'Russian', 'Azerbaijani'],
+};
+
+const sharedPanelNl: SharedPanelLabels = {
+  shortcuts: ['Medewerker Aanmaken', 'Verlof Aanmaken', 'Rapport Aanmaken', 'Bericht Versturen', 'Dagelijkse Urenregistratie', 'Ploegenrooster'],
+  pendingTasks: ['3 verlofaanvragen wachten op goedkeuring', '1 rapport wacht op je beoordeling', 'Q3-prestatiebeoordeling niet voltooid'],
+  todaySummaryLabels: ['Vandaag Ingecheckt', 'Gemiddelde Werktijd', 'Openstaande Aanvragen'],
+  avgWorkTimeValue: '7u 42m',
+  languageNames: ['Turks', 'Engels', 'Duits', 'Spaans', 'Portugees', 'Italiaans', 'Frans', 'Nederlands', 'Arabisch', 'Russisch', 'Azerbeidzjaans'],
+};
+
+const sharedPanelIt: SharedPanelLabels = {
+  shortcuts: ['Crea Dipendente', 'Crea Ferie', 'Crea Report', 'Invia Messaggio', 'Presenze Giornaliere', 'Calendario Turni'],
+  pendingTasks: [
+    '3 richieste di ferie in attesa di approvazione',
+    '1 report in attesa della tua revisione',
+    'Valutazione delle performance del Q3 non completata',
+  ],
+  todaySummaryLabels: ['Presenti Oggi', 'Tempo di Lavoro Medio', 'Richieste Aperte'],
+  avgWorkTimeValue: '7h 42min',
+  languageNames: ['Turco', 'Inglese', 'Tedesco', 'Spagnolo', 'Portoghese', 'Italiano', 'Francese', 'Olandese', 'Arabo', 'Russo', 'Azero'],
+};
+
+const sharedPanelAz: SharedPanelLabels = {
+  shortcuts: ['İşçi Yarat', 'İcazə Yarat', 'Hesabat Yarat', 'Mesaj Göndər', 'Gündəlik Vaxt Cədvəli', 'Növbə Təqvimi'],
+  pendingTasks: ['3 icazə tələbi təsdiq gözləyir', '1 hesabat baxışınızı gözləyir', 'Q3 performans qiymətləndirməsi tamamlanmayıb'],
+  todaySummaryLabels: ['Bu gün Giriş Edən', 'Orta İş Müddəti', 'Açıq Tələblər'],
+  avgWorkTimeValue: '7 saat 42 dəq',
+  languageNames: ['Türk', 'İngilis', 'Alman', 'İspan', 'Portuqal', 'İtalyan', 'Fransız', 'Holland', 'Ərəb', 'Rus', 'Azərbaycan'],
+};
+
+const SHARED_PANEL_LABELS: Partial<Record<Locale, SharedPanelLabels>> = {
+  tr: sharedPanelTr,
+  en: sharedPanelEn,
+  nl: sharedPanelNl,
+  it: sharedPanelIt,
+  az: sharedPanelAz,
+};
+
+export function getSharedPanelLabels(locale: Locale): SharedPanelLabels {
+  return SHARED_PANEL_LABELS[locale] ?? sharedPanelTr;
+}

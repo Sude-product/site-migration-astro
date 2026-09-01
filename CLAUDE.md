@@ -2298,6 +2298,41 @@ hâlâ geçerli.)*
     (header'daki Kısayollar/Bildirimler/HRTECHTOOLS gibi Tier 2 dışı
     kalan parçalar, bkz. Açık nokta #51'in orijinal kapsam notu) — widget
     çevirisinin son adımı.
+59. **TAMAMLANDI (2026-09-01, 8. tur) — Paylaşılan üst header panelleri
+    4 dilde (EN/NL/IT/AZ) çevrildi — `ProductPreviewWidget.tsx`'in TÜM
+    çeviri işi bitti.** Panel BAŞLIKLARI (`labels.shortcuts.title` vb.)
+    zaten Tier 1'de çevrilmişti — bu turda yalnızca panel İÇERİĞİ
+    çevrildi: `getSharedPanelLabels(locale)` eklendi
+    (`productPreviewWidgetData.ts`). Çevrilen: "Kısayollar" panelinin 6
+    kısayolu (Çalışan Oluştur/İzin Oluştur/Rapor Oluştur/Mesaj Gönder/
+    Günlük Puantaj/Vardiya Takvimi), "Görevler" (2. zil) panelinin 3
+    bekleyen görev metni, "Bugünün Özeti" (Analiz ikonu) panelinin 3
+    satır etiketi + "Ortalama Çalışma Süresi" değerinin saat/dakika
+    biçimi (tr "7s 42dk" / en "7h 42m" / nl "7u 42m" / it "7h 42min" /
+    az "7 saat 42 dəq" — sabit sayı "7"/"42", yalnızca birim gösterimi
+    dile göre değişiyor), "Dil Seçin" panelinin 11 dil adı (dekoratif
+    dil listesi — Türkçe/İngilizce/Almanca/... her locale'de kendi
+    dilinde: `Turkish/English/German/...`, `Turks/Engels/Duits/...`,
+    `Turco/Inglese/Tedesco/...`, `Türk/İngilis/Alman/...`).
+    **HRTECHTOOLS paneli + dil seçicideki dil isimlerinin KENDİLERİ
+    (bayrak/kod listesi) bilinçli olarak ÇEVRİLMEDİ** — marka adları
+    (HiringOz/DataAssist/Anzera/vb.) gerçek üçüncü taraf ürün adları,
+    "Sales"/"Marketing" kategorileri gibi (madde 57) İngilizce kalması
+    doğal. **Yan bulgu, AYNI turda düzeltildi:** Dil Seçin panelindeki
+    "aktif" onay işareti önceden `lang.code === 'TR'` diye SABİTTİ —
+    widget'ın geri kalanı artık gerçek `locale` prop'una duyarlı
+    olduğundan, bu sabitlik (EN sayfasında "Türkçe ✓" görünmesi gibi)
+    tutarsız hale gelmişti. `LOCALE_TO_LANGUAGE_LIST_CODE` haritasıyla
+    artık gerçek widget locale'ine göre doğru dil işaretleniyor (EN
+    sayfasında "English ✓", vb.) — gerçek `LanguageSwitcher.tsx`'in
+    davranışıyla tutarlı. **Doğrulama:** `astro check` 0 hata, `astro
+    build` 3097 sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
+    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
+    TAMAMINDA Kısayollar/Görevler/Bugünün Özeti/Dil Seçin panelleri
+    (aktif dil işareti dahil) tek tek açılıp görsel doğrulandı.
+    **Sonuç: widget'ın TÜM içeriği (5 fonksiyonel sekme + paylaşılan
+    header panelleri) artık 5 dilde** — bkz. `widget-i18n-progress.md`
+    memory'sinin kapanış notu.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
