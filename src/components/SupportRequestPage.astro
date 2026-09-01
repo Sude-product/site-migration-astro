@@ -1,10 +1,15 @@
 ---
-// Destek Talebi (`/destek-talebi/`) — idenfit.com'da tam genişlik kırmızı
-// zemin + ortada beyaz, yuvarlak köşeli (30px) bir kart içinde form
-// (2026-07-27'de canlı sitede Playwright ile ölçüldü: kart bg
-// `rgb(255,255,255)`, hero zemin `rgb(255,0,0)`, `box-shadow:4px 8px 40px
-// rgba(0,0,0,.2)`). Formun altında (kartın DIŞINDA, sayfanın beyaz
+// Destek Talebi (`/destek-talebi/`) — ortada beyaz, yuvarlak köşeli (30px)
+// bir kart içinde form. Formun altında (kartın DIŞINDA, sayfanın beyaz
 // zemininde) "SSS'yi ziyaret et" bloğu var — bkz. `supportRequestContent.ts`.
+//
+// 2026-09-02 (kullanıcı isteği) — hero zemini kaynağın düz kırmızısından
+// (`bg-brand`, 2026-07-27'de Playwright ile ölçülmüştü) Online Sunum
+// Talebi sayfasıyla (`PresentationRequestPage.astro`) AYNI radyal
+// pembe→beyaz gradyana çevrildi — bilinçli bir marka tutarlılığı kararı,
+// kaynak sadakati DEĞİL. `heroBackground` de AYNI nedenle (breadcrumb'ın
+// alt kenarıyla hero'nun üst kenarı arasında "dikiş" oluşmasın diye)
+// eklendi — `PresentationRequestPage.astro`'daki AYNI desen.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SupportRequestForm from './SupportRequestForm.tsx';
 import LastUpdated from './LastUpdated.astro';
@@ -46,8 +51,12 @@ const modified = getSupportRequestModifiedDate(locale);
 	hreflangLocales={['tr', 'en', 'it']}
 	dateModified={modified?.toISOString()}
 	breadcrumb={[{ label: content.pageTitle }]}
+	heroBackground="#FFDCDC"
 >
-	<section class="relative overflow-hidden bg-brand px-4 py-16 sm:px-6 lg:py-24">
+	<section
+		class="relative overflow-hidden px-4 py-16 sm:px-6 lg:py-24"
+		style="background: radial-gradient(120% 90% at 50% 0%, #FFDCDC 0%, #FFF3F3 42%, #FFFFFF 78%);"
+	>
 		<div class="mx-auto max-w-3xl rounded-[30px] bg-surface p-8 shadow-[4px_8px_40px_0_rgba(0,0,0,0.2)] sm:p-12">
 			<h1 class="text-center text-3xl font-bold text-brand sm:text-4xl">{content.pageTitle}</h1>
 			<p class="mx-auto mt-4 max-w-xl whitespace-pre-line text-center text-sm leading-relaxed text-body">
