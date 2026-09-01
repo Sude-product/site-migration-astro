@@ -59,6 +59,7 @@ const tileHeadingLevel = intro && intro.title ? 'h3' : 'h2';
   description={description}
   localeUrls={localeUrls}
   hreflangLocales={hreflangLocales}
+  image={hero.image?.url}
   breadcrumb={[{ label: pageTitle }]}
 >
   <!-- Hero -->
@@ -78,6 +79,20 @@ const tileHeadingLevel = intro && intro.title ? 'h3' : 'h2';
           )
         }
       </div>
+      {
+        hero.image && (
+          <div class="flex items-center justify-center">
+            <img
+              src={hero.image.url}
+              alt={hero.image.alt}
+              loading="eager"
+              width={hero.image.width}
+              height={hero.image.height}
+              class="w-full rounded-2xl object-cover"
+            />
+          </div>
+        )
+      }
     </div>
   </section>
 

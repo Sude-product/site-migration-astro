@@ -18,7 +18,9 @@ interface HubTileOverride {
 }
 
 export interface HubOverride {
-  hero?: HubBlock;
+  // `image` yok — hero görseli dile göre değişmiyor, her zaman TR taban
+  // girdisinden okunuyor (bkz. `hubContent.ts`'teki `getHeroImage()`).
+  hero?: Omit<HubBlock, 'image'>;
   intro?: { title: string; text: string } | null;
   tiles?: HubTileOverride[];
   faq?: HubFaqItem[];

@@ -2352,6 +2352,38 @@ hâlâ geçerli.)*
     doğrulandı: sayfanın en üstünde görünür → 1 tık aşağı kaydırınca
     kayboluyor → yukarı kaydırılıp sayfanın ortasında durulsa bile
     GİZLİ kalıyor → yalnızca gerçek en üste dönülünce geri geliyor.
+61. **KAPANDI (2026-09-01) — İki İK hub sayfasının (İnsan Kaynakları
+    Modülleri + İşgücü Yönetimi) hero görseli eksikti, kullanıcı
+    WhatsApp'tan paylaştığı ekran görüntüsüyle fark etti.** Kök neden:
+    `hero.image` alanı ham `hubs.json`'da HER ZAMAN vardı ama
+    `hubContent.ts`'in `getHubContent()`'i hiçbir zaman aktarmıyordu —
+    `HubBlock` tipinde `image` alanı hiç YOKTU — `HubPage.astro`'nun hero
+    grid'i de (`lg:grid-cols-2`) buna rağmen ikinci sütunu hiç
+    doldurmuyordu (`ProductPage.astro`'nun aynı grid'inin YANINDA,
+    resim bloğu unutulmuş bir kopyası). **Uygulama:** `HubBlock`'a
+    `image: {url,alt,width,height}|null` eklendi; yeni `getHeroImage(trSlug)`
+    yardımcı fonksiyonu HER ZAMAN TR taban girdisinden okuyor (görsel
+    dile göre değişmiyor, ham veride tr/en/it üçü de AYNI URL'i
+    kullanıyor — doğrulandı) — bu yüzden `HUB_OVERRIDES`/`HUB_OVERRIDES_AZ`'ın
+    metin-odaklı hero bloklarına EKLENMEDİ, tipleri `Omit<HubBlock,'image'>`
+    oldu. `HubPage.astro`'ya `ProductPage.astro` ile BİREBİR aynı hero
+    görsel bloğu (`loading="eager"`, `rounded-2xl object-cover`) + `image`
+    prop'u `BaseLayout`'a (OG) eklendi. **Görsel bağımlılık kuralı**
+    (2026-08-30) gereği idenfit.com'a hotlink YAPILMADI — 2 görsel
+    (`workforce-banner-en@2x.png` 1453×795, `hr-banner-en@2x.webp`
+    1122×905) indirilip magic-byte doğrulamasıyla `public/wp-content/uploads/`
+    altına yerleştirildi, `hubContent.ts`'te göreliye çevrildi.
+    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
+    7 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
+    sorun, `audit-remote-hotlinks.mjs`'de bu 2 dosya ARTIK listede yok
+    (yerelleştirme doğrulandı), Chrome'da TR/EN/AZ'ın ÜÇÜNDE de HEM
+    İşgücü Yönetimi HEM İnsan Kaynakları Modülleri hub'ında görsel doğru
+    render edildi doğrulandı (tek component değişikliği iki hub'ı da
+    kapsadı). **Kapsam dışı bırakılan (kasıtlı, ayrı bir bulgu — Açık
+    nokta #45'in parçası):** her iki hub'ın tile kartlarındaki görseller
+    hâlâ hotlink (7+16 referans, `audit-remote-hotlinks.mjs` çıktısında
+    görünüyor) — bu turun kapsamı yalnızca HERO görseliydi, tile
+    görselleri #45'in bekleyen genel temizliğinde ele alınacak.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

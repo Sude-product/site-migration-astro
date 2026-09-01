@@ -16,6 +16,7 @@ export interface HubBlock {
   text: string;
   ctaText: string;
   ctaUrl: string;
+  image: { url: string; alt: string; width?: number; height?: number } | null;
 }
 
 export interface HubTile {
@@ -111,6 +112,26 @@ function resolveTileCta(rawUrl: string, locale: Locale): { url: string; external
   return resolveCtaUrl(rawUrl, locale);
 }
 
+// Hero görseli (2026-09-01) — ham JSON'da hep VARDI (`hero.image`) ama
+// `getHubContent()` hiçbir zaman aktarmıyordu, `HubPage.astro`'nun hero
+// grid'i de `lg:grid-cols-2`'ye rağmen ikinci sütunu hiç doldurmuyordu —
+// kullanıcı canlı sitede/ekran görüntüsünde eksik olduğunu fark etti.
+// Görsel dile göre DEĞİŞMİYOR (tr/en/it hepsi aynı URL'i kullanıyor, ham
+// veride doğrulandı) — bu yüzden HUB_OVERRIDES'ın metin-odaklı hero
+// bloklarına eklenmedi, her zaman TABAN (tr) girdisinden okunuyor.
+// "Görsel bağımlılık kuralı" (CLAUDE.md, 2026-08-30) gereği
+// idenfit.com'a hotlink YAPILMADI — indirilip `public/wp-content/uploads/`
+// altına yerleştirildi, burada göreliye çevriliyor.
+function relativizeWpUrl(url: string): string {
+  return url.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/');
+}
+
+function getHeroImage(trSlug: string): HubBlock['image'] {
+  const baseHero = DATA.hubs.find((g) => g.trSlug === trSlug)?.locales.tr?.hero;
+  if (!baseHero?.image) return null;
+  return { ...baseHero.image, url: relativizeWpUrl(baseHero.image.url) };
+}
+
 // az (2026-08-21) — kaynakta hiç az verisi yok, TR kaynaktan gerçek
 // çeviri `HUB_OVERRIDES_AZ`'dan geliyor (KARAR 1). az fiziksel sayfa
 // dosyaları TR ile BİREBİR aynı bare slug'ı kullanıyor.
@@ -131,6 +152,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
         text: cleanRichText(az.hero.text),
         ctaText: az.hero.ctaText,
         ctaUrl: az.hero.ctaUrl ? localizeCtaUrl(az.hero.ctaUrl, locale) : '',
+        image: getHeroImage(trSlug),
       },
       intro: az.intro ? { title: cleanRichText(az.intro.title), text: cleanRichText(az.intro.text) } : null,
       tiles: az.tiles.map((t) => {
@@ -167,6 +189,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
       text: cleanRichText(heroRaw.text),
       ctaText: heroRaw.ctaText,
       ctaUrl: heroRaw.ctaUrl ? localizeCtaUrl(heroRaw.ctaUrl, locale) : '',
+      image: getHeroImage(trSlug),
     },
     intro: introRaw ? { title: cleanRichText(introRaw.title), text: cleanRichText(introRaw.text) } : null,
     tiles: tilesRaw
