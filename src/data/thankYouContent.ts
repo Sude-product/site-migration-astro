@@ -34,6 +34,14 @@ const THANK_YOU_PAGE_IDS: Record<ThankYouLocale, number> = {
 };
 
 type ThankYouLocale = 'tr' | 'en' | 'it';
+// az (2026-09-02, kullanıcı bulgusu — "sayfa Azerbaycan diline geçmiyor")
+// — kaynakta gerçek bir az sayfası YOK (WP `pages.json`'da yalnızca
+// tr/en/it var), bu yüzden `THANK_YOU_PAGE_IDS`/`getThankYouModifiedDate()`
+// bilinçli olarak az'i içermiyor (gerçek bir "Son Güncelleme" tarihi
+// uydurulamaz). Ama İÇERİK (başlık/metin/CTA/testimonial alıntıları) TR
+// kaynaktan gerçek/profesyonel çeviriyle üretildi (KARAR 1) — bu yüzden
+// content çözümlemesi için AYRI, daha geniş bir tip kullanılıyor.
+type ThankYouContentLocale = ThankYouLocale | 'az';
 
 export interface ThankYouTestimonial {
   name: string;
@@ -59,10 +67,13 @@ export interface ThankYouContent {
 
 // Gerçek per-locale slug'lar (`link` alanından) — üçü de FARKLI, tek
 // canonical slug varsayımı burada geçerli değil (KVKK ailesiyle aynı sınıf).
-const SLUGS: Record<ThankYouLocale, string> = {
+// az kaynakta yok — TR'nin BİREBİR AYNI bare slug'ı kullanılıyor (diğer az
+// ürün/sektör sayfalarıyla AYNI mimari karar, bkz. CLAUDE.md Açık nokta #37).
+const SLUGS: Record<ThankYouContentLocale, string> = {
   tr: 'tesekkurler',
   en: 'thanks',
   it: 'grazie',
+  az: 'tesekkurler',
 };
 
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/channel/UCE-4lk4QsU71NfTI7vxPCJQ/';
@@ -79,7 +90,7 @@ const FEMAS_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/08/logo-whit
 const CIVIL_VIDEO_URL = 'https://youtu.be/-MxZWA99a20';
 const FEMAS_VIDEO_URL = 'https://youtu.be/cakFopJJ-pE';
 
-const TESTIMONIALS: Record<ThankYouLocale, ThankYouTestimonial[]> = {
+const TESTIMONIALS: Record<ThankYouContentLocale, ThankYouTestimonial[]> = {
   tr: [
     {
       name: 'Civil',
@@ -134,10 +145,28 @@ const TESTIMONIALS: Record<ThankYouLocale, ThankYouTestimonial[]> = {
         "Con il supporto software fornito da idenfit, abbiamo permesso al Gruppo Femaş, che opera in oltre 100 paesi in 5 continenti, di gestire i processi di gestione delle risorse umane e della forza lavoro senza sforzo nell'ambiente digitale.",
     },
   ],
+  az: [
+    {
+      name: 'Civil',
+      logoUrl: CIVIL_LOGO_URL,
+      logoAlt: 'Civil',
+      videoUrl: CIVIL_VIDEO_URL,
+      quote:
+        'Növbə cədvəllərindən icazə izlənməsinə, əmək haqqı imzalarından iş vaxtı izlənməsinə qədər bütün rəsmi sənəd və imza işlərini rəqəmsal mühitə daşımış olduq. idenfit bizə effektiv və səmərəli bir İK idarəçiliyi infrastrukturu təmin etdi. Bu yolçuluqda bizə dəstək olduqları üçün onlara təşəkkür edirik.',
+    },
+    {
+      name: 'Femaş',
+      logoUrl: FEMAS_LOGO_URL,
+      logoAlt: 'Femaş',
+      videoUrl: FEMAS_VIDEO_URL,
+      quote:
+        "idenfit olaraq təqdim etdiyimiz proqram təminatı dəstəyi ilə, 5 qitədə və 100-dən çox ölkədə fəaliyyət göstərən Femaş Qrupunun insan resursları və işçi qüvvəsi idarəçiliyi proseslərini rəqəmsal mühitdə asanlıqla idarə etməsini təmin etdik.",
+    },
+  ],
 };
 
 const CONTENT: Record<
-  ThankYouLocale,
+  ThankYouContentLocale,
   Omit<ThankYouContent, 'whyIdenfitHref' | 'testimonials' | 'youtubeChannelUrl'>
 > = {
   tr: {
@@ -170,14 +199,28 @@ const CONTENT: Record<
     youtubePromptSuffix: ' per esplorare i nostri video divertenti e informativi e conoscerci meglio!',
     brandTagline: 'Software di nuova generazione per le risorse umane e la gestione della forza lavoro',
   },
+  az: {
+    title: 'Təşəkkürlər!',
+    text: 'Formumuzu doldurduğunuz üçün təşəkkür edirik! Sizinlə ən qısa zamanda əlaqə saxlayacağıq. Bu müddətdə bizi daha yaxından tanımağa nə dersiniz?',
+    homeCtaText: 'Əsas Səhifəyə Qayıt',
+    whyIdenfitCtaText: 'Niyə idenfit?',
+    youtubePromptPrefix: 'Əyləncəli və məlumatlandırıcı videolarımızı kəşf etmək və bizi daha yaxından tanımaq üçün ',
+    youtubePromptLinkText: 'YouTube kanalımıza',
+    youtubePromptSuffix: ' baxmağı unutmayın!',
+    brandTagline: 'Yeni nəsil tanımlama və işçi qüvvəsi idarəetmə platforması',
+  },
 };
 
 function toThankYouLocale(locale: Locale): ThankYouLocale | undefined {
   return locale === 'tr' || locale === 'en' || locale === 'it' ? locale : undefined;
 }
 
+function toThankYouContentLocale(locale: Locale): ThankYouContentLocale | undefined {
+  return locale === 'tr' || locale === 'en' || locale === 'it' || locale === 'az' ? locale : undefined;
+}
+
 export function getThankYouContent(locale: Locale): ThankYouContent | undefined {
-  const key = toThankYouLocale(locale);
+  const key = toThankYouContentLocale(locale);
   if (!key) return undefined;
   return {
     ...CONTENT[key],
@@ -188,24 +231,19 @@ export function getThankYouContent(locale: Locale): ThankYouContent | undefined 
 }
 
 export function getThankYouSlug(locale: Locale): string | undefined {
-  const key = toThankYouLocale(locale);
+  const key = toThankYouContentLocale(locale);
   return key ? SLUGS[key] : undefined;
 }
 
 export function getThankYouLocaleUrls(): Partial<Record<Locale, string>> {
   const result: Partial<Record<Locale, string>> = {};
-  for (const [locale, slug] of Object.entries(SLUGS) as [ThankYouLocale, string][]) {
+  for (const [locale, slug] of Object.entries(SLUGS) as [ThankYouContentLocale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
   }
   // NL kaynakta yok — dil değiştiricide NL doğrudan EN'in gerçek URL'ine
   // eşitleniyor (KVKK/Hub ailesindeki aynı düzeltme, site denetim raporu
   // madde 3/6'da bulunan hatayı bu YENİ sayfada baştan tekrarlamamak için).
   if (!result.nl && result.en) result.nl = result.en;
-  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu — bkz.
-  // `supportRequestContent.ts`'teki eşdeğer düzeltmenin yorumu).
-  // Teşekkürler az'de KAPSAM DIŞI (Açık nokta #37) — `result.tr` (bare
-  // TR URL'i) doğrudan kullanılıyor.
-  if (!result.az) result.az = result.tr;
   return result;
 }
 
