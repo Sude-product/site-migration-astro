@@ -111,7 +111,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
   'ise-alim-modulu': {
     hero: {
       title: 'İşə alım xərclərini azaldın, vaxta qənaət edin, obyektiv qiymətləndirmələr aparın və Hiringoz ilə səmərəliliyə çatın.',
-      text: '<p>Hiringoz, işə alımı rəqəmsallaşdıraraq sürət, dəqiqlik və strateji uzaqgörənlik təmin edir.</p><p>Süni intellekt dəstəkli qiymətləndirmələr yükü azaldır, siz strategiyaya fokuslana bilərsiniz.</p>',
+      text: '<p>Hiringoz, işə alım proseslərini rəqəmsallaşdıraraq işə alımda sürət, dəqiqlik, davamlı səmərəlilik təmin edir və strateji uzaqgörənlik təqdim edir.</p><p>Süni intellekt dəstəkli qiymətləndirmələr, ağıllı müsahibə planlaması və namizəd analizləri sayəsində əməliyyat yükü azalır; siz strateji qərar qəbulu və namizəd təcrübəsi proseslərinə fokuslana bilərsiniz.</p>',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
       image: { url: HERO_BG_IMAGE.url, alt: 'Beş oturacaqdan birinin (qırmızı) önə çıxarıldığı, doğru namizədin seçilməsini simvolizə edən illüstrasiya', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
     },
