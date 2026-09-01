@@ -1,16 +1,22 @@
 ---
 export const prerender = true;
 // Aşama 2 — onaylı 5 modülden biri (İşe Alım/ATS). Bkz. CLAUDE.md.
-// NOT: Kaynak içerik henüz İtalyanca'ya çevrilmemiş — Türkçe metin aynen
-// duruyor (kaynak sitenin kendi eksiği, bkz. CLAUDE.md).
+// 2026-09-02 — canlı site tamamen Hiringoz'a yeniden markalandı (bkz.
+// `productTranslationOverrides.ts`'teki yorum), gerçek İtalyanca çeviri
+// artık kaynakta VAR. Hero uzun bir pazarlama cümlesi olduğu için
+// `<title>`/CTA anahtar kelimesi kısa, gerçek bir isimle override edildi
+// (`en/hardware.astro`'nun AYNI deseni).
 import ProductPage from '../../components/ProductPage.astro';
 import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
 
 const trSlug = 'ise-alim-modulu';
 const content = getProductContent(trSlug, 'it')!;
 const pageTitle = getProductPageTitle(trSlug, 'it');
+const title = buildIdenfitTitle('Modulo di Reclutamento', 'it');
+const ctaKeyword = 'Modulo di Reclutamento';
 const localeUrls = getProductLocaleUrls(trSlug);
 const modified = getProductModifiedDate(trSlug, 'it');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

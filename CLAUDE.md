@@ -2452,6 +2452,49 @@ hâlâ geçerli.)*
     — kaynak WordPress sitesinde NL içeriği birçok sayfada hiç yok,
     sessiz/bildirimsiz EN'e düşme bilinçli bir UX kararı) — bug OLARAK
     ele alınmadı, kullanıcıya AÇIKLANDI.
+63. **KAPANDI (2026-09-02) — İşe Alım Modülü sayfası canlı siteyle
+    UYUMSUZDU, kök neden: canlı TR/EN/IT tamamen Hiringoz'a yeniden
+    markalanmış, IT/EN'in gerçek çevirisi ilk kez eklenmiş, ama bizim
+    override'ımız hâlâ ESKİ/genel "ATS" içeriğini taşıyordu (NL de
+    kaynakta hiç yoktu).** Kullanıcı canlı (`idenfit.com/ise-alim-modulu/`)
+    ile local'i (`localhost:4321/ise-alim-modulu/`) yan yana verip
+    "uyumlu değil" dedi. Canlı siteyi ziyaret edince tüm sayfanın
+    (hero+5 bölüm+6 SSS) baştan yazıldığı görüldü — artık idenfit'in
+    "Hiringoz" adlı bir kardeş ürününe (AI destekli işe alım/ATS asistanı)
+    atıfta bulunuyor; bu ürünün gerçekliği zaten `ProductPreviewWidget.tsx`'in
+    `HRTECHTOOLS` panelindeki `HIRINGOZ` girdisinden BİLİNİYORDU (Açık
+    nokta #59'un dokunmadığı kısım). **Uygulama:** `productTranslationOverrides.ts`'teki
+    `ise-alim-modulu` bloğu sıfırdan yazıldı — artık `tr`/`en`/`it`/`nl`
+    DÖRDÜ de var (öncekinde yalnızca en/it/nl vardı, TR ham JSON'u da
+    eskiydi). TR/EN/IT metni canlı sitenin `curl`+DOM taramasıyla (SSS
+    accordion'u UICore Elementor widget'ı olduğu için `.ui-e-accordion-item`
+    seçicileriyle) birebir/verbatim toplandı — HİÇBİR içerik UYDURULMADI
+    (KARAR 1). NL'nin gerçek bir canlı karşılığı YOK (kaynakta hiç
+    yayınlanmamış) — TR'den profesyonel çeviriyle YENİDEN üretildi
+    (`productTranslationOverridesAz.ts`'teki AZ de aynı şekilde). **8 yeni
+    görsel** (`ise-alim-{2,3,4,5}.png` TR/AZ için, `hiring-{2,3,4,5}.png`
+    EN/IT/NL için — EN/IT byte-birebir aynı dosyalar, `diff` ile
+    doğrulandı) idenfit.com'dan indirilip magic-byte doğrulamasıyla
+    `public/wp-content/uploads/2025/11/`'e yerleştirildi (Görsel bağımlılık
+    kuralı — hotlink YOK). Canlı sitenin "Şimdi Başlayın" bölümündeki
+    `hiringoz-logo-1.svg` kendisi de 404 veriyor (curl ile doğrulandı) —
+    bu kırık görsel BİLEREK migrate edilmedi, bölüm yalnızca metin+buton
+    olarak kaldı. Hero artık uzun bir pazarlama cümlesi olduğu için
+    (`en/hardware.astro`'nun AYNI deseni) 5 sayfaya (`ise-alim-modulu.astro`,
+    `en/hiring-module.astro`, `it/modulo-reclutamento.astro`,
+    `az/ise-alim-modulu.astro`, `nl/wervingsmodule.astro`) `title`/
+    `ctaKeyword` override prop'u eklendi — `<title>`/CTA kısa gerçek isim
+    kullanıyor, H1/breadcrumb uzun cümleyi aynen gösteriyor. **Doğrulama:**
+    `astro check` 0 hata, `astro build` 3097 sayfa temiz, 8 regresyon
+    script'i çalıştırıldı — ilk turda `nl/wervingsmodule/index.html`
+    `<title>` 119 karakterle YAKALANDI (`title`/`ctaKeyword` override'ı
+    eksikti, `find src/pages -iname "*wervingsmodule*"` ile bulunup
+    eklendi), ikinci tur tamamen temiz. `audit-remote-hotlinks.mjs`'de
+    yeni görseller hotlink olarak GÖRÜNMÜYOR (yerelleştirme doğrulandı).
+    Chrome'da TR/EN/IT/NL/AZ'ın TAMAMINDA hero (görsel+istatistikler:
+    "Total Applicants 16"/"Qualified Applicants 4"/"453 AI Calls"/
+    "Assessment Rate %87,6"/"Qualification Rate %33,2") + TR'de ayrıca
+    5 bölüm+FAQ accordion+"Son güncelleme" şeridi görsel doğrulandı.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

@@ -1,13 +1,20 @@
 ---
 export const prerender = true;
+// 2026-09-02 — canlı site tamamen Hiringoz'a yeniden markalandı (bkz.
+// `productTranslationOverridesAz.ts`'teki yorum). Hero uzun bir pazarlama
+// cümlesi olduğu için `<title>`/CTA anahtar kelimesi kısa, gerçek bir
+// isimle override edildi (`en/hardware.astro`'nun AYNI deseni).
 import ProductPage from '../../components/ProductPage.astro';
 import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
 
 const trSlug = 'ise-alim-modulu';
 const content = getProductContent(trSlug, 'az')!;
 const pageTitle = getProductPageTitle(trSlug, 'az');
+const title = buildIdenfitTitle('İşə Qəbul Modulu', 'az');
+const ctaKeyword = 'İşə Qəbul Modulu';
 const localeUrls = getProductLocaleUrls(trSlug);
 const modified = getProductModifiedDate(trSlug, 'az');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

@@ -269,94 +269,217 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
     },
   },
 
-  // ============================== İşe Alım (ATS) ==============================
-  // TR dışındaki hiçbir dil kaynakta gerçekten çevrilmemişti (EN/IT ham
-  // Türkçe, NL kaynak sitede hiç yok) — üçü de burada sıfırdan çevrildi.
+  // ============================== İşe Alım (ATS → Hiringoz) ==============================
+  // 2026-09-02 — kullanıcı bulgusu: canlı site (TR/EN/IT'nin ÜÇÜ de) bu
+  // sayfayı TAMAMEN yeniden tasarlamış — artık idenfit'in kendi native ATS
+  // özelliklerini değil, kardeş ürün "Hiringoz"u (idenfit'in AI destekli
+  // işe alım ajanı) tanıtıyor (bkz. HRTECHTOOLS panelindeki `HIRINGOZ`
+  // kutusu, `ProductPreviewWidget.tsx`). Ham `products.json`'daki TR verisi
+  // de STALE (eski ATS açıklaması) — bu yüzden `tr` de override edildi
+  // (`tr:` override precedent'i: `ozluk-dosyasi-modulu`). İçerik canlı
+  // sitenin TR/EN/IT'sinden BİREBİR (uydurma yok, KARAR 1), NL/AZ kaynakta
+  // hiç yok — TR/EN temel alınıp gerçek çeviri üretildi (NL için önceki
+  // override'ın ilkesiyle AYNI). CTA hedefleri (`request-online-presentation`/
+  // `richiedi-presentazione-online`) `resolveCtaUrl()`'ün ZATEN tanıdığı
+  // Online Sunum Talebi sentinel'leri — `DEMO_CTA_URL` yeterli. Görseller
+  // idenfit.com'a hotlink YAPILMADI — indirilip `public/wp-content/uploads/2025/11/`
+  // altına yerleştirildi (TR kendi Türkçe arayüz metinli `ise-alim-*.png`
+  // görsellerini kullanıyor; EN/IT/NL/AZ paylaşımlı İngilizce arayüz metinli
+  // `hiring-*.png`'yi — canlı sitede IT de AYNI İngilizce görselleri
+  // kullanıyor, doğrulandı). Ham `alt` metinleri boştu — gerçek/açıklayıcı
+  // alt yazıldı (görüntülenen ekran görüntüsü izlenerek, uydurulmadı).
+  // `hero.title` artık kaynağın UZUN pazarlama cümlesi (`<title>`/CTA
+  // anahtar kelimesi için `ise-alim-modulu.astro`'nun `title`/`ctaKeyword`
+  // override'ına bkz. — `en/hardware.astro`'nun AYNI deseni).
   'ise-alim-modulu': {
-    en: {
+    tr: {
       hero: {
-        title: 'Hiring Module',
-        text: 'Whenever you need a new employee, idenfit is by your side to manage the <b>entire hiring process</b>!',
-        ctaText: 'Apply Now',
+        title: 'İşe alım maliyetlerini azaltın, zamandan tasarruf edin, objektif değerlendirmeler yapın ve Hiringoz ile verimliliği yakalayın.',
+        text: '<p>Hiringoz, işe alım süreçlerini dijitalleştirerek işe alımda hız, doğruluk, sürdürülebilir verimlilik sağlar ve stratejik öngörüler sunar.</p><p>Yapay zeka destekli değerlendirmeler, akıllı mülakat planlaması ve aday analizleri sayesinde operasyonel yük azalır; siz stratejik karar alma ve aday deneyimi süreçlerine odaklanabilirsiniz.</p>',
+        ctaText: 'Hemen Başvur',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim1@2x.webp', alt: 'hiring module', width: 1243, height: 1108 },
+        image: { url: '/wp-content/uploads/2025/11/ise-alim-2.png', alt: 'Hiringoz panelini kullanan bir işe alım uzmanı', width: 1108, height: 793 },
       },
       sections: [
         {
-          title: 'Hiring Process From A to Z',
-          text: '<p>With idenfit’s hiring module, as an HR department you can easily manage the many-layered steps that make up the hiring process — identifying open positions and sharing them across different channels, building CV pools, tracking which channel each CV came from, determining which department needs the hire, moving successful candidates forward to the next stage, or blacklisting unsuccessful candidates.</p>',
+          title: 'İşe Alımda Hız, Objektiflik ve Stratejik Değer',
+          text: '<p>İşe alım profesyonellerinin büyük kısmı zamanını operasyonel işlere harcıyor.</p><p>Hiringoz ile ekibinize bir AI Agent dahil ederek size özel bir dijital işe alımcı kazanırsınız.</p><p>Hiringoz, operasyonel yükünüzün %74’ünü üstlenir, süreçleri otomatikleştirir. Siz, stratejiye ve aday deneyimine odaklanırsınız.</p><ul><li>İşe alım sürecini hızlandırır</li><li>Değerlendirmelerde objektiflik sağlar</li><li>Aday deneyimini güçlendirir</li></ul>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-3.png', alt: 'Hiringoz gösterge paneli: toplam başvuru ve nitelikli aday istatistikleri', width: 1170, height: 693 },
+        },
+        {
+          title: 'Daha Akıllı ve Hızlı İşe Alım',
+          text: '<p>Hiringoz, kaynak bulma, değerlendirme ve mülakat aşamalarını yapay zeka ile otomatikleştirir.</p><p>Zaman kazandırır, maliyetleri düşürür, insan hatasını en aza indirir.</p><p>Tüm süreci tek panelden yönetin, işe alımı kolaylaştırın!</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-4.png', alt: 'Hiringoz aday değerlendirme panosu ve mülakat skor grafiği', width: 1230, height: 890 },
+        },
+        {
+          title: 'Doğru Aday, Doğru Karar',
+          text: '<p>Hiringoz, sadece özgeçmişleri değil, gerçek becerileri ve potansiyeli değerlendirir.</p><p>AI destekli testler ve simülasyonlarla doğru adayları objektif biçimde belirleyin.</p><p>Gözden kaçan yetenekleri keşfedin, doğru kararı verin.</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/ise-alim-5.png', alt: 'Hiringoz yetkinlik testi seçim ekranı', width: 1142, height: 865 },
+        },
+        {
+          title: 'Güvenilir Yetenek Doğrulaması',
+          text: '<p>İşe alımda başarı; hız, doğruluk ve güvenilirliğe dayanır. Hiringoz, her adayın yetkinliğini yapay zeka destekli testler ve mülakatlarla doğrular. Her işe alım şirket standartlarınıza uygun hale gelir.</p><p>Hiringoz, yetenekleri objektif biçimde değerlendirilmiş, güçlü yönleri doğrulanmış ve pratik deneyimi kanıtlanmış adayları kurumlarla buluşturur.</p>',
           ctaText: '', ctaUrl: '', image: null,
         },
         {
-          title: 'Interview Scorecards',
-          text: '<p>With idenfit’s hiring module, HR departments can easily manage processes such as: posting job ads across different channels, filtering CVs and assigning them to the relevant department, holding preliminary interviews with selected candidates, evaluating interview results through interview scorecards, scheduling second interviews for successful candidates, moving forward to onboarding once an agreement is reached, and collecting unsuccessful candidates into a blacklist with a thank-you note.</p>',
-          ctaText: 'Request Online Presentation', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim2@2x.webp', alt: 'interview scorecards', width: 1163, height: 947 },
+          title: 'Şimdi Başlayın',
+          text: '<p>Hiringoz ile işe alımda yeni bir döneme adım atın.</p><p>Operasyonel yükleri geride bırakın, stratejiye ve potansiyele odaklanın.</p><p>Doğru adayları keşfedin, güçlü ekipler kurun.</p>',
+          ctaText: 'Hemen Başvur', ctaUrl: DEMO_CTA_URL, image: null,
+        },
+      ],
+      faq: [
+        { question: 'İşe alım süreci nasıl işler?', answer: 'İşe alım süreci açık pozisyonun belirlenmesiyle başlar. Ardından iş ilanı hazırlanır, aday başvuruları alınır ve ön eleme yapılır. Hiringoz ile bu adımlar dijitalleştirilir; adaylar otomatik olarak analiz edilir, mülakat planlamaları optimize edilir ve süreç tek panelden yönetilir. Böylece hem zamandan hem maliyetten tasarruf edilir.' },
+        { question: 'İşe alım süreç haritası nedir?', answer: 'İşe alım süreç haritası, adayın başvuru yaptığı andan işe başladığı ana kadar geçen tüm adımların görselleştirilmiş halidir. Hiringoz, bu süreci yapay zeka destekli bir harita ile yönetir; ilan oluşturma, değerlendirme, mülakat ve teklif aşamalarını uçtan uca takip edebilmenizi sağlar.' },
+        { question: 'İşe alım süreci ne kadar sürer?', answer: 'Süre, pozisyonun gerekliliklerine ve aday yoğunluğuna göre değişir. Hiringoz, akıllı filtreleme ve otomatik değerlendirme özellikleriyle işe alım süresini ciddi ölçüde kısaltır, operasyonel yükün %74’ünü ortadan kaldırır.' },
+        { question: 'İşe alım süreci aşamaları nelerdir?', answer: 'İşe alım süreci; iş ilanı yayınlama, başvuruların alınması, ön eleme, mülakatlar, test ve değerlendirme, teklif verme ve onboarding adımlarından oluşur. Hiringoz tüm bu aşamaları dijitalleştirir ve sürecin her adımında ölçülebilir veriler sunar.' },
+        { question: 'İşe alım sürecinde hangi testler uygulanır?', answer: 'Hiringoz; adayların yetkinliklerini ölçmek için kişilik envanterleri, yetenek testleri ve teknik değerlendirmeler uygular. Bu testler, yapay zeka tarafından analiz edilerek doğru adayları objektif biçimde belirlemenizi sağlar.' },
+        { question: 'İşe alım süreci nasıl olmalı?', answer: 'Etkin bir işe alım süreci; şeffaf, hızlı, ölçülebilir ve aday deneyimini önemseyen bir yapıda olmalıdır. Hiringoz, süreci standartlaştırır ve aday deneyimini güçlendirir. Böylece işe alımda stratejik kararlar almanızı ve güçlü ekipler kurmanızı sağlar.' },
+      ],
+    },
+    en: {
+      hero: {
+        title: 'Reduce recruitment costs, save time, make objective evaluations, and achieve efficiency with Hiringoz.',
+        text: '<p>By digitalizing recruitment processes, Hiringoz provides speed, accuracy, and sustainable efficiency in hiring while offering strategic insights.</p><p>With AI-powered assessments, smart interview scheduling, and candidate analytics, the operational workload decreases; allowing you to focus on strategic decision-making and candidate experience.</p>',
+        ctaText: 'Get Started',
+        ctaUrl: DEMO_CTA_URL,
+        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'A recruiter using the Hiringoz dashboard', width: 1108, height: 793 },
+      },
+      sections: [
+        {
+          title: 'Speed, Objectivity, and Strategic Value in Recruitment',
+          text: '<p>Most recruitment professionals spend their time on operational tasks.</p><p>With Hiringoz, you add an AI Agent to your team and gain a digital recruiter tailored to you.</p><p>Hiringoz takes on 74% of your operational workload and automates processes, allowing you to focus on strategy and candidate experience.</p><ul><li>Accelerates the recruitment process</li><li>Ensures objectivity in evaluations</li><li>Enhances candidate experience</li></ul>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz dashboard showing applicant statistics', width: 1166, height: 690 },
         },
         {
-          title: 'Dynamic Drag-and-Drop Panel',
-          text: '<p>idenfit’s hiring module is designed with dynamic features that let you find all the data gathered throughout the hiring process in a single panel, and make changes or additions with ease. The drag-and-drop feature lets you manage the panel effortlessly — create any menu you like and organize your hiring processes into categories.</p><p>"The secret to placing the right people in the right roles is using the right tools."</p>',
-          ctaText: 'Request Detailed Information', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim4@2x.webp', alt: 'drag-and-drop panel', width: 955, height: 1063 },
+          title: 'Smarter and Faster Hiring',
+          text: '<p>Hiringoz automates sourcing, evaluation, and interview stages using artificial intelligence.</p><p>It saves time, reduces costs, and minimizes human error.</p><p>Manage the entire process from a single panel — simplify recruitment!</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz candidate pipeline and interview score chart', width: 1230, height: 890 },
         },
+        {
+          title: 'Right Candidate, Right Decision',
+          text: '<p>Hiringoz evaluates not only resumes but also real skills and potential.</p><p>Identify the right candidates objectively through AI-powered tests and simulations.</p><p>Discover overlooked talents and make the right decision.</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz skills assessment selection screen', width: 1142, height: 864 },
+        },
+        {
+          title: 'Reliable Talent Verification',
+          text: '<p>Success in recruitment depends on speed, accuracy, and reliability. Hiringoz verifies each candidate’s competencies through AI-assisted tests and interviews. Each recruitment becomes aligned with your company standards.</p><p>Hiringoz connects organizations with candidates whose strengths are validated, skills objectively assessed, and practical experience proven.</p>',
+          ctaText: '', ctaUrl: '', image: null,
+        },
+        {
+          title: 'Start Now',
+          text: '<p>Step into a new era of recruitment with Hiringoz.</p><p>Leave operational burdens behind and focus on strategy and potential.</p><p>Discover the right candidates and build strong teams.</p>',
+          ctaText: 'Get Started', ctaUrl: DEMO_CTA_URL, image: null,
+        },
+      ],
+      faq: [
+        { question: 'How does the recruitment process work?', answer: 'The recruitment process begins with identifying an open position. Then the job posting is prepared, applications are collected, and pre-screening is conducted. With Hiringoz, these steps are digitalized — candidates are automatically analyzed, interview scheduling is optimized, and the entire process is managed from a single panel. This saves both time and cost.' },
+        { question: 'What is the recruitment process map?', answer: 'The recruitment process map is the visualized representation of all the steps a candidate goes through from application to onboarding. Hiringoz manages this process with an AI-powered map, allowing you to track job posting, evaluation, interview, and offer stages end-to-end.' },
+        { question: 'How long does the recruitment process take?', answer: 'The duration depends on the position requirements and candidate volume. Hiringoz significantly shortens the process with smart filtering and automated evaluation features, eliminating 74% of the operational workload.' },
+        { question: 'What are the stages of the recruitment process?', answer: 'The recruitment process consists of job posting, receiving applications, pre-screening, interviews, testing and evaluation, offering, and onboarding. Hiringoz digitalizes all these stages and provides measurable data at every step.' },
+        { question: 'Which tests are used in the recruitment process?', answer: 'Hiringoz applies personality inventories, aptitude tests, and technical assessments to measure candidates’ competencies. These tests are analyzed by AI, helping you objectively identify the right candidates.' },
+        { question: 'How should the recruitment process be structured?', answer: 'An effective recruitment process should be transparent, fast, measurable, and focused on candidate experience. Hiringoz standardizes the process and enhances candidate experience, enabling you to make strategic hiring decisions and build strong teams.' },
       ],
     },
     it: {
       hero: {
-        title: 'Modulo di Reclutamento',
-        text: 'Ogni volta che hai bisogno di un nuovo dipendente, idenfit è al tuo fianco nella gestione dell’<b>intero processo di selezione</b>!',
-        ctaText: 'Richiedi Subito',
+        title: 'Riduci i costi di reclutamento, risparmia tempo, effettua valutazioni oggettive e ottieni efficienza con Hiringoz.',
+        text: '<p>Digitalizzando i processi di reclutamento, Hiringoz offre velocità, precisione ed efficienza nell’automazione delle assunzioni, fornendo al contempo approfondimenti strategici.</p><p>Con valutazioni basate sull’intelligenza artificiale, pianificazione intelligente dei colloqui e analisi dei candidati, il carico di lavoro operativo diminuisce, consentendoti di concentrarti sul processo decisionale strategico e sull’esperienza del candidato.</p>',
+        ctaText: 'Invia Richiesta',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim1@2x.webp', alt: 'modulo di reclutamento', width: 1243, height: 1108 },
+        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Un recruiter che utilizza la dashboard di Hiringoz', width: 1108, height: 793 },
       },
       sections: [
         {
-          title: 'Il Processo di Selezione dalla A alla Z',
-          text: '<p>Con il modulo di reclutamento di idenfit, come reparto HR puoi gestire facilmente tutte le fasi articolate che compongono il processo di selezione: identificare le posizioni aperte e condividerle su diversi canali, creare pool di CV, tracciarne la provenienza, determinare quale reparto necessita dell\'assunzione, far avanzare i candidati positivi o inserire in blacklist quelli non idonei.</p>',
+          title: 'Velocità, obiettività e valore strategico nel reclutamento',
+          text: '<p>La maggior parte dei professionisti del reclutamento impiega il proprio tempo in attività operative.</p><p>Con Hiringoz, aggiungi un agente AI al tuo team e ottieni un reclutatore digitale su misura per te.</p><p>Hiringoz si fa carico del 74% del tuo carico di lavoro operativo e automatizza i processi, permettendoti di concentrarti sulla strategia e sull’esperienza del candidato.</p><ul><li>Accelera il processo di reclutamento</li><li>Garantisce l’obiettività nelle valutazioni</li><li>Migliora l’esperienza del candidato</li></ul>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Dashboard Hiringoz con le statistiche dei candidati', width: 1166, height: 690 },
+        },
+        {
+          title: 'Assunzioni più intelligenti e veloci',
+          text: '<p>Hiringoz automatizza le fasi di screening, valutazione e colloquio utilizzando l’intelligenza artificiale.</p><p>Risparmia tempo, riduce i costi e riduce al minimo l’errore umano.</p><p>Gestisci l’intero processo da un unico pannello: semplifica il reclutamento!</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Pipeline candidati Hiringoz e grafico dei punteggi dei colloqui', width: 1230, height: 890 },
+        },
+        {
+          title: 'Candidato giusto, decisione giusta',
+          text: '<p>Hiringoz valuta non solo i curriculum ma anche le competenze reali e il potenziale.</p><p>Identifica i candidati giusti in modo oggettivo attraverso test e simulazioni basati sull’intelligenza artificiale.</p><p>Scopri talenti trascurati e prendi la decisione giusta.</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Schermata di selezione dei test di valutazione delle competenze Hiringoz', width: 1142, height: 864 },
+        },
+        {
+          title: 'Verifica affidabile dei talenti',
+          text: '<p>Il successo nel reclutamento dipende da velocità, precisione e affidabilità. Hiringoz verifica le competenze di ogni candidato attraverso test e colloqui assistiti dall’intelligenza artificiale. Ogni assunzione diventa allineata agli standard della tua azienda.</p><p>Hiringoz connette le organizzazioni con candidati i cui punti di forza sono convalidati, le competenze valutate oggettivamente e l’esperienza pratica comprovata.</p>',
           ctaText: '', ctaUrl: '', image: null,
         },
         {
-          title: 'Schede di Valutazione del Colloquio',
-          text: '<p>Con il modulo di reclutamento di idenfit, i reparti HR possono gestire facilmente processi come: la pubblicazione degli annunci su diversi canali, il filtraggio dei CV, lo svolgimento di colloqui preliminari, la valutazione dei risultati tramite schede di valutazione, la pianificazione di un secondo colloquio per i candidati idonei, l\'avvio dell\'onboarding in caso di accordo, e l\'inserimento in blacklist dei candidati non idonei con una lettera di ringraziamento.</p>',
-          ctaText: 'Richiedi Presentazione Online', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim2@2x.webp', alt: 'schede di valutazione', width: 1163, height: 947 },
+          title: 'Inizia Ora',
+          text: '<p>Entra in una nuova era del reclutamento con Hiringoz.</p><p>Lasciati alle spalle gli oneri operativi e concentrati su strategia e potenziale.</p><p>Scopri i candidati giusti e costruisci team forti.</p>',
+          ctaText: 'Invia Richiesta', ctaUrl: DEMO_CTA_URL, image: null,
         },
-        {
-          title: 'Pannello Dinamico Trascina e Rilascia',
-          text: '<p>Il modulo di reclutamento di idenfit è progettato con funzionalità dinamiche che ti permettono di trovare in un unico pannello tutti i dati raccolti durante il processo di selezione, e di apportare modifiche con facilità. La funzione trascina e rilascia ti permette di gestire il pannello senza sforzo — crea qualsiasi menu desideri e organizza i processi in categorie.</p><p>"Il segreto per collocare le persone giuste nel ruolo giusto è usare gli strumenti giusti."</p>',
-          ctaText: 'Richiedi Informazioni Dettagliate', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim4@2x.webp', alt: 'pannello trascina e rilascia', width: 955, height: 1063 },
-        },
+      ],
+      faq: [
+        { question: 'Come funziona il processo di reclutamento?', answer: 'Il processo di reclutamento inizia con l’identificazione di una posizione aperta. Successivamente viene preparato l’annuncio di lavoro, vengono raccolte le candidature e viene condotto il pre-screening. Con Hiringoz, questi passaggi sono digitalizzati: i candidati vengono analizzati automaticamente, la pianificazione dei colloqui è ottimizzata e l’intero processo è gestito da un unico pannello. Ciò consente di risparmiare tempo e costi.' },
+        { question: 'Cos\'è la mappa del processo di reclutamento?', answer: 'La mappa del processo di reclutamento è la rappresentazione visiva di tutti i passaggi che un candidato attraversa dalla candidatura all’onboarding. Hiringoz gestisce questo processo con una mappa basata sull’intelligenza artificiale, consentendoti di tracciare le fasi di annuncio, valutazione, colloquio e offerta end-to-end.' },
+        { question: 'Quanto dura il processo di reclutamento?', answer: 'La durata dipende dai requisiti della posizione e dal volume dei candidati. Hiringoz accorcia significativamente il processo con funzionalità di filtraggio intelligente e valutazione automatizzata, eliminando il 74% del carico di lavoro operativo.' },
+        { question: 'Quali sono le fasi del processo di reclutamento?', answer: 'Il processo di reclutamento consiste in pubblicazione dell’annuncio, ricezione delle candidature, pre-screening, colloqui, test e valutazione, offerta e onboarding. Hiringoz digitalizza tutte queste fasi e fornisce dati misurabili in ogni fase.' },
+        { question: 'Quali test vengono utilizzati nel processo di reclutamento?', answer: 'Hiringoz applica inventari di personalità, test attitudinali e valutazioni tecniche per misurare le competenze dei candidati. Questi test sono analizzati dall’intelligenza artificiale, aiutandoti a identificare oggettivamente i candidati giusti.' },
+        { question: 'Come dovrebbe essere strutturato il processo di reclutamento?', answer: 'Un processo di reclutamento efficace dovrebbe essere trasparente, veloce, misurabile e focalizzato sull’esperienza del candidato. Hiringoz standardizza il processo e migliora l’esperienza del candidato, consentendoti di prendere decisioni di assunzione strategiche e costruire team forti.' },
       ],
     },
     nl: {
-      // Kaynak sitede NL hiç yok (401 rest_forbidden, bkz. CLAUDE.md) —
-      // TR'den sıfırdan çevrilerek yeni bir sayfa oluşturuldu.
+      // Kaynak sitede NL hiç yok (401 rest_forbidden, bkz. CLAUDE.md) — EN
+      // temel alınıp gerçek çeviri üretildi (önceki override'ın AYNI ilkesi).
       hero: {
-        title: 'Wervingsmodule',
-        text: 'Wanneer u een nieuwe medewerker nodig heeft, staat idenfit naast u om <b>het hele wervingsproces</b> te beheren!',
+        title: 'Verminder wervingskosten, bespaar tijd, voer objectieve beoordelingen uit en behaal efficiëntie met Hiringoz.',
+        text: '<p>Door wervingsprocessen te digitaliseren, biedt Hiringoz snelheid, nauwkeurigheid en duurzame efficiëntie bij het werven van personeel, en levert het strategische inzichten.</p><p>Met AI-gestuurde beoordelingen, slimme interviewplanning en kandidaatanalyses neemt de operationele werklast af, zodat u zich kunt richten op strategische besluitvorming en de kandidaatervaring.</p>',
         ctaText: 'Direct Aanvragen',
         ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim1@2x.webp', alt: 'wervingsmodule', width: 1243, height: 1108 },
+        image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Een recruiter die het Hiringoz-dashboard gebruikt', width: 1108, height: 793 },
       },
       sections: [
         {
-          title: 'Het Wervingsproces van A tot Z',
-          text: '<p>Met de wervingsmodule van idenfit kunt u als HR-afdeling eenvoudig de vele stappen van het wervingsproces beheren — het identificeren van openstaande posities en het delen ervan via verschillende kanalen, het opbouwen van cv-pools, het bepalen welke afdeling de vacature nodig heeft, het doorzetten van geschikte kandidaten, of het op de zwarte lijst zetten van ongeschikte kandidaten.</p>',
+          title: 'Snelheid, objectiviteit en strategische waarde bij werving',
+          text: '<p>De meeste wervingsprofessionals besteden hun tijd aan operationele taken.</p><p>Met Hiringoz voegt u een AI Agent toe aan uw team en krijgt u een digitale recruiter op maat.</p><p>Hiringoz neemt 74% van uw operationele werklast over en automatiseert processen, zodat u zich kunt richten op strategie en kandidaatervaring.</p><ul><li>Versnelt het wervingsproces</li><li>Zorgt voor objectiviteit bij beoordelingen</li><li>Verbetert de kandidaatervaring</li></ul>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz-dashboard met sollicitatiestatistieken', width: 1166, height: 690 },
+        },
+        {
+          title: 'Slimmer en sneller werven',
+          text: '<p>Hiringoz automatiseert sourcing, beoordeling en interviewfasen met behulp van kunstmatige intelligentie.</p><p>Het bespaart tijd, verlaagt kosten en minimaliseert menselijke fouten.</p><p>Beheer het hele proces vanuit één paneel — vereenvoudig werving!</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz kandidatenpijplijn en interviewscoregrafiek', width: 1230, height: 890 },
+        },
+        {
+          title: 'De juiste kandidaat, de juiste beslissing',
+          text: '<p>Hiringoz beoordeelt niet alleen cv’s, maar ook echte vaardigheden en potentieel.</p><p>Identificeer de juiste kandidaten objectief met AI-gestuurde tests en simulaties.</p><p>Ontdek over het hoofd geziene talenten en neem de juiste beslissing.</p>',
+          ctaText: '', ctaUrl: '',
+          image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz selectiescherm voor vaardigheidstests', width: 1142, height: 864 },
+        },
+        {
+          title: 'Betrouwbare talentverificatie',
+          text: '<p>Succes bij werving hangt af van snelheid, nauwkeurigheid en betrouwbaarheid. Hiringoz verifieert de competenties van elke kandidaat via AI-ondersteunde tests en interviews. Elke aanwerving sluit aan bij uw bedrijfsstandaarden.</p><p>Hiringoz brengt organisaties in contact met kandidaten van wie de sterke punten zijn gevalideerd, vaardigheden objectief zijn beoordeeld en praktijkervaring is bewezen.</p>',
           ctaText: '', ctaUrl: '', image: null,
         },
         {
-          title: 'Interview Scorekaarten',
-          text: '<p>Met de wervingsmodule van idenfit kunnen HR-afdelingen eenvoudig processen beheren zoals: het plaatsen van vacatures via verschillende kanalen, het filteren van cv\'s, het houden van eerste gesprekken, het evalueren van gespreksresultaten via scorekaarten, het inplannen van een tweede gesprek voor geschikte kandidaten, het doorverwijzen naar onboarding, en het verzamelen van ongeschikte kandidaten op een zwarte lijst met een bedankbrief.</p>',
-          ctaText: 'Online Presentatie Aanvragen', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim2@2x.webp', alt: 'interview scorekaarten', width: 1163, height: 947 },
+          title: 'Begin nu',
+          text: '<p>Stap met Hiringoz een nieuw tijdperk van werving binnen.</p><p>Laat operationele lasten achter u en focus op strategie en potentieel.</p><p>Ontdek de juiste kandidaten en bouw sterke teams.</p>',
+          ctaText: 'Direct Aanvragen', ctaUrl: DEMO_CTA_URL, image: null,
         },
-        {
-          title: 'Dynamisch Sleep-en-Neerzet Paneel',
-          text: '<p>De wervingsmodule van idenfit is ontworpen met dynamische functies waarmee u alle gegevens uit het wervingsproces in één paneel terugvindt en eenvoudig kunt wijzigen. Met de sleep-en-neerzet-functie beheert u het paneel moeiteloos — maak elk gewenst menu aan en verdeel uw wervingsprocessen in categorieën.</p><p>"Het geheim van de juiste mensen op de juiste plek is het gebruik van de juiste tools."</p>',
-          ctaText: 'Vraag Gedetailleerde Informatie Aan', ctaUrl: DEMO_CTA_URL,
-          image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim4@2x.webp', alt: 'sleep-en-neerzet paneel', width: 955, height: 1063 },
-        },
+      ],
+      faq: [
+        { question: 'Hoe verloopt het wervingsproces?', answer: 'Het wervingsproces begint met het identificeren van een openstaande functie. Vervolgens wordt de vacature opgesteld, worden sollicitaties verzameld en vindt een voorselectie plaats. Met Hiringoz worden deze stappen gedigitaliseerd — kandidaten worden automatisch geanalyseerd, interviewplanning wordt geoptimaliseerd en het hele proces wordt vanuit één paneel beheerd. Dit bespaart zowel tijd als kosten.' },
+        { question: 'Wat is de wervingsprocesskaart?', answer: 'De wervingsprocesskaart is de gevisualiseerde weergave van alle stappen die een kandidaat doorloopt, van sollicitatie tot onboarding. Hiringoz beheert dit proces met een AI-gestuurde kaart, waarmee u de fasen van vacature, beoordeling, interview en aanbod end-to-end kunt volgen.' },
+        { question: 'Hoe lang duurt het wervingsproces?', answer: 'De duur hangt af van de functie-eisen en het aantal kandidaten. Hiringoz verkort het proces aanzienlijk met slimme filtering en geautomatiseerde beoordeling, waardoor 74% van de operationele werklast wordt weggenomen.' },
+        { question: 'Wat zijn de fasen van het wervingsproces?', answer: 'Het wervingsproces bestaat uit het plaatsen van een vacature, het ontvangen van sollicitaties, voorselectie, interviews, testen en beoordeling, het doen van een aanbod en onboarding. Hiringoz digitaliseert al deze fasen en biedt meetbare gegevens bij elke stap.' },
+        { question: 'Welke tests worden gebruikt in het wervingsproces?', answer: 'Hiringoz past persoonlijkheidsinventarisaties, aanlegtests en technische beoordelingen toe om de competenties van kandidaten te meten. Deze tests worden door AI geanalyseerd, zodat u objectief de juiste kandidaten kunt identificeren.' },
+        { question: 'Hoe zou het wervingsproces eruit moeten zien?', answer: 'Een effectief wervingsproces moet transparant, snel, meetbaar en gericht op kandidaatervaring zijn. Hiringoz standaardiseert het proces en verbetert de kandidaatervaring, zodat u strategische wervingsbeslissingen kunt nemen en sterke teams kunt opbouwen.' },
       ],
     },
   },

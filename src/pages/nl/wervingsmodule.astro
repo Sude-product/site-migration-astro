@@ -3,14 +3,22 @@ export const prerender = true;
 // Aşama 2 — İşe Alım/ATS'in NL sayfası. Kaynak sitede bu sayfa hiç
 // yayınlanmamış (WP REST API 401 rest_forbidden) — TR'den gerçek çeviriyle
 // (`productTranslationOverrides.ts`) sıfırdan oluşturuldu. Bkz. CLAUDE.md.
+// 2026-09-02 — canlı site (tr/en/it) tamamen Hiringoz'a yeniden markalandı,
+// NL çevirisi de buna göre güncellendi. Hero uzun bir pazarlama cümlesi
+// olduğu için `<title>`/CTA anahtar kelimesi kısa, gerçek bir isimle
+// override edildi (`en/hardware.astro`'nun AYNI deseni) — 2026-09-02'de
+// bu sayfa `check-title-length.mjs`'te 119 karakterle YAKALANDI, düzeltildi.
 import ProductPage from '../../components/ProductPage.astro';
 import { getProductContent, getProductLocaleUrls, getProductPageTitle, getProductModifiedDate } from '../../data/productContent';
+import { buildIdenfitTitle } from '../../data/pageTitle';
 
 const trSlug = 'ise-alim-modulu';
 const content = getProductContent(trSlug, 'nl')!;
 const pageTitle = getProductPageTitle(trSlug, 'nl');
+const title = buildIdenfitTitle('Wervingsmodule', 'nl');
+const ctaKeyword = 'Wervingsmodule';
 const localeUrls = getProductLocaleUrls(trSlug);
 const modified = getProductModifiedDate(trSlug, 'nl');
 ---
 
-<ProductPage content={content} pageTitle={pageTitle} localeUrls={localeUrls} modified={modified} />
+<ProductPage content={content} pageTitle={pageTitle} title={title} ctaKeyword={ctaKeyword} localeUrls={localeUrls} modified={modified} />

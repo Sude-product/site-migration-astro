@@ -102,40 +102,55 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       { question: 'İşçi performans qiymətləndirmə sualları fərdiləşdirilə bilər mi?', answer: 'Bəli, sistem administratoru sual dəstlərini qurum mədəniyyətinə görə tənzimləyə bilər.' },
     ],
   },
+  // 2026-09-02 — canlı sitenin TR/EN/IT'si TAMAMEN yenilendi (Hiringoz
+  // rebrand'ı, bkz. `productTranslationOverrides.ts`'teki eşdeğer yorum).
+  // az'de kaynak hiç yok — TR temel alınıp gerçek/profesyonel çeviri
+  // üretildi (KARAR 1). Görseller EN/IT ile paylaşımlı (`hiring-*.png`,
+  // İngilizce arayüz metinli — canlı sitede IT de aynısını kullanıyor).
   'ise-alim-modulu': {
     hero: {
-      title: 'işə qəbul modulu',
-      text: 'Yeni bir işçiyə ehtiyac duyduğunuzda, işə qəbul prosesini idarə edərkən, idenfit yanınızdadır!',
+      title: 'İşə alım xərclərini azaldın, vaxta qənaət edin, obyektiv qiymətləndirmələr aparın və Hiringoz ilə səmərəliliyə çatın.',
+      text: '<p>Hiringoz, işə alım proseslərini rəqəmsallaşdıraraq işə alımda sürət, dəqiqlik, davamlı səmərəlilik təmin edir və strateji uzaqgörənlik təqdim edir.</p><p>Süni intellekt dəstəkli qiymətləndirmələr, ağıllı müsahibə planlaması və namizəd analizləri sayəsində əməliyyat yükü azalır; siz strateji qərar qəbulu və namizəd təcrübəsi proseslərinə fokuslana bilərsiniz.</p>',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim1@2x.webp', alt: 'işə qəbul modulu ikonu', width: 1243, height: 1108 },
+      image: { url: '/wp-content/uploads/2025/11/hiring-2.png', alt: 'Hiringoz panelindən istifadə edən işə alım mütəxəssisi', width: 1108, height: 793 },
     },
     sections: [
       {
-        title: 'A-dan Z-yə işə qəbul prosesi',
-        text: 'idenfit işə qəbul modulu ilə İK departamenti olaraq, işə qəbul prosesini təşkil edən açıq vəzifələrin müəyyənləşdirilməsi və axtarışın fərqli kanallarda paylaşılması, CV hovuzlarının yaradılması, bu CV-lərin hansı kanaldan gəldiyinin müəyyənləşdirilməsi, hansı departamentin bu qəbula ehtiyac duyduğunun müəyyən edilməsi, müsbət namizədlərin növbəti prosesə keçirilməsi və ya mənfi namizədlərin qara siyahıya alınması kimi çox mərhələli işlərin öhdəsindən asanlıqla gəlirsiniz.',
+        title: 'İşə Alımda Sürət, Obyektivlik və Strateji Dəyər',
+        text: '<p>İşə alım mütəxəssislərinin böyük hissəsi vaxtını əməliyyat işlərinə sərf edir.</p><p>Hiringoz ilə komandanıza bir AI Agent daxil edərək sizə xas rəqəmsal bir işə alımçı qazanırsınız.</p><p>Hiringoz, əməliyyat yükünüzün 74%-ini öz üzərinə götürür, prosesləri avtomatlaşdırır. Siz strategiyaya və namizəd təcrübəsinə fokuslana bilərsiniz.</p><ul><li>İşə alım prosesini sürətləndirir</li><li>Qiymətləndirmələrdə obyektivlik təmin edir</li><li>Namizəd təcrübəsini gücləndirir</li></ul>',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim2@2x.webp', alt: 'Müsahibə xal kartları ikonu', width: 1163, height: 947 },
+        image: { url: '/wp-content/uploads/2025/11/hiring-3.png', alt: 'Hiringoz idarəetmə paneli: ümumi müraciət və keyfiyyətli namizəd statistikaları', width: 1166, height: 690 },
       },
       {
-        title: 'Müsahibə xal kartları',
-        text:
-          '<p>idenfit işə qəbul modulu ilə insan resursları departamentləri;</p>\n<ul class="list gray"><li>İş elanının fərqli kanallar vasitəsilə yerləşdirilməsi,</li><li>CV-lərin filtrlənib müvafiq departamentə təyin edilməsi,</li><li>Seçilən CV-lərlə ilkin müsahibələrin edilməsi,</li><li>Müsahibə nəticələrinin müsahibə xal kartları üzərindən qiymətləndirilməsi,</li><li>Müsbət keçən namizədlər üçün ikinci müsahibə ilə əlaqədar departamentlərlə təqvim yaradılması,</li><li>Razılaşma əldə edildiyi halda onboarding prosesinə yönləndirilməsi,</li><li>Razılaşma əldə edilməzsə mənfi namizədlərin qara siyahı altında toplanması, bu şəxslərə təşəkkür məktublarının göndərilməsi və ya niyə işə qəbul edilmədiklərinə dair qeyd-məlumat daxil edilməsi,</li><li>Mənfi nəticələnən namizədlə maraqlanan digər departamentlərin də nəticə haqqında məlumatlandırılması kimi iş proseslərini asanlıqla idarə edə bilər.</li></ul>',
-        ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/isealim4@2x.webp', alt: "Dinamik 'çək - daşı - burax' panel ikonu", width: 955, height: 1063 },
+        title: 'Daha Ağıllı və Sürətli İşə Alım',
+        text: '<p>Hiringoz, mənbə tapma, qiymətləndirmə və müsahibə mərhələlərini süni intellekt ilə avtomatlaşdırır.</p><p>Vaxta qənaət etdirir, xərcləri azaldır, insan səhvini minimuma endirir.</p><p>Bütün prosesi tək paneldən idarə edin, işə alımı asanlaşdırın!</p>',
+        ctaText: '', ctaUrl: '',
+        image: { url: '/wp-content/uploads/2025/11/hiring-4.png', alt: 'Hiringoz namizəd qiymətləndirmə lövhəsi və müsahibə bal qrafiki', width: 1230, height: 890 },
       },
       {
-        title: "Dinamik 'çək - daşı - burax' panel",
-        text: '<p><strong>"Doğru insanları, doğru işə yerləşdirmənin sirri doğru vasitələrdən istifadə etməkdir."</strong></p>',
-        ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL, image: null,
+        title: 'Doğru Namizəd, Doğru Qərar',
+        text: '<p>Hiringoz, yalnız CV-ləri deyil, real bacarıqları və potensialı qiymətləndirir.</p><p>AI dəstəkli testlər və simulyasiyalarla doğru namizədləri obyektiv şəkildə müəyyənləşdirin.</p><p>Gözdən qaçan istedadları kəşf edin, doğru qərarı verin.</p>',
+        ctaText: '', ctaUrl: '',
+        image: { url: '/wp-content/uploads/2025/11/hiring-5.png', alt: 'Hiringoz bacarıq testi seçim ekranı', width: 1142, height: 864 },
+      },
+      {
+        title: 'Etibarlı İstedad Doğrulaması',
+        text: '<p>İşə alımda uğur; sürət, dəqiqlik və etibarlılığa əsaslanır. Hiringoz, hər namizədin bacarığını süni intellekt dəstəkli testlər və müsahibələrlə doğrulayır. Hər işə alım şirkət standartlarınıza uyğun hala gəlir.</p><p>Hiringoz, bacarıqları obyektiv şəkildə qiymətləndirilmiş, güclü tərəfləri doğrulanmış və praktiki təcrübəsi sübut edilmiş namizədləri qurumlarla birləşdirir.</p>',
+        ctaText: '', ctaUrl: '', image: null,
+      },
+      {
+        title: 'İndi Başlayın',
+        text: '<p>Hiringoz ilə işə alımda yeni bir dövrə addım atın.</p><p>Əməliyyat yüklərini arxada buraxın, strategiyaya və potensiala fokuslanın.</p><p>Doğru namizədləri kəşf edin, güclü komandalar qurun.</p>',
+        ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL, image: null,
       },
     ],
     faq: [
-      { question: 'İşə qəbul prosesi necə işləyir?', answer: 'İşə qəbul prosesi açıq vəzifənin müəyyənləşdirilməsi ilə başlayır. Ardından iş elanı hazırlanır, namizəd müraciətləri qəbul edilir, CV-lər incələnir və uyğun görülən namizədlərlə müsahibələr edilir. Müsahibələrdən sonra müsbət namizədlər növbəti mərhələyə keçirilir.' },
-      { question: 'İşə qəbul prosesi xəritəsi nədir?', answer: 'İşə qəbul prosesi xəritəsi, bir namizədin müraciət etdiyi andan işə başladığı ana qədər keçdiyi addımların vizuallaşdırılmış formasıdır. Elan yaratma, müraciət toplama, müsahibə, qiymətləndirmə və təklif mərhələləri bu xəritədə yer alır.' },
-      { question: 'İşə qəbul prosesi nə qədər çəkir?', answer: 'İşə qəbul müddətini vəzifənin xarakteri, müraciət sıxlığı və şirkətin daxili dinamikaları müəyyənləşdirir.' },
-      { question: 'İşə qəbul prosesinin mərhələləri nələrdir?', answer: 'İş elanının yayımlanması, müraciətlərin qəbulu, ilkin seçim, müsahibələr, testlər və qiymətləndirmə, təklif vermə və onboarding prosesidir.' },
-      { question: 'İşə qəbul prosesində hansı testlər tətbiq olunur?', answer: 'Namizədlərin bacarıqlarını ölçmək üçün şəxsiyyət inventarları, texniki bilik testləri, keys təhlilləri və istedad testləri istifadə oluna bilər.' },
-      { question: 'İşə qəbul prosesi necə olmalıdır?', answer: 'İşə qəbul prosesi şəffaf, nizamlı və namizəd təcrübəsinə əhəmiyyət verən bir strukturda olmalıdır.' },
+      { question: 'İşə alım prosesi necə işləyir?', answer: 'İşə alım prosesi açıq vəzifənin müəyyənləşdirilməsi ilə başlayır. Ardından iş elanı hazırlanır, namizəd müraciətləri qəbul edilir və ilkin seçim aparılır. Hiringoz ilə bu addımlar rəqəmsallaşdırılır; namizədlər avtomatik olaraq analiz edilir, müsahibə planlamaları optimallaşdırılır və proses tək paneldən idarə edilir. Beləliklə, həm vaxtdan, həm də xərcdən qənaət edilir.' },
+      { question: 'İşə alım prosesi xəritəsi nədir?', answer: 'İşə alım prosesi xəritəsi, namizədin müraciət etdiyi andan işə başladığı ana qədər keçdiyi bütün addımların vizuallaşdırılmış formasıdır. Hiringoz, bu prosesi süni intellekt dəstəkli bir xəritə ilə idarə edir; elan yaratma, qiymətləndirmə, müsahibə və təklif mərhələlərini uçdan-uca izləməyə imkan verir.' },
+      { question: 'İşə alım prosesi nə qədər çəkir?', answer: 'Müddət, vəzifənin tələblərinə və namizəd sıxlığına görə dəyişir. Hiringoz, ağıllı filtrasiya və avtomatik qiymətləndirmə xüsusiyyətləri ilə işə alım müddətini əhəmiyyətli dərəcədə qısaldır, əməliyyat yükünün 74%-ini aradan qaldırır.' },
+      { question: 'İşə alım prosesinin mərhələləri nələrdir?', answer: 'İşə alım prosesi; iş elanının yayımlanması, müraciətlərin qəbulu, ilkin seçim, müsahibələr, test və qiymətləndirmə, təklif vermə və onboarding mərhələlərindən ibarətdir. Hiringoz bütün bu mərhələləri rəqəmsallaşdırır və prosesin hər addımında ölçülə bilən məlumatlar təqdim edir.' },
+      { question: 'İşə alım prosesində hansı testlər tətbiq olunur?', answer: 'Hiringoz; namizədlərin bacarıqlarını ölçmək üçün şəxsiyyət inventarları, bacarıq testləri və texniki qiymətləndirmələr tətbiq edir. Bu testlər süni intellekt tərəfindən analiz edilərək doğru namizədləri obyektiv şəkildə müəyyənləşdirməyə kömək edir.' },
+      { question: 'İşə alım prosesi necə olmalıdır?', answer: 'Effektiv bir işə alım prosesi; şəffaf, sürətli, ölçülə bilən və namizəd təcrübəsinə əhəmiyyət verən bir strukturda olmalıdır. Hiringoz prosesi standartlaşdırır və namizəd təcrübəsini gücləndirir, beləliklə strateji işə alım qərarları qəbul etməyinizi və güclü komandalar qurmağınızı təmin edir.' },
     ],
   },
   'onboarding-modulu': {
