@@ -55,6 +55,15 @@ export function formatDecimal(value: number, locale: Locale): string {
   return value.toString().replace('.', DECIMAL_SEPARATOR[locale]);
 }
 
+/** Yüzde işaretinin sayıdan ÖNCE mi SONRA mı geldiği — tr/az "%29",
+ * en/nl/it "29%" (2026-08-31, `kpiSubtext` turunda kurulan emsalin
+ * genellenmiş hali). */
+const PERCENT_SIGN_BEFORE: Record<Locale, boolean> = { tr: true, en: false, nl: false, it: false, az: true };
+
+export function formatPercent(value: number, locale: Locale): string {
+  return PERCENT_SIGN_BEFORE[locale] ? `%${value}` : `${value}%`;
+}
+
 // --- "Zaman Yönetimi" sekmesi — Tier 2 çevirileri ---
 
 export interface TimeManagementLabels {
@@ -562,4 +571,267 @@ const HUMAN_RESOURCES_LABELS: Partial<Record<Locale, HumanResourcesLabels>> = {
 
 export function getHumanResourcesLabels(locale: Locale): HumanResourcesLabels {
   return HUMAN_RESOURCES_LABELS[locale] ?? humanResourcesTr;
+}
+
+// --- "Performans Yönetimi" sekmesi — Tier 2 çevirileri (2026-09-01) ---
+
+export interface PerformanceManagementLabels {
+  sectionTitle: string;
+  /** `PERFORMANCE_KPI_STATS` yapısal diziyle (icon/color) İNDEKS
+   * SIRASIYLA eşleşir. `value` yüzde işaretiyse `formatPercent()`'in
+   * bu locale için ürettiği BİÇİME uygun elle yazıldı. */
+  kpiStats: [{ value: string; label: string }, { value: string; label: string }, { value: string; label: string }, { value: string; label: string }];
+  goalsCard: { title: string; subtitle: string };
+  /** `PERFORMANCE_GOALS_STRUCTURE` yapısal diziyle İNDEKS SIRASIYLA
+   * eşleşir. "Sales"/"Marketing" kategorileri TR kaynakta da İngilizce
+   * kullanıldığı için ÇEVRİLMEDİ (bilinçli, kaynağın kendi tercihi). */
+  goals: { name: string; scope: string; category: string; status: string }[];
+  /** Sabit "2026 H2" — dönem notasyonu dilden bağımsız, TÜM locale'lerde
+   * aynı kalıyor. */
+  period: string;
+  keyResultUnitLabel: string;
+  keyResultsCard: {
+    title: string;
+    /** `{goal}` yer tutucusu `t.goals[0].name` ile değiştirilir —
+     * ikinci bir hedef-adı kopyası YAZILMADI. */
+    subtitleTemplate: string;
+  };
+  /** `GOAL_KEY_RESULTS_STRUCTURE` yapısal diziyle İNDEKS SIRASIYLA
+   * eşleşir. Para birimi (₺) TÜM locale'lerde AYNI kalıyor — kurgusal
+   * şirket Türkiye merkezli, gerçek bir çoklu-para-birimi sistemi YOK. */
+  keyResults: { name: string; lastCheckInLabel: string; status: string; currentValueLabel: string; startLabel: string; endLabel: string }[];
+  lastCheckInPrefix: string;
+  currentPrefix: string;
+  /** `${expectedPrefix} ${formatPercent(n)} — ${paceLabel}` şeklinde
+   * birleştiriliyor. */
+  expectedPrefix: string;
+  paceAheadLabel: string;
+  paceBehindLabel: string;
+}
+
+const performanceManagementTr: PerformanceManagementLabels = {
+  sectionTitle: 'Performans Yönetimi',
+  kpiStats: [
+    { value: '5', label: 'Aktif KPI' },
+    { value: '%29', label: 'Ortalama İlerleme' },
+    { value: '3', label: 'Riskli / Beklenen Altı' },
+    { value: '3', label: 'Check-in Bekleyen' },
+  ],
+  goalsCard: { title: 'Hedefler (OKR) / KPI', subtitle: 'Şirket, takım ve bireysel hedeflerin ilerleme durumu' },
+  goals: [
+    { name: 'Yıllık ciroyu %20 artırmak', scope: 'Şirket', category: 'Finansal Hedefler', status: 'Riskli' },
+    { name: 'Yeni pazarlara açılmak', scope: 'Takım', category: 'Sales', status: 'Yolunda' },
+    { name: 'Yeni nesil mobil deneyimi hayata geçirmek', scope: 'Şirket', category: 'Ürün Geliştirme', status: 'Yolunda' },
+    { name: 'Marka bilinirliğini artırmak', scope: 'Takım', category: 'Marketing', status: 'Beklenen Altı' },
+  ],
+  period: '2026 H2',
+  keyResultUnitLabel: 'anahtar sonuç',
+  keyResultsCard: { title: 'Anahtar Sonuçlar', subtitleTemplate: '“{goal}” hedefinin ilerleme detayı' },
+  keyResults: [
+    {
+      name: 'Yeni müşteri kazanımı',
+      lastCheckInLabel: '20 Ağu',
+      status: 'Yolunda',
+      currentValueLabel: '26 müşteri',
+      startLabel: '0 müşteri',
+      endLabel: '40 müşteri',
+    },
+    {
+      name: 'Ortalama sipariş tutarı',
+      lastCheckInLabel: '18 Ağu',
+      status: 'Riskli',
+      currentValueLabel: '155 ₺',
+      startLabel: '0 ₺',
+      endLabel: '500 ₺',
+    },
+  ],
+  lastCheckInPrefix: 'Son check-in:',
+  currentPrefix: 'Güncel:',
+  expectedPrefix: 'Takvime göre beklenen',
+  paceAheadLabel: 'planın önünde',
+  paceBehindLabel: 'planın gerisinde',
+};
+
+const performanceManagementEn: PerformanceManagementLabels = {
+  sectionTitle: 'Performance Management',
+  kpiStats: [
+    { value: '5', label: 'Active KPIs' },
+    { value: '29%', label: 'Average Progress' },
+    { value: '3', label: 'At Risk / Below Expected' },
+    { value: '3', label: 'Pending Check-in' },
+  ],
+  goalsCard: { title: 'Goals (OKR) / KPI', subtitle: 'Progress status of company, team, and individual goals' },
+  goals: [
+    { name: 'Increase annual revenue by 20%', scope: 'Company', category: 'Financial Goals', status: 'At Risk' },
+    { name: 'Expand into new markets', scope: 'Team', category: 'Sales', status: 'On Track' },
+    { name: 'Launch the next-gen mobile experience', scope: 'Company', category: 'Product Development', status: 'On Track' },
+    { name: 'Increase brand awareness', scope: 'Team', category: 'Marketing', status: 'Below Expected' },
+  ],
+  period: '2026 H2',
+  keyResultUnitLabel: 'key results',
+  keyResultsCard: { title: 'Key Results', subtitleTemplate: 'Progress details for “{goal}”' },
+  keyResults: [
+    {
+      name: 'New customer acquisition',
+      lastCheckInLabel: '20 Aug',
+      status: 'On Track',
+      currentValueLabel: '26 customers',
+      startLabel: '0 customers',
+      endLabel: '40 customers',
+    },
+    {
+      name: 'Average order value',
+      lastCheckInLabel: '18 Aug',
+      status: 'At Risk',
+      currentValueLabel: '155 ₺',
+      startLabel: '0 ₺',
+      endLabel: '500 ₺',
+    },
+  ],
+  lastCheckInPrefix: 'Last check-in:',
+  currentPrefix: 'Current:',
+  expectedPrefix: 'Expected by schedule:',
+  paceAheadLabel: 'ahead of plan',
+  paceBehindLabel: 'behind plan',
+};
+
+const performanceManagementNl: PerformanceManagementLabels = {
+  sectionTitle: 'Prestatiemanagement',
+  kpiStats: [
+    { value: '5', label: 'Actieve KPI’s' },
+    { value: '29%', label: 'Gemiddelde Voortgang' },
+    { value: '3', label: 'Risico / Onder Verwachting' },
+    { value: '3', label: 'Check-in in Behandeling' },
+  ],
+  goalsCard: { title: 'Doelen (OKR) / KPI', subtitle: 'Voortgangsstatus van bedrijfs-, team- en individuele doelen' },
+  goals: [
+    { name: 'Jaarlijkse omzet met 20% verhogen', scope: 'Bedrijf', category: 'Financiële Doelen', status: 'Risico' },
+    { name: 'Uitbreiden naar nieuwe markten', scope: 'Team', category: 'Sales', status: 'Op Schema' },
+    { name: 'De mobiele ervaring van de nieuwe generatie lanceren', scope: 'Bedrijf', category: 'Productontwikkeling', status: 'Op Schema' },
+    { name: 'Merkbekendheid vergroten', scope: 'Team', category: 'Marketing', status: 'Onder Verwachting' },
+  ],
+  period: '2026 H2',
+  keyResultUnitLabel: 'kernresultaten',
+  keyResultsCard: { title: 'Kernresultaten', subtitleTemplate: 'Voortgangsdetails voor “{goal}”' },
+  keyResults: [
+    {
+      name: 'Nieuwe klantenwerving',
+      lastCheckInLabel: '20 aug',
+      status: 'Op Schema',
+      currentValueLabel: '26 klanten',
+      startLabel: '0 klanten',
+      endLabel: '40 klanten',
+    },
+    {
+      name: 'Gemiddelde orderwaarde',
+      lastCheckInLabel: '18 aug',
+      status: 'Risico',
+      currentValueLabel: '155 ₺',
+      startLabel: '0 ₺',
+      endLabel: '500 ₺',
+    },
+  ],
+  lastCheckInPrefix: 'Laatste check-in:',
+  currentPrefix: 'Huidig:',
+  expectedPrefix: 'Verwacht volgens planning:',
+  paceAheadLabel: 'voor op planning',
+  paceBehindLabel: 'achter op planning',
+};
+
+const performanceManagementIt: PerformanceManagementLabels = {
+  sectionTitle: 'Gestione delle Performance',
+  kpiStats: [
+    { value: '5', label: 'KPI Attivi' },
+    { value: '29%', label: 'Progresso Medio' },
+    { value: '3', label: 'A Rischio / Sotto le Aspettative' },
+    { value: '3', label: 'Check-in in Sospeso' },
+  ],
+  goalsCard: { title: 'Obiettivi (OKR) / KPI', subtitle: 'Stato di avanzamento degli obiettivi aziendali, di team e individuali' },
+  goals: [
+    { name: 'Aumentare il fatturato annuale del 20%', scope: 'Azienda', category: 'Obiettivi Finanziari', status: 'A Rischio' },
+    { name: 'Espandersi in nuovi mercati', scope: 'Team', category: 'Sales', status: 'In Linea' },
+    { name: 'Lanciare l’esperienza mobile di nuova generazione', scope: 'Azienda', category: 'Sviluppo Prodotto', status: 'In Linea' },
+    { name: 'Aumentare la notorietà del marchio', scope: 'Team', category: 'Marketing', status: 'Sotto le Aspettative' },
+  ],
+  period: '2026 H2',
+  keyResultUnitLabel: 'risultati chiave',
+  keyResultsCard: { title: 'Risultati Chiave', subtitleTemplate: 'Dettagli di avanzamento per “{goal}”' },
+  keyResults: [
+    {
+      name: 'Acquisizione nuovi clienti',
+      lastCheckInLabel: '20 ago',
+      status: 'In Linea',
+      currentValueLabel: '26 clienti',
+      startLabel: '0 clienti',
+      endLabel: '40 clienti',
+    },
+    {
+      name: 'Valore medio ordine',
+      lastCheckInLabel: '18 ago',
+      status: 'A Rischio',
+      currentValueLabel: '155 ₺',
+      startLabel: '0 ₺',
+      endLabel: '500 ₺',
+    },
+  ],
+  lastCheckInPrefix: 'Ultimo check-in:',
+  currentPrefix: 'Attuale:',
+  expectedPrefix: 'Atteso secondo pianificazione:',
+  paceAheadLabel: 'in anticipo sul piano',
+  paceBehindLabel: 'in ritardo sul piano',
+};
+
+const performanceManagementAz: PerformanceManagementLabels = {
+  sectionTitle: 'Performans İdarəçiliyi',
+  kpiStats: [
+    { value: '5', label: 'Aktiv KPI' },
+    { value: '%29', label: 'Orta İrəliləyiş' },
+    { value: '3', label: 'Riskli / Gözlənilənin Altında' },
+    { value: '3', label: 'Gözləyən Yoxlama' },
+  ],
+  goalsCard: { title: 'Hədəflər (OKR) / KPI', subtitle: 'Şirkət, komanda və fərdi hədəflərin irəliləyiş vəziyyəti' },
+  goals: [
+    { name: 'İllik dövriyyəni 20% artırmaq', scope: 'Şirkət', category: 'Maliyyə Hədəfləri', status: 'Riskli' },
+    { name: 'Yeni bazarlara çıxmaq', scope: 'Komanda', category: 'Sales', status: 'Planla Uyğun' },
+    { name: 'Yeni nəsil mobil təcrübəni həyata keçirmək', scope: 'Şirkət', category: 'Məhsul İnkişafı', status: 'Planla Uyğun' },
+    { name: 'Marka tanınırlığını artırmaq', scope: 'Komanda', category: 'Marketing', status: 'Gözlənilənin Altında' },
+  ],
+  period: '2026 H2',
+  keyResultUnitLabel: 'əsas nəticə',
+  keyResultsCard: { title: 'Əsas Nəticələr', subtitleTemplate: '“{goal}” hədəfinin irəliləyiş detalları' },
+  keyResults: [
+    {
+      name: 'Yeni müştəri qazanılması',
+      lastCheckInLabel: '20 avq',
+      status: 'Planla Uyğun',
+      currentValueLabel: '26 müştəri',
+      startLabel: '0 müştəri',
+      endLabel: '40 müştəri',
+    },
+    {
+      name: 'Orta sifariş məbləği',
+      lastCheckInLabel: '18 avq',
+      status: 'Riskli',
+      currentValueLabel: '155 ₺',
+      startLabel: '0 ₺',
+      endLabel: '500 ₺',
+    },
+  ],
+  lastCheckInPrefix: 'Son yoxlama:',
+  currentPrefix: 'Cari:',
+  expectedPrefix: 'Cədvələ görə gözlənilən',
+  paceAheadLabel: 'planın qabağında',
+  paceBehindLabel: 'planın arxasında',
+};
+
+const PERFORMANCE_MANAGEMENT_LABELS: Partial<Record<Locale, PerformanceManagementLabels>> = {
+  tr: performanceManagementTr,
+  en: performanceManagementEn,
+  nl: performanceManagementNl,
+  it: performanceManagementIt,
+  az: performanceManagementAz,
+};
+
+export function getPerformanceManagementLabels(locale: Locale): PerformanceManagementLabels {
+  return PERFORMANCE_MANAGEMENT_LABELS[locale] ?? performanceManagementTr;
 }

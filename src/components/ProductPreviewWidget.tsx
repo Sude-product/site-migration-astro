@@ -52,9 +52,11 @@ import {
   getTimeManagementLabels,
   getLeaveManagementLabels,
   getHumanResourcesLabels,
+  getPerformanceManagementLabels,
   MONTH_ABBREV,
   WEEKDAY_ABBREV,
   formatDecimal,
+  formatPercent,
 } from '../data/productPreviewWidgetData';
 import type { Locale } from '../data/nav';
 
@@ -452,11 +454,15 @@ const CONTRACT_TRACKING_STRUCTURE: { color: string; bgLight: string; count: numb
 // geçti). Renkler widget'ın KENDİ kurulu paletinden (#EF4444/#F59E0B/
 // #10B981/#3B82F6/#8B5CF6/#EC4899) — yeni bir renk İCAT EDİLMEDİ.
 
-const PERFORMANCE_KPI_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string; label: string }[] = [
-  { icon: Target, color: '#EF4444', value: '5', label: 'Aktif KPI' },
-  { icon: TrendingUp, color: '#3B82F6', value: '%29', label: 'Ortalama İlerleme' },
-  { icon: AlertTriangle, color: '#F59E0B', value: '3', label: 'Riskli / Beklenen Altı' },
-  { icon: Clock, color: '#8B5CF6', value: '3', label: 'Check-in Bekleyen' },
+// 2026-09-01 — Tier 2 çevirisi: icon/color/sayısal değerler burada
+// (yapısal, dilden bağımsız), name/scope/category/status/period
+// `getPerformanceManagementLabels()`'ten İNDEKS SIRASIYLA geliyor
+// (bkz. `productPreviewWidgetData.ts`).
+const PERFORMANCE_KPI_STATS: { icon: ComponentType<{ className?: string }>; color: string }[] = [
+  { icon: Target, color: '#EF4444' },
+  { icon: TrendingUp, color: '#3B82F6' },
+  { icon: AlertTriangle, color: '#F59E0B' },
+  { icon: Clock, color: '#8B5CF6' },
 ];
 
 interface GoalItem {
@@ -465,20 +471,16 @@ interface GoalItem {
   category: string;
   period: string;
   keyResultCount: number;
+  keyResultUnitLabel: string;
   percent: number;
   status: string;
   statusColor: string;
   avatars: { initials: string; color: string }[];
 }
-const PERFORMANCE_GOALS: GoalItem[] = [
+const PERFORMANCE_GOALS_STRUCTURE: { keyResultCount: number; percent: number; statusColor: string; avatars: { initials: string; color: string }[] }[] = [
   {
-    name: 'Yıllık ciroyu %20 artırmak',
-    scope: 'Şirket',
-    category: 'Finansal Hedefler',
-    period: '2026 H2',
     keyResultCount: 3,
     percent: 31,
-    status: 'Riskli',
     statusColor: '#EF4444',
     avatars: [
       { initials: 'DT', color: '#3B82F6' },
@@ -486,13 +488,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Yeni pazarlara açılmak',
-    scope: 'Takım',
-    category: 'Sales',
-    period: '2026 H2',
     keyResultCount: 2,
     percent: 44,
-    status: 'Yolunda',
     statusColor: '#10B981',
     avatars: [
       { initials: 'GR', color: '#F59E0B' },
@@ -500,13 +497,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Yeni nesil mobil deneyimi hayata geçirmek',
-    scope: 'Şirket',
-    category: 'Ürün Geliştirme',
-    period: '2026 H2',
     keyResultCount: 5,
     percent: 52,
-    status: 'Yolunda',
     statusColor: '#10B981',
     avatars: [
       { initials: 'DT', color: '#3B82F6' },
@@ -514,13 +506,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Marka bilinirliğini artırmak',
-    scope: 'Takım',
-    category: 'Marketing',
-    period: '2026 H2',
     keyResultCount: 2,
     percent: 12,
-    status: 'Beklenen Altı',
     statusColor: '#F59E0B',
     avatars: [
       { initials: 'AC', color: '#EF4444' },
@@ -545,31 +532,12 @@ interface KeyResultItem {
   expectedPercent: number;
   pace: 'ahead' | 'behind';
 }
-const GOAL_KEY_RESULTS: KeyResultItem[] = [
-  {
-    name: 'Yeni müşteri kazanımı',
-    lastCheckIn: '20 Ağu',
-    status: 'Yolunda',
-    statusColor: '#10B981',
-    currentValueLabel: '26 müşteri',
-    currentPercent: 65,
-    startLabel: '0 müşteri',
-    endLabel: '40 müşteri',
-    expectedPercent: 55,
-    pace: 'ahead',
-  },
-  {
-    name: 'Ortalama sipariş tutarı',
-    lastCheckIn: '18 Ağu',
-    status: 'Riskli',
-    statusColor: '#EF4444',
-    currentValueLabel: '155 ₺',
-    currentPercent: 31,
-    startLabel: '0 ₺',
-    endLabel: '500 ₺',
-    expectedPercent: 42,
-    pace: 'behind',
-  },
+// 2026-09-01 — Tier 2: name/lastCheckIn/status/currentValueLabel/
+// startLabel/endLabel `getPerformanceManagementLabels().keyResults`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (renk/yüzde) veri.
+const GOAL_KEY_RESULTS_STRUCTURE: { statusColor: string; currentPercent: number; expectedPercent: number; pace: 'ahead' | 'behind' }[] = [
+  { statusColor: '#10B981', currentPercent: 65, expectedPercent: 55, pace: 'ahead' },
+  { statusColor: '#EF4444', currentPercent: 31, expectedPercent: 42, pace: 'behind' },
 ];
 
 // --- "Veri Analizi" sekmesi — kurgusal veri (2026-08-13). Tema:
@@ -1959,6 +1927,7 @@ function HumanResourcesTab() {
 // AYNI SVG tekniği (strokeDasharray + -rotate-90), tek segment + gri track.
 function GoalProgressRing({ percent, color }: { percent: number; color: string }) {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
   const radius = 15.5;
   const circumference = 2 * Math.PI * radius;
   const dash = (Math.min(percent, 100) / 100) * circumference;
@@ -1978,7 +1947,7 @@ function GoalProgressRing({ percent, color }: { percent: number; color: string }
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`text-[11px] font-bold ${isDark ? 'text-white' : 'text-heading'}`}>%{percent}</span>
+        <span className={`text-[11px] font-bold ${isDark ? 'text-white' : 'text-heading'}`}>{formatPercent(percent, locale)}</span>
       </div>
     </div>
   );
@@ -2007,7 +1976,7 @@ function GoalRow({ goal }: { goal: GoalItem }) {
             {goal.category}
           </span>
           <span className={`text-[11px] ${isDark ? 'text-gray-500' : 'text-muted'}`}>
-            {goal.period} · {goal.keyResultCount} anahtar sonuç
+            {goal.period} · {goal.keyResultCount} {goal.keyResultUnitLabel}
           </span>
         </div>
       </div>
@@ -2039,9 +2008,11 @@ function GoalRow({ goal }: { goal: GoalItem }) {
 // göre beklenen %" karşılaştırması (yön okuyla renkli).
 function KeyResultRow({ kr }: { kr: KeyResultItem }) {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getPerformanceManagementLabels(locale);
   const PaceIcon = kr.pace === 'ahead' ? TrendingUp : TrendingDown;
   const paceColor = kr.pace === 'ahead' ? '#10B981' : '#EF4444';
-  const paceLabel = kr.pace === 'ahead' ? 'planın önünde' : 'planın gerisinde';
+  const paceLabel = kr.pace === 'ahead' ? t.paceAheadLabel : t.paceBehindLabel;
   return (
     <div className={`rounded-lg border p-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -2056,7 +2027,7 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
           <div>
             <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{kr.name}</p>
             <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>
-              Son check-in: {kr.lastCheckIn} · {kr.status}
+              {t.lastCheckInPrefix} {kr.lastCheckIn} · {kr.status}
             </p>
           </div>
         </div>
@@ -2078,12 +2049,15 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
       </div>
       <p className={`mt-2 flex flex-wrap items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-body'}`}>
         <span>
-          Güncel: <strong className={isDark ? 'text-white' : 'text-heading'}>{kr.currentValueLabel} (%{kr.currentPercent})</strong>
+          {t.currentPrefix}{' '}
+          <strong className={isDark ? 'text-white' : 'text-heading'}>
+            {kr.currentValueLabel} ({formatPercent(kr.currentPercent, locale)})
+          </strong>
         </span>
         <span className={isDark ? 'text-gray-600' : 'text-gray-300'}>|</span>
         <span className="inline-flex items-center gap-1 font-medium" style={{ color: paceColor }}>
           <PaceIcon className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
-          Takvime göre beklenen %{kr.expectedPercent} — {paceLabel}
+          {t.expectedPrefix} {formatPercent(kr.expectedPercent, locale)} — {paceLabel}
         </span>
       </p>
     </div>
@@ -2091,27 +2065,40 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
 }
 
 function PerformanceManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getPerformanceManagementLabels(locale);
+  const goals: GoalItem[] = PERFORMANCE_GOALS_STRUCTURE.map((structure, i) => ({
+    ...structure,
+    ...t.goals[i],
+    period: t.period,
+    keyResultUnitLabel: t.keyResultUnitLabel,
+  }));
+  const keyResults: KeyResultItem[] = GOAL_KEY_RESULTS_STRUCTURE.map((structure, i) => {
+    const { lastCheckInLabel, ...labelRest } = t.keyResults[i];
+    return { ...structure, ...labelRest, lastCheckIn: lastCheckInLabel };
+  });
+  const keyResultsSubtitle = t.keyResultsCard.subtitleTemplate.replace('{goal}', t.goals[0].name);
   return (
     <div>
-      <SectionMiniHeader icon={Target} title="Performans Yönetimi" href="/calisan-performans-degerlendirme-sistemi-modulu/" />
+      <SectionMiniHeader icon={Target} title={t.sectionTitle} href="/calisan-performans-degerlendirme-sistemi-modulu/" />
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-        {PERFORMANCE_KPI_STATS.map((stat) => (
-          <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
+        {PERFORMANCE_KPI_STATS.map((stat, i) => (
+          <StatCard key={t.kpiStats[i].label} icon={stat.icon} color={stat.color} value={t.kpiStats[i].value} label={t.kpiStats[i].label} />
         ))}
       </div>
       <div className="mt-3">
-        <WidgetCard title="Hedefler (OKR) / KPI" subtitle="Şirket, takım ve bireysel hedeflerin ilerleme durumu">
+        <WidgetCard title={t.goalsCard.title} subtitle={t.goalsCard.subtitle}>
           <div className="space-y-3">
-            {PERFORMANCE_GOALS.map((goal) => (
+            {goals.map((goal) => (
               <GoalRow key={goal.name} goal={goal} />
             ))}
           </div>
         </WidgetCard>
       </div>
       <div className="mt-3">
-        <WidgetCard title="Anahtar Sonuçlar" subtitle="“Yıllık ciroyu %20 artırmak” hedefinin ilerleme detayı">
+        <WidgetCard title={t.keyResultsCard.title} subtitle={keyResultsSubtitle}>
           <div className="space-y-3">
-            {GOAL_KEY_RESULTS.map((kr) => (
+            {keyResults.map((kr) => (
               <KeyResultRow key={kr.name} kr={kr} />
             ))}
           </div>

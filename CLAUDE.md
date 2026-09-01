@@ -2228,6 +2228,45 @@ hâlâ geçerli.)*
     yapıldı — aynı derecede güvenilir, ekran görüntüsüne muhtaç değil.
     **Kalan sekmeler:** Performans Yönetimi → Veri Analizi + paylaşılan
     panel metinleri (sıradaki turlar).
+57. **TAMAMLANDI (2026-09-01, 6. tur) — "Performans Yönetimi" sekmesi 4
+    dilde (EN/NL/IT/AZ) çevrildi.** `getPerformanceManagementLabels(locale)`
+    eklendi (önceki sekmelerle AYNI mimari — yapısal veri `PERFORMANCE_KPI_STATS`/
+    `PERFORMANCE_GOALS_STRUCTURE`/`GOAL_KEY_RESULTS_STRUCTURE`'da kaldı,
+    render'da İNDEKS SIRASIYLA `t.kpiStats`/`t.goals`/`t.keyResults`'la
+    birleştiriliyor). Yeni genel yardımcı `formatPercent(value, locale)`
+    eklendi (`productPreviewWidgetData.ts`) — tr/az "%29", en/nl/it "29%"
+    (2026-08-31'in `kpiSubtext` emsalinin genellenmiş hali). Çevrilen:
+    4 KPI kartı, 4 hedef (OKR) satırı (ad/kapsam/kategori/durum — "Sales"/
+    "Marketing" kategorileri TR kaynakta da İngilizce olduğu için ÇEVRİLMEDİ,
+    bilinçli), "anahtar sonuç" birimi, 2 Anahtar Sonuç satırı (ad/son
+    check-in/durum/güncel-başlangıç-hedef değerleri — para birimi ₺ TÜM
+    locale'lerde AYNI kaldı, kurgusal şirket Türkiye merkezli), "Son
+    check-in:"/"Güncel:"/"Takvime göre beklenen"/"planın önünde"/"planın
+    gerisinde" önekleri. **Yan bulgu, AYNI turda düzeltildi:**
+    `GoalProgressRing`'in halka içi yüzde metni (`%{percent}`) hardcoded
+    TR biçimindeydi, locale'den bağımsızdı — `formatPercent()`'e
+    çevrildi (artık EN/NL/IT'de "31%", TR/AZ'da "%31" gösteriyor).
+    **Kapsam dışı bırakılan, AYRI bir bulgu olarak kaydedildi:** İnsan
+    Kaynakları sekmesindeki `TURNOVER_STATS`'ın "%18.4" değeri (madde 56)
+    AYNI hardcoded-TR-biçim sorununu taşıyor ama bu turun kapsamı
+    DIŞINDA (önceden tamamlanmış/onaylanmış bir sekme) — düzeltilmedi,
+    istenirse ayrı bir mikro-tur olarak ele alınabilir.
+    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
+    8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
+    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Performans Yönetimi
+    sekmesi (4 KPI kartı + 4 hedef satırı + 2 Anahtar Sonuç satırı)
+    görsel doğrulandı. **Teknik not (yeni bilgi, ileriki turlar için
+    yararlı):** widget'ın sekme butonlarına JS'ten `.click()`/
+    `dispatchEvent(...)` ile PROGRAMATIK tıklama bu ortamda ÇALIŞMIYOR
+    (React'in tıklamayı işlememesi — hem TR hem EN'de doğrulandı, sekmeye
+    özgü değil, genel bir kısıt). Gerçek/güvenilir yöntem: `computer`
+    aracıyla GERÇEK fare tıklaması (OS-seviyesi sentetik olay) + tıklama
+    SONRASI screenshot'ı MÜMKÜN OLDUĞUNCA hızlı almak (widget'ın kendi
+    `AUTO_TAB_INTERVAL_MS`=6sn otomatik döngüsü, ardışık tool-call
+    round-trip'leri arasında geçen süre 6sn'yi aşarsa sekmeyi tekrar
+    ileri kaydırabilir).
+    **Kalan sekmeler:** Veri Analizi + paylaşılan panel metinleri
+    (sıradaki turlar).
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
