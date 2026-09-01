@@ -319,7 +319,7 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
     tr: {
       hero: {
         title: 'İşe alım maliyetlerini azaltın, zamandan tasarruf edin, objektif değerlendirmeler yapın ve Hiringoz ile verimliliği yakalayın.',
-        text: '<p>Hiringoz, işe alım süreçlerini dijitalleştirerek işe alımda hız, doğruluk, sürdürülebilir verimlilik sağlar ve stratejik öngörüler sunar.</p><p>Yapay zeka destekli değerlendirmeler, akıllı mülakat planlaması ve aday analizleri sayesinde operasyonel yük azalır; siz stratejik karar alma ve aday deneyimi süreçlerine odaklanabilirsiniz.</p>',
+        text: '<p>Hiringoz, işe alım süreçlerini dijitalleştirerek hız, doğruluk ve stratejik öngörü sağlar.</p><p>Yapay zeka destekli değerlendirmelerle operasyonel yük azalır, siz stratejiye odaklanırsınız.</p>',
         ctaText: 'Hemen Başvur',
         ctaUrl: DEMO_CTA_URL,
         image: { url: HERO_BG_IMAGE.url, alt: 'Beş sandalyeden birinin (kırmızı) öne çıkarıldığı, doğru adayın seçilmesini simgeleyen illüstrasyon', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
@@ -367,7 +367,7 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
     en: {
       hero: {
         title: 'Reduce recruitment costs, save time, make objective evaluations, and achieve efficiency with Hiringoz.',
-        text: '<p>By digitalizing recruitment processes, Hiringoz provides speed, accuracy, and sustainable efficiency in hiring while offering strategic insights.</p><p>With AI-powered assessments, smart interview scheduling, and candidate analytics, the operational workload decreases; allowing you to focus on strategic decision-making and candidate experience.</p>',
+        text: '<p>By digitalizing recruitment, Hiringoz delivers speed, accuracy, and strategic insight.</p><p>AI-powered assessments reduce the operational workload, so you can focus on strategy and candidate experience.</p>',
         ctaText: 'Get Started',
         ctaUrl: DEMO_CTA_URL,
         image: { url: HERO_BG_IMAGE.url, alt: 'Illustration of five chairs with one (red) highlighted, symbolizing choosing the right candidate', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
@@ -415,7 +415,7 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
     it: {
       hero: {
         title: 'Riduci i costi di reclutamento, risparmia tempo, effettua valutazioni oggettive e ottieni efficienza con Hiringoz.',
-        text: '<p>Digitalizzando i processi di reclutamento, Hiringoz offre velocità, precisione ed efficienza nell’automazione delle assunzioni, fornendo al contempo approfondimenti strategici.</p><p>Con valutazioni basate sull’intelligenza artificiale, pianificazione intelligente dei colloqui e analisi dei candidati, il carico di lavoro operativo diminuisce, consentendoti di concentrarti sul processo decisionale strategico e sull’esperienza del candidato.</p>',
+        text: '<p>Digitalizzando il reclutamento, Hiringoz offre velocità, precisione e visione strategica.</p><p>Le valutazioni basate sull’IA riducono il carico operativo, per concentrarti su strategia ed esperienza del candidato.</p>',
         ctaText: 'Invia Richiesta',
         ctaUrl: DEMO_CTA_URL,
         image: { url: HERO_BG_IMAGE.url, alt: 'Illustrazione di cinque sedie con una (rossa) in evidenza, che simboleggia la scelta del candidato giusto', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },
@@ -465,7 +465,7 @@ export const PRODUCT_OVERRIDES: Record<string, Partial<Record<Locale, ProductOve
       // temel alınıp gerçek çeviri üretildi (önceki override'ın AYNI ilkesi).
       hero: {
         title: 'Verminder wervingskosten, bespaar tijd, voer objectieve beoordelingen uit en behaal efficiëntie met Hiringoz.',
-        text: '<p>Door wervingsprocessen te digitaliseren, biedt Hiringoz snelheid, nauwkeurigheid en duurzame efficiëntie bij het werven van personeel, en levert het strategische inzichten.</p><p>Met AI-gestuurde beoordelingen, slimme interviewplanning en kandidaatanalyses neemt de operationele werklast af, zodat u zich kunt richten op strategische besluitvorming en de kandidaatervaring.</p>',
+        text: '<p>Door werving te digitaliseren biedt Hiringoz snelheid, nauwkeurigheid en strategisch inzicht.</p><p>AI-gestuurde beoordelingen verlagen de werklast, zodat u zich richt op strategie en kandidaatervaring.</p>',
         ctaText: 'Direct Aanvragen',
         ctaUrl: DEMO_CTA_URL,
         image: { url: HERO_BG_IMAGE.url, alt: 'Illustratie van vijf stoelen waarvan er één (rood) is uitgelicht, symbool voor het kiezen van de juiste kandidaat', width: HERO_BG_IMAGE.width, height: HERO_BG_IMAGE.height },

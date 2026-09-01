@@ -89,6 +89,13 @@ interface Props {
    * kendisi bir LİNK değil, yalnızca dekoratif marka rozeti — bkz.
    * `productTranslationOverrides.ts`'teki yorum). */
   heroPartnerLogo?: { url: string; alt: string; width: number; height: number };
+  /** Breadcrumb'ın son kırıntı etiketi — verilmezse (varsayılan, diğer
+   * TÜM sayfalarda) `pageTitle` kullanılır. `pageTitle` kendisi uzun bir
+   * tanıtım cümlesiyse (İşe Alım Modülü/Donanım gibi) H1/breadcrumb'ın
+   * İKİSİ DE bu uzun cümleyi göstermesi istenmeyebilir — bu durumda
+   * `ctaKeyword` gibi kısa, gerçek bir isim geçirilebilir (2026-09-02,
+   * kullanıcı isteği). `title`/`ctaKeyword` override'larıyla AYNI ilke. */
+  breadcrumbLabel?: string;
 }
 
 const {
@@ -104,6 +111,7 @@ const {
   modified,
   heroLayout = 'side',
   heroPartnerLogo,
+  breadcrumbLabel,
 } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
@@ -130,7 +138,7 @@ const heroCtaText =
   hreflangLocales={hreflangLocales}
   image={hero.image?.url}
   dateModified={modified?.toISOString()}
-  breadcrumb={[{ label: pageTitle }]}
+  breadcrumb={[{ label: breadcrumbLabel ?? pageTitle }]}
 >
   <!-- Hero -->
   {
