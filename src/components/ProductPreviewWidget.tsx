@@ -53,6 +53,7 @@ import {
   getLeaveManagementLabels,
   getHumanResourcesLabels,
   getPerformanceManagementLabels,
+  getDataAnalysisLabels,
   MONTH_ABBREV,
   WEEKDAY_ABBREV,
   formatDecimal,
@@ -545,16 +546,12 @@ const GOAL_KEY_RESULTS_STRUCTURE: { statusColor: string; currentPercent: number;
 // vardiya devam oranlarıyla AYNI konu ailesinden ama farklı bir kesit
 // (departman kırılımı + trend), içerik tekrarı değil. ---
 
-const DEPARTMENT_ABSENTEEISM: { label: string; value: number }[] = [
-  { label: 'İK', value: 2.1 },
-  { label: 'Satış', value: 5.4 },
-  { label: 'Operasyon', value: 6.8 },
-  { label: 'Finans', value: 1.9 },
-  { label: 'Üretim', value: 7.2 },
-  { label: 'Destek', value: 3.5 },
-];
+// 2026-09-01 — Tier 2: departman etiketleri `getDataAnalysisLabels().departments`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (sayısal) veri.
+const DEPARTMENT_ABSENTEEISM_STRUCTURE: number[] = [2.1, 5.4, 6.8, 1.9, 7.2, 3.5];
 
-const ABSENTEEISM_TREND_MONTHS = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz'];
+// Ay isimleri artık `MONTH_ABBREV[locale]`'ten TÜRETİLİYOR (Oca..Haz = indeks 0-5).
+const ABSENTEEISM_TREND_MONTH_INDICES = [0, 1, 2, 3, 4, 5];
 const ABSENTEEISM_TREND_DATA = [4.2, 3.8, 5.1, 4.6, 3.9, 3.2];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "Veri
@@ -570,14 +567,26 @@ const ABSENTEEISM_TREND_DATA = [4.2, 3.8, 5.1, 4.6, 3.9, 3.2];
 // çok daha uzun yapardı. Sayılar gerçek ekrandan KOPYALANMADI (o ekranda
 // "50" gibi bir aykırı değer vardı — muhtemelen toplu bir işlemden,
 // temsili değil), aynı formatta farklı kurgusal rakamlar üretildi.
-const ACTIVE_EMPLOYEE_TREND_WEEKS = ['06 Tem', '13 Tem', '20 Tem', '27 Tem', '03 Ağu', '10 Ağu', '17 Ağu'];
+// Gün etiketleri artık `{day, monthIndex}` yapısal çiftinden `MONTH_ABBREV[locale]`
+// ile TÜRETİLİYOR (Tem = indeks 6, Ağu = indeks 7).
+const ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE: { day: number; monthIndex: number }[] = [
+  { day: 6, monthIndex: 6 },
+  { day: 13, monthIndex: 6 },
+  { day: 20, monthIndex: 6 },
+  { day: 27, monthIndex: 6 },
+  { day: 3, monthIndex: 7 },
+  { day: 10, monthIndex: 7 },
+  { day: 17, monthIndex: 7 },
+];
 const ACTIVE_EMPLOYEE_TREND_DATA = [64, 69, 67, 71, 73, 70, 76];
 
-const DAILY_MOVEMENTS: { color: string; value: string; label: string; sparkline: number[] }[] = [
-  { color: '#10B981', value: '6', label: 'Gelenler', sparkline: [3, 5, 4, 6, 5, 7, 6] },
-  { color: '#F59E0B', value: '2', label: 'Geç Gelenler', sparkline: [1, 3, 2, 4, 2, 3, 2] },
-  { color: '#8B5CF6', value: '1', label: 'Erken Çıkanlar', sparkline: [2, 1, 3, 1, 2, 1, 1] },
-  { color: '#EF4444', value: '3', label: 'Devamsızlık', sparkline: [5, 3, 4, 2, 6, 3, 3] },
+// 2026-09-01 — Tier 2: `label` `getDataAnalysisLabels().dailyMovements`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (renk/sayı/sparkline) veri.
+const DAILY_MOVEMENTS_STRUCTURE: { color: string; value: string; sparkline: number[] }[] = [
+  { color: '#10B981', value: '6', sparkline: [3, 5, 4, 6, 5, 7, 6] },
+  { color: '#F59E0B', value: '2', sparkline: [1, 3, 2, 4, 2, 3, 2] },
+  { color: '#8B5CF6', value: '1', sparkline: [2, 1, 3, 1, 2, 1, 1] },
+  { color: '#EF4444', value: '3', sparkline: [5, 3, 4, 2, 6, 3, 3] },
 ];
 
 // 2026-08-19 (2. tur, aynı gün) — kullanıcı "Veri Analizi diğer
@@ -590,15 +599,12 @@ const DAILY_MOVEMENTS: { color: string; value: string; label: string; sparkline:
 // tutarlı). Gün etiketleri gerçek takvim tarihleri (12-18 Ağustos 2026,
 // `HRCalendarCard`'ın "bugün"üyle [19 Ağustos] AYNI haftanın hemen
 // öncesi).
-const WEEK_DAY_LABELS_AUG = ['12 Ağu', '13 Ağu', '14 Ağu', '15 Ağu', '16 Ağu', '17 Ağu', '18 Ağu'];
-const NEW_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
-  label,
-  value: DAILY_MOVEMENTS[0].sparkline[i],
-}));
-const LATE_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
-  label,
-  value: DAILY_MOVEMENTS[1].sparkline[i],
-}));
+// Gün numaraları 12-18 (Ağustos = monthIndex 7) — etiket metni render'da
+// `MONTH_ABBREV[locale][7]` ile birleştiriliyor.
+const WEEK_DAY_NUMBERS_AUG = [12, 13, 14, 15, 16, 17, 18];
+function buildWeekDayLabelsAug(locale: Locale): string[] {
+  return WEEK_DAY_NUMBERS_AUG.map((day) => `${day} ${MONTH_ABBREV[locale][7]}`);
+}
 
 // --- Üst uygulama header'ının "Kısayollar" açılır paneli — kurgusal
 // veri (2026-08-13, PİLOT turu). 6 kısayol, kullanıcının referans
@@ -2114,24 +2120,26 @@ function PerformanceManagementTab() {
 // görüntüsündeki AYNI tekrar deseni). `GoalRow`'un durum rozetiyle AYNI
 // ilke — gerçek bir hesaplama işlevi YOK, mockup.
 function RecalculateButton() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
     <span
       role="button"
       aria-hidden="true"
       className="inline-flex shrink-0 cursor-default items-center rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-white transition-transform hover:scale-105"
     >
-      Verileri Hesapla
+      {t.recalculateButtonLabel}
     </span>
   );
 }
 
 function DateRangeCard() {
   const { isDark } = useTheme();
+  const t = getDataAnalysisLabels(useWidgetLocale());
   const fieldClass = `flex h-10 min-w-0 items-center gap-2 rounded-lg border px-3.5 text-sm font-medium transition-colors ${
     isDark ? 'border-gray-700 bg-gray-900 text-gray-100 hover:border-gray-500' : 'border-gray-200 bg-white text-heading hover:border-brand/40'
   }`;
   return (
-    <WidgetCard title="Tarih Aralığı" subtitle="Analiz edilecek dönemi seçin">
+    <WidgetCard title={t.dateRangeCard.title} subtitle={t.dateRangeCard.subtitle}>
       <div className="flex flex-wrap items-center gap-3">
         <span className={fieldClass} aria-hidden="true">
           <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2.5} />
@@ -2151,23 +2159,23 @@ function DateRangeCard() {
 }
 
 function DepartmentAbsenteeismCard() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
+  const data = DEPARTMENT_ABSENTEEISM_STRUCTURE.map((value, i) => ({ label: t.departments[i], value }));
   return (
-    <WidgetCard title="Departman Bazlı Devamsızlık Oranı" subtitle="Seçili dönem">
-      <SimpleBarChart data={DEPARTMENT_ABSENTEEISM} unit="%" />
+    <WidgetCard title={t.departmentAbsenteeismCard.title} subtitle={t.departmentAbsenteeismCard.subtitle}>
+      <SimpleBarChart data={data} unit="%" />
     </WidgetCard>
   );
 }
 
 function AbsenteeismTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = ABSENTEEISM_TREND_MONTH_INDICES.map((mi) => MONTH_ABBREV[locale][mi]);
   return (
-    <WidgetCard title="Aylık Devamsızlık Trendi" subtitle="Son 6 ay, %">
-      <LineChart
-        data={ABSENTEEISM_TREND_DATA}
-        labels={ABSENTEEISM_TREND_MONTHS}
-        color="#FF0000"
-        dotFill={isDark ? '#1F2937' : '#ffffff'}
-      />
+    <WidgetCard title={t.absenteeismTrendCard.title} subtitle={t.absenteeismTrendCard.subtitle}>
+      <LineChart data={ABSENTEEISM_TREND_DATA} labels={labels} color="#FF0000" dotFill={isDark ? '#1F2937' : '#ffffff'} />
     </WidgetCard>
   );
 }
@@ -2178,26 +2186,24 @@ function AbsenteeismTrendCard() {
 // ilkesi (`aria-hidden`, gerçekten veri DEĞİŞTİRMİYOR).
 function ActiveEmployeeTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE.map(({ day, monthIndex }) => `${String(day).padStart(2, '0')} ${MONTH_ABBREV[locale][monthIndex]}`);
   return (
     <WidgetCard
-      title="Aktif Çalışan Sayısı Trendi"
-      subtitle="Son 7 hafta"
+      title={t.activeEmployeeTrendCard.title}
+      subtitle={t.activeEmployeeTrendCard.subtitle}
       headerRight={
         <div
           className={`flex shrink-0 items-center gap-1 rounded-full border p-0.5 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
           aria-hidden="true"
         >
-          <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">Haftalık</span>
-          <span className={`px-2.5 py-1 text-xs font-medium ${isDark ? 'text-gray-400' : 'text-muted'}`}>Aylık</span>
+          <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">{t.activeEmployeeTrendCard.weeklyBadge}</span>
+          <span className={`px-2.5 py-1 text-xs font-medium ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.activeEmployeeTrendCard.monthlyBadge}</span>
         </div>
       }
     >
-      <LineChart
-        data={ACTIVE_EMPLOYEE_TREND_DATA}
-        labels={ACTIVE_EMPLOYEE_TREND_WEEKS}
-        color="#FF0000"
-        dotFill={isDark ? '#1F2937' : '#ffffff'}
-      />
+      <LineChart data={ACTIVE_EMPLOYEE_TREND_DATA} labels={labels} color="#FF0000" dotFill={isDark ? '#1F2937' : '#ffffff'} />
     </WidgetCard>
   );
 }
@@ -2208,10 +2214,11 @@ function ActiveEmployeeTrendCard() {
 // deseniyle (`MiniTrendStatCard` yeniden kullanıldı, ikinci bir
 // component YAZILMADI).
 function DailyMovementsRow() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
     <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-      {DAILY_MOVEMENTS.map((stat) => (
-        <MiniTrendStatCard key={stat.label} {...stat} />
+      {DAILY_MOVEMENTS_STRUCTURE.map((stat, i) => (
+        <MiniTrendStatCard key={t.dailyMovements[i]} {...stat} label={t.dailyMovements[i]} />
       ))}
     </div>
   );
@@ -2223,25 +2230,34 @@ function DailyMovementsRow() {
 // haftanın verisi — içerik tekrarı değil, iki farklı görselleştirme
 // derinliği).
 function NewArrivalsCard() {
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = buildWeekDayLabelsAug(locale);
+  const data = labels.map((label, i) => ({ label, value: DAILY_MOVEMENTS_STRUCTURE[0].sparkline[i] }));
   return (
-    <WidgetCard title="Çalışan Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
-      <SimpleBarChart data={NEW_ARRIVALS_WEEK} />
+    <WidgetCard title={t.newArrivalsCard.title} subtitle={t.newArrivalsCard.subtitle}>
+      <SimpleBarChart data={data} />
     </WidgetCard>
   );
 }
 
 function LateArrivalsCard() {
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = buildWeekDayLabelsAug(locale);
+  const data = labels.map((label, i) => ({ label, value: DAILY_MOVEMENTS_STRUCTURE[1].sparkline[i] }));
   return (
-    <WidgetCard title="Çalışan Geç Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
-      <SimpleBarChart data={LATE_ARRIVALS_WEEK} />
+    <WidgetCard title={t.lateArrivalsCard.title} subtitle={t.lateArrivalsCard.subtitle}>
+      <SimpleBarChart data={data} />
     </WidgetCard>
   );
 }
 
 function DataAnalysisTab() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
     <div>
-      <SectionMiniHeader icon={BarChart3} title="Veri Analizi" />
+      <SectionMiniHeader icon={BarChart3} title={t.sectionTitle} />
       <div className="space-y-3">
         <DateRangeCard />
         <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">

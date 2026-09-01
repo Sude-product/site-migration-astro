@@ -2267,6 +2267,37 @@ hâlâ geçerli.)*
     ileri kaydırabilir).
     **Kalan sekmeler:** Veri Analizi + paylaşılan panel metinleri
     (sıradaki turlar).
+58. **TAMAMLANDI (2026-09-01, 7. tur) — "Veri Analizi" sekmesi 4 dilde
+    (EN/NL/IT/AZ) çevrildi — widget'ın 5 FONKSİYONEL sekmesinin TAMAMI
+    artık 5 dilde.** `getDataAnalysisLabels(locale)` eklendi (önceki
+    sekmelerle AYNI mimari — yapısal veri `DEPARTMENT_ABSENTEEISM_STRUCTURE`/
+    `DAILY_MOVEMENTS_STRUCTURE`/`ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE`'da
+    kaldı, render'da İNDEKS SIRASIYLA `t.departments`/`t.dailyMovements`
+    ile birleştiriliyor). Ay/gün etiketleri (Temmuz-Ağustos haftaları,
+    Ocak-Haziran trend ayları, 12-18 Ağustos günleri) ARTIK sabit dizi
+    DEĞİL — `{day, monthIndex}` yapısal çiftinden `MONTH_ABBREV[locale]`
+    ile TÜRETİLİYOR (Zaman/İzin/İK sekmelerinin AYNI ilkesi, #54'ün
+    sabit-tablo kuralına uyuyor — runtime `Intl` YOK). Çevrilen: "Tarih
+    Aralığı"/"Verileri Hesapla" (2 kullanım yeri), 6 departman adı (İK/
+    Satış/Operasyon/Finans/Üretim/Destek), "Departman Bazlı Devamsızlık
+    Oranı"/"Aylık Devamsızlık Trendi"/"Aktif Çalışan Sayısı Trendi"
+    (+"Haftalık"/"Aylık" rozetleri), 4 mini-hareket etiketi (Gelenler/
+    Geç Gelenler/Erken Çıkanlar/Devamsızlık — Zaman Yönetimi'nin
+    `miniStats`inden BİLİNÇLİ olarak FARKLI kelimeler, TR kaynağın kendi
+    ayrımı korundu), "Çalışan Gelenler/Geç Gelenler Sayısı" + "12–18
+    Ağustos 2026" tarih aralığı metni (tek literal string, tam ay adı
+    gerektirdiği için `MONTH_ABBREV`'den türetilmedi). Tarih SAYILARI
+    (`01.01.2026` gibi) ve para birimi/departman ROZET renkleri TÜM
+    locale'lerde AYNI kaldı (mockup verisi, önceki sekmelerin ilkesiyle
+    tutarlı). **Doğrulama:** `astro check` 0 hata, `astro build` 3097
+    sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi
+    hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Veri
+    Analizi sekmesinin HEM üst (Tarih Aralığı/Departman/Trend) HEM alt
+    (mini-hareketler/Gelenler/Geç Gelenler tam grafikleri) bölümleri
+    görsel doğrulandı. **Kalan iş:** yalnızca paylaşılan panel metinleri
+    (header'daki Kısayollar/Bildirimler/HRTECHTOOLS gibi Tier 2 dışı
+    kalan parçalar, bkz. Açık nokta #51'in orijinal kapsam notu) — widget
+    çevirisinin son adımı.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

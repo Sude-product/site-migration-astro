@@ -835,3 +835,114 @@ const PERFORMANCE_MANAGEMENT_LABELS: Partial<Record<Locale, PerformanceManagemen
 export function getPerformanceManagementLabels(locale: Locale): PerformanceManagementLabels {
   return PERFORMANCE_MANAGEMENT_LABELS[locale] ?? performanceManagementTr;
 }
+
+// --- "Veri Analizi" sekmesi — Tier 2 çevirileri (2026-09-01) ---
+
+export interface DataAnalysisLabels {
+  /** Tier 1'in `labels.veriAnalizi`siyle AYNI (`HumanResourcesLabels.sectionTitle`
+   * emsalinin aynısı) — ikinci bir kopya yerine burada da elle tutuluyor. */
+  sectionTitle: string;
+  recalculateButtonLabel: string;
+  dateRangeCard: { title: string; subtitle: string };
+  departmentAbsenteeismCard: { title: string; subtitle: string };
+  /** `DEPARTMENT_ABSENTEEISM_STRUCTURE` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  departments: [string, string, string, string, string, string];
+  absenteeismTrendCard: { title: string; subtitle: string };
+  activeEmployeeTrendCard: { title: string; subtitle: string; weeklyBadge: string; monthlyBadge: string };
+  /** `DAILY_MOVEMENTS_STRUCTURE` yapısal diziyle İNDEKS SIRASIYLA eşleşir. */
+  dailyMovements: [string, string, string, string];
+  newArrivalsCard: { title: string; subtitle: string };
+  lateArrivalsCard: { title: string; subtitle: string };
+}
+
+const dataAnalysisTr: DataAnalysisLabels = {
+  sectionTitle: 'Veri Analizi',
+  recalculateButtonLabel: 'Verileri Hesapla',
+  dateRangeCard: { title: 'Tarih Aralığı', subtitle: 'Analiz edilecek dönemi seçin' },
+  departmentAbsenteeismCard: { title: 'Departman Bazlı Devamsızlık Oranı', subtitle: 'Seçili dönem' },
+  departments: ['İK', 'Satış', 'Operasyon', 'Finans', 'Üretim', 'Destek'],
+  absenteeismTrendCard: { title: 'Aylık Devamsızlık Trendi', subtitle: 'Son 6 ay, %' },
+  activeEmployeeTrendCard: { title: 'Aktif Çalışan Sayısı Trendi', subtitle: 'Son 7 hafta', weeklyBadge: 'Haftalık', monthlyBadge: 'Aylık' },
+  dailyMovements: ['Gelenler', 'Geç Gelenler', 'Erken Çıkanlar', 'Devamsızlık'],
+  newArrivalsCard: { title: 'Çalışan Gelenler Sayısı', subtitle: '12–18 Ağustos 2026' },
+  lateArrivalsCard: { title: 'Çalışan Geç Gelenler Sayısı', subtitle: '12–18 Ağustos 2026' },
+};
+
+const dataAnalysisEn: DataAnalysisLabels = {
+  sectionTitle: 'Data Analysis',
+  recalculateButtonLabel: 'Calculate Data',
+  dateRangeCard: { title: 'Date Range', subtitle: 'Select the period to analyze' },
+  departmentAbsenteeismCard: { title: 'Absenteeism Rate by Department', subtitle: 'Selected period' },
+  departments: ['HR', 'Sales', 'Operations', 'Finance', 'Production', 'Support'],
+  absenteeismTrendCard: { title: 'Monthly Absenteeism Trend', subtitle: 'Last 6 months, %' },
+  activeEmployeeTrendCard: { title: 'Active Employee Count Trend', subtitle: 'Last 7 weeks', weeklyBadge: 'Weekly', monthlyBadge: 'Monthly' },
+  dailyMovements: ['Arrivals', 'Late Arrivals', 'Early Departures', 'Absenteeism'],
+  newArrivalsCard: { title: 'Employee Arrivals Count', subtitle: 'August 12–18, 2026' },
+  lateArrivalsCard: { title: 'Employee Late Arrivals Count', subtitle: 'August 12–18, 2026' },
+};
+
+const dataAnalysisNl: DataAnalysisLabels = {
+  sectionTitle: 'Data-analyse',
+  recalculateButtonLabel: 'Gegevens Berekenen',
+  dateRangeCard: { title: 'Datumbereik', subtitle: 'Selecteer de te analyseren periode' },
+  departmentAbsenteeismCard: { title: 'Verzuimpercentage per Afdeling', subtitle: 'Geselecteerde periode' },
+  departments: ['HR', 'Verkoop', 'Operaties', 'Financiën', 'Productie', 'Ondersteuning'],
+  absenteeismTrendCard: { title: 'Maandelijkse Verzuimtrend', subtitle: 'Laatste 6 maanden, %' },
+  activeEmployeeTrendCard: {
+    title: 'Trend Aantal Actieve Medewerkers',
+    subtitle: 'Laatste 7 weken',
+    weeklyBadge: 'Wekelijks',
+    monthlyBadge: 'Maandelijks',
+  },
+  dailyMovements: ['Aankomsten', 'Te Laat', 'Vroeg Vertrokken', 'Afwezigheid'],
+  newArrivalsCard: { title: 'Aantal Medewerkersaankomsten', subtitle: '12–18 augustus 2026' },
+  lateArrivalsCard: { title: 'Aantal Medewerkers Te Laat', subtitle: '12–18 augustus 2026' },
+};
+
+const dataAnalysisIt: DataAnalysisLabels = {
+  sectionTitle: 'Analisi dei Dati',
+  recalculateButtonLabel: 'Calcola Dati',
+  dateRangeCard: { title: 'Intervallo di Date', subtitle: 'Seleziona il periodo da analizzare' },
+  departmentAbsenteeismCard: { title: 'Tasso di Assenza per Reparto', subtitle: 'Periodo selezionato' },
+  departments: ['HR', 'Vendite', 'Operazioni', 'Finanza', 'Produzione', 'Supporto'],
+  absenteeismTrendCard: { title: 'Andamento Mensile delle Assenze', subtitle: 'Ultimi 6 mesi, %' },
+  activeEmployeeTrendCard: {
+    title: 'Andamento Numero Dipendenti Attivi',
+    subtitle: 'Ultime 7 settimane',
+    weeklyBadge: 'Settimanale',
+    monthlyBadge: 'Mensile',
+  },
+  dailyMovements: ['Arrivi', 'Ritardi', 'Uscite Anticipate', 'Assenza'],
+  newArrivalsCard: { title: 'Numero di Arrivi Dipendenti', subtitle: '12–18 agosto 2026' },
+  lateArrivalsCard: { title: 'Numero di Ritardi Dipendenti', subtitle: '12–18 agosto 2026' },
+};
+
+const dataAnalysisAz: DataAnalysisLabels = {
+  sectionTitle: 'Məlumat Analizi',
+  recalculateButtonLabel: 'Məlumatları Hesabla',
+  dateRangeCard: { title: 'Tarix Aralığı', subtitle: 'Analiz ediləcək dövrü seçin' },
+  departmentAbsenteeismCard: { title: 'Departament üzrə Davamsızlıq Nisbəti', subtitle: 'Seçilmiş dövr' },
+  departments: ['İK', 'Satış', 'Əməliyyat', 'Maliyyə', 'İstehsal', 'Dəstək'],
+  absenteeismTrendCard: { title: 'Aylıq Davamsızlıq Trendi', subtitle: 'Son 6 ay, %' },
+  activeEmployeeTrendCard: {
+    title: 'Aktiv İşçi Sayı Trendi',
+    subtitle: 'Son 7 həftə',
+    weeklyBadge: 'Həftəlik',
+    monthlyBadge: 'Aylıq',
+  },
+  dailyMovements: ['Gəlişlər', 'Gecikmələr', 'Erkən Çıxışlar', 'Davamsızlıq'],
+  newArrivalsCard: { title: 'İşçi Gəlişləri Sayı', subtitle: '12–18 avqust 2026' },
+  lateArrivalsCard: { title: 'İşçi Gecikmələri Sayı', subtitle: '12–18 avqust 2026' },
+};
+
+const DATA_ANALYSIS_LABELS: Partial<Record<Locale, DataAnalysisLabels>> = {
+  tr: dataAnalysisTr,
+  en: dataAnalysisEn,
+  nl: dataAnalysisNl,
+  it: dataAnalysisIt,
+  az: dataAnalysisAz,
+};
+
+export function getDataAnalysisLabels(locale: Locale): DataAnalysisLabels {
+  return DATA_ANALYSIS_LABELS[locale] ?? dataAnalysisTr;
+}
