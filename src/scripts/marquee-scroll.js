@@ -1,42 +1,18 @@
-// Marquee bar'ı scroll yönüne göre gösterip gizler (aşağı kaydırırken
-// gizlenir, yukarı kaydırırken/sayfanın en üstündeyken tekrar görünür).
+// Marquee bar'ı yalnızca sayfanın EN ÜSTÜNDEYKEN gösterir, en ufak bir
+// aşağı kaydırmada gizler — idenfit.com'un canlı davranışı budur (kullanıcı
+// isteği, 2026-09-01). Önceki sürüm scroll YÖNÜNE göre çalışıyordu (aşağı
+// kaydırınca gizlenip yukarı kaydırınca geri geliyordu) — bu davranış
+// KALDIRILDI, artık tek kural: `scrollY <= 0` mi değil mi.
 //
-// 2026-07-31 (5. tur) — bu özellik 4. turda TAMAMEN kaldırılmıştı (3 ayrı
-// düzeltme denemesi titremeyi gideremediği için, bkz. CLAUDE.md'nin o
-// günlüğü) ama kullanıcı marquee'nin GERÇEKTEN scroll'da gizlenmesini
-// istediğini netleştirdi — geri getirildi. Bu turda AYRICA bulunup
-// düzeltilen gerçek kök neden (`<header>`'ın `backdrop-blur`'ü, bkz.
-// Header.astro) artık kaldırılmış durumda — önceki 3 deneme SIRASINDA
-// backdrop-blur hâlâ vardı ve sticky+backdrop-filter+layout-değişikliği
-// üçlüsü asıl jank kaynağıydı. Playwright ile ÖLÇÜLDÜ (frame-timing,
-// yalnızca CLS değil): backdrop-blur olmadan aynı `grid-template-rows`
-// tekniği artık gerçek frame-drop/jank ÜRETMİYOR (bkz. CLAUDE.md günlüğü,
-// `scripts/verify-marquee-scroll.mjs`) — CLS'in kendisi (Web Vitals'ın
-// "ne kadar hareket etti" ölçümü) hâlâ sıfır değil çünkü bu KASITLI,
-// smooth bir animasyon (250ms, her frame'i zamanında teslim ediliyor) —
-// bu, "titreme" (dropped frame/jank) ile "beklenen görsel hareket" (CLS)
-// arasındaki farkı gösteriyor: ilki koddu, ikincisi doğal/beklenen.
-//
-// State/hysteresis mantığı (2026-07-31, önceki turdan korunan gerçek
-// bug düzeltmeleri):
-// - `isHidden` bayrağı: `setHidden()` hedef değer MEVCUT durumla aynıysa
-//   DOM'a hiç dokunmuyor (önceden sayfa en üstündeyken her scroll
-//   frame'inde aynı değer boşuna yeniden yazılıyordu).
-// - `MIN_TOGGLE_INTERVAL_MS` (250ms, geçiş süresiyle birebir): devam eden
-//   bir geçiş bitmeden yeni bir GERÇEK toggle'a izin verilmiyor — yarıda
-//   kesilen/tersine dönen bir geçiş görünür bir "sıçrama"ya yol açardı.
-//
-// EŞİK (12px): momentum/inertial scroll TEK bir "aşağı kaydırma"
-// hareketinde bile onlarca küçük (1-3px) scroll event'i üretebiliyor —
-// eşiksiz haliyle bar bunlara tepki verip arka arkaya aç/kapa yapardı.
-// `lastY` yalnızca eşiği aşan GERÇEK bir yön değişiminde güncelleniyor.
+// `grid-template-rows` geçiş tekniği (`Header.astro`'daki `#marquee-wrap`)
+// ve `<header>`'ın `backdrop-blur`'ünün kaldırılmış olması (2026-07-31'de
+// bulunan asıl jank kaynağı) aynen korunuyor — bu ikisi olmadan geçiş
+// titrerdi, bkz. `scripts/verify-marquee-scroll.mjs`.
 const wrap = document.getElementById('marquee-wrap');
 
 if (wrap) {
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const THRESHOLD = 12;
-  const MIN_TOGGLE_INTERVAL_MS = 250;
-  let lastY = window.scrollY;
+  const MIN_TOGGLE_INTERVAL_MS = 250; // geçiş süresiyle (250ms) birebir — yarıda kesilen bir geçiş görünür sıçramaya yol açar
   let ticking = false;
   let isHidden = false;
   let lastToggleAt = 0;
@@ -58,14 +34,7 @@ if (wrap) {
     if (ticking) return;
     ticking = true;
     requestAnimationFrame(() => {
-      const currentY = window.scrollY;
-      if (currentY <= 0) {
-        setHidden(false);
-        lastY = currentY;
-      } else if (Math.abs(currentY - lastY) > THRESHOLD) {
-        setHidden(currentY > lastY);
-        lastY = currentY;
-      }
+      setHidden(window.scrollY > 0);
       ticking = false;
     });
   };

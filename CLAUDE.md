@@ -2333,6 +2333,25 @@ hâlâ geçerli.)*
     **Sonuç: widget'ın TÜM içeriği (5 fonksiyonel sekme + paylaşılan
     header panelleri) artık 5 dilde** — bkz. `widget-i18n-progress.md`
     memory'sinin kapanış notu.
+60. **KAPANDI (2026-09-01) — Duyuru barı (marquee) artık idenfit.com'daki
+    GİBİ yalnızca sayfanın EN ÜSTÜNDEYKEN görünüyor.** Kullanıcı bulgusu:
+    önceki davranış scroll YÖNÜNE göreydi (aşağı kaydırınca gizlenip
+    yukarı kaydırınca — sayfanın ortasında bile olsa — geri geliyordu),
+    canlı sitede ise bar yalnızca `scrollY === 0` iken görünüyor, en ufak
+    bir aşağı kaydırmada kayboluyor ve YUKARI kaydırmakla GERİ GELMİYOR
+    (yalnızca sayfanın gerçek en üstüne dönünce). `src/scripts/marquee-scroll.js`
+    sadeleştirildi: `lastY`/`THRESHOLD`/yön karşılaştırması tamamen
+    kaldırıldı, tek kural `setHidden(window.scrollY > 0)`. Mevcut
+    debounce/dedupe altyapısı (`isHidden` state kontrolü,
+    `MIN_TOGGLE_INTERVAL_MS`=250ms, `grid-template-rows` geçiş tekniği)
+    AYNEN korundu — 2026-07-31'de bulunup düzeltilen asıl jank kaynağı
+    (`<header>`'ın `backdrop-blur`'ü) zaten kalıcı olarak kaldırılmıştı,
+    bu turda yalnızca GÖSTERME KURALI değişti. `astro build` temiz, 7
+    regresyon script'i (JSON-LD hariç, ilgisiz — saf JS davranış
+    değişikliği, HTML/içerik dokunulmadı) sıfır yeni sorun, Chrome'da
+    doğrulandı: sayfanın en üstünde görünür → 1 tık aşağı kaydırınca
+    kayboluyor → yukarı kaydırılıp sayfanın ortasında durulsa bile
+    GİZLİ kalıyor → yalnızca gerçek en üste dönülünce geri geliyor.
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
