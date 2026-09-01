@@ -393,6 +393,17 @@ export const tr: Translations = {
       text:
         'İdenfit, yüz tanıma ve parmak okuma cihazlarına entegre sistem sayesinde çalışanların kimlik doğrulaması gerçek zamanlı yapılabilir. Aynı zamanda giriş-çıkış ve mola süreleri takibi kolaylıkla yönetilebilir.',
     },
+    partners: {
+      title: 'Partnerlerimiz',
+      text: 'idenfit’in entegre çalıştığı güvenilir teknoloji ve iş ortakları.',
+      categories: {
+        turnstile: 'Turnike',
+        payroll: 'Bordro',
+        lms: 'LMS',
+        task: 'Görev Yönetimi',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Geliştirilebilir Çalışan Deneyimi',
       intro:

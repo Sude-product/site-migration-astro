@@ -388,6 +388,17 @@ export const en: Translations = {
       text:
         "With Idenfit's integration to face recognition and fingerprint devices, employee identity verification can be done in real-time. Entry-exit tracking and break times can also be managed with ease.",
     },
+    partners: {
+      title: 'Our Partners',
+      text: "The trusted technology and business partners idenfit integrates with.",
+      categories: {
+        turnstile: 'Turnstile',
+        payroll: 'Payroll',
+        lms: 'LMS',
+        task: 'Task Management',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Enhance Employee Experience',
       intro:

@@ -383,6 +383,17 @@ export const nl: Translations = {
       text:
         'Dankzij de integratie van Idenfit met gezichtsherkenning en vingerafdrukscanners kan de identiteit van medewerkers in realtime worden geverifieerd. Ook het bijhouden van in- en uitklokken tijdens shifts en pauzes kan eenvoudig beheerd worden.',
     },
+    partners: {
+      title: 'Onze Partners',
+      text: 'De betrouwbare technologie- en zakenpartners waarmee idenfit integreert.',
+      categories: {
+        turnstile: 'Draaipoort',
+        payroll: 'Salarisadministratie',
+        lms: 'LMS',
+        task: 'Taakbeheer',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Verbeter de werknemerservaring',
       intro:

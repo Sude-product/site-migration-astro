@@ -1,0 +1,44 @@
+---
+// "Partnerlerimiz" bölümü (2026-09-02, kullanıcı isteği) — `SupremaSection`'ın
+// (donanım entegrasyonu vurgusu) HEMEN ALTINDA, AYNI minimal marka-logosu-
+// satırı deseniyle (bkz. `HARDWARE_BRAND_LOGOS`/`SupremaSection.astro`) —
+// turnike/bordro/LMS/task/SSO kategorilerinde gerçek iş ortağı markaları.
+// Veri (logolar) `homeContent.ts`'teki `PARTNER_CATEGORIES`'te, dile bağlı
+// DEĞİL — yalnızca başlık/alt metin/kategori etiketleri `t.home.partners`'da.
+import { getTranslations } from '../i18n';
+import { PARTNER_CATEGORIES } from '../data/homeContent';
+import type { Locale } from '../data/nav';
+
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { partners } = t.home;
+---
+
+<section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+  <div class="mx-auto max-w-2xl text-center">
+    <h2 class="h2-section text-heading">{partners.title}</h2>
+    <p class="mt-4 text-lg text-body">{partners.text}</p>
+  </div>
+
+  <div class="reveal mt-10 flex flex-wrap items-start justify-center gap-x-12 gap-y-8">
+    {
+      PARTNER_CATEGORIES.map((category) => (
+        <div class="flex flex-col items-center gap-3">
+          <span class="text-xs font-semibold uppercase tracking-wide text-muted">{partners.categories[category.key]}</span>
+          <div class="flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
+            {category.logos.map((logo) => (
+              <img
+                src={logo.url}
+                alt={logo.name}
+                loading="lazy"
+                width={logo.width}
+                height={logo.height}
+                class="h-6 w-auto object-contain"
+              />
+            ))}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>

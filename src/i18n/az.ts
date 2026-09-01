@@ -379,6 +379,17 @@ export const az: Translations = {
       text:
         'idenfit, üz tanıma və barmaq oxuma cihazlarına inteqrasiya olunmuş sistem sayəsində işçilərin kimlik doğrulaması real zamanlı aparıla bilər. Eyni zamanda giriş-çıxış və fasilə vaxtlarının izlənməsi asanlıqla idarə oluna bilər.',
     },
+    partners: {
+      title: 'Partnyorlarımız',
+      text: 'idenfit-in inteqrasiya olunduğu etibarlı texnologiya və biznes tərəfdaşları.',
+      categories: {
+        turnstile: 'Turniket',
+        payroll: 'Əmək Haqqı',
+        lms: 'LMS',
+        task: 'Tapşırıq İdarəçiliyi',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'İnkişaf Etdirilə Bilən İşçi Təcrübəsi',
       intro:

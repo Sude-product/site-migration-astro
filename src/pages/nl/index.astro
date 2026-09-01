@@ -9,6 +9,7 @@ import VideoSection from '../../components/VideoSection.astro';
 import FeatureGrid from '../../components/FeatureGrid.astro';
 import EfficiencySection from '../../components/EfficiencySection.astro';
 import SupremaSection from '../../components/SupremaSection.astro';
+import PartnersSection from '../../components/PartnersSection.astro';
 import CertificationBadges from '../../components/CertificationBadges.astro';
 import HomeFaqSection from '../../components/HomeFaqSection.astro';
 import { getTranslations } from '../../i18n';
@@ -42,6 +43,7 @@ const metaDescription = truncateAtWord(t.hero.description);
 	<SectionDivider text={t.home.dividers.afterFeatures} />
 	<EfficiencySection />
 	<SupremaSection />
+	<PartnersSection />
 	<CertificationBadges />
 	<HomeFaqSection />
 	<script src="../../scripts/scroll-reveal.js"></script>

@@ -141,6 +141,70 @@ export const HARDWARE_BRAND_LOGOS: { name: string; url: string; width: number; h
   { name: 'Dahua', url: '/images/brand-dahua.svg', width: 77, height: 24 },
 ];
 
+export interface PartnerLogo {
+  name: string;
+  url: string;
+  width: number;
+  height: number;
+}
+
+export interface PartnerCategory {
+  /** `t.home.partners.categories`'in anahtarlarından biri. */
+  key: 'turnstile' | 'payroll' | 'lms' | 'task' | 'sso';
+  logos: PartnerLogo[];
+}
+
+// "Partnerlerimiz" bölümü (2026-09-02, kullanıcı isteği) — `SupremaSection`'ın
+// (donanım entegrasyonu) HEMEN ALTINDA, AYNI minimal marka-logosu-satırı
+// deseniyle (`HARDWARE_BRAND_LOGOS`). Her logo ilgili firmanın KENDİ resmi
+// web sitesinden indirildi (magic-byte doğrulaması yapıldı, hotlink YOK —
+// Görsel bağımlılık kuralı). Dile bağlı değil, `PARTNER_CATEGORIES` tüm
+// locale'lerde AYNI (yalnızca kategori ETİKETLERİ `t.home.partners.categories`'de
+// çevriliyor). `anzera.svg` kaynakta beyaz-dolgulu (koyu zemin için
+// tasarlanmış) — açık zeminde görünür olması için `#1A1A1A`'ya yeniden
+// renklendirildi (markanın ŞEKLİ/İÇERİĞİ değişmedi, yalnızca kontrast
+// düzeltmesi). `ozak.svg`nin görseli artık "CAME ÖZAK" (2023 satın alma
+// sonrası güncel marka adı) — kullanıcının istediği "ÖZAK" firmasının
+// GÜNCEL/gerçek logosu bu.
+export const PARTNER_CATEGORIES: PartnerCategory[] = [
+  {
+    key: 'turnstile',
+    logos: [
+      { name: 'Tansa', url: '/images/partners/tansa.png', width: 107, height: 60 },
+      { name: 'CAME ÖZAK', url: '/images/partners/ozak.png', width: 2508, height: 360 },
+    ],
+  },
+  {
+    key: 'payroll',
+    logos: [
+      { name: 'SAP', url: '/images/partners/sap.svg', width: 412, height: 204 },
+      { name: 'Oracle', url: '/images/partners/oracle.svg', width: 231, height: 30 },
+      { name: 'Mikro', url: '/images/partners/mikro.svg', width: 87, height: 46 },
+      { name: 'Logo', url: '/images/partners/logo-yazilim.svg', width: 93, height: 34 },
+      { name: 'Datassist', url: '/images/partners/datassist.png', width: 400, height: 68 },
+    ],
+  },
+  {
+    key: 'lms',
+    logos: [
+      { name: 'Anzera', url: '/images/partners/anzera.svg', width: 127, height: 30 },
+      { name: 'Enocta', url: '/images/partners/enocta.svg', width: 120, height: 74 },
+    ],
+  },
+  {
+    key: 'task',
+    logos: [{ name: 'Jira', url: '/images/partners/jira.svg', width: 124, height: 48 }],
+  },
+  {
+    key: 'sso',
+    logos: [
+      { name: 'Google', url: '/images/partners/google.svg', width: 75, height: 24 },
+      { name: 'Microsoft', url: '/images/partners/microsoft.png', width: 216, height: 46 },
+      { name: 'Amazon', url: '/images/partners/amazon.svg', width: 603, height: 182 },
+    ],
+  },
+];
+
 export const HOME_SUPREMA_IMAGE: Record<Locale, LocaleImage> = {
   tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
   en: { url: 'https://idenfit.com/wp-content/uploads/2025/09/temassiz-1-1024x996.webp', width: 1000, height: 973 },

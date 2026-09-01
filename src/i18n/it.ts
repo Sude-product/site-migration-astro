@@ -389,6 +389,17 @@ export const it: Translations = {
       text:
         "Grazie al sistema integrato con dispositivi di riconoscimento facciale e lettura delle impronte digitali, l'autenticazione dei dipendenti può essere effettuata in tempo reale. Allo stesso tempo, il monitoraggio di entrate, uscite e pause può essere gestito con facilità.",
     },
+    partners: {
+      title: 'I Nostri Partner',
+      text: 'I partner tecnologici e commerciali affidabili con cui idenfit si integra.',
+      categories: {
+        turnstile: 'Tornello',
+        payroll: 'Buste Paga',
+        lms: 'LMS',
+        task: 'Gestione Attività',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: "Miglioramento dell'Esperienza dei Dipendenti",
       intro:

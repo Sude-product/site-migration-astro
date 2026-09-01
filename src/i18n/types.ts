@@ -485,6 +485,24 @@ export interface HomeSupremaLabels {
   text: string;
 }
 
+/** "Partnerlerimiz" bölümü (2026-09-02, kullanıcı isteği) — anasayfada
+ * `SupremaSection`'ın (donanım entegrasyonu vurgusu) HEMEN ALTINDA,
+ * AYNI minimal marka-logosu-satırı deseniyle (bkz. `HARDWARE_BRAND_LOGOS`)
+ * — turnike/bordro/LMS/task/SSO kategorilerinde gerçek iş ortağı
+ * markaları. Logolar `src/data/homeContent.ts`'teki `PARTNER_CATEGORIES`'te
+ * (dile bağlı değil), yalnızca başlık/alt metin/kategori etiketleri burada. */
+export interface HomePartnersLabels {
+  title: string;
+  text: string;
+  categories: {
+    turnstile: string;
+    payroll: string;
+    lms: string;
+    task: string;
+    sso: string;
+  };
+}
+
 /** Tek bir testimonial'ın çevrilen metni (isim/fotoğraf gibi dile bağlı
  * olmayan alanlar `src/data/homeContent.ts`'de — `TESTIMONIAL_PEOPLE`). */
 export interface HomeTestimonialItemLabels {
@@ -566,6 +584,7 @@ export interface HomeLabels {
   efficiency: HomeEfficiencyLabels;
   panel: HomePanelLabels;
   suprema: HomeSupremaLabels;
+  partners: HomePartnersLabels;
   testimonials: HomeTestimonialsLabels;
   customerCarousel: HomeCustomerCarouselLabels;
   faq: HomeFaqLabels;
