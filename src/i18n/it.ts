@@ -214,7 +214,8 @@ export const it: Translations = {
       promo: {
         category: 'AZIENDALE',
         title: 'Conosci il team idenfit',
-        imageAlt: 'team idenfit',
+        description: 'Siamo al tuo fianco con soluzioni sicure, innovative e centrate sulle persone.',
+        imageAlt: 'illustrazione di soluzioni digitali sicure idenfit',
       },
     },
     kesfet: {

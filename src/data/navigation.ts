@@ -30,12 +30,16 @@ import { getHubSlug } from './hubContent';
 import { getFaqSlug } from './faqContent';
 import { getContactSlug, getGlobalBrandSlug, getAboutSlug } from './miscPagesContent';
 // KURUMSAL promo kartının görseli — kaynak sitede YOK, kullanıcının kendi
-// sağladığı görsel (2026-07-27, `C:\idenfit\idenfit-image.png`). Orijinal
-// 4,2 MB PNG'den `src/assets/kurumsal-promo-team.webp`'e (900px genişlik,
-// webp q82, ~28 KB) sharp ile elle optimize edilerek taşındı — proje
-// genelindeki hotlink edilmiş görsellerden FARKLI olarak yerel bir asset,
-// bu yüzden `astro:assets`/Vite'ın import pipeline'ından geçiyor.
-import kurumsalPromoImage from '../assets/kurumsal-promo-team.webp';
+// sağladığı görsel. **2026-09-02: değiştirildi** — eski "takım fotoğrafı"
+// (`kurumsal-promo-team.webp`, 2026-07-27) kullanıcının paylaştığı yeni bir
+// mockup'a (`kurumsalpanel.png`) göre güvenlik/dijital-çözüm temalı bir
+// illüstrasyona geçirildi. Kaynak PNG'nin sol kenarında yarım kalmış bir
+// dekoratif şekil parçası vardı (muhtemelen daha büyük bir kompozisyondan
+// kırpılmış) — `sharp` ile o dilim kesilip (`extract`, 32px'ten başlayarak)
+// temiz bir sol kenar elde edildi, sonra webp'e (q90, ~15 KB) dönüştürüldü.
+// Proje genelindeki hotlink edilmiş görsellerden FARKLI olarak yerel bir
+// asset, bu yüzden `astro:assets`/Vite'ın import pipeline'ından geçiyor.
+import kurumsalPromoImage from '../assets/kurumsal-promo-security.webp';
 
 /**
  * Sektör slug + i18n anahtar eşlemesi — tek kaynak. `buildMegaMenus()` (mega-menü
@@ -159,6 +163,9 @@ export interface ReportCard {
   /** Üstteki kategori etiketi (ör. "İK Trendleri"). */
   category: string;
   title: string;
+  /** Yalnızca KURUMSAL'ın promo kartında kullanılır (2026-09-02) — Raporlar
+   * kartlarında yok, gerçek görsel alan yok. */
+  description?: string;
   image: string;
   imageAlt: string;
   href: string;
@@ -466,6 +473,7 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
       promoCard: {
         category: mega.kurumsal.promo.category,
         title: mega.kurumsal.promo.title,
+        description: mega.kurumsal.promo.description,
         image: kurumsalPromoImage.src,
         imageAlt: mega.kurumsal.promo.imageAlt,
         href: aboutHref(),

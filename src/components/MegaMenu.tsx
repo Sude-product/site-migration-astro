@@ -6,6 +6,7 @@ import {
   FileDown,
   ChevronLeft,
   ChevronRight,
+  ArrowRight,
   Utensils,
   Briefcase,
   Plane,
@@ -132,6 +133,8 @@ export interface ResolvedSublistColumn {
 export interface ResolvedReportCard {
   category: string;
   title: string;
+  /** Yalnızca KURUMSAL'ın promo kartında kullanılır — Raporlar kartlarında yok. */
+  description?: string;
   image: string;
   imageAlt: string;
   href: string;
@@ -606,26 +609,35 @@ export default function MegaMenu({ label, intro, columns, promo, promoCard, isAc
             target={promoCardMode.card.external ? '_blank' : undefined}
             rel={promoCardMode.card.external ? 'noopener noreferrer' : undefined}
             role="menuitem"
-            className="group flex flex-1 flex-col overflow-hidden rounded-md border border-gray-100 bg-surface transition-colors hover:border-brand"
+            className="group flex flex-1 flex-col overflow-hidden rounded-2xl border border-gray-100 bg-surface transition-colors hover:border-brand"
           >
             <img
               src={promoCardMode.card.image}
               alt={promoCardMode.card.imageAlt}
               loading="lazy"
-              /* Sabit `h-24` + `object-cover`, görselin gerçek oranından
-                 (900×809, ~1.11:1) çok daha geniş/kısa bir kutuya sığdırmaya
-                 çalışıyordu — bu da üstten/alttan ağır kırpmaya yol açıyordu
-                 (2026-07-27 kullanıcı bulgusu). Kutunun `aspect-ratio`'su
-                 görselin gerçek oranıyla birebir eşleştirilip `object-contain`
-                 kullanıldı — kırpma yok, boşluk da yok (oranlar eşit). */
-              className="aspect-[900/809] w-full object-contain"
+              /* 2026-09-02: kullanıcının paylaştığı yeni mockup'a göre görsel
+                 değişti (takım fotoğrafından güvenlik illüstrasyonuna) —
+                 görselin GERÇEK oranı (524×645, kırpılmış kaynak) dikey
+                 olarak fazla uzun duruyordu (kullanıcı bulgusu, aynı gün) —
+                 kutu bilinçli olarak `aspect-square`'e sabitlendi, `object-contain`
+                 içeriği kırpmadan sığdırıyor (üstte/altta ince bir boşluk
+                 oluşuyor, kabul edilebilir — kırpmadan daha güvenli). */
+              className="aspect-square w-full bg-surface object-contain p-2"
             />
-            <span className="flex flex-col gap-1 p-3">
+            <span className="flex flex-col gap-1 border-t border-gray-100 p-3">
               <span className="text-[10px] font-bold uppercase tracking-wide text-brand">
                 {promoCardMode.card.category}
               </span>
               <span className="text-xs font-bold leading-snug text-heading transition-colors group-hover:text-brand">
                 {promoCardMode.card.title}
+              </span>
+              {promoCardMode.card.description && (
+                <span className="mt-0.5 text-[11px] leading-relaxed text-muted">
+                  {promoCardMode.card.description}
+                </span>
+              )}
+              <span className="mt-1 flex h-7 w-7 items-center justify-center self-end rounded-full bg-brand text-white transition-transform group-hover:translate-x-0.5">
+                <ArrowRight size={14} aria-hidden="true" />
               </span>
             </span>
           </a>

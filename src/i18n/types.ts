@@ -308,6 +308,9 @@ export interface MegaKurumsalLabels {
 export interface MegaKesfetReportItem {
   category: string;
   title: string;
+  /** Yalnızca KURUMSAL'ın promo kartında kullanılır (2026-09-02) — Raporlar
+   * kartlarında (KEŞFET) gerçek görsel alan yok, doldurulmuyor. */
+  description?: string;
   imageAlt: string;
 }
 

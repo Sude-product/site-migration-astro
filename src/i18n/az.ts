@@ -204,7 +204,8 @@ export const az: Translations = {
       promo: {
         category: 'KORPORATİV',
         title: 'idenfit Ailəsi ilə Tanış Olun',
-        imageAlt: 'idenfit komandası',
+        description: 'Təhlükəsiz, innovativ və insan mərkəzli həllərlə yanınızdayıq.',
+        imageAlt: 'idenfit təhlükəsiz rəqəmsal həllər illüstrasiyası',
       },
     },
     kesfet: {

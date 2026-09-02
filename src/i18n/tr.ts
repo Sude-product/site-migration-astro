@@ -212,7 +212,8 @@ export const tr: Translations = {
       promo: {
         category: 'KURUMSAL',
         title: 'idenfit Ailesiyle Tanışın',
-        imageAlt: 'idenfit ekibi',
+        description: 'Güvenli, yenilikçi ve insan odaklı çözümlerle yanınızdayız.',
+        imageAlt: 'idenfit güvenli dijital çözümler illüstrasyonu',
       },
     },
     kesfet: {

@@ -208,7 +208,8 @@ export const nl: Translations = {
       promo: {
         category: 'ZAKELIJK',
         title: 'Maak kennis met het idenfit-team',
-        imageAlt: 'idenfit-team',
+        description: 'Wij staan naast u met veilige, innovatieve en mensgerichte oplossingen.',
+        imageAlt: 'idenfit illustratie van veilige digitale oplossingen',
       },
     },
     kesfet: {

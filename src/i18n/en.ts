@@ -208,7 +208,8 @@ export const en: Translations = {
       promo: {
         category: 'CORPORATE',
         title: 'Meet the idenfit Team',
-        imageAlt: 'idenfit team',
+        description: "We're by your side with secure, innovative, and people-first solutions.",
+        imageAlt: 'idenfit secure digital solutions illustration',
       },
     },
     kesfet: {
