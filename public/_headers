@@ -23,10 +23,12 @@
 # 'unsafe-inline' kaldırılabilir — Report-Only testi sonrası ayrı bir
 # sıkılaştırma turu olarak ele alınmalı.
 #
-# BİLİNÇLİ AÇIK NOKTA: img-src'e https://idenfit.com eklendi çünkü ~307
-# sayfa hâlâ eski WP sunucusundan görsel/PDF hotlink'i taşıyor (CLAUDE.md
-# Açık nokta #45, henüz kapatılmadı). Bu madde kapandığında img-src'ten
-# bu domain kaldırılmalı.
+# img-src'ten https://idenfit.com KALDIRILDI (2026-09-02, Açık nokta #45
+# kapandıktan SONRA) — o izin yalnızca ~307 sayfanın eski WP sunucusundan
+# hotlink taşıdığı GEÇİCİ bir açık nokta istisnasıydı; şimdi TÜM görseller
+# `public/wp-content/...`e yerelleştirildiği için (bkz. CLAUDE.md Açık
+# nokta #45, `audit-remote-hotlinks.mjs` ile 0 kalan referans doğrulandı)
+# bu izin gereksiz — kaldırılması saldırı yüzeyini daraltıyor.
 #
 # public/admin/ (eski Decap CMS kabuğu, unpkg.com'dan script yüklüyor)
 # Keystatic Cloud'a geçişten SONRA (2026-08-28) kullanılmıyor ama hâlâ
@@ -40,7 +42,7 @@
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com; object-src 'none'; base-uri 'self'; form-action 'self'
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com; object-src 'none'; base-uri 'self'; form-action 'self'
 
 # Keystatic Cloud admin paneli — genel siteden TAMAMEN farklı ihtiyaçları
 # var (OAuth/GitHub/keystatic.cloud API + canlı işbirliği websocket'i).

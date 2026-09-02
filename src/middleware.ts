@@ -22,8 +22,15 @@ import type { MiddlewareHandler } from 'astro';
 // yorumu) — style-src/font-src'te fonts.googleapis.com/fonts.gstatic.com'a
 // artık gerek yok, font-src 'self' yeterli (Keystatic'in KENDİ font
 // yüklemesi ayrı, KEYSTATIC_CSP'ye dokunulmadı).
+//
+// img-src'ten https://idenfit.com KALDIRILDI (2026-09-02, Açık nokta #45
+// kapandıktan SONRA) — o izin yalnızca ~307 sayfanın eski WP sunucusundan
+// hotlink taşıdığı GEÇİCİ bir açık nokta istisnasıydı; şimdi TÜM görseller
+// `public/wp-content/...`e yerelleştirildiği için (bkz. CLAUDE.md Açık
+// nokta #45, `audit-remote-hotlinks.mjs` ile 0 kalan referans doğrulandı)
+// bu izin gereksiz — kaldırılması saldırı yüzeyini daraltıyor.
 const PUBLIC_CSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://idenfit.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com; object-src 'none'; base-uri 'self'; form-action 'self'";
+  "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.youtube.com https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com; frame-src https://www.youtube.com; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com; object-src 'none'; base-uri 'self'; form-action 'self'";
 
 const KEYSTATIC_CSP =
   "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com";
