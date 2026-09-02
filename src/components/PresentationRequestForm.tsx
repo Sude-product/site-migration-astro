@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import PhoneCountrySelect from './PhoneCountrySelect.tsx';
 import {
   formatPhoneDigits,
@@ -64,6 +64,18 @@ export default function PresentationRequestForm({
   const [data, setData] = useState<FormData>(EMPTY);
   const [country, setCountry] = useState<CountryPhoneDef>(() => getDefaultCountryForLocale(locale));
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+
+  // Ana sayfanın tek-alanlı hero formu (`HeroEmailCaptureForm.astro`) e-postayı
+  // GET ile `?email=...` query string'inde bu sayfaya taşıyor — kullanıcı
+  // aynı e-postayı burada TEKRAR yazmasın diye otomatik dolduruluyor
+  // (`HeroForm.tsx`'in eski `prefillEmailFromQuery` prop'uyla AYNI ilke,
+  // 2026-08-29 yeniden tasarımda bu form eskisinin yerini alınca gözden
+  // kaçmıştı). `useEffect` ile yalnızca CLIENT'ta okunuyor (SSR'da `window`
+  // yok) — ilk boyama her zaman EMPTY, e-posta bir sonraki an dolduruluyor.
+  useEffect(() => {
+    const email = new URLSearchParams(window.location.search).get('email');
+    if (email) setData((d) => ({ ...d, email }));
+  }, []);
 
   const update = (field: 'email' | 'company' | 'fullName') => (e: React.ChangeEvent<HTMLInputElement>) =>
     setData((d) => ({ ...d, [field]: e.target.value }));
