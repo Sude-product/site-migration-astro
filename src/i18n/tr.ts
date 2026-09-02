@@ -5,6 +5,8 @@ export const tr: Translations = {
   common: {
     lastUpdated: 'Son güncelleme',
     home: 'Ana Sayfa',
+    formSubmitting: 'Gönderiliyor…',
+    formSubmitError: 'Bir şeyler ters gitti, lütfen birazdan tekrar deneyin.',
   },
   nav: {
     products: 'ÜRÜNLER',

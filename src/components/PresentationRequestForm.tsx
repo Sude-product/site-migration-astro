@@ -9,6 +9,7 @@ import {
 } from '../data/phoneCountries';
 import type { Locale } from '../data/nav';
 import type { KvkkNoticeLabels } from '../i18n/types';
+import { submitLead } from '../data/formLead';
 
 interface FormData {
   email: string;
@@ -43,15 +44,18 @@ export interface PresentationRequestFormProps {
    * (`getThankYouLocaleUrls()`'ten). */
   redirectHref: string;
   idPrefix?: string;
+  /** Gönderim SIRASINDA/BAŞARISIZ olunca gösterilen paylaşılan metinler
+   * (bkz. `src/data/formLead.ts`, `Translations.common`). */
+  common: { formSubmitting: string; formSubmitError: string };
 }
 
 // Online Sunum Talebi formu (2026-08-29 yeniden tasarım) — 2 adım: Adım 1
 // (e-posta + firma adı) → Adım 2 (telefon + ad soyad). `LandingRequestForm.tsx`
 // ile AYNI iskelet/telefon doğrulama mantığı (`phoneCountries.ts`), yalnızca
-// alan GRUBU ve sırası farklı (kullanıcı talimatı, 2026-08-29). Gerçek
-// backend YOK (Faz 2 TODO) — `LandingRequestForm.tsx`'in KENDİSİNİN zaten
-// kullandığı AYNI dürüst desen: veriyi `console.log`'la, mevcut/genel
-// teşekkür sayfasına yönlendir (yeni bir "başarılı" iması UYDURULMADI).
+// alan GRUBU ve sırası farklı (kullanıcı talimatı, 2026-08-29). Gönderim
+// (2026-09-02, Açık nokta #2) — `LandingRequestForm.tsx`'in KENDİSİNİN
+// zaten kullandığı AYNI desen: `submitLead()` ile `/api/lead`'e POST,
+// başarılıysa `redirectHref`'e (per-locale "Teşekkürler") yönlendirir.
 export default function PresentationRequestForm({
   labels,
   kvkkHref,
@@ -59,11 +63,14 @@ export default function PresentationRequestForm({
   locale,
   redirectHref,
   idPrefix = 'presentation',
+  common,
 }: PresentationRequestFormProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [data, setData] = useState<FormData>(EMPTY);
   const [country, setCountry] = useState<CountryPhoneDef>(() => getDefaultCountryForLocale(locale));
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   // Ana sayfanın tek-alanlı hero formu (`HeroEmailCaptureForm.astro`) e-postayı
   // GET ile `?email=...` query string'inde bu sayfaya taşıyor — kullanıcı
@@ -92,7 +99,7 @@ export default function PresentationRequestForm({
   const phoneValid = isValidPhoneForCountry(data.phone, country);
   const showPhoneError = attemptedSubmit && !phoneValid;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (step === 1) {
       setStep(2);
@@ -100,7 +107,21 @@ export default function PresentationRequestForm({
     }
     setAttemptedSubmit(true);
     if (!phoneValid) return;
-    console.log('Online Sunum Talebi formu gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
+    setSubmitError(false);
+    setSubmitting(true);
+    const result = await submitLead({
+      formType: 'presentation',
+      locale,
+      email: data.email,
+      company: data.company,
+      phone: `+${country.dialCode}${data.phone}`,
+      fullName: data.fullName,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(true);
+      return;
+    }
     window.location.href = redirectHref;
   };
 
@@ -202,9 +223,19 @@ export default function PresentationRequestForm({
         </>
       )}
 
-      <button type="submit" className="btn-cta btn-cta-form w-full px-6 py-3">
-        {step === 1 ? labels.next : labels.submit}
+      <button
+        type="submit"
+        disabled={submitting}
+        className={`btn-cta btn-cta-form w-full px-6 py-3 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
+      >
+        {submitting ? common.formSubmitting : step === 1 ? labels.next : labels.submit}
       </button>
+
+      {submitError && (
+        <p role="alert" className="text-sm font-medium text-red-600">
+          {common.formSubmitError}
+        </p>
+      )}
 
       {step === 2 && (
         <button

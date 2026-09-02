@@ -6,6 +6,8 @@ export const az: Translations = {
   common: {
     lastUpdated: 'Son yenilənmə',
     home: 'Əsas səhifə',
+    formSubmitting: 'Göndərilir…',
+    formSubmitError: 'Nəsə səhv getdi — bir azdan yenidən cəhd edin.',
   },
   nav: {
     products: 'MƏHSULLAR',

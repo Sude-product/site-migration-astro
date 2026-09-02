@@ -183,10 +183,12 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
         <HeroForm
           client:visible
           idPrefix="contact"
+          formType="contact"
           showMessage
           layout="grid"
           submitStyle="green"
           redirectHref={thankYouHref}
+          common={t.common}
           labels={{
             name: t.hero.formName,
             phone: t.hero.formPhone,

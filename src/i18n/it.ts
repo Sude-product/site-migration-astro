@@ -4,6 +4,8 @@ export const it: Translations = {
   common: {
     lastUpdated: 'Ultimo aggiornamento',
     home: 'Home',
+    formSubmitting: 'Invio in corso…',
+    formSubmitError: 'Qualcosa è andato storto — riprova tra poco.',
   },
   nav: {
     products: 'PRODOTTI',

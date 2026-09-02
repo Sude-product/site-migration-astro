@@ -17,6 +17,7 @@ import {
 } from './icons/MaturityAreaIcons';
 import { ScoreBadgeIcon, InsightIcon, ApprovedReportIcon, RoadmapIcon } from './icons/ChecklistIcons';
 import { MaturityScoreIcon, CategoryAnalysisIcon, RiskAnalysisIcon, RoadmapResultIcon } from './icons/ResultCardIcons';
+import { submitLead } from '../data/formLead';
 
 // Dijital İK Olgunluk Testi — kaynağın 3 AYRI sayfa + sessionStorage'a
 // dayanan akışının (bkz. maturityTestDefinitions.ts başındaki not) temiz,
@@ -624,24 +625,42 @@ const EMAIL_PATTERN = /\S+@\S+\.\S+/;
 
 // "Detaylı raporu e-postama gönder" — kaynakta bu buton `/wp-json/hr-maturity/generate`
 // adlı özel bir WP REST endpoint'ine POST atıp dönen URL'de bir PDF açıyordu
-// (bkz. CLAUDE.md TODO #12). Bizim tarafımızda bu backend henüz yok — bu yüzden
-// GERÇEK bir rapor/e-posta göndermiyoruz (yanlış bir başarı iması olmasın diye),
-// yalnızca kullanıcının niyetini kaydedip (`console.log`, `HeroForm`'un backend'siz
-// hâliyle AYNI ilke) siteye zaten var olan genel Teşekkürler sayfasına
-// yönlendiriyoruz (`/tesekkurler/`, "size en kısa sürede ulaşacağız" gibi
-// gerçek bir e-posta gönderimi iddia ETMEYEN genel bir mesaj — kullanıcı
-// onayıyla, yeni/özel bir sayfa yerine bu mevcut sayfa yeniden kullanıldı).
+// (bkz. CLAUDE.md TODO #12). Bizim tarafımızda hâlâ o özel PDF-üretim
+// backend'i YOK, ama gönderim artık GERÇEK (2026-09-02, Açık nokta #2)
+// — `src/data/formLead.ts`'in `submitLead()`'i ile `/api/lead`'e (SendGrid
+// üzerinden idenfit ekibine bildirim) POST atılıyor, skor/kategori
+// detayları da gövdeye ekleniyor. Başarılıysa siteye zaten var olan genel
+// Teşekkürler sayfasına yönlendiriyoruz (`/tesekkurler/`) — bu bileşen
+// TR-only (kaynak tamamen Türkçe hardcoded, i18n'e bağlı değil), bu yüzden
+// hata/yükleniyor metinleri de burada doğrudan Türkçe.
 function EmailReportForm({ result }: { result: MaturityResult }) {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
+  const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!EMAIL_PATTERN.test(email)) {
       setError('Geçerli bir e-posta adresi giriniz.');
       return;
     }
-    console.log('HR Maturity Test — rapor talebi:', { email, result });
+    setError('');
+    setSubmitting(true);
+    const submitResult = await submitLead({
+      formType: 'hrMaturityReport',
+      locale: 'tr',
+      email,
+      maturityResult: {
+        totalScore: result.totalScore,
+        levelTitle: result.level.title,
+        categoryScores: result.categoryScores,
+      },
+    });
+    setSubmitting(false);
+    if (!submitResult.ok) {
+      setError('Bir şeyler ters gitti, lütfen birazdan tekrar deneyin.');
+      return;
+    }
     window.location.href = '/tesekkurler/';
   };
 
@@ -662,12 +681,17 @@ function EmailReportForm({ result }: { result: MaturityResult }) {
         />
         <button
           type="submit"
-          className="shrink-0 rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
+          disabled={submitting}
+          className={`shrink-0 rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
         >
-          Gönder
+          {submitting ? 'Gönderiliyor…' : 'Gönder'}
         </button>
       </form>
-      {error && <p className="mt-2 text-xs text-brand">{error}</p>}
+      {error && (
+        <p role="alert" className="mt-2 text-xs text-brand">
+          {error}
+        </p>
+      )}
     </div>
   );
 }

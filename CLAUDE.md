@@ -1285,12 +1285,13 @@ hâlâ geçerli.)*
    ekiple görüşülüp netleşmeyi bekliyor; şimdilik üretilmiyor.
    **İstisna:** Online Sunum Talebi'nin NL versiyonu kullanıcının açık
    talimatıyla eklendi (`PRESENTATION_NL_OVERRIDE`).
-2. **GENİŞLETİLDİ (2026-08-30) — Faz 2 backend yok, 6 form etkileniyor,
-   +KVKK hukuki risk notu.** Bu maddenin eski/eksik hali yalnızca Hero
-   formu + HR Maturity Test'ten bahsediyordu — tam liste + KVKK onay
-   metniyle çelişen hukuki risk notu artık CLAUDE.md'de "## Deployment"
-   bölümünün HEMEN ÜSTÜNDEKİ "🔶 AÇIK NOKTA (2026-08-30)" bloğunda
-   kayıtlı, bkz. orası. Kod değişikliği HENÜZ YAPILMADI.
+2. **İSKELET TAMAMLANDI (2026-09-02) — kod hazır, yalnızca SendGrid
+   anahtarı bekleniyor.** Eski durum (backend yok, 6 form etkileniyor,
+   KVKK hukuki risk notu) artık CLAUDE.md'deki "🔶 AÇIK NOKTA (2026-08-30)"
+   bloğunda GÜNCEL haliyle kayıtlı, bkz. orası (bu blok kapatılmadı,
+   yalnızca güncellendi — anahtar gelene kadar hukuki risk notu hâlâ
+   TEKNİK olarak geçerli, formlar hâlâ hiçbir yere gerçek e-posta
+   göndermiyor, yalnızca artık DOĞRU bir hata mesajı gösteriyorlar).
 6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
 8. Puantaj modülünün gerçek YouTube `video_url`'i var ama bilinçli
    olarak embed edilmedi.
@@ -1916,12 +1917,12 @@ hâlâ geçerli.)*
        ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
        sıfırdan başlar.
     Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
-47. **HATIRLATMA — yukarıdaki "🔶 AÇIK NOKTA (2026-08-30)" bloğundaki 5
-    form dosyasının `console.log`'u backend bağlanırken kaldırılmalı.**
-    Ad/e-posta/telefon gibi kişisel veri şu an yalnızca tarayıcı
-    konsoluna yazılıyor (hiçbir yere gönderilmiyor/saklanmıyor) — bkz. o
-    bölümdeki tam dosya listesi/tablo ve KVKK tutarsızlığı notu. `[ ]
-    Backend bağlanırken bu satırları kaldır.`
+47. **KAPANDI (2026-09-02) — 5 form dosyasının `console.log`'u kaldırıldı,
+    gerçek `/api/lead` backend'ine bağlandı.** Ad/e-posta/telefon artık
+    tarayıcı konsoluna yazılmıyor — SendGrid anahtarı gelene kadar hâlâ
+    hiçbir yere GÖNDERİLMİYOR ama en azından artık DENENİYOR ve
+    başarısızlık kullanıcıya dürüstçe gösteriliyor (bkz. yukarıdaki
+    "🔶 AÇIK NOKTA" bloğunun güncel hali).
 48. **YENİ (2026-08-31) — Görsel optimizasyonu (`astro:assets`/`<Image>`),
     kesin SIRALAMA kararı verildi, henüz başlanmadı.** Bir denetim
     bulgusu "60 raw `<img>`, format/srcset/CLS optimizasyonu yok" dedi —
@@ -3606,9 +3607,55 @@ olsun olmasın) `npm run dev:clean` ile yeniden başlatın. Üretim build
 testi (`astro build`) sonrası dev server'a dönerken de aynı komut
 kullanılabilir (`dist/` çıktısını da temizler).
 
-## 🔶 AÇIK NOKTA (2026-08-30) — Sitedeki 6 form da backend'siz `console.log`
-stub'ı, ayrıca KVKK onay metniyle çelişen bir hukuki risk taşıyor. Kod
-değişikliği HENÜZ YAPILMADI — 2 gün sonra ele alınacak.
+## 🔶 AÇIK NOKTA (2026-08-30, 2026-09-02'de GÜNCELLENDİ) — Sitedeki 6 form
+artık gerçek bir backend'e BAĞLI (kod tarafı tamam) ama SendGrid API
+anahtarı HENÜZ YOK — bu yüzden pratikte hâlâ hiçbir e-posta göndermiyorlar,
+yalnızca artık `console.log` yerine DÜRÜST bir hata mesajı gösteriyorlar.
+
+**2026-09-02'de yapılan hazırlık (Açık nokta #2):**
+- Yeni `src/pages/api/lead.ts` (`prerender:false`, gerçek SSR route) — 6
+  formun TAMAMININ ortak varış noktası. Doğrulama, e-posta içeriği
+  oluşturma, hata kodları TAM ve çalışır durumda; SendGrid'e gerçek
+  istek yalnızca `SENDGRID_API_KEY` (+`SENDGRID_FROM_EMAIL`+
+  `LEAD_NOTIFICATION_EMAIL`) tanımlıysa atılıyor, tanımlı DEĞİLSE 503
+  dönüyor (sahte bir "başarılı" görüntüsü YARATILMIYOR).
+- Cloudflare Workers runtime'ında Node'un `@sendgrid/mail` SDK'sı DEĞİL,
+  SendGrid'in v3 REST API'sine doğrudan `fetch()` (yeni bir npm
+  bağımlılığı eklenmedi). Env erişimi `Astro.locals.runtime.env` DEĞİL
+  (bu adapter sürümünde — `^14.2.5` — KALDIRILMIŞ) — `import { env } from
+  'cloudflare:workers'` (adapter'ın kendisinin de kullandığı güncel
+  resmi desen, `npx astro check` ile bulunup düzeltildi). Yerel
+  geliştirme için `.dev.vars.example` şablonu + `.gitignore`'a `.dev.vars`
+  eklendi.
+- Yeni paylaşılan `src/data/formLead.ts` (`submitLead()`) — 6 formun
+  TAMAMI aynı `fetch()` mantığını tekrar YAZMIYOR, bunu çağırıyor.
+- 5 form component'i (`HeroForm.tsx` [Hero+İletişim ikisi de],
+  `LandingRequestForm.tsx`, `SupportRequestForm.tsx`,
+  `PresentationRequestForm.tsx`, `HrMaturityTest.tsx`'in
+  `EmailReportForm`'u) `console.log` çağrıları kaldırılıp gerçek
+  `submitLead()` ile bağlandı — gönderim sırasında buton devre dışı +
+  "Gönderiliyor…" metni, başarısız olunca GERÇEK bir hata mesajı
+  (`common.formSubmitError`, yeni `Translations.common` alanı, 5 dilin
+  hepsinde çevrildi). `SupportRequestForm.tsx` daha önce hiçbir yere
+  yönlendirmiyordu (gerçek bir eksiklik) — artık `redirectHref` prop'u
+  eklenip zaten VAR olan ama hiç bağlanmamış `SupportThankYouPage.astro`'ya
+  bağlandı.
+- reCAPTCHA v3 İSKELETİ: sunucu tarafı `verifyRecaptcha()` tam yazıldı
+  (secret yoksa doğrulama atlanır, form akışı bozulmaz) — istemci tarafı
+  widget'ı BİLİNÇLİ olarak eklenmedi (site key yok, CSP'ye
+  `google.com/recaptcha`/`gstatic.com` eklemenin faydası yok), token her
+  zaman `null` gönderiliyor. Site key gelince: (1) widget yükle,
+  `grecaptcha.execute()` sonucu `submitLead()`'e geçir, (2) CSP'ye
+  `recaptcha`/`gstatic` domain'lerini ekle — ikisi de `lead.ts`'in kendi
+  yorumunda adım adım yazılı.
+- **Doğrulama:** `astro build` + `npx astro check` (0 hata) temiz, 8/9
+  regresyon script'i sıfır sorun (aynı ilgisiz heading-hierarchy taban
+  çizgisi), gerçek tarayıcıda İletişim formu dolduruldu/gönderildi —
+  gerçek `POST /api/lead` isteği (503, anahtar yok) + kullanıcıya gerçek
+  hata mesajı gösterildiği doğrulandı.
+- **SendGrid anahtarı gelince yapılacak TEK şey:** `.dev.vars`/Cloudflare
+  Pages'e `SENDGRID_API_KEY`/`SENDGRID_FROM_EMAIL`/`LEAD_NOTIFICATION_EMAIL`
+  yazmak — kod DEĞİŞMEYECEK.
 
 Açık nokta #2'nin ("Faz 2 backend yok") eski, eksik listesi
 (yalnızca Hero formu + HR Maturity Test'ten bahsediyordu) bu turda tam
@@ -3637,16 +3684,19 @@ sunulurken, o onayın konu ettiği veri işleme fiilen HİÇ gerçekleşmiyor
 TUTARSIZLIK var. (Bu bir hukuki görüş DEĞİL, yalnızca kod davranışının
 tespitidir — nihai değerlendirme için hukuk danışmanına başvurulmalı.)
 
-**Kapsam netliği:** Bu madde yalnızca KAYDA GEÇİRİLDİ, hiçbir form/
-metin/backend değişikliği yapılmadı. Faz 2'de (aşağıdaki plan) ele
-alınacak — kullanıcı "2 gün sonra" (tahmini 2026-09-01) bu işe
-başlanacağını belirtti.
+**GÜNCELLEME (2026-09-02):** Yukarıdaki tablodaki TÜM `console.log(...)`
+çağrıları kaldırıldı, 5 form component'i gerçek `submitLead()`/`/api/lead`
+akışına bağlandı — bkz. yukarıdaki güncel özet. Bu madde SendGrid
+anahtarı gelip gerçek e-posta gönderimi doğrulanana kadar açık kalıyor.
 
-**TODO:**
-- [ ] Backend bağlanırken bu satırları kaldır (yukarıdaki tablodaki 5
-      dosyanın `console.log(...)` çağrıları — Ad/e-posta/telefon artık
-      gerçek bir backend'e gönderileceği için tarayıcı konsoluna
-      basılmamalı).
+**TODO (kalan, yalnızca anahtar gelince):**
+- [ ] `.dev.vars`/Cloudflare Pages env değişkenlerine
+      `SENDGRID_API_KEY`/`SENDGRID_FROM_EMAIL`/`LEAD_NOTIFICATION_EMAIL`
+      yazılacak.
+- [ ] Gerçek bir uçtan uca test: bir form gönderilip idenfit'in
+      `LEAD_NOTIFICATION_EMAIL` kutusuna e-posta düştüğü doğrulanacak.
+- [ ] reCAPTCHA site key alınırsa, istemci widget'ı + CSP güncellemesi
+      (bkz. `lead.ts`'teki `verifyRecaptcha()` yorumundaki adım adım not).
 
 ---
 

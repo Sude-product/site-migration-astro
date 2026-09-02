@@ -9,6 +9,7 @@ import {
 } from '../data/phoneCountries';
 import { buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
+import { submitLead } from '../data/formLead';
 
 interface FormData {
   fullName: string;
@@ -109,13 +110,10 @@ export interface HeroFormProps {
    * case kalıyor, `uppercase` CSS ile uygulanıyor, `presentation`
    * varyantının placeholder-uppercase deseniyle AYNI ilke). */
   submitStyle?: 'default' | 'green';
-  /** Verilirse, GEÇERLİ bir submit sonrası (telefon doğrulaması geçti)
-   * kullanıcı bu URL'e yönlendirilir (2026-08-11, KARAR). ⚠️ Faz 2 backend
-   * HÂLÂ YOK — bu, gerçek bir form gönderimi/CRM entegrasyonu DEĞİL,
-   * yalnızca `console.log` stub'ının üstüne eklenen İSTEMCİ-TARAFI bir
-   * yönlendirme (`ThankYouPage.astro`'nun kendi yorumundaki "Faz 2'de
-   * bağlanacak" notuyla ÇELİŞMİYOR — o not gerçek backend entegrasyonu
-   * için geçerli, bu yalnızca UX akışını tamamlıyor). Verilmezse (Hero/
+  /** Verilirse, GERÇEK gönderim (`/api/lead` 200 döndü) başarılı olduktan
+   * SONRA kullanıcı bu URL'e yönlendirilir (2026-08-11, KARAR; 2026-09-02'de
+   * gerçek backend'e bağlandı — artık sahte bir "başarılı" izlenimi değil,
+   * gönderim GERÇEKTEN başarılıysa yönlendirir). Verilmezse (Hero/
    * PanelFeatureSection/Online Sunum Talebi) eski davranış (yönlendirme
    * yok) korunuyor. */
   redirectHref?: string;
@@ -146,12 +144,24 @@ export interface HeroFormProps {
    * Hollandaca/İtalyanca ifade üretmiyor — verilmezse (bu iki form)
    * `labels.submit` DEĞİŞMEDEN kalır. */
   ctaKeyword?: string;
+  /** Backend hazırlığı (2026-09-02, Açık nokta #2) — `src/pages/api/lead.ts`'e
+   * giden gönderimde hangi form olduğunu ayırt eder (idenfit ekibine giden
+   * bildirim e-postasının konusunu/gövdesini belirler). `'hero'` (varsayılan)
+   * — genel kullanım. `'contact'` — yalnızca İletişim sayfası (`showMessage`
+   * ile AYNI anda `true`). */
+  formType?: 'hero' | 'contact';
+  /** Gönderim SIRASINDA/BAŞARISIZ olunca gösterilen paylaşılan metinler
+   * (bkz. `src/data/formLead.ts`, `Translations.common`). */
+  common: { formSubmitting: string; formSubmitError: string };
 }
 
-// idenfit.com hero başvuru formu. NOT: submit şimdilik yalnızca console.log —
-// backend/CRM entegrasyonu sonraki adımda yapılacak. Metinler i18n'den
-// (src/i18n/*.ts) `labels` prop'uyla geliyor — component'te dile özel
-// hardcoded string yok.
+// idenfit.com hero başvuru formu. Metinler i18n'den (src/i18n/*.ts) `labels`
+// prop'uyla geliyor — component'te dile özel hardcoded string yok.
+// Gönderim (2026-09-02, Açık nokta #2) — `src/data/formLead.ts`'in
+// `submitLead()`'i üzerinden `src/pages/api/lead.ts`'e POST atılıyor.
+// SendGrid anahtarı henüz yoksa endpoint 503 döner, kullanıcı GERÇEK bir
+// hata mesajı görür (bkz. `common.formSubmitError`) — sahte bir "başarılı"
+// izlenimi verilmez.
 export default function HeroForm({
   labels,
   idPrefix = 'hf',
@@ -165,6 +175,8 @@ export default function HeroForm({
   redirectHref,
   prefillEmailFromQuery = false,
   ctaKeyword,
+  formType = 'hero',
+  common,
 }: HeroFormProps) {
   const isPresentation = variant === 'presentation';
   const isGrid = layout === 'grid';
@@ -214,17 +226,35 @@ export default function HeroForm({
 
   const phoneValid = isValidPhoneForCountry(data.phone, country);
   const showPhoneError = attemptedSubmit && !phoneValid;
+  // Form backend'i (2026-09-02, Açık nokta #2) — `submitting` çift
+  // gönderimi engelliyor (buton devre dışı), `submitError` başarısız
+  // denemede gösteriliyor, bir sonraki denemede temizleniyor.
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setAttemptedSubmit(true);
     if (!phoneValid) return; // eksik/yanlış telefon — gönderme, hata görünür kalır.
-    // TODO: backend entegrasyonu — şimdilik sadece logla.
-    console.log('Hero form gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
-    // `redirectHref` verilmişse (yalnızca İletişim, 2026-08-11) GERÇEK bir
-    // backend gönderimi/CRM kaydı YOK — yalnızca istemci-tarafı, "başarılı
-    // gönderim" akışını tamamlayan bir yönlendirme (bkz. `HeroFormProps`
-    // yorumu).
+    setSubmitError(false);
+    setSubmitting(true);
+    const result = await submitLead({
+      formType,
+      locale,
+      fullName: data.fullName,
+      phone: `+${country.dialCode}${data.phone}`,
+      company: data.company,
+      email: data.email,
+      message: showMessage ? data.message : undefined,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(true);
+      return;
+    }
+    // `redirectHref` verilmişse (yalnızca İletişim, 2026-08-11) gerçek
+    // gönderim başarılı olduktan SONRA yönlendirilir (bkz. `HeroFormProps`
+    // yorumu — akış artık gerçek, sahte bir "başarılı" iması değil).
     if (redirectHref) window.location.href = redirectHref;
   };
 
@@ -436,8 +466,9 @@ export default function HeroForm({
 
       <button
         type="submit"
+        disabled={submitting}
         className={
-          isGreenSubmit
+          (isGreenSubmit
             ? // İletişim sayfasının GERÇEK submit butonu (bkz. `HeroFormProps.submitStyle`
               // yorumu) — AYNI #289C0F yeşili ama `presentation`'ın pill'inden
               // FARKLI: 6px radius, 700 kalınlık, 15px, literal büyük harf.
@@ -449,11 +480,20 @@ export default function HeroForm({
               : // `.btn-cta-form` renk/kenarlık/köşeyi `.btn-cta`'dan miras alıp
                 // yalnızca font-size/weight'i bu widget'ın ölçülen gerçek
                 // değerine (16/18/21px, 500) override ediyor — bkz. global.css.
-                'btn-cta btn-cta-form w-full px-6 py-3'
+                'btn-cta btn-cta-form w-full px-6 py-3') + (submitting ? ' cursor-not-allowed opacity-70' : '')
         }
       >
-        {submitLabel}
+        {submitting ? common.formSubmitting : submitLabel}
       </button>
+
+      {/* Form backend'i (2026-09-02) — gönderim başarısız olunca (bkz.
+          `handleSubmit`) gerçek bir hata mesajı gösterilir, sahte bir
+          "başarılı" izlenimi VERİLMEZ. */}
+      {submitError && (
+        <p role="alert" className="text-sm font-medium text-red-600">
+          {common.formSubmitError}
+        </p>
+      )}
 
       <p className="text-xs leading-relaxed text-muted">
         {labels.kvkkNotice.prefix}

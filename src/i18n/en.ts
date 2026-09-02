@@ -4,6 +4,8 @@ export const en: Translations = {
   common: {
     lastUpdated: 'Last updated',
     home: 'Home',
+    formSubmitting: 'Sending…',
+    formSubmitError: 'Something went wrong — please try again shortly.',
   },
   nav: {
     products: 'PRODUCTS',

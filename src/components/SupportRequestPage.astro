@@ -21,7 +21,9 @@ import {
   getSupportRequestModifiedDate,
   type SupportRequestContent,
 } from '../data/supportRequestContent';
+import { getSupportThankYouLocaleUrls } from '../data/supportThankYouContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
+import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
 
 interface Props {
@@ -30,9 +32,16 @@ interface Props {
 
 const { content } = Astro.props;
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
 const { kvkkHref, termsHref } = getKvkkAndTermsHrefs(locale);
 const faqHref = getSupportFaqHref(locale);
 const title = buildIdenfitTitle(content.pageTitle, locale);
+// Form backend'i (2026-09-02, Açık nokta #2) — gerçek gönderim
+// başarılı olunca yönlendirilecek, zaten VAR olan (ama hiç bağlanmamış)
+// Destek Talebi Teşekkürler sayfası. `SupportThankYouPage.astro`nun
+// `getPresentationModifiedDate` benzeri fallback ilkesiyle AYNI (`tr`'ye düş).
+const supportThankYouUrls = getSupportThankYouLocaleUrls();
+const supportThankYouHref = supportThankYouUrls[locale] ?? supportThankYouUrls.tr ?? '/tesekkurler-destek/';
 // ⚠️ BULUNAN BUG (2026-08-17, hreflang turu) — bu component `localeUrls`'i
 // HİÇ BaseLayout'a geçirmiyordu, Header'ın dil değiştiricisi bu sayfada
 // generic (yanlış, "aynı slug" varsayan) fallback'e düşüyordu — oysa
@@ -79,6 +88,8 @@ const modified = getSupportRequestModifiedDate(locale);
 					locale={locale}
 					kvkkHref={kvkkHref}
 					termsHref={termsHref}
+					redirectHref={supportThankYouHref}
+					common={t.common}
 				/>
 			</div>
 		</div>

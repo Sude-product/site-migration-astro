@@ -12,6 +12,13 @@ export interface CommonLabels {
    * bir buton cümlesi ("Ana Sayfaya Dön"), bu ise düz bir isim tamlaması
    * ("Ana Sayfa") — breadcrumb'ta ayrı bir alan gerekti. */
   home: string;
+  /** Form gönderim durumları — TÜM formlar arasında (bkz. `src/data/formLead.ts`)
+   * PAYLAŞILAN, tek yerden çevrilen jenerik metinler (form backend
+   * hazırlığı, 2026-09-02, Açık nokta #2). Submit butonunun kendi
+   * metni (`labels.submit` vb.) DEĞİŞMEDİ — bu yalnızca gönderim SIRASINDA
+   * (`formSubmitting`) veya BAŞARISIZ olunca (`formSubmitError`) gösterilir. */
+  formSubmitting: string;
+  formSubmitError: string;
 }
 
 export interface NavLabels {

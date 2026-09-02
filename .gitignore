@@ -19,6 +19,9 @@ pnpm-debug.log*
 # environment variables
 .env
 .env.production
+# Cloudflare Workers yerel runtime secret'ları (form backend'i, bkz.
+# .dev.vars.example) — gerçek anahtarlar asla commit edilmez.
+.dev.vars
 
 # macOS-specific files
 .DS_Store

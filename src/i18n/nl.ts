@@ -4,6 +4,8 @@ export const nl: Translations = {
   common: {
     lastUpdated: 'Laatst bijgewerkt',
     home: 'Startpagina',
+    formSubmitting: 'Verzenden…',
+    formSubmitError: 'Er is iets misgegaan — probeer het straks opnieuw.',
   },
   nav: {
     products: 'PRODUCTEN',
