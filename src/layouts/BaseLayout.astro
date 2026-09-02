@@ -160,6 +160,47 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 <html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
+		<!-- CookieScript.com çerez onay banner'ı (2026-09-02) — kullanıcının
+		     cookie-script.com panelinden aldığı gömme kodu, mümkün olduğunca
+		     erken (charset'ten hemen sonra) yüklenir (CookieScript'in kendi
+		     yerleştirme önerisi — SONRAKİ üçüncü taraf script'leri onay
+		     alınana kadar engelleyebilmesi için).
+		     İKİ DÜZELTME uygulandı, ikisi de Chrome'da CANLI test edilip
+		     doğrulandı (bkz. CLAUDE.md):
+		     1. **`type` özniteliği** — panelden kopyalanan ham kod
+		        `type="09207fd21f00871cda04c7eb-text/javascript"` taşıyordu
+		        (hesaba özel bir önek + "-text/javascript"). Tarayıcı
+		        TANIMADIĞI bir `type` değeri taşıyan `<script>` etiketlerini
+		        SESSİZCE atlıyor — HİÇ ağ isteği ATMIYOR (HTML Standard'ın
+		        script-etiketi işleme algoritması, boş/`text/javascript`/
+		        `module` dışındaki tipleri "veri bloğu" sayıp yürütmüyor).
+		        Bu, Cookie-Script'in WordPress eklentisine özel bir
+		        paketleme deseni (kendi WP eklentisinin çalışma zamanı JS'i
+		        muhtemelen bu tipi tanıyıp yeniden yazıyor) — bizim
+		        projemizde (statik Astro, WP eklentisi yok) hiçbir şey bu
+		        etiketi ETKİNLEŞTİRMİYORDU, banner asla YÜKLENMİYORDU (network
+		        sekmesinde `cookie-script.com`'a sıfır istek — doğrulandı).
+		        Standart/genel (WordPress-dışı) kurulum kodunun kullandığı
+		        gerçek `type="text/javascript"`'e düzeltildi — kaynak/id
+		        DEĞİŞMEDİ, yalnızca tip.
+		     2. **`data-cs-platform` ÖZNİTELİĞİ KASITLI OLARAK ATLANDI** —
+		        script'in kendi kaynağı incelendi (`geo.cookie-script.com/s/*.js`):
+		        bu öznitelik yalnızca `wp_consent_*` önekli çerezleri
+		        (WordPress'in native Consent API'si) otomatik "strict" sayıp
+		        taramadan muaf tutuyor (`data-cs-platform==='wordpress'`
+		        kontrolü, kaynak koddan doğrulandı) — proje artık Astro/
+		        statik, hiçbir zaman `wp_consent_*` çerezi üretilmiyor, bu
+		        yüzden öznitelik burada tamamen etkisiz/anlamsız olurdu.
+		     `public/_headers` + `middleware.ts` PUBLIC_CSP'sine
+		     `*.cookie-script.com` (script-src: script kaynağı, connect-src:
+		     `consent.cookie-script.com`'a onay kaydı XHR'ı) eklendi — ikisi
+		     de senkron tutulmalı. -->
+		<script
+			type="text/javascript"
+			charset="UTF-8"
+			src="https://geo.cookie-script.com/s/51784a7076ca28a76ff0b3b33b46e5a8.js?country=tr"
+			id="cookie_script-js-with"
+			is:inline></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />

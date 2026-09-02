@@ -43,6 +43,17 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 <html lang="tr">
 	<head>
 		<meta charset="utf-8" />
+		<!-- CookieScript.com çerez onay banner'ı — `BaseLayout.astro`'daki
+		     AYNI gömme kodu (bkz. o dosyadaki tam yorum — `type` neden
+		     düzeltildi + `data-cs-platform` neden atlandı dahil) — Landing
+		     Page (`/demo`) reklam trafiğine açık, çerez onayı BURADA da
+		     şart. -->
+		<script
+			type="text/javascript"
+			charset="UTF-8"
+			src="https://geo.cookie-script.com/s/51784a7076ca28a76ff0b3b33b46e5a8.js?country=tr"
+			id="cookie_script-js-with"
+			is:inline></script>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
