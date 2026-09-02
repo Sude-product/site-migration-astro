@@ -18,6 +18,7 @@
     "@astrojs/cloudflare": "^14.2.5",
     "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/react": "^6.0.4",
+    "@astrojs/sitemap": "^3.7.4",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.3.3",
