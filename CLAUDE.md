@@ -2680,6 +2680,125 @@ hâlâ geçerli.)*
     ekleniyor, otomatik senkronizasyon (`post-sitemap.xml` karşılaştırma +
     `extract-blog-posts.mjs`/`migrate-blog-to-markdown.mjs` zinciri) artık
     KULLANILMIYOR — bkz. Açık nokta #16'nın kapanışı.
+67. **TAMAMLANDI (2026-09-02) — Canlı dashboard widget'ı (`ProductPreviewWidget.tsx`)
+    mobilde artık bir bütün olarak ölçeklenip küçültülüyor.** Kullanıcı
+    bulgusu: "mobil görünümde tüm olarak bütün durmalı, ekrana sığacak
+    boyutta küçültülmeli, kullanıcı webdeki halinin küçültülmüş versiyonunu
+    görmeli." İki uygulama seçeneği sunuldu, kullanıcı düşük riskli olanı
+    onayladı:
+    - **(A) Seçilen/uygulanan — mevcut mobil-optimize düzeni ölçekle.**
+      `lg` altında (mevcut mobil kırılım noktasıyla AYNI) widget SABİT bir
+      "doğal" genişlikte (`NATURAL_MOBILE_WIDTH=480px`) render edilir —
+      bu, halihazırda ayarlanmış mobil düzenin (sidebar→yatay sekme
+      çubuğu, kartlar alt alta, Açık nokta #24/#31'in mobil optimizasyonu)
+      DEĞİŞMEDEN çizilmesini sağlar (`lg:` medya sorgusu viewport'a bakar,
+      bu sabit genişlik onu etkilemez) — sonra TÜMÜ `transform: scale()`
+      ile mevcut konteynerin genişliğine küçültülür (`[0.5,1]` aralığında
+      sınırlı, asla büyütülmez). `ResizeObserver` dış konteyner + iç
+      içerik (sekmeler arası otomatik geçişte yükseklik değişir) için
+      dinliyor, dış sarmalayıcının yüksekliği ölçeklenmiş değere eşitlenip
+      fazladan boşluk bırakılmıyor. Yeni `useMobileScale()` hook'u,
+      widget'ın ~2750 satırlık iç koduna (her sekmenin kendi `lg:`
+      kurallarına) HİÇ dokunmadan eklendi.
+    - **(B) İstendi ama ERTELENDİ — gerçek masaüstü düzenini mobilde
+      küçültme.** Kullanıcının orijinal ifadesi ("web'deki hali") aslında
+      buna daha yakın — mobilde de masaüstündeki BİREBİR aynı görünüm
+      (sol sidebar + kartlar yan yana grid) render edilip küçültülür.
+      Bunun için widget'ın `lg:` kurallarının CSS container query'lere
+      (Tailwind v4'ün yerleşik `@container` özelliği) çevrilmesi gerekir
+      — büyük, riskli bir değişiklik (aylarca özenle ayarlanmış widget'ı
+      bozma ihtimali). **Kullanıcı kararı: canlıya çıkış zaman baskısı
+      nedeniyle ERTELENDİ** — canlıya çıkış sonrası, bol zamanla, dikkatli
+      test edilerek ele alınabilir.
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8/9 regresyon
+    script'i sıfır sorun (yalnızca bilinen 5 sayfalık heading-hierarchy
+    taban çizgisi). **Canlı mobil viewport'ta uçtan uca GÖRSEL doğrulama
+    YAPILAMADI** — bu oturumdaki tarayıcı otomasyon aracı gerçek bir dar
+    viewport'a küçülemiyor (pencere hep masaüstü genişliğinde kaldı,
+    bilinen bir araç kısıtı) ve `matchMedia` override'ı enjekte etmek için
+    de çok geç kalıyor (widget `client:visible` ile sayfa yüklenir
+    yüklenmez hydrate oluyor, override script'i her zaman ondan SONRA
+    çalışıyor). Bunun yerine: (1) ölçekleme MATEMATİĞİ gerçek DOM'da
+    doğrudan hesaplanıp doğrulandı (360px konteyner + 480px doğal genişlik
+    → 0.75 ölçek, 808px doğal yükseklik → 606px ölçeklenmiş yükseklik,
+    doğru), (2) masaüstü davranışının DEĞİŞMEDİĞİ doğrulandı (gerçek
+    masaüstü viewport'ta hiçbir satır-içi stil uygulanmıyor, `isMobile`
+    doğru şekilde false kalıyor). Kod derleniyor, mantık doğru — canlıya
+    çıkış sonrası gerçek bir telefonda/DevTools'un cihaz modunda son bir
+    görsel kontrol önerilir.
+    **Takip turu (aynı gün) — kullanıcı gerçek cihazda 2 geri bildirim
+    daha verdi:**
+    1. "Çok ince uzun olmuş, biraz daha kısa ve geniş olsun" — kök neden:
+       `sm:`/`lg:` Tailwind sınıfları VIEWPORT'a bakıyor, ölçekleme
+       kutusunun kendi genişliğine değil — telefonlar her zaman `sm:`
+       (640px) eşiğinin altında olduğu için küçük KPI/mini-istatistik
+       kartları (`TrendKpiCard`/`StatCard`/`MiniTrendStatCard`) tek
+       sütuna düşüp dikey olarak uzuyordu, `transform:scale()` bu oranı
+       KORUYARAK küçültüyordu. 5 kompakt kart grid'i (Zaman/İzin/
+       Performans/Veri Analizi sekmelerinde) `sm:` beklemeden mobilde de
+       2 sütuna zorlandı (`lg:` üstü davranış AYNEN korundu) — grafik
+       içeren zengin kart çiftlerine (Devam Takibi vb.) bilinçli olarak
+       dokunulmadı, dar telefonda sıkışabilirdi.
+    2. "Ekrana sığmıyor, ekrana baktığımda hepsini görebilmeliyim" — kök
+       neden: `useMobileScale()`'in İLK sürümü yalnızca KONTEYNER
+       GENİŞLİĞİNE göre ölçekliyordu, `window.innerHeight`'ı hiç hesaba
+       katmıyordu — widget'ın alt kısmı ekranın dışında kalabiliyordu.
+       Ölçek artık İKİ adaydan (genişliğe sığdıran VE `window.innerHeight
+       × 0.85` hedef yüksekliğe sığdıran) KÜÇÜK olanı seçiyor — widget
+       artık HER ZAMAN hem yatayda hem dikeyde tek ekrana sığıyor.
+       `%85` payı (kullanıcının widget'a kaydırdığında başka içerik de
+       kısmen görünsün diye) ilk tahmin — kullanıcı hâlâ sığmadığını
+       söylerse bu oran düşürülebilir.
+    **Aynı doğrulama sınırı geçerli** — bu turlarda da canlı mobil
+    viewport'ta görsel doğrulama YAPILAMADI (AYNI araç kısıtı), yalnızca
+    `astro check`/8-9 regresyon script'i/masaüstü-değişmedi kontrolleri
+    tekrarlandı.
+    **Son tur (aynı gün) — Seçenek B araştırıldı, test edildi, REDDEDİLDİ;
+    Seçenek A'da gerçek bir kırpma hatası bulunup düzeltildi; bu kez
+    GERÇEK mobil viewport'ta görsel doğrulama da yapıldı:**
+    - **Seçenek B (masaüstü düzenini birebir mobilde küçültme) test edilip
+      REDDEDİLDİ — kod sorunu değil, tasarım/okunabilirlik kısıtı.**
+      Kullanıcı riski bilerek istedi; önce ucuz bir ön-test yapıldı:
+      widget'ın gerçek masaüstü DOM'u (1296×762px doğal boyut) tarayıcıda
+      canlı olarak 375px genişliğe `transform:scale()` ile küçültülüp
+      ekran görüntüsü alındı (kod değişikliği yok, yalnızca geçici DOM
+      manipülasyonu, sayfa sonra yeniden yüklenerek temizlendi). Sonuç:
+      büyük KPI sayıları okunabilir, ama ikincil metinler/trend
+      rozetleri/tarih-yüzde etiketleri/liste metadata'sı gerçekten
+      okunaksız (bulanık piksel yığını). **Bu, container query ile de
+      çözülemez** — sorun "CSS nasıl yazıldığı" değil, masaüstü bilgi
+      yoğunluğunun fiziksel olarak ~375-480px'e sığmaması. 24 dosya/satır
+      risklik dönüşüm bu nedenle yapılmadı.
+    - **Seçenek A'da bulunan gerçek kırpma hatası düzeltildi.** Aynı
+      ön-test sırasında, dış sarmalayıcının (`outerRef`, `flex
+      justify-center overflow-hidden`) `align-items` için Flexbox
+      varsayılanı (`stretch`) kullandığı fark edildi — bu, `scaledHeight`
+      ile sınırlanan dış kutunun yüksekliğini, `transform:scale()` ile
+      ölçeklenen `inner`'ın GERÇEK layout yüksekliğine (görsel değil,
+      DOM ölçüsü) dayatıp içeriği kırpıyordu (`inner.offsetHeight` dış
+      kutunun yüksekliğine sıkışıyor, `scrollHeight` çok daha büyük
+      kalıyordu). **Düzeltme:** `outerRef` div'inin className'ine
+      `items-start` eklendi (`ProductPreviewWidget.tsx`, ~satır 2963).
+    - **Bu kez gerçek mobil viewport'ta uçtan uca GÖRSEL doğrulama
+      YAPILDI** (önceki turlardaki araç kısıtı bu seferki denemede
+      aşıldı — yeni bir sekme açılıp `resize_window` ÖNCE, `navigate`
+      SONRA çağrıldığında pencere gerçekten 558px genişliğe küçüldü;
+      önceki turlarda mevcut bir sekmeyi sonradan yeniden boyutlandırma
+      işe yaramamıştı). 558px < 1024px mobil eşiği olduğu için widget
+      gerçekten hydrate olup `isMobile=true` durumuna geçti (doğrulandı:
+      `inner` üzerinde gerçek satır-içi `width:480px; transform:
+      scale(0.721)` stili göründü). Ölçüm: `inner.offsetHeight` (870px)
+      artık `inner.scrollHeight`'a (869px) eşit — kırpma YOK. Ekran
+      görüntüsü + yakın çekim: sekme çubuğu, KPI kartları, grafik başlığı
+      ve eksen etiketleri net okunabilir, içerik tam ve bütün görünüyor.
+    - **Kalıcı karar: Seçenek A (mobil-optimize düzeni ölçekleme)
+      benimsendi.** Seçenek B bir daha gündeme alınmayacak — okunabilirlik
+      kısıtı kalıcı bir tasarım gerçeği, canlıya çıkış sonrası "bol
+      zamanla" tekrar denense bile aynı sonuca varır.
+    **Doğrulama (bu tur):** `astro build` temiz, 8/9 regresyon script'i
+    sıfır sorun (aynı bilinen 5 sayfalık heading-hierarchy taban çizgisi,
+    bu değişiklikten bağımsız — yalnızca `ProductPreviewWidget.tsx` ve bu
+    dosya değişti).
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

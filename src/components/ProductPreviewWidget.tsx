@@ -1402,12 +1402,28 @@ function TimeManagementTab() {
           lg:mt-4`) + grafik yükseklikleri (`h-44`→`h-36`, bkz. yukarıdaki
           kart component'leri) küçültüldü — içerik AZALMADI, yalnızca
           daha kompakt yerleşti. */}
-      <div className="grid gap-3 sm:grid-cols-3 lg:gap-4">
+      {/* 2026-09-02 — kullanıcı `useMobileScale()` ile küçültülmüş mobil
+          görünümün "çok ince uzun" durduğunu bildirdi: küçük KPI/mini-stat
+          kartları (`TrendKpiCard`/`StatCard`/`MiniTrendStatCard` — sparkline
+          hariç içerik zaten kompakt) `sm:` (640px) altında TEK sütuna
+          düşüyordu, ama `sm:` bir VIEWPORT medya sorgusu — gerçek telefon
+          genişliği her zaman bunun altında kaldığı için ölçekleme kutusunun
+          KENDİ genişliği (`NATURAL_MOBILE_WIDTH`) bunu hiç ETKİLEMİYORDU
+          (dikey yığılma `transform:scale()` ile oran KORUNARAK küçülüyordu,
+          "ince uzun" görünümün kök nedeni buydu). Bu 5 kart grid'i (bu blok
+          + aşağıdaki `TIME_MINI_STATS`/`LEAVE_STATS`/`PERFORMANCE_KPI_STATS`/
+          `DAILY_MOVEMENTS_STRUCTURE`) `sm:` eşiği beklemeden MOBİLDE de
+          2 sütuna zorlanacak şekilde değiştirildi (`lg:` üstü davranış
+          AYNEN korundu) — daha az dikey alan, daha dengeli en-boy oranı.
+          Zengin/geniş içerikli grid'ler (`lg:grid-cols-2` KULLANAN, grafik
+          içeren kart ÇİFTLERİ — Devam Takibi/Ortalama Saat vb.) bilinçli
+          olarak DOKUNULMADI, dar telefon genişliğinde 2 sütunda sıkışabilirdi. */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
         {TIME_KPIS.map((kpi, i) => (
           <TrendKpiCard key={kpi.value + t.kpiSubtext[i]} {...kpi} subtext={t.kpiSubtext[i]} />
         ))}
       </div>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:mt-4 lg:grid-cols-4 lg:gap-4">
+      <div className="mt-3 grid grid-cols-2 gap-3 lg:mt-4 lg:grid-cols-4 lg:gap-4">
         {TIME_MINI_STATS.map((stat, i) => (
           <MiniTrendStatCard
             key={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
@@ -1605,7 +1621,7 @@ function LeaveManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={CalendarClock} title={t.sectionTitle} href="/yillik-izin-takip-programi/" />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
         {LEAVE_STATS.map((stat, i) => (
           <StatCard key={t.leaveStats[i]} icon={stat.icon} color={stat.color} value={stat.value} label={t.leaveStats[i]} />
         ))}
@@ -2091,7 +2107,7 @@ function PerformanceManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={Target} title={t.sectionTitle} href="/calisan-performans-degerlendirme-sistemi-modulu/" />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
         {PERFORMANCE_KPI_STATS.map((stat, i) => (
           <StatCard key={t.kpiStats[i].label} icon={stat.icon} color={stat.color} value={t.kpiStats[i].value} label={t.kpiStats[i].label} />
         ))}
@@ -2220,7 +2236,7 @@ function ActiveEmployeeTrendCard() {
 function DailyMovementsRow() {
   const t = getDataAnalysisLabels(useWidgetLocale());
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
       {DAILY_MOVEMENTS_STRUCTURE.map((stat, i) => (
         <MiniTrendStatCard key={t.dailyMovements[i]} {...stat} label={t.dailyMovements[i]} />
       ))}
@@ -2818,6 +2834,100 @@ function AppHeaderBar() {
 // AYNI değer, projede zaten kanıtlanmış bir süre).
 const AUTO_TAB_INTERVAL_MS = 6000;
 
+// Mobil ölçekleme (2026-09-02, kullanıcı isteği — "canlı dashboard mobilde
+// tüm olarak bütün durmalı, ekrana sığacak boyutta küçültülmeli, kullanıcı
+// webdeki halinin küçültülmüş versiyonunu görmeli"). İKİ seçenek kullanıcıya
+// sunuldu: (A) mevcut mobil-optimize düzeni (sidebar → yatay sekme çubuğu,
+// kartlar alt alta) AYNEN koruyup TÜMÜNÜ tek bir birim olarak `transform:
+// scale()` ile küçültmek, (B) masaüstü sidebar+grid düzenini container
+// query'lerle mobilde de zorlayıp küçültmek. Kullanıcı (A)'yı onayladı —
+// düşük risk, widget'ın ~2750 satırlık iç kodundaki `lg:` kurallarına HİÇ
+// dokunulmuyor. (B) kullanıcı tarafından istendi ama canlıya çıkış zaman
+// baskısı nedeniyle ERTELENDİ (bkz. CLAUDE.md) — canlıya çıkış sonrası, bol
+// zamanla, dikkatli test edilerek ele alınabilir.
+//
+// Teknik: widget `lg` altında (mevcut mobil kırılım noktasıyla AYNI, iki
+// mekanizma birbirinden kopmasın diye) SABİT bir "doğal" genişlikte
+// (`NATURAL_MOBILE_WIDTH`, gerçek ekrandan geniş) render edilir — bu,
+// mevcut mobil düzenin (kartlar/yazı boyutları) ZATEN ayarlanmış haliyle
+// bozulmadan çizilmesini sağlar (`lg:` medya sorgusu gerçek viewport'a
+// bakar, bu sabit genişlik onu ETKİLEMEZ) — sonra TÜMÜ `transform: scale()`
+// ile mevcut konteynerin genişliğine sığacak şekilde küçültülür. Ölçek
+// `[0.5, 1]` aralığında sınırlı — asla doğal boyutun ÜSTÜNE büyütülmez
+// (kullanıcı "küçültülmeli" dedi, büyütme istenmedi), 0.5 altına da
+// inmiyor (okunaksız olmasın). `ResizeObserver` hem dış konteyner
+// (viewport genişliği değişince) hem iç içerik (sekmeler arası otomatik
+// geçişte yükseklik değişince) için dinliyor — dış sarmalayıcının
+// yüksekliği ölçeklenmiş değere eşitlenip fazladan boşluk bırakılmıyor.
+const NATURAL_MOBILE_WIDTH = 480;
+const MOBILE_SCALE_QUERY = '(max-width: 1023px)';
+// 2026-09-02, ikinci tur — kullanıcı "ekrana sığmıyor, ekrana baktığımda
+// hepsini görebilmeliyim" dedi: yalnızca KONTEYNER GENİŞLİĞİNE göre
+// ölçeklemek (üstteki tur) genişliğe sığdırıyordu ama YÜKSEKLİK hâlâ
+// `window.innerHeight`'ı aşabiliyordu. Bir YÜKSEKLİK tavanı eklendi
+// (`MAX_HEIGHT_VIEWPORT_FRACTION`, iki adaydan küçük olanı seçme mantığı)
+// — AMA ÜÇÜNCÜ turda (aynı gün, kullanıcı gerçek cihazdan ekran görüntüsü
+// paylaştı: "ekranı doldurması lazım, çirkin duruyor") bunun ciddi bir
+// yan etkisi ortaya çıktı: doğal en-boy oranı (~480×870, dikeyde
+// genişlikten çok daha uzun) yüzünden ÇOĞU telefonda yükseklik tavanı
+// genişlik oranından DAHA KISITLAYICI çıkıyordu — ölçek yükseklik
+// tarafından belirlenip widget konteyner genişliğinin ÇOK ALTINDA
+// kalıyordu, iki yanda çirkin boş boşluk bırakıyordu (bu turda ölçülen
+// gerçek örnek: 487px'lik konteynerde widget yalnızca 346px'e küçülmüştü).
+// **Karar: genişliği doldurmak önceliklidir** — yükseklik tavanı TAMAMEN
+// kaldırıldı, ölçek yalnızca `containerWidth/NATURAL_MOBILE_WIDTH`'e göre
+// hesaplanıyor (aşağıdaki `update()`). Bunun bilinçli bedeli: doğal en-boy
+// oranı nedeniyle widget kısa telefonlarda tek bakışta tamamı görünmeyip
+// hafif bir iç kaydırma/sayfa kaydırması gerektirebilir — bu, "ekranı
+// doldurmalı" gereksinimiyle "tek bakışta tamamı görünmeli" gereksinimi
+// AYNI ANDA sağlanamayacağı için (sabit en-boy oranlı TEK bir ölçek
+// faktörüyla) yapılan bilinçli bir öncelik seçimi, kullanıcının en son ve
+// en acil geri bildirimine göre.
+
+function useMobileScale() {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [isMobile, setIsMobile] = useState(false);
+  const [scale, setScale] = useState(1);
+  const [scaledHeight, setScaledHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const mql = window.matchMedia(MOBILE_SCALE_QUERY);
+    const onChange = () => setIsMobile(mql.matches);
+    onChange();
+    mql.addEventListener('change', onChange);
+    return () => mql.removeEventListener('change', onChange);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setScale(1);
+      setScaledHeight(null);
+      return;
+    }
+    const update = () => {
+      if (!outerRef.current || !innerRef.current) return;
+      const containerWidth = outerRef.current.offsetWidth;
+      const naturalHeight = innerRef.current.offsetHeight;
+      const widthScale = containerWidth / NATURAL_MOBILE_WIDTH;
+      const nextScale = Math.min(1, Math.max(0.5, widthScale));
+      setScale(nextScale);
+      setScaledHeight(naturalHeight * nextScale);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    if (outerRef.current) ro.observe(outerRef.current);
+    if (innerRef.current) ro.observe(innerRef.current);
+    window.addEventListener('resize', update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, [isMobile]);
+
+  return { outerRef, innerRef, isMobile, scale, scaledHeight };
+}
+
 export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   // DÜZELTME (2026-08-27) — varsayılan aktif sekme `TABS`'in YENİ ilk
   // öğesiyle ('ik') eşleşecek şekilde güncellendi (önceden 'zaman'), sayfa
@@ -2826,6 +2936,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
+  const { outerRef, innerRef, isMobile, scale, scaledHeight } = useMobileScale();
 
   // Dil desteği (2026-08-31) — bkz. `LabelsContext` yorumu. `TABS`/
   // `ENABLED_TABS` artık modül-seviyesinde SABİT değil, `locale`'e göre
@@ -2858,8 +2969,15 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
     <LocaleContext.Provider value={locale}>
     <LabelsContext.Provider value={labels}>
     <ThemeContext.Provider value={{ isDark, toggle }}>
+      {/* `items-start` şart: yoksa flex'in varsayılan `align-items: stretch`'i,
+          `scaledHeight` ile sınırlanan bu dış kutunun yüksekliğini, transform
+          ile ölçeklenen `inner`'ın GERÇEK layout yüksekliğine (görsel değil)
+          uygulayıp içeriği kırpar. */}
+      <div ref={outerRef} className="flex items-start justify-center overflow-hidden" style={scaledHeight != null ? { height: scaledHeight } : undefined}>
       <div
+        ref={innerRef}
         className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+        style={isMobile ? { width: NATURAL_MOBILE_WIDTH, transform: `scale(${scale})`, transformOrigin: 'top center' } : undefined}
         onMouseEnter={() => setAutoPaused(true)}
         onMouseLeave={() => setAutoPaused(false)}
         onFocus={() => setAutoPaused(true)}
@@ -2964,6 +3082,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
             {activeTab === 'veri-analizi' && <DataAnalysisTab />}
           </div>
         </div>
+      </div>
       </div>
     </ThemeContext.Provider>
     </LabelsContext.Provider>

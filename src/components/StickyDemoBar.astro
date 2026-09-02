@@ -45,6 +45,16 @@
 // `StatCard` ile AYNI dil, bkz. CLAUDE.md) — kapatma butonu/CTA
 // butonunun KENDİ hover'ları zaten vardı, bu YENİ olan kartın TAMAMININ
 // hover'ı.
+//
+// Mobil düzen (2026-09-02, kullanıcı gerçek cihazdan ekran görüntüsü
+// paylaştı: "popup'ın mobilde görünümü kocaman oldu"): `sm:flex-row`
+// yalnızca ≥640px'te devreye giriyordu — gerçek telefonlar (390-430px)
+// bu eşiğin HER ZAMAN altında kaldığı için TÜM mobil kullanıcılar avatar/
+// metin/buton'un ALT ALTA (3 satır) dizildiği en uzun hâli görüyordu.
+// Şimdi avatar+metin TEK satırda yan yana, buton onun ALTINDA tam
+// genişlikte AYRI bir satır — 3 satırlık dikey yığın 2 satıra indi,
+// yükseklik belirgin şekilde azaldı (`sm:` ve üstü davranış AYNEN
+// korundu, yalnızca <640px'teki iç düzen değişti).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import type { Locale } from '../data/nav';
 
@@ -72,24 +82,26 @@ const demoHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
     </button>
 
     <div
-      class="flex flex-col items-center gap-2 rounded-xl border-2 border-brand bg-white p-2.5 shadow-[0_6px_20px_rgba(0,0,0,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)] sm:flex-row sm:gap-3 sm:p-3"
+      class="flex w-full flex-col gap-2 rounded-xl border-2 border-brand bg-white p-2.5 shadow-[0_6px_20px_rgba(0,0,0,0.12)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_12px_30px_rgba(0,0,0,0.18)] sm:flex-row sm:items-center sm:gap-3 sm:p-3"
     >
-      <img
-        src="/images/demo-bar-avatar.jpg"
-        alt="idenfit ekibinden bir temsilci"
-        width="96"
-        height="96"
-        class="h-11 w-11 shrink-0 rounded-full object-cover"
-      />
+      <div class="flex w-full items-center gap-2 sm:contents">
+        <img
+          src="/images/demo-bar-avatar.jpg"
+          alt="idenfit ekibinden bir temsilci"
+          width="96"
+          height="96"
+          class="h-9 w-9 shrink-0 rounded-full object-cover sm:h-11 sm:w-11"
+        />
 
-      <p class="flex-1 text-center text-xs leading-snug font-bold text-heading sm:text-left">
-        İK Yönetiminde Devrim:<br />
-        <span class="text-brand">Ücretsiz İdenfit Mikro Paket</span>
-      </p>
+        <p class="flex-1 text-left text-xs leading-snug font-bold text-heading">
+          İK Yönetiminde Devrim:<br />
+          <span class="text-brand">Ücretsiz İdenfit Mikro Paket</span>
+        </p>
+      </div>
 
       <a
         href={demoHref}
-        class="btn-cta-solid flex shrink-0 items-center gap-1 px-3.5 py-2 text-xs whitespace-nowrap"
+        class="btn-cta-solid flex w-full shrink-0 items-center justify-center gap-1 px-3.5 py-2 text-xs whitespace-nowrap sm:w-auto"
       >
         Demo Talep Et
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3" aria-hidden="true">
