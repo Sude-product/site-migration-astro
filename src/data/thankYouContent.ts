@@ -79,14 +79,14 @@ const SLUGS: Record<ThankYouContentLocale, string> = {
 const YOUTUBE_CHANNEL_URL = 'https://www.youtube.com/channel/UCE-4lk4QsU71NfTI7vxPCJQ/';
 
 export const THANK_YOU_HERO_IMAGE = {
-  url: 'https://idenfit.com/wp-content/uploads/2025/09/Group-1365420168-1-1024x997.webp',
+  url: '/wp-content/uploads/2025/09/Group-1365420168-1-1024x997.webp',
   width: 1000,
   height: 974,
 };
-export const THANK_YOU_BRAND_ICON_URL = 'https://idenfit.com/wp-content/uploads/2025/08/id-circle.svg';
+export const THANK_YOU_BRAND_ICON_URL = '/wp-content/uploads/2025/08/id-circle.svg';
 
-const CIVIL_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/08/civil.svg';
-const FEMAS_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/08/logo-white-1024x162.png';
+const CIVIL_LOGO_URL = '/wp-content/uploads/2025/08/civil.svg';
+const FEMAS_LOGO_URL = '/wp-content/uploads/2025/08/logo-white-1024x162.png';
 const CIVIL_VIDEO_URL = 'https://youtu.be/-MxZWA99a20';
 const FEMAS_VIDEO_URL = 'https://youtu.be/cakFopJJ-pE';
 

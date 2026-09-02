@@ -86,9 +86,9 @@ export function getFaqSlug(locale: Locale): string | undefined {
 // hatası değil — muhtemelen bilinçli, tek İngilizce PDF ile idare
 // ediliyor). Her ikisi de curl ile 200 doğrulandı.
 const FAQ_PDF_URLS: Record<FaqLocale, string> = {
-  tr: 'https://idenfit.com/wp-content/uploads/2025/08/sss-1.pdf',
-  en: 'https://idenfit.com/wp-content/uploads/2025/08/faq.pdf',
-  it: 'https://idenfit.com/wp-content/uploads/2025/08/faq.pdf',
+  tr: '/wp-content/uploads/2025/08/sss-1.pdf',
+  en: '/wp-content/uploads/2025/08/faq.pdf',
+  it: '/wp-content/uploads/2025/08/faq.pdf',
 };
 
 export function getFaqPdfUrl(locale: Locale): string | undefined {

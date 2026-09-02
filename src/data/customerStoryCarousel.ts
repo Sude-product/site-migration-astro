@@ -106,7 +106,7 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     companyName: 'Yatsan',
     logo: { url: '/wp-content/uploads/2025/11/yatsan-2-1.svg', width: 100, height: 50 },
     anchorId: 'yatsan',
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
+    quotePhotoUrl: '/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
   },
   {
     // 2026-08-24 — eski (ayrı) `TestimonialSection` widget'ından taşınan
@@ -208,7 +208,7 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     companyName: 'Doğ-Ser Makina',
     logo: { url: '/images/customer-dogser-logo.png', width: 200, height: 73 },
     anchorId: 'dogSer',
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
+    quotePhotoUrl: '/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
   },
   {
     // 2026-08-27 — kullanıcının verdiği YouTube linki + arka plan döngü

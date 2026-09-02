@@ -1851,6 +1851,55 @@ hâlâ geçerli.)*
     kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
     saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
     turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
+    **TAMAMEN KAPANDI (2026-09-02) — 293/293 hotlink temizlendi, sitede
+    idenfit.com'a giden SIFIR hotlink kaldı.**
+    - **Yol (A):** Yeni `scripts/localize-remaining-hotlinks.mjs`
+      (`download-report-assets.mjs` + `relativize-blog-image-urls.mjs`
+      ile AYNI indirme/doğrulama mantığı, tek script'te birleşik + CLI'dan
+      pilot/tam liste seçimi). Önce 6 küçük dosyayla PİLOT yapılıp
+      kullanıcıya diff gösterildi, onay alındı; sonra kalan 12 dosya
+      (`NotFoundPage.astro` hariç, o ayrı ele alındı — aşağıda) aynı
+      script'le tamamlandı. **232 benzersiz görsel** indirildi (çoğu
+      blog/navigation turundan zaten mevcuttu), **379 URL** göreliye
+      çevrildi, 0 başarısız indirme.
+    - **Yol (B):** 5 dosyada (`productContent.ts`, `sectorContent.ts`,
+      `hardwareContent.ts`, `hubContent.ts`, `miscPagesContent.ts`) her
+      birinin onlarca farklı okuma noktasını (`image`/`images[]`/
+      `backgroundImage`/`heroImage`/`officesImage`/`mapImage` vb.) tek tek
+      avlamak yerine (yüksek kaçırma riski), yeni PAYLAŞILAN
+      `src/data/relativizeWpUrls.ts`'in `deepRelativizeWpUrls()`'ü —
+      ham JSON `DATA` sabiti import edilir edilmez TÜM ağacı derinlemesine
+      gezip (zengin metin/HTML'e gömülü `<img src>` dahil) mutlak
+      `idenfit.com/wp-content/` önekini göreliye çeviriyor. Blog'un `date`
+      `+03:00` normalizasyonuyla AYNI ilke: kaynakta değil, ithal edildiği
+      TEK merkezi noktada dönüştürülüyor — mevcut VE ileride eklenecek
+      TÜM getter'lar otomatik olarak zaten-göreli veri okuyor.
+      `hubContent.ts`'te 2026-09-01'den kalma yerel `relativizeWpUrl()`
+      (yalnızca hero görseline uygulanıyordu) artık gereksiz, kaldırıldı.
+      Yeni `scripts/download-json-source-images.mjs` (JSON ağacını
+      gezip TÜM görsel/dosya referanslarını toplar) **262 benzersiz
+      dosya** indirdi (183'ü zaten mevcuttu).
+    - **Bulunan ve düzeltilen gerçek bir indirme hatası:** bir dosya adı
+      Türkçe büyük "İ" taşıyordu, kaynak JSON'da PARÇALANMIŞ Unicode
+      biçiminde (`I` + U+0307 birleştirme noktası) ama canlı sunucudaki
+      GERÇEK dosya BİRLEŞİK biçimde (`İ`, U+0130) — ham (encode edilmemiş,
+      normalize edilmemiş) `fetch()` isteği 404 veriyordu. Düzeltme: uzak
+      istek URL'i `encodeURI(relPath.normalize('NFC'))` ile kuruluyor;
+      YEREL dosya adı/göreli URL KASITLI OLARAK normalize EDİLMEDİ (kaynak
+      JSON'un/`deepRelativizeWpUrls()`'ün üreteceği GERÇEK metinle birebir
+      eşleşmesi gerekiyor, aksi halde kendi sitemizde 404 oluşurdu).
+    - **404 arka plan görseli** (`NotFoundPage.astro`, `wp-content/themes/vault/...`
+      — `uploads/` bile değil, farklı bir WP tema yolu, script'lerin
+      kapsamı DIŞINDA bırakılmıştı) elle indirilip
+      `public/wp-content/themes/vault/assets/img/bg-404.png`'e yerleştirildi,
+      referans göreliye çevrildi.
+    - **Doğrulama (her adımdan sonra ayrı `--outDir dist-check` ile,
+      çalışan `localhost:4321` önizlemesine HİÇ dokunulmadan):** `astro
+      build` temiz, 8/9 regresyon script'i sıfır sorun (aynı ilgisiz
+      heading-hierarchy taban çizgisi), `audit-remote-hotlinks.mjs` ile
+      azalan sayı her adımda kanıtlandı: 293/307 (başlangıç) → 285/304
+      (pilot) → 235/133 (yol A tamamlandı) → 1/5 (yol B tamamlandı,
+      yalnızca 404 kaldı) → **0/0 (404 de düzeltilince, TAMAMEN TEMİZ)**.
 46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
     ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
     `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi

@@ -403,7 +403,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'fazla-mesai',
     title: 'Fazla Mesai Ücreti Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-fazla-mesai.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-fazla-mesai.svg',
     note: 'Haftalık çalışma süresi 45 saati aştığında, aşan kısım fazla mesai kapsamında değerlendirilir.',
     fields: [
       {
@@ -438,7 +438,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'gelir-vergisi',
     title: 'Gelir Vergisi Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-gelir-vergisi.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-gelir-vergisi.svg',
     note: null,
     fields: [
       {
@@ -468,7 +468,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'yemek-ucreti',
     title: 'Yemek Ücreti Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-yemek-ucreti.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-yemek-ucreti.svg',
     note: 'Hesaplama, %15 gelir vergisi dilimi esas alınarak yapılır.',
     fields: [
       {
@@ -512,7 +512,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'maas-zammi',
     title: 'Maaş Zammı Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-maas-zammi.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-maas-zammi.svg',
     note: 'Maaş zammı, belirli bir dönem sonunda çalışanın ücretinde yapılan artıştır.',
     fields: [
       {
@@ -546,7 +546,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'ihbar-suresi',
     title: 'İhbar Süresi ve Tazminatı Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-ihbar-suresi.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-ihbar-suresi.svg',
     note: 'Kümülatif gelir vergisi matrahını bilmiyorsanız alanı boş bırakabilirsiniz. Boş bırakıldığında hesaplama %15 vergi dilimine göre yapılır.',
     fields: [
       { id: 'beginDate', type: 'date', label: 'İşe giriş tarihini girin', halfWidth: true },
@@ -559,7 +559,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'isveren-maliyeti',
     title: 'İşveren Maliyeti Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-isveren-maliyeti.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-isveren-maliyeti.svg',
     note: 'Hesaplama, çalışana ödenen brüt ücret esas alınarak yapılır. Yol, yemek gibi yan haklar ve diğer ek kalemler dahil edilmez.',
     fields: [
       {
@@ -589,7 +589,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'kurumlar-vergisi',
     title: 'Kurumlar Vergisi Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-kurumlar-vergisi.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-kurumlar-vergisi.svg',
     note: 'Kurumlar vergisi, bir hesap dönemi boyunca elde edilen kurum kazancı (safi kazanç) üzerinden hesaplanır.',
     fields: [
       {
@@ -607,7 +607,7 @@ export const CALCULATOR_DEFINITIONS: CalculatorDefinition[] = [
   {
     slug: 'kidem-tazminati',
     title: 'Kıdem Tazminatı Hesaplama',
-    icon: 'https://idenfit.com/wp-content/uploads/2025/12/accordion-kidem-tazminati.svg',
+    icon: '/wp-content/uploads/2025/12/accordion-kidem-tazminati.svg',
     note: 'Kıdem tazminatı, iş ilişkisi sona erdiğinde mevzuatta belirtilen şartları sağlayan çalışanlara işveren tarafından ödenen tazminattır.',
     fields: [
       { id: 'beginDate', type: 'date', label: 'İşe giriş tarihini girin', halfWidth: true },

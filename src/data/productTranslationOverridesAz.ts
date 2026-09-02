@@ -23,56 +23,56 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       text: 'İdenfit PDKS, həm proqram təminatı, həm də avadanlıq həllərini bir arada təqdim edir. Beləliklə əlavə əməliyyat xərclərini sizin üçün minimuma endirərkən qiymət üstünlüyünüzü qoruyur.',
       ctaText: 'İndi Müraciət Et',
       ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/time-attendance-system1@2x-1.webp', alt: 'time attendance system1@2x 1', width: 1221, height: 1100 },
+      image: { url: '/wp-content/uploads/2025/07/time-attendance-system1@2x-1.webp', alt: 'time attendance system1@2x 1', width: 1221, height: 1100 },
     },
     sections: [
       {
         title: 'Niyə idenfit',
         text: 'PDKS, yəni "Personalın davamiyyət nəzarət sistemi" personalın müəyyən edilmiş keçid və nəzarət nöqtələrindən giriş-çıxışlarını, PDKS cihaz və avadanlıqları vasitəsilə qeyd altına alan avtomatlaşdırma sistemləridir. İşlənən qeydlər onlayn olaraq PDKS proqramına ötürülərək təhlil edilə bilər və təhlil nəticəsində personalın işə giriş-çıxış saatları, iş saatları və icazələri kimi davamiyyətlə əlaqəli məlumatlar PDKS ilə sağlam şəkildə qeyd altında tutulur. Beləliklə ay sonunda performans, davamiyyət və buna bağlı maaş hesablamaları asanlıqla edilir.',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/2@2x-1-1.webp', alt: '2@2x 1 1', width: 1258, height: 1079 },
+        image: { url: '/wp-content/uploads/2025/07/2@2x-1-1.webp', alt: '2@2x 1 1', width: 1258, height: 1079 },
       },
       {
         title: 'Turniket Keçid Sistemləri',
         text: '<p>İdenfit PDKS sistemi ilə turniket və ya keçid nöqtələrinə quraşdırılan sistem sayəsində kimlik doğrulama və işçilərin real zamanlı giriş-çıxış izləməsi asanlıqla edilə bilər.</p>\n<p>idenfit PDKS proqramı sayəsində turniketlərə kartlı keçid, üz oxuma və ya barmaq izi oxuma sistemləri quraşdırılaraq keçidlər müəyyən edilə bilər.</p>\n<p>"Bütün hesabatları alacağınız proqramımız inteqrasiya olduğumuz PDKS cihazları ilə uyğun işləyir."</p>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/3@2x-2.webp', alt: '3@2x 2', width: 941, height: 1120 },
+        image: { url: '/wp-content/uploads/2025/07/3@2x-2.webp', alt: '3@2x 2', width: 941, height: 1120 },
       },
       {
         title: 'Kart Oxuyucular',
         text: "<p>İdenfit mobil PDKS həlləri ilə turniket, qapı və ya giriş-çıxış nöqtələrində proqrama bağlı kart oxuyucular və cihazlara müəyyən edilmiş işçiyə xas kartlar sayəsində müəssisənizdə PDKS tətbiq edə bilərsiniz.</p>\n<p>Sistem, personal kart oxuyucularının işçi kartını oxutduğunda personal kart ID-lərinin zaman damğalı olaraq proqrama ötürülməsi ilə işləyir. Kart oxuyucu ilə qeyd altına alınan məlumatları İdenfit PDKS Proqramı ilə qiymətləndirərək hesabatlaya bilər və işçilərinizin izləməsini və davamiyyət hesablamasını asanlıqla edə bilərsiniz.</p>",
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/4@2x-1.webp', alt: '4@2x 1', width: 1164, height: 1326 },
+        image: { url: '/wp-content/uploads/2025/07/4@2x-1.webp', alt: '4@2x 1', width: 1164, height: 1326 },
       },
       {
         title: 'Barmaq İzi Oxuyucular',
         text: '<p>Hər müəssisənin PDKS ehtiyacı bir-birindən fərqlidir. Bəzi müəssisə üçün kart oxuma sistemi daha uyğun olarkən digər bir müəssisə üçün barmaq izi oxuyucu sistemi daha səmərəli ola bilər. İdenfit PDKS həllərindən barmaq izi oxuma və tanıma sistemi ilə barmaq izi oxutaraq nəzarət nöqtələrindən təhlükəsizliklə giriş-çıxış əməliyyatı edilə bilər.</p>\n<p>Barmaq izi oxuyucu ilə qeyd altına alınan məlumatları İdenfit PDKS Proqramı ilə qiymətləndirərək hesabatlaya bilər və işçilərinizin davamiyyət hesablaması əməliyyatlarını asanlıqla edə bilərsiniz.</p>',
         ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/5@2x-1-1.webp', alt: '5@2x 1 1', width: 1227, height: 1109 },
+        image: { url: '/wp-content/uploads/2025/07/5@2x-1-1.webp', alt: '5@2x 1 1', width: 1227, height: 1109 },
       },
       {
         title: 'Üz Tanıma Sistemləri',
         text: '<p>Üz tanıma sistemləri, PDKS və keçid nəzarət sistemləri üçün dizayn edilmiş biometrik oxuyuculu izləmə sistemləridir. Yüksək doğrulama nisbəti, aşağı xəta payı, sürətli tanıma xüsusiyyəti və təmassız gigiyenik istifadəsi ilə üz tanıma sistemləri xüsusilə kart oxuyuculara və ya barmaq izi istifadəsinə uyğun olmayan sektorlarda ən praktik və təhlükəsiz izləmə həllərinin başında gəlir.</p>\n<p>Üz tanıma sistemləri ilə qeyd altına alınan məlumatları İdenfit PDKS Proqramı ilə qiymətləndirərək hesabatlaya bilər və işçi izləməsini asanlıqla həyata keçirə bilərsiniz.</p>',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/6@2x-1.png', alt: '6@2x 1', width: 994, height: 1101 },
+        image: { url: '/wp-content/uploads/2025/07/6@2x-1.png', alt: '6@2x 1', width: 994, height: 1101 },
       },
       {
         title: 'BAB Beacon (Bluetooth)',
         text: '<p>Beacon, reader, wall reader, mobil access tətbiqi kimi keçid və izləmə həlləri ehtiva edən Bab məhsul ailəsi, bluetooth texnologiyası ilə şəxs və ya obyektləri asanlıqla izləməyinizi və idarə etməyinizi təmin edir.</p>\n<p>BAB köməyilə işçilərinizin işə giriş-çıxış saatlarını nəzarət edə, keçid səlahiyyətlərini idarə edə bilərsiniz. Mobil cihazınızla uzaqda olsanız belə istənilən zaman aralığı və istədiyiniz işçilər üçün təhlükəsiz giriş paylaşımı və ya məhdudlaşdırması həyata keçirə bilərsiniz.</p>\n<p>PDKS tərəfində istəsəniz geriyə dönük sorğulama edə və keçmiş məlumatları sistemdən əldə edə bilərsiniz</p>',
         ctaText: 'Pulsuz Sınayın', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/7@2x.png', alt: '7@2x', width: 962, height: 1125 },
+        image: { url: '/wp-content/uploads/2025/07/7@2x.png', alt: '7@2x', width: 962, height: 1125 },
       },
       {
         title: 'PDKS Mobil Tətbiq',
         text: 'İşçilər telefonlarına yüklədikləri İdenfit mobil PDKS tətbiqi ilə beacon texnologiyası, GPS, NFC, QR kod kimi texnologiyalarla kimlik və lokasiya doğrulaması edə bilərlər. Ayrıca mobil tətbiq üzərindən əlavə iş saatı və icazə tələblərini də həyata keçirə bilərlər. Mobil cihaz istifadəsi ilə, idenfit personalın davamiyyət nəzarət sistemi tətbiqi sayəsində işçilərin giriş-çıxış məlumatları, icazə, növbə, fasilə qeydləri və əlavə iş saatları qeyd altında tutulur.',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/idenfit-karekod-tr@2x.webp', alt: 'idenfit karekod tr@2x', width: 438, height: 546 },
+        image: { url: '/wp-content/uploads/2025/07/idenfit-karekod-tr@2x.webp', alt: 'idenfit karekod tr@2x', width: 438, height: 546 },
       },
       {
         title: 'Personal İzləmə Sistemində Karekod - QR Kod Oxutma Necə İşləyir?',
         text: '<p>İdenfit Mobil PDKS tətbiqində yer alan karekod – QR kod oxutma metodu ilə personal giriş-çıxışlarını asanlıqla edə bilərsiniz. QR kod – karekod oxuma nəticəsində məkan məlumatı anlıq olaraq sistemə qeyd edilir.</p>\n<p>QR kod eyni zamanda kartlı keçid sistemlərində də istifadə olunur. QR kod oxuyucu, kartlı sistemlərdə kart üzərinə basılan karekodu və ya barkodu oxuduğunda işçilərin giriş-çıxış əməliyyatı həyata keçmiş olur.</p>\n<p>"Mobil cihaz və ya telefonların işçi giriş kartı kimi istifadə olunmasını təmin edən texnologiyası sayəsində idenfit mobil PDKS tətbiqi, müəssisələrin əlavə cihaz və xərclərə qatlanmadan personal izləmə sistemi qurmasına imkan verir."</p>',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/8@2x.png', alt: '8@2x', width: 604, height: 499 },
+        image: { url: '/wp-content/uploads/2025/07/8@2x.png', alt: '8@2x', width: 604, height: 499 },
       },
       {
         title: 'İdenfit PDKS Proqramı Ümumi Xüsusiyyətlər',
@@ -161,14 +161,14 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Onboarding',
       text: 'idenfit işçilərin onboarding proseslərini problemsiz bir axın içində idarə etməyinizi təmin edir.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/onboarding1@2x.png', alt: 'onboarding1@2x', width: 1061, height: 1285 },
+      image: { url: '/wp-content/uploads/2025/07/onboarding1@2x.png', alt: 'onboarding1@2x', width: 1061, height: 1285 },
     },
     sections: [
       {
         title: 'Onboarding prosesində əskik iş qalmasın!',
         text: '<ul class="list gray"><li>İşçilərin işə başlamasından etibarən eyni və ya fərqli departamentlərin görməli olduğu, şəxsi sistem girişlərinin müəyyən edilməsi, giriş səlahiyyətləndirmələrinin edilməsi, e-poçt hesablarının açılması, yemək kartı & telefon xətti kimi haqların müəyyən edilməsi kimi əməliyyatlar sistemə addım-addım təyin edilə bilər.</li></ul><p>idenfit, müntəzəm aparılan işdən çıxış mərhələlərində müəssisənizin pozitiv marka qavrayışını qoruyarkən eyni zamanda işdən çıxan işçiyə də daha az stresli və proqnozlaşdırıla bilən bir proses yaşadır.</p>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/onboarding3@2x.png', alt: 'onboarding3@2x', width: 1089, height: 1197 },
+        image: { url: '/wp-content/uploads/2025/07/onboarding3@2x.png', alt: 'onboarding3@2x', width: 1089, height: 1197 },
       },
       {
         title: 'Departamentlərarası sürətli ünsiyyət',
@@ -187,7 +187,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Offboarding Modulu',
       text: 'Offboarding modulu ilə işdən çıxış prosesini proqnozlaşdırıla bilən və stressiz idarə edin!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/offboarding-1.png', alt: 'offboarding 1', width: 877, height: 1201 },
+      image: { url: '/wp-content/uploads/2025/07/offboarding-1.png', alt: 'offboarding 1', width: 877, height: 1201 },
     },
     sections: [
       {
@@ -195,7 +195,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>• İşə qəbul prosesində olduğu kimi bir işçinin işdən çıxması vəziyyətində də meydana gələn bütün proses, hər hansı bir problem yaşanmadan sistem üzərindən idarə edilə bilər.</p>\n<p>• Bütün departamentlər eyni zamanda, prosesi davam edən və tamamlanan işlərdən tək panel sayəsində sürətlə xəbərdar olur.</p>\n<p>• Hesabatlıq xüsusiyyəti sayəsində işdən çıxış nisbətləri hesablana bilər və təkmilləşdirmə mövzusunda lazımi tənzimləmələr edilə bilər.</p>',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/offboarding-2.webp', alt: 'offboarding 2', width: 1081, height: 765 },
+        image: { url: '/wp-content/uploads/2025/07/offboarding-2.webp', alt: 'offboarding 2', width: 1081, height: 765 },
       },
       {
         title: 'Offboarding prosesində həm işçini, həm də müəssisənizi qoruyun.',
@@ -215,14 +215,14 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Sorğu Modulu',
       text: 'İşçilərin fikirlərini ən qısa yoldan öyrənin, sürətlə hərəkətə keçin!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Anket1@2x.png', alt: 'Anket1@2x', width: 950, height: 1261 },
+      image: { url: '/wp-content/uploads/2025/07/Anket1@2x.png', alt: 'Anket1@2x', width: 950, height: 1261 },
     },
     sections: [
       {
         title: 'Sorğularla müəssisənizin nəbzini tutun!',
         text: 'idenfit sorğu modulu ilə, işçilərə sistem üzərindən hazırlanıb göndərilən sorğu və rəy formaları ilə işçi fikir və görüşləri asan şəkildə toplana bilər və nəticələr istiqamətində daha doğru və sürətli qərarlar alına bilər.',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Anket3@2x.png', alt: 'Anket3@2x', width: 1080, height: 935 },
+        image: { url: '/wp-content/uploads/2025/07/Anket3@2x.png', alt: 'Anket3@2x', width: 1080, height: 935 },
       },
       {
         title: 'Departament əsaslı və ya toplu nəticələrə çatın!',
@@ -247,7 +247,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Əmək Haqqı Modulu',
       text: 'idenfit əmək haqqı modulu, bir çox əmək haqqı hesablama və ERP proqramları ilə ikitərəfli inteqrasiya olaraq işləyir!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/bordro1@2x.webp', alt: 'bordro1@2x', width: 1020, height: 1161 },
+      image: { url: '/wp-content/uploads/2025/08/bordro1@2x.webp', alt: 'bordro1@2x', width: 1020, height: 1161 },
     },
     sections: [
       {
@@ -255,7 +255,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>idenfit əmək haqqı modulu ilə,</p>\n<ul class="list gray"><li>İşçilərin əmək haqqı vərəqələri İnsan Resursları menyusundan, Əmək Haqqı bölməsi altında görüntülənə bilər.</li><li>Ay əsasında bütün əmək haqqı vərəqələri sistemə yüklənə bilər.</li></ul>',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/bordro2@2x.webp', alt: 'bordro2@2x', width: 998, height: 927 },
+        image: { url: '/wp-content/uploads/2025/08/bordro2@2x.webp', alt: 'bordro2@2x', width: 998, height: 927 },
       },
       {
         title: 'Daxili ƏMƏK HAQQI Modulu',
@@ -276,7 +276,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Təlim İdarəçiliyi Modulu',
       text: 'idenfit ilə müəssisə daxili və xarici təlim prosesi & nəticələrini problemsiz idarə edirsiniz.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim1@2x.png', alt: 'Eğitim1@2x', width: 1076, height: 1339 },
+      image: { url: '/wp-content/uploads/2025/07/Eğitim1@2x.png', alt: 'Eğitim1@2x', width: 1076, height: 1339 },
     },
     sections: [
       {
@@ -284,7 +284,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>İşçilərin həqiqətən fiziki iştirak tələb edən təlimlərə qatılıb-qatılmadığının izlənməsi,</p>\n<ul class="list gray"><li>Fiziki təlimlərə və ya saha təlimlərinə qatılım beacon və gps texnologiyaları ilə mobil cihaz üzərindən nəzarət oluna bilər.</li><li>Qatılımlar sistem üzərində sessiya kimi müəyyən saatlarda təyin edilə bilər və bu vəziyyətdə mobil cihaz üzərindən daxil edilən saatlar və məlumatlar da real zamanlı olacaq.</li></ul>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/Eğitim2@2x.webp', alt: 'Eğitim2@2x', width: 1115, height: 1336 },
+        image: { url: '/wp-content/uploads/2025/07/Eğitim2@2x.webp', alt: 'Eğitim2@2x', width: 1115, height: 1336 },
       },
       {
         title: 'Təlimlərinizi idenfit ilə planlayın!',
@@ -303,27 +303,27 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Şəxsi fayl modulu',
       text: 'idenfit ilə şəxsi faylları rəqəmsal mühitdə güncəl və tam şəkildə etibarlı saxlayın.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/1@2x.png', alt: 'şəxsi fayl modulu', width: 913, height: 1281 },
+      image: { url: '/wp-content/uploads/2025/09/1@2x.png', alt: 'şəxsi fayl modulu', width: 913, height: 1281 },
     },
     sections: [
       {
         title: 'Güncəl və tam şəxsi fayl saxlayın!',
         text: '', ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/3@2x.png', alt: 'güncəl şəxsi fayl', width: 940, height: 1281 },
+        image: { url: '/wp-content/uploads/2025/09/3@2x.png', alt: 'güncəl şəxsi fayl', width: 940, height: 1281 },
       },
       {
         title: 'Şəxsi məlumatlarınız biometrik imza ilə təhlükəsizdir!',
         text:
           '<p>İş Qanununun 75-ci maddəsinə əsasən işəgötürənlər, işə götürülən hər personal üçün şəxsi fayl saxlamağa məcburdur. Zərurət olduğu halda bu sənədləri səlahiyyətli şəxslərə göstərməklə öhdəlidir.</p>\n<p>idenfit şəxsi fayl modulu ilə, işçiyə aid; əmək müqaviləsi, işə qəbul və icazə sənədləri, maliyyə sənədləri, işləmə müddətində aldığı sənədlər, təyinat və iş saatı formaları kimi bütün rəsmi sənəd və qeydləri onlayn sistemdə biometrik imza ilə təsdiqlənmiş olaraq saxlaya bilərsiniz.</p>',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/2@2x.png', alt: 'biometrik imza', width: 1129, height: 902 },
+        image: { url: '/wp-content/uploads/2025/09/2@2x.png', alt: 'biometrik imza', width: 1129, height: 902 },
       },
       {
         title: 'Şəxsi Məlumatların Qorunması Qanununa uyğun şəkildə məlumatları saxlayın!',
         text:
           '<ul class="list gray"><li>Şəxsi Məlumatların Qorunması Qanunu qaydalarına əsasən işçilərin şəxsi məlumatları sistemdə, işçi mənafeləri istiqamətində anonimləşdirilmiş olaraq saxlanılır.</li><li>Şəxsi faylların rəqəmsal mühitdə qanunvericiliyə uyğun olaraq yaradılması həm işəgötürən, həm də insan resursları departamenti işçiləri üçün vaxt və xərc qənaəti təmin edir.</li></ul><p>İşçilərlə əlaqədar bütün məlumatlara mobil və ya veb üzərindən, internetin olduğu hər an və hər yerdən çatıla bilər.</p>',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/4@2x.png', alt: 'Şəxsi Məlumatların Qorunması Qanununa uyğun saxlama', width: 1099, height: 1166 },
+        image: { url: '/wp-content/uploads/2025/09/4@2x.png', alt: 'Şəxsi Məlumatların Qorunması Qanununa uyğun saxlama', width: 1099, height: 1166 },
       },
     ],
     faq: [
@@ -338,7 +338,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Performans İdarəçiliyi Modulu',
       text: 'Doğru performans qiymətləndirməsi ilə işçilərinizin inkişafına sürət qazandırın!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/tr_ilk_resim@2x.jpg', alt: 'tr ilk resim@2x', width: 927, height: 1281 },
+      image: { url: '/wp-content/uploads/2025/07/tr_ilk_resim@2x.jpg', alt: 'tr ilk resim@2x', width: 927, height: 1281 },
     },
     sections: [
       {
@@ -346,28 +346,28 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>idenfit performans idarəçiliyi modulunda, performans şablonu seçimi ilə, panelə hədəf (kpi) və bacarıqlar (competence) təyin edə bilərsiniz.</p>\n<p>Bacarıqlar bölməsinə korporativ, peşəkar, sosial, liderlik, təşkilat bacarığı kimi istədiyiniz qədər fərqli qrupda bacarıq, eyni şəkildə hədəflər bölməsinə departamentinizin müəyyən etdiyi (satış hədəfləri, müştəri məmnunluğu…) hədəfləri fərqli başlıqlar altında təyin edə bilərsiniz. Ölçmək istədiyiniz dəyər, hədəf və bacarıq hovuzundan seçilə bildiyi kimi hovuzda olmayan bir maddə də əlavə edə bilərsiniz.</p>',
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/performans2@2x.png', alt: 'performans2@2x', width: 1099, height: 955 },
+        image: { url: '/wp-content/uploads/2025/07/performans2@2x.png', alt: 'performans2@2x', width: 1099, height: 955 },
       },
       {
         title: '360 Dərəcə Performans Qiymətləndirməsi',
         text:
           '<p>idenfit performans qiymətləndirmə modulu, ənənəvi metodlardan fərqli olaraq, performans qiymətləndirmələrini dövri zaman dilimlərində KPI (Əsas Performans Göstəricisi) yaradacaq şəkildə etməyinizə imkan verir.</p>\n<p>Performans qiymətləndirməsi bir-bir edilə biləcəyi kimi; astı, özü, bərabəri və üstü tərəfindən qiymətləndirilmə imkanı təqdim edərək performans qiymətləndirməsini 360 dərəcə edir. 360 dərəcə performans qiymətləndirməsi işçilərinizin real performanslarını hesablayaraq ədalətli bir proses idarə etməyinizə kömək edir.</p>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/performans3@2x.png', alt: 'performans3@2x', width: 1202, height: 988 },
+        image: { url: '/wp-content/uploads/2025/07/performans3@2x.png', alt: 'performans3@2x', width: 1202, height: 988 },
       },
       {
         title: 'İşçiləriniz hədəflərinə çatsın!',
         text:
           '<p>idenfit ilə performans qiymətləndirməsi edərkən, ənənəvi metodlarla hazırlanan, mürəkkəb cədvəllərlə məşğul olmaq məcburiyyətində qalmırsınız.</p>\n<p>Şəxslərlə əlaqədar davamlı güncəllənən performans dəyərlərini, dövrlər əsasında KPI-lar daxilində, hədəf və bacarıqlar şablonunda bir arada görərək qiymətləndirə bilərsiniz.</p>',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/performans4@2x.png', alt: 'performans4@2x', width: 1095, height: 854 },
+        image: { url: '/wp-content/uploads/2025/07/performans4@2x.png', alt: 'performans4@2x', width: 1095, height: 854 },
       },
       {
         title: 'Nəticələrə görə təlim planlayın!',
         text:
           '<p>idenfit, performans qiymətləndirməsinin ötəsində, çıxan nəticələrə görə tədbir görməyinizə də imkan verir. Müəyyən edilmiş dövrlərdə, hədəf və bacarıqlar qiymətləndirməsi nəticələrinə görə işçilərinizi mükafatlandıra və ya performansda təkmilləşdirmə lazımdırsa təlim yönləndirməsi edə bilərsiniz.</p>\n<p>Idenfit-in, istifadəçilərinə təqdim etdiyi, hazır və fərdiləşdirilə bilən performans qiymətləndirmə paneli ilə insan resursları idarəçiliyində, vaxta qənaət təmin edərkən komandanızın performansını və iş səmərəliliyini də real məlumatlarla ölçürsünüz.</p>',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/tr_son_resim@2x.jpg', alt: 'tr son resim@2x', width: 1347, height: 1228 },
+        image: { url: '/wp-content/uploads/2025/07/tr_son_resim@2x.jpg', alt: 'tr son resim@2x', width: 1347, height: 1228 },
       },
     ],
     faq: [
@@ -386,14 +386,14 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Əsas vəsaitləri rəqəmsal mühitə daşıyın, nəzarəti asanlaşdırın!',
       text: 'Müəssisənizin sahib olduğu bütün əsas vəsaitləri tək bir paneldə izləmək istəyirsiniz? idenfit Əmlak İdarəçiliyi Modulu, əsas vəsaitlərinizi rəqəmsallaşdıraraq qeydiyyat, izləmə və idarəçilik proseslərini sadələşdirir.',
       ctaText: '', ctaUrl: '',
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/hero-demirbaş-tr.png', alt: 'hero demirbaş tr', width: 1137, height: 1260 },
+      image: { url: '/wp-content/uploads/2025/08/hero-demirbaş-tr.png', alt: 'hero demirbaş tr', width: 1137, height: 1260 },
     },
     sections: [
       {
         title: 'idenfit Əmlak Modulu ilə:',
         text:
           '<ul class="list gray"><li>Müəssisənizin sistemdə qeydiyyatlı bütün əsas vəsaitlərini modul üzərindən təyin edə bilərsiniz.</li><li>Hər bir əsas vəsait üçün əmlak təyinatları asanlıqla edilə bilər.</li><li>Əsas vəsaitlərin satın alınma tarixləri, zəmanət müddətləri, seriya nömrələri və model məlumatları sistemə daxil edilə bilər.</li><li>Bütün bu məlumatlar zaman damğası ilə qeyd altına alınır, geriyə dönük izlənə bilənlik təmin edilir.</li><li>Əsas səhifədən Əmlak sekmesinə klikləyərək bütün detallara ani çata bilərsiniz.</li></ul><p>Bu modul, əmlak idarəçiliyini həm şəffaf, həm də səmərəli hala gətirərək vaxta qənaət təmin edir. İster kiçik miqyaslı, ister böyük miqyaslı bir müəssisə olun, rəqəmsallaşdırılmış əsas vəsait izləməsi ilə prosesi təminat altına alırsınız.</p>',
-        ctaText: '', ctaUrl: '', image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/web-demirbaş-tr.png', alt: 'web demirbaş tr', width: 1092, height: 1032 },
+        ctaText: '', ctaUrl: '', image: { url: '/wp-content/uploads/2025/08/web-demirbaş-tr.png', alt: 'web demirbaş tr', width: 1092, height: 1032 },
       },
     ],
     faq: [],
@@ -403,13 +403,13 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Sənədlər Modulu',
       text: 'Ortaq girişə açıq, anonim sənədləri işçilərinizin istifadəsinə təqdim edin.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar1@2x.webp', alt: 'dokümanlar1@2x', width: 1220, height: 1332 },
+      image: { url: '/wp-content/uploads/2025/07/dokümanlar1@2x.webp', alt: 'dokümanlar1@2x', width: 1220, height: 1332 },
     },
     sections: [
       {
         title: 'Anonim sənədlər üçün sənədlər modulu!',
         text: '', ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/dokümanlar2@2x.webp', alt: 'dokümanlar2@2x', width: 1129, height: 731 },
+        image: { url: '/wp-content/uploads/2025/07/dokümanlar2@2x.webp', alt: 'dokümanlar2@2x', width: 1129, height: 731 },
       },
       {
         title: 'Sənədləri asanlıqla yükləyin!',
@@ -430,7 +430,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Sağlamlıq Modulu',
       text: 'Sağlamlıq laqeyd yanaşılmır, işçilərinizin sağlamlığından xəbərdar olun! idenfit sağlamlıq modulu, işçilərinizin sağlamlıq vəziyyətlərini və varsa xüsusi şərtlərini asanlıqla izləyə bilməyinizə və məlumatlar istiqamətində qeyri-adi baş verə biləcək vəziyyətləri idarə etməyinizə kömək edir.',
       ctaText: '', ctaUrl: '',
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik1@2x.png', alt: 'sağlik1@2x', width: 889, height: 1281 },
+      image: { url: '/wp-content/uploads/2025/08/sağlik1@2x.png', alt: 'sağlik1@2x', width: 889, height: 1281 },
     },
     sections: [
       {
@@ -438,7 +438,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>Əksər müəssisə, işə qəbul edərkən işçilərindən sağlamlıq hesabatı, xüsusi vəziyyət hesabatı kimi qurum təsdiqli sənədlər tələb edə bilər. Bəzən də işlənilən vəzifənin tələb etdiyi vəziyyətlərdə işçilərin keçirdiyi əməliyyatlar, müntəzəm istifadə etdiyi dərmanlar, varsa allergiya məlumatlarının da müəssisəyə bildirilməsi tələb edilə bilər.</p>\n<p>Sağlamlıq məlumatları, işçilərin icazələri istiqamətində sistemə daxil edilib, ola biləcək hər hansı bir sağlamlıq probleminidə, təcili vəziyyətlərdə şəxsə uyğun müdaxilə məqsədilə istifadə edilir.</p>',
         ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/sağlik3@2x.png', alt: 'sağlik3@2x', width: 952, height: 1261 },
+        image: { url: '/wp-content/uploads/2025/08/sağlik3@2x.png', alt: 'sağlik3@2x', width: 952, height: 1261 },
       },
       {
         title: 'İşçilərinizin sağlamlıq məlumatlarını asanlıqla izləyin!',
@@ -457,20 +457,20 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Xərclər Modulu',
       text: 'Xərcləri; xərc növləri, avanslar və ezamiyyət haqları başlıqları altında kateqoriyalaşdıraraq idarə edin.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/harcamalar-1.webp', alt: 'harcamalar 1', width: 488, height: 621 },
+      image: { url: '/wp-content/uploads/2025/07/harcamalar-1.webp', alt: 'harcamalar 1', width: 488, height: 621 },
     },
     sections: [
       {
         title: 'Xərcləri mobildən anlıq idarə edin!',
         text: '', ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/2@2x-1.webp', alt: '2@2x 1', width: 1364, height: 1228 },
+        image: { url: '/wp-content/uploads/2025/07/2@2x-1.webp', alt: '2@2x 1', width: 1364, height: 1228 },
       },
       {
         title: 'Xərclər arasında itməyin!',
         text:
           '<p>idenfit xərclər modulu ilə,</p>\n<ul class="list gray"><li>Müəssisə daxilində və ya xaricində edilən bütün xərclər, məsrəflər real zamanlı olaraq sistemə qeyd edilir və müntəzəm olaraq izlənə bilər.</li><li>İşçi və ya departament əsaslı xərclər, qəbz, faktura və ya çek fotoşəkillərinin çəkilib sistemə yüklənməsi ilə mobildən idarə oluna bilər.</li><li>Edilən xərclərlə əlaqədar sənədlər səlahiyyətlilərə çatdırılıb təsdiqləri alına bilər.</li><li>Səlahiyyətlilərin təsdiq verməmə – xərc tələbini rədd etmə hüququ saxlanılır.</li><li>Axtarılan xərc çoxlu filtrasiya xüsusiyyəti ilə vaxt itirmədən sistem üzərində tapıla bilər.</li></ul>',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/4@2x.webp', alt: '4@2x', width: 1098, height: 801 },
+        image: { url: '/wp-content/uploads/2025/07/4@2x.webp', alt: '4@2x', width: 1098, height: 801 },
       },
       {
         title: 'Xərcləri, avans və ezamiyyət haqqından ayrı-ayrı düşün!',
@@ -491,13 +491,13 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Şirkət təqvimi',
       text: 'Müəssisə daxili tədbirləri, görüşləri və xatırlatmaları idenfit şirkət təqvimi üzərində yaradaraq komandanızla paylaşın!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.1@2x.png', alt: 'şirket tak.1@2x', width: 1016, height: 1168 },
+      image: { url: '/wp-content/uploads/2025/07/şirket-tak.1@2x.png', alt: 'şirket tak.1@2x', width: 1016, height: 1168 },
     },
     sections: [
       {
         title: 'Tədbir Yaradın',
         text: '', ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/şirket-tak.webp', alt: 'şirket tak', width: 1019, height: 820 },
+        image: { url: '/wp-content/uploads/2025/07/şirket-tak.webp', alt: 'şirket tak', width: 1019, height: 820 },
       },
       {
         title: 'Vaxtı İdarə Edin',
@@ -515,21 +515,21 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Mesaj Modulu',
       text: 'İşçilər arası bütün mesajlaşmaları və departament daxili toplu elanları idenfit ilə edin!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/mesajlar1@2x.png', alt: 'mesajlar1@2x', width: 1308, height: 1241 },
+      image: { url: '/wp-content/uploads/2025/07/mesajlar1@2x.png', alt: 'mesajlar1@2x', width: 1308, height: 1241 },
     },
     sections: [
       {
         title: 'İşçilər arası "chat" mesajlaşma sistemi',
         text: 'İşçilər mobil tətbiqdə, istəsələr fərdi olaraq, istəsələr mesajlaşma qrupları yaradaraq "chat" sistemi ilə mesajlaşa bilərlər. Beləliklə müəssisə daxili məlumatlar fərqli platformalara daşınmaq məcburiyyətində qalmır.',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/mesajlar2@2x.png', alt: 'mesajlar2@2x', width: 1067, height: 955 },
+        image: { url: '/wp-content/uploads/2025/07/mesajlar2@2x.png', alt: 'mesajlar2@2x', width: 1067, height: 955 },
       },
       {
         title: 'idenfit üzərindən mesajlaşmaq sürətli və asandır!',
         text:
           '<p>idenfit mesajlar modulu ilə,</p>\n<ul class="list gray"><li>Görüşmə qeydləri və mühüm inkişaflar anında komanda ilə paylaşıla bilər.</li><li>Sms, e-poçt, tətbiq bildirişi formatındakı mesajlar departament əsaslı bütün işçilərə toplu olaraq və ya filtrasiya xüsusiyyəti ilə yalnız seçilən işçilərə göndərilə bilər.</li><li>Müəssisə ilə əlaqədar və ya ümumi olaraq bütün bildirişlər, eyni zamanda sistem üzərindən toplu elan xarakterli göndərilə bilər.</li><li>Ofis daxilində və ya xaricində olan işçilərlə effektiv şəkildə və vaxt itkisi olmadan ünsiyyət qurulması hədəflənir.</li></ul>',
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/mesajlar4@2x.png', alt: 'mesajlar4@2x', width: 1113, height: 967 },
+        image: { url: '/wp-content/uploads/2025/07/mesajlar4@2x.png', alt: 'mesajlar4@2x', width: 1113, height: 967 },
       },
       {
         title: 'Vebdən sms, e-poçt və bildiriş mesajları göndərin!',
@@ -551,21 +551,21 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Geri Bildirim Modulu',
       text: 'İşçilərdən alınan geri bildirimlərlə, müəssisə daxili motivasiyanı artırın.',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/geri-bildirim1@2x.png', alt: 'geri bildirim1@2x', width: 1203, height: 1305 },
+      image: { url: '/wp-content/uploads/2025/07/geri-bildirim1@2x.png', alt: 'geri bildirim1@2x', width: 1203, height: 1305 },
     },
     sections: [
       {
         title: 'Hesabatlarla işçi məmnunluğunu qiymətləndirin!',
         text: 'idenfit geri bildirim modulu ilə, daha xoşbəxt bir müəssisə üçün işçi məmnunluğu real məlumatlarla ölçülür. İşçilərin sistemə daxil etdiyi cavablar təhlil və hesabat halında ətraflı olaraq görüntülənə bilər. Zaman əsaslı olaraq müqayisə (keçən ay və ya keçən həftə…) edilə bilər. Müəssisədə hansı sahələr və ya mövzular işçiləri məmnun edir və ya hansılarında təkmilləşdirmə edilməlidir kimi mövzular, məlumatlar işığında qiymətləndirilə bilər.',
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/geri-bildirim2@2x.webp', alt: 'geri bildirim2@2x', width: 1161, height: 773 },
+        image: { url: '/wp-content/uploads/2025/07/geri-bildirim2@2x.webp', alt: 'geri bildirim2@2x', width: 1161, height: 773 },
       },
       {
         title: 'Xoşbəxt işçilər üçün geri bildirimdən faydalanın!',
         text:
           '<p>idenfit geri bildirim modulu ilə,</p>\n<ul class="list gray"><li>İşçilər anlıq və ya gündəlik əhval-ruhiyyələrini əyləncəli bir dizayn üzərindən seçə bilərlər.</li><li>Menecerlər istənilən sualları özləri yarada biləcəkləri kimi cavabları da təyin edə bilərlər.</li><li>Menecerlər seçilən nəticələri şəxs əsasında görüntüləyə bilər və lazımi təkmilləşdirmələri şəxslər üzərindən və ya komanda olaraq edə bilərlər.</li><li>Bu səsvermələr nəticəsində, insan resursları əsas səhifəsində bütün işçilərin xoşbəxtlik və ya narazılıq nisbəti kimi toplu məlumatlara çatıla bilər.</li></ul>',
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/geri-bildirim4@2x.png', alt: 'geri bildirim4@2x', width: 1111, height: 747 },
+        image: { url: '/wp-content/uploads/2025/07/geri-bildirim4@2x.png', alt: 'geri bildirim4@2x', width: 1111, height: 747 },
       },
       {
         title: 'işçilərinizlə ünsiyyətdə qalın!',
@@ -584,40 +584,40 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Vaxt və Davamiyyət İdarəçiliyi',
       text: 'Şirkətinizin böyüklüyündən asılı olmayaraq, idenfit işçilərinizin iş növbələrini asanlıqla planlamanızı təmin edir.',
       ctaText: 'Davamiyyət İzləməsinə Başlayın', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/1@2x.webp', alt: '1@2x', width: 1038, height: 1403 },
+      image: { url: '/wp-content/uploads/2025/07/1@2x.webp', alt: '1@2x', width: 1038, height: 1403 },
     },
     sections: [
       {
         title: 'Vaxt İdarəçiliyi',
         text: "idenfit-in vaxt və davamiyyət idarəçiliyi ilə işçilərin gəlişlərini, növbələrini, icazələrini, əlavə iş saatlarını və rəsmi bayramları zəhmətsizcə idarə edə bilərsiniz. idenfit, növbələrin doğru şəkildə hesablandığından əmin olur. Yaxşı hesablanmış növbələr, istifadəçilərin performans qiymətləndirmələrini daha səmərəli şəkildə həyata keçirməyinə kömək edir.",
         ctaText: 'Vaxt İdarəçiliyinə Başlayın', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/puantajtak.2@2x.jpg', alt: 'puantajtak.2@2x', width: 751, height: 1071 },
+        image: { url: '/wp-content/uploads/2025/07/puantajtak.2@2x.jpg', alt: 'puantajtak.2@2x', width: 751, height: 1071 },
       },
       {
         title: 'Ağıllı Növbə İdarəçiliyi',
         text:
           '<p>İşçilərinizin işləmək istədikləri növbələri seçmələrinə icazə verə bilər və idenfit-in ağıllı növbə idarəetmə proqramı ilə onlara mövcud növbələri planlaya bilərsiniz. İşçilərinizin növbələri, itirilən saatlar və fasilələr tək bir panel üzərindən görüntülənə bilər və idarə oluna bilər. Ağıllı növbə idarəçiliyində, növbələr sabit, çevik və dinamik növbə olaraq kateqoriyalaşdırıla bilər. Sabit növbələr müəyyən başlanğıc və bitiş saatlarına əsaslanarkən, çevik və dinamik növbələr gün boyunca ümumi iş saatlarını nəzərə alır.</p>\n<p>Həftəlik iş saatlarında əlavə iş saatı ilə əlaqədar bir problem olduqda avtomatik bir bildiriş alacaqsınız, beləliklə bu cür əlavə iş saatlarını təkrar-təkrar həll etmək məcburiyyətində qalmazsınız.</p>',
         ctaText: 'Ağıllı Növbə İdarəçiliyinə Başlayın', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/puantajtak-1.webp', alt: 'puantajtak 1', width: 1147, height: 840 },
+        image: { url: '/wp-content/uploads/2025/07/puantajtak-1.webp', alt: 'puantajtak 1', width: 1147, height: 840 },
       },
       {
         title: 'İllik Təqvim',
         text: "idenfit, hər işçinin illik təqvimində işçilərin gəlişlərini, növbələrini, icazələrini, əlavə iş saatlarını və rəsmi bayramları idarə etməyinizi təmin edir. Məlumatlar əl ilə də tənzimlənə bilər. İllik təqvim, şirkətlərə bütün vaxt və davamiyyət məlumatlarını tək bir idarəetmə panelində təqdim edərək komandanızın vərdişlərini izləməyinizi təmin edir.",
         ctaText: 'İllik Təqvimə Başlayın', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/puantajtak-2.webp', alt: 'puantajtak 2', width: 1109, height: 615 },
+        image: { url: '/wp-content/uploads/2025/07/puantajtak-2.webp', alt: 'puantajtak 2', width: 1109, height: 615 },
       },
       {
         title: 'Növbə Təqvimi',
         text:
           "<p>idenfit-də işçi növbələrini planlamaq, münaqişəsiz növbələri yalnız bir neçə dəqiqə içində planlamaq üçün ehtiyac duyduğunuz bütün fikirləri təmin edir. Tək bir platformadan, növbələri izləyə bilər və təqvimdə bütün növbə planlamasını rəngli və əyləncəli bir dizaynla görə bilərsiniz. Bayramları və uyğunsuzluq vəziyyətlərini asanlıqla nəzərə ala bilər, planlama münaqişələrinin qarşısını ala bilər və büdcə daxilində qalaraq əlavə iş saatını əngəlləyə bilərsiniz.</p>\n<p>idenfit ilə eyni növbə proqramını iki dəfə yaratmağınıza ehtiyac yoxdur. Bunun yerinə, təkrar funksiyamızın çevikliyindən faydalana və ya gələcəkdə istifadə üçün şablonlar yarada bilərsiniz.</p>",
         ctaText: 'Növbə İdarəçiliyinə Başlayın', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/5@2x.webp', alt: '5@2x', width: 801, height: 1074 },
+        image: { url: '/wp-content/uploads/2025/07/5@2x.webp', alt: '5@2x', width: 801, height: 1074 },
       },
       {
         title: 'Fasilələr',
         text: 'idenfit, növbə növünə bağlı olaraq fasilələri çevik bir şəkildə idarə etməyinizi təmin edir. Fasilələrlə əlaqədar məlumatlar saxlanılır və tələb üzərinə hesabat kimi alına bilər. Fasilələr, idenfit-də şirkət siyasətlərinə görə təyin edilir və əlavə edilir.',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/6@2x.webp', alt: '6@2x', width: 1071, height: 899 },
+        image: { url: '/wp-content/uploads/2025/07/6@2x.webp', alt: '6@2x', width: 1071, height: 899 },
       },
       {
         title: 'Canlı və Tarixi Monitorlar',
@@ -639,7 +639,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Servislər Modulu',
       text: 'Servis kateqoriyalarını idarə edərkən, servis məlumatlarını işçilərlə sistem üzərindən paylaşın!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/servisler1@2x.webp', alt: 'servisler1@2x', width: 1127, height: 1282 },
+      image: { url: '/wp-content/uploads/2025/07/servisler1@2x.webp', alt: 'servisler1@2x', width: 1127, height: 1282 },
     },
     sections: [
       {
@@ -647,7 +647,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>idenfit servis marşrutu modulu ilə,</p>\n<ul class="list gray"><li>Mavi yaxa, ağ yaxa, fərqli növbə servisləri kimi çoxlu servis kateqoriyası barındıran müəssisə işçiləri, hansı servisi hansı sürücünün istifadə etdiyini, sürücünün telefon nömrəsini, avtomobilin modelini və nömrəsini, servis marşrutunu – avtomobilin xəritə üzərində hansı dayanacaqlardan, nə zaman keçdiyi – kimi məlumatları ətraflı olaraq ehtiva edən sistem üzərindən görə bilərlər.</li></ul>',
         ctaText: 'Onlayn Təqdimat Tələbi', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/servisler2@2x.webp', alt: 'servisler2@2x', width: 1056, height: 942 },
+        image: { url: '/wp-content/uploads/2025/07/servisler2@2x.webp', alt: 'servisler2@2x', width: 1056, height: 942 },
       },
     ],
     faq: [
@@ -663,21 +663,21 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Qeydlər Modulu',
       text: 'Departamentiniz və işçiləriniz üçün qeyd almanın ən praktik yolunu istifadə edin!',
       ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/notlar1@2x.png', alt: 'notlar1@2x', width: 1138, height: 1201 },
+      image: { url: '/wp-content/uploads/2025/07/notlar1@2x.png', alt: 'notlar1@2x', width: 1138, height: 1201 },
     },
     sections: [
       {
         title: 'Xatırlatma xüsusiyyəti ilə qeyd izləməsini interaktiv edin!',
         text: 'İnsan resursları idarəçiliyində işçilərlə əlaqədar qeydlərin izlənməsi mühüm yer tutur. Qeydlərin müvafiq şəxs üzərindən yaradılması və digər modullarla inteqrasiya olaraq tək sistem üzərindən qeyd edilməsi iş yükünü böyük ölçüdə azaldır. idenfit ilə yaradılan qeydlər şəxsə xasdır. Qeyd edilən qeydlərin geriyə dönük görüntülənməsi və izlənməsində idenfit yaradılan qeydləri xatırlatma xüsusiyyəti ilə sistem üzərində işinizi asanlaşdırır.',
         ctaText: 'Ətraflı Məlumat Al', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/notlar2@2x.png', alt: 'notlar2@2x', width: 1053, height: 888 },
+        image: { url: '/wp-content/uploads/2025/07/notlar2@2x.png', alt: 'notlar2@2x', width: 1053, height: 888 },
       },
       {
         title: 'Şəxs və tarix əsaslı qeydlər yaradın!',
         text:
           '<p>idenfit qeydlər modulu ilə,</p>\n<ul class="list gray"><li>Sistemdə, müəssisə və ya şəxslə əlaqədar qeydlər yaradıla bilər.</li><li>Müvafiq şəxs və tarix əsaslı qeydlər daxil edilə bilər.</li><li>Məzmun və əhəmiyyət dərəcəsi kimi məlumatlar yanında lazım olduqda sənəd əlavə edilə bilər.</li><li>Qeydlər anonim olaraq deyil yaradan şəxsə xasdır və yalnız o şəxs tərəfindən görüntülənə bilər.</li></ul>',
         ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/notlar4@2x.webp', alt: 'notlar4@2x', width: 1084, height: 757 },
+        image: { url: '/wp-content/uploads/2025/07/notlar4@2x.webp', alt: 'notlar4@2x', width: 1084, height: 757 },
       },
       {
         title: 'Qeydlərinizi digər modullarla tək platformada idarə edin!',
@@ -696,13 +696,13 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Əmlak İdarəçiliyi',
       text: 'Əsas vəsaitləri və təyin etdiyiniz əmlakları rəqəmsal mühitdə asanlıqla izləyin!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/zimmetler1@2x.png', alt: 'zimmetler1@2x', width: 1035, height: 1261 },
+      image: { url: '/wp-content/uploads/2025/08/zimmetler1@2x.png', alt: 'zimmetler1@2x', width: 1035, height: 1261 },
     },
     sections: [
       {
         title: 'Əsas vəsaitləri və təyin etdiyiniz əmlakları rəqəmsal mühitdə asanlıqla izləyin!',
         text: '', ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/zimmetler3@2x.png', alt: 'zimmetler3@2x', width: 1099, height: 963 },
+        image: { url: '/wp-content/uploads/2025/08/zimmetler3@2x.png', alt: 'zimmetler3@2x', width: 1099, height: 963 },
       },
       {
         title: 'Əmlak təyinatlarını rəqəmsal mühitdə izləyin!',
@@ -721,7 +721,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'İcazə İdarəçiliyi',
       text: 'idenfit ilə icazələri, ağıllı və çevik platforma üzərindən idarə edin!',
       ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/izinler1@2x.webp', alt: 'izinler1@2x', width: 1210, height: 1350 },
+      image: { url: '/wp-content/uploads/2025/07/izinler1@2x.webp', alt: 'izinler1@2x', width: 1210, height: 1350 },
     },
     sections: [
       {
@@ -729,35 +729,35 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           "<p>İcazə idarəçiliyi & icazə təqvimi idenfit ilə istədiyiniz məhdudiyyət və şərtlərdə icazə növləri təyin edə bilərsiniz. Rəsmi bayramları və xüsusi icazələri eyni anda idarə edə bilərsiniz. idenfit işçilərin ehtiyacı olan xəstəlik icazəsi, analıq icazəsi və ya evlilik icazəsi kimi fərqli növlərdə, sərhədsiz icazə hesablaması və icazə köçürmə əməliyyatını dəstəkləyir və sizə xas icazə bölgüləri ilə icazə növünü ətraflandırmanızı təmin edəcək platforma təqdim edir.</p>\n<p>idenfit işçilərinizin tələb etdiyi bütün icazə növlərini tək bir təqvimdə birləşdirərək, illik, aylıq və həftəlik görə bilməyinizi təmin edir. İstənilən icazəni, istifadəçi dostu panel üzərində asanlıqla silə, əlavə edə və ya tənzimləyə bilərsiniz. Ayrıca hər icazə növünü fərqli rənglərdə göstərən panel məlumatlar arasında itməyinizi əngəlləyir.</p>",
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/izinler3@2x.webp', alt: 'izinler3@2x', width: 1114, height: 615 },
+        image: { url: '/wp-content/uploads/2025/07/izinler3@2x.webp', alt: 'izinler3@2x', width: 1114, height: 615 },
       },
       {
         title: 'Təkmilləşdirilmiş icazə seçimləri',
         text:
           '<p>idenfit ilə təkmilləşdirilmiş icazə seçimlərində kimlərin nə qədər icazə tələb etdiyi, hak edişlər və bu icazələri hansı departamentlərin görəcəyi və ya icazələrin nə qədər müddət əvvəldən tələb edilə biləcəyi kimi detallar sistem üzərindən təyin edilə bilər.</p>\n<p>Təsdiq tələb edən icazə növlərində sənəd ibrazı tələb edildikdə hesabatlar və ya sənədlər sistem üzərindən göndərilə bilər və ya icazə sənədlərinə qeyd edilə bilər. İcazə növlərinə görə icazə tələbinin mobildən və ya birbaşa insan resurslarına şəxsən edilməsi lazım olduğunun məlumatını müəssisə sistem üzərində müəyyənləşdirə bilər.</p>',
         ctaText: 'Əlaqəyə Keçin', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/izinler4@2x.webp', alt: 'izinler4@2x', width: 1180, height: 873 },
+        image: { url: '/wp-content/uploads/2025/07/izinler4@2x.webp', alt: 'izinler4@2x', width: 1180, height: 873 },
       },
       {
         title: 'Ağıllı icazə parametrləri',
         text:
           '<p>İcazə növlərini parametrlər vasitəsilə yalnız o icazəni ala biləcək şəxslərin təqviminə avtomatik olaraq göstərərək mümkün qarışıqlıqların qarşısına keçə bilərsiniz. Məsələn, doğum icazəsi kişi işçilərin icazə təqvimində yer almamalı, yalnız qadın işçilərə təyin edilən bir icazə növüdür. Bu kimi parametrləri istifadə edərək icazə idarəçiliyində iş yükündən və vaxtdan qənaət təmin edə bilərsiniz.</p>\n<p>idenfit icazə idarəçiliyində, cinsiyyət, yaş, ailə vəziyyəti və daha bir çox ətraflı parametrlə çevik icazə növləri yaradıb, hədəf işçilərinizə təyin edə bilərsiniz.</p>',
         ctaText: 'Ətraflı Məlumat', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/5@2x-1.webp', alt: '5@2x 1', width: 1186, height: 1106 },
+        image: { url: '/wp-content/uploads/2025/07/5@2x-1.webp', alt: '5@2x 1', width: 1186, height: 1106 },
       },
       {
         title: 'Kaskad təsdiq prosesləri',
         text:
           '<p>idenfit icazə idarəçiliyi ilə işçilər, menecerlərindən sürətli şəkildə icazə tələb edə bilər və menecerin icazəni tənzimləməsi vəziyyətində sistem üzərindən göndərilən bir bildirişlə xəbərdar ola bilər. Ayrıca, menecerlər idenfit icazə idarəçiliyi ilə real zamanlı olaraq hansı işçinin icazədə olduğunu, icazəsi yaxınlaşan işçiləri və hər hansı bir işçinin icazə keçmişini görə bilərlər.</p>\n<p>Hesabat icazələrində sistemə müvafiq sənəd yükləndikdə icazə təsdiqə düşmədən yaradılarkən, evlilik icazəsi kimi bir icazədə menecerin təsdiq verməsi gözlənilir. Tələb edilən iznin əvvəlcə departament rəhbərinə, təsdiqləndikdən sonra müvafiq bölmə müdirinə düşməsi kimi sistem üzərində kaskadlaşdırma edilə bilər. İcazəni kimin təsdiqləyə biləcəyi sistem üzərindən təyin edilə biləcəyi kimi alınan icazə bildirişinin hansı müvafiq şəxslərə gedəcəyi də eyni şəkildə müəyyən edilə bilər.</p>\n<p>Təsdiq verilməli olan icazələrdə, kaskad təsdiq proseslərini idenfit ilə yarada bilərsiniz.</p>',
         ctaText: 'İndi Müraciət Et', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/6@2x-1.webp', alt: '6@2x 1', width: 1297, height: 1197 },
+        image: { url: '/wp-content/uploads/2025/07/6@2x-1.webp', alt: '6@2x 1', width: 1297, height: 1197 },
       },
       {
         title: 'Çevik icazə seçimləri',
         text:
           '<p>Müəssisələrdə hər bir işçinin yaş, cinsiyyət, ailə vəziyyəti kimi fərdi fərqlərinin olduğu düşünüldükdə hər işçiyə eyni icazə növlərinin müəyyən edilməsi və işçinin təyin edilən icazənin hamısını istifadə etməsinin gözlənilməsi doğru və səmərəli bir yanaşma olmaz. Bu vəziyyət qarışıqlıqlara səbəb ola biləcəyi kimi əlavə iş yükünü də bərabərində gətirir.</p>\n<p>İşçilər icazə növlərində təyin edilən şərtlərə görə icazə tələblərini tam gün, yarım gün və ya rüb gün olaraq tələb edə bilər və icazələrindən istifadə edilən bu müddətlər avtomatik olaraq düşür. idenfit icazə idarəçiliyi ilə işçilərin ödənişli və ya ödənişsiz icazələri, sistemdə qeydiyyatlı olan hak edişlər köməyilə hər yerdən rəqəmsal mühitdə kağız işi olmadan idarə oluna bilər.</p>',
         ctaText: 'Satış Komandası ilə Görüşün', ctaUrl: DEMO_CTA_URL,
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/7@2x.webp', alt: '7@2x', width: 1140, height: 1281 },
+        image: { url: '/wp-content/uploads/2025/07/7@2x.webp', alt: '7@2x', width: 1140, height: 1281 },
       },
       {
         title: 'İcazə idarəçiliyini idenfit-ə buraxın, vaxtınız sizə qalsın!',
@@ -778,7 +778,7 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
       title: 'Səyahət Modulu',
       text: 'İşçi səyahətlərini; transfer, konaklama və iş başlıqları altında kateqoriyalaşdıraraq idarə edin!',
       ctaText: '', ctaUrl: '',
-      image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/seyahat1@2x.webp', alt: 'seyahat1@2x', width: 1197, height: 1233 },
+      image: { url: '/wp-content/uploads/2025/07/seyahat1@2x.webp', alt: 'seyahat1@2x', width: 1197, height: 1233 },
     },
     sections: [
       {
@@ -786,14 +786,14 @@ export const PRODUCT_OVERRIDES_AZ: Record<string, ProductOverrideAz> = {
         text:
           '<p>idenfit səyahət modulu ilə, işçilərinizin ölkə daxili və ya xarici səyahətlərini etibarlı şəkildə idarə edə bilərsiniz. İşçi icazə tələblərində olduğu kimi, gediləcək tarix və yer məlumatlarını daxil edərək səyahət və ya ezamiyyət tələbində bula bilərsiniz.</p>\n<p>İşçilərinizin səyahət və ezamiyyətləri sistemdə sürətlə yaradılıb etibarlı saxlanılır. idenfit səyahət modulu ilə işçinin səyahət və ya ezamiyyətindəki xərc, avans və əmlaklarının izlənməsi edilir, transfer və konaklama detallarının nəzarəti təmin edilir.</p>',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/seyahat2@2x.webp', alt: 'seyahat2@2x', width: 1137, height: 878 },
+        image: { url: '/wp-content/uploads/2025/07/seyahat2@2x.webp', alt: 'seyahat2@2x', width: 1137, height: 878 },
       },
       {
         title: 'İşçi ezamiyyətləri üçün səyahət modulu!',
         text:
           '<p>idenfit səyahət modulu ilə,</p>\n<ul class="list gray"><li>İşçinin səyahət və ezamiyyət məlumatları sistem üzərində görülə bilər.</li><li>Transfer, konaklama və iş kimi detalların nəzarəti təmin edilə bilər.</li><li>Səyahət formu üzərindən personal məlumatları və səyahətlə əlaqədar detallara çatıla bilər.</li><li>İşçilərin səyahət prosesində etdikləri xərclər, mobil üzərindən real zamanlı olaraq sistemə qeyd edilir və müntəzəm olaraq izlənə bilər.</li><li>İstənilən xərc, avans və əmlak məlumatına mobil üzərindən anlıq çatıla bilər.</li></ul>',
         ctaText: '', ctaUrl: '',
-        image: { url: 'https://idenfit.com/wp-content/uploads/2025/07/seyahat3@2x.webp', alt: 'seyahat3@2x', width: 948, height: 1196 },
+        image: { url: '/wp-content/uploads/2025/07/seyahat3@2x.webp', alt: 'seyahat3@2x', width: 948, height: 1196 },
       },
     ],
     faq: [

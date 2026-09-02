@@ -30,7 +30,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
       ctaText: 'İndi Müraciət Et',
       ctaUrl: DEMO_CTA_URL,
       image: {
-        url: 'https://idenfit.com/wp-content/uploads/2025/08/Dananimlar1@2x.png',
+        url: '/wp-content/uploads/2025/08/Dananimlar1@2x.png',
         alt: 'Dananimlar1@2x',
         width: 1159,
         height: 1174,
@@ -44,7 +44,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/Donanimlar2@2x.png',
+          url: '/wp-content/uploads/2025/08/Donanimlar2@2x.png',
           alt: 'Donanimlar2@2x',
           width: 1012,
           height: 1354,
@@ -60,7 +60,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp',
+          url: '/wp-content/uploads/2025/08/4@2x-2.webp',
           alt: '4@2x 2',
           width: 1335,
           height: 1021,
@@ -73,7 +73,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp',
+          url: '/wp-content/uploads/2025/08/5@2x.webp',
           alt: '5@2x',
           width: 1016,
           height: 586,
@@ -86,7 +86,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp',
+          url: '/wp-content/uploads/2025/08/6@2x.webp',
           alt: '6@2x',
           width: 1081,
           height: 1006,
@@ -99,7 +99,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp',
+          url: '/wp-content/uploads/2025/08/7@2x.webp',
           alt: '7@2x',
           width: 1125,
           height: 942,
@@ -112,7 +112,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp',
+          url: '/wp-content/uploads/2025/08/8@2x.webp',
           alt: '8@2x',
           width: 1118,
           height: 1737,
@@ -127,7 +127,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp',
+          url: '/wp-content/uploads/2025/08/9@2x.webp',
           alt: '9@2x',
           width: 1001,
           height: 989,
@@ -143,7 +143,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
       ctaText: 'Richiedi Ora',
       ctaUrl: DEMO_CTA_URL,
       image: {
-        url: 'https://idenfit.com/wp-content/uploads/2025/08/Dananimlar1@2x.png',
+        url: '/wp-content/uploads/2025/08/Dananimlar1@2x.png',
         alt: 'Dananimlar1@2x',
         width: 1159,
         height: 1174,
@@ -157,7 +157,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/Donanimlar2@2x.png',
+          url: '/wp-content/uploads/2025/08/Donanimlar2@2x.png',
           alt: 'Donanimlar2@2x',
           width: 1012,
           height: 1354,
@@ -173,7 +173,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/4@2x-2.webp',
+          url: '/wp-content/uploads/2025/08/4@2x-2.webp',
           alt: '4@2x 2',
           width: 1335,
           height: 1021,
@@ -186,7 +186,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/5@2x.webp',
+          url: '/wp-content/uploads/2025/08/5@2x.webp',
           alt: '5@2x',
           width: 1016,
           height: 586,
@@ -199,7 +199,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/6@2x.webp',
+          url: '/wp-content/uploads/2025/08/6@2x.webp',
           alt: '6@2x',
           width: 1081,
           height: 1006,
@@ -212,7 +212,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/7@2x.webp',
+          url: '/wp-content/uploads/2025/08/7@2x.webp',
           alt: '7@2x',
           width: 1125,
           height: 942,
@@ -225,7 +225,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/8@2x.webp',
+          url: '/wp-content/uploads/2025/08/8@2x.webp',
           alt: '8@2x',
           width: 1118,
           height: 1737,
@@ -240,7 +240,7 @@ export const HARDWARE_OVERRIDES: Partial<Record<Locale, HardwareOverride>> = {
         ctaText: '',
         ctaUrl: '',
         image: {
-          url: 'https://idenfit.com/wp-content/uploads/2025/08/9@2x.webp',
+          url: '/wp-content/uploads/2025/08/9@2x.webp',
           alt: '9@2x',
           width: 1001,
           height: 989,

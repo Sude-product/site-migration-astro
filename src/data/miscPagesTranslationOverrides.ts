@@ -47,22 +47,22 @@ export const CONTACT_IT_OVERRIDE: ContactContent = {
   // sayfasının kaynak bug'ı, `page_title`'daki AYNI sınıf), burada gerçek
   // İtalyanca çeviriyle düzeltildi. `videoUrl` EN/NL ile AYNI
   // (`iEQ_lep-ZY8`, kaynakta da öyle — yalnızca TR'nin kendi videosu var).
-  heroImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png', alt: 'bisiklet@2x', width: 1362, height: 1068 },
-  officesImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp', alt: 'contact image', width: 1299, height: 895 },
+  heroImage: { url: '/wp-content/uploads/2025/08/bisiklet@2x.png', alt: 'bisiklet@2x', width: 1362, height: 1068 },
+  officesImage: { url: '/wp-content/uploads/2025/08/contact-image.webp', alt: 'contact image', width: 1299, height: 895 },
   // EN/NL ile AYNI paylaşılan dosya (kaynakta da öyle — yalnızca TR'nin
   // kendi map_image'ı var, bkz. `extract-misc-pages.mjs`).
-  mapImage: { url: 'https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp', alt: 'contact-map', width: 2560, height: 1433 },
+  mapImage: { url: '/wp-content/uploads/2025/09/contact-map-scaled.webp', alt: 'contact-map', width: 2560, height: 1433 },
   socialMediaTitle: 'Seguici sui social media per maggiori informazioni.',
   videoUrl: 'https://youtu.be/iEQ_lep-ZY8',
 };
 
 export const SECURITY_IT_OVERRIDE: SecurityItem[] = [
   { title: 'Protezione dei Dati Personali', linkText: 'GDPR', url: KVKK_BARE_SLUG },
-  { title: 'Politica di Sicurezza delle Informazioni', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/information_security.pdf' },
-  { title: 'Politica sui Cookie e Informativa sui Cookie', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/cookie_policy_and_cookie_clarification_text.pdf' },
-  { title: 'Modulo di Richiesta del Titolare dei Dati', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Veri_Sahibi_Basvuru_Formu_v2EN.pdf' },
-  { title: 'Informativa per Dipendenti e Candidati ai Sensi della Normativa sui Dati Personali', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_Calisan_ve_Calisan_Adayi_Aydinlatma_Metni_v3EN.pdf' },
-  { title: 'Informativa per i Partner Commerciali in Materia di Dati Personali', linkText: '', url: 'https://idenfit.com/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_İs_Ortagi_Aydinlatma_Metni_v3-EN.pdf' },
+  { title: 'Politica di Sicurezza delle Informazioni', linkText: '', url: '/wp-content/uploads/2025/08/information_security.pdf' },
+  { title: 'Politica sui Cookie e Informativa sui Cookie', linkText: '', url: '/wp-content/uploads/2025/08/cookie_policy_and_cookie_clarification_text.pdf' },
+  { title: 'Modulo di Richiesta del Titolare dei Dati', linkText: '', url: '/wp-content/uploads/2025/08/Veri_Sahibi_Basvuru_Formu_v2EN.pdf' },
+  { title: 'Informativa per Dipendenti e Candidati ai Sensi della Normativa sui Dati Personali', linkText: '', url: '/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_Calisan_ve_Calisan_Adayi_Aydinlatma_Metni_v3EN.pdf' },
+  { title: 'Informativa per i Partner Commerciali in Materia di Dati Personali', linkText: '', url: '/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_İs_Ortagi_Aydinlatma_Metni_v3-EN.pdf' },
 ];
 
 export const GLOBAL_BRAND_IT_HERO: ProductBlock = {
@@ -71,7 +71,7 @@ export const GLOBAL_BRAND_IT_HERO: ProductBlock = {
     "Siamo partiti con l'obiettivo di diventare un attore forte a livello mondiale nelle tecnologie di gestione delle risorse umane e della forza lavoro. La nostra visione è che Idenfit diventi un marchio globale entro il 2027 e venga utilizzato attivamente in almeno 3 continenti.",
   ctaText: '',
   ctaUrl: '',
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
+  image: { url: '/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
 };
 
 export const GLOBAL_BRAND_IT_SECTIONS: ProductBlock[] = [
@@ -81,7 +81,7 @@ export const GLOBAL_BRAND_IT_SECTIONS: ProductBlock[] = [
       '<p>Come Idenfit, il nostro obiettivo non è solo la Turchia, ma guidare la trasformazione digitale della forza lavoro anche in diverse regioni del mondo. Con le nostre soluzioni cloud di nuova generazione, permettiamo alle aziende di gestire le proprie risorse umane in modo più efficiente, di rafforzare la propria forza lavoro e di proiettare il proprio modo di lavorare verso il futuro.</p>\n<p>Nel nostro percorso di crescita globale, lavoriamo con l\'obiettivo di entrare tra i primi 10 software più scelti al mondo. Quando realizzeremo questa visione, ci avvicineremo naturalmente anche allo status di "unicorno", simbolo di successo nel mondo imprenditoriale.</p>\n<p>Ringraziamo il nostro team che lavora ogni giorno per andare avanti, tutti i nostri partner commerciali che ci sostengono e i nostri clienti. Nel 2027, annunceremo con ancora più orgoglio il nome Idenfit come marchio globale, una soluzione utilizzata in 3 continenti.</p>',
     ctaText: '',
     ctaUrl: '',
-    image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
+    image: { url: '/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
   },
 ];
 
@@ -101,7 +101,7 @@ export const GLOBAL_BRAND_NL_HERO: ProductBlock = {
     'We hebben ons ten doel gesteld om een sterke wereldspeler te worden in human resources en workforce management technologieën. Onze visie is dat Idenfit tegen 2027 een wereldwijd merk wordt en actief wordt gebruikt op ten minste drie continenten.',
   ctaText: '',
   ctaUrl: '',
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
+  image: { url: '/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
 };
 
 export const GLOBAL_BRAND_NL_SECTIONS: ProductBlock[] = [
@@ -111,7 +111,7 @@ export const GLOBAL_BRAND_NL_SECTIONS: ProductBlock[] = [
       "<p>Als Idenfit willen we niet alleen in Turkije, maar ook in verschillende regio's van de wereld richting geven aan de digitale transformatie van de beroepsbevolking. Met onze cloudgebaseerde, nieuwe generatie oplossingen stellen we bedrijven in staat hun personeel efficiënter te beheren, hun beroepsbevolking te versterken en hun manier van werken naar de toekomst te brengen.</p>\n<p>Op onze weg naar wereldwijde groei werken we met als doel tot de tien meest gekozen software ter wereld te behoren. Wanneer we deze visie realiseren, zullen we vanzelfsprekend ook dichter bij de “unicorn”-status komen, een symbool van succes in de ondernemerswereld.</p>\n<p>We danken ons team dat elke dag hard werkt om verder vooruit te komen, al onze zakenpartners die ons steunen en onze klanten. In 2027 zullen we de naam Idenfit met nog meer trots aankondigen als wereldwijd merk, een oplossing die op 3 continenten wordt gebruikt.</p>",
     ctaText: '',
     ctaUrl: '',
-    image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
+    image: { url: '/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
   },
 ];
 
@@ -122,7 +122,7 @@ export const WHY_IDENFIT_IT_HERO: ProductBlock = {
   text: '<p><strong>moduli facili, dinamici e flessibili che si supportano a vicenda</strong></p>',
   ctaText: 'Richiedi Ora',
   ctaUrl: DEMO_CTA_URL,
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/1@2x-2-2.webp', alt: '1@2x 2 2', width: 1080, height: 1080 },
+  image: { url: '/wp-content/uploads/2025/08/1@2x-2-2.webp', alt: '1@2x 2 2', width: 1080, height: 1080 },
 };
 
 export const WHY_IDENFIT_IT_SECTIONS: ProductBlock[] = [
@@ -228,7 +228,7 @@ export const ABOUT_IT_HERO: ProductBlock = {
   text: '<p><strong>Il team idenfit</strong></p>',
   ctaText: 'Candidati Ora',
   ctaUrl: DEMO_CTA_URL,
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/about-us-1.webp', alt: 'about us image', width: 2282, height: 1323 },
+  image: { url: '/wp-content/uploads/2025/09/about-us-1.webp', alt: 'about us image', width: 2282, height: 1323 },
 };
 
 export const ABOUT_IT_SECTIONS: ProductBlock[] = [
@@ -317,7 +317,7 @@ export const PRESENTATION_IT_OVERRIDE: PresentationContent = {
   formText:
     "Compila subito il modulo per usufruire delle soluzioni che idenfit offre appositamente per te, ti contatteremo!",
   integrationsText: 'Sistemi con cui possiamo <br>lavorare in modo integrato',
-  integrationsImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
+  integrationsImage: { url: '/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
   referencesText: 'Unisciti anche tu alle straordinarie aziende <br>che si fidano di noi!',
   // 2026-07-30: kaynak site bu görseli güncelledi (`onlinerequest.png`, 7
   // logo → `customer-brands.jpeg`, 12 logo) — bkz. misc-pages.json'daki
@@ -359,9 +359,9 @@ export const CONTACT_AZ_OVERRIDE: ContactContent = {
     { name: 'İstanbul Tədqiqat və İnkişaf Ofisi', address: 'Teknopark İstanbul Teknopark Bulvarı 1/1A Blok No:109 Pendik/İstanbul' },
     { name: 'Haaqa Qlobal Satış Ofisi', address: 'Zuid Hollandlaan, Rode Olifant 7, 2596 AL Den Haag/The Netherlands' },
   ],
-  heroImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/bisiklet@2x.png', alt: '', width: 1362, height: 1068 },
-  officesImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/contact-image.webp', alt: '', width: 1299, height: 895 },
-  mapImage: { url: 'https://idenfit.com/wp-content/uploads/2025/09/contact-map-scaled.webp', alt: 'contact-map', width: 2560, height: 1433 },
+  heroImage: { url: '/wp-content/uploads/2025/08/bisiklet@2x.png', alt: '', width: 1362, height: 1068 },
+  officesImage: { url: '/wp-content/uploads/2025/08/contact-image.webp', alt: '', width: 1299, height: 895 },
+  mapImage: { url: '/wp-content/uploads/2025/09/contact-map-scaled.webp', alt: 'contact-map', width: 2560, height: 1433 },
   socialMediaTitle: 'Daha çox məzmun üçün sosial mediada bizi izləyin!',
   videoUrl: 'https://youtu.be/iEQ_lep-ZY8',
 };
@@ -372,7 +372,7 @@ export const GLOBAL_BRAND_AZ_HERO: ProductBlock = {
     "İnsan resursları və işçi qüvvəsi idarəçiliyi texnologiyalarında dünya miqyasında güclü bir oyunçu olmaq üçün yola çıxdıq. Vizyonumuz, 2027-ci ildə Idenfit-in qlobal bir marka halına gəlməsi və ən azı 3 qitədə aktiv şəkildə istifadə olunmasıdır.",
   ctaText: '',
   ctaUrl: '',
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
+  image: { url: '/wp-content/uploads/2025/09/Group-6.webp', alt: 'global', width: 973, height: 930 },
 };
 
 export const GLOBAL_BRAND_AZ_SECTIONS: ProductBlock[] = [
@@ -382,7 +382,7 @@ export const GLOBAL_BRAND_AZ_SECTIONS: ProductBlock[] = [
       '<p>İdenfit olaraq yalnız Türkiyədə deyil, dünyanın müxtəlif regionlarında da işçi qüvvəsinin rəqəmsal transformasiyasına istiqamət verməyi hədəfləyirik. Bulud əsaslı, yeni nəsil həllərimizlə şirkətlərin insan resurslarını daha səmərəli idarə etməsini, işçi qüvvəsini daha güclü hala gətirməsini və iş görmə üsullarını gələcəyə daşımasını təmin edirik.</p>\n<p>Qlobal böyümə yolçuluğumuzda, dünya üzrə ən çox seçilən ilk 10 proqram təminatı arasına girmək hədəfiylə çalışırıq. Bu vizyonu gerçəkləşdirdiyimizdə, təbii olaraq sahibkarlıq dünyasında uğur simvolu olan "unicorn" statusuna da yaxınlaşmış olacağıq.</p>\n<p>Hər gün daha irəli getmək üçün çalışan komandamıza, bizi dəstəkləyən bütün biznes tərəfdaşlarımıza və müştərilərimizə təşəkkür edirik. 2027-ci ildə qlobal bir marka, 3 qitədə istifadə olunan bir həll olaraq Idenfit adını daha da qürurla elan edəcəyik.</p>',
     ctaText: '',
     ctaUrl: '',
-    image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
+    image: { url: '/wp-content/uploads/2025/09/Layer_1.webp', alt: 'Layer_1', width: 1659, height: 644 },
   },
 ];
 
@@ -391,7 +391,7 @@ export const WHY_IDENFIT_AZ_HERO: ProductBlock = {
   text: '<p><strong>bir-birini dəstəkləyən, asan, dinamik & çevik modullar</strong></p>',
   ctaText: 'İndi Müraciət Et',
   ctaUrl: DEMO_CTA_URL,
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/08/1@2x-2-2.webp', alt: '1@2x 2 2', width: 1080, height: 1080 },
+  image: { url: '/wp-content/uploads/2025/08/1@2x-2-2.webp', alt: '1@2x 2 2', width: 1080, height: 1080 },
 };
 
 export const WHY_IDENFIT_AZ_SECTIONS: ProductBlock[] = [
@@ -449,7 +449,7 @@ export const ABOUT_AZ_HERO: ProductBlock = {
   text: '<p><strong>idenfit Komandası</strong></p>',
   ctaText: 'İndi Müraciət Et',
   ctaUrl: DEMO_CTA_URL,
-  image: { url: 'https://idenfit.com/wp-content/uploads/2025/09/about-us-1.webp', alt: 'about us image', width: 2282, height: 1323 },
+  image: { url: '/wp-content/uploads/2025/09/about-us-1.webp', alt: 'about us image', width: 2282, height: 1323 },
 };
 
 export const ABOUT_AZ_SECTIONS: ProductBlock[] = [
@@ -483,7 +483,7 @@ export const PRESENTATION_AZ_OVERRIDE: PresentationContent = {
   formTitle: 'Onlayn Təqdimat Tələbi',
   formText: 'idenfit-in sizə xüsusi təqdim etdiyi həllərdən faydalanmaq üçün indi formu doldurun, sizinlə əlaqə saxlayaq!',
   integrationsText: 'İnteqrasiya Ola Biləcəyimiz <br>Sistemlər',
-  integrationsImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
+  integrationsImage: { url: '/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
   referencesText: 'Siz də bizə güvənən, əla şirkətlərin sırasına qatılın!',
   referencesImage: { url: '/wp-content/uploads/2026/01/customer-brands.jpeg', alt: 'Müştəri markaları', width: 1000, height: 982 },
 };
@@ -502,7 +502,7 @@ export const PRESENTATION_NL_OVERRIDE: PresentationContent = {
   formText:
     'Vul het formulier direct in om te profiteren van de oplossingen die idenfit speciaal voor u biedt, we nemen contact met u op!',
   integrationsText: 'Systemen Waarmee We <br>Kunnen Integreren',
-  integrationsImage: { url: 'https://idenfit.com/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
+  integrationsImage: { url: '/wp-content/uploads/2025/08/79d119e.webp', alt: '79d119e', width: 394, height: 210 },
   referencesText: 'Sluit u aan bij de geweldige bedrijven <br>die ons al vertrouwen!',
   referencesImage: { url: '/wp-content/uploads/2026/01/customer-brands.jpeg', alt: 'Klantmerken', width: 1000, height: 982 },
 };

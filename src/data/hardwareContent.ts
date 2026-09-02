@@ -8,6 +8,7 @@
 // yeniden kullanıldı (bkz. `src/pages/donanim.astro` ve locale eşdeğerleri).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import hardwareExport from '../../reference/wordpress-export/hardware.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, stripTags, type ProductBlock } from './productContent';
 import { HARDWARE_OVERRIDES } from './hardwareTranslationOverrides';
 import type { Locale } from './nav';
@@ -31,7 +32,8 @@ interface HardwareExportRaw {
   hardware: { trSlug: string; locales: Partial<Record<Locale, HardwareLocaleEntryRaw>> };
 }
 
-const DATA = hardwareExport as unknown as HardwareExportRaw;
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(hardwareExport as unknown as HardwareExportRaw);
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 

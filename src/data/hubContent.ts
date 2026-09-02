@@ -6,6 +6,7 @@
 // `scripts/extract-hubs.mjs`, CLAUDE.md "İK Hub sayfaları").
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import hubsExport from '../../reference/wordpress-export/hubs.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, resolveCtaUrl } from './productContent';
 import { HUB_OVERRIDES } from './hubTranslationOverrides';
 import { HUB_OVERRIDES_AZ } from './hubTranslationOverridesAz';
@@ -68,7 +69,8 @@ interface HubGroupRaw {
   locales: Partial<Record<Locale, HubLocaleEntryRaw>>;
 }
 
-const DATA = hubsExport as unknown as { hubs: HubGroupRaw[] };
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(hubsExport as unknown as { hubs: HubGroupRaw[] });
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 
@@ -121,10 +123,11 @@ function resolveTileCta(rawUrl: string, locale: Locale): { url: string; external
 // bloklarına eklenmedi, her zaman TABAN (tr) girdisinden okunuyor.
 // "Görsel bağımlılık kuralı" (CLAUDE.md, 2026-08-30) gereği
 // idenfit.com'a hotlink YAPILMADI — indirilip `public/wp-content/uploads/`
-// altına yerleştirildi, burada göreliye çevriliyor.
-function relativizeWpUrl(url: string): string {
-  return url.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/');
-}
+// altına yerleştirildi. Göreliye çevirme ARTIK burada elle yapılmıyor —
+// Açık nokta #45 yol (B)'de (2026-09-02) `DATA`'nın kendisi `deepRelativizeWpUrls()`
+// ile ithal edilir edilmez merkezi olarak dönüştürülüyor (bkz. yukarıdaki
+// `const DATA = ...` satırı), bu yüzden `baseHero.image.url` burada zaten
+// göreli — ayrı bir fonksiyon/çağrı GEREKMİYOR.
 
 // Ham `alt` metni dosya adından türetilmiş, anlamsız (ör. "workforce
 // banner en@2x") — `productTranslationOverrides.ts`'teki elle-yazılmış
@@ -155,7 +158,7 @@ function getHeroImage(trSlug: string, locale: Locale): HubBlock['image'] {
   const baseHero = DATA.hubs.find((g) => g.trSlug === trSlug)?.locales.tr?.hero;
   if (!baseHero?.image) return null;
   const alt = HERO_IMAGE_ALT[trSlug]?.[locale] ?? HERO_IMAGE_ALT[trSlug]?.tr ?? baseHero.image.alt;
-  return { ...baseHero.image, url: relativizeWpUrl(baseHero.image.url), alt };
+  return { ...baseHero.image, alt };
 }
 
 // az (2026-08-21) — kaynakta hiç az verisi yok, TR kaynaktan gerçek

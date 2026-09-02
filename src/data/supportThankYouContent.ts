@@ -48,7 +48,7 @@ export interface SupportThankYouContent {
 }
 
 const IMAGE = {
-  url: 'https://idenfit.com/wp-content/uploads/2025/08/thankyou-support-e1756402693518.png',
+  url: '/wp-content/uploads/2025/08/thankyou-support-e1756402693518.png',
   width: 932,
   height: 945,
 };

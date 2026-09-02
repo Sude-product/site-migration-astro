@@ -5,6 +5,7 @@
 // alanı otoriter (WP `slug` değil) — bu dosyada da aynı ilke.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import miscExport from '../../reference/wordpress-export/misc-pages.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, type ProductBlock, type ProductContent } from './productContent';
 import { fixLinkAccessibility } from './contentLinkAccessibility';
 import {
@@ -49,7 +50,8 @@ interface RawGroup {
     >
   >;
 }
-const DATA = miscExport as unknown as { pages: RawGroup[] };
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(miscExport as unknown as { pages: RawGroup[] });
 
 function findGroup(trSlug: string): RawGroup | undefined {
   return DATA.pages.find((g) => g.trSlug === trSlug);
@@ -216,15 +218,15 @@ export interface LegalContent {
 // stratejisiyle değişmeden kalıyor).
 const LEGAL_MANUAL_LINK_LABELS: Partial<Record<Locale, Record<string, string>>> = {
   tr: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2.docx.pdf':
       'Veri sahibi başvuru formunu indir (PDF)',
   },
   en: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
       'Download the data subject application form (PDF)',
   },
   it: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
       "Scarica il modulo di domanda dell'interessato (PDF)",
   },
 };

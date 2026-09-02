@@ -7,6 +7,7 @@
 // çözülür, LanguageSwitcher için per-sayfa gerçek locale URL'leri üretilir.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import productsExport from '../../reference/wordpress-export/products.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { PRODUCT_OVERRIDES } from './productTranslationOverrides';
 import { PRODUCT_OVERRIDES_AZ } from './productTranslationOverridesAz';
 import type { Locale } from './nav';
@@ -82,7 +83,8 @@ interface ProductsExportRaw {
   products: ProductGroupRaw[];
 }
 
-const DATA = productsExport as unknown as ProductsExportRaw;
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(productsExport as unknown as ProductsExportRaw);
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 

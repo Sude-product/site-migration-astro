@@ -96,33 +96,33 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     key: 'civil',
     name: 'Civil',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/10/civil-2.png' },
+    media: { image: '/wp-content/uploads/2025/10/civil-2.png' },
     secondary: {
       mediaSide: 'right',
       media: { video: 'https://youtu.be/-MxZWA99a20' },
-      quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/mustafa-yildiran@2x.png',
+      quotePhotoUrl: '/wp-content/uploads/2025/08/mustafa-yildiran@2x.png',
     },
   },
   {
     key: 'yatsan',
     name: 'Yatsan',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/10/yatsan-magaza.png' },
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
+    media: { image: '/wp-content/uploads/2025/10/yatsan-magaza.png' },
+    quotePhotoUrl: '/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
   },
   {
     key: 'tugbaKuruyemis',
     name: 'Tuğba Kuruyemiş',
     mediaSide: 'right',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/08/tugbakuruyemis.jpeg' },
+    media: { image: '/wp-content/uploads/2025/08/tugbakuruyemis.jpeg' },
     // Kaynakta Nevzat Atmaca'nın fotoğrafı YOK — yalnızca isim.
   },
   {
     key: 'dogSer',
     name: 'Doğ-Ser Makina',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/08/dogser@2x.png' },
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
+    media: { image: '/wp-content/uploads/2025/08/dogser@2x.png' },
+    quotePhotoUrl: '/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
   },
   {
     // 2026-08-20: kullanıcının doğrudan sağladığı 2 gerçek fotoğraf —
@@ -167,13 +167,13 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
 
 /** Hero'daki dekoratif illüstrasyon — idenfit.com'dan gerçek, doğrulanmış URL. */
 export const CUSTOMER_STORIES_HERO_IMAGE =
-  'https://idenfit.com/wp-content/uploads/2025/08/1@2x-3-1.png';
+  '/wp-content/uploads/2025/08/1@2x-3-1.png';
 
 /** İstatistik rozetlerinin (X çalışan / X mağaza vb.) gerçek marka ikon
  * görselleri — kaynakta generic SVG değil, bu iki görsel kullanılıyor. */
 export const STAT_ICONS = {
-  employee: 'https://idenfit.com/wp-content/uploads/2025/08/working@2x.png',
-  branch: 'https://idenfit.com/wp-content/uploads/2025/08/branch@2x.png',
+  employee: '/wp-content/uploads/2025/08/working@2x.png',
+  branch: '/wp-content/uploads/2025/08/branch@2x.png',
 } as const;
 
 /**

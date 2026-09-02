@@ -24,13 +24,13 @@ export interface CustomerLogo {
 // 4 dilde de AYNI (WP medya kütüphanesinde dile göre ayrı logo yok, hero'daki
 // diğer görsellerle aynı ilke — bkz. productTranslationOverrides.ts'teki not).
 export const CUSTOMER_LOGOS: CustomerLogo[] = [
-  { name: 'Migros One', url: 'https://idenfit.com/wp-content/uploads/2025/09/migros-one.svg', width: 81, height: 48 },
-  { name: 'Acun Medya', url: 'https://idenfit.com/wp-content/uploads/2025/09/Frame-1365419597.svg', width: 123, height: 51 },
-  { name: "Kellogg's", url: 'https://idenfit.com/wp-content/uploads/2025/09/kelloggs.svg', width: 121, height: 42 },
-  { name: 'Ferre', url: 'https://idenfit.com/wp-content/uploads/2025/09/ferre_15112021175937-1-1.png', width: 307, height: 96 },
-  { name: 'Tuğba', url: 'https://idenfit.com/wp-content/uploads/2025/09/tugba.webp', width: 301, height: 125 },
-  { name: 'Civil', url: 'https://idenfit.com/wp-content/uploads/2025/09/civil.svg', width: 101, height: 38 },
-  { name: 'Caribou', url: 'https://idenfit.com/wp-content/uploads/2025/09/caribou.svg', width: 123, height: 36 },
+  { name: 'Migros One', url: '/wp-content/uploads/2025/09/migros-one.svg', width: 81, height: 48 },
+  { name: 'Acun Medya', url: '/wp-content/uploads/2025/09/Frame-1365419597.svg', width: 123, height: 51 },
+  { name: "Kellogg's", url: '/wp-content/uploads/2025/09/kelloggs.svg', width: 121, height: 42 },
+  { name: 'Ferre', url: '/wp-content/uploads/2025/09/ferre_15112021175937-1-1.png', width: 307, height: 96 },
+  { name: 'Tuğba', url: '/wp-content/uploads/2025/09/tugba.webp', width: 301, height: 125 },
+  { name: 'Civil', url: '/wp-content/uploads/2025/09/civil.svg', width: 101, height: 38 },
+  { name: 'Caribou', url: '/wp-content/uploads/2025/09/caribou.svg', width: 123, height: 36 },
 ];
 
 // Kaynak sitede bu 7 rozetin `alt` metni zaten anlamsız (`icon5`..`icon11`)
@@ -41,13 +41,13 @@ export const CUSTOMER_LOGOS: CustomerLogo[] = [
 // ile render ediliyor (uydurma bir sertifika adı yazmaktansa doğru
 // erişilebilirlik pratiği).
 export const CERTIFICATION_BADGE_URLS: string[] = [
-  'https://idenfit.com/wp-content/uploads/2025/06/icon5.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon6.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon7.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon8.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon9.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon10.svg',
-  'https://idenfit.com/wp-content/uploads/2025/06/icon11.svg',
+  '/wp-content/uploads/2025/06/icon5.svg',
+  '/wp-content/uploads/2025/06/icon6.svg',
+  '/wp-content/uploads/2025/06/icon7.svg',
+  '/wp-content/uploads/2025/06/icon8.svg',
+  '/wp-content/uploads/2025/06/icon9.svg',
+  '/wp-content/uploads/2025/06/icon10.svg',
+  '/wp-content/uploads/2025/06/icon11.svg',
 ];
 
 // "Neden idenfit?" video bölümü — `youtu.be/...` formatı, `customerStories.ts`'in
@@ -80,11 +80,11 @@ export interface LocaleImage {
 // bağlı) — 4 dilin 4'ü de KENDİ farklı görselini kullanıyor (gerçek,
 // düzeltilecek bir hata değil).
 export const HOME_HERO_IMAGE: Record<Locale, LocaleImage> = {
-  tr: { url: 'https://idenfit.com/wp-content/uploads/2026/04/Group-1365418917-1.png', width: 1427, height: 976 },
-  en: { url: 'https://idenfit.com/wp-content/uploads/2026/06/Group-1365418980-1.png', width: 1422, height: 946 },
-  nl: { url: 'https://idenfit.com/wp-content/uploads/2026/06/Group-1365418980-1-1.png', width: 1422, height: 946 },
-  it: { url: 'https://idenfit.com/wp-content/uploads/2026/06/Group-1365418980-1-2.png', width: 1422, height: 946 },
-  az: { url: 'https://idenfit.com/wp-content/uploads/2026/04/Group-1365418917-1.png', width: 1427, height: 976 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
+  tr: { url: '/wp-content/uploads/2026/04/Group-1365418917-1.png', width: 1427, height: 976 },
+  en: { url: '/wp-content/uploads/2026/06/Group-1365418980-1.png', width: 1422, height: 946 },
+  nl: { url: '/wp-content/uploads/2026/06/Group-1365418980-1-1.png', width: 1422, height: 946 },
+  it: { url: '/wp-content/uploads/2026/06/Group-1365418980-1-2.png', width: 1422, height: 946 },
+  az: { url: '/wp-content/uploads/2026/04/Group-1365418917-1.png', width: 1427, height: 976 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
 };
 
 // "Verimliliği Ölçen 5 Soru" bölümünün ekran görüntüsü.
@@ -95,28 +95,28 @@ export const HOME_HERO_IMAGE: Record<Locale, LocaleImage> = {
 // hatası, export'un değil). Düzeltme: IT artık EN'in görselini kullanıyor
 // (TR'nin Türkçe arayüz görüntüsünden daha anlaşılır bir fallback).
 export const HOME_EFFICIENCY_IMAGE: Record<Locale, LocaleImage> = {
-  tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/home-efficiency-1024x641.webp', width: 1000, height: 626 },
-  en: { url: 'https://idenfit.com/wp-content/uploads/2025/09/home-efficiency-en-1024x663.webp', width: 1000, height: 647 },
-  nl: { url: 'https://idenfit.com/wp-content/uploads/2025/12/Group-1365420329-1024x582.png', width: 1000, height: 568 },
-  it: { url: 'https://idenfit.com/wp-content/uploads/2025/09/home-efficiency-en-1024x663.webp', width: 1000, height: 647 }, // düzeltildi — TR'nin görseli + "efficiency tr" alt'ı kullanılıyordu
-  az: { url: 'https://idenfit.com/wp-content/uploads/2025/09/home-efficiency-1024x641.webp', width: 1000, height: 626 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
+  tr: { url: '/wp-content/uploads/2025/09/home-efficiency-1024x641.webp', width: 1000, height: 626 },
+  en: { url: '/wp-content/uploads/2025/09/home-efficiency-en-1024x663.webp', width: 1000, height: 647 },
+  nl: { url: '/wp-content/uploads/2025/12/Group-1365420329-1024x582.png', width: 1000, height: 568 },
+  it: { url: '/wp-content/uploads/2025/09/home-efficiency-en-1024x663.webp', width: 1000, height: 647 }, // düzeltildi — TR'nin görseli + "efficiency tr" alt'ı kullanılıyordu
+  az: { url: '/wp-content/uploads/2025/09/home-efficiency-1024x641.webp', width: 1000, height: 626 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
 };
 
 // "Kullanıcı Dostu Panel" bölümünün dashboard mockup görseli — TR/EN/IT
 // kaynakta zaten AYNI görseli paylaşıyor (gerçek, bilinçli — düzeltilecek
 // bir hata değil), yalnızca NL kendi farklı görselini kullanıyor.
 export const HOME_PANEL_IMAGE: Record<Locale, LocaleImage> = {
-  tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
-  en: { url: 'https://idenfit.com/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
-  nl: { url: 'https://idenfit.com/wp-content/uploads/2025/12/Group-1365420439-1024x589.png', width: 1000, height: 575 },
-  it: { url: 'https://idenfit.com/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
-  az: { url: 'https://idenfit.com/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
+  tr: { url: '/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
+  en: { url: '/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
+  nl: { url: '/wp-content/uploads/2025/12/Group-1365420439-1024x589.png', width: 1000, height: 575 },
+  it: { url: '/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 },
+  az: { url: '/wp-content/uploads/2025/09/pnl-img-1024x644.webp', width: 1000, height: 629 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
 };
 
 // Suprema donanım-partner vurgusu — TR/IT aynı ürün görselini paylaşıyor,
 // EN/NL kendi farklı görsellerini kullanıyor (kaynakta gerçek, düzeltilecek
 // bir hata değil). Suprema logosu 4 dilde aynı.
-export const SUPREMA_LOGO_URL = 'https://idenfit.com/wp-content/uploads/2025/08/suprema-logo.png';
+export const SUPREMA_LOGO_URL = '/wp-content/uploads/2025/08/suprema-logo.png';
 
 // "Donanım Özgürlüğü" mini-bölümü (2026-08-27, kullanıcının verdiği
 // referans görsel/metin) — Suprema'nın YANINA eklenen 3 yeni marka logosu.
@@ -208,11 +208,11 @@ export const PARTNER_CATEGORIES: PartnerCategory[] = [
 ];
 
 export const HOME_SUPREMA_IMAGE: Record<Locale, LocaleImage> = {
-  tr: { url: 'https://idenfit.com/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
-  en: { url: 'https://idenfit.com/wp-content/uploads/2025/09/temassiz-1-1024x996.webp', width: 1000, height: 973 },
-  nl: { url: 'https://idenfit.com/wp-content/uploads/2025/12/Mask-group-1024x996.png', width: 1000, height: 973 },
-  it: { url: 'https://idenfit.com/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
-  az: { url: 'https://idenfit.com/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
+  tr: { url: '/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
+  en: { url: '/wp-content/uploads/2025/09/temassiz-1-1024x996.webp', width: 1000, height: 973 },
+  nl: { url: '/wp-content/uploads/2025/12/Mask-group-1024x996.png', width: 1000, height: 973 },
+  it: { url: '/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 },
+  az: { url: '/wp-content/uploads/2025/09/systems-desktop-1-1024x996.webp', width: 1000, height: 973 }, // az için ayrı bir kaynak görseli yok, TR'ninkiyle aynı
 };
 
 // Testimonial carousel — /musteriler/'deki 5 müşteri hikayesinden TAMAMEN
@@ -229,11 +229,11 @@ export interface TestimonialPerson {
 export const TESTIMONIAL_PEOPLE = {
   ismailUnal: {
     name: 'İsmail Ünal',
-    photoUrl: 'https://idenfit.com/wp-content/uploads/2025/09/ismail-unal.webp',
+    photoUrl: '/wp-content/uploads/2025/09/ismail-unal.webp',
   },
   emreOzcan: {
     name: 'Emre Özcan',
-    photoUrl: 'https://idenfit.com/wp-content/uploads/2025/09/emre-ozcan.webp',
+    photoUrl: '/wp-content/uploads/2025/09/emre-ozcan.webp',
   },
 } satisfies Record<string, TestimonialPerson>;
 
