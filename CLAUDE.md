@@ -1394,9 +1394,15 @@ hâlâ geçerli.)*
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).
-16. **KARAR BEKLİYOR — blog "yeni yazı senkronizasyonu" periyodik
-    kontrol haline getirilsin mi?** Yöntem kanıtlandı (`post-sitemap.xml`
-    vs `posts.json` diff'i), sıklık/tetikleme henüz kararlaştırılmadı.
+16. **KAPANDI (2026-09-02) — blog "yeni yazı senkronizasyonu" artık
+    periyodik/otomatik DEĞİL.** Kullanıcı kararı: cutover öncesi yapılan
+    tur (bkz. §Tamamlanan işler, "Son blog senkronizasyonu") bu sürecin
+    SON otomatik toplu senkronizasyonuydu. **Bundan sonra yeni yazılar
+    Keystatic panelinden ekleniyor, otomatik senkronizasyon
+    kullanılmıyor** — `post-sitemap.xml` vs yerel `.md` karşılaştırma
+    yöntemi (kanıtlanmış, bkz. `extract-blog-posts.mjs`/
+    `migrate-blog-to-markdown.mjs`/`download-blog-images.mjs`/
+    `relativize-blog-image-urls.mjs` zinciri) artık kullanılmayacak.
 19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
     her önemli değişiklik/deploy öncesi). Şu an 0 açık.
@@ -2629,6 +2635,52 @@ hâlâ geçerli.)*
     regresyon. **Sabah devam için özel bir yarım iş YOK** — bu gece
     bildirilen HER madde kapatıldı ve push edildi; bir sonraki oturum
     kullanıcının yeni bir bulgu/isteğiyle başlayabilir.
+66. **KAPANDI (2026-09-02) — Son blog senkronizasyonu, cutover öncesi.**
+    Canlı `post-sitemap.xml` (629 URL) yerel 622 `.md` yazıyla karşılaştırıldı
+    — **7 yeni yazı** bulundu (2026-07-31→2026-09-01 arası yayınlanmış,
+    hepsi "Güncel Bilgiler" kategorisinde), 0 kaldırılmış/slug değiştirmiş
+    yazı. Standart zincirle işlendi: ham WP REST verisi (7 yazı + 7 öne
+    çıkan görsel medya kaydı) `reference/wordpress-export/posts.json`/
+    `media.json`'a eklendi → `extract-blog-posts.mjs` → `migrate-blog-to-
+    markdown.mjs` → `download-blog-images.mjs`/`relativize-blog-image-
+    urls.mjs` (7 görsel, hepsi yalnızca öne çıkan görsel — gövdede hiç
+    ek görsel yok). **Sonuç: 622→629 yazı, `check-json-ld.mjs`
+    `BlogPosting: 629` doğruladı.**
+    **Süreçte 2 gerçek bug bulunup düzeltildi:**
+    1. **`dateModified < datePublished` (6/7 yazıda, `check-json-ld.mjs`
+       6 geçersiz blok raporladı).** Kök neden: WP'nin ZAMANLANMIŞ
+       (scheduled) yayın akışında `modified` taslağın son kaydedildiği
+       anı (ör. sabah), `date` ise ileri ayarlanmış yayın anını (ör. aynı
+       günün öğleden sonrası) taşıyor — `modified` `date`'ten önce
+       kalabiliyor, önceki 622 yazıda hiç rastlanmamış bir desen.
+       `src/pages/blog/[slug].astro`'ya `effectiveModifiedDate` (yalnızca
+       `modifiedDate > date` iken kullanılır, aksi halde `date`'e düşülür)
+       eklenip JSON-LD `dateModified`, OG `article:modified_time` VE
+       görünür "Güncellendi" banner'ının HEPSİ bu tek kaynağa bağlandı —
+       6 yazıda artık banner hiç görünmüyor (46/618 yazıda `modifiedDate`
+       `date`'le aynıyken zaten uygulanan AYNI ilkeye genişletildi).
+    2. **7 yazının `<title>`'ı 50-60 karakter aralığını aştı (`check-
+       title-length.mjs`, 61-105 karakter)** — başlıklar orijinal
+       WP başlığı kadar uzun/betimleyici. Açık Nokta #28'in metodolojisiyle
+       (kısa/gerçek başlıktan türetme, uydurma yok) 7 `metaTitle` eklendi.
+    **Yan not (tek seferlik yardımcı script, commit EDİLMEDİ):** ham WP
+    verisini çekmek için kullanılan script `reference/wordpress-export/
+    posts.json`'ı yanlışlıkla pretty-print'e çevirmişti (1 satır → ~198k
+    satır, devasa/gürültülü diff) — commit'ten ÖNCE fark edilip dosya
+    orijinal tek-satır/compact formatına geri döndürüldü (`JSON.stringify`
+    indentsiz), gerçek diff 1 satır değişikliğe indi.
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9 regresyon
+    script'inin 8'i (yeni `check-prerender.mjs` dahil) sıfır sorun, yalnızca
+    `check-heading-hierarchy` bilinen 5 sayfalık taban çizgisinde (ilgisiz).
+    `curl` ile yeni bir yazının 200 döndüğü, `<title>`'ının `metaTitle`
+    kullandığı, öne çıkan görselin `idenfit.com`'a hiç hotlink YAPMADIĞI
+    (yerelden 200) doğrulandı.
+    **KARAR (kullanıcı, 2026-09-02): bu, projenin SON otomatik toplu blog
+    senkronizasyonuydu.** Bundan sonra yeni yazılar Keystatic panelinden
+    ekleniyor, otomatik senkronizasyon (`post-sitemap.xml` karşılaştırma +
+    `extract-blog-posts.mjs`/`migrate-blog-to-markdown.mjs` zinciri) artık
+    KULLANILMIYOR — bkz. Açık nokta #16'nın kapanışı.
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
