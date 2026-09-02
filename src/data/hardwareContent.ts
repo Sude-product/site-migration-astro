@@ -73,6 +73,16 @@ export function getHardwareLocaleUrls(): Partial<Record<Locale, string>> {
   for (const [locale, slug] of Object.entries(SLUG_INDEX) as [Locale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
   }
+  // az (2026-09-02, hreflang denetimi bulgusu) — ham `hardware.json`'da az
+  // hiç yok (`SLUG_INDEX`'te de yok), ama `az/donanim.astro` GERÇEK bir
+  // sayfa (`HARDWARE_OVERRIDES.az`, bkz. aşağıdaki `getHardwareContent()`)
+  // ve TR ile AYNI bare slug'ı kullanıyor (CLAUDE.md Açık nokta #37'nin
+  // ürün/sektör/hub sayfalarındaki AYNI mimari kararı). Bu eksik yüzünden
+  // az/donanim kendi hreflang listesinde kendine bile referans veremiyordu
+  // (`buildHreflangAlternates()` bu locale'i haritada yoksa filtreliyor).
+  if (SLUG_INDEX.tr && HARDWARE_OVERRIDES.az) {
+    result.az = getRelativeLocaleUrl('az', SLUG_INDEX.tr);
+  }
   return result;
 }
 
