@@ -96,21 +96,57 @@ function MegaAccordionPanel({
                 ))}
               {column.links
                 .filter((link) => !link.overview)
-                .map((link) => (
-                  <li key={link.label}>
-                    <a href={link.href} className="flex items-center gap-2.5 py-1 text-sm text-body">
-                      {/* Masaüstündeki SEKTÖRLER rozetiyle (MegaMenu.tsx)
-                          tutarlı — dolu marka kırmızısı daire + beyaz ikon
-                          (2026-07-27, kullanıcı isteği). */}
-                      {link.icon && (
-                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-white">
-                          <MenuIcon icon={link.icon} className="h-4 w-4" />
+                .map((link) =>
+                  column.linkIconStyle === 'content-card' ? (
+                    // KEŞFET → İçerikler: masaüstündeki (MegaMenu.tsx) AYNI
+                    // açık pembe (#F4CCCE) rozet + açıklama satırı — bu
+                    // kolonun ikonları (Bloglar/Dijital İK Olgunluk Testi)
+                    // marka kırmızısını kendi çizgi rengi olarak kullanıyor,
+                    // eski kırmızı-rozet stiliyle render edilince ikon
+                    // görünmez oluyordu (kırmızı-üstü-kırmızı, 2026-09-02
+                    // bulgusu).
+                    <li key={link.label}>
+                      <a href={link.href} className="flex items-start gap-2.5 py-1 text-sm text-body">
+                        {link.icon && (
+                          <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#F4CCCE]">
+                            <MenuIcon icon={link.icon} className="h-5 w-5" />
+                          </span>
+                        )}
+                        <span className="flex flex-col pt-0.5">
+                          <span className="font-medium text-heading">{link.label}</span>
+                          {link.description && (
+                            <span className="text-xs leading-snug text-muted">{link.description}</span>
+                          )}
                         </span>
-                      )}
-                      {link.label}
-                    </a>
-                  </li>
-                ))}
+                      </a>
+                    </li>
+                  ) : column.linkIconStyle === 'inline' ? (
+                    // KEŞFET → Hesaplamalar: masaüstündeki gibi rozetsiz,
+                    // ikon kendi renginde — AYNI red-on-red nedeniyle
+                    // (overtimePay ikonu kırmızı çizgili) eski rozet stiliyle
+                    // görünmez oluyordu.
+                    <li key={link.label}>
+                      <a href={link.href} className="flex items-center gap-2.5 py-1 text-sm text-body">
+                        {link.icon && <MenuIcon icon={link.icon} className="h-4 w-4 shrink-0" />}
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <a href={link.href} className="flex items-center gap-2.5 py-1 text-sm text-body">
+                        {/* Masaüstündeki SEKTÖRLER rozetiyle (MegaMenu.tsx)
+                            tutarlı — dolu marka kırmızısı daire + beyaz ikon
+                            (2026-07-27, kullanıcı isteği). */}
+                        {link.icon && (
+                          <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-brand text-white">
+                            <MenuIcon icon={link.icon} className="h-4 w-4" />
+                          </span>
+                        )}
+                        {link.label}
+                      </a>
+                    </li>
+                  ),
+                )}
             </ul>
           )}
 
