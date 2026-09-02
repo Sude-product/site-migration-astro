@@ -12,8 +12,7 @@
     "preview": "astro preview",
     "astro": "astro",
     "dev:clean": "node scripts/dev-clean-restart.mjs",
-    "audit": "node scripts/run-audit.mjs",
-    "cms:proxy": "decap-server"
+    "audit": "node scripts/run-audit.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.2.5",
@@ -34,7 +33,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.9",
     "@types/yauzl": "^3.4.0",
-    "decap-server": "^3.10.0",
     "js-yaml": "^5.2.3",
     "parse5": "^8.0.1",
     "turndown": "^7.2.4",
