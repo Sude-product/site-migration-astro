@@ -2791,14 +2791,65 @@ hâlâ geçerli.)*
       artık `inner.scrollHeight`'a (869px) eşit — kırpma YOK. Ekran
       görüntüsü + yakın çekim: sekme çubuğu, KPI kartları, grafik başlığı
       ve eksen etiketleri net okunabilir, içerik tam ve bütün görünüyor.
-    - **Kalıcı karar: Seçenek A (mobil-optimize düzeni ölçekleme)
-      benimsendi.** Seçenek B bir daha gündeme alınmayacak — okunabilirlik
-      kısıtı kalıcı bir tasarım gerçeği, canlıya çıkış sonrası "bol
-      zamanla" tekrar denense bile aynı sonuca varır.
+    - ~~Kalıcı karar: Seçenek A benimsendi, Seçenek B bir daha gündeme
+      alınmayacak~~ — **BU KARAR AYNI GÜN GERİ ALINDI, bkz. aşağıdaki
+      BEŞİNCİ tur.** Kullanıcı okunabilirlik riskini bilerek yine de
+      Seçenek B'yi istedi.
     **Doğrulama (bu tur):** `astro build` temiz, 8/9 regresyon script'i
     sıfır sorun (aynı bilinen 5 sayfalık heading-hierarchy taban çizgisi,
     bu değişiklikten bağımsız — yalnızca `ProductPreviewWidget.tsx` ve bu
     dosya değişti).
+    **BEŞİNCİ tur (aynı gün) — Seçenek B UYGULANDI, kullanıcı riski
+    bilerek ısrar etti: "Kullanıcı, okunabilirlik riskini bilerek Seçenek B
+    (masaüstü düzeninin birebir mobilde küçültülmüş hali) ile devam etmek
+    istiyor kararlı."**
+    - **Güvenlik ağı:** Seçenek A'nın son çalışan hali (yukarıdaki dördüncü
+      tur — `items-start` kırpma düzeltmesi + genişlik-öncelikli ölçekleme +
+      StickyDemoBar kompaktlaştırma dahil, commit `314f04f`) `master`'da
+      commit edildi VE `mobil-widget-secenek-a-yedek` dalına (her iki
+      remote'a da push edildi) işaretlendi — geri dönüş gerekirse bu dal
+      kullanılabilir. `master` bu commit'in ÜZERİNE Seçenek B'yi inşa etti
+      (checkout edip geri dönmek yerine — StickyDemoBar düzeltmesi gibi
+      widget-mekanizmasından BAĞIMSIZ iyileştirmeler kaybolmasın diye).
+    - **Teknik uygulama:** `ProductPreviewWidget.tsx`'teki TÜM `lg:`/`sm:`
+      (viewport medya sorgusu) sınıfları `@min-[1024px]:`/`@min-[640px]:`
+      (Tailwind v4 container query, arbitrary-value söz dizimi — v4'ün
+      `@lg`/`@sm` varsayılan container eşikleri viewport eşiklerinden farklı
+      olduğu için bilinçli tercih) ile değiştirildi (~30 site). Widget artık
+      ÜÇ katmanlı: `outerRef` (gerçek viewport genişliğini ölçer) →
+      `containerRef` (`@container` + SABİT `DESKTOP_NATURAL_WIDTH=1280px` +
+      `transform:scale()` + `flexShrink:0`) → `innerRef` (asıl `flex-col
+      @min-[1024px]:flex-row` düzeni + tüm alt bileşenlerin container query
+      kuralları). CSS containment kısıtı (bir eleman kendi container
+      query'sinin hedefi olamaz) üç-katman yapısını ZORUNLU kıldı. `isMobile`/
+      `matchMedia` durumu TAMAMEN kaldırıldı — ölçek artık yalnızca genişlik
+      oranına bağlı, HER ZAMAN hesaplanıyor (masaüstünde doğal olarak ~1).
+    - **`align-items:stretch` kırpma hatası** (Seçenek A'dan miras, `outerRef`
+      className'inde `items-start` zaten vardı) — AYNEN korundu, hâlâ gerekli.
+    - **Bu turda YENİ bulunan bir ölçek-tabanı hatası düzeltildi:** Seçenek
+      A'nın `[0.5,1]` ölçek aralığı `NATURAL_MOBILE_WIDTH=480` içindi (0.5
+      tabanı → min 240px render, telefona sığar). `DESKTOP_NATURAL_WIDTH=1280`
+      ile AYNI 0.5 tabanı min 640px render demek — HİÇBİR telefonda
+      `outerRef`'e sığmaz, `overflow-hidden` tarafından KIRPILIR. Gerçek DOM
+      testinde doğrulandı (278px konteynerde 0.5 taban ile widget 640px
+      render edip taştı) — alt sınır TAMAMEN kaldırıldı, ölçek yalnızca üstten
+      (`Math.min(1, widthScale)`) sınırlı, her zaman tam genişliğe sığıyor.
+    - **Doğrulama:** `astro build` temiz, derlenen CSS'te `container-type:
+      inline-size` + `@container (width>=1024px)` kuralları doğrulandı
+      (gerçek container query üretildi). 8/9 regresyon script'i sıfır sorun
+      (aynı bilinen, ilgisiz heading-hierarchy taban çizgisi). **Gerçek
+      ürünüm koduyla (mock/DOM taklidi DEĞİL) canlı doğrulama yapıldı:**
+      widget'ın gerçek ata konteyneri (`HeroSection.astro`'nun `max-w-[88rem]`
+      sarmalayıcısı) geçici olarak 390px'e daraltıldı (tarayıcı
+      `resize_window` aracı bu oturumda güvenilmez çıktı, gerçek viewport
+      genişliği değişmedi — bu yüzden ata elemanın kendi genişliği
+      daraltılıp gerçek `ResizeObserver`'ın tepki vermesi izlendi), sonuç:
+      `outerRef` 278px'e küçüldü, `containerRef` `scale(0.217)` ile TAM
+      278px'e ölçeklendi (taşma/kırpma YOK), ekran görüntüsünde masaüstü
+      sidebar+2×2 grid düzeni (mobil-reflow DEĞİL, GERÇEK masaüstü hali)
+      bozulmadan, kesilmeden, üst üste binmeden göründü — yalnızca küçük
+      (kabul edilen okunabilirlik ödünü). Masaüstü viewport'ta (gerçek
+      geniş pencere) `scale(1)` doğrulandı, hiç değişmedi.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

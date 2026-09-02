@@ -881,7 +881,7 @@ function SimpleBarChart({ data, unit = '' }: { data: { label: string; value: num
         ))}
       </div>
       <div
-        className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+        className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 @min-[640px]:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
       >
         {data.map((d) => (
           <div key={d.label} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1072,7 +1072,7 @@ function ShiftAttendanceCard() {
             key={t.shifts[i]}
             className={`flex items-center gap-3 rounded-lg p-2 -m-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-36 shrink-0 truncate text-xs sm:w-48 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+            <span className={`w-36 shrink-0 truncate text-xs @min-[640px]:w-48 @min-[640px]:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
               {t.shifts[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
@@ -1106,7 +1106,7 @@ function OvertimeSummaryCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 @min-[640px]:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {OVERTIME_MONTHS.map((month) => (
             <div key={month.monthIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1281,7 +1281,7 @@ function AttendanceWeekCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 @min-[640px]:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {ATTENDANCE_WEEK.map((day) => (
             <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1347,7 +1347,7 @@ function AverageHoursCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 @min-[640px]:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {AVG_HOURS_WEEK.map((day) => (
             <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1402,28 +1402,21 @@ function TimeManagementTab() {
           lg:mt-4`) + grafik yükseklikleri (`h-44`→`h-36`, bkz. yukarıdaki
           kart component'leri) küçültüldü — içerik AZALMADI, yalnızca
           daha kompakt yerleşti. */}
-      {/* 2026-09-02 — kullanıcı `useMobileScale()` ile küçültülmüş mobil
-          görünümün "çok ince uzun" durduğunu bildirdi: küçük KPI/mini-stat
-          kartları (`TrendKpiCard`/`StatCard`/`MiniTrendStatCard` — sparkline
-          hariç içerik zaten kompakt) `sm:` (640px) altında TEK sütuna
-          düşüyordu, ama `sm:` bir VIEWPORT medya sorgusu — gerçek telefon
-          genişliği her zaman bunun altında kaldığı için ölçekleme kutusunun
-          KENDİ genişliği (`NATURAL_MOBILE_WIDTH`) bunu hiç ETKİLEMİYORDU
-          (dikey yığılma `transform:scale()` ile oran KORUNARAK küçülüyordu,
-          "ince uzun" görünümün kök nedeni buydu). Bu 5 kart grid'i (bu blok
-          + aşağıdaki `TIME_MINI_STATS`/`LEAVE_STATS`/`PERFORMANCE_KPI_STATS`/
-          `DAILY_MOVEMENTS_STRUCTURE`) `sm:` eşiği beklemeden MOBİLDE de
-          2 sütuna zorlanacak şekilde değiştirildi (`lg:` üstü davranış
-          AYNEN korundu) — daha az dikey alan, daha dengeli en-boy oranı.
-          Zengin/geniş içerikli grid'ler (`lg:grid-cols-2` KULLANAN, grafik
-          içeren kart ÇİFTLERİ — Devam Takibi/Ortalama Saat vb.) bilinçli
-          olarak DOKUNULMADI, dar telefon genişliğinde 2 sütunda sıkışabilirdi. */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:gap-4">
+      {/* 2026-09-02 notu ARTIK TARİHSEL (Seçenek A'ya özgüydü, bkz.
+          `mobil-widget-secenek-a-yedek` dalı) — o turda `grid-cols-2` BASE
+          class'ı, `sm:` (VIEWPORT medya sorgusu) eşiğine varmadan mobilde
+          2 sütuna zorlamak için bilinçli eklenmişti. Seçenek B'ye geçişle
+          bu artık ÖLÜ KOD: `@min-[640px]:grid-cols-3` container HER ZAMAN
+          ≥1024px SABİT genişlikte olduğu için HER ZAMAN aktif, `grid-cols-2`
+          base'i hiç render edilmiyor (3 sütun her zaman kazanıyor) — base
+          class kaldırılmadı (zararsız, ölçülebilir bir risk değil) ama
+          artık hiçbir işlevi yok. */}
+      <div className="grid grid-cols-2 gap-3 @min-[640px]:grid-cols-3 @min-[1024px]:gap-4">
         {TIME_KPIS.map((kpi, i) => (
           <TrendKpiCard key={kpi.value + t.kpiSubtext[i]} {...kpi} subtext={t.kpiSubtext[i]} />
         ))}
       </div>
-      <div className="mt-3 grid grid-cols-2 gap-3 lg:mt-4 lg:grid-cols-4 lg:gap-4">
+      <div className="mt-3 grid grid-cols-2 gap-3 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-4">
         {TIME_MINI_STATS.map((stat, i) => (
           <MiniTrendStatCard
             key={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
@@ -1432,11 +1425,11 @@ function TimeManagementTab() {
           />
         ))}
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <AttendanceWeekCard />
         <AverageHoursCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <ShiftAttendanceCard />
         <OvertimeSummaryCard />
       </div>
@@ -1523,7 +1516,7 @@ function BranchLeaveUsageCard() {
             key={branchNames[i]}
             className={`-m-2 flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+            <span className={`w-24 shrink-0 truncate text-xs @min-[640px]:w-32 @min-[640px]:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
               {branchNames[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
@@ -1621,20 +1614,20 @@ function LeaveManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={CalendarClock} title={t.sectionTitle} href="/yillik-izin-takip-programi/" />
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-2 gap-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-5">
         {LEAVE_STATS.map((stat, i) => (
           <StatCard key={t.leaveStats[i]} icon={stat.icon} color={stat.color} value={stat.value} label={t.leaveStats[i]} />
         ))}
       </div>
-      <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-4 grid gap-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveTypeDistributionCard />
         <ApprovalStatusCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveTrendCard />
         <BranchLeaveUsageCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveConflictCard />
         <TopLeaveUnitsCard />
       </div>
@@ -1930,18 +1923,18 @@ function HumanResourcesTab() {
   return (
     <div>
       <SectionMiniHeader icon={Users} title={t.sectionTitle} href="/insan-kaynaklari-yonetimi-modulu/" />
-      <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <HeadcountTrendCard />
         <BirthdayAnniversaryCard />
       </div>
-      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <div className="mt-2 grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <TurnoverRateCard />
         <PendingApprovalsCard />
       </div>
       <div className="mt-2">
         <HRCalendarCard />
       </div>
-      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <div className="mt-2 grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <ProbationTrackingCard />
         <ContractTrackingCard />
       </div>
@@ -2107,7 +2100,7 @@ function PerformanceManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={Target} title={t.sectionTitle} href="/calisan-performans-degerlendirme-sistemi-modulu/" />
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-2 gap-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-5">
         {PERFORMANCE_KPI_STATS.map((stat, i) => (
           <StatCard key={t.kpiStats[i].label} icon={stat.icon} color={stat.color} value={t.kpiStats[i].value} label={t.kpiStats[i].label} />
         ))}
@@ -2236,7 +2229,7 @@ function ActiveEmployeeTrendCard() {
 function DailyMovementsRow() {
   const t = getDataAnalysisLabels(useWidgetLocale());
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4 lg:gap-4">
+    <div className="grid grid-cols-2 gap-3 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-4">
       {DAILY_MOVEMENTS_STRUCTURE.map((stat, i) => (
         <MiniTrendStatCard key={t.dailyMovements[i]} {...stat} label={t.dailyMovements[i]} />
       ))}
@@ -2280,13 +2273,13 @@ function DataAnalysisTab() {
       <SectionMiniHeader icon={BarChart3} title={t.sectionTitle} />
       <div className="space-y-3">
         <DateRangeCard />
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
           <DepartmentAbsenteeismCard />
           <AbsenteeismTrendCard />
         </div>
         <ActiveEmployeeTrendCard />
         <DailyMovementsRow />
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
           <NewArrivalsCard />
           <LateArrivalsCard />
         </div>
@@ -2340,7 +2333,7 @@ function IconDropdown({
   const { isDark } = useTheme();
   const isOpen = openPanel === panelKey;
   return (
-    <div className={`relative ${hiddenSm ? 'hidden sm:block' : ''}`}>
+    <div className={`relative ${hiddenSm ? 'hidden @min-[640px]:block' : ''}`}>
       <button
         type="button"
         aria-label={label}
@@ -2731,7 +2724,7 @@ function AppHeaderBar() {
           <ShortcutsPanelContent />
         </IconDropdown>
         <span
-          className={`hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-sm sm:flex ${
+          className={`hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-sm @min-[640px]:flex ${
             isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 bg-gray-50 text-muted'
           }`}
         >
@@ -2815,7 +2808,7 @@ function AppHeaderBar() {
           trigger={
             <>
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
-              <span className="hidden leading-tight sm:block">
+              <span className="hidden leading-tight @min-[640px]:block">
                 <span className={`block text-xs font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Deniz Aydın</span>
                 <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>{labels.jobTitle}</span>
               </span>
@@ -2834,98 +2827,80 @@ function AppHeaderBar() {
 // AYNI değer, projede zaten kanıtlanmış bir süre).
 const AUTO_TAB_INTERVAL_MS = 6000;
 
-// Mobil ölçekleme (2026-09-02, kullanıcı isteği — "canlı dashboard mobilde
-// tüm olarak bütün durmalı, ekrana sığacak boyutta küçültülmeli, kullanıcı
-// webdeki halinin küçültülmüş versiyonunu görmeli"). İKİ seçenek kullanıcıya
-// sunuldu: (A) mevcut mobil-optimize düzeni (sidebar → yatay sekme çubuğu,
-// kartlar alt alta) AYNEN koruyup TÜMÜNÜ tek bir birim olarak `transform:
-// scale()` ile küçültmek, (B) masaüstü sidebar+grid düzenini container
-// query'lerle mobilde de zorlayıp küçültmek. Kullanıcı (A)'yı onayladı —
-// düşük risk, widget'ın ~2750 satırlık iç kodundaki `lg:` kurallarına HİÇ
-// dokunulmuyor. (B) kullanıcı tarafından istendi ama canlıya çıkış zaman
-// baskısı nedeniyle ERTELENDİ (bkz. CLAUDE.md) — canlıya çıkış sonrası, bol
-// zamanla, dikkatli test edilerek ele alınabilir.
+// Mobil ölçekleme — Seçenek B (2026-09-02, DÖRDÜNCÜ tur). Önceki üç turda
+// Seçenek A uygulanmıştı (mevcut mobil-optimize düzeni AYNEN koruyup tek
+// birim olarak küçültmek, bkz. `mobil-widget-secenek-a-yedek` dalı) —
+// düşük riskliydi ama masaüstündeki GERÇEK sidebar+grid halini
+// göstermiyordu. Ucuz bir ön-testte (masaüstü DOM'u 375px'e küçültülüp
+// görüntülendi) ikincil metinler/rozetler okunaksız çıktı, ama kullanıcı
+// riski BİLEREK "yine de Seçenek B'yi istiyorum" dedi — bu turda uygulandı.
 //
-// Teknik: widget `lg` altında (mevcut mobil kırılım noktasıyla AYNI, iki
-// mekanizma birbirinden kopmasın diye) SABİT bir "doğal" genişlikte
-// (`NATURAL_MOBILE_WIDTH`, gerçek ekrandan geniş) render edilir — bu,
-// mevcut mobil düzenin (kartlar/yazı boyutları) ZATEN ayarlanmış haliyle
-// bozulmadan çizilmesini sağlar (`lg:` medya sorgusu gerçek viewport'a
-// bakar, bu sabit genişlik onu ETKİLEMEZ) — sonra TÜMÜ `transform: scale()`
-// ile mevcut konteynerin genişliğine sığacak şekilde küçültülür. Ölçek
-// `[0.5, 1]` aralığında sınırlı — asla doğal boyutun ÜSTÜNE büyütülmez
-// (kullanıcı "küçültülmeli" dedi, büyütme istenmedi), 0.5 altına da
-// inmiyor (okunaksız olmasın). `ResizeObserver` hem dış konteyner
-// (viewport genişliği değişince) hem iç içerik (sekmeler arası otomatik
-// geçişte yükseklik değişince) için dinliyor — dış sarmalayıcının
-// yüksekliği ölçeklenmiş değere eşitlenip fazladan boşluk bırakılmıyor.
-const NATURAL_MOBILE_WIDTH = 480;
-const MOBILE_SCALE_QUERY = '(max-width: 1023px)';
-// 2026-09-02, ikinci tur — kullanıcı "ekrana sığmıyor, ekrana baktığımda
-// hepsini görebilmeliyim" dedi: yalnızca KONTEYNER GENİŞLİĞİNE göre
-// ölçeklemek (üstteki tur) genişliğe sığdırıyordu ama YÜKSEKLİK hâlâ
-// `window.innerHeight`'ı aşabiliyordu. Bir YÜKSEKLİK tavanı eklendi
-// (`MAX_HEIGHT_VIEWPORT_FRACTION`, iki adaydan küçük olanı seçme mantığı)
-// — AMA ÜÇÜNCÜ turda (aynı gün, kullanıcı gerçek cihazdan ekran görüntüsü
-// paylaştı: "ekranı doldurması lazım, çirkin duruyor") bunun ciddi bir
-// yan etkisi ortaya çıktı: doğal en-boy oranı (~480×870, dikeyde
-// genişlikten çok daha uzun) yüzünden ÇOĞU telefonda yükseklik tavanı
-// genişlik oranından DAHA KISITLAYICI çıkıyordu — ölçek yükseklik
-// tarafından belirlenip widget konteyner genişliğinin ÇOK ALTINDA
-// kalıyordu, iki yanda çirkin boş boşluk bırakıyordu (bu turda ölçülen
-// gerçek örnek: 487px'lik konteynerde widget yalnızca 346px'e küçülmüştü).
-// **Karar: genişliği doldurmak önceliklidir** — yükseklik tavanı TAMAMEN
-// kaldırıldı, ölçek yalnızca `containerWidth/NATURAL_MOBILE_WIDTH`'e göre
-// hesaplanıyor (aşağıdaki `update()`). Bunun bilinçli bedeli: doğal en-boy
-// oranı nedeniyle widget kısa telefonlarda tek bakışta tamamı görünmeyip
-// hafif bir iç kaydırma/sayfa kaydırması gerektirebilir — bu, "ekranı
-// doldurmalı" gereksinimiyle "tek bakışta tamamı görünmeli" gereksinimi
-// AYNI ANDA sağlanamayacağı için (sabit en-boy oranlı TEK bir ölçek
-// faktörüyla) yapılan bilinçli bir öncelik seçimi, kullanıcının en son ve
-// en acil geri bildirimine göre.
+// Teknik: widget'ın `lg:`/`sm:` (VIEWPORT medya sorgusu) kuralları
+// `@min-[1024px]:`/`@min-[640px]:` (Tailwind v4 CONTAINER query varyantı,
+// AYNI piksel eşikleriyle — Tailwind v4'ün `@lg`/`@sm` VARSAYILAN container
+// değerleri viewport eşiklerinden FARKLI olduğu için bilinçli olarak
+// arbitrary-value söz dizimi kullanıldı) ile DEĞİŞTİRİLDİ. `containerRef`
+// (aşağıda) `@container` class'ı + SABİT `DESKTOP_NATURAL_WIDTH` genişliği
+// taşıyor — container query'ler bu SABİT genişliğe göre değerlendiği için
+// widget artık GERÇEK viewport ne olursa olsun HER ZAMAN masaüstü
+// (sidebar+grid) düzeninde render ediliyor, sonra TÜMÜ `transform:scale()`
+// ile gerçek konteynerin genişliğine sığacak şekilde küçültülüyor (üst
+// sınır 1 — asla büyütülmez; ALT sınır KASITLI OLARAK YOK: Seçenek A'nın
+// `[0.5,1]` aralığı `NATURAL_MOBILE_WIDTH=480` içindi, 1280'lik masaüstü
+// doğal genişliğiyle 0.5 tabanı minimum 640px render genişliği demek —
+// HİÇBİR telefonda `outerRef`'e sığmaz, `overflow-hidden` tarafından
+// KIRPILIR. Bu turda gerçek DOM'da doğrulandı: 278px'lik konteynerde
+// 0.5 tabanıyla widget 640px render edip taştı — taban kaldırıldı, ölçek
+// artık yalnızca üstten sınırlı, HER ZAMAN tam genişliğe sığıyor).
+//
+// CSS containment kısıtı: bir eleman KENDİ container query'sinin hedefi
+// OLAMAZ (döngüsel bağımlılık) — bu yüzden ÜÇ ayrı katman var: `outerRef`
+// (gerçek viewport'a bağlı konteyner genişliğini ölçer) → `containerRef`
+// (`@container` + SABİT genişlik + `transform:scale()`, KENDİ üstünde
+// `@min-[...]:` KULLANMAZ) → `innerRef` (asıl `flex-col @min-[1024px]:
+// flex-row` düzeni + tüm alt bileşenlerin `@min-[...]:` kuralları,
+// `containerRef`'in genişliğini sorguluyor). Artık VIEWPORT'a değil
+// yalnızca GENİŞLİK ORANINA bağlı olduğu için `isMobile`/`matchMedia`
+// durumuna hiç gerek kalmadı — ölçek HER ZAMAN hesaplanıyor, masaüstünde
+// doğal olarak ~1'e denk geliyor (konteyner zaten `DESKTOP_NATURAL_WIDTH`
+// kadar geniş olduğu için).
+//
+// Daha önce bulunan `align-items:stretch` kırpma hatası (bkz. `outerRef`
+// className'indeki `items-start`, AYNI gerekçe hâlâ geçerli) + bu turda
+// bulunan flex-shrink hatası (bir flex item'a SABİT genişlik vermek onu
+// küçülmeden KORUMAZ, `flexShrink:0` de gerekir — `containerRef`'e
+// eklendi, aksi halde masaüstü doğal genişliği dar konteynerlerde
+// flexbox tarafından SIKIŞTIRILIR, ölçek yanlış hesaplanır) düzeltildi.
+const DESKTOP_NATURAL_WIDTH = 1280;
 
 function useMobileScale() {
   const outerRef = useRef<HTMLDivElement>(null);
-  const innerRef = useRef<HTMLDivElement>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [scale, setScale] = useState(1);
   const [scaledHeight, setScaledHeight] = useState<number | null>(null);
 
   useEffect(() => {
-    const mql = window.matchMedia(MOBILE_SCALE_QUERY);
-    const onChange = () => setIsMobile(mql.matches);
-    onChange();
-    mql.addEventListener('change', onChange);
-    return () => mql.removeEventListener('change', onChange);
-  }, []);
-
-  useEffect(() => {
-    if (!isMobile) {
-      setScale(1);
-      setScaledHeight(null);
-      return;
-    }
     const update = () => {
-      if (!outerRef.current || !innerRef.current) return;
+      if (!outerRef.current || !containerRef.current) return;
       const containerWidth = outerRef.current.offsetWidth;
-      const naturalHeight = innerRef.current.offsetHeight;
-      const widthScale = containerWidth / NATURAL_MOBILE_WIDTH;
-      const nextScale = Math.min(1, Math.max(0.5, widthScale));
+      const naturalHeight = containerRef.current.offsetHeight;
+      const widthScale = containerWidth / DESKTOP_NATURAL_WIDTH;
+      const nextScale = Math.min(1, widthScale);
       setScale(nextScale);
       setScaledHeight(naturalHeight * nextScale);
     };
     update();
     const ro = new ResizeObserver(update);
     if (outerRef.current) ro.observe(outerRef.current);
-    if (innerRef.current) ro.observe(innerRef.current);
+    if (containerRef.current) ro.observe(containerRef.current);
     window.addEventListener('resize', update);
     return () => {
       ro.disconnect();
       window.removeEventListener('resize', update);
     };
-  }, [isMobile]);
+  }, []);
 
-  return { outerRef, innerRef, isMobile, scale, scaledHeight };
+  return { outerRef, containerRef, scale, scaledHeight };
 }
 
 export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
@@ -2936,7 +2911,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
-  const { outerRef, innerRef, isMobile, scale, scaledHeight } = useMobileScale();
+  const { outerRef, containerRef, scale, scaledHeight } = useMobileScale();
 
   // Dil desteği (2026-08-31) — bkz. `LabelsContext` yorumu. `TABS`/
   // `ENABLED_TABS` artık modül-seviyesinde SABİT değil, `locale`'e göre
@@ -2971,13 +2946,23 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
     <ThemeContext.Provider value={{ isDark, toggle }}>
       {/* `items-start` şart: yoksa flex'in varsayılan `align-items: stretch`'i,
           `scaledHeight` ile sınırlanan bu dış kutunun yüksekliğini, transform
-          ile ölçeklenen `inner`'ın GERÇEK layout yüksekliğine (görsel değil)
-          uygulayıp içeriği kırpar. */}
+          ile ölçeklenen `containerRef`'in GERÇEK layout yüksekliğine (görsel
+          değil) uygulayıp içeriği kırpar. */}
       <div ref={outerRef} className="flex items-start justify-center overflow-hidden" style={scaledHeight != null ? { height: scaledHeight } : undefined}>
+      {/* `containerRef`: container query'lerin (`@min-[...]:`) ölçtüğü SABİT
+          genişlikteki katman — `@container` + `DESKTOP_NATURAL_WIDTH` +
+          `transform:scale()` + `flexShrink:0` (üstteki hook yorumuna bkz.,
+          bu olmadan `outerRef`'in `flex justify-center`'ı bu SABİT genişliği
+          dar konteynerlerde sıkıştırır). Kendi ÜSTÜNDE `@min-[...]:`
+          KULLANMIYOR (CSS containment: bir eleman kendi container query'sinin
+          hedefi olamaz) — o kurallar bir alt seviyedeki `innerRef`'te. */}
       <div
-        ref={innerRef}
-        className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
-        style={isMobile ? { width: NATURAL_MOBILE_WIDTH, transform: `scale(${scale})`, transformOrigin: 'top center' } : undefined}
+        ref={containerRef}
+        className={`@container overflow-hidden rounded-b-2xl border border-t-0 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+        style={{ width: DESKTOP_NATURAL_WIDTH, transform: `scale(${scale})`, transformOrigin: 'top center', flexShrink: 0 }}
+      >
+      <div
+        className="flex flex-col @min-[1024px]:flex-row"
         onMouseEnter={() => setAutoPaused(true)}
         onMouseLeave={() => setAutoPaused(false)}
         onFocus={() => setAutoPaused(true)}
@@ -3002,22 +2987,18 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
             (aşağıda) saf beyaza döndü. Karanlık modda AYNI ilke aynen
             uygulandı: sidebar `gray-950` (daha koyu), içerik `gray-900`
             (daha açık) — önceki sürümde bu ilişki TERSTİ. */}
-        <div className={`shrink-0 border-b p-5 lg:w-72 lg:border-r lg:border-b-0 lg:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
-          <IdenfitLogo className={`h-6 w-auto sm:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
-          {/* Mobil/tablet (< lg): dikey modül listesi widget'ı çok
-              uzatıyordu — sidebar (11 öğe) içerikle YAN YANA değil, ÜST
-              ÜSTE dizilince (bkz. dış sarmalayıcının `flex-col lg:flex-row`'u)
-              toplam yükseklik masaüstünün (~620-650px) neredeyse 2 katına
-              (~1150-1200px) çıkıyor, "tek parça" hissi kayboluyordu
-              (2026-08-31, kullanıcı bulgusu — iframe-viewport tekniğiyle
-              390px'te doğrulandı). Düzeltme: `lg:` ALTINDA nav yatay
-              kaydırılabilir bir sekme çubuğuna dönüşüyor (`flex` + `overflow-x-auto`,
-              her buton `shrink-0` — sıkışmıyor, doğal genişliğinde kalıyor),
-              `lg:` ve ÜZERİNDE davranış BİREBİR korunuyor (`lg:flex-col`,
-              dikey liste, `lg:w-full` butonlar). Aynı 11 modül/ikon/rozet
-              — içerik/işlevsellik DEĞİŞMEDİ, yalnızca küçük ekranda
-              yerleşim yönü. */}
-          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-6 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
+        <div className={`shrink-0 border-b p-5 @min-[1024px]:w-72 @min-[1024px]:border-r @min-[1024px]:border-b-0 @min-[1024px]:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
+          <IdenfitLogo className={`h-6 w-auto @min-[640px]:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
+          {/* 2026-08-31 notu ARTIK TARİHSEL — o turda mobilde (gerçek dar
+              viewport'ta) nav yatay kaydırmalı bir sekme çubuğuna dönüşüyordu
+              (`lg:` VIEWPORT medya sorgusuydu). Seçenek B'ye geçişle (bkz.
+              `useMobileScale` yorumu) bu `lg:flex-col` artık `@min-[1024px]:
+              flex-col` — container HER ZAMAN ≥1024px SABİT genişlikte
+              olduğu için nav ARTIK HER ZAMAN dikey liste (masaüstü hali),
+              mobil-özel yatay sekme çubuğu dalı bir daha hiç tetiklenmiyor
+              (kod hâlâ burada duruyor ama ölü — kaldırmak ayrı bir temizlik
+              turu, bu turun kapsamı dışında). */}
+          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 @min-[1024px]:mt-6 @min-[1024px]:flex-col @min-[1024px]:gap-1 @min-[1024px]:overflow-visible @min-[1024px]:pb-0">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -3028,7 +3009,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
                   aria-selected={isActive}
                   disabled={!tab.enabled}
                   onClick={() => tab.enabled && setActiveTab(tab.key)}
-                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors lg:w-full ${
+                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors @min-[1024px]:w-full ${
                     isActive
                       ? 'bg-brand text-white'
                       : tab.enabled
@@ -3041,7 +3022,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
                   }`}
                 >
                   <tab.icon className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
-                  <span className="whitespace-nowrap lg:flex-1 lg:truncate">{tab.label}</span>
+                  <span className="whitespace-nowrap @min-[1024px]:flex-1 @min-[1024px]:truncate">{tab.label}</span>
                   {tab.badge && (
                     <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
                       {tab.badge}
@@ -3053,7 +3034,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
           </nav>
         </div>
 
-        <div className={`min-w-0 flex-1 p-4 sm:p-6 lg:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className={`min-w-0 flex-1 p-4 @min-[640px]:p-6 @min-[1024px]:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           <AppHeaderBar />
           {/* Sekme yüksekliği stratejisi DEĞİŞTİ (2026-08-20, kullanıcı
               isteği — Personio.com'un ana sayfasındaki dashboard mockup'ıyla
@@ -3082,6 +3063,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
             {activeTab === 'veri-analizi' && <DataAnalysisTab />}
           </div>
         </div>
+      </div>
       </div>
       </div>
     </ThemeContext.Provider>
