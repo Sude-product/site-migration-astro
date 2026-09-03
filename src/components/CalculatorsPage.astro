@@ -34,38 +34,55 @@ const HERO_ILLUSTRATION_URL = '/wp-content/uploads/2025/12/header-bg-2x.png';
   hreflangLocales={['tr']}
   breadcrumb={[{ label: hero.title }]}
 >
-  <section class="relative mx-auto max-w-5xl overflow-hidden px-4 py-12 text-center sm:px-6 lg:py-20 lg:pr-[420px] lg:text-left">
-    <!-- Dekoratif illüstrasyon — yalnızca lg+ genişlikte, sağda (kaynaktaki
-         background-position: right düzeniyle tutarlı). URL, bir Tailwind
-         utility sınıfı yerine bilerek inline `style` ile veriliyor: bir JS
-         değişkenine enterpolasyon içeren arbitrary-value bir sınıf,
-         derleme zamanında salt METİN tarayan Tailwind motoru tarafından
-         tanınamaz (kaynak dosyada gerçek URL değil yalnızca değişken adı
-         görünür). -->
-    <div
-      class="pointer-events-none absolute inset-y-0 right-0 hidden w-[420px] bg-contain bg-right bg-no-repeat lg:block"
-      style={`background-image: url('${HERO_ILLUSTRATION_URL}')`}
-      aria-hidden="true"
-    />
-    <h1 class="relative text-3xl font-bold text-heading sm:text-4xl">{hero.title}</h1>
-    {hero.text && <p class="relative mt-4 text-lg text-body lg:max-w-md">{hero.text}</p>}
-  </section>
+  <!-- Kaynaktaki hero'nun sıcak/şeftali renkli tam-genişlik arka planı
+       (`rgba(226,151,51,0.2)`, canlı sayfada `getComputedStyle` ile
+       ölçüldü) — önceden bu bölüm düz beyazdı, kaynaktan görsel olarak
+       ayrışıyordu. Kullanıcı isteğiyle dikey boşluk büyütüldü
+       (`py-12/lg:py-20` → `py-16/lg:py-28`). -->
+  <div class="bg-[rgba(226,151,51,0.2)]">
+    <section class="relative mx-auto max-w-5xl overflow-hidden px-4 py-16 text-center sm:px-6 lg:py-28 lg:pr-[420px] lg:text-left">
+      <!-- Dekoratif illüstrasyon — yalnızca lg+ genişlikte, sağda (kaynaktaki
+           background-position: right düzeniyle tutarlı). URL, bir Tailwind
+           utility sınıfı yerine bilerek inline `style` ile veriliyor: bir JS
+           değişkenine enterpolasyon içeren arbitrary-value bir sınıf,
+           derleme zamanında salt METİN tarayan Tailwind motoru tarafından
+           tanınamaz (kaynak dosyada gerçek URL değil yalnızca değişken adı
+           görünür). -->
+      <div
+        class="pointer-events-none absolute inset-y-0 right-0 hidden w-[420px] bg-contain bg-right bg-no-repeat lg:block"
+        style={`background-image: url('${HERO_ILLUSTRATION_URL}')`}
+        aria-hidden="true"
+      />
+      <h1 class="relative text-3xl font-bold text-heading sm:text-4xl">{hero.title}</h1>
+      {hero.text && <p class="relative mt-4 text-lg text-body lg:max-w-md">{hero.text}</p>}
+    </section>
+  </div>
 
   <section class="mx-auto max-w-3xl px-4 pb-16 sm:px-6 lg:px-8">
     <!-- "Few H2 subheadings" SEO bulgusu (2026-08-17) — 8 gerçek/farklı
          hesap makinesi (her biri zaten kendi h3'ünü taşıyor,
          `CalculatorAccordion.tsx`) hiç sarmalayıcı h2 olmadan hero h1'inin
          altında duruyordu. H1'den (uzun tanıtım cümlesi) FARKLI, kısa/gerçek
-         bir başlık — TR-only sayfa (KARAR 2), elle yazıldı. -->
-    <h2 class="h2-section text-heading">Hesaplama Araçları</h2>
-    <div id="hesaplama-araclari-list" class="mt-8 divide-y divide-gray-100 border-t border-gray-100">
-      {
-        CALCULATOR_DEFINITIONS.map((def) => (
-          <div id={def.slug}>
-            <CalculatorAccordion client:visible slug={def.slug} calculateLabel="Hesapla" />
-          </div>
-        ))
-      }
+         bir başlık — TR-only sayfa (KARAR 2), elle yazıldı. Kullanıcı isteğiyle
+         (2026-09-03) GÖRSEL olarak kaldırıldı (`sr-only` — kaynakta da bu
+         metin görünmüyor) ama SEO/erişilebilirlik hiyerarşisi için H2 olarak
+         DOM'da kalmaya devam ediyor; tamamen silinirse "eksik H2" bulgusu
+         geri açılırdı. -->
+    <h2 class="sr-only">Hesaplama Araçları</h2>
+    <!-- Kaynaktaki beyaz, gölgeli/yuvarlak köşeli "kart" görünümü
+         (`border-radius:20px`, `box-shadow:0 10px 30px rgba(0,0,0,.14)`,
+         canlı sayfada ölçüldü) — önceden liste düz sayfa arka planı
+         üzerinde, kart hissi olmadan duruyordu. -->
+    <div class="mt-8 rounded-[20px] bg-surface px-4 py-2 shadow-[0_10px_30px_rgba(0,0,0,0.14)] sm:px-8">
+      <div id="hesaplama-araclari-list" class="divide-y divide-gray-100">
+        {
+          CALCULATOR_DEFINITIONS.map((def) => (
+            <div id={def.slug}>
+              <CalculatorAccordion client:visible slug={def.slug} calculateLabel="Hesapla" />
+            </div>
+          ))
+        }
+      </div>
     </div>
   </section>
 

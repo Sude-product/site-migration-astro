@@ -467,7 +467,7 @@ function CompanyStep({ onSubmit }: { onSubmit: () => void }) {
         </p>
       </div>
 
-      <div className="mt-8">
+      <div className="mt-14 md:mt-16">
         <CompanyForm onSubmit={onSubmit} idPrefix="maturity-hero" />
       </div>
     </div>
@@ -776,7 +776,26 @@ export default function HrMaturityTest() {
               (bkz. CLAUDE.md 2026-07-29 günlüğü). Quiz/Sonuç adımları kendi
               (daha sade) padding'ini koruyor, yalnızca bu adım kaynağın
               ölçülen hero değerlerini alıyor. */}
-          <div className="relative overflow-hidden pb-[50px] pt-[34px] md:pb-[75px] md:pt-[75px] lg:pb-[100px] lg:pt-[100px]">
+          {/* `isolate` ŞART: bu div `position:relative` taşısa da kendi
+              z-index'i olmadığı için TEK BAŞINA yeni bir stacking context
+              açmıyor — `MaturityArcDecoration`'ın `-z-10`'u bu izolasyon
+              olmadan ta kök stacking context'e (body seviyesine) kaçıp
+              sayfanın TAMAMINDAKİ normal-akış içeriğinin (bucket 3, negatif
+              z-index'ten her zaman daha üstte boyanır) ALTINA düşüyor, yani
+              tamamen görünmez oluyordu (canlıda `getComputedStyle`/DOM
+              karşılaştırmasıyla bulundu — SVG doğru render oluyordu, salt
+              boyama sırası yanlıştı). `isolate` bu izolasyonu bu hero
+              bloğuna YEREL olarak sağlıyor, arc'ı yalnızca KENDİ içeriğinin
+              (başlık/form) arkasına, sayfanın geri kalanının önüne alıyor —
+              kaynaktaki görünümle birebir. */}
+          {/* `overflow-hidden` KASITLI OLARAK YOK: arc dekorasyonu artık
+              (`MaturityArcDecoration.tsx`) bilerek bu bloğun kendi
+              genişliğinden (960px'e kadar) daha geniş, `w-screen` ile
+              viewport'a göre ortalanmış render ediliyor — `overflow-hidden`
+              olsaydı bu genişleme yanlardan kırpılırdı (bulunup düzeltilen
+              bug). Sayfada başka taşabilecek bir eleman yok, bu yüzden
+              güvenli. */}
+          <div className="relative isolate pb-[50px] pt-[34px] md:pb-[75px] md:pt-[75px] lg:pb-[100px] lg:pt-[100px]">
             <MaturityArcDecoration />
             <CompanyStep onSubmit={() => setStep('quiz')} />
           </div>
