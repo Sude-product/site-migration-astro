@@ -59,11 +59,6 @@ export interface VideoCarouselCard extends CarouselCardBase {
 
 export interface QuoteCarouselCard extends CarouselCardBase {
   type: 'quote';
-  // `ibisStyles` ne `customerStories` ne `home.testimonials` şemasında var
-  // (2026-08-27 — yalnızca `customerCarousel.ibisStylesQuote`'tan okunuyor,
-  // bkz. `CustomerStoryCarouselSection.astro`'nun üçüncü/özel dalı) — yine de
-  // BURADA (StatCarouselCard'ın AYNI ilkesiyle) açıkça listelendi, derleme
-  // zamanında yanlış kaynaktan okumayı (`cs[card.storyKey]`) engellemek için.
   storyKey: 'femas' | 'civil' | 'yatsan' | 'tugbaKuruyemis' | 'beyazFirin' | 'dogSer' | 'emreOzcan' | 'ismailUnal' | 'ibisStyles';
   quotePhotoUrl?: string;
 }
@@ -212,10 +207,10 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
   },
   {
     // 2026-08-27 — kullanıcının verdiği YouTube linki + arka plan döngü
-    // aralığı (31-59sn) ile eklenen YENİ kart. `/musteriler/` sayfasında
-    // ibis Styles Hotels'e ait bir blok YOK (bu turda yalnızca carousel'e
-    // eklendi) — `anchorId` verilmedi, "Devamını Oku" düz `/musteriler/`'e
-    // gider (emreOzcan/ismailUnal ile AYNI davranış). Logo: kullanıcının
+    // aralığı (31-59sn) ile eklenen YENİ kart. GÜNCELLEME (2026-09-03):
+    // `/musteriler/` sayfasına da gerçek bir blok eklendi
+    // (`customerStories.ts`), `anchorId` bu yüzden artık VERİLDİ — "Devamını
+    // Oku" `/musteriler/#ibisStyles`'a gidiyor. Logo: kullanıcının
     // ilk paylaştığı CleanPNG kaynağı filigranlı + gerçek şeffaflığı
     // olmayan (düz VP8 webp, sahte dama deseni pikselin içine gömülü) bir
     // önizlemeydi, kullanıcıya bildirilip reddedildi — kullanıcının
@@ -234,6 +229,7 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     videoUrl: 'https://youtu.be/UDHFuDB53n8',
     loopStart: 31,
     loopEnd: 59,
+    anchorId: 'ibisStyles',
   },
   {
     // 2026-08-27 (aynı gün, ikinci tur) — video kartının YANINA eklenen
@@ -241,13 +237,13 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     // (Genel Müdür) fotoğrafı paylaşılmadı — `quotePhotoUrl` bilinçli
     // olarak BOŞ (`QuoteCard` bileşeni fotoğrafı zaten opsiyonel render
     // ediyor, uydurma bir görsel eklenmedi, bkz. Beyaz Fırın/Doğ-Ser'in
-    // AYNI ilkesi). Alıntı metni ne `customerStories` ne `home.testimonials`
-    // şemasında — ibis Styles Hotels'in `/musteriler/` sayfasında hiç bloğu
-    // olmadığı için (video kartıyla AYNI karar) doğrudan `customerCarousel.
-    // ibisStylesQuote`'a (i18n, 5 dilde gerçek çeviri) eklendi.
+    // AYNI ilkesi). Alıntı metni artık (2026-09-03) `customerStories.ts`'in
+    // AYNI şemasında yaşıyor (tek kaynak) — `home.customerCarousel.
+    // ibisStylesQuote`'un kopyası kaldırıldı.
     type: 'quote',
     storyKey: 'ibisStyles',
     companyName: 'ibis Styles Hotels',
     logo: { url: '/images/customer-ibis-styles-logo.png', width: 200, height: 200 },
+    anchorId: 'ibisStyles',
   },
 ];

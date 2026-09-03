@@ -350,6 +350,14 @@ export const it: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          "Il nostro hotel utilizza idenfit fin dal giorno dell'apertura. Una delle cose che mi ha colpito di più di idenfit, e il motivo principale per cui l'abbiamo scelto, è stata l'idea che ha proposto. Ha messo da parte tutto ciò a cui eravamo abituati: lettori di badge, tornelli o firme cartacee. I nostri colleghi possono ora registrare entrata e uscita tramite l'app mobile, e poter monitorare tutto questo in tempo reale e da remoto, ovunque ci troviamo, ha migliorato anche le nostre prestazioni.",
+        name: 'Tolga Avcı',
+        role: 'Direttore Generale',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -450,11 +458,6 @@ export const it: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş gestisce i processi HR da un unico pannello con idenfit' },
       beyazFirinVideo: { headline: 'Guarda come Beyaz Fırın ha trasformato i propri processi HR con idenfit' },
       ibisStylesVideo: { headline: 'Guarda come ibis Styles Hotels ha trasformato i propri processi HR con idenfit' },
-      ibisStylesQuote: {
-        text: "Il nostro hotel utilizza idenfit fin dal giorno dell'apertura. Una delle cose che mi ha colpito di più di idenfit, e il motivo principale per cui l'abbiamo scelto, è stata l'idea che ha proposto. Ha messo da parte tutto ciò a cui eravamo abituati: lettori di badge, tornelli o firme cartacee. I nostri colleghi possono ora registrare entrata e uscita tramite l'app mobile, e poter monitorare tutto questo in tempo reale e da remoto, ovunque ci troviamo, ha migliorato anche le nostre prestazioni.",
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Direttore Generale',
-      },
     },
     faq: {
       viewAllLink: 'Visualizza Tutte le Domande',

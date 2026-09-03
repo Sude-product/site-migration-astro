@@ -344,6 +344,14 @@ export const nl: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          'Ons hotel gebruikt idenfit vanaf de dag dat het werd geopend. Een van de dingen die mij het meest aanspraken aan idenfit, en de belangrijkste reden waarom we ervoor kozen, was het concept dat idenfit introduceerde. Het liet alles los waar we aan gewend waren — kaartlezers, tourniquetsystemen of handmatig ondertekenen. Onze collega\'s kunnen nu via de mobiele app in- en uitklokken, en het feit dat wij dit direct en mobiel van overal kunnen volgen, heeft onze prestaties ook verbeterd.',
+        name: 'Tolga Avcı',
+        role: 'Algemeen Directeur',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -444,11 +452,6 @@ export const nl: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş beheert zijn HR-processen vanuit één paneel met idenfit' },
       beyazFirinVideo: { headline: 'Bekijk hoe Beyaz Fırın zijn HR-processen transformeerde met idenfit' },
       ibisStylesVideo: { headline: 'Bekijk hoe ibis Styles Hotels zijn HR-processen transformeerde met idenfit' },
-      ibisStylesQuote: {
-        text: 'Ons hotel gebruikt idenfit vanaf de dag dat het werd geopend. Een van de dingen die mij het meest aanspraken aan idenfit, en de belangrijkste reden waarom we ervoor kozen, was het concept dat idenfit introduceerde. Het liet alles los waar we aan gewend waren — kaartlezers, tourniquetsystemen of handmatig ondertekenen. Onze collega\'s kunnen nu via de mobiele app in- en uitklokken, en het feit dat wij dit direct en mobiel van overal kunnen volgen, heeft onze prestaties ook verbeterd.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Algemeen Directeur',
-      },
     },
     faq: {
       viewAllLink: 'Bekijk Alle Vragen',

@@ -49,7 +49,16 @@
 // alıntı-yazarı rozetine (`quotePhotoUrl`) yerleştirildi.
 import { TESTIMONIAL_PEOPLE } from './homeContent';
 
-export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis' | 'beyazFirin' | 'emreOzcan' | 'ismailUnal';
+export type CustomerStoryKey =
+  | 'femas'
+  | 'civil'
+  | 'yatsan'
+  | 'dogSer'
+  | 'tugbaKuruyemis'
+  | 'beyazFirin'
+  | 'emreOzcan'
+  | 'ismailUnal'
+  | 'ibisStyles';
 
 export interface StoryMedia {
   image?: string;
@@ -162,6 +171,19 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     mediaSide: 'right',
     media: { image: '/images/customer-zsazsazsu.jpg' },
     quotePhotoUrl: TESTIMONIAL_PEOPLE.ismailUnal.photoUrl,
+  },
+  {
+    // 2026-09-03 (kullanıcı isteği) — ana sayfa carousel'inde önceden
+    // yalnızca video+alıntı kartı olarak var olan ibis Styles Hotels
+    // (bkz. `customerStoryCarousel.ts`), artık bu sayfada da GERÇEK bir
+    // blok — carousel'deki AYNI, zaten onaylı gerçek YouTube videosu
+    // yeniden kullanıldı (uydurma bir görsel/istatistik EKLENMEDİ; Tolga
+    // Avcı'nın fotoğrafı paylaşılmadığı için `quotePhotoUrl` Beyaz Fırın/
+    // Doğ-Ser'deki AYNI ilkeyle boş bırakıldı).
+    key: 'ibisStyles',
+    name: 'ibis Styles Hotels',
+    mediaSide: 'left',
+    media: { video: 'https://youtu.be/UDHFuDB53n8' },
   },
 ];
 

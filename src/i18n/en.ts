@@ -349,6 +349,14 @@ export const en: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          'Our hotel has been using idenfit since the day it opened. One of the things that appealed to me most about idenfit, and the main reason we chose it, was the concept it introduced. It set aside everything we were used to — card readers, turnstile systems, or signing in by hand. Our colleagues can now clock in and out through the mobile app, and being able to track this instantly and remotely from anywhere has also boosted our performance.',
+        name: 'Tolga Avcı',
+        role: 'General Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -449,11 +457,6 @@ export const en: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş manages its HR processes from a single panel with idenfit' },
       beyazFirinVideo: { headline: 'Watch how Beyaz Fırın transformed its HR processes with idenfit' },
       ibisStylesVideo: { headline: 'Watch how ibis Styles Hotels transformed its HR processes with idenfit' },
-      ibisStylesQuote: {
-        text: 'Our hotel has been using idenfit since the day it opened. One of the things that appealed to me most about idenfit, and the main reason we chose it, was the concept it introduced. It set aside everything we were used to — card readers, turnstile systems, or signing in by hand. Our colleagues can now clock in and out through the mobile app, and being able to track this instantly and remotely from anywhere has also boosted our performance.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - General Manager',
-      },
     },
     faq: {
       viewAllLink: 'View All Questions',
