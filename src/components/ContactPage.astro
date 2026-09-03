@@ -137,13 +137,13 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
         <div class="mt-10 flex flex-col gap-10">
           <div>
             <h2 class="text-[26px] font-light text-muted">{content.callTitle}</h2>
-            <a href={content.callLinkUrl} class="mt-2 block text-4xl font-bold text-brand transition-opacity hover:opacity-80">
+            <a href={content.callLinkUrl} class="mt-2 block break-words text-4xl font-bold text-brand transition-opacity hover:opacity-80">
               {content.callText}
             </a>
           </div>
           <div>
             <h2 class="text-[26px] font-light text-muted">{content.emailTitle}</h2>
-            <a href={content.emailLinkUrl} class="mt-2 block text-4xl font-bold text-brand transition-opacity hover:opacity-80">
+            <a href={content.emailLinkUrl} class="mt-2 block break-words text-4xl font-bold text-brand transition-opacity hover:opacity-80">
               {content.emailLinkUrl.replace('mailto:', '')}
             </a>
           </div>

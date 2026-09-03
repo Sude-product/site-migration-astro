@@ -37,7 +37,7 @@ export const tr: Translations = {
     // tutuldu).
     headline: 'Siz insana odaklanın. Biz teknolojiyi yönetelim.',
     subheadline:
-      'idenfit; İK, iş gücü yönetimi, bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz süreçlerle değil, insanla ilgilensin.',
+      'İdenfit; İK, PDKS, performans yönetimi, iş gücü yönetimi, bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz süreçlerle değil, insanla ilgilensin.',
     emailPlaceholder: 'Şirket E-postanız',
     formName: 'İsim Soyisim',
     formPhone: 'Telefon',
@@ -444,7 +444,7 @@ export const tr: Translations = {
       },
     },
     customerCarousel: {
-      title: 'İDENFİT İLE FARK YARATANLAR',
+      title: 'İdenfit ile fark yaratanlar',
       intro: 'idenfit ile İK süreçlerini dönüştüren firmalardan gerçek deneyimler.',
       prevLabel: 'Önceki hikaye',
       nextLabel: 'Sonraki hikaye',
