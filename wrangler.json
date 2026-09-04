@@ -9,5 +9,15 @@
       "binding": "SESSION",
       "id": "b2f65634236940da87f397afb29b0406"
     }
-  ]
+  ],
+  "vars": {
+    "SENDGRID_FROM_EMAIL": "noreply@idenfit.com",
+    "LEAD_NOTIFICATION_EMAIL": "sales@idenfit.com",
+    "LEAD_EMAIL_HERO": "sales@idenfit.com",
+    "LEAD_EMAIL_CONTACT": "sales@idenfit.com",
+    "LEAD_EMAIL_LANDING": "sales@idenfit.com",
+    "LEAD_EMAIL_SUPPORT": "cx@idenfit.com",
+    "LEAD_EMAIL_PRESENTATION": "sales@idenfit.com",
+    "LEAD_EMAIL_HR_MATURITY": "sales@idenfit.com"
+  }
 }
