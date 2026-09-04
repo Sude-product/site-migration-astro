@@ -17,6 +17,15 @@ import { escapeHtml } from './maturityReportTemplate.mjs';
 // .mjs olarak düz Node'dan da çalıştırılıyor ve bir .ts dosyasını import
 // edemiyor; bu dosya TypeScript olduğu için o kısıt burada YOK.)
 import { MATURITY_CATEGORY_LABELS, type MaturityCategoryKey } from './maturityTestDefinitions';
+export { IDENFIT_LOGO_PNG_BASE64 } from './leadEmailLogo';
+
+/**
+ * E-posta başlığındaki logonun `Content-ID`'si. Gönderim tarafı (`lead.ts`)
+ * PNG'yi bu kimlikle `disposition:"inline"` ekliyor, şablon da
+ * `<img src="cid:…">` ile buradan çağırıyor — iki taraf AYNI sabiti
+ * paylaşsın diye export edildi (yazım hatası = kırık görsel).
+ */
+export const IDENFIT_LOGO_CID = 'idenfit-logo';
 
 export type LeadFormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
 
@@ -220,7 +229,12 @@ function shell(options: { preheader: string; badge: string; title: string; meta:
           <td style="padding:26px 32px 0;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
               <tr>
-                <td align="left" style="font-family:${FONT};font-size:22px;font-weight:700;letter-spacing:-0.5px;color:${BRAND};">idenfit</td>
+                <td align="left" style="line-height:0;">
+                  <!-- Görselleri engelleyen istemcilerde alt metni görünür; bu yüzden
+                       alt niteliği de marka tipografisiyle biçimlendirildi, çıplak/gri
+                       bir "idenfit" yazısı yerine logonun yerini tutuyor. -->
+                  <img src="cid:${IDENFIT_LOGO_CID}" alt="idenfit" width="96" height="35" style="display:block;border:0;outline:none;text-decoration:none;width:96px;height:35px;font-family:${FONT};font-size:22px;font-weight:700;letter-spacing:-0.5px;color:${HEADING};" />
+                </td>
                 <td align="right" style="font-family:${FONT};font-size:12px;font-weight:500;color:${MUTED};">${escapeHtml(formatIstanbul(new Date()))}</td>
               </tr>
             </table>

@@ -45,6 +45,8 @@ import { generateMaturityReportPdf, isValidScoreRecord } from './maturity-pdf';
 import {
   renderLeadNotificationEmail,
   renderMaturityApplicantEmail,
+  IDENFIT_LOGO_CID,
+  IDENFIT_LOGO_PNG_BASE64,
   type LeadFormType,
 } from '../../data/leadEmailTemplate';
 
@@ -287,18 +289,28 @@ function buildSendGridBody(params: SendGridMailParams): Record<string, unknown> 
       open_tracking: { enable: false },
       subscription_tracking: { enable: false },
     },
-    ...(params.attachment
-      ? {
-          attachments: [
+    // Logo HER e-postaya gömülü (inline) ek olarak gidiyor — uzak bir
+    // `<img src="https://…">` yerine, bkz. `leadEmailLogo.ts`. `content_id`
+    // gövdedeki `cid:` referansıyla eşleşmek zorunda, ikisi de AYNI sabitten.
+    attachments: [
+      {
+        content: IDENFIT_LOGO_PNG_BASE64,
+        filename: 'idenfit-logo.png',
+        type: 'image/png',
+        disposition: 'inline',
+        content_id: IDENFIT_LOGO_CID,
+      },
+      ...(params.attachment
+        ? [
             {
               content: params.attachment.contentBase64,
               filename: params.attachment.filename,
               type: 'application/pdf',
               disposition: 'attachment',
             },
-          ],
-        }
-      : {}),
+          ]
+        : []),
+    ],
   };
 }
 
