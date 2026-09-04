@@ -2985,6 +2985,46 @@ hâlâ geçerli.)*
       bozulmadan, kesilmeden, üst üste binmeden göründü — yalnızca küçük
       (kabul edilen okunabilirlik ödünü). Masaüstü viewport'ta (gerçek
       geniş pencere) `scale(1)` doğrulandı, hiç değişmedi.
+68. **YENİ (2026-09-04) — Keystatic'in `featuredImage` alanı şu an
+    `fields.url()` (elle URL yapıştırma), gerçek bir dosya yükleme
+    (upload) alanı DEĞİL.** Panelde "dosya seç/sürükle-bırak" yok —
+    hem kod incelemesiyle (`keystatic.config.ts`) hem canlı panelde
+    doğrulandı. Pazarlama ekibi için ideal değil (yeni bir yazı için
+    görseli önce kendi başına bir yere yükleyip URL'sini elle
+    yapıştırması gerekiyor) ama İŞLEVSEL — canlıya çıkışı
+    engellemiyor. **Araştırılan iki gerçek çözüm:**
+    - `fields.image()` — self-hosted (repoya commit edilir,
+      `public/`'e benzer), ücretsiz, ama daha karmaşık bir şema/render
+      değişikliği gerektiriyor (bare dosya adı + `directory`/`publicPath`
+      ile URL yeniden inşası, mevcut `{url,alt,width,height}` şeklinden
+      farklı).
+    - `fields.cloudImage()` — mevcut şekle çok yakın (`{src,alt,width,height}`,
+      yalnızca `url`→`src` adı farklı) ama **"Cloud Images" özelliği
+      Keystatic'in Pro planına özel** (resmi dokümantasyon: `keystatic.com/docs/cloud`,
+      doğrudan alıntı: "Multi-player editing" ve "Cloud Images" "subscribed
+      to Pro" sonrası kullanılabilir — ücretsiz katman 3 kullanıcıyla
+      sınırlı, Pro ayda $10'dan başlıyor + 3 kullanıcı üstü kişi başı
+      $5/ay). **Kullanıcının hesabında GERÇEKTEN erişilebilir olup
+      olmadığı CANLI test EDİLMEDİ** (izole bir scratch-test koleksiyonu
+      hazırlanmıştı ama kullanıcı bu turu durdurup canlıya çıkışı
+      önceliklendirdi — scratch-test config'ten tamamen geri alındı,
+      kod tabanında iz YOK).
+    - `fields.markdoc()`'un gövde-içi "görsel ekle" ikonu da AYRI bir
+      mekanizma (`options.image`, yalnızca `fields.image()`'ın
+      self-hosted yöntemini destekliyor — `cloudImage`'ı DEĞİL).
+    **Kod değişikliği YAPILMADI** (kullanıcı kararı, 2026-09-04) —
+    canlıya çıkış sonrası, ekip gerçekten içerik yazmaya başlamadan
+    önce ayrı bir turda: (1) `fields.cloudImage()`'ın gerçekten
+    kullanılabilir olup olmadığı (Pro plana geçiş gerekip gerekmediği)
+    netleştirilecek, (2) hangi yaklaşımın (self-hosted vs Cloud Images)
+    seçileceğine karar verilecek, (3) seçilirse `fields.cloudImage()`
+    yolu **629 mevcut yazının `featuredImage.url`→`src` anahtar
+    göçünü** (Keystatic'in SAVE'de dokunulmayan alanları bile yeniden
+    yazma davranışı yüzünden — bkz. "KALICI GOTCHA" — göçsüz bırakmak
+    eski yazıların görselini SESSİZCE SİLME riski taşır) + 4 kod
+    dosyasındaki (`content.config.ts`, `BlogListPage.astro`,
+    `BlogSidebar.astro`, `blog/[slug].astro`) ~13 okuma noktasını
+    gerektirecek.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
