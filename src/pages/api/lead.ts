@@ -236,8 +236,42 @@ function uint8ArrayToBase64(bytes: Uint8Array): string {
   return btoa(binary);
 }
 
+// Form başına bildirim adresi (2026-09-04) — her formun lead'i FARKLI bir
+// ekibe gidiyor (satış / destek / pazarlama vb.), tek bir kutu yetmiyor.
+//
+// Her form türünün KENDİ env değişkeni var; tanımlı değilse genel
+// `LEAD_NOTIFICATION_EMAIL`'e düşülür. Bu sayede yalnızca ayrıştırmak
+// istediğiniz formlar için değişken tanımlamanız yeterli — geri kalanı
+// eskisi gibi çalışmaya devam eder, hiçbir form sessizce alıcısız kalmaz.
+//
+// Her değişken VİRGÜLLE AYRILMIŞ birden fazla adres alabilir
+// (`satis@…,mudur@…`) — SendGrid'in `personalizations[].to` alanı zaten
+// dizi. Adresler `to` içinde birlikte görünür (Cc/Bcc değil).
+const FORM_TYPE_RECIPIENT_ENV: Record<FormType, keyof typeof env> = {
+  hero: 'LEAD_EMAIL_HERO',
+  contact: 'LEAD_EMAIL_CONTACT',
+  landing: 'LEAD_EMAIL_LANDING',
+  support: 'LEAD_EMAIL_SUPPORT',
+  presentation: 'LEAD_EMAIL_PRESENTATION',
+  hrMaturityReport: 'LEAD_EMAIL_HR_MATURITY',
+};
+
+/**
+ * Bir form türünün bildirim alıcıları. Sırasıyla: forma özel değişken →
+ * genel `LEAD_NOTIFICATION_EMAIL`. Hiçbiri yoksa BOŞ dizi döner (çağıran
+ * taraf bunu 503'e çevirir — sahte "başarılı" üretilmez).
+ */
+function resolveRecipients(formType: FormType): string[] {
+  const specific = env[FORM_TYPE_RECIPIENT_ENV[formType]];
+  const raw = (typeof specific === 'string' && specific.trim()) || env.LEAD_NOTIFICATION_EMAIL || '';
+  return raw
+    .split(',')
+    .map((address) => address.trim())
+    .filter(Boolean);
+}
+
 async function sendSendGridEmail(params: {
-  to: string;
+  to: string[];
   toName?: string;
   subject: string;
   text: string;
@@ -251,7 +285,9 @@ async function sendSendGridEmail(params: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
-      personalizations: [{ to: [{ email: params.to, name: params.toName }], subject: params.subject }],
+      personalizations: [
+        { to: params.to.map((email, i) => ({ email, name: i === 0 ? params.toName : undefined })), subject: params.subject },
+      ],
       from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
       ...(params.replyTo ? { reply_to: params.replyTo } : {}),
       content: [{ type: 'text/plain', value: params.text }],
@@ -298,13 +334,13 @@ async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
 
     await Promise.all([
       sendSendGridEmail({
-        to: env.LEAD_NOTIFICATION_EMAIL!,
+        to: resolveRecipients('hrMaturityReport'),
         subject: teamSubject,
         text: teamText,
         replyTo: payload.email ? { email: payload.email, name: payload.fullName || undefined } : undefined,
       }),
       sendSendGridEmail({
-        to: payload.email!,
+        to: [payload.email!],
         toName: payload.fullName || undefined,
         subject: 'İK Dijital Olgunluk Testi — Sonuç Raporunuz',
         text: [
@@ -347,10 +383,14 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return jsonResponse({ ok: false, error: 'recaptcha_failed' }, 400);
   }
 
-  if (!env.SENDGRID_API_KEY || !env.SENDGRID_FROM_EMAIL || !env.LEAD_NOTIFICATION_EMAIL) {
+  // Alıcı, forma özel değişkenden ya da genel `LEAD_NOTIFICATION_EMAIL`'den
+  // çözülür (bkz. `resolveRecipients()`); ikisi de yoksa bu form için
+  // gidecek adres YOK demektir — sahte bir "başarılı" döndürmek yerine 503.
+  const recipients = resolveRecipients(payload.formType);
+  if (!env.SENDGRID_API_KEY || !env.SENDGRID_FROM_EMAIL || recipients.length === 0) {
     console.error(
-      '[api/lead] SENDGRID_API_KEY/SENDGRID_FROM_EMAIL/LEAD_NOTIFICATION_EMAIL henüz ayarlanmadı — e-posta gönderilmedi.',
-      { formType: payload.formType },
+      '[api/lead] SendGrid yapılandırması eksik — e-posta gönderilmedi.',
+      { formType: payload.formType, hasKey: !!env.SENDGRID_API_KEY, hasFrom: !!env.SENDGRID_FROM_EMAIL, recipientCount: recipients.length },
     );
     return jsonResponse({ ok: false, error: 'email_service_unavailable' }, 503);
   }
@@ -384,7 +424,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        personalizations: [{ to: [{ email: env.LEAD_NOTIFICATION_EMAIL }], subject }],
+        personalizations: [{ to: recipients.map((email) => ({ email })), subject }],
         from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
         ...(payload.email ? { reply_to: { email: payload.email, name: payload.fullName || undefined } } : {}),
         content: [{ type: 'text/plain', value: text }],

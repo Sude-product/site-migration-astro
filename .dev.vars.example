@@ -11,8 +11,20 @@ SENDGRID_API_KEY=
 # SendGrid'de doğrulanmış (Sender Authentication) gönderen e-postası.
 SENDGRID_FROM_EMAIL=
 
-# Form bildirimlerinin gideceği gerçek idenfit kutusu.
+# Form bildirimlerinin gideceği GENEL kutu. Aşağıdaki forma özel
+# değişkenlerden biri tanımlı DEĞİLSE o form bu adrese düşer (fallback).
 LEAD_NOTIFICATION_EMAIL=
+
+# Form başına bildirim adresi (2026-09-04) — her formun lead'i farklı ekibe
+# gidebilsin diye. Boş bırakılan HER form yukarıdaki genel adrese düşer,
+# yani yalnızca ayrıştırmak istediklerinizi doldurmanız yeterli.
+# Her biri VİRGÜLLE birden fazla adres alabilir: satis@idenfit.com,mudur@idenfit.com
+LEAD_EMAIL_HERO=
+LEAD_EMAIL_CONTACT=
+LEAD_EMAIL_LANDING=
+LEAD_EMAIL_SUPPORT=
+LEAD_EMAIL_PRESENTATION=
+LEAD_EMAIL_HR_MATURITY=
 
 # reCAPTCHA v3 sunucu-taraflı secret (skeleton — bkz. lead.ts). Boşken
 # doğrulama adımı atlanır, form akışı BOZULMAZ.

@@ -31,8 +31,20 @@ declare module 'cloudflare:workers' {
      * e-posta adresi — SendGrid, doğrulanmamış bir `from` adresini
      * reddeder, bu yüzden anahtarla BİRLİKTE ayarlanması gerekir. */
     SENDGRID_FROM_EMAIL?: string;
-    /** Form bildirimlerinin gideceği gerçek idenfit e-posta kutusu. */
+    /** Form bildirimlerinin gideceği GENEL idenfit e-posta kutusu — forma
+     * özel bir `LEAD_EMAIL_*` tanımlı DEĞİLSE bu kullanılır (fallback). */
     LEAD_NOTIFICATION_EMAIL?: string;
+    /** Form başına bildirim adresi (2026-09-04) — her formun lead'i farklı
+     * ekibe gidebilsin diye. Tanımlı değilse `LEAD_NOTIFICATION_EMAIL`'e
+     * düşülür, yani yalnızca ayrıştırmak istediğiniz formlar için
+     * tanımlamanız yeterli. Her biri VİRGÜLLE AYRILMIŞ birden fazla adres
+     * alabilir (`satis@…,mudur@…`). Bkz. `lead.ts` `resolveRecipients()`. */
+    LEAD_EMAIL_HERO?: string;
+    LEAD_EMAIL_CONTACT?: string;
+    LEAD_EMAIL_LANDING?: string;
+    LEAD_EMAIL_SUPPORT?: string;
+    LEAD_EMAIL_PRESENTATION?: string;
+    LEAD_EMAIL_HR_MATURITY?: string;
     /** reCAPTCHA v3 (skeleton, bkz. `lead.ts`'teki `verifyRecaptcha()`
      * yorumu) — sunucu tarafı doğrulama secret'ı. */
     RECAPTCHA_SECRET_KEY?: string;
