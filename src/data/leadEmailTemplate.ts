@@ -84,10 +84,22 @@ const BRAND = '#FF0000';
 const BRAND_LIGHT = '#FFF2F2';
 const HEADING = '#070707';
 const BODY = '#333333';
-const MUTED = '#808080';
-const SURFACE_ALT = '#FAFAFA';
-const BORDER = '#ECECEC';
-const PAGE_BG = '#F4F4F5';
+
+// ⚠️ Gri tonları sitenin `@theme` token'larından BİLİNÇLİ olarak farklı
+// (2026-09-04 düzeltmesi). İlk sürüm sayfa `#F4F4F5` / kart `#FFFFFF` /
+// alan kutusu `#FAFAFA` / çerçeve `#ECECEC` kullanıyordu — dört katman
+// arasında en fazla 6 puanlık parlaklık farkı vardı ve gerçek gönderimde
+// (Outlook) "gri üstüne gri" olarak okundu. Şimdi hiyerarşi ÜÇ net
+// kademe: belirgin gri sayfa → saf beyaz kart → hafif dolgulu ama GÖRÜNÜR
+// çerçeveli alan kutusu.
+const MUTED = '#6E7378'; // meta/alt metin — sitenin #808080'i e-postada soluk kalıyordu
+const FOOTER_TEXT = '#8A8F94';
+const LABEL = '#6B7280'; // alan etiketleri (11px, büyük harf) — kutu dolgusunda 4.6:1
+const SURFACE_ALT = '#F4F6F9';
+const BORDER = '#DDE1E7'; // alan kutusu çerçevesi — kutuyu dolgudan bağımsız tanımlıyor
+const CARD_BORDER = '#D3D8DF';
+const DIVIDER = '#E6E9ED';
+const PAGE_BG = '#E7EAEE';
 
 // Quicksand (sitenin fontu) e-posta istemcilerinin ÇOĞUNDA yüklenmez —
 // Apple Mail/iOS gibi `<link>`'i onurlandıranlarda marka fontu, geri
@@ -158,7 +170,7 @@ function fieldBlock(label: string, value: string, href?: string | null): string 
   return `
     <tr>
       <td style="padding:14px 16px;background-color:${SURFACE_ALT};border:1px solid ${BORDER};border-radius:10px;">
-        <p style="margin:0 0 5px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${MUTED};">${escapeHtml(label)}</p>
+        <p style="margin:0 0 5px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${LABEL};">${escapeHtml(label)}</p>
         <p style="margin:0;font-family:${FONT};font-size:16px;font-weight:500;line-height:1.5;color:${HEADING};word-break:break-word;">${rendered}</p>
       </td>
     </tr>
@@ -177,7 +189,7 @@ function scoreBar(label: string, score: number): string {
             <td align="right" style="font-family:${FONT};font-size:13px;font-weight:700;color:${BRAND};">%${pct}</td>
           </tr>
         </table>
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;background-color:#EFEFEF;border-radius:99px;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin-top:6px;background-color:#E6E9ED;border-radius:99px;">
           <tr>
             <td style="font-size:0;line-height:0;">
               <table role="presentation" width="${pct}%" cellpadding="0" cellspacing="0" border="0" style="background-color:${BRAND};border-radius:99px;">
@@ -223,7 +235,7 @@ function shell(options: { preheader: string; badge: string; title: string; meta:
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color:${PAGE_BG};">
   <tr>
     <td align="center" style="padding:32px 16px;">
-      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background-color:#FFFFFF;border:1px solid ${BORDER};border-radius:16px;overflow:hidden;">
+      <table role="presentation" width="600" cellpadding="0" cellspacing="0" border="0" style="width:100%;max-width:600px;background-color:#FFFFFF;border:1px solid ${CARD_BORDER};border-radius:16px;overflow:hidden;">
         <tr><td style="height:5px;background-color:${BRAND};font-size:0;line-height:0;">&nbsp;</td></tr>
         <tr>
           <td style="padding:26px 32px 0;">
@@ -251,7 +263,7 @@ function shell(options: { preheader: string; badge: string; title: string; meta:
         <tr>
           <td style="padding:26px 32px 30px;">
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-              <tr><td style="border-top:1px solid #F0F0F0;padding-top:16px;font-family:${FONT};font-size:12px;font-weight:400;line-height:1.7;color:#A0A0A0;">${options.footer}</td></tr>
+              <tr><td style="border-top:1px solid ${DIVIDER};padding-top:16px;font-family:${FONT};font-size:12px;font-weight:400;line-height:1.7;color:${FOOTER_TEXT};">${options.footer}</td></tr>
             </table>
           </td>
         </tr>
@@ -340,7 +352,7 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
         </tr>
         <tr>
           <td style="padding:22px 32px 0;">
-            <p style="margin:0 0 14px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${MUTED};">Kategori bazlı skorlar</p>
+            <p style="margin:0 0 14px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${LABEL};">Kategori bazlı skorlar</p>
             <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">${bars}</table>
           </td>
         </tr>`;
@@ -357,7 +369,7 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
       fields += `
     <tr>
       <td style="padding:14px 16px;background-color:${SURFACE_ALT};border:1px solid ${BORDER};border-radius:10px;">
-        <p style="margin:0 0 5px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${MUTED};">Mesaj</p>
+        <p style="margin:0 0 5px;font-family:${FONT};font-size:11px;font-weight:700;letter-spacing:0.9px;text-transform:uppercase;color:${LABEL};">Mesaj</p>
         <p style="margin:0;font-family:${FONT};font-size:15px;font-weight:400;line-height:1.65;color:${BODY};word-break:break-word;">${safeMessage}</p>
       </td>
     </tr>
