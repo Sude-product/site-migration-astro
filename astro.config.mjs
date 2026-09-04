@@ -9,6 +9,31 @@ import keystatic from '@keystatic/astro';
 
 import sitemap from '@astrojs/sitemap';
 
+import { readFileSync } from 'node:fs';
+
+// Bir route'un build çıktısı Astro'nun i18n `fallback` redirect stub'ı mı?
+// (2026-09-04) `@astrojs/sitemap`'in `filter`'ı yalnızca URL string'i alıyor,
+// sayfanın `noindex` durumunu BİLMİYOR — bu yüzden ground truth olarak
+// üretilmiş HTML'in kendisi okunuyor. Stub şablonu Astro'nun framework-içi
+// redirect sayfası: `<meta http-equiv="refresh">` + `<meta name="robots"
+// content="noindex">` (gerçek içerik sayfalarında "noindex" HİÇ geçmiyor —
+// 932 sayfada doğrulandı, tek istisna zaten ayrıca hariç tutulan 404/demo).
+//
+// `dist/client` yolu `@astrojs/cloudflare` adapter'ının SABİT çıktı düzeni
+// (server modu: `dist/client` + `dist/server`). Dosya okunamazsa sayfa
+// DAHİL EDİLİR — fail-safe: bir yol/zamanlama değişikliği sessizce gerçek
+// sayfaları sitemap'ten düşürmesin (aksi yönde hata daha ucuz: fazladan
+// stub, kaybolan gerçek sayfadan iyidir).
+/** @param {string} pathname */
+function isRedirectStub(pathname) {
+  try {
+    const html = readFileSync(`dist/client${pathname}index.html`, 'utf-8');
+    return /http-equiv=["']?refresh/i.test(html) || /name=["']?robots["']?[^>]*noindex/i.test(html);
+  } catch {
+    return false;
+  }
+}
+
 // Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
 // `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
 // neler-degisti" yazısında canlı idenfit.com'da 7 H1 bulundu — WordPress
@@ -116,12 +141,21 @@ export default defineConfig({
     // İlk build'de (site alanı doldurulduktan sonra) 4 dilin 404/not-found
     // sayfaları (`BaseLayout`'ta `noindex` — bkz. `NotFoundPage.astro`) ve
     // `/demo/`'nun (Landing Page, `LandingLayout`'ta varsayılan `noindex:
-    // true`) sitemap'e sızdığı görüldü — elle hariç tutuldu. i18n `fallback`
-    // mekanizmasının ürettiği ~2000 redirect route'u zaten sitemap'te hiç
-    // görünmüyor (Astro'nun kendi route manifestinde gerçek sayfa olarak
-    // işaretli değiller), bu yüzden onlar için ayrı bir filtre gerekmedi.
+    // true`) sitemap'e sızdığı görüldü — elle hariç tutuldu.
+    //
+    // DÜZELTME (2026-09-04) — buradaki eski yorum "i18n `fallback`
+    // mekanizmasının ürettiği redirect route'ları zaten sitemap'te hiç
+    // görünmüyor" diyordu; bu YANLIŞTI. Üretilen `sitemap-0.xml` ölçüldü:
+    // 1073 URL'nin **141'i** redirect stub'ıydı (`/az/blog/`, `/az/fiyatlar/`,
+    // `/en/…`, `/it/…`, `/nl/…` — locale başına 17/43/43/38). Bunlar
+    // `noindex` taşıdığı için Search Console'da 141 adet "Gönderilen URL
+    // noindex" uyarısı üretirdi. Artık `isRedirectStub()` ile üretilmiş
+    // HTML'den gerçek durum okunarak eleniyorlar (bkz. o fonksiyonun yorumu).
     sitemap({
-      filter: (page) => !/\/(404|not-found|demo)\/$/.test(page),
+      filter: (page) => {
+        if (/\/(404|not-found|demo)\/$/.test(page)) return false;
+        return !isRedirectStub(new URL(page).pathname);
+      },
     }),
   ],
   markdown: {
@@ -265,14 +299,14 @@ export default defineConfig({
   // sayfa için doğru EN hedefine giden elle redirect tanımlandı (aynı NL
   // fallback politikası, doğru hedefle).
   redirects: {
-    '/nl/sozlesme/tuketici-haklari': '/en/contract/consumer-rights',
-    '/nl/sozlesme/mesafeli-satis-sozlesmesi': '/en/contract/distance-sales-contract',
-    '/nl/guvenlik': '/en/security-policy',
-    '/nl/kisisel-verilerin-korunmasi': '/en/data-use-policy',
-    '/nl/sozlesme/gizlilik-ve-guvenlik-politikasi': '/en/contract/privacy-and-security-policy',
-    '/nl/tesekkurler': '/en/thanks',
-    '/nl/destek-talebi': '/en/support-request',
-    '/nl/tesekkurler-destek': '/en/thank-you',
+    '/nl/sozlesme/tuketici-haklari': '/en/contract/consumer-rights/',
+    '/nl/sozlesme/mesafeli-satis-sozlesmesi': '/en/contract/distance-sales-contract/',
+    '/nl/guvenlik': '/en/security-policy/',
+    '/nl/kisisel-verilerin-korunmasi': '/en/data-use-policy/',
+    '/nl/sozlesme/gizlilik-ve-guvenlik-politikasi': '/en/contract/privacy-and-security-policy/',
+    '/nl/tesekkurler': '/en/thanks/',
+    '/nl/destek-talebi': '/en/support-request/',
+    '/nl/tesekkurler-destek': '/en/thank-you/',
     // 2026-07-28'de bulunan bir bug'ın düzeltmesi: `nl:'en'` + `en:'tr'`
     // fallback ZİNCİRİ yalnızca Astro'nun dev server SSR yönlendirmesinde
     // çalışıyor — statik `astro build` çıktısında (`astro preview` ile
@@ -283,21 +317,21 @@ export default defineConfig({
     // elle bir `nl` girdisi gerekiyor — yalnızca yeni sayfa değil, önceden
     // beri var olan Hesaplama Araçları'nın AYNI gizli açığı da burada
     // düzeltildi.
-    '/nl/hesaplama-araclari': '/hesaplama-araclari',
-    '/nl/ik-dijital-olgunluk-testi': '/ik-dijital-olgunluk-testi',
+    '/nl/hesaplama-araclari': '/hesaplama-araclari/',
+    '/nl/ik-dijital-olgunluk-testi': '/ik-dijital-olgunluk-testi/',
     // 2026-08-21: `audit-analyze.mjs` ile bulundu — KARAR 2'nin ÜÇÜNCÜ
     // TR-only sayfası olan Blog, yukarıdaki iki kardeşiyle (Hesaplama
     // Araçları/İK Dijital Olgunluk Testi) AYNI "nl:'en'+en:'tr' zinciri
     // statik build'de çalışmıyor" bug'ına sahipti ama o turda eklenmesi
     // unutulmuştu — `/nl/blog/` sessizce 404 veriyordu (dist'te hiç dosya
     // üretilmemiş), ~42 NL sayfasındaki footer/mega-menü linkini kırıyordu.
-    '/nl/blog': '/blog',
+    '/nl/blog': '/blog/',
     // 2026-08-17: hreflang denetim turunda bulundu — SSS'nin TR bare slug'ı
     // (`sss`) EN/IT'nin `faq`'ından FARKLI, bu yüzden otomatik `fallback:
     // {nl:'en'}` mekanizması `/nl/sss/`'i var olmayan `/en/sss/`'e düşürüp
     // sessiz 404 üretiyordu (Tüketici Hakları/Güvenlik'teki AYNI sınıf bug,
     // yukarıdaki elle-redirect deseniyle düzeltildi).
-    '/nl/sss': '/en/faq',
+    '/nl/sss': '/en/faq/',
     // 2026-07-30: kaynak sitede (idenfit.com) bu yazının slug'ı sonradan
     // `2025-issizlik-maasi`'den `2026-issizlik-maasi`'ye değiştirilmiş
     // (başlık zaten "2026..." idi, WP export'umuzun snapshot'ı eski
@@ -305,14 +339,14 @@ export default defineConfig({
     // günlüğü). Bizim tarafımızda da slug aynı şekilde güncellendi
     // (`posts.json`), eski slug'a gelen linkler/trafik kaybolmasın diye
     // buraya redirect eklendi.
-    '/blog/2025-issizlik-maasi': '/blog/2026-issizlik-maasi',
+    '/blog/2025-issizlik-maasi': '/blog/2026-issizlik-maasi/',
     // 2026-07-30: `/blog/sgk/` kaynak sitede (idenfit.com) 301 ile
     // `/blog/sgk-ceza-ve-denetimleri/`'ye yönleniyor — muhtemelen o
     // yazının eski slug'ı. İçerik zaten `posts.json`'da bu slug altında
     // mevcut (bkz. CLAUDE.md "sitemap karşılaştırması" günlüğü); önceki
     // turda bu bulgu raporlanmış ama redirect eklenmemişti — burada
     // düzeltildi.
-    '/blog/sgk': '/blog/sgk-ceza-ve-denetimleri',
+    '/blog/sgk': '/blog/sgk-ceza-ve-denetimleri/',
     // 2026-07-30: "Online Sunum Talebi" sayfasının route'u BİLİNÇLİ olarak
     // kaynağın gerçek TR slug'ından (`online-sunum-talep-et`) farklı bir
     // canonical slug (`online-sunum-talebi`) kullanıyor — bkz.
@@ -323,18 +357,18 @@ export default defineConfig({
     // yalnızca kaynağın gerçek URL'ine (dış linkler/SEO/yer imleri
     // olabilir) gelen bir ziyaretçinin 404 almaması için ucuz bir
     // güvenlik ağı.
-    '/online-sunum-talep-et': '/online-sunum-talebi',
+    '/online-sunum-talep-et': '/online-sunum-talebi/',
     // 2026-08-05: kapsamlı URL denetimi (canlı sitemap_index.xml'in 4 alt
     // sitemap'i ile `astro build` çıktısının tam karşılaştırması) 9 sayfa
     // için AYNI kalıbı buldu — içerik bizde zaten var, ama canlının gerçek
     // slug'ı bizimkinden farklı ve redirect'i unutulmuş (yalnızca TR'nin
     // Online Sunum Talebi'i için böyle bir güvenlik ağı vardı, EN/IT'si
     // hiç eklenmemişti). Dış link/SEO/yer imi trafiği 404 almasın diye:
-    '/en/customers': '/en/musteriler',
-    '/it/clienti': '/it/musteriler',
-    '/nl/klanten': '/nl/musteriler',
-    '/en/request-online-presentation': '/en/online-sunum-talebi',
-    '/it/richiedi-presentazione-online': '/it/online-sunum-talebi',
+    '/en/customers': '/en/musteriler/',
+    '/it/clienti': '/it/musteriler/',
+    '/nl/klanten': '/nl/musteriler/',
+    '/en/request-online-presentation': '/en/online-sunum-talebi/',
+    '/it/richiedi-presentazione-online': '/it/online-sunum-talebi/',
     // ⚠️ DÜZELTME (2026-08-29): yukarıdaki 2026-08-05 denetiminin
     // `/en/thank-you` → `/en/thanks` eşlemesi YANLIŞ ÇIKTI — canlı sitede
     // `curl`/tarayıcı ile doğrulandı: `/en/thank-you/` Online Sunum
@@ -345,9 +379,9 @@ export default defineConfig({
     // "unutulmuş redirect" sanıp yanlışlıkla `/en/thanks`'e eşlemişti. Artık
     // `src/pages/en/thank-you.astro` kendi gerçek içeriğini sunuyor, bu
     // yanlış redirect KALDIRILDI.
-    '/suprema': '/donanim',
-    '/en/suprema-tools': '/en/hardware',
-    '/it/dispositivi-suprema': '/it/hardware',
+    '/suprema': '/donanim/',
+    '/en/suprema-tools': '/en/hardware/',
+    '/it/dispositivi-suprema': '/it/hardware/',
     // 2026-09-04: cutover-öncesi kapsamlı sitemap denetiminde bulundu.
     // Kaynak sitede İK Dijital Olgunluk Testi'nin eski 3-URL/sessionStorage
     // akışından (bkz. `maturityTestDefinitions.ts` başındaki not) kalma iki
@@ -360,7 +394,7 @@ export default defineConfig({
     // trafiğinin 404 almaması için ucuz bir güvenlik ağı (aynı `/suprema`
     // deseni) — bizim tek sayfalık React akışımıza (`/ik-dijital-olgunluk-testi/`)
     // yönlendiriliyor.
-    '/ik-dijital-test': '/ik-dijital-olgunluk-testi',
-    '/ik-dijital-olgunluk-testi-sonucu': '/ik-dijital-olgunluk-testi',
+    '/ik-dijital-test': '/ik-dijital-olgunluk-testi/',
+    '/ik-dijital-olgunluk-testi-sonucu': '/ik-dijital-olgunluk-testi/',
   },
 });

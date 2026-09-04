@@ -17,8 +17,8 @@ Tüm sayısal değerler bu turda fiilen ölçüldü.
 | # | Konu | Durum | Öncelik |
 |---|---|---|---|
 | 1 | KV `SESSION` binding'inin `id`'si yok — deploy engeli | ⚠️ Yeni | 🔴 P0 |
-| 2 | Sitemap'te 141 noindex stub'ı | ⚠️ Yeni | 🔴 P0 |
-| 3 | `_redirects` hedeflerinde trailing slash yok → 301+307 zinciri | ⚠️ Yeni | 🟠 P1 |
+| 2 | ~~Sitemap'te 141 noindex stub'ı~~ | ✅ Kapandı | — |
+| 3 | ~~`_redirects` trailing slash → 301+307 zinciri~~ | ✅ Kapandı | — |
 | 4 | SendGrid anahtarı yok — formlar 503 dönüyor | ❌ Açık | 🟠 P1 |
 | 5 | CI yok — Keystatic yayını canlıya yansımaz | ⚠️ Yeni | 🟠 P1 |
 | 6 | Test ortamının indekslenme koruması | ⚠️ Yeni | 🟠 P1 |
@@ -52,43 +52,35 @@ reddedilir. `Astro.session` kodda hiç kullanılmıyor — namespace boş kalaca
 
 ---
 
-### 1.2 Sitemap'te 141 noindex stub'ı
+### 1.2 ~~Sitemap'te 141 noindex stub'ı~~ — ✅ KAPANDI (2026-09-04)
 
-`dist/client/sitemap-0.xml` analiz edildi:
+`astro.config.mjs`'e `isRedirectStub()` eklendi: sitemap `filter`'ı artık üretilmiş HTML'i
+okuyup Astro'nun i18n fallback redirect şablonunu (`<meta http-equiv="refresh">` +
+`robots noindex`) eliyor. Dosya okunamazsa sayfa **dahil edilir** — fail-safe, bir yol/zamanlama
+değişikliği gerçek sayfaları sessizce düşüremez.
 
 ```
-toplam URL              : 1073
-  gerçek içerik sayfası : 932
-  NOINDEX/REFRESH STUB  : 141   ← /az/blog/, /az/fiyatlar/, /az/hakkimizda/ …
+öncesi : 1073 URL — 932 gerçek + 141 STUB
+sonrası:  932 URL — 932 gerçek +   0 stub   ✅
 ```
 
-Bunlar i18n fallback'inin ürettiği `<meta http-equiv="refresh">` + `noindex` stub'ları.
-Sitemap'e girmeleri Search Console'da **141 adet "Gönderilen URL noindex" uyarısı** üretir.
-
-`astro.config.mjs`'teki `sitemap.filter` bu stub'ları dışlayacak şekilde genişletilmeli.
-Cutover'dan **önce** yapılmalı — sitemap GSC'ye gönderildikten sonra düzeltmek daha zahmetli.
-
-- [ ] `sitemap.filter`'a stub dışlama kuralı
-- [ ] Build sonrası doğrula: stub sayısı **0**, toplam ~932
+932 gerçek sayfanın **tamamı korundu**, tek bir sayfa kaybedilmedi.
 
 ---
 
 ## 2. 🟠 Cutover öncesi
 
-### 2.1 `_redirects` hedeflerinde trailing slash yok
+### 2.1 ~~`_redirects` trailing slash~~ — ✅ KAPANDI (2026-09-04)
 
-50 hedefin **50'si** slash'sız:
+`astro.config.mjs`'in `redirects` bloğundaki **25 hedefe** trailing slash eklendi (anahtarlara
+dokunulmadı). Adapter bunlardan 50 kural üretiyor:
 
 ```
-/suprema        /donanim        301
-/suprema/       /donanim        301
+öncesi : /suprema  →  /donanim     301  →  /donanim/  307   (iki sekme)
+sonrası: /suprema  →  /donanim/    301                      (tek sekme)
+
+slash'sız hedef: 50 → 0 ✅   |   50/50 kuralın hedefi dist'te MEVCUT
 ```
-
-Sonuç: `/suprema` → 301 `/donanim` → 307 `/donanim/` — **iki sekmeli zincir**. Çalışıyor ama
-her eski linkte gereksiz bir tur; SEO'da link equity ve tarama bütçesi açısından istenmez.
-
-- [ ] Hedeflere trailing slash ekle (`/donanim/`)
-- [ ] `scripts/audit-http-status.mjs` ile zincir uzunluğunu doğrula
 
 ---
 
