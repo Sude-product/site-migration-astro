@@ -1427,7 +1427,25 @@ hâlâ geçerli.)*
     `relativize-blog-image-urls.mjs` zinciri) artık kullanılmayacak.
 19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
-    her önemli değişiklik/deploy öncesi). Şu an 0 açık.
+    her önemli değişiklik/deploy öncesi). **GÜNCELLEME (2026-09-04):**
+    `@cloudflare/puppeteer` kurulumundan beri (ADIM 4, İK Olgunluk Testi PDF
+    üretimi) 3 yüksek önem seviyeli açık var — hepsi transitif bağımlılık
+    `extract-zip`'te (`@puppeteer/browsers` üzerinden), düzeltmesi
+    (`npm audit fix --force`) paketi 1.4.0'dan eski/kararsız 0.0.11'e
+    düşürdüğü için bilinçli olarak UYGULANMADI — açığın kendisi yalnızca
+    yerel bir tarayıcı ikilisini indirip zip'ten çıkarırken tetikleniyor,
+    production kod yolumuz (`puppeteer.launch(env.BROWSER)`, Cloudflare'ın
+    uzak Browser Rendering binding'ine bağlanıyor) bu kod yolunu hiç
+    çağırmıyor. **Aynı gün, ayrı bir bulgu:** `npm audit` (hem doğrudan hem
+    `npm run audit` sarmalayıcısı üzerinden) bu oturumda ISRARLA ağ
+    kısıtına takıldı — `registry.npmjs.org`'un audit endpoint'ine
+    (`/-/npm/v1/security/audits/quick`) giden POST isteği 3 ayrı denemede
+    (30sn/90sn/120sn+) hiç yanıt vermedi, sıradan `GET` istekleri ise
+    sorunsuz çalıştı — bu ortama özgü GEÇİCİ bir ağ kısıtı (kod/proje
+    tarafında düzeltilecek bir şey yok). Yukarıdaki bilinen 3 açık (ve
+    başka yeni bir açık OLMADIĞI) bir önceki BAŞARILI `npm audit`
+    çalıştırmasından teyitli — geçerliliğini koruyor, yalnızca bu turda
+    yeniden DOĞRULANAMADI.
 21. **Blog CMS — kalan 2 açık uç (ilk madde 2026-08-29'da KAPANDI):**
     ~~Kademeli üretim (kalan 618 yazı `scripts/migrate-blog-to-markdown.mjs
     <slug...>` ile)~~ — 622/622 tamamlandı, bkz. yukarıdaki "KEYSTATIC
