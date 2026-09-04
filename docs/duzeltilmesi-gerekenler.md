@@ -1,329 +1,341 @@
 # Düzeltilmesi Gereken Konular
 
-**Son doğrulama:** 2026-08-31 · `master` @ `b3a95ff`
-**Yöntem:** Temiz `npm ci` + `npx astro build` + `astro check` + 8 denetim script'i + kaynak incelemesi.
+**Son doğrulama:** 2026-09-04 · `master` @ `a643794`
+**Yöntem:** Temiz `npm ci` + `npx astro build` (pipefail'li) + `astro check` + 9 denetim script'i
++ build çıktısının doğrudan analizi + canlı Cloudflare API sorguları (salt-okunur).
 Tüm sayısal değerler bu turda fiilen ölçüldü.
 
-> **Önceki tur (2026-08-27, `c82e64b`) ile fark:** 44 commit geldi.
-> **9 madde kapandı, 2'si kısmi, 3'ü açık kaldı, 4 yeni madde eklendi.**
-> Kapananların listesi en altta — tekrar araştırılmasın.
+> **Önceki tur (`b3a95ff`) ile fark:** 48 commit geldi.
+> Güvenlik açıklarının **tamamı kapandı**, SEO aktivasyonu **tamamlandı**, form backend'i **bağlandı**.
+> Buna karşılık **deploy hazırlığı** yeni bir iş kalemi olarak açıldı ve 2 yeni SEO bulgusu tespit edildi.
+> Kapananların listesi §5'te — tekrar araştırılmasın.
 
 ---
 
 ## Özet
 
-| # | Konu | Durum | Öncelik | Efor |
-|---|---|---|---|---|
-| 1 | `site` tanımsız → canonical/hreflang/sitemap/robots yok | ❌ Açık | 🔴 P0 | 1-2 saat |
-| 2 | 6 form backend'siz — lead'ler kayboluyor | ❌ Açık | 🟠 P1 | 0.5-1 gün |
-| 3 | Formlarda PII konsola yazılıyor | ❌ Açık | 🟠 P1 | 15 dk |
-| 4 | CSP hâlâ Report-Only — hiçbir şeyi engellemiyor | 🟡 Kısmi | 🟡 P2 | Koşullu |
-| 5 | Görsel optimizasyonu (`astro:assets`) yok | 🟡 Kısmi | 🟡 P2 | 1-2 gün |
-| 6 | Ana sayfa DOM'u ~1.672 element | 🟡 Değişmedi | 🟢 P3 | Araştırma |
-| 7 | **YENİ** — `prerender = true` unutma riski | ⚠️ Yeni | 🟠 P1 | 1 saat |
-| 8 | **YENİ** — Decap artıkları (ölü bağımlılık) | ⚠️ Yeni | 🟢 P3 | 5 dk |
-| 9 | **YENİ** — CSP `img-src`'te gereksiz `idenfit.com` izni | ⚠️ Yeni | 🟢 P3 | 5 dk |
-| 10 | **YENİ** — Build süresi 46s → 150s | ℹ️ Bilgi | — | — |
-
----
-
-## 🔴 P0 — Cutover öncesi zorunlu
-
-### 1. `site` tanımsız → canonical / hreflang / sitemap / robots yok
-
-Önceki turdan beri **değişmedi**, ve artık listedeki en kritik açık madde
-(build ve görseller kapandığı için).
-
-`astro.config.mjs`'de `site` alanı yok. Doğrulandı:
-
-```
-site: YOK
-sitemap entegrasyonu YOK
-public/robots.txt YOK
-check-hreflang.mjs → "Faz 2'de prod domain bağlanınca otomatik aktifleşecek"
-```
-
-Sonuçları:
-
-- `<link rel="canonical">` **hiç basılmıyor** (`BaseLayout.astro:153` — `{Astro.site && !noindex && ...}`)
-- hreflang etiketleri basılmıyor — **5 dilli sitede ciddi kayıp**
-- `og:url` göreli kalıyor (spec mutlak istiyor → paylaşım önizlemeleri bozuk)
-- `@astrojs/sitemap` kurulu değil, `robots.txt` yok
-
-622 yazılık bir SEO migrasyonunu sitemap'siz yapmayın.
-
-**İyi haber:** kod `Astro.site` dolar dolmaz doğru davranacak şekilde yazılmış —
-canonical/hreflang/JSON-LD `url` hepsi aynı bayrağa bağlı. Tek satır açıyor.
-
-- [ ] `site: 'https://idenfit.com'` ekle
-- [ ] `npx astro add sitemap`
-- [ ] `public/robots.txt` (+ sitemap referansı)
-- [ ] `node scripts/check-hreflang.mjs` → artık gerçek çıktı vermeli
-- [ ] ⚠️ **Açık nokta #53:** `check-hreflang.mjs` hâlâ `DIST_DIR` varsayılanı `'dist'`
-      kullanıyor; `output:'server'`'da çıktı `dist/client/` altında. `site` doldurulmadan
-      **hemen önce** aynı `dist/client` düzeltmesi bu script'e de uygulanmalı
-      (`check-html-lang-attribute.mjs`'e `e37694c`'de uygulandı) — yoksa doğru hreflang
-      çıktısı yüzlerce sahte hatayla raporlanır
-
----
-
-## 🟠 P1 — Yayın kalitesi
-
-### 2. 6 form backend'siz — gönderilen veri kayboluyor
-
-Önceki turdan beri **değişmedi**. `58d16c6` durumu kayda geçirdi ama kod aynı.
-
-Doğrulandı: `src/pages/api` dizini yok, hiçbir formda `fetch` yok.
-
-| Form | Sayfa |
-|---|---|
-| `HeroForm.tsx` | Ana sayfa hero **+** İletişim |
-| `LandingRequestForm.tsx` | `/demo` |
-| `SupportRequestForm.tsx` | `/destek-talebi/` |
-| `HrMaturityTest.tsx` | İK Olgunluk Testi sonuç ekranı |
-| `PresentationRequestForm.tsx` | Online Sunum Talebi |
-
-Hepsi `console.log` + "Teşekkürler" sayfasına yönlendirme. Kullanıcı başarılı sandığı
-her talep sessizce kayboluyor.
-
-**Hukuki not (CLAUDE.md'de de kayıtlı):** 6 formun hepsi gönderim öncesi gerçek bir
-KVKK onay metni gösteriyor. Kullanıcı onay verip gönderiyor, ama onayın konu ettiği
-veri işleme **fiilen hiç gerçekleşmiyor** — gösterilen hukuki metinle sistemin davranışı
-tutarsız. (Hukuki görüş değil, kod davranışının tespiti.)
-
-> **`output:'server'` geçişi bunu kolaylaştırdı:** Worker runtime artık hazır.
-> Eskiden ayrı bir Cloudflare Pages Function gerekiyordu; şimdi
-> `src/pages/api/lead.ts` (+ `export const prerender = false`) yeterli.
-
-- [ ] `src/pages/api/lead.ts` endpoint'i
-- [ ] CRM / e-posta entegrasyonu
-- [ ] Spam koruması (reCAPTCHA deseni diğer projede zaten var)
-- [ ] Hata durumunda kullanıcıya geri bildirim (şu an her durumda "başarılı")
-
----
-
-### 3. Formlarda PII konsola yazılıyor
-
-Ad / e-posta / telefon tarayıcı konsoluna basılıyor — yukarıdaki 5 dosyada devam ediyor.
-
-```js
-console.log('Hero form gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
-```
-
-- [ ] Backend bağlanırken (madde 2) bu satırları kaldır
-
----
-
-### 7. 🆕 `prerender = true` unutma riski
-
-`output:'static'` → `output:'server'` geçişinin getirdiği **yeni ve sessiz** bir tuzak.
-
-Şu an **203/203 sayfa** `export const prerender = true` taşıyor — bu turda tek tek
-doğrulandı, kazara SSR olan route **yok**. Sağlıklı durum.
-
-**Ama:** Astro'da config seviyesinde toplu bir seçenek olmadığı için bu satır her yeni
-sayfaya **elle** eklenmek zorunda. Unutulursa sayfa sessizce SSR'a düşer:
-
-- Her istek Worker'ı çalıştırır → gereksiz maliyet + latency
-- `public/_headers` uygulanmaz (statik varlık katmanına hiç uğramaz) →
-  o sayfa güvenlik başlıklarını **middleware'den** alır; ikisi ayrı kaynak olduğu için
-  sessizce farklılaşabilir
-- Build çıktısında fark edilmesi zor
-
-- [ ] `scripts/check-prerender.mjs` ekle — `src/pages/**/*.astro` içinde
-      `prerender = true` taşımayan dosyaları raporlasın, bulursa exit 1
-- [ ] Diğer `check-*.mjs`'lerle aynı desende yazılsın (elle recursive tarama)
-
----
-
-## 🟡 P2 — Önemli
-
-### 4. CSP hâlâ Report-Only
-
-`public/_headers` + `src/middleware.ts` ile başlıklar **eklendi** (X-Frame-Options,
-X-Content-Type-Options, Referrer-Policy, HSTS doğrulandı) — bu kısım kapandı.
-
-Ama CSP `Content-Security-Policy-Report-Only` olarak duruyor: **hiçbir şeyi engellemiyor**,
-yalnızca DevTools konsoluna rapor ediyor.
-
-CLAUDE.md Açık nokta #46'da enforcing'e geçiş için 3 koşul tanımlanmış (site canlı olmalı,
-`report-uri` toplayıcı kurulmalı, 1-2 hafta sessiz gözlem). Bu koşullar makul — madde
-burada yalnızca **unutulmaması için** duruyor.
-
-- [ ] `report-uri` endpoint'i (küçük bir Worker route)
-- [ ] 1-2 hafta gözlem
-- [ ] `-Report-Only` ekini kaldır
-- [ ] ⚠️ İki CSP string'i (`_headers` + `middleware.ts`) elle senkron tutuluyor —
-      biri değişirse diğeri de güncellenmeli
-
----
-
-### 5. Görsel optimizasyonu (`astro:assets`) yok
-
-Doğrulandı: `astro:assets` / `<Image>` kullanımı **0**.
-
-Bu turda bir **CLS pilotu** yapılmış (`22dbbc9`): footer rozetleri + logo şeridine
-`width`/`height`, blog öne çıkan görseline `loading="eager"`. Kaynakta 79 `width=`
-sayıldı. Faydalı ama kısmi.
-
-Kalan: WebP/AVIF dönüşümü yok, `srcset` yok. 978 blog görseli artık **yerelde**
-(Açık nokta #14 kapandı) — yani `astro:assets`'in önündeki engel kalktı, dosyalar
-build zamanında erişilebilir.
-
-`@astrojs/cloudflare` adapter'ı varsayılan olarak Cloudflare IMAGES binding'ini
-kullanan çalışır bir hat kuruyor. CLAUDE.md Açık nokta #48'de sıralama zaten
-kararlaştırılmış: önce maliyet araştırması, sonra binding vs build-time ön-dönüşüm kararı.
-
-- [ ] Cloudflare Images maliyet araştırması
-- [ ] Mimari karar: IMAGES binding vs Sharp ile build-time WebP üretimi
-- [ ] `astro:assets`'e geçiş
-
----
-
-## 🟢 P3 — Düşük öncelik
-
-### 6. Ana sayfa DOM'u ağır
-
-| Sayfa | Ham | Gzip | Açılış etiketi |
+| # | Konu | Durum | Öncelik |
 |---|---|---|---|
-| `/` | 288 KB | 60.0 KB | **1.672** |
-| Blog yazısı (ort.) | 171 KB | ~46 KB | ~1.059 |
-
-Önceki tura göre pratikte değişmedi (1.689 → 1.672). Chrome'un uyarı eşiği ~1.500.
-
-`6f3ab7d`'de yeniden araştırılmış ve **aynı sonuca varılmış**: MegaMenu'nün 4 paneli
-(364 element, sayfanın %21.8'i) DOM'da sürekli duruyor; `hasOpened` lazy-mount denendi
-ama panel içeriği SSR HTML'inden tamamen kaybolduğu için (crawl edilebilir `<a href>`
-kaybı) geri alındı. `client:visible`/`client:idle` de DOM'u değiştirmiyor — kanıtlandı.
-
-**Sonuç:** güvenli bir teknik optimizasyon kalmadı; DOM'u küçültmek ancak menüdeki
-link/kolon **sayısını** azaltmakla olur — bu bir IA/tasarım kararı.
-
-- [ ] Karar: mega-menü içeriği sadeleştirilsin mi? (tasarım tarafı)
+| 1 | KV `SESSION` binding'inin `id`'si yok — deploy engeli | ⚠️ Yeni | 🔴 P0 |
+| 2 | Sitemap'te 141 noindex stub'ı | ⚠️ Yeni | 🔴 P0 |
+| 3 | `_redirects` hedeflerinde trailing slash yok → 301+307 zinciri | ⚠️ Yeni | 🟠 P1 |
+| 4 | SendGrid anahtarı yok — formlar 503 dönüyor | ❌ Açık | 🟠 P1 |
+| 5 | CI yok — Keystatic yayını canlıya yansımaz | ⚠️ Yeni | 🟠 P1 |
+| 6 | Test ortamının indekslenme koruması | ⚠️ Yeni | 🟠 P1 |
+| 7 | `idenfit.com` zone'unda WordPress dönemi ayarları | ⚠️ Yeni | 🟠 P1 |
+| 8 | `npm audit` 3 high (puppeteer zinciri) | 🟡 Kabul | 🟡 P2 |
+| 9 | CSP hâlâ Report-Only | 🟡 Kısmi | 🟡 P2 |
+| 10 | Görsel optimizasyonu (`astro:assets`) yok | 🟡 Kısmi | 🟡 P2 |
+| 11 | Ana sayfa DOM'u ~1.735 element | 🟢 Değişmedi | 🟢 P3 |
+| 12 | reCAPTCHA iskelet — doğrulama fiilen kapalı | 🟡 Kısmi | 🟢 P3 |
 
 ---
 
-### 8. 🆕 Decap artıkları — ölü bağımlılık
+## 1. 🔴 Deploy engelleri
 
-Decap CMS kaldırıldı (`db38013`, `public/admin/` silindi, unpkg referansı kalmadı)
-ama `package.json`'da izleri duruyor:
+### 1.1 KV `SESSION` binding'inin `id`'si yok
+
+`dist/server/wrangler.json` (adapter üretimi):
 
 ```json
-"scripts":        { "cms:proxy": "decap-server" },
-"devDependencies": { "decap-server": "^3.10.0" }
+"kv_namespaces": [{ "binding": "SESSION" }]
 ```
 
-- [ ] İkisini de kaldır, `npm install` ile lockfile'ı güncelle
+`id` alanı yok. Namespace oluşturulup kök `wrangler.json`'a yazılmadan deploy büyük olasılıkla
+reddedilir. `Astro.session` kodda hiç kullanılmıyor — namespace boş kalacak, KV kotasına dokunmaz.
+
+- [ ] `idenfit-com-session` namespace'i oluştur
+- [ ] Kök `wrangler.json`'a `"kv_namespaces":[{"binding":"SESSION","id":"…"}]` ekle
+
+> Not: `.wrangler/deploy/config.json` mevcut ve `dist/server/wrangler.json`'a işaret ediyor —
+> yani kökte düz `npx wrangler deploy` doğru config'i alıyor, `--config` gerekmiyor. Doğrulandı.
 
 ---
 
-### 9. 🆕 CSP `img-src`'te gereksiz `idenfit.com` izni
+### 1.2 Sitemap'te 141 noindex stub'ı
 
-`src/middleware.ts` + `public/_headers`:
+`dist/client/sitemap-0.xml` analiz edildi:
 
 ```
-img-src 'self' data: https://img.youtube.com https://idenfit.com
+toplam URL              : 1073
+  gerçek içerik sayfası : 932
+  NOINDEX/REFRESH STUB  : 141   ← /az/blog/, /az/fiyatlar/, /az/hakkimizda/ …
 ```
 
-`https://idenfit.com` izni, blog görselleri hotlink'liyken gerekliydi. Açık nokta #14
-kapandığı için (978/978 görsel yerelde, tüm URL'ler göreli) bu izin artık gereksiz —
-politikayı gereksiz yere gevşetiyor.
+Bunlar i18n fallback'inin ürettiği `<meta http-equiv="refresh">` + `noindex` stub'ları.
+Sitemap'e girmeleri Search Console'da **141 adet "Gönderilen URL noindex" uyarısı** üretir.
 
-- [ ] Her iki dosyadan kaldır (senkron tutulmalı)
-- [ ] Kaldırmadan önce doğrula: `dist/client` genelinde kalan uzak referans var mı?
-      (`scripts/audit-remote-hotlinks.mjs` — Açık nokta #45 sitenin geri kalanında
-      hâlâ hotlink olduğunu söylüyor; **önce #45 kapanmalı**, sonra bu izin kaldırılmalı)
+`astro.config.mjs`'teki `sitemap.filter` bu stub'ları dışlayacak şekilde genişletilmeli.
+Cutover'dan **önce** yapılmalı — sitemap GSC'ye gönderildikten sonra düzeltmek daha zahmetli.
+
+- [ ] `sitemap.filter`'a stub dışlama kuralı
+- [ ] Build sonrası doğrula: stub sayısı **0**, toplam ~932
 
 ---
 
-### 10. ℹ️ Build süresi 46s → 150s (bilgi)
+## 2. 🟠 Cutover öncesi
 
-`output:'server'` + 622 Markdown + Cloudflare adapter derlemesi. Kabul edilebilir,
-aksiyon gerekmiyor — ama CLAUDE.md Açık nokta #49'daki eşik takibi artık daha erken
-anlamlı hale geldi (2 dk eşiği fiilen aşıldı).
+### 2.1 `_redirects` hedeflerinde trailing slash yok
 
-Bilgi olarak diğer ölçümler: `dist/` 392 MB (390 MB client — 1013 yerel görsel dahil,
-1.8 MB server worker). JS toplamı 3.580 KB görünüyor ama **2.712 KB'ı
-`keystatic-page.js`** ve yalnızca `/keystatic`'te yükleniyor — ana sayfanın
-referansladığı JS 0.1 KB, genel sayfalar etkilenmedi.
+50 hedefin **50'si** slash'sız:
+
+```
+/suprema        /donanim        301
+/suprema/       /donanim        301
+```
+
+Sonuç: `/suprema` → 301 `/donanim` → 307 `/donanim/` — **iki sekmeli zincir**. Çalışıyor ama
+her eski linkte gereksiz bir tur; SEO'da link equity ve tarama bütçesi açısından istenmez.
+
+- [ ] Hedeflere trailing slash ekle (`/donanim/`)
+- [ ] `scripts/audit-http-status.mjs` ile zincir uzunluğunu doğrula
 
 ---
 
-## ✅ Bu turda kapanan maddeler
+### 2.2 SendGrid anahtarı yok — formlar 503 dönüyor
+
+Kod tarafı **tamam**: `/api/lead` doğrulama, e-posta oluşturma, hata kodları, hız sınırı hepsi
+çalışır durumda. Anahtar yoksa sahte "başarılı" üretmiyor, dürüstçe **503** dönüyor.
+
+Eksik: `SENDGRID_API_KEY`, `SENDGRID_FROM_EMAIL`, `LEAD_NOTIFICATION_EMAIL`.
+
+⚠️ **Teslim edilebilirlik riski:** `idenfit.com` SPF kaydı
+`v=spf1 include:_spf.google.com include:emaileuc.freshservice.com ~all` — **SendGrid yok**.
+`em6359.idenfit.com` MX'i alan doğrulamasının kısmen kurulu olduğunu gösteriyor ama
+uçtan uca test edilmeden canlıya çıkılmamalı; aksi halde lead e-postaları spam'e düşer.
+
+- [ ] Secret'ları Cloudflare'a gir (`wrangler secret put` — repoya asla)
+- [ ] SendGrid domain authentication'ı tamamla/doğrula
+- [ ] Gerçek form gönderip gelen kutusuna düştüğünü teyit et
+
+---
+
+### 2.3 CI yok — Keystatic yayını canlıya yansımaz
+
+Keystatic Cloud `master`'a commit atıyor, ama otomatik build/deploy zinciri **yok**. Bu
+kurulmadan pazarlama ekibi panelden yayın yapsa bile site güncellenmez — panel fiilen "kör".
+
+- [ ] **Workers Builds** (Cloudflare'ın git-bağlantılı build'i) kur: repo `idenfit/idenfit.com`,
+      dal `master`, `npm ci && npm run build` → `npx wrangler deploy`, Node 22 pin
+- [ ] Preview/dal build'leri kapalı veya erişim korumalı olmalı — aksi halde her PR halka açık
+      bir kopya üretir
+- [ ] İlk CI deploy'undan sonra doğrula: `wrangler deploy` dashboard'daki route'ları silmiyor
+
+> Build ortamı UTC. Açık nokta #42/#43'teki naive tarih riski burada görünür hale gelir —
+> cutover öncesi `TZ=UTC` ile ikinci bir build alıp `dist/client` diff'i alınmalı.
+
+---
+
+### 2.4 Test ortamının indekslenme koruması
+
+`astro.config.mjs`'te `site: 'https://idenfit.com'` **sabit kodlu**. Build çıktısındaki her URL
+production domainini gösteriyor:
+
+```
+canonical  → https://idenfit.com/
+og:url     → https://idenfit.com/
+hreflang   → https://idenfit.com/
+robots.txt → Allow: /  +  Sitemap: https://idenfit.com/sitemap-index.xml
+```
+
+Test domaininde (`idenfit.com.tr`) yayınlanırsa site **taranabilir** olur ve canonical'ı şu an
+canlı olan eski WordPress'e işaret eder.
+
+**Katmanlı koruma (kod değişikliği gerekmez):**
+1. **Cloudflare Access** (Zero Trust, ≤50 kullanıcı ücretsiz) — birincil kilit. Crawler, link
+   paylaşımı, tesadüfi ziyaret hepsi giriş ekranında biter
+2. **Transform Rule** → `X-Robots-Tag: noindex, nofollow, noarchive` — ikinci emniyet
+3. GSC'ye eklenmez, hiçbir yerden link verilmez, ömrü kısa tutulur
+
+> **Kabul edilen sınır:** canonical/hreflang/sitemap doğruluğu test fazında **doğrulanamaz** —
+> hepsi `idenfit.com` diyecek. Bunlar ancak cutover sonrası test edilebilir. Test kapsamı
+> dışında olduğu baştan kabul edilmeli.
+
+---
+
+### 2.5 `idenfit.com` zone'unda WordPress dönemi ayarları
+
+Zone yıllardır WordPress'e hizmet ediyor. Cutover'dan **önce** denetlenmeli:
+
+| Ayar | Neden |
+|---|---|
+| **Always Online** | ⚠️ En kritik. Worker hata verdiğinde eski WP anlık görüntüsünü servis eder — hatayı gizler |
+| **APO for WordPress** | Varsa kapatılmalı |
+| Rocket Loader / Auto Minify / Mirage / Polish | Yeni siteyi bozabilir |
+| wp-admin Page Rule'ları / Cache Rules | Artık anlamsız |
+| HSTS `includeSubDomains` | `idenfit.com`'un TÜM alt alanları HTTPS'e hazır değilse bozar — envanter çıkarılmalı |
+| MX / SPF / DKIM / SendGrid CNAME'leri | **Hiç dokunulmaz** — cutover yalnızca A/HTTP yönlendirmesini değiştirir |
+
+Ayrıca eklenmesi önerilenler:
+- **WAF:** `/wp-login.php`, `/xmlrpc.php`, `/wp-admin/*`, `*.php` → Block. Eski WP'ye yönelik bot
+  gürültüsü aksi halde Worker'a düşüp kotayı yakar
+- **Redirect Rules:** `www → apex`, eski Yoast sitemap'leri → `/sitemap-index.xml`,
+  `/feed/`, `/category/*`, `/tag/*` → `/blog/`
+- **Rate Limiting:** `/api/lead` için (Worker içi sayaç dağıtık değil, gerçek savunma bu)
+
+---
+
+## 3. 🟡 Orta öncelik
+
+### 3.1 `npm audit` 3 high — bilinçli kabul
+
+```
+extract-zip  (symlink path traversal, GHSA-jmr9-qjv8-65gv)
+└─ @puppeteer/browsers
+   └─ @cloudflare/puppeteer
+```
+
+`extract-zip` yalnızca **yerel tarayıcı binary'si indirip açmak** için kullanılıyor. Workers'ta
+tarayıcı `env.BROWSER` binding'inden geliyor — bu kod yolu production'da hiç çalışmıyor.
+`npm audit fix --force` paketi 1.4.0 → 0.0.11'e düşürüyor (breaking), bu yüzden uygulanmadı.
+
+- [ ] Bilinçli kabul olarak kaydet, yukarı akımı periyodik izle
+- [ ] "Deploy öncesi 0 açık" disiplini bu istisnayı hesaba katmalı
+
+---
+
+### 3.2 CSP hâlâ Report-Only
+
+Başlıklar (`X-Frame-Options`, `nosniff`, `Referrer-Policy`, HSTS) **basılıyor** — bu kısım kapandı.
+CSP ise `Content-Security-Policy-Report-Only`: hiçbir şeyi engellemiyor.
+
+CLAUDE.md Açık nokta #46'daki 3 koşul makul (site canlı olmalı, `report-uri` toplayıcı kurulmalı,
+1-2 hafta sessiz gözlem). Madde burada unutulmaması için duruyor.
+
+⚠️ İki CSP string'i (`public/_headers` + `src/middleware.ts`) **elle senkron** tutuluyor —
+biri değişirse diğeri de güncellenmeli.
+
+---
+
+### 3.3 Görsel optimizasyonu yok
+
+`astro:assets` / `<Image>` kullanımı **0**. Yapılan: CLS pilotu (79 `width`/`height`, blog hero
+`loading="eager"`). Kalan: WebP/AVIF, `srcset`.
+
+978 blog görseli artık yerelde — engel kalktı. Adapter `images: {binding:"IMAGES"}` tanımlıyor;
+bu binding şu an **atıl** ama `astro:assets`'e geçilirse **Cloudflare Images devreye girer ve
+ayrıca faturalanır**. Karar bilinçli verilmeli: IMAGES binding'i mi, build-time Sharp mı
+(ikincisi $0).
+
+---
+
+## 4. 🟢 Düşük öncelik
+
+### 4.1 Ana sayfa DOM'u
+
+| Sayfa | Ham | Gzip | Element |
+|---|---|---|---|
+| `/` | 300 KB | 62 KB | **1.735** |
+
+Chrome eşiği ~1.500. Açık nokta #25'te yeniden araştırılmış, aynı sonuca varılmış: MegaMenu'nün
+4 paneli lazy-mount edilemiyor (SSR HTML'inden crawl edilebilir linkler kaybolur), `client:visible`
+DOM'u değiştirmiyor. Kalan tek yol menü içeriğini azaltmak — teknik değil IA/tasarım kararı.
+
+### 4.2 reCAPTCHA iskelet
+
+```ts
+if (!secretKey) return true;   // secret yoksa doğrulama atlanıyor
+```
+
+Site key henüz yok. Şu anki tek koruma IP bazlı hız sınırı (10 istek/dk) — Workers isolate'ı
+içinde tutuluyor, **dağıtık garanti vermiyor**. Kalıcı çözüm: Cloudflare Rate Limiting kuralı
+(§2.5) veya reCAPTCHA'yı aktifleştirmek.
+
+---
+
+## 5. ✅ Bu turda kapanan maddeler
 
 Doğrulandı, tekrar araştırılmasın:
 
-| Eski # | Konu | Kanıt |
-|---|---|---|
-| 1 | `astro build` kırıktı | `npx astro build` → **exit 0**, 150s · `astro check` 394 dosya **0 hata** |
-| 2 | 973 blog görseli eski WP'ye bağlıydı | **978/978** referans yerelde · `idenfit.com` hotlink **0** · `public/wp-content` 1013 dosya |
-| 3 | Decap yanlış depoyu gösteriyordu | Decap kaldırıldı, Keystatic Cloud'a geçildi |
-| 4 | CMS OAuth proxy'si yoktu | Keystatic Cloud üstleniyor — kendi proxy'nize gerek kalmadı |
-| 7 | 618 yazı `posts.json`'da sıkışmıştı | **622 `.md`** · `posts.json` 3 byte (boş dizi) |
-| 8 | Decap unpkg'den kayan sürümle yükleniyordu | `public/admin/` silindi, unpkg referansı yok |
-| 9 | Güvenlik başlığı yoktu | `_headers` + `middleware.ts` — X-Frame/nosniff/Referrer/HSTS doğrulandı |
-| 11 | Google Fonts hotlink (KVKK/GDPR) | Quicksand `public/fonts/` altında self-host |
-| 14 | `getAllBlogPosts()` memoize değildi | `88b0f6d` — modül seviyesi promise cache |
-| 15 | README / package.json / repo şişkinliği | `name: idenfit-com`, README güncel, `media.json` git'ten çıktı |
-| 16 | CI'da `pipefail` yoktu | `7c3f321` — denetlendi, `check-*.mjs` exit-code bulgusu da kaydedildi |
-
-**Ek olarak bu turda kapanan (rapor dışı):** blog `<title>` uzunluğu 409 → **0** sorunlu
-sayfa · `check-html-lang-attribute.mjs`'in `dist/client` false-positive'i (196 sahte hata)
-düzeltildi.
+| Konu | Kanıt |
+|---|---|
+| **PDF şablonuna HTML enjeksiyonu** | İki katman: `isValidScoreRecord()` (0-100 sayı zorunlu) + şablonda her interpolasyona `escapeHtml`. **Saldırı yeniden çalıştırıldı → escape edildi**; string/101 skor **reddediliyor** |
+| **`/api/maturity-pdf` korumasız** | `X-Pilot-Secret` zorunlu; secret yoksa **404** (fail-closed) |
+| **Hız sınırı yok** | 10 istek/dk/IP, `cf-connecting-ip` bazlı |
+| `site` / canonical / hreflang / sitemap / robots | `site` tanımlı · canonical basılıyor · **6 hreflang** (az dahil) · `check-hreflang` **248 sayfa 0 sorun** · `sitemap-index.xml` üretiliyor · `robots.txt` (`Disallow: /keystatic/`) |
+| Form backend'i | `/api/lead` gerçek endpoint (anahtar bekliyor, bkz. §2.2) |
+| PII konsola yazılması | Form `console.log`'ları tamamen kaldırıldı |
+| `prerender` guard'ı | `check-prerender.mjs` eklendi — **204/204 doğru** |
+| Decap artıkları | `package.json`'dan çıktı |
+| CSP `img-src`'te `idenfit.com` | Kaldırıldı (Açık nokta #45 kapandığı için) |
+| `check-hreflang` DIST_DIR | `dist/client`'a düzeltildi |
+| Açık nokta #45 | Site geneli hotlink **293 → 0** |
+| Build kırıklığı · 973 kırık görsel · 618 yazı JSON'da · Decap/unpkg · fontlar · memoize · README | Önceki turda kapandı |
 
 ---
 
-## Doğrulama komutları
+## 6. Doğrulama komutları
 
 ```bash
 npm ci
-npx astro check                              # 394 dosya, 0 hata bekleniyor
-set -o pipefail; npx astro build             # exit 0 olmalı — pipefail ŞART
-node scripts/check-json-ld.mjs               # 0 geçersiz
-node scripts/check-link-accessibility.mjs    # 0
-node scripts/check-image-alt-text.mjs        # 0
-node scripts/check-title-length.mjs          # 0
+npx astro check                                 # 0 hata
+set -o pipefail; npx astro build                # exit 0 — pipefail ŞART
+node scripts/check-prerender.mjs                # 204/204
+node scripts/check-json-ld.mjs                  # 0 geçersiz
+node scripts/check-hreflang.mjs                 # 248 sayfa, 0 sorun
+node scripts/check-link-accessibility.mjs       # 0
+node scripts/check-image-alt-text.mjs           # 0
+node scripts/check-title-length.mjs             # 0
 node scripts/check-meta-description-length.mjs  # 0
-node scripts/check-html-lang-attribute.mjs   # 0
-node scripts/check-heading-hierarchy.mjs     # 5 (bilinen taban çizgisi)
-node scripts/check-hreflang.mjs              # madde 1 sonrası anlamlı
-npm audit                                    # 0 açık
+node scripts/check-html-lang-attribute.mjs      # 0
+node scripts/check-heading-hierarchy.mjs        # 5 (bilinen taban çizgisi)
+npm audit                                       # 3 high (bkz. §3.1)
 ```
 
-**Bilinen temel çizgi (regresyon değil):** `check-heading-hierarchy` → ana sayfanın
-5 dilinde H1→H3 atlaması (Açık nokta #36). Bu script **exit 1** döndürür — ileride CI
-gate'i kurulursa ya #36 kapatılmalı ya da gate bu istisnayı hesaba katmalı.
+**Bilinen temel çizgi (regresyon değil):** `check-heading-hierarchy` → ana sayfanın 5 dilinde
+H1→H3 atlaması (Açık nokta #36). Bu script **exit 1** döndürür — CI gate'i kurulursa ya #36
+kapatılmalı ya da gate bu istisnayı hesaba katmalı.
 
 ---
 
-## Önerilen sıra
+## 7. Deploy — doğrulanmış Cloudflare durumu
+
+Canlı API'den okundu (2026-09-04):
 
 ```
-1  → site + sitemap + robots        (madde 1)  ─┐
-     └ önce check-hreflang'in dist/client fix'i │ cutover
-2  → form backend + PII temizliği   (madde 2,3) ┘ öncesi
-3  → prerender guard script'i       (madde 7)
-4  → Decap artıkları                (madde 8)   ← 5 dakika, hemen
-5  → Açık nokta #45 (kalan hotlink'ler)
-6  → CSP img-src daraltma           (madde 9)   ← #45'ten SONRA
-7  → görsel optimizasyonu           (madde 5)
-8  → CSP enforcing                  (madde 4)   ← site canlı olduktan sonra
-9  → DOM / mega-menü kararı         (madde 6)
+Hesap Idenfit : Workers script 0 · KV namespace 0 · Pages projesi 0
+                idenfit.workers.dev kayıtlı
+Abonelik      : pro $240/yıl (idenfit.com) · Workers Paid YOK
+idenfit.com   : aktif, Pro · apex A 92.204.25.71 (eski WP) proxied · www aynı
+                MX Google Workspace + SendGrid
+idenfit.com.tr: aktif, Free · APEX KAYDI YOK · tek kayıt: *.idenfit.com.tr → 213.250.146.30
 ```
+
+Deploy edilecek yük: `dist/client` 441 MB / 4.568 dosya · worker 2.5 MB (gzip ~0.5 MB) —
+20.000 dosya ve 10 MB limitlerinin altında.
+
+**Aylık ek maliyet ≈ $5** (Workers Paid). Statik dosya + bant genişliği $0; Browser Rendering
+Paid planda 10 saat/ay dahil ≈ 2.400-3.600 PDF — bu hacimde ücretsiz kotada kalır.
+
+### Önerilen sıra
+
+```
+Faz 0  KV namespace + secret'lar + Workers Paid
+       + kod düzeltmeleri: sitemap filtresi (§1.2), redirect slash'ları (§2.1)
+Faz A  workers.dev smoke → bitince workers.dev route'unu KAPAT
+Faz B  test.idenfit.com.tr + Cloudflare Access + X-Robots-Tag + CI kurulumu (§2.3, §2.4)
+Faz C  T-7 zone denetimi (§2.5) → Worker ROUTE ile cutover → rollback = route sil
+```
+
+> **Cutover'da Custom Domain DEĞİL Worker Route kullanın.** Custom Domain apex A kaydını
+> değiştirir; Route ise `92.204.25.71` kaydını **yerinde bırakır**, Worker sadece araya girer.
+> Rollback = route'u silmek: saniyeler, DNS'e hiç dokunmadan. Cutover öncesi
+> "route ekle → doğrula → sil" provası da yapılabilir.
 
 ---
 
-## Kapsam dışı — bilinçli kararlar
+## 8. Kapsam dışı — bilinçli kararlar
 
 İncelendi, **sorun değil**:
 
-- `target="_blank"` — 300 dosya / 278 link tarandı, **`rel` eksiği yok**
-- `npm audit` → **0 açık**. Kaynakta secret/API anahtarı yok
-- **203/203 sayfa** `prerender = true` taşıyor — kazara SSR route yok (bkz. madde 7,
-  bu bir gelecek riski, mevcut hata değil)
-- Blog gövdesindeki ham WP HTML `set:html` ile basılıyor ama build-time'da sabitlenen,
-  kendi kontrolünüzdeki içerik — ziyaretçi girdisi değil, XSS vektörü yok
-- Keystatic'in 2.7 MB'lık admin bundle'ı yalnızca `/keystatic`'te yükleniyor —
-  genel sayfa performansını etkilemiyor
-- ~2.163 i18n fallback redirect stub'ının `noindex` olması ve `<html lang>` taşımaması
-  Astro'nun kendi framework şablonu (Açık nokta #27)
+- `target="_blank"` — 300 dosya / 278 link, `rel` eksiği yok
+- Kaynakta secret/API anahtarı yok
+- **204/204 sayfa** `prerender = true`; `check-prerender.mjs` bunu artık otomatik koruyor
+- Blog gövdesindeki ham WP HTML `set:html` ile basılıyor ama build-time'da sabitlenen, kendi
+  kontrolünüzdeki içerik — ziyaretçi girdisi değil, XSS vektörü yok
+- Keystatic'in 2.7 MB admin bundle'ı yalnızca `/keystatic`'te yükleniyor — ana sayfanın
+  referansladığı JS 0.1 KB, genel sayfa performansı etkilenmiyor
+- İK raporu `payload.email`'e gidiyor ("isteyen istediği adrese rapor isteyebilir") — PDF içeriği
+  artık saldırgan kontrolünde olmadığı için bu ürünün amaçlanan davranışı
+- i18n fallback redirect stub'larının `noindex` olması Astro'nun kendi şablonu (Açık nokta #27) —
+  ama **sitemap'e girmemeleri gerekiyor**, bkz. §1.2
