@@ -1,5 +1,5 @@
 // idenfit.com'un GERÇEK logosu — canlı sitenin header'ından birebir
-// çıkarıldı (`https://idenfit.com/wp-content/uploads/2025/07/idenfit-logo.svg`,
+// çıkarıldı (`/wp-content/uploads/2025/07/idenfit-logo.svg`,
 // 2026-07-24). Bu bir font DEĞİL — "idenfit" yazısı tamamen elle
 // vektörleştirilmiş (harf konturları path'e çevrilmiş) özel bir logotype;
 // kaynakta canlı bir font-family kullanılmıyor, bu yüzden Google Fonts'tan

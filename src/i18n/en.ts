@@ -4,6 +4,8 @@ export const en: Translations = {
   common: {
     lastUpdated: 'Last updated',
     home: 'Home',
+    formSubmitting: 'Sending…',
+    formSubmitError: 'Something went wrong — please try again shortly.',
   },
   nav: {
     products: 'PRODUCTS',
@@ -65,6 +67,25 @@ export const en: Translations = {
       back: 'Back',
     },
     presentationTrustCaption: 'Join 1,000+ customers who trust idenfit.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Steps',
+      steps: [
+        { title: '1. Sign Up', text: 'Create your account — setup is completed within 48 hours.' },
+        { title: '2. Import Your Data', text: 'Upload your employee data with bulk import via Excel.' },
+        { title: '3. Start Managing', text: 'Manage check-in/check-out, leave, and payroll processes instantly from the live panel.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Key Features',
+      items: [
+        { title: 'Comprehensive HR Management', text: 'Personnel records from a single hub, onboarding/offboarding tracked task by task.' },
+        { title: 'Time, Shift, and Timesheet Tracking', text: 'Live monitoring of check-in/check-out, complete missing records via mobile.' },
+        { title: 'Approval and Request Workflows', text: 'Leave, expenses, advances, overtime, travel — with hierarchical approval mechanisms.' },
+        { title: 'Payroll and Document Management', text: 'Encrypted mobile access, personnel documents stored securely.' },
+        { title: 'Performance, Training, Communication', text: '360-degree evaluation, training planning, anonymous feedback.' },
+        { title: 'Bulk Operation Flexibility', text: 'Bulk data import via Excel, assign roles/shifts/leave to hundreds of employees in one click.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
@@ -189,7 +210,8 @@ export const en: Translations = {
       promo: {
         category: 'CORPORATE',
         title: 'Meet the idenfit Team',
-        imageAlt: 'idenfit team',
+        description: "We're by your side with secure, innovative, and people-first solutions.",
+        imageAlt: 'idenfit secure digital solutions illustration',
       },
     },
     kesfet: {
@@ -327,6 +349,14 @@ export const en: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          'Our hotel has been using idenfit since the day it opened. One of the things that appealed to me most about idenfit, and the main reason we chose it, was the concept it introduced. It set aside everything we were used to — card readers, turnstile systems, or signing in by hand. Our colleagues can now clock in and out through the mobile app, and being able to track this instantly and remotely from anywhere has also boosted our performance.',
+        name: 'Tolga Avcı',
+        role: 'General Manager',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -388,6 +418,17 @@ export const en: Translations = {
       text:
         "With Idenfit's integration to face recognition and fingerprint devices, employee identity verification can be done in real-time. Entry-exit tracking and break times can also be managed with ease.",
     },
+    partners: {
+      title: 'Our Partners',
+      text: "The trusted technology and business partners idenfit integrates with.",
+      categories: {
+        turnstile: 'Turnstile',
+        payroll: 'Payroll',
+        lms: 'LMS',
+        task: 'Task Management',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Enhance Employee Experience',
       intro:
@@ -416,11 +457,6 @@ export const en: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş manages its HR processes from a single panel with idenfit' },
       beyazFirinVideo: { headline: 'Watch how Beyaz Fırın transformed its HR processes with idenfit' },
       ibisStylesVideo: { headline: 'Watch how ibis Styles Hotels transformed its HR processes with idenfit' },
-      ibisStylesQuote: {
-        text: 'Our hotel has been using idenfit since the day it opened. One of the things that appealed to me most about idenfit, and the main reason we chose it, was the concept it introduced. It set aside everything we were used to — card readers, turnstile systems, or signing in by hand. Our colleagues can now clock in and out through the mobile app, and being able to track this instantly and remotely from anywhere has also boosted our performance.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - General Manager',
-      },
     },
     faq: {
       viewAllLink: 'View All Questions',

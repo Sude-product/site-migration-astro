@@ -1,0 +1,19 @@
+# Form backend (Açık nokta #2/#28) yerel geliştirme secret'ları — bu dosyayı
+# `.dev.vars` adıyla kopyalayıp gerçek değerleri doldurun (`.dev.vars`
+# .gitignore'da, asla commit edilmez). Wrangler bunu `astro dev`/`astro
+# preview` sırasında otomatik okuyup `Astro.locals.runtime.env`'e enjekte
+# eder — bkz. `src/env.d.ts`. Canlıda (Cloudflare Pages) aynı adlar
+# `wrangler secret put <ad>` veya Pages panelinden ayarlanır.
+
+# SendGrid Mail Send API anahtarı — HENÜZ YOK, kullanıcı bekleniyor.
+SENDGRID_API_KEY=
+
+# SendGrid'de doğrulanmış (Sender Authentication) gönderen e-postası.
+SENDGRID_FROM_EMAIL=
+
+# Form bildirimlerinin gideceği gerçek idenfit kutusu.
+LEAD_NOTIFICATION_EMAIL=
+
+# reCAPTCHA v3 sunucu-taraflı secret (skeleton — bkz. lead.ts). Boşken
+# doğrulama adımı atlanır, form akışı BOZULMAZ.
+RECAPTCHA_SECRET_KEY=

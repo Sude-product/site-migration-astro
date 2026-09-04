@@ -62,6 +62,15 @@ export function getSupportRequestLocaleUrls(): Partial<Record<Locale, string>> {
   // NL'de kaynak sayfa yok — EN'in gerçek URL'ine eşitleniyor (KVKK/Tüketici
   // Hakları/Güvenlik ailesindeki aynı desen, bkz. miscPagesContent.ts).
   if (!result.nl && result.en) result.nl = result.en;
+  // BULUNAN BUG (2026-09-02, kullanıcı bulgusu) — `az` burada da hiç
+  // set edilmiyordu: IT sayfasından ("richiesta-supporto") dil
+  // değiştiricide "AZ"e tıklanınca, Header'ın generic fallback'i (bkz.
+  // `src/i18n/localeUrls.ts`) mevcut sayfanın bare slug'ını (IT'ninki)
+  // `/az/` öneki ALTINA koyup `/az/richiesta-supporto/` üretiyordu — bu,
+  // TR'de böyle bir slug olmadığı için Astro'nun `az:'tr'` fallback'i
+  // ÜZERİNDEN GERÇEK 404'e düşüyordu. Destek Talebi az'de KAPSAM DIŞI
+  // (Açık nokta #37) — `result.tr` (bare TR URL'i) doğrudan kullanılıyor.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

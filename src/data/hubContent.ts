@@ -6,6 +6,7 @@
 // `scripts/extract-hubs.mjs`, CLAUDE.md "İK Hub sayfaları").
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import hubsExport from '../../reference/wordpress-export/hubs.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, resolveCtaUrl } from './productContent';
 import { HUB_OVERRIDES } from './hubTranslationOverrides';
 import { HUB_OVERRIDES_AZ } from './hubTranslationOverridesAz';
@@ -16,6 +17,7 @@ export interface HubBlock {
   text: string;
   ctaText: string;
   ctaUrl: string;
+  image: { url: string; alt: string; width?: number; height?: number } | null;
 }
 
 export interface HubTile {
@@ -67,7 +69,8 @@ interface HubGroupRaw {
   locales: Partial<Record<Locale, HubLocaleEntryRaw>>;
 }
 
-const DATA = hubsExport as unknown as { hubs: HubGroupRaw[] };
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(hubsExport as unknown as { hubs: HubGroupRaw[] });
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 
@@ -111,6 +114,53 @@ function resolveTileCta(rawUrl: string, locale: Locale): { url: string; external
   return resolveCtaUrl(rawUrl, locale);
 }
 
+// Hero görseli (2026-09-01) — ham JSON'da hep VARDI (`hero.image`) ama
+// `getHubContent()` hiçbir zaman aktarmıyordu, `HubPage.astro`'nun hero
+// grid'i de `lg:grid-cols-2`'ye rağmen ikinci sütunu hiç doldurmuyordu —
+// kullanıcı canlı sitede/ekran görüntüsünde eksik olduğunu fark etti.
+// Görsel dile göre DEĞİŞMİYOR (tr/en/it hepsi aynı URL'i kullanıyor, ham
+// veride doğrulandı) — bu yüzden HUB_OVERRIDES'ın metin-odaklı hero
+// bloklarına eklenmedi, her zaman TABAN (tr) girdisinden okunuyor.
+// "Görsel bağımlılık kuralı" (CLAUDE.md, 2026-08-30) gereği
+// idenfit.com'a hotlink YAPILMADI — indirilip `public/wp-content/uploads/`
+// altına yerleştirildi. Göreliye çevirme ARTIK burada elle yapılmıyor —
+// Açık nokta #45 yol (B)'de (2026-09-02) `DATA`'nın kendisi `deepRelativizeWpUrls()`
+// ile ithal edilir edilmez merkezi olarak dönüştürülüyor (bkz. yukarıdaki
+// `const DATA = ...` satırı), bu yüzden `baseHero.image.url` burada zaten
+// göreli — ayrı bir fonksiyon/çağrı GEREKMİYOR.
+
+// Ham `alt` metni dosya adından türetilmiş, anlamsız (ör. "workforce
+// banner en@2x") — `productTranslationOverrides.ts`'teki elle-yazılmış
+// override görsellerinin AYNI kalıcı ilkesiyle (bkz. "sistemi a
+// tornello"/"leave management" gibi gerçek/açıklayıcı, dile göre yazılmış
+// alt'lar) gerçek içerik açıklamasıyla değiştiriliyor — görselin
+// kendisi izlenip (laptop paneli: aktif çalışan/devam/izin sayaçları +
+// GPS/beacon/wifi/nfc/QR doğrulamalı mobil PDKS uygulaması; HR görseli:
+// performans/mesajlaşma/masraf takibi mobil ekranları) UYDURMA içerik
+// EKLENMEDEN yazıldı. NL hub sayfaları hiç render edilmiyor (EN'e
+// yönleniyor, bkz. `getHubLocaleUrls()`), bu yüzden `nl` girdisi yok.
+const HERO_IMAGE_ALT: Record<string, Partial<Record<Locale, string>>> = {
+  'insan-kaynaklari-isgucu-yonetimi': {
+    tr: 'işgücü yönetimi paneli ve GPS, beacon, wifi, NFC, QR ile giriş-çıkış yapılan mobil PDKS uygulaması',
+    en: 'workforce management dashboard and mobile clock-in app with GPS, beacon, wifi, NFC and QR verification',
+    it: 'pannello di gestione della forza lavoro e app mobile di rilevazione presenze con verifica GPS, beacon, wifi, NFC e QR',
+    az: 'işçi qüvvəsi idarəçiliyi paneli və GPS, beacon, wifi, NFC, QR ilə giriş-çıxış edilən mobil PDKS tətbiqi',
+  },
+  'insan-kaynaklari-yonetimi-modulu': {
+    tr: 'idenfit mobil uygulamasında performans değerlendirme, mesajlaşma ve masraf takibi ekranları',
+    en: 'idenfit mobile app screens for performance evaluation, messaging and expense tracking',
+    it: 'schermate dell’app mobile idenfit per valutazione delle performance, messaggistica e gestione spese',
+    az: 'idenfit mobil tətbiqində performans qiymətləndirmə, mesajlaşma və xərc izləmə ekranları',
+  },
+};
+
+function getHeroImage(trSlug: string, locale: Locale): HubBlock['image'] {
+  const baseHero = DATA.hubs.find((g) => g.trSlug === trSlug)?.locales.tr?.hero;
+  if (!baseHero?.image) return null;
+  const alt = HERO_IMAGE_ALT[trSlug]?.[locale] ?? HERO_IMAGE_ALT[trSlug]?.tr ?? baseHero.image.alt;
+  return { ...baseHero.image, alt };
+}
+
 // az (2026-08-21) — kaynakta hiç az verisi yok, TR kaynaktan gerçek
 // çeviri `HUB_OVERRIDES_AZ`'dan geliyor (KARAR 1). az fiziksel sayfa
 // dosyaları TR ile BİREBİR aynı bare slug'ı kullanıyor.
@@ -131,6 +181,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
         text: cleanRichText(az.hero.text),
         ctaText: az.hero.ctaText,
         ctaUrl: az.hero.ctaUrl ? localizeCtaUrl(az.hero.ctaUrl, locale) : '',
+        image: getHeroImage(trSlug, locale),
       },
       intro: az.intro ? { title: cleanRichText(az.intro.title), text: cleanRichText(az.intro.text) } : null,
       tiles: az.tiles.map((t) => {
@@ -167,6 +218,7 @@ export function getHubContent(trSlug: string, locale: Locale): HubContent | unde
       text: cleanRichText(heroRaw.text),
       ctaText: heroRaw.ctaText,
       ctaUrl: heroRaw.ctaUrl ? localizeCtaUrl(heroRaw.ctaUrl, locale) : '',
+      image: getHeroImage(trSlug, locale),
     },
     intro: introRaw ? { title: cleanRichText(introRaw.title), text: cleanRichText(introRaw.text) } : null,
     tiles: tilesRaw

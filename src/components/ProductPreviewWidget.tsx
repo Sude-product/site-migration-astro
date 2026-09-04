@@ -48,7 +48,18 @@ import IdenfitLogo from './icons/IdenfitLogo.tsx';
 import FlagIcon from './icons/FlagIcon.tsx';
 import CountryFlagIcon, { type CountryFlagCode } from './icons/CountryFlagIcon.tsx';
 import { getProductPreviewWidgetLabels, type ProductPreviewWidgetLabels } from '../data/productPreviewWidgetLabels';
-import { getTimeManagementLabels, getLeaveManagementLabels, MONTH_ABBREV, WEEKDAY_ABBREV, formatDecimal } from '../data/productPreviewWidgetData';
+import {
+  getTimeManagementLabels,
+  getLeaveManagementLabels,
+  getHumanResourcesLabels,
+  getPerformanceManagementLabels,
+  getDataAnalysisLabels,
+  getSharedPanelLabels,
+  MONTH_ABBREV,
+  WEEKDAY_ABBREV,
+  formatDecimal,
+  formatPercent,
+} from '../data/productPreviewWidgetData';
 import type { Locale } from '../data/nav';
 
 // İnteraktif "ürün önizleme" widget'ı (2026-08-13) — gerçek app.idenfit.com
@@ -311,15 +322,19 @@ const LEAVE_BY_BRANCH: { color: string; days: number; avgPerPersonDays: number }
   { color: BRANCHES[3].color, days: 3, avgPerPersonDays: 0.8 },
 ];
 
-// --- "İnsan Kaynakları" sekmesi — kurgusal veri ---
+// --- "İnsan Kaynakları" sekmesi — kurgusal veri. Metin `getHumanResourcesLabels
+// (locale)`'den geliyor, İNDEKS SIRASIYLA eşleşiyor (2026-08-31, 5. tur). ---
 
-const HEADCOUNT_MONTHS = ['Eyl', 'Eki', 'Kas', 'Ara', 'Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+// Eylül(8)'den başlayıp Ağustos(7)'a döngüsel 12 ay — `MONTH_ABBREV[locale][mi]`.
+const HEADCOUNT_MONTHS = [8, 9, 10, 11, 0, 1, 2, 3, 4, 5, 6, 7];
 const HEADCOUNT_DATA = [58, 60, 63, 65, 64, 67, 69, 68, 71, 73, 74, 76];
 
-const HR_EVENTS: { name: string; initials: string; avatarColor: string; description: string; emoji: string }[] = [
-  { name: 'Elif Demir', initials: 'ED', avatarColor: '#EC4899', description: 'Doğum Günü — Bugün!', emoji: '🎂' },
-  { name: 'Can Aydın', initials: 'CA', avatarColor: '#10B981', description: '2. İş Yıldönümü — 15 Ağustos', emoji: '🏆' },
-  { name: 'Zeynep Arslan', initials: 'ZA', avatarColor: '#F59E0B', description: '3. İş Yıldönümü — 18 Ağustos', emoji: '🏆' },
+// `description` artık `getHumanResourcesLabels(locale).hrEvents[i]`'ten
+// geliyor — `name` (kişi adı) ÇEVRİLMİYOR, özel isim.
+const HR_EVENTS: { name: string; initials: string; avatarColor: string; emoji: string }[] = [
+  { name: 'Elif Demir', initials: 'ED', avatarColor: '#EC4899', emoji: '🎂' },
+  { name: 'Can Aydın', initials: 'CA', avatarColor: '#10B981', emoji: '🏆' },
+  { name: 'Zeynep Arslan', initials: 'ZA', avatarColor: '#F59E0B', emoji: '🏆' },
 ];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "İnsan
@@ -334,26 +349,25 @@ const HR_EVENTS: { name: string; initials: string; avatarColor: string; descript
 // içeriyor hem de kartın tam başlığı/türü görüntüde kırpılmış, güvenilir
 // şekilde yeniden üretilemez. Sayılar (37/17/%22.8 gibi) gerçek ekrandan
 // KOPYALANMADI, aynı formatta farklı kurgusal rakamlar üretildi.
-const TURNOVER_MONTHS = ['Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu'];
+const TURNOVER_MONTHS = [2, 3, 4, 5, 6, 7]; // Mar..Ağu
 const TURNOVER_HIRED = [5, 6, 4, 8, 9, 10];
 const TURNOVER_LEFT = [2, 3, 2, 4, 3, 5];
-const TURNOVER_STATS: { label: string; value: string; color: string }[] = [
-  { label: 'İşe Giren', value: '42', color: '#10B981' },
-  { label: 'Ayrılan', value: '19', color: '#EF4444' },
-  { label: 'Devir Oranı', value: '%18.4', color: '#F59E0B' },
+const TURNOVER_STATS: { value: string; color: string }[] = [
+  { value: '42', color: '#10B981' },
+  { value: '19', color: '#EF4444' },
+  { value: '%18.4', color: '#F59E0B' },
 ];
 
 const PENDING_APPROVALS: {
   icon: ComponentType<{ className?: string; style?: { color?: string }; strokeWidth?: number }>;
   color: string;
-  label: string;
   count: number;
 }[] = [
-  { icon: Wallet, color: '#10B981', label: 'Avans Talepleri', count: 2 },
-  { icon: Clock, color: '#8B5CF6', label: 'Fazla Mesai Talepleri', count: 1 },
-  { icon: GraduationCap, color: '#3B82F6', label: 'Eğitim Talepleri', count: 3 },
-  { icon: FileText, color: '#F59E0B', label: 'Evrak Talepleri', count: 0 },
-  { icon: UserX, color: '#EF4444', label: 'Eksik Kayıt Talepleri', count: 1 },
+  { icon: Wallet, color: '#10B981', count: 2 },
+  { icon: Clock, color: '#8B5CF6', count: 1 },
+  { icon: GraduationCap, color: '#3B82F6', count: 3 },
+  { icon: FileText, color: '#F59E0B', count: 0 },
+  { icon: UserX, color: '#EF4444', count: 1 },
 ];
 
 // Takvim — gerçek Ağustos 2026 takvimi (hafta PZT'den başlıyor, WP/idenfit
@@ -368,7 +382,9 @@ const EVENT_DOT_COLORS: Record<CalendarEventType, string> = {
   anniversary: '#10B981',
   leave: '#EF4444',
 };
-const CALENDAR_WEEKDAYS = ['PZT', 'SAL', 'ÇAR', 'PER', 'CUM', 'CMT', 'PAZ'];
+// Büyük harfli görünüm — `WEEKDAY_ABBREV[locale]`'den `.toUpperCase()` ile
+// türetiliyor (render'da), Türkçe "İ" büyütme bug'ı riski YOK: hiçbir
+// dilin kısaltmasında küçük "i" harfi geçmiyor (doğrulandı).
 const CALENDAR_CELLS: { day: number; muted?: boolean; isToday?: boolean; events?: CalendarEventType[] }[] = [
   { day: 27, muted: true },
   { day: 28, muted: true },
@@ -421,15 +437,17 @@ interface TrackingBoxData {
   primaryLabel: string;
   secondaryLabel: string;
 }
-const PROBATION_TRACKING: TrackingBoxData[] = [
-  { color: '#EF4444', bgLight: '#FEE2E2', count: 2, primaryLabel: '2 Ay', secondaryLabel: '30 gün' },
-  { color: '#F59E0B', bgLight: '#FEF3C7', count: 3, primaryLabel: '6 Ay', secondaryLabel: '180 gün' },
-  { color: '#10B981', bgLight: '#D1FAE5', count: 1, primaryLabel: '1 Yıl', secondaryLabel: '365 gün' },
+// Sayı/birim ayrıştırıldı — render'da `getHumanResourcesLabels(locale)`'in
+// `monthUnit`/`yearUnit`/`dayUnit`'iyle birleşiyor (ör. "2 Ay"/"2 Months").
+const PROBATION_TRACKING_STRUCTURE: { color: string; bgLight: string; count: number; primaryValue: number; primaryUnit: 'month' | 'year'; secondaryDays: number }[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 2, primaryValue: 2, primaryUnit: 'month', secondaryDays: 30 },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 3, primaryValue: 6, primaryUnit: 'month', secondaryDays: 180 },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 1, primaryValue: 1, primaryUnit: 'year', secondaryDays: 365 },
 ];
-const CONTRACT_TRACKING: TrackingBoxData[] = [
-  { color: '#EF4444', bgLight: '#FEE2E2', count: 1, primaryLabel: '30 gün', secondaryLabel: '' },
-  { color: '#F59E0B', bgLight: '#FEF3C7', count: 2, primaryLabel: '60 gün', secondaryLabel: '' },
-  { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryLabel: '90 gün', secondaryLabel: '' },
+const CONTRACT_TRACKING_STRUCTURE: { color: string; bgLight: string; count: number; primaryDays: number }[] = [
+  { color: '#EF4444', bgLight: '#FEE2E2', count: 1, primaryDays: 30 },
+  { color: '#F59E0B', bgLight: '#FEF3C7', count: 2, primaryDays: 60 },
+  { color: '#10B981', bgLight: '#D1FAE5', count: 0, primaryDays: 90 },
 ];
 
 // --- "Performans Yönetimi" sekmesi — kurgusal veri (2026-08-25, kullanıcının
@@ -438,11 +456,15 @@ const CONTRACT_TRACKING: TrackingBoxData[] = [
 // geçti). Renkler widget'ın KENDİ kurulu paletinden (#EF4444/#F59E0B/
 // #10B981/#3B82F6/#8B5CF6/#EC4899) — yeni bir renk İCAT EDİLMEDİ.
 
-const PERFORMANCE_KPI_STATS: { icon: ComponentType<{ className?: string }>; color: string; value: string; label: string }[] = [
-  { icon: Target, color: '#EF4444', value: '5', label: 'Aktif KPI' },
-  { icon: TrendingUp, color: '#3B82F6', value: '%29', label: 'Ortalama İlerleme' },
-  { icon: AlertTriangle, color: '#F59E0B', value: '3', label: 'Riskli / Beklenen Altı' },
-  { icon: Clock, color: '#8B5CF6', value: '3', label: 'Check-in Bekleyen' },
+// 2026-09-01 — Tier 2 çevirisi: icon/color/sayısal değerler burada
+// (yapısal, dilden bağımsız), name/scope/category/status/period
+// `getPerformanceManagementLabels()`'ten İNDEKS SIRASIYLA geliyor
+// (bkz. `productPreviewWidgetData.ts`).
+const PERFORMANCE_KPI_STATS: { icon: ComponentType<{ className?: string }>; color: string }[] = [
+  { icon: Target, color: '#EF4444' },
+  { icon: TrendingUp, color: '#3B82F6' },
+  { icon: AlertTriangle, color: '#F59E0B' },
+  { icon: Clock, color: '#8B5CF6' },
 ];
 
 interface GoalItem {
@@ -451,20 +473,16 @@ interface GoalItem {
   category: string;
   period: string;
   keyResultCount: number;
+  keyResultUnitLabel: string;
   percent: number;
   status: string;
   statusColor: string;
   avatars: { initials: string; color: string }[];
 }
-const PERFORMANCE_GOALS: GoalItem[] = [
+const PERFORMANCE_GOALS_STRUCTURE: { keyResultCount: number; percent: number; statusColor: string; avatars: { initials: string; color: string }[] }[] = [
   {
-    name: 'Yıllık ciroyu %20 artırmak',
-    scope: 'Şirket',
-    category: 'Finansal Hedefler',
-    period: '2026 H2',
     keyResultCount: 3,
     percent: 31,
-    status: 'Riskli',
     statusColor: '#EF4444',
     avatars: [
       { initials: 'DT', color: '#3B82F6' },
@@ -472,13 +490,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Yeni pazarlara açılmak',
-    scope: 'Takım',
-    category: 'Sales',
-    period: '2026 H2',
     keyResultCount: 2,
     percent: 44,
-    status: 'Yolunda',
     statusColor: '#10B981',
     avatars: [
       { initials: 'GR', color: '#F59E0B' },
@@ -486,13 +499,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Yeni nesil mobil deneyimi hayata geçirmek',
-    scope: 'Şirket',
-    category: 'Ürün Geliştirme',
-    period: '2026 H2',
     keyResultCount: 5,
     percent: 52,
-    status: 'Yolunda',
     statusColor: '#10B981',
     avatars: [
       { initials: 'DT', color: '#3B82F6' },
@@ -500,13 +508,8 @@ const PERFORMANCE_GOALS: GoalItem[] = [
     ],
   },
   {
-    name: 'Marka bilinirliğini artırmak',
-    scope: 'Takım',
-    category: 'Marketing',
-    period: '2026 H2',
     keyResultCount: 2,
     percent: 12,
-    status: 'Beklenen Altı',
     statusColor: '#F59E0B',
     avatars: [
       { initials: 'AC', color: '#EF4444' },
@@ -531,31 +534,12 @@ interface KeyResultItem {
   expectedPercent: number;
   pace: 'ahead' | 'behind';
 }
-const GOAL_KEY_RESULTS: KeyResultItem[] = [
-  {
-    name: 'Yeni müşteri kazanımı',
-    lastCheckIn: '20 Ağu',
-    status: 'Yolunda',
-    statusColor: '#10B981',
-    currentValueLabel: '26 müşteri',
-    currentPercent: 65,
-    startLabel: '0 müşteri',
-    endLabel: '40 müşteri',
-    expectedPercent: 55,
-    pace: 'ahead',
-  },
-  {
-    name: 'Ortalama sipariş tutarı',
-    lastCheckIn: '18 Ağu',
-    status: 'Riskli',
-    statusColor: '#EF4444',
-    currentValueLabel: '155 ₺',
-    currentPercent: 31,
-    startLabel: '0 ₺',
-    endLabel: '500 ₺',
-    expectedPercent: 42,
-    pace: 'behind',
-  },
+// 2026-09-01 — Tier 2: name/lastCheckIn/status/currentValueLabel/
+// startLabel/endLabel `getPerformanceManagementLabels().keyResults`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (renk/yüzde) veri.
+const GOAL_KEY_RESULTS_STRUCTURE: { statusColor: string; currentPercent: number; expectedPercent: number; pace: 'ahead' | 'behind' }[] = [
+  { statusColor: '#10B981', currentPercent: 65, expectedPercent: 55, pace: 'ahead' },
+  { statusColor: '#EF4444', currentPercent: 31, expectedPercent: 42, pace: 'behind' },
 ];
 
 // --- "Veri Analizi" sekmesi — kurgusal veri (2026-08-13). Tema:
@@ -563,16 +547,12 @@ const GOAL_KEY_RESULTS: KeyResultItem[] = [
 // vardiya devam oranlarıyla AYNI konu ailesinden ama farklı bir kesit
 // (departman kırılımı + trend), içerik tekrarı değil. ---
 
-const DEPARTMENT_ABSENTEEISM: { label: string; value: number }[] = [
-  { label: 'İK', value: 2.1 },
-  { label: 'Satış', value: 5.4 },
-  { label: 'Operasyon', value: 6.8 },
-  { label: 'Finans', value: 1.9 },
-  { label: 'Üretim', value: 7.2 },
-  { label: 'Destek', value: 3.5 },
-];
+// 2026-09-01 — Tier 2: departman etiketleri `getDataAnalysisLabels().departments`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (sayısal) veri.
+const DEPARTMENT_ABSENTEEISM_STRUCTURE: number[] = [2.1, 5.4, 6.8, 1.9, 7.2, 3.5];
 
-const ABSENTEEISM_TREND_MONTHS = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz'];
+// Ay isimleri artık `MONTH_ABBREV[locale]`'ten TÜRETİLİYOR (Oca..Haz = indeks 0-5).
+const ABSENTEEISM_TREND_MONTH_INDICES = [0, 1, 2, 3, 4, 5];
 const ABSENTEEISM_TREND_DATA = [4.2, 3.8, 5.1, 4.6, 3.9, 3.2];
 
 // 2026-08-19 — kullanıcının paylaştığı gerçek app.idenfit.com "Veri
@@ -588,14 +568,26 @@ const ABSENTEEISM_TREND_DATA = [4.2, 3.8, 5.1, 4.6, 3.9, 3.2];
 // çok daha uzun yapardı. Sayılar gerçek ekrandan KOPYALANMADI (o ekranda
 // "50" gibi bir aykırı değer vardı — muhtemelen toplu bir işlemden,
 // temsili değil), aynı formatta farklı kurgusal rakamlar üretildi.
-const ACTIVE_EMPLOYEE_TREND_WEEKS = ['06 Tem', '13 Tem', '20 Tem', '27 Tem', '03 Ağu', '10 Ağu', '17 Ağu'];
+// Gün etiketleri artık `{day, monthIndex}` yapısal çiftinden `MONTH_ABBREV[locale]`
+// ile TÜRETİLİYOR (Tem = indeks 6, Ağu = indeks 7).
+const ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE: { day: number; monthIndex: number }[] = [
+  { day: 6, monthIndex: 6 },
+  { day: 13, monthIndex: 6 },
+  { day: 20, monthIndex: 6 },
+  { day: 27, monthIndex: 6 },
+  { day: 3, monthIndex: 7 },
+  { day: 10, monthIndex: 7 },
+  { day: 17, monthIndex: 7 },
+];
 const ACTIVE_EMPLOYEE_TREND_DATA = [64, 69, 67, 71, 73, 70, 76];
 
-const DAILY_MOVEMENTS: { color: string; value: string; label: string; sparkline: number[] }[] = [
-  { color: '#10B981', value: '6', label: 'Gelenler', sparkline: [3, 5, 4, 6, 5, 7, 6] },
-  { color: '#F59E0B', value: '2', label: 'Geç Gelenler', sparkline: [1, 3, 2, 4, 2, 3, 2] },
-  { color: '#8B5CF6', value: '1', label: 'Erken Çıkanlar', sparkline: [2, 1, 3, 1, 2, 1, 1] },
-  { color: '#EF4444', value: '3', label: 'Devamsızlık', sparkline: [5, 3, 4, 2, 6, 3, 3] },
+// 2026-09-01 — Tier 2: `label` `getDataAnalysisLabels().dailyMovements`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (renk/sayı/sparkline) veri.
+const DAILY_MOVEMENTS_STRUCTURE: { color: string; value: string; sparkline: number[] }[] = [
+  { color: '#10B981', value: '6', sparkline: [3, 5, 4, 6, 5, 7, 6] },
+  { color: '#F59E0B', value: '2', sparkline: [1, 3, 2, 4, 2, 3, 2] },
+  { color: '#8B5CF6', value: '1', sparkline: [2, 1, 3, 1, 2, 1, 1] },
+  { color: '#EF4444', value: '3', sparkline: [5, 3, 4, 2, 6, 3, 3] },
 ];
 
 // 2026-08-19 (2. tur, aynı gün) — kullanıcı "Veri Analizi diğer
@@ -608,28 +600,27 @@ const DAILY_MOVEMENTS: { color: string; value: string; label: string; sparkline:
 // tutarlı). Gün etiketleri gerçek takvim tarihleri (12-18 Ağustos 2026,
 // `HRCalendarCard`'ın "bugün"üyle [19 Ağustos] AYNI haftanın hemen
 // öncesi).
-const WEEK_DAY_LABELS_AUG = ['12 Ağu', '13 Ağu', '14 Ağu', '15 Ağu', '16 Ağu', '17 Ağu', '18 Ağu'];
-const NEW_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
-  label,
-  value: DAILY_MOVEMENTS[0].sparkline[i],
-}));
-const LATE_ARRIVALS_WEEK: { label: string; value: number }[] = WEEK_DAY_LABELS_AUG.map((label, i) => ({
-  label,
-  value: DAILY_MOVEMENTS[1].sparkline[i],
-}));
+// Gün numaraları 12-18 (Ağustos = monthIndex 7) — etiket metni render'da
+// `MONTH_ABBREV[locale][7]` ile birleştiriliyor.
+const WEEK_DAY_NUMBERS_AUG = [12, 13, 14, 15, 16, 17, 18];
+function buildWeekDayLabelsAug(locale: Locale): string[] {
+  return WEEK_DAY_NUMBERS_AUG.map((day) => `${day} ${MONTH_ABBREV[locale][7]}`);
+}
 
 // --- Üst uygulama header'ının "Kısayollar" açılır paneli — kurgusal
 // veri (2026-08-13, PİLOT turu). 6 kısayol, kullanıcının referans
 // görüntüsünden verilen AYNI sırayla. Gerçek bir hedef/işlev YOK
 // (`RecalculateButton`/`EvaluationRow`'un dekoratif eylem butonlarıyla
 // AYNI ilke) — panel yalnızca görsel olarak dolu durmalı. ---
-const HEADER_SHORTCUTS: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; label: string; color: string }[] = [
-  { icon: UserPlus, label: 'Çalışan Oluştur', color: '#3B82F6' },
-  { icon: CalendarPlus, label: 'İzin Oluştur', color: '#F59E0B' },
-  { icon: FileText, label: 'Rapor Oluştur', color: '#10B981' },
-  { icon: MessageSquare, label: 'Mesaj Gönder', color: '#8B5CF6' },
-  { icon: ClipboardCheck, label: 'Günlük Puantaj', color: '#EC4899' },
-  { icon: CalendarRange, label: 'Vardiya Takvimi', color: '#06B6D4' },
+// 2026-09-01 — Tier 2: `label` `getSharedPanelLabels().shortcuts`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (ikon/renk) veri.
+const HEADER_SHORTCUTS_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string }[] = [
+  { icon: UserPlus, color: '#3B82F6' },
+  { icon: CalendarPlus, color: '#F59E0B' },
+  { icon: FileText, color: '#10B981' },
+  { icon: MessageSquare, color: '#8B5CF6' },
+  { icon: ClipboardCheck, color: '#EC4899' },
+  { icon: CalendarRange, color: '#06B6D4' },
 ];
 
 // --- "HRTECHTOOLS" paneli (3x3 ızgara ikonu) — kullanıcının verdiği TAM
@@ -694,19 +685,15 @@ const APP_DARK_TILE_BG = '#27272A';
 // GEREKMEDİ, ikinci bir kaynak İCAT EDİLMEDİ. **Tıklanınca gerçekten dil
 // DEĞİŞTİRMEZ** — diğer dekoratif panellerle AYNI ilke, yalnızca görsel
 // bir liste (kritik kısıtlama, kullanıcı talimatı). ---
-const LANGUAGE_LIST: { code: CountryFlagCode; name: string }[] = [
-  { code: 'TR', name: 'Türkçe' },
-  { code: 'GB', name: 'İngilizce' },
-  { code: 'DE', name: 'Almanca' },
-  { code: 'ES', name: 'İspanyolca' },
-  { code: 'PT', name: 'Portekizce' },
-  { code: 'IT', name: 'İtalyanca' },
-  { code: 'FR', name: 'Fransızca' },
-  { code: 'NL', name: 'Flemenkçe' },
-  { code: 'SA', name: 'Arapça' },
-  { code: 'RU', name: 'Rusça' },
-  { code: 'AZ', name: 'Azerbaycanca' },
-];
+// 2026-09-01 — Tier 2: `name` `getSharedPanelLabels().languageNames`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (bayrak kodu) veri.
+const LANGUAGE_LIST_CODES: CountryFlagCode[] = ['TR', 'GB', 'DE', 'ES', 'PT', 'IT', 'FR', 'NL', 'SA', 'RU', 'AZ'];
+// Widget'ın gerçek 5 site locale'i ile bu dekoratif listedeki bayrak
+// kodu eşlemesi — "aktif" işareti artık `useWidgetLocale()`'e göre
+// DOĞRU dili gösteriyor (önceden hep 'TR' sabitti, dekoratif panel
+// widget'ın geri kalanı gerçek locale'e duyarlı hale geldikten sonra
+// bu sabitlik tutarsız görünürdü — yan bulgu, aynı turda düzeltildi).
+const LOCALE_TO_LANGUAGE_LIST_CODE: Record<Locale, CountryFlagCode> = { tr: 'TR', en: 'GB', nl: 'NL', it: 'IT', az: 'AZ' };
 
 // --- 2. zil ("Görevler") — kullanıcı "aynı Bildirimler panelini açabilir
 // veya farklı içerik, sen karar ver" dedi. Karar: FARKLI içerik — ilk
@@ -715,20 +702,25 @@ const LANGUAGE_LIST: { code: CountryFlagCode; name: string }[] = [
 // "Onay Bekleyen" temasıyla tutarlı) — iki zilin farklı bir amacı
 // olduğunu gösteriyor, aksi halde aynı boş paneli iki kez göstermek
 // anlamsız olurdu. ---
-const PENDING_TASKS: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; text: string }[] = [
-  { icon: CalendarDays, color: '#F59E0B', text: '3 izin talebi onayını bekliyor' },
-  { icon: FileText, color: '#3B82F6', text: '1 rapor incelemeni bekliyor' },
-  { icon: Target, color: '#8B5CF6', text: 'Q3 performans değerlendirmesi tamamlanmadı' },
+// 2026-09-01 — Tier 2: `text` `getSharedPanelLabels().pendingTasks`ten
+// İNDEKS SIRASIYLA geliyor, burada yalnızca yapısal (ikon/renk) veri.
+const PENDING_TASKS_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string }[] = [
+  { icon: CalendarDays, color: '#F59E0B' },
+  { icon: FileText, color: '#3B82F6' },
+  { icon: Target, color: '#8B5CF6' },
 ];
 
 // --- Analiz (mini bar-chart ikonu) — kullanıcı "sen öner" dedi, referans
 // görüntüde net değildi. Kısa bir "Bugünün Özeti" — widget'ın kurgusal
 // veri ilkesiyle tutarlı, `LEAVE_STATS`'ın "Onay Bekleyen"(3) sayısıyla
 // UYUMLU (aynı kurgusal ay/durum). ---
-const TODAY_SUMMARY: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; label: string; value: string }[] = [
-  { icon: UserCheck, color: '#10B981', label: 'Bugün Giriş Yapan', value: '142 / 150' },
-  { icon: Clock, color: '#3B82F6', label: 'Ortalama Çalışma Süresi', value: '7s 42dk' },
-  { icon: ClipboardCheck, color: '#F59E0B', label: 'Açık Talepler', value: '5' },
+// 2026-09-01 — Tier 2: `label` `getSharedPanelLabels().todaySummaryLabels`ten,
+// ortadaki (saat/dakika birimli) `value` `avgWorkTimeValue`den geliyor
+// — diğer iki `value` ("142 / 150"/"5") sayısal/evrensel, burada sabit.
+const TODAY_SUMMARY_STRUCTURE: { icon: ComponentType<{ className?: string; style?: { color?: string } }>; color: string; staticValue?: string }[] = [
+  { icon: UserCheck, color: '#10B981', staticValue: '142 / 150' },
+  { icon: Clock, color: '#3B82F6' },
+  { icon: ClipboardCheck, color: '#F59E0B', staticValue: '5' },
 ];
 
 // --- Paylaşılan görsel parçalar ---
@@ -889,7 +881,7 @@ function SimpleBarChart({ data, unit = '' }: { data: { label: string; value: num
         ))}
       </div>
       <div
-        className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+        className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 @min-[640px]:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
       >
         {data.map((d) => (
           <div key={d.label} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1080,7 +1072,7 @@ function ShiftAttendanceCard() {
             key={t.shifts[i]}
             className={`flex items-center gap-3 rounded-lg p-2 -m-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-36 shrink-0 truncate text-xs sm:w-48 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+            <span className={`w-36 shrink-0 truncate text-xs @min-[640px]:w-48 @min-[640px]:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
               {t.shifts[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
@@ -1114,7 +1106,7 @@ function OvertimeSummaryCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 sm:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-3 border-l pl-4 @min-[640px]:gap-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {OVERTIME_MONTHS.map((month) => (
             <div key={month.monthIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1289,7 +1281,7 @@ function AttendanceWeekCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 @min-[640px]:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {ATTENDANCE_WEEK.map((day) => (
             <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1355,7 +1347,7 @@ function AverageHoursCard() {
           ))}
         </div>
         <div
-          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 sm:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
+          className={`flex flex-1 items-end justify-between gap-2 border-l pl-4 @min-[640px]:gap-3 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}
         >
           {AVG_HOURS_WEEK.map((day) => (
             <div key={day.dayIndex} className="flex flex-1 flex-col items-center gap-2.5">
@@ -1410,12 +1402,21 @@ function TimeManagementTab() {
           lg:mt-4`) + grafik yükseklikleri (`h-44`→`h-36`, bkz. yukarıdaki
           kart component'leri) küçültüldü — içerik AZALMADI, yalnızca
           daha kompakt yerleşti. */}
-      <div className="grid gap-3 sm:grid-cols-3 lg:gap-4">
+      {/* 2026-09-02 notu ARTIK TARİHSEL (Seçenek A'ya özgüydü, bkz.
+          `mobil-widget-secenek-a-yedek` dalı) — o turda `grid-cols-2` BASE
+          class'ı, `sm:` (VIEWPORT medya sorgusu) eşiğine varmadan mobilde
+          2 sütuna zorlamak için bilinçli eklenmişti. Seçenek B'ye geçişle
+          bu artık ÖLÜ KOD: `@min-[640px]:grid-cols-3` container HER ZAMAN
+          ≥1024px SABİT genişlikte olduğu için HER ZAMAN aktif, `grid-cols-2`
+          base'i hiç render edilmiyor (3 sütun her zaman kazanıyor) — base
+          class kaldırılmadı (zararsız, ölçülebilir bir risk değil) ama
+          artık hiçbir işlevi yok. */}
+      <div className="grid grid-cols-2 gap-3 @min-[640px]:grid-cols-3 @min-[1024px]:gap-4">
         {TIME_KPIS.map((kpi, i) => (
           <TrendKpiCard key={kpi.value + t.kpiSubtext[i]} {...kpi} subtext={t.kpiSubtext[i]} />
         ))}
       </div>
-      <div className="mt-3 grid gap-3 sm:grid-cols-2 lg:mt-4 lg:grid-cols-4 lg:gap-4">
+      <div className="mt-3 grid grid-cols-2 gap-3 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-4">
         {TIME_MINI_STATS.map((stat, i) => (
           <MiniTrendStatCard
             key={[t.miniStats.absent, t.miniStats.late, t.miniStats.earlyLeave, t.miniStats.onLeaveToday][i]}
@@ -1424,11 +1425,11 @@ function TimeManagementTab() {
           />
         ))}
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <AttendanceWeekCard />
         <AverageHoursCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <ShiftAttendanceCard />
         <OvertimeSummaryCard />
       </div>
@@ -1515,7 +1516,7 @@ function BranchLeaveUsageCard() {
             key={branchNames[i]}
             className={`-m-2 flex items-center gap-3 rounded-lg p-2 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
-            <span className={`w-24 shrink-0 truncate text-xs sm:w-32 sm:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
+            <span className={`w-24 shrink-0 truncate text-xs @min-[640px]:w-32 @min-[640px]:text-sm ${isDark ? 'text-gray-300' : 'text-body'}`}>
               {branchNames[i]}
             </span>
             <div className={`h-3 flex-1 overflow-hidden rounded-full ${isDark ? 'bg-gray-700' : 'bg-gray-100'}`}>
@@ -1613,20 +1614,20 @@ function LeaveManagementTab() {
   return (
     <div>
       <SectionMiniHeader icon={CalendarClock} title={t.sectionTitle} href="/yillik-izin-takip-programi/" />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
+      <div className="grid grid-cols-2 gap-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-5">
         {LEAVE_STATS.map((stat, i) => (
           <StatCard key={t.leaveStats[i]} icon={stat.icon} color={stat.color} value={stat.value} label={t.leaveStats[i]} />
         ))}
       </div>
-      <div className="mt-4 grid gap-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-4 grid gap-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveTypeDistributionCard />
         <ApprovalStatusCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveTrendCard />
         <BranchLeaveUsageCard />
       </div>
-      <div className="mt-3 grid gap-4 lg:mt-4 lg:grid-cols-2 lg:gap-6">
+      <div className="mt-3 grid gap-4 @min-[1024px]:mt-4 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-6">
         <LeaveConflictCard />
         <TopLeaveUnitsCard />
       </div>
@@ -1638,10 +1639,13 @@ function LeaveManagementTab() {
 // filtre ilkesi (`aria-hidden`, gerçek bir dropdown AÇMIYOR), 2026-08-19.
 function HeadcountTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
     <WidgetCard
-      title="Headcount Trendi"
-      subtitle="12 aylık çalışan sayısı"
+      title={t.headcountCard.title}
+      subtitle={t.headcountCard.subtitle}
       headerRight={
         <span
           className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-medium ${
@@ -1649,12 +1653,17 @@ function HeadcountTrendCard() {
           }`}
           aria-hidden="true"
         >
-          Toplam
+          {t.headcountCard.totalBadge}
           <ChevronDown className="h-3 w-3" aria-hidden="true" />
         </span>
       }
     >
-      <LineChart data={HEADCOUNT_DATA} labels={HEADCOUNT_MONTHS} color="#3B82F6" dotFill={isDark ? '#1F2937' : '#ffffff'} />
+      <LineChart
+        data={HEADCOUNT_DATA}
+        labels={HEADCOUNT_MONTHS.map((mi) => monthAbbrev[mi])}
+        color="#3B82F6"
+        dotFill={isDark ? '#1F2937' : '#ffffff'}
+      />
     </WidgetCard>
   );
 }
@@ -1662,18 +1671,21 @@ function HeadcountTrendCard() {
 // "Çalışan Devir Hızı" — 3 istatistik kutusu + `DualLineChart`, 2026-08-19.
 function TurnoverRateCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const monthAbbrev = MONTH_ABBREV[locale];
   return (
-    <WidgetCard title="Çalışan Devir Hızı" subtitle="Son 6 ay — işe alım vs ayrılma">
+    <WidgetCard title={t.turnoverCard.title} subtitle={t.turnoverCard.subtitle}>
       <div className="grid grid-cols-3 gap-2">
-        {TURNOVER_STATS.map((s) => (
+        {TURNOVER_STATS.map((s, i) => (
           <div
-            key={s.label}
+            key={t.turnoverStats[i]}
             className={`rounded-lg border p-2 text-center transition-colors ${isDark ? 'border-gray-700 hover:bg-gray-700/50' : 'border-gray-100 hover:bg-gray-50'}`}
           >
             <p className="text-lg font-bold" style={{ color: s.color }}>
               {s.value}
             </p>
-            <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{s.label}</p>
+            <p className={`mt-0.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.turnoverStats[i]}</p>
           </div>
         ))}
       </div>
@@ -1681,7 +1693,7 @@ function TurnoverRateCard() {
         <DualLineChart
           dataA={TURNOVER_HIRED}
           dataB={TURNOVER_LEFT}
-          labels={TURNOVER_MONTHS}
+          labels={TURNOVER_MONTHS.map((mi) => monthAbbrev[mi])}
           colorA="#10B981"
           colorB="#EF4444"
           dotFill={isDark ? '#1F2937' : '#ffffff'}
@@ -1690,11 +1702,11 @@ function TurnoverRateCard() {
       <div className={`mt-2 flex flex-wrap gap-x-4 gap-y-1.5 border-t pt-2 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#10B981]" aria-hidden="true" />
-          İşe Giren
+          {t.turnoverCard.hiredLegend}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full bg-[#EF4444]" aria-hidden="true" />
-          Ayrılan
+          {t.turnoverCard.leftLegend}
         </span>
       </div>
     </WidgetCard>
@@ -1705,13 +1717,14 @@ function TurnoverRateCard() {
 // 2026-08-19.
 function PendingApprovalsCard() {
   const { isDark } = useTheme();
+  const t = getHumanResourcesLabels(useWidgetLocale());
   const total = PENDING_APPROVALS.reduce((sum, p) => sum + p.count, 0);
   return (
-    <WidgetCard title="Onay Bekleyen İşlemler" subtitle="Bekleyen onay talepleri">
+    <WidgetCard title={t.pendingApprovalsCard.title} subtitle={t.pendingApprovalsCard.subtitle}>
       <div className="space-y-0.5">
-        {PENDING_APPROVALS.map((p) => (
+        {PENDING_APPROVALS.map((p, i) => (
           <div
-            key={p.label}
+            key={t.pendingApprovals[i]}
             className={`flex items-center gap-2.5 rounded-lg p-1 transition-colors ${isDark ? 'hover:bg-gray-700/50' : 'hover:bg-gray-50'}`}
           >
             <span
@@ -1721,13 +1734,13 @@ function PendingApprovalsCard() {
             >
               <p.icon className="h-3.5 w-3.5" style={{ color: p.color }} strokeWidth={2.5} />
             </span>
-            <span className={`flex-1 text-sm ${isDark ? 'text-gray-200' : 'text-body'}`}>{p.label}</span>
+            <span className={`flex-1 text-sm ${isDark ? 'text-gray-200' : 'text-body'}`}>{t.pendingApprovals[i]}</span>
             <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{p.count}</span>
           </div>
         ))}
       </div>
       <div className={`mt-1.5 flex items-center justify-between border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
-        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>Toplam Bekleyen</span>
+        <span className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{t.pendingApprovalsCard.totalLabel}</span>
         <span className="text-sm font-bold text-brand">{total}</span>
       </div>
     </WidgetCard>
@@ -1739,10 +1752,13 @@ function PendingApprovalsCard() {
 // `aria-hidden`, gerçekten ay DEĞİŞTİRMİYOR.
 function HRCalendarCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const weekdayAbbrevUpper = WEEKDAY_ABBREV[locale].map((d) => d.toUpperCase());
   return (
     <WidgetCard
-      title="Takvim"
-      subtitle="Doğum günleri, yıldönümleri ve izinler"
+      title={t.calendarCard.title}
+      subtitle={t.calendarCard.subtitle}
       headerRight={
         <div className="flex shrink-0 items-center gap-1.5" aria-hidden="true">
           <span
@@ -1750,7 +1766,7 @@ function HRCalendarCard() {
           >
             <ChevronLeft className="h-3 w-3" />
           </span>
-          <span className={`text-xs font-medium whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Ağustos 2026</span>
+          <span className={`text-xs font-medium whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>{t.calendarCard.monthLabel}</span>
           <span
             className={`flex h-6 w-6 items-center justify-center rounded-md border ${isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 text-body'}`}
           >
@@ -1760,8 +1776,8 @@ function HRCalendarCard() {
       }
     >
       <div className="grid grid-cols-7 gap-0.5 text-center">
-        {CALENDAR_WEEKDAYS.map((w) => (
-          <span key={w} className={`pb-0.5 text-[9px] font-semibold ${isDark ? 'text-gray-500' : 'text-muted'}`}>
+        {weekdayAbbrevUpper.map((w, i) => (
+          <span key={i} className={`pb-0.5 text-[9px] font-semibold ${isDark ? 'text-gray-500' : 'text-muted'}`}>
             {w}
           </span>
         ))}
@@ -1794,15 +1810,15 @@ function HRCalendarCard() {
       <div className={`mt-1.5 flex flex-wrap gap-x-4 gap-y-1 border-t pt-1.5 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.birthday }} aria-hidden="true" />
-          Doğum Günleri
+          {t.calendarCard.legendBirthdays}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.anniversary }} aria-hidden="true" />
-          Yıldönümleri
+          {t.calendarCard.legendAnniversaries}
         </span>
         <span className={`flex items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>
           <span className="h-2 w-2 rounded-full" style={{ backgroundColor: EVENT_DOT_COLORS.leave }} aria-hidden="true" />
-          İzinler
+          {t.calendarCard.legendLeaves}
         </span>
       </div>
     </WidgetCard>
@@ -1835,27 +1851,46 @@ function TrackingBoxRow({ items }: { items: TrackingBoxData[] }) {
 }
 
 function ProbationTrackingCard() {
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const items: TrackingBoxData[] = PROBATION_TRACKING_STRUCTURE.map((p) => ({
+    color: p.color,
+    bgLight: p.bgLight,
+    count: p.count,
+    primaryLabel: `${p.primaryValue} ${p.primaryUnit === 'month' ? t.monthUnit : t.yearUnit}`,
+    secondaryLabel: `${p.secondaryDays} ${t.dayUnit}`,
+  }));
   return (
-    <WidgetCard title="Deneme Süresi Takibi" subtitle="Deneme süresindeki çalışanlar">
-      <TrackingBoxRow items={PROBATION_TRACKING} />
+    <WidgetCard title={t.probationCard.title} subtitle={t.probationCard.subtitle}>
+      <TrackingBoxRow items={items} />
     </WidgetCard>
   );
 }
 
 function ContractTrackingCard() {
+  const locale = useWidgetLocale();
+  const t = getHumanResourcesLabels(locale);
+  const items: TrackingBoxData[] = CONTRACT_TRACKING_STRUCTURE.map((c) => ({
+    color: c.color,
+    bgLight: c.bgLight,
+    count: c.count,
+    primaryLabel: `${c.primaryDays} ${t.dayUnit}`,
+    secondaryLabel: '',
+  }));
   return (
-    <WidgetCard title="Sözleşme Takibi" subtitle="Yenilenmesi gereken sözleşmeler">
-      <TrackingBoxRow items={CONTRACT_TRACKING} />
+    <WidgetCard title={t.contractCard.title} subtitle={t.contractCard.subtitle}>
+      <TrackingBoxRow items={items} />
     </WidgetCard>
   );
 }
 
 function BirthdayAnniversaryCard() {
   const { isDark } = useTheme();
+  const t = getHumanResourcesLabels(useWidgetLocale());
   return (
-    <WidgetCard title="Doğum Günü & Yıldönümü" subtitle="Bu hafta">
+    <WidgetCard title={t.birthdayCard.title} subtitle={t.birthdayCard.subtitle}>
       <div className="space-y-1.5">
-        {HR_EVENTS.map((event) => (
+        {HR_EVENTS.map((event, i) => (
           <div
             key={event.name}
             className={`flex items-center gap-2.5 rounded-lg border p-2 transition-colors ${
@@ -1871,7 +1906,7 @@ function BirthdayAnniversaryCard() {
             </span>
             <div className="min-w-0 flex-1">
               <p className={`truncate text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{event.name}</p>
-              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{event.description}</p>
+              <p className={`truncate text-xs ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.hrEvents[i]}</p>
             </div>
             <span className="text-lg" aria-hidden="true">
               {event.emoji}
@@ -1884,21 +1919,22 @@ function BirthdayAnniversaryCard() {
 }
 
 function HumanResourcesTab() {
+  const t = getHumanResourcesLabels(useWidgetLocale());
   return (
     <div>
-      <SectionMiniHeader icon={Users} title="İnsan Kaynakları" href="/insan-kaynaklari-yonetimi-modulu/" />
-      <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <SectionMiniHeader icon={Users} title={t.sectionTitle} href="/insan-kaynaklari-yonetimi-modulu/" />
+      <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <HeadcountTrendCard />
         <BirthdayAnniversaryCard />
       </div>
-      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <div className="mt-2 grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <TurnoverRateCard />
         <PendingApprovalsCard />
       </div>
       <div className="mt-2">
         <HRCalendarCard />
       </div>
-      <div className="mt-2 grid gap-3 lg:grid-cols-2 lg:gap-5">
+      <div className="mt-2 grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
         <ProbationTrackingCard />
         <ContractTrackingCard />
       </div>
@@ -1910,6 +1946,7 @@ function HumanResourcesTab() {
 // AYNI SVG tekniği (strokeDasharray + -rotate-90), tek segment + gri track.
 function GoalProgressRing({ percent, color }: { percent: number; color: string }) {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
   const radius = 15.5;
   const circumference = 2 * Math.PI * radius;
   const dash = (Math.min(percent, 100) / 100) * circumference;
@@ -1929,7 +1966,7 @@ function GoalProgressRing({ percent, color }: { percent: number; color: string }
         />
       </svg>
       <div className="absolute inset-0 flex items-center justify-center">
-        <span className={`text-[11px] font-bold ${isDark ? 'text-white' : 'text-heading'}`}>%{percent}</span>
+        <span className={`text-[11px] font-bold ${isDark ? 'text-white' : 'text-heading'}`}>{formatPercent(percent, locale)}</span>
       </div>
     </div>
   );
@@ -1958,7 +1995,7 @@ function GoalRow({ goal }: { goal: GoalItem }) {
             {goal.category}
           </span>
           <span className={`text-[11px] ${isDark ? 'text-gray-500' : 'text-muted'}`}>
-            {goal.period} · {goal.keyResultCount} anahtar sonuç
+            {goal.period} · {goal.keyResultCount} {goal.keyResultUnitLabel}
           </span>
         </div>
       </div>
@@ -1990,9 +2027,11 @@ function GoalRow({ goal }: { goal: GoalItem }) {
 // göre beklenen %" karşılaştırması (yön okuyla renkli).
 function KeyResultRow({ kr }: { kr: KeyResultItem }) {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getPerformanceManagementLabels(locale);
   const PaceIcon = kr.pace === 'ahead' ? TrendingUp : TrendingDown;
   const paceColor = kr.pace === 'ahead' ? '#10B981' : '#EF4444';
-  const paceLabel = kr.pace === 'ahead' ? 'planın önünde' : 'planın gerisinde';
+  const paceLabel = kr.pace === 'ahead' ? t.paceAheadLabel : t.paceBehindLabel;
   return (
     <div className={`rounded-lg border p-4 ${isDark ? 'border-gray-700' : 'border-gray-100'}`}>
       <div className="flex flex-wrap items-start justify-between gap-3">
@@ -2007,7 +2046,7 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
           <div>
             <p className={`text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{kr.name}</p>
             <p className={`text-xs ${isDark ? 'text-gray-500' : 'text-muted'}`}>
-              Son check-in: {kr.lastCheckIn} · {kr.status}
+              {t.lastCheckInPrefix} {kr.lastCheckIn} · {kr.status}
             </p>
           </div>
         </div>
@@ -2029,12 +2068,15 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
       </div>
       <p className={`mt-2 flex flex-wrap items-center gap-1.5 text-xs ${isDark ? 'text-gray-400' : 'text-body'}`}>
         <span>
-          Güncel: <strong className={isDark ? 'text-white' : 'text-heading'}>{kr.currentValueLabel} (%{kr.currentPercent})</strong>
+          {t.currentPrefix}{' '}
+          <strong className={isDark ? 'text-white' : 'text-heading'}>
+            {kr.currentValueLabel} ({formatPercent(kr.currentPercent, locale)})
+          </strong>
         </span>
         <span className={isDark ? 'text-gray-600' : 'text-gray-300'}>|</span>
         <span className="inline-flex items-center gap-1 font-medium" style={{ color: paceColor }}>
           <PaceIcon className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden="true" />
-          Takvime göre beklenen %{kr.expectedPercent} — {paceLabel}
+          {t.expectedPrefix} {formatPercent(kr.expectedPercent, locale)} — {paceLabel}
         </span>
       </p>
     </div>
@@ -2042,27 +2084,40 @@ function KeyResultRow({ kr }: { kr: KeyResultItem }) {
 }
 
 function PerformanceManagementTab() {
+  const locale = useWidgetLocale();
+  const t = getPerformanceManagementLabels(locale);
+  const goals: GoalItem[] = PERFORMANCE_GOALS_STRUCTURE.map((structure, i) => ({
+    ...structure,
+    ...t.goals[i],
+    period: t.period,
+    keyResultUnitLabel: t.keyResultUnitLabel,
+  }));
+  const keyResults: KeyResultItem[] = GOAL_KEY_RESULTS_STRUCTURE.map((structure, i) => {
+    const { lastCheckInLabel, ...labelRest } = t.keyResults[i];
+    return { ...structure, ...labelRest, lastCheckIn: lastCheckInLabel };
+  });
+  const keyResultsSubtitle = t.keyResultsCard.subtitleTemplate.replace('{goal}', t.goals[0].name);
   return (
     <div>
-      <SectionMiniHeader icon={Target} title="Performans Yönetimi" href="/calisan-performans-degerlendirme-sistemi-modulu/" />
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 lg:gap-5">
-        {PERFORMANCE_KPI_STATS.map((stat) => (
-          <StatCard key={stat.label} icon={stat.icon} color={stat.color} value={stat.value} label={stat.label} />
+      <SectionMiniHeader icon={Target} title={t.sectionTitle} href="/calisan-performans-degerlendirme-sistemi-modulu/" />
+      <div className="grid grid-cols-2 gap-4 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-5">
+        {PERFORMANCE_KPI_STATS.map((stat, i) => (
+          <StatCard key={t.kpiStats[i].label} icon={stat.icon} color={stat.color} value={t.kpiStats[i].value} label={t.kpiStats[i].label} />
         ))}
       </div>
       <div className="mt-3">
-        <WidgetCard title="Hedefler (OKR) / KPI" subtitle="Şirket, takım ve bireysel hedeflerin ilerleme durumu">
+        <WidgetCard title={t.goalsCard.title} subtitle={t.goalsCard.subtitle}>
           <div className="space-y-3">
-            {PERFORMANCE_GOALS.map((goal) => (
+            {goals.map((goal) => (
               <GoalRow key={goal.name} goal={goal} />
             ))}
           </div>
         </WidgetCard>
       </div>
       <div className="mt-3">
-        <WidgetCard title="Anahtar Sonuçlar" subtitle="“Yıllık ciroyu %20 artırmak” hedefinin ilerleme detayı">
+        <WidgetCard title={t.keyResultsCard.title} subtitle={keyResultsSubtitle}>
           <div className="space-y-3">
-            {GOAL_KEY_RESULTS.map((kr) => (
+            {keyResults.map((kr) => (
               <KeyResultRow key={kr.name} kr={kr} />
             ))}
           </div>
@@ -2078,24 +2133,26 @@ function PerformanceManagementTab() {
 // görüntüsündeki AYNI tekrar deseni). `GoalRow`'un durum rozetiyle AYNI
 // ilke — gerçek bir hesaplama işlevi YOK, mockup.
 function RecalculateButton() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
     <span
       role="button"
       aria-hidden="true"
       className="inline-flex shrink-0 cursor-default items-center rounded-lg bg-brand px-4 py-2.5 text-sm font-semibold whitespace-nowrap text-white transition-transform hover:scale-105"
     >
-      Verileri Hesapla
+      {t.recalculateButtonLabel}
     </span>
   );
 }
 
 function DateRangeCard() {
   const { isDark } = useTheme();
+  const t = getDataAnalysisLabels(useWidgetLocale());
   const fieldClass = `flex h-10 min-w-0 items-center gap-2 rounded-lg border px-3.5 text-sm font-medium transition-colors ${
     isDark ? 'border-gray-700 bg-gray-900 text-gray-100 hover:border-gray-500' : 'border-gray-200 bg-white text-heading hover:border-brand/40'
   }`;
   return (
-    <WidgetCard title="Tarih Aralığı" subtitle="Analiz edilecek dönemi seçin">
+    <WidgetCard title={t.dateRangeCard.title} subtitle={t.dateRangeCard.subtitle}>
       <div className="flex flex-wrap items-center gap-3">
         <span className={fieldClass} aria-hidden="true">
           <CalendarDays className="h-4 w-4 shrink-0" strokeWidth={2.5} />
@@ -2115,23 +2172,23 @@ function DateRangeCard() {
 }
 
 function DepartmentAbsenteeismCard() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
+  const data = DEPARTMENT_ABSENTEEISM_STRUCTURE.map((value, i) => ({ label: t.departments[i], value }));
   return (
-    <WidgetCard title="Departman Bazlı Devamsızlık Oranı" subtitle="Seçili dönem">
-      <SimpleBarChart data={DEPARTMENT_ABSENTEEISM} unit="%" />
+    <WidgetCard title={t.departmentAbsenteeismCard.title} subtitle={t.departmentAbsenteeismCard.subtitle}>
+      <SimpleBarChart data={data} unit="%" />
     </WidgetCard>
   );
 }
 
 function AbsenteeismTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = ABSENTEEISM_TREND_MONTH_INDICES.map((mi) => MONTH_ABBREV[locale][mi]);
   return (
-    <WidgetCard title="Aylık Devamsızlık Trendi" subtitle="Son 6 ay, %">
-      <LineChart
-        data={ABSENTEEISM_TREND_DATA}
-        labels={ABSENTEEISM_TREND_MONTHS}
-        color="#FF0000"
-        dotFill={isDark ? '#1F2937' : '#ffffff'}
-      />
+    <WidgetCard title={t.absenteeismTrendCard.title} subtitle={t.absenteeismTrendCard.subtitle}>
+      <LineChart data={ABSENTEEISM_TREND_DATA} labels={labels} color="#FF0000" dotFill={isDark ? '#1F2937' : '#ffffff'} />
     </WidgetCard>
   );
 }
@@ -2142,26 +2199,24 @@ function AbsenteeismTrendCard() {
 // ilkesi (`aria-hidden`, gerçekten veri DEĞİŞTİRMİYOR).
 function ActiveEmployeeTrendCard() {
   const { isDark } = useTheme();
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE.map(({ day, monthIndex }) => `${String(day).padStart(2, '0')} ${MONTH_ABBREV[locale][monthIndex]}`);
   return (
     <WidgetCard
-      title="Aktif Çalışan Sayısı Trendi"
-      subtitle="Son 7 hafta"
+      title={t.activeEmployeeTrendCard.title}
+      subtitle={t.activeEmployeeTrendCard.subtitle}
       headerRight={
         <div
           className={`flex shrink-0 items-center gap-1 rounded-full border p-0.5 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
           aria-hidden="true"
         >
-          <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">Haftalık</span>
-          <span className={`px-2.5 py-1 text-xs font-medium ${isDark ? 'text-gray-400' : 'text-muted'}`}>Aylık</span>
+          <span className="rounded-full bg-brand px-2.5 py-1 text-xs font-semibold text-white">{t.activeEmployeeTrendCard.weeklyBadge}</span>
+          <span className={`px-2.5 py-1 text-xs font-medium ${isDark ? 'text-gray-400' : 'text-muted'}`}>{t.activeEmployeeTrendCard.monthlyBadge}</span>
         </div>
       }
     >
-      <LineChart
-        data={ACTIVE_EMPLOYEE_TREND_DATA}
-        labels={ACTIVE_EMPLOYEE_TREND_WEEKS}
-        color="#FF0000"
-        dotFill={isDark ? '#1F2937' : '#ffffff'}
-      />
+      <LineChart data={ACTIVE_EMPLOYEE_TREND_DATA} labels={labels} color="#FF0000" dotFill={isDark ? '#1F2937' : '#ffffff'} />
     </WidgetCard>
   );
 }
@@ -2172,10 +2227,11 @@ function ActiveEmployeeTrendCard() {
 // deseniyle (`MiniTrendStatCard` yeniden kullanıldı, ikinci bir
 // component YAZILMADI).
 function DailyMovementsRow() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
-    <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4 lg:gap-4">
-      {DAILY_MOVEMENTS.map((stat) => (
-        <MiniTrendStatCard key={stat.label} {...stat} />
+    <div className="grid grid-cols-2 gap-3 @min-[1024px]:grid-cols-4 @min-[1024px]:gap-4">
+      {DAILY_MOVEMENTS_STRUCTURE.map((stat, i) => (
+        <MiniTrendStatCard key={t.dailyMovements[i]} {...stat} label={t.dailyMovements[i]} />
       ))}
     </div>
   );
@@ -2187,34 +2243,43 @@ function DailyMovementsRow() {
 // haftanın verisi — içerik tekrarı değil, iki farklı görselleştirme
 // derinliği).
 function NewArrivalsCard() {
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = buildWeekDayLabelsAug(locale);
+  const data = labels.map((label, i) => ({ label, value: DAILY_MOVEMENTS_STRUCTURE[0].sparkline[i] }));
   return (
-    <WidgetCard title="Çalışan Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
-      <SimpleBarChart data={NEW_ARRIVALS_WEEK} />
+    <WidgetCard title={t.newArrivalsCard.title} subtitle={t.newArrivalsCard.subtitle}>
+      <SimpleBarChart data={data} />
     </WidgetCard>
   );
 }
 
 function LateArrivalsCard() {
+  const locale = useWidgetLocale();
+  const t = getDataAnalysisLabels(locale);
+  const labels = buildWeekDayLabelsAug(locale);
+  const data = labels.map((label, i) => ({ label, value: DAILY_MOVEMENTS_STRUCTURE[1].sparkline[i] }));
   return (
-    <WidgetCard title="Çalışan Geç Gelenler Sayısı" subtitle="12–18 Ağustos 2026">
-      <SimpleBarChart data={LATE_ARRIVALS_WEEK} />
+    <WidgetCard title={t.lateArrivalsCard.title} subtitle={t.lateArrivalsCard.subtitle}>
+      <SimpleBarChart data={data} />
     </WidgetCard>
   );
 }
 
 function DataAnalysisTab() {
+  const t = getDataAnalysisLabels(useWidgetLocale());
   return (
     <div>
-      <SectionMiniHeader icon={BarChart3} title="Veri Analizi" />
+      <SectionMiniHeader icon={BarChart3} title={t.sectionTitle} />
       <div className="space-y-3">
         <DateRangeCard />
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
           <DepartmentAbsenteeismCard />
           <AbsenteeismTrendCard />
         </div>
         <ActiveEmployeeTrendCard />
         <DailyMovementsRow />
-        <div className="grid gap-3 lg:grid-cols-2 lg:gap-5">
+        <div className="grid gap-3 @min-[1024px]:grid-cols-2 @min-[1024px]:gap-5">
           <NewArrivalsCard />
           <LateArrivalsCard />
         </div>
@@ -2268,7 +2333,7 @@ function IconDropdown({
   const { isDark } = useTheme();
   const isOpen = openPanel === panelKey;
   return (
-    <div className={`relative ${hiddenSm ? 'hidden sm:block' : ''}`}>
+    <div className={`relative ${hiddenSm ? 'hidden @min-[640px]:block' : ''}`}>
       <button
         type="button"
         aria-label={label}
@@ -2295,13 +2360,14 @@ function IconDropdown({
 function ShortcutsPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.shortcuts.title}</h4>
       <div className="grid grid-cols-3 gap-1" aria-hidden="true">
-        {HEADER_SHORTCUTS.map((shortcut) => (
+        {HEADER_SHORTCUTS_STRUCTURE.map((shortcut, i) => (
           <span
-            key={shortcut.label}
+            key={shared.shortcuts[i]}
             role="button"
             className={`flex cursor-default flex-col items-center gap-1.5 rounded-lg p-2 text-center transition-colors ${
               isDark ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
@@ -2313,7 +2379,7 @@ function ShortcutsPanelContent() {
             >
               <shortcut.icon className="h-4 w-4" style={{ color: shortcut.color }} />
             </span>
-            <span className={`text-[10.5px] leading-tight font-medium ${isDark ? 'text-gray-200' : 'text-body'}`}>{shortcut.label}</span>
+            <span className={`text-[10.5px] leading-tight font-medium ${isDark ? 'text-gray-200' : 'text-body'}`}>{shared.shortcuts[i]}</span>
           </span>
         ))}
       </div>
@@ -2421,12 +2487,17 @@ function AppsPanelContent({ onNavigate }: { onNavigate: () => void }) {
   );
 }
 
-// Dil seçici satırı — Türkçe (aktif) `bg-brand-light`+kırmızı+onay ikonuyla
+// Dil seçici satırı — aktif dil `bg-brand-light`+kırmızı+onay ikonuyla
 // vurgulanıyor, `LanguageSwitcher.tsx`'in (site geneli gerçek dil
 // değiştirici) AYNI görsel dilini izliyor ama TAMAMEN dekoratif.
-function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
+// 2026-09-01 — "aktif" işareti artık widget'ın GERÇEK `locale` prop'una
+// göre (`LOCALE_TO_LANGUAGE_LIST_CODE`) — önceden `code === 'TR'` sabitti,
+// widget'ın geri kalanı locale'e duyarlı hale geldikten sonra bu sabitlik
+// tutarsız görünürdü (yan bulgu, aynı turda düzeltildi).
+function LanguageRow({ code, name }: { code: CountryFlagCode; name: string }) {
   const { isDark } = useTheme();
-  const isActive = lang.code === 'TR';
+  const locale = useWidgetLocale();
+  const isActive = code === LOCALE_TO_LANGUAGE_LIST_CODE[locale];
   return (
     <span
       role="button"
@@ -2435,8 +2506,8 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
       }`}
     >
       <span className="flex items-center gap-2.5">
-        <CountryFlagIcon code={lang.code} />
-        <span>{lang.name}</span>
+        <CountryFlagIcon code={code} />
+        <span>{name}</span>
       </span>
       {isActive && <Check className="h-3.5 w-3.5 shrink-0" aria-hidden="true" />}
     </span>
@@ -2446,14 +2517,15 @@ function LanguageRow({ lang }: { lang: (typeof LANGUAGE_LIST)[number] }) {
 function LanguagePanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}>
         {labels.languageSelector.title}
       </h4>
       <div className="space-y-0.5 pt-1" aria-hidden="true">
-        {LANGUAGE_LIST.map((lang) => (
-          <LanguageRow key={lang.code} lang={lang} />
+        {LANGUAGE_LIST_CODES.map((code, i) => (
+          <LanguageRow key={code} code={code} name={shared.languageNames[i]} />
         ))}
       </div>
     </div>
@@ -2463,21 +2535,22 @@ function LanguagePanelContent() {
 function TasksPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4
         className={`mb-1 flex items-center gap-2 border-b pb-3 text-sm font-semibold ${isDark ? 'border-gray-700 text-white' : 'border-gray-100 text-heading'}`}
       >
         {labels.tasks.title}
-        <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS.length}</span>
+        <span className="rounded-full bg-brand px-1.5 py-0.5 text-[10px] font-bold text-white">{PENDING_TASKS_STRUCTURE.length}</span>
       </h4>
       <div className="space-y-3 pt-2" aria-hidden="true">
-        {PENDING_TASKS.map((task) => (
-          <div key={task.text} className="flex items-start gap-2.5">
+        {PENDING_TASKS_STRUCTURE.map((task, i) => (
+          <div key={shared.pendingTasks[i]} className="flex items-start gap-2.5">
             <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${task.color}1A` }}>
               <task.icon className="h-3.5 w-3.5" style={{ color: task.color }} />
             </span>
-            <p className={`text-xs leading-snug ${isDark ? 'text-gray-300' : 'text-body'}`}>{task.text}</p>
+            <p className={`text-xs leading-snug ${isDark ? 'text-gray-300' : 'text-body'}`}>{shared.pendingTasks[i]}</p>
           </div>
         ))}
       </div>
@@ -2514,19 +2587,22 @@ function AvatarPanelContent() {
 function AnalyticsPanelContent() {
   const { isDark } = useTheme();
   const labels = useLabels();
+  const shared = getSharedPanelLabels(useWidgetLocale());
   return (
     <div>
       <h4 className={`mb-3 text-sm font-semibold ${isDark ? 'text-white' : 'text-heading'}`}>{labels.analytics.title}</h4>
       <div className="space-y-3" aria-hidden="true">
-        {TODAY_SUMMARY.map((row) => (
-          <div key={row.label} className="flex items-center justify-between gap-3">
+        {TODAY_SUMMARY_STRUCTURE.map((row, i) => (
+          <div key={shared.todaySummaryLabels[i]} className="flex items-center justify-between gap-3">
             <span className="flex items-center gap-2.5">
               <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${row.color}1A` }}>
                 <row.icon className="h-3.5 w-3.5" style={{ color: row.color }} />
               </span>
-              <span className={`text-xs ${isDark ? 'text-gray-300' : 'text-body'}`}>{row.label}</span>
+              <span className={`text-xs ${isDark ? 'text-gray-300' : 'text-body'}`}>{shared.todaySummaryLabels[i]}</span>
             </span>
-            <span className={`text-sm font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>{row.value}</span>
+            <span className={`text-sm font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>
+              {row.staticValue ?? shared.avgWorkTimeValue}
+            </span>
           </div>
         ))}
       </div>
@@ -2648,7 +2724,7 @@ function AppHeaderBar() {
           <ShortcutsPanelContent />
         </IconDropdown>
         <span
-          className={`hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-sm sm:flex ${
+          className={`hidden h-9 items-center gap-2 rounded-lg border px-3.5 text-sm @min-[640px]:flex ${
             isDark ? 'border-gray-700 text-gray-400' : 'border-gray-200 bg-gray-50 text-muted'
           }`}
         >
@@ -2732,7 +2808,7 @@ function AppHeaderBar() {
           trigger={
             <>
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-brand text-xs font-semibold text-white">DA</span>
-              <span className="hidden leading-tight sm:block">
+              <span className="hidden leading-tight @min-[640px]:block">
                 <span className={`block text-xs font-semibold whitespace-nowrap ${isDark ? 'text-white' : 'text-heading'}`}>Deniz Aydın</span>
                 <span className={`block text-[10px] whitespace-nowrap ${isDark ? 'text-gray-500' : 'text-muted'}`}>{labels.jobTitle}</span>
               </span>
@@ -2751,6 +2827,82 @@ function AppHeaderBar() {
 // AYNI değer, projede zaten kanıtlanmış bir süre).
 const AUTO_TAB_INTERVAL_MS = 6000;
 
+// Mobil ölçekleme — Seçenek B (2026-09-02, DÖRDÜNCÜ tur). Önceki üç turda
+// Seçenek A uygulanmıştı (mevcut mobil-optimize düzeni AYNEN koruyup tek
+// birim olarak küçültmek, bkz. `mobil-widget-secenek-a-yedek` dalı) —
+// düşük riskliydi ama masaüstündeki GERÇEK sidebar+grid halini
+// göstermiyordu. Ucuz bir ön-testte (masaüstü DOM'u 375px'e küçültülüp
+// görüntülendi) ikincil metinler/rozetler okunaksız çıktı, ama kullanıcı
+// riski BİLEREK "yine de Seçenek B'yi istiyorum" dedi — bu turda uygulandı.
+//
+// Teknik: widget'ın `lg:`/`sm:` (VIEWPORT medya sorgusu) kuralları
+// `@min-[1024px]:`/`@min-[640px]:` (Tailwind v4 CONTAINER query varyantı,
+// AYNI piksel eşikleriyle — Tailwind v4'ün `@lg`/`@sm` VARSAYILAN container
+// değerleri viewport eşiklerinden FARKLI olduğu için bilinçli olarak
+// arbitrary-value söz dizimi kullanıldı) ile DEĞİŞTİRİLDİ. `containerRef`
+// (aşağıda) `@container` class'ı + SABİT `DESKTOP_NATURAL_WIDTH` genişliği
+// taşıyor — container query'ler bu SABİT genişliğe göre değerlendiği için
+// widget artık GERÇEK viewport ne olursa olsun HER ZAMAN masaüstü
+// (sidebar+grid) düzeninde render ediliyor, sonra TÜMÜ `transform:scale()`
+// ile gerçek konteynerin genişliğine sığacak şekilde küçültülüyor (üst
+// sınır 1 — asla büyütülmez; ALT sınır KASITLI OLARAK YOK: Seçenek A'nın
+// `[0.5,1]` aralığı `NATURAL_MOBILE_WIDTH=480` içindi, 1280'lik masaüstü
+// doğal genişliğiyle 0.5 tabanı minimum 640px render genişliği demek —
+// HİÇBİR telefonda `outerRef`'e sığmaz, `overflow-hidden` tarafından
+// KIRPILIR. Bu turda gerçek DOM'da doğrulandı: 278px'lik konteynerde
+// 0.5 tabanıyla widget 640px render edip taştı — taban kaldırıldı, ölçek
+// artık yalnızca üstten sınırlı, HER ZAMAN tam genişliğe sığıyor).
+//
+// CSS containment kısıtı: bir eleman KENDİ container query'sinin hedefi
+// OLAMAZ (döngüsel bağımlılık) — bu yüzden ÜÇ ayrı katman var: `outerRef`
+// (gerçek viewport'a bağlı konteyner genişliğini ölçer) → `containerRef`
+// (`@container` + SABİT genişlik + `transform:scale()`, KENDİ üstünde
+// `@min-[...]:` KULLANMAZ) → `innerRef` (asıl `flex-col @min-[1024px]:
+// flex-row` düzeni + tüm alt bileşenlerin `@min-[...]:` kuralları,
+// `containerRef`'in genişliğini sorguluyor). Artık VIEWPORT'a değil
+// yalnızca GENİŞLİK ORANINA bağlı olduğu için `isMobile`/`matchMedia`
+// durumuna hiç gerek kalmadı — ölçek HER ZAMAN hesaplanıyor, masaüstünde
+// doğal olarak ~1'e denk geliyor (konteyner zaten `DESKTOP_NATURAL_WIDTH`
+// kadar geniş olduğu için).
+//
+// Daha önce bulunan `align-items:stretch` kırpma hatası (bkz. `outerRef`
+// className'indeki `items-start`, AYNI gerekçe hâlâ geçerli) + bu turda
+// bulunan flex-shrink hatası (bir flex item'a SABİT genişlik vermek onu
+// küçülmeden KORUMAZ, `flexShrink:0` de gerekir — `containerRef`'e
+// eklendi, aksi halde masaüstü doğal genişliği dar konteynerlerde
+// flexbox tarafından SIKIŞTIRILIR, ölçek yanlış hesaplanır) düzeltildi.
+const DESKTOP_NATURAL_WIDTH = 1280;
+
+function useMobileScale() {
+  const outerRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scale, setScale] = useState(1);
+  const [scaledHeight, setScaledHeight] = useState<number | null>(null);
+
+  useEffect(() => {
+    const update = () => {
+      if (!outerRef.current || !containerRef.current) return;
+      const containerWidth = outerRef.current.offsetWidth;
+      const naturalHeight = containerRef.current.offsetHeight;
+      const widthScale = containerWidth / DESKTOP_NATURAL_WIDTH;
+      const nextScale = Math.min(1, widthScale);
+      setScale(nextScale);
+      setScaledHeight(naturalHeight * nextScale);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    if (outerRef.current) ro.observe(outerRef.current);
+    if (containerRef.current) ro.observe(containerRef.current);
+    window.addEventListener('resize', update);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', update);
+    };
+  }, []);
+
+  return { outerRef, containerRef, scale, scaledHeight };
+}
+
 export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   // DÜZELTME (2026-08-27) — varsayılan aktif sekme `TABS`'in YENİ ilk
   // öğesiyle ('ik') eşleşecek şekilde güncellendi (önceden 'zaman'), sayfa
@@ -2759,6 +2911,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
   const [isDark, setIsDark] = useState(false);
   const [autoPaused, setAutoPaused] = useState(false);
   const toggle = () => setIsDark((v) => !v);
+  const { outerRef, containerRef, scale, scaledHeight } = useMobileScale();
 
   // Dil desteği (2026-08-31) — bkz. `LabelsContext` yorumu. `TABS`/
   // `ENABLED_TABS` artık modül-seviyesinde SABİT değil, `locale`'e göre
@@ -2791,8 +2944,25 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
     <LocaleContext.Provider value={locale}>
     <LabelsContext.Provider value={labels}>
     <ThemeContext.Provider value={{ isDark, toggle }}>
+      {/* `items-start` şart: yoksa flex'in varsayılan `align-items: stretch`'i,
+          `scaledHeight` ile sınırlanan bu dış kutunun yüksekliğini, transform
+          ile ölçeklenen `containerRef`'in GERÇEK layout yüksekliğine (görsel
+          değil) uygulayıp içeriği kırpar. */}
+      <div ref={outerRef} className="flex items-start justify-center overflow-hidden" style={scaledHeight != null ? { height: scaledHeight } : undefined}>
+      {/* `containerRef`: container query'lerin (`@min-[...]:`) ölçtüğü SABİT
+          genişlikteki katman — `@container` + `DESKTOP_NATURAL_WIDTH` +
+          `transform:scale()` + `flexShrink:0` (üstteki hook yorumuna bkz.,
+          bu olmadan `outerRef`'in `flex justify-center`'ı bu SABİT genişliği
+          dar konteynerlerde sıkıştırır). Kendi ÜSTÜNDE `@min-[...]:`
+          KULLANMIYOR (CSS containment: bir eleman kendi container query'sinin
+          hedefi olamaz) — o kurallar bir alt seviyedeki `innerRef`'te. */}
       <div
-        className={`flex flex-col overflow-hidden rounded-b-2xl border border-t-0 lg:flex-row ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+        ref={containerRef}
+        className={`@container overflow-hidden rounded-b-2xl border border-t-0 ${isDark ? 'border-gray-700' : 'border-gray-200'}`}
+        style={{ width: DESKTOP_NATURAL_WIDTH, transform: `scale(${scale})`, transformOrigin: 'top center', flexShrink: 0 }}
+      >
+      <div
+        className="flex flex-col @min-[1024px]:flex-row"
         onMouseEnter={() => setAutoPaused(true)}
         onMouseLeave={() => setAutoPaused(false)}
         onFocus={() => setAutoPaused(true)}
@@ -2817,22 +2987,18 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
             (aşağıda) saf beyaza döndü. Karanlık modda AYNI ilke aynen
             uygulandı: sidebar `gray-950` (daha koyu), içerik `gray-900`
             (daha açık) — önceki sürümde bu ilişki TERSTİ. */}
-        <div className={`shrink-0 border-b p-5 lg:w-72 lg:border-r lg:border-b-0 lg:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
-          <IdenfitLogo className={`h-6 w-auto sm:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
-          {/* Mobil/tablet (< lg): dikey modül listesi widget'ı çok
-              uzatıyordu — sidebar (11 öğe) içerikle YAN YANA değil, ÜST
-              ÜSTE dizilince (bkz. dış sarmalayıcının `flex-col lg:flex-row`'u)
-              toplam yükseklik masaüstünün (~620-650px) neredeyse 2 katına
-              (~1150-1200px) çıkıyor, "tek parça" hissi kayboluyordu
-              (2026-08-31, kullanıcı bulgusu — iframe-viewport tekniğiyle
-              390px'te doğrulandı). Düzeltme: `lg:` ALTINDA nav yatay
-              kaydırılabilir bir sekme çubuğuna dönüşüyor (`flex` + `overflow-x-auto`,
-              her buton `shrink-0` — sıkışmıyor, doğal genişliğinde kalıyor),
-              `lg:` ve ÜZERİNDE davranış BİREBİR korunuyor (`lg:flex-col`,
-              dikey liste, `lg:w-full` butonlar). Aynı 11 modül/ikon/rozet
-              — içerik/işlevsellik DEĞİŞMEDİ, yalnızca küçük ekranda
-              yerleşim yönü. */}
-          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 lg:mt-6 lg:flex-col lg:gap-1 lg:overflow-visible lg:pb-0">
+        <div className={`shrink-0 border-b p-5 @min-[1024px]:w-72 @min-[1024px]:border-r @min-[1024px]:border-b-0 @min-[1024px]:p-6 ${isDark ? 'border-gray-700 bg-gray-950' : 'border-gray-200 bg-menu-surface'}`}>
+          <IdenfitLogo className={`h-6 w-auto @min-[640px]:h-7 ${isDark ? 'text-white' : 'text-heading'}`} />
+          {/* 2026-08-31 notu ARTIK TARİHSEL — o turda mobilde (gerçek dar
+              viewport'ta) nav yatay kaydırmalı bir sekme çubuğuna dönüşüyordu
+              (`lg:` VIEWPORT medya sorgusuydu). Seçenek B'ye geçişle (bkz.
+              `useMobileScale` yorumu) bu `lg:flex-col` artık `@min-[1024px]:
+              flex-col` — container HER ZAMAN ≥1024px SABİT genişlikte
+              olduğu için nav ARTIK HER ZAMAN dikey liste (masaüstü hali),
+              mobil-özel yatay sekme çubuğu dalı bir daha hiç tetiklenmiyor
+              (kod hâlâ burada duruyor ama ölü — kaldırmak ayrı bir temizlik
+              turu, bu turun kapsamı dışında). */}
+          <nav aria-label={labels.navAriaLabel} className="mt-4 flex gap-2 overflow-x-auto pb-1 @min-[1024px]:mt-6 @min-[1024px]:flex-col @min-[1024px]:gap-1 @min-[1024px]:overflow-visible @min-[1024px]:pb-0">
             {TABS.map((tab) => {
               const isActive = tab.key === activeTab;
               return (
@@ -2843,7 +3009,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
                   aria-selected={isActive}
                   disabled={!tab.enabled}
                   onClick={() => tab.enabled && setActiveTab(tab.key)}
-                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors lg:w-full ${
+                  className={`flex shrink-0 items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-sm font-medium transition-colors @min-[1024px]:w-full ${
                     isActive
                       ? 'bg-brand text-white'
                       : tab.enabled
@@ -2856,7 +3022,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
                   }`}
                 >
                   <tab.icon className="h-4 w-4 shrink-0" strokeWidth={2.5} aria-hidden="true" />
-                  <span className="whitespace-nowrap lg:flex-1 lg:truncate">{tab.label}</span>
+                  <span className="whitespace-nowrap @min-[1024px]:flex-1 @min-[1024px]:truncate">{tab.label}</span>
                   {tab.badge && (
                     <span className="shrink-0 rounded-full bg-brand-light px-2 py-0.5 text-[10px] font-semibold text-brand">
                       {tab.badge}
@@ -2868,7 +3034,7 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
           </nav>
         </div>
 
-        <div className={`min-w-0 flex-1 p-4 sm:p-6 lg:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
+        <div className={`min-w-0 flex-1 p-4 @min-[640px]:p-6 @min-[1024px]:p-8 ${isDark ? 'bg-gray-900' : 'bg-white'}`}>
           <AppHeaderBar />
           {/* Sekme yüksekliği stratejisi DEĞİŞTİ (2026-08-20, kullanıcı
               isteği — Personio.com'un ana sayfasındaki dashboard mockup'ıyla
@@ -2897,6 +3063,8 @@ export default function ProductPreviewWidget({ locale }: { locale: Locale }) {
             {activeTab === 'veri-analizi' && <DataAnalysisTab />}
           </div>
         </div>
+      </div>
+      </div>
       </div>
     </ThemeContext.Provider>
     </LabelsContext.Provider>

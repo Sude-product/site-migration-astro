@@ -7,6 +7,8 @@ import { unified } from '@astrojs/markdown-remark';
 import cloudflare from '@astrojs/cloudflare';
 import keystatic from '@keystatic/astro';
 
+import sitemap from '@astrojs/sitemap';
+
 // Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
 // `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
 // neler-degisti" yazısında canlı idenfit.com'da 7 H1 bulundu — WordPress
@@ -98,9 +100,30 @@ export default defineConfig({
   // 301/308 olarak işleniyor. Bu bir regresyon DEĞİL (meta-refresh'ten daha
   // güvenilir bir SEO mekanizması) ama `dist/` dosya sayısı bu yüzden
   // yapısal olarak düşüyor — bkz. Keystatic geçiş günlüğü ADIM 1 raporu.
+  // AKTİVASYON (2026-09-02, cutover öncesi kritik SEO turu — Açık nokta #31'in
+  // kapanışı): canonical `<link>` + hreflang etiketleri `BaseLayout.astro`'da
+  // `Astro.site` tanımlıysa OTOMATİK üretilecek şekilde ZATEN kodlanmıştı
+  // (2026-08-17, "hazır ama uykuda" ilkesi) — tek eksik buydu. `site`
+  // doldurulunca ek kod değişikliği GEREKMEDİ.
+  site: 'https://idenfit.com',
   output: 'server',
   adapter: cloudflare(),
-  integrations: [react(), keystatic()],
+  integrations: [
+    react(),
+    keystatic(),
+    // `filter` — `@astrojs/sitemap` route manifestindeki TÜM prerendered
+    // route'ları listeliyor, sayfanın kendi `noindex` durumunu BİLMİYOR.
+    // İlk build'de (site alanı doldurulduktan sonra) 4 dilin 404/not-found
+    // sayfaları (`BaseLayout`'ta `noindex` — bkz. `NotFoundPage.astro`) ve
+    // `/demo/`'nun (Landing Page, `LandingLayout`'ta varsayılan `noindex:
+    // true`) sitemap'e sızdığı görüldü — elle hariç tutuldu. i18n `fallback`
+    // mekanizmasının ürettiği ~2000 redirect route'u zaten sitemap'te hiç
+    // görünmüyor (Astro'nun kendi route manifestinde gerçek sayfa olarak
+    // işaretli değiller), bu yüzden onlar için ayrı bir filtre gerekmedi.
+    sitemap({
+      filter: (page) => !/\/(404|not-found|demo)\/$/.test(page),
+    }),
+  ],
   markdown: {
     processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s, rehypeNormalizeHeadingLevels] }),
   },
@@ -325,5 +348,19 @@ export default defineConfig({
     '/suprema': '/donanim',
     '/en/suprema-tools': '/en/hardware',
     '/it/dispositivi-suprema': '/it/hardware',
+    // 2026-09-04: cutover-öncesi kapsamlı sitemap denetiminde bulundu.
+    // Kaynak sitede İK Dijital Olgunluk Testi'nin eski 3-URL/sessionStorage
+    // akışından (bkz. `maturityTestDefinitions.ts` başındaki not) kalma iki
+    // GERÇEK/canlı URL var — `/ik-dijital-test/` (eski quiz sayfası) ve
+    // `/ik-dijital-olgunluk-testi-sonucu/` (eski sonuç sayfası). İkisi de
+    // canlıda içerik taşımıyor (boş sayfa, yalnızca global header/footer
+    // widget'ları render ediyor — `curl` ile doğrulandı, üçü de [bu ikisi +
+    // `/kampanya/`] BİREBİR aynı jenerik "360 İnsan Kaynakları Programı"
+    // metnini gösteriyor). İçerik kaybı yok ama olası eski bookmark/backlink
+    // trafiğinin 404 almaması için ucuz bir güvenlik ağı (aynı `/suprema`
+    // deseni) — bizim tek sayfalık React akışımıza (`/ik-dijital-olgunluk-testi/`)
+    // yönlendiriliyor.
+    '/ik-dijital-test': '/ik-dijital-olgunluk-testi',
+    '/ik-dijital-olgunluk-testi-sonucu': '/ik-dijital-olgunluk-testi',
   },
 });

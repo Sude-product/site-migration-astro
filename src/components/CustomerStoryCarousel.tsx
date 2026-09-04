@@ -376,7 +376,14 @@ function StatCard({ card, variant }: { card: StatCardData; variant: CardVariant 
       className={`relative flex ${CARD_HEIGHT} flex-col rounded-[1.75rem] p-8 ring-1 ring-black/5 transition-transform duration-300 hover:-translate-y-1 ${v.bg} ${CARD_SHADOW}`}
     >
       <CardStar tone={v.star} />
-      <p className={`text-6xl font-bold leading-tight ${variant === 'red' ? 'text-white' : 'text-brand'}`}>{card.primaryStat}</p>
+      {/* Mobilde kart 360px'e daralıyor (`w-[360px] sm:w-[480px]`, aşağıda)
+          — sabit `text-6xl` bazı dillerde (ör. NL "medewerkers", 11 harf)
+          kartın yuvarlak kenarından TAŞIP kırpılıyordu (kullanıcı ekran
+          görüntüsüyle bulundu). `text-5xl sm:text-6xl` mobilde küçültüp
+          kartın genişlediği `sm:` üzerinde ESKİ boyutu aynen koruyor;
+          `break-words` tek bir uzun kelime yine de sığmazsa (çok dar bir
+          ekranda) satır içinde kırılmasını sağlıyor, taşma YERİNE. */}
+      <p className={`break-words text-5xl font-bold leading-tight sm:text-6xl ${variant === 'red' ? 'text-white' : 'text-brand'}`}>{card.primaryStat}</p>
       {card.secondaryStat && <p className={`mt-2 text-2xl font-medium ${v.heading}`}>{card.secondaryStat}</p>}
       <p className={`mt-6 flex-1 text-lg leading-relaxed ${v.body}`}>{card.headline}</p>
       {card.readMoreHref && card.readMoreLabel && (

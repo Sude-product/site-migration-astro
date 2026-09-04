@@ -40,6 +40,23 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
+## 🟢 İK Dijital Olgunluk Testi — 5 ADIM TAMAMLANDI (2026-09-03/04)
+
+İK Dijital Olgunluk Testi özelliği (ADIM 1-5: lead-capture formu genişletme,
+radar grafik, dinamik öneri motoru + firma büyüklüğü filtresi, Cloudflare
+Browser Rendering ile PDF üretimi, SendGrid ile PDF'in hem ekibe hem testi
+dolduran kişinin kendisine e-posta eki olarak gönderilmesi) tamamlandı.
+
+**Güvenlik ağı:** `ik-olgunluk-testi-oncesi-yedek` dalı hem `origin` hem
+`idenfit` remote'unda, özellik öncesi duruma dokunulmadan duruyor. **Canlıda
+ciddi/çözülemeyen bir sorun çıkarsa bu dala dönülerek özelliğin TAMAMI geri
+alınabilir.** Küçük/izole sorunlar için (örn. yalnızca PDF şablonu, yalnızca
+radar grafik gibi) doğrudan o parçayı düzeltmek tercih edilmeli — tüm
+özelliği geri almaya GEREK YOK, dal yalnızca büyük/kurtarılamaz bir
+regresyon senaryosu için son çare.
+
+---
+
 ## 🔶 KEYSTATIC GEÇİŞİ — devam ediyor, karar bekleniyor (2026-08-27'de başladı)
 
 Blog CMS aracı Decap CMS'ten Keystatic'e geçiriliyor. Projenin temel render
@@ -1285,13 +1302,18 @@ hâlâ geçerli.)*
    ekiple görüşülüp netleşmeyi bekliyor; şimdilik üretilmiyor.
    **İstisna:** Online Sunum Talebi'nin NL versiyonu kullanıcının açık
    talimatıyla eklendi (`PRESENTATION_NL_OVERRIDE`).
-2. **GENİŞLETİLDİ (2026-08-30) — Faz 2 backend yok, 6 form etkileniyor,
-   +KVKK hukuki risk notu.** Bu maddenin eski/eksik hali yalnızca Hero
-   formu + HR Maturity Test'ten bahsediyordu — tam liste + KVKK onay
-   metniyle çelişen hukuki risk notu artık CLAUDE.md'de "## Deployment"
-   bölümünün HEMEN ÜSTÜNDEKİ "🔶 AÇIK NOKTA (2026-08-30)" bloğunda
-   kayıtlı, bkz. orası. Kod değişikliği HENÜZ YAPILMADI.
+2. **İSKELET TAMAMLANDI (2026-09-02) — kod hazır, yalnızca SendGrid
+   anahtarı bekleniyor.** Eski durum (backend yok, 6 form etkileniyor,
+   KVKK hukuki risk notu) artık CLAUDE.md'deki "🔶 AÇIK NOKTA (2026-08-30)"
+   bloğunda GÜNCEL haliyle kayıtlı, bkz. orası (bu blok kapatılmadı,
+   yalnızca güncellendi — anahtar gelene kadar hukuki risk notu hâlâ
+   TEKNİK olarak geçerli, formlar hâlâ hiçbir yere gerçek e-posta
+   göndermiyor, yalnızca artık DOĞRU bir hata mesajı gösteriyorlar).
 6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
+   **GÜNCELLEME (2026-09-04):** cutover-öncesi sitemap denetiminde EN
+   karşılıkları da (`/en/customer-sales-agreement-micro/`,
+   `/en/customer-sales-agreement-sme/`) canlıda bulundu — kapsam yalnızca
+   TR değil, aynı açık nokta EN'i de kapsıyor.
 8. Puantaj modülünün gerçek YouTube `video_url`'i var ama bilinçli
    olarak embed edilmedi.
 9. İzin Yönetimi modülünün testimonial bloğu veride var ama PDKS
@@ -1394,12 +1416,36 @@ hâlâ geçerli.)*
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).
-16. **KARAR BEKLİYOR — blog "yeni yazı senkronizasyonu" periyodik
-    kontrol haline getirilsin mi?** Yöntem kanıtlandı (`post-sitemap.xml`
-    vs `posts.json` diff'i), sıklık/tetikleme henüz kararlaştırılmadı.
+16. **KAPANDI (2026-09-02) — blog "yeni yazı senkronizasyonu" artık
+    periyodik/otomatik DEĞİL.** Kullanıcı kararı: cutover öncesi yapılan
+    tur (bkz. §Tamamlanan işler, "Son blog senkronizasyonu") bu sürecin
+    SON otomatik toplu senkronizasyonuydu. **Bundan sonra yeni yazılar
+    Keystatic panelinden ekleniyor, otomatik senkronizasyon
+    kullanılmıyor** — `post-sitemap.xml` vs yerel `.md` karşılaştırma
+    yöntemi (kanıtlanmış, bkz. `extract-blog-posts.mjs`/
+    `migrate-blog-to-markdown.mjs`/`download-blog-images.mjs`/
+    `relativize-blog-image-urls.mjs` zinciri) artık kullanılmayacak.
 19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
-    her önemli değişiklik/deploy öncesi). Şu an 0 açık.
+    her önemli değişiklik/deploy öncesi). **GÜNCELLEME (2026-09-04):**
+    `@cloudflare/puppeteer` kurulumundan beri (ADIM 4, İK Olgunluk Testi PDF
+    üretimi) 3 yüksek önem seviyeli açık var — hepsi transitif bağımlılık
+    `extract-zip`'te (`@puppeteer/browsers` üzerinden), düzeltmesi
+    (`npm audit fix --force`) paketi 1.4.0'dan eski/kararsız 0.0.11'e
+    düşürdüğü için bilinçli olarak UYGULANMADI — açığın kendisi yalnızca
+    yerel bir tarayıcı ikilisini indirip zip'ten çıkarırken tetikleniyor,
+    production kod yolumuz (`puppeteer.launch(env.BROWSER)`, Cloudflare'ın
+    uzak Browser Rendering binding'ine bağlanıyor) bu kod yolunu hiç
+    çağırmıyor. **Aynı gün, ayrı bir bulgu:** `npm audit` (hem doğrudan hem
+    `npm run audit` sarmalayıcısı üzerinden) bu oturumda ISRARLA ağ
+    kısıtına takıldı — `registry.npmjs.org`'un audit endpoint'ine
+    (`/-/npm/v1/security/audits/quick`) giden POST isteği 3 ayrı denemede
+    (30sn/90sn/120sn+) hiç yanıt vermedi, sıradan `GET` istekleri ise
+    sorunsuz çalıştı — bu ortama özgü GEÇİCİ bir ağ kısıtı (kod/proje
+    tarafında düzeltilecek bir şey yok). Yukarıdaki bilinen 3 açık (ve
+    başka yeni bir açık OLMADIĞI) bir önceki BAŞARILI `npm audit`
+    çalıştırmasından teyitli — geçerliliğini koruyor, yalnızca bu turda
+    yeniden DOĞRULANAMADI.
 21. **Blog CMS — kalan 2 açık uç (ilk madde 2026-08-29'da KAPANDI):**
     ~~Kademeli üretim (kalan 618 yazı `scripts/migrate-blog-to-markdown.mjs
     <slug...>` ile)~~ — 622/622 tamamlandı, bkz. yukarıdaki "KEYSTATIC
@@ -1845,6 +1891,55 @@ hâlâ geçerli.)*
     kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
     saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
     turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
+    **TAMAMEN KAPANDI (2026-09-02) — 293/293 hotlink temizlendi, sitede
+    idenfit.com'a giden SIFIR hotlink kaldı.**
+    - **Yol (A):** Yeni `scripts/localize-remaining-hotlinks.mjs`
+      (`download-report-assets.mjs` + `relativize-blog-image-urls.mjs`
+      ile AYNI indirme/doğrulama mantığı, tek script'te birleşik + CLI'dan
+      pilot/tam liste seçimi). Önce 6 küçük dosyayla PİLOT yapılıp
+      kullanıcıya diff gösterildi, onay alındı; sonra kalan 12 dosya
+      (`NotFoundPage.astro` hariç, o ayrı ele alındı — aşağıda) aynı
+      script'le tamamlandı. **232 benzersiz görsel** indirildi (çoğu
+      blog/navigation turundan zaten mevcuttu), **379 URL** göreliye
+      çevrildi, 0 başarısız indirme.
+    - **Yol (B):** 5 dosyada (`productContent.ts`, `sectorContent.ts`,
+      `hardwareContent.ts`, `hubContent.ts`, `miscPagesContent.ts`) her
+      birinin onlarca farklı okuma noktasını (`image`/`images[]`/
+      `backgroundImage`/`heroImage`/`officesImage`/`mapImage` vb.) tek tek
+      avlamak yerine (yüksek kaçırma riski), yeni PAYLAŞILAN
+      `src/data/relativizeWpUrls.ts`'in `deepRelativizeWpUrls()`'ü —
+      ham JSON `DATA` sabiti import edilir edilmez TÜM ağacı derinlemesine
+      gezip (zengin metin/HTML'e gömülü `<img src>` dahil) mutlak
+      `idenfit.com/wp-content/` önekini göreliye çeviriyor. Blog'un `date`
+      `+03:00` normalizasyonuyla AYNI ilke: kaynakta değil, ithal edildiği
+      TEK merkezi noktada dönüştürülüyor — mevcut VE ileride eklenecek
+      TÜM getter'lar otomatik olarak zaten-göreli veri okuyor.
+      `hubContent.ts`'te 2026-09-01'den kalma yerel `relativizeWpUrl()`
+      (yalnızca hero görseline uygulanıyordu) artık gereksiz, kaldırıldı.
+      Yeni `scripts/download-json-source-images.mjs` (JSON ağacını
+      gezip TÜM görsel/dosya referanslarını toplar) **262 benzersiz
+      dosya** indirdi (183'ü zaten mevcuttu).
+    - **Bulunan ve düzeltilen gerçek bir indirme hatası:** bir dosya adı
+      Türkçe büyük "İ" taşıyordu, kaynak JSON'da PARÇALANMIŞ Unicode
+      biçiminde (`I` + U+0307 birleştirme noktası) ama canlı sunucudaki
+      GERÇEK dosya BİRLEŞİK biçimde (`İ`, U+0130) — ham (encode edilmemiş,
+      normalize edilmemiş) `fetch()` isteği 404 veriyordu. Düzeltme: uzak
+      istek URL'i `encodeURI(relPath.normalize('NFC'))` ile kuruluyor;
+      YEREL dosya adı/göreli URL KASITLI OLARAK normalize EDİLMEDİ (kaynak
+      JSON'un/`deepRelativizeWpUrls()`'ün üreteceği GERÇEK metinle birebir
+      eşleşmesi gerekiyor, aksi halde kendi sitemizde 404 oluşurdu).
+    - **404 arka plan görseli** (`NotFoundPage.astro`, `wp-content/themes/vault/...`
+      — `uploads/` bile değil, farklı bir WP tema yolu, script'lerin
+      kapsamı DIŞINDA bırakılmıştı) elle indirilip
+      `public/wp-content/themes/vault/assets/img/bg-404.png`'e yerleştirildi,
+      referans göreliye çevrildi.
+    - **Doğrulama (her adımdan sonra ayrı `--outDir dist-check` ile,
+      çalışan `localhost:4321` önizlemesine HİÇ dokunulmadan):** `astro
+      build` temiz, 8/9 regresyon script'i sıfır sorun (aynı ilgisiz
+      heading-hierarchy taban çizgisi), `audit-remote-hotlinks.mjs` ile
+      azalan sayı her adımda kanıtlandı: 293/307 (başlangıç) → 285/304
+      (pilot) → 235/133 (yol A tamamlandı) → 1/5 (yol B tamamlandı,
+      yalnızca 404 kaldı) → **0/0 (404 de düzeltilince, TAMAMEN TEMİZ)**.
 46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
     ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
     `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi
@@ -1861,12 +1956,12 @@ hâlâ geçerli.)*
        ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
        sıfırdan başlar.
     Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
-47. **HATIRLATMA — yukarıdaki "🔶 AÇIK NOKTA (2026-08-30)" bloğundaki 5
-    form dosyasının `console.log`'u backend bağlanırken kaldırılmalı.**
-    Ad/e-posta/telefon gibi kişisel veri şu an yalnızca tarayıcı
-    konsoluna yazılıyor (hiçbir yere gönderilmiyor/saklanmıyor) — bkz. o
-    bölümdeki tam dosya listesi/tablo ve KVKK tutarsızlığı notu. `[ ]
-    Backend bağlanırken bu satırları kaldır.`
+47. **KAPANDI (2026-09-02) — 5 form dosyasının `console.log`'u kaldırıldı,
+    gerçek `/api/lead` backend'ine bağlandı.** Ad/e-posta/telefon artık
+    tarayıcı konsoluna yazılmıyor — SendGrid anahtarı gelene kadar hâlâ
+    hiçbir yere GÖNDERİLMİYOR ama en azından artık DENENİYOR ve
+    başarısızlık kullanıcıya dürüstçe gösteriliyor (bkz. yukarıdaki
+    "🔶 AÇIK NOKTA" bloğunun güncel hali).
 48. **YENİ (2026-08-31) — Görsel optimizasyonu (`astro:assets`/`<Image>`),
     kesin SIRALAMA kararı verildi, henüz başlanmadı.** Bir denetim
     bulgusu "60 raw `<img>`, format/srcset/CLS optimizasyonu yok" dedi —
@@ -2196,6 +2291,655 @@ hâlâ geçerli.)*
     (tüm 6 kart + şube paylaşımı + ondalık format) görsel doğrulandı —
     bu doğrulama sırasında #54'teki kritik `Intl`/az bulgusu ortaya
     çıktı ve AYNI turda düzeltildi.
+56. **TAMAMLANDI (2026-08-31, 5. tur) — "İnsan Kaynakları" sekmesi 4
+    dilde (EN/NL/IT/AZ) çevrildi.** `getHumanResourcesLabels(locale)`
+    eklendi (Zaman/İzin Yönetimi'yle AYNI mimari). `HEADCOUNT_MONTHS`/
+    `TURNOVER_MONTHS` ay-adı dizilerinden `monthIndex` dizilerine
+    çevrildi (`MONTH_ABBREV[locale][mi]` — #54'ün SABİT tablosunu
+    kullanıyor). `CALENDAR_WEEKDAYS` sabiti tamamen KALDIRILDI —
+    `WEEKDAY_ABBREV[locale].toUpperCase()` ile TÜRETİLİYOR (hiçbir
+    dilin kısaltmasında küçük "i" harfi olmadığı doğrulandığı için
+    Türkçe büyütme bug'ı riski YOK). `PROBATION_TRACKING`/
+    `CONTRACT_TRACKING` sayı+birim olarak ayrıştırıldı (`primaryValue`/
+    `primaryUnit`/`secondaryDays`), `monthUnit`/`yearUnit`/`dayUnit`
+    ile render'da birleştiriliyor. `HR_EVENTS`'in kişi adları
+    ÇEVRİLMEDİ (özel isim), yalnızca `description` ("Doğum Günü —
+    Bugün!" vb.). **Gramer düzeltmesi (Chrome doğrulamasında
+    yakalandı):** İlk yazımda `monthUnit` EN "Month"/NL "Maand"/IT
+    "Mese" TEKİL'di — ama `PROBATION_TRACKING`'te bu birim yalnızca
+    2/6 (>1) değerleriyle kullanılıyor, "2 Month" gibi dilbilgisel
+    olarak yanlış bir çıktı verdi. TR/AZ'da (Türkçe/Azerice sayı+isim
+    yapısında çoğul eki gerekmez) sorun YOKTU. EN "Months"/NL
+    "Maanden"/IT "Mesi" (çoğul) olarak düzeltildi — `yearUnit`
+    değişmedi (yalnızca 1 değeriyle kullanılıyor, zaten tekil doğru).
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
+    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
+    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İnsan Kaynakları
+    sekmesi (7 kart: Headcount/Doğum Günü/Çalışan Devir/Onay Bekleyen/
+    Takvim/Deneme Süresi/Sözleşme) görsel doğrulandı — IT/AZ için
+    widget'ın kendi `AUTO_TAB_INTERVAL_MS` (6sn) otomatik sekme
+    döngüsü ekran görüntüsü almayı zorlaştırdığından, doğrulama
+    `javascript_tool` ile doğrudan DOM metni okunarak (`innerText`)
+    yapıldı — aynı derecede güvenilir, ekran görüntüsüne muhtaç değil.
+    **Kalan sekmeler:** Performans Yönetimi → Veri Analizi + paylaşılan
+    panel metinleri (sıradaki turlar).
+57. **TAMAMLANDI (2026-09-01, 6. tur) — "Performans Yönetimi" sekmesi 4
+    dilde (EN/NL/IT/AZ) çevrildi.** `getPerformanceManagementLabels(locale)`
+    eklendi (önceki sekmelerle AYNI mimari — yapısal veri `PERFORMANCE_KPI_STATS`/
+    `PERFORMANCE_GOALS_STRUCTURE`/`GOAL_KEY_RESULTS_STRUCTURE`'da kaldı,
+    render'da İNDEKS SIRASIYLA `t.kpiStats`/`t.goals`/`t.keyResults`'la
+    birleştiriliyor). Yeni genel yardımcı `formatPercent(value, locale)`
+    eklendi (`productPreviewWidgetData.ts`) — tr/az "%29", en/nl/it "29%"
+    (2026-08-31'in `kpiSubtext` emsalinin genellenmiş hali). Çevrilen:
+    4 KPI kartı, 4 hedef (OKR) satırı (ad/kapsam/kategori/durum — "Sales"/
+    "Marketing" kategorileri TR kaynakta da İngilizce olduğu için ÇEVRİLMEDİ,
+    bilinçli), "anahtar sonuç" birimi, 2 Anahtar Sonuç satırı (ad/son
+    check-in/durum/güncel-başlangıç-hedef değerleri — para birimi ₺ TÜM
+    locale'lerde AYNI kaldı, kurgusal şirket Türkiye merkezli), "Son
+    check-in:"/"Güncel:"/"Takvime göre beklenen"/"planın önünde"/"planın
+    gerisinde" önekleri. **Yan bulgu, AYNI turda düzeltildi:**
+    `GoalProgressRing`'in halka içi yüzde metni (`%{percent}`) hardcoded
+    TR biçimindeydi, locale'den bağımsızdı — `formatPercent()`'e
+    çevrildi (artık EN/NL/IT'de "31%", TR/AZ'da "%31" gösteriyor).
+    **Kapsam dışı bırakılan, AYRI bir bulgu olarak kaydedildi:** İnsan
+    Kaynakları sekmesindeki `TURNOVER_STATS`'ın "%18.4" değeri (madde 56)
+    AYNI hardcoded-TR-biçim sorununu taşıyor ama bu turun kapsamı
+    DIŞINDA (önceden tamamlanmış/onaylanmış bir sekme) — düzeltilmedi,
+    istenirse ayrı bir mikro-tur olarak ele alınabilir.
+    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
+    8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
+    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Performans Yönetimi
+    sekmesi (4 KPI kartı + 4 hedef satırı + 2 Anahtar Sonuç satırı)
+    görsel doğrulandı. **Teknik not (yeni bilgi, ileriki turlar için
+    yararlı):** widget'ın sekme butonlarına JS'ten `.click()`/
+    `dispatchEvent(...)` ile PROGRAMATIK tıklama bu ortamda ÇALIŞMIYOR
+    (React'in tıklamayı işlememesi — hem TR hem EN'de doğrulandı, sekmeye
+    özgü değil, genel bir kısıt). Gerçek/güvenilir yöntem: `computer`
+    aracıyla GERÇEK fare tıklaması (OS-seviyesi sentetik olay) + tıklama
+    SONRASI screenshot'ı MÜMKÜN OLDUĞUNCA hızlı almak (widget'ın kendi
+    `AUTO_TAB_INTERVAL_MS`=6sn otomatik döngüsü, ardışık tool-call
+    round-trip'leri arasında geçen süre 6sn'yi aşarsa sekmeyi tekrar
+    ileri kaydırabilir).
+    **Kalan sekmeler:** Veri Analizi + paylaşılan panel metinleri
+    (sıradaki turlar).
+58. **TAMAMLANDI (2026-09-01, 7. tur) — "Veri Analizi" sekmesi 4 dilde
+    (EN/NL/IT/AZ) çevrildi — widget'ın 5 FONKSİYONEL sekmesinin TAMAMI
+    artık 5 dilde.** `getDataAnalysisLabels(locale)` eklendi (önceki
+    sekmelerle AYNI mimari — yapısal veri `DEPARTMENT_ABSENTEEISM_STRUCTURE`/
+    `DAILY_MOVEMENTS_STRUCTURE`/`ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE`'da
+    kaldı, render'da İNDEKS SIRASIYLA `t.departments`/`t.dailyMovements`
+    ile birleştiriliyor). Ay/gün etiketleri (Temmuz-Ağustos haftaları,
+    Ocak-Haziran trend ayları, 12-18 Ağustos günleri) ARTIK sabit dizi
+    DEĞİL — `{day, monthIndex}` yapısal çiftinden `MONTH_ABBREV[locale]`
+    ile TÜRETİLİYOR (Zaman/İzin/İK sekmelerinin AYNI ilkesi, #54'ün
+    sabit-tablo kuralına uyuyor — runtime `Intl` YOK). Çevrilen: "Tarih
+    Aralığı"/"Verileri Hesapla" (2 kullanım yeri), 6 departman adı (İK/
+    Satış/Operasyon/Finans/Üretim/Destek), "Departman Bazlı Devamsızlık
+    Oranı"/"Aylık Devamsızlık Trendi"/"Aktif Çalışan Sayısı Trendi"
+    (+"Haftalık"/"Aylık" rozetleri), 4 mini-hareket etiketi (Gelenler/
+    Geç Gelenler/Erken Çıkanlar/Devamsızlık — Zaman Yönetimi'nin
+    `miniStats`inden BİLİNÇLİ olarak FARKLI kelimeler, TR kaynağın kendi
+    ayrımı korundu), "Çalışan Gelenler/Geç Gelenler Sayısı" + "12–18
+    Ağustos 2026" tarih aralığı metni (tek literal string, tam ay adı
+    gerektirdiği için `MONTH_ABBREV`'den türetilmedi). Tarih SAYILARI
+    (`01.01.2026` gibi) ve para birimi/departman ROZET renkleri TÜM
+    locale'lerde AYNI kaldı (mockup verisi, önceki sekmelerin ilkesiyle
+    tutarlı). **Doğrulama:** `astro check` 0 hata, `astro build` 3097
+    sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi
+    hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Veri
+    Analizi sekmesinin HEM üst (Tarih Aralığı/Departman/Trend) HEM alt
+    (mini-hareketler/Gelenler/Geç Gelenler tam grafikleri) bölümleri
+    görsel doğrulandı. **Kalan iş:** yalnızca paylaşılan panel metinleri
+    (header'daki Kısayollar/Bildirimler/HRTECHTOOLS gibi Tier 2 dışı
+    kalan parçalar, bkz. Açık nokta #51'in orijinal kapsam notu) — widget
+    çevirisinin son adımı.
+59. **TAMAMLANDI (2026-09-01, 8. tur) — Paylaşılan üst header panelleri
+    4 dilde (EN/NL/IT/AZ) çevrildi — `ProductPreviewWidget.tsx`'in TÜM
+    çeviri işi bitti.** Panel BAŞLIKLARI (`labels.shortcuts.title` vb.)
+    zaten Tier 1'de çevrilmişti — bu turda yalnızca panel İÇERİĞİ
+    çevrildi: `getSharedPanelLabels(locale)` eklendi
+    (`productPreviewWidgetData.ts`). Çevrilen: "Kısayollar" panelinin 6
+    kısayolu (Çalışan Oluştur/İzin Oluştur/Rapor Oluştur/Mesaj Gönder/
+    Günlük Puantaj/Vardiya Takvimi), "Görevler" (2. zil) panelinin 3
+    bekleyen görev metni, "Bugünün Özeti" (Analiz ikonu) panelinin 3
+    satır etiketi + "Ortalama Çalışma Süresi" değerinin saat/dakika
+    biçimi (tr "7s 42dk" / en "7h 42m" / nl "7u 42m" / it "7h 42min" /
+    az "7 saat 42 dəq" — sabit sayı "7"/"42", yalnızca birim gösterimi
+    dile göre değişiyor), "Dil Seçin" panelinin 11 dil adı (dekoratif
+    dil listesi — Türkçe/İngilizce/Almanca/... her locale'de kendi
+    dilinde: `Turkish/English/German/...`, `Turks/Engels/Duits/...`,
+    `Turco/Inglese/Tedesco/...`, `Türk/İngilis/Alman/...`).
+    **HRTECHTOOLS paneli + dil seçicideki dil isimlerinin KENDİLERİ
+    (bayrak/kod listesi) bilinçli olarak ÇEVRİLMEDİ** — marka adları
+    (HiringOz/DataAssist/Anzera/vb.) gerçek üçüncü taraf ürün adları,
+    "Sales"/"Marketing" kategorileri gibi (madde 57) İngilizce kalması
+    doğal. **Yan bulgu, AYNI turda düzeltildi:** Dil Seçin panelindeki
+    "aktif" onay işareti önceden `lang.code === 'TR'` diye SABİTTİ —
+    widget'ın geri kalanı artık gerçek `locale` prop'una duyarlı
+    olduğundan, bu sabitlik (EN sayfasında "Türkçe ✓" görünmesi gibi)
+    tutarsız hale gelmişti. `LOCALE_TO_LANGUAGE_LIST_CODE` haritasıyla
+    artık gerçek widget locale'ine göre doğru dil işaretleniyor (EN
+    sayfasında "English ✓", vb.) — gerçek `LanguageSwitcher.tsx`'in
+    davranışıyla tutarlı. **Doğrulama:** `astro check` 0 hata, `astro
+    build` 3097 sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
+    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
+    TAMAMINDA Kısayollar/Görevler/Bugünün Özeti/Dil Seçin panelleri
+    (aktif dil işareti dahil) tek tek açılıp görsel doğrulandı.
+    **Sonuç: widget'ın TÜM içeriği (5 fonksiyonel sekme + paylaşılan
+    header panelleri) artık 5 dilde** — bkz. `widget-i18n-progress.md`
+    memory'sinin kapanış notu.
+60. **KAPANDI (2026-09-01) — Duyuru barı (marquee) artık idenfit.com'daki
+    GİBİ yalnızca sayfanın EN ÜSTÜNDEYKEN görünüyor.** Kullanıcı bulgusu:
+    önceki davranış scroll YÖNÜNE göreydi (aşağı kaydırınca gizlenip
+    yukarı kaydırınca — sayfanın ortasında bile olsa — geri geliyordu),
+    canlı sitede ise bar yalnızca `scrollY === 0` iken görünüyor, en ufak
+    bir aşağı kaydırmada kayboluyor ve YUKARI kaydırmakla GERİ GELMİYOR
+    (yalnızca sayfanın gerçek en üstüne dönünce). `src/scripts/marquee-scroll.js`
+    sadeleştirildi: `lastY`/`THRESHOLD`/yön karşılaştırması tamamen
+    kaldırıldı, tek kural `setHidden(window.scrollY > 0)`. Mevcut
+    debounce/dedupe altyapısı (`isHidden` state kontrolü,
+    `MIN_TOGGLE_INTERVAL_MS`=250ms, `grid-template-rows` geçiş tekniği)
+    AYNEN korundu — 2026-07-31'de bulunup düzeltilen asıl jank kaynağı
+    (`<header>`'ın `backdrop-blur`'ü) zaten kalıcı olarak kaldırılmıştı,
+    bu turda yalnızca GÖSTERME KURALI değişti. `astro build` temiz, 7
+    regresyon script'i (JSON-LD hariç, ilgisiz — saf JS davranış
+    değişikliği, HTML/içerik dokunulmadı) sıfır yeni sorun, Chrome'da
+    doğrulandı: sayfanın en üstünde görünür → 1 tık aşağı kaydırınca
+    kayboluyor → yukarı kaydırılıp sayfanın ortasında durulsa bile
+    GİZLİ kalıyor → yalnızca gerçek en üste dönülünce geri geliyor.
+61. **KAPANDI (2026-09-01) — İki İK hub sayfasının (İnsan Kaynakları
+    Modülleri + İşgücü Yönetimi) hero görseli eksikti, kullanıcı
+    WhatsApp'tan paylaştığı ekran görüntüsüyle fark etti.** Kök neden:
+    `hero.image` alanı ham `hubs.json`'da HER ZAMAN vardı ama
+    `hubContent.ts`'in `getHubContent()`'i hiçbir zaman aktarmıyordu —
+    `HubBlock` tipinde `image` alanı hiç YOKTU — `HubPage.astro`'nun hero
+    grid'i de (`lg:grid-cols-2`) buna rağmen ikinci sütunu hiç
+    doldurmuyordu (`ProductPage.astro`'nun aynı grid'inin YANINDA,
+    resim bloğu unutulmuş bir kopyası). **Uygulama:** `HubBlock`'a
+    `image: {url,alt,width,height}|null` eklendi; yeni `getHeroImage(trSlug)`
+    yardımcı fonksiyonu HER ZAMAN TR taban girdisinden okuyor (görsel
+    dile göre değişmiyor, ham veride tr/en/it üçü de AYNI URL'i
+    kullanıyor — doğrulandı) — bu yüzden `HUB_OVERRIDES`/`HUB_OVERRIDES_AZ`'ın
+    metin-odaklı hero bloklarına EKLENMEDİ, tipleri `Omit<HubBlock,'image'>`
+    oldu. `HubPage.astro`'ya `ProductPage.astro` ile BİREBİR aynı hero
+    görsel bloğu (`loading="eager"`, `rounded-2xl object-cover`) + `image`
+    prop'u `BaseLayout`'a (OG) eklendi. **Görsel bağımlılık kuralı**
+    (2026-08-30) gereği idenfit.com'a hotlink YAPILMADI — 2 görsel
+    (`workforce-banner-en@2x.png` 1453×795, `hr-banner-en@2x.webp`
+    1122×905) indirilip magic-byte doğrulamasıyla `public/wp-content/uploads/`
+    altına yerleştirildi, `hubContent.ts`'te göreliye çevrildi.
+    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
+    7 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
+    sorun, `audit-remote-hotlinks.mjs`'de bu 2 dosya ARTIK listede yok
+    (yerelleştirme doğrulandı), Chrome'da TR/EN/AZ'ın ÜÇÜNDE de HEM
+    İşgücü Yönetimi HEM İnsan Kaynakları Modülleri hub'ında görsel doğru
+    render edildi doğrulandı (tek component değişikliği iki hub'ı da
+    kapsadı). **Kapsam dışı bırakılan (kasıtlı, ayrı bir bulgu — Açık
+    nokta #45'in parçası):** her iki hub'ın tile kartlarındaki görseller
+    hâlâ hotlink (7+16 referans, `audit-remote-hotlinks.mjs` çıktısında
+    görünüyor) — bu turun kapsamı yalnızca HERO görseliydi, tile
+    görselleri #45'in bekleyen genel temizliğinde ele alınacak.
+    **Aynı gün, ek tur — kullanıcı `alt` metninin gerçek/anlamlı olup
+    olmadığını sordu, DOĞRULANDI + DÜZELTİLDİ.** Ham veride her iki
+    görselin `alt`'ı dosya adından türetilmiş, anlamsızdı ("workforce
+    banner en@2x" / "hr banner en@2x") — sitenin GERİ KALANINDAKİ tüm
+    hero görselleri de aynı ham-geçiş kuralını izliyor (`hero.image.alt`
+    hiçbir yerde işlenmiyor), AMA `productTranslationOverrides.ts`'teki
+    ELLE-YAZILMIŞ override görselleri ("sistemi a tornello"/"leave
+    management" gibi) zaten gerçek/açıklayıcı, dile göre yazılmış alt
+    taşıyor — bu turda AYNI ilke uygulandı: her iki görsel TEKRAR
+    izlenip (workforce: laptop paneli + GPS/beacon/wifi/NFC/QR doğrulamalı
+    mobil PDKS uygulaması; HR: performans/mesajlaşma/masraf takibi mobil
+    ekranları) UYDURMA içerik EKLENMEDEN gerçek açıklama yazıldı, 4 dilde
+    (tr/en/it/az — NL hub sayfaları hiç render edilmiyor, EN'e
+    yönleniyor). Yeni `getHeroImage(trSlug, locale)` artık `locale`
+    parametresi alıyor, `HERO_IMAGE_ALT` haritasından okuyor. `astro
+    check` 0 hata, `astro build` temiz, 7 regresyon script'i sıfır yeni
+    sorun, `dist/client/**/index.html`'de 4 dilin hepsinde yeni `alt`
+    metni `grep` ile doğrulandı.
+62. **KAPANDI (2026-09-02) — Dil değiştiricide az/it için sistemik bir
+    404 bug'ı vardı, kullanıcı `/az/richiesta-supporto/`'nun 404
+    verdiğini bulunca ortaya çıktı, TÜM benzer sayfalar için düzeltildi.**
+    Kök neden: `Header.astro`'nun dil değiştiricisi, bir sayfanın
+    `localeUrls` prop'unda BİR locale hiç YOKSA (`Object.entries` o
+    anahtarı hiç üretmediği için, `undefined` bile değil, tamamen YOK),
+    `computeGenericLocaleUrls()`'in (`src/i18n/localeUrls.ts`) "aktif
+    path'in bare slug'ını yeni locale önekiyle birleştir" varsayımına
+    sessizce düşüyordu — bu, slug'ın locale'ler arasında GERÇEKTEN aynı
+    olmadığı sayfalarda (IT'nin "richiesta-supporto"su TR'nin
+    "destek-talebi"sinden FARKLI) anlamsız bir URL (`/az/richiesta-supporto/`)
+    üretip Astro'nun `az:'tr'` fallback'i üzerinden GERÇEK 404'e
+    düşüyordu. **Bu AYNI bug sınıfı, 2026-07-22'de NL için bulunup
+    yalnızca NL'de düzeltilmişti (bkz. `miscPagesContent.ts`'teki
+    `localeUrlsFor()` yorumu) — az eklendiğinde (2026-08-21) bu düzeltme
+    az'e GENİŞLETİLMEMİŞTİ.** Etkilenen TÜM fonksiyonlar taranıp (aynı
+    "az kapsam dışı" — Açık nokta #37 — sayfa ailesi) tek seferde
+    düzeltildi:
+    - `miscPagesContent.ts`'in paylaşılan `localeUrlsFor()`'u (KVKK/KVK
+      Protokol/Tüketici Hakları/Mesafeli Satış/Gizlilik ve Güvenlik
+      Politikası/Güvenlik'in TAMAMI bunu kullanıyor — tek düzeltme 6+
+      sayfayı kapsadı).
+    - `supportRequestContent.ts` → `getSupportRequestLocaleUrls()`
+      (Destek Talebi — kullanıcının bulduğu ORİJİNAL örnek).
+    - `thankYouContent.ts` → `getThankYouLocaleUrls()` (Online Sunum
+      Talebi'nin Teşekkürler sayfası).
+    - `faqContent.ts` → `getFaqLocaleUrls()` (SSS).
+    - `supportThankYouContent.ts` → `getSupportThankYouLocaleUrls()` —
+      buradaki eski yorum ("bare slug TR ile aynı olduğu için elle bir
+      şey gerekmez") YANLIŞTI: yalnızca TR sayfasından geçiliyorsa
+      doğruydu, EN sayfasından (`thank-you`) geçilirse aynı sınıf 404
+      geçerliydi — **az YANINDA IT için de** aynı düzeltme eklendi (bu
+      sayfanın `SLUGS` haritasında `it` hiç yoktu, aynı risk).
+    Düzeltme deseni HER YERDE aynı: `if (!result.az) result.az =
+    result.tr;` (döngüde zaten hesaplanmış bare TR URL'i doğrudan
+    kullanılıyor — `/az/<slug>/` üzerinden gereksiz bir redirect adımına
+    gerek yok, NL'nin `result.en`'e eşitlenmesiyle AYNI ilke).
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8 regresyon
+    script'i sıfır yeni sorun, `dist/client/it/**/index.html`'de
+    `LanguageSwitcher` props'unun `az` alanı `grep` ile tek tek
+    doğrulandı (`/guvenlik/`, `/sss/`, `/destek-talebi/` — hepsi bare TR),
+    Chrome'da GERÇEK tıklama testi yapıldı: IT Destek Talebi sayfasında
+    dil değiştiriciden "Azərbaycan"a tıklanınca artık `/destek-talebi/`'ne
+    (200, gerçek içerik) gidiyor — düzeltmeden ÖNCE bu aynı tıklama
+    `/az/richiesta-supporto/`'ya (404) giderdi. **Not:** kullanıcı aynı
+    mesajda "Hollanda dili de İngilizce veriliyor" da dedi — bu AYRI ve
+    KASITLI bir davranış (KARAR 2, `astro.config.mjs`'in `fallback:{nl:'en'}`'i
+    — kaynak WordPress sitesinde NL içeriği birçok sayfada hiç yok,
+    sessiz/bildirimsiz EN'e düşme bilinçli bir UX kararı) — bug OLARAK
+    ele alınmadı, kullanıcıya AÇIKLANDI.
+63. **KAPANDI (2026-09-02) — İşe Alım Modülü sayfası canlı siteyle
+    UYUMSUZDU, kök neden: canlı TR/EN/IT tamamen Hiringoz'a yeniden
+    markalanmış, IT/EN'in gerçek çevirisi ilk kez eklenmiş, ama bizim
+    override'ımız hâlâ ESKİ/genel "ATS" içeriğini taşıyordu (NL de
+    kaynakta hiç yoktu).** Kullanıcı canlı (`idenfit.com/ise-alim-modulu/`)
+    ile local'i (`localhost:4321/ise-alim-modulu/`) yan yana verip
+    "uyumlu değil" dedi. Canlı siteyi ziyaret edince tüm sayfanın
+    (hero+5 bölüm+6 SSS) baştan yazıldığı görüldü — artık idenfit'in
+    "Hiringoz" adlı bir kardeş ürününe (AI destekli işe alım/ATS asistanı)
+    atıfta bulunuyor; bu ürünün gerçekliği zaten `ProductPreviewWidget.tsx`'in
+    `HRTECHTOOLS` panelindeki `HIRINGOZ` girdisinden BİLİNİYORDU (Açık
+    nokta #59'un dokunmadığı kısım). **Uygulama:** `productTranslationOverrides.ts`'teki
+    `ise-alim-modulu` bloğu sıfırdan yazıldı — artık `tr`/`en`/`it`/`nl`
+    DÖRDÜ de var (öncekinde yalnızca en/it/nl vardı, TR ham JSON'u da
+    eskiydi). TR/EN/IT metni canlı sitenin `curl`+DOM taramasıyla (SSS
+    accordion'u UICore Elementor widget'ı olduğu için `.ui-e-accordion-item`
+    seçicileriyle) birebir/verbatim toplandı — HİÇBİR içerik UYDURULMADI
+    (KARAR 1). NL'nin gerçek bir canlı karşılığı YOK (kaynakta hiç
+    yayınlanmamış) — TR'den profesyonel çeviriyle YENİDEN üretildi
+    (`productTranslationOverridesAz.ts`'teki AZ de aynı şekilde). **8 yeni
+    görsel** (`ise-alim-{2,3,4,5}.png` TR/AZ için, `hiring-{2,3,4,5}.png`
+    EN/IT/NL için — EN/IT byte-birebir aynı dosyalar, `diff` ile
+    doğrulandı) idenfit.com'dan indirilip magic-byte doğrulamasıyla
+    `public/wp-content/uploads/2025/11/`'e yerleştirildi (Görsel bağımlılık
+    kuralı — hotlink YOK). Canlı sitenin "Şimdi Başlayın" bölümündeki
+    `hiringoz-logo-1.svg` kendisi de 404 veriyor (curl ile doğrulandı) —
+    bu kırık görsel BİLEREK migrate edilmedi, bölüm yalnızca metin+buton
+    olarak kaldı. Hero artık uzun bir pazarlama cümlesi olduğu için
+    (`en/hardware.astro`'nun AYNI deseni) 5 sayfaya (`ise-alim-modulu.astro`,
+    `en/hiring-module.astro`, `it/modulo-reclutamento.astro`,
+    `az/ise-alim-modulu.astro`, `nl/wervingsmodule.astro`) `title`/
+    `ctaKeyword` override prop'u eklendi — `<title>`/CTA kısa gerçek isim
+    kullanıyor, H1/breadcrumb uzun cümleyi aynen gösteriyor. **Doğrulama:**
+    `astro check` 0 hata, `astro build` 3097 sayfa temiz, 8 regresyon
+    script'i çalıştırıldı — ilk turda `nl/wervingsmodule/index.html`
+    `<title>` 119 karakterle YAKALANDI (`title`/`ctaKeyword` override'ı
+    eksikti, `find src/pages -iname "*wervingsmodule*"` ile bulunup
+    eklendi), ikinci tur tamamen temiz. `audit-remote-hotlinks.mjs`'de
+    yeni görseller hotlink olarak GÖRÜNMÜYOR (yerelleştirme doğrulandı).
+    Chrome'da TR/EN/IT/NL/AZ'ın TAMAMINDA hero (görsel+istatistikler:
+    "Total Applicants 16"/"Qualified Applicants 4"/"453 AI Calls"/
+    "Assessment Rate %87,6"/"Qualification Rate %33,2") + TR'de ayrıca
+    5 bölüm+FAQ accordion+"Son güncelleme" şeridi görsel doğrulandı.
+64. **KAPANDI (2026-09-02, madde 63'ün DEVAMI) — kullanıcı "hâlâ en üstte
+    olan hiringoz.com'a yönlendirmesi olan kısım eksik" + "aşağıdaki
+    görsellerde de eksik ve yerlerinden kayma var" dedi; madde 63'teki
+    hero ve bölüm-görsel eşleşmesi CANLI SİTENİN GÜNCEL/YENİDEN
+    TASARLANMIŞ halini yansıtmıyormuş — kullanıcının paylaştığı ekran
+    görüntüsü + kullanıcının kaydettiği TAM sayfa HTML'i (`İşe Alım
+    Modülü - idenfit.html` + `..._files/`) kullanılarak yeniden
+    incelendi.** Kök neden: madde 63'teki DOM taraması hero'nun ASIL
+    görsel elemanlarını kaçırmıştı — (1) hero'nun "chairs" illüstrasyonu
+    bir `<img>` DEĞİL, `.elementor-motion-effects-layer`'ın CSS
+    `background-image`'ı (`ise-alim-hero-2.png`) — normal `<img>`
+    taramasında hiç görünmüyordu; (2) hero'daki "hiringoz →" marka
+    logosu (`hiringoz-logo-en.svg`, bir LİNK değil, dekoratif rozet)
+    ekran görüntüsünün alt kısmında kalmıştı, taramaya hiç dahil
+    edilmemişti; (3) bölüm görselleri madde 63'te BİR KAYDIRMA hatasıyla
+    yanlış bölüme atanmıştı — kaynağın kaydedilmiş HTML'i satır satır
+    incelenince gerçek eşleşme çıktı: hero=`ise-alim-hero-2.png`
+    (dekoratif), section0("İşe Alımda Hız...")=`ise-alim-2.png`
+    (önceden YANLIŞLIKLA hero'daydı), section1("Daha Akıllı...")=
+    `ise-alim-3.png`, section2("Doğru Aday...")=`ise-alim-4.png`,
+    section3("Güvenilir Yetenek Doğrulaması")=`ise-alim-5.png` (önceden
+    `image:null` idi — MADDE 63'ÜN "eksik görsel" BULGUSU BUYDU),
+    section4("Şimdi Başlayın")=görselsiz (kaynakta da yalnızca metin+buton,
+    yanındaki `hiringoz-logo-1.svg` HÂLÂ 404 — `curl` ile yeniden
+    doğrulandı, BİLEREK migrate edilmedi). Ayrıca canlı sitede sütun
+    sırası ALTERNE ediyor ama `ProductPage.astro`'nun varsayılan
+    `i % 2 === 1` formülünün TAM TERSİ fazda başlıyor (section0/2:
+    metin-sol/görsel-sağ, section1/3: görsel-sol/metin-sağ). **Mimari
+    eklemeler (opt-in, diğer 22 ürün sayfası grubunu ETKİLEMİYOR):**
+    (a) `ProductBlock`'a `reverse?: boolean` eklendi,
+    `ProductPage.astro`'nun bölüm döngüsü `effectiveSection.reverse ??
+    i % 2 === 1` kullanıyor — verilmezse eski davranış AYNEN kalıyor;
+    (b) `ProductBlock`'a `backgroundImage?: string` eklendi (kapanış
+    bölümünün `#EDEDED` zemin + `ise-alim-footer.png` dekoratif
+    deseni için, canlı sitede AYNI teknik); (c) `ProductPage.astro`'ya
+    `heroLayout?: 'side'|'stacked'` + `heroPartnerLogo?: {...}` prop'ları
+    eklendi — `'stacked'` (yalnızca bu sayfa kullanıyor) ortalanmış
+    H1/paragraf + ALTINDA görsel + ALTINDA marka logosu/CTA satırı
+    render ediyor, verilmezse (`'side'`, varsayılan, diğer TÜM sayfalar)
+    davranış DEĞİŞMİYOR. **Yakalanıp düzeltilen GERÇEK bir bug (bu turun
+    kendi içinde):** `productContent.ts`'in `getProductContent()`'indeki
+    `resolveBlock()` yardımcı fonksiyonu her `ProductBlock`'u yalnızca
+    `title/text/ctaText/ctaUrl/image` alanlarıyla YENİDEN inşa ediyordu
+    — yeni eklenen `reverse`/`backgroundImage` (ve zaten var olan ama
+    aynı şekilde sessizce düşen `id`/`images`) alanları override
+    verisinde YAZILI olsa bile render'a hiç ULAŞMIYORDU. İlk build+Chrome
+    doğrulamasında (`reverse` etkisiz, kapanış bölümünün zemin deseni
+    hiç görünmüyor) yakalanıp `resolveBlock()`'un hem `az` hem
+    `tr/en/it/nl` dalına `id`/`images`/`reverse`/`backgroundImage` passthrough'u
+    eklenerek düzeltildi — İKİNCİ build+Chrome turunda hepsi doğru
+    çalıştı. **Görseller:** `ise-alim-hero-2.png` (2093×1416),
+    `ise-alim-footer.png` (1662×732), `hiringoz-logo-en.svg` — üçü de
+    idenfit.com'dan indirilip magic-byte doğrulamasıyla
+    `public/wp-content/uploads/2025/11/`'e eklendi. **`curl` ile
+    doğrulanan önemli bulgu:** bu 3 dosyanın hepsi TR/EN/IT'nin ÜÇÜNDE
+    de AYNI (locale'e özel kopya YOK, `hiringoz-logo-en.svg` adı "en"
+    içerse de TR sayfasında da kullanılıyor) — NL/AZ için de aynı
+    paylaşılan dosyalar kullanıldı. **Doğrulama:** `astro check` 0 hata,
+    `astro build` 3097 sayfa temiz (2 turda — `resolveBlock` düzeltmesi
+    sonrası yeniden), 8 regresyon script'i sıfır yeni sorun (bilinen 5
+    H1→H3 taban çizgisi hariç), `audit-remote-hotlinks.mjs`'de 3 yeni
+    dosya hotlink olarak GÖRÜNMÜYOR. Chrome'da TR (tam sayfa, hero'dan
+    footer'a) + EN (hero) görsel doğrulandı — hero'nun sandalye
+    illüstrasyonu + "hiringoz →" rozeti + CTA satırı, section0-3'ün
+    doğru görsel/sütun sırası, section3'ün artık dolu görseli, kapanış
+    bölümünün gri zemin deseni hepsi canlı siteyle eşleşiyor.
+65. **KAPANDI (2026-09-02, aynı gece — tek turda birçok küçük/orta bulgu)
+    — oturum özeti, sabah devam edilecek.** Kullanıcı ardışık olarak
+    şunları bildirdi/istedi, hepsi ayrı commit'lerle kapatıldı (hepsi
+    push edildi, `df087ff`'e kadar):
+    - **Homepage font büyütme:** `FeatureGrid`/`EfficiencySection`/
+      `SupremaSection`/`CertificationBadges`'in H2 altındaki intro
+      paragrafları 16px→18px (`984c6e9`).
+    - **Destek Talebi (`/destek-talebi/`) görsel tutarlılığı:** hero
+      zemini düz kırmızıdan (`bg-brand`) Online Sunum Talebi'yle AYNI
+      radyal pembe→beyaz gradyana çevrildi + `heroBackground` eklendi
+      (`21754ee`), 4 dekoratif `IdenfitStar` eklendi (`fc27b6e`), "Sıkça
+      Sorulan Sorular" link'i 14px→16px büyütüldü (`81516fb`).
+    - **Teşekkürler (`/tesekkurler/`) sayfası 3 bulgu:** `toYoutubeEmbedUrl()`
+      `?autoplay=1`'i HER ZAMAN ekliyordu (tek çağrı yeri bu sayfaydı) —
+      artık opt-in, varsayılan otomatik oynatma YOK; kullanıcının
+      istemediği koyu "idenfit" marka şeridi kaldırıldı; birkaç metin
+      büyütüldü (`702df5e`). **Ayrıca kullanıcı "az'a geçmiyor" dedi** —
+      kök neden: az için gerçek içerik hiç YOKTU, dil değiştirici sessizce
+      bare TR URL'ine düşüyordu (görünürde hiçbir şey değişmiyordu) — TR'den
+      gerçek/profesyonel AZ çevirisi eklenip `/az/tesekkurler/` sayfası
+      oluşturuldu (`34dd691`, yan etki: `ContactPage.astro`'nun az için
+      kırık `/az/thanks/` linkini de düzeltti).
+    - **YENİ — Anasayfaya "Partnerlerimiz" bölümü eklendi**
+      (`SupremaSection`'ın/donanım entegrasyonu vurgusunun HEMEN ALTINA,
+      AYNI minimal `HARDWARE_BRAND_LOGOS` deseniyle) — kullanıcının
+      verdiği liste: Turnike (Tansa/Özak), Bordro (SAP/Oracle/Mikro/
+      Logo/Datassist), LMS (Anzera/Enocta), Görev Yönetimi (Jira), SSO
+      (Google/Microsoft/Amazon). 13 logo hepsinin KENDİ resmi sitesinden
+      indirildi (magic-byte doğrulamalı, hotlink YOK), 5 dilde başlık/alt
+      metin/kategori etiketi çevrildi (`0903f6b`). **Takip turu:**
+      kullanıcı "CAME diye bir firma yok, kaldır" dedi — Özak'ın güncel
+      logosu satın alma sonrası "CAME ÖZAK" ortak markalı çıktı, `sharp`
+      ile sağdaki saf "ÖZAK" wordmark'ı kırpılıp CAME kısmı çıkarıldı;
+      ayrıca TÜM logolar `h-10 w-24` sabit kutuya (`object-contain`)
+      alınıp "benzer boyuta" getirildi (`1acfc88`). Sonra AYRICA
+      "Bulut Teknolojisi & Kalite Standartları" (`CertificationBadges`)
+      paragrafı `max-w-2xl`→`max-w-4xl` genişletildi, 18px büyütmeden
+      sonra çok dar/üst üste stack olmuştu (`7108999`).
+    - **Mobil menü:** kullanıcı ekran görüntüsüyle "dili değiştiremiyorum,
+      giriş yap/online sunum talebi/dil butonunu yukarı al, giriş yap'ı
+      butonla sarmala" dedi — dil değiştirici/Giriş Yap/Online Sunum
+      Talebi bloğu panelin EN ALTINDAN başlığın HEMEN ALTINA taşındı
+      (önceki konumda ekran altına çok yakındı), "Giriş Yap" artık düz
+      metin değil `.btn-cta` (beyaz+kırmızı çerçeve) gerçek bir buton
+      (`ca05733`). Chrome'da mobil viewport'ta GERÇEK doğrulama yapıldı
+      (dropdown artık tam açılıyor, dil değişimi çalışıyor — test
+      sırasında ilk denemede YANLIŞLIKLA `ProductPreviewWidget`'ın kendi
+      dekoratif "Dil Seçin" panelindeki AYNI metinli "TR" butonu
+      hedeflenmişti, o bir kod hatası DEĞİLDİ, salt test-script hatasıydı).
+    - **Online Sunum Talebi'nde (`/en/online-sunum-talebi/` dahil 4 dil)
+      "panelden sonraki yerler çeviri olmuyor" bulgusu:** kök neden,
+      2026-08-29'da eklenen `PresentationTimeline.astro`
+      ("3 Adımda idenfit") ve `PresentationFeatureGrid.astro`
+      ("Öne Çıkan Özellikler") hiç i18n ALTYAPISI OLMADAN tamamen
+      hardcoded Türkçe yazılmıştı (`/demo`'dan içerik taşınırken
+      atlanmış). `t.hero.presentationTimeline`/`presentationFeatures`
+      eklenip 5 dilde gerçek çeviri yazıldı (KARAR 1), iki component
+      `getTranslations()`'a bağlandı — ikonlar/`wide` bayrağı sabit
+      kalıp INDEX'e göre eşleşiyor (`df087ff`). Chrome'da EN sayfasında
+      doğrulandı.
+    **Her turda:** `astro check` 0 hata, `astro build` temiz, ilgili
+    regresyon script'leri (`check-heading-hierarchy`/`check-image-alt-text`/
+    `check-json-ld`/`check-link-accessibility`/`check-meta-description-length`/
+    `check-title-length`/`check-html-lang-attribute`, çoğu turda tam 8'i)
+    bilinen taban çizgisiyle (5 H1→H3 hariç) birebir aynı — sıfır yeni
+    regresyon. **Sabah devam için özel bir yarım iş YOK** — bu gece
+    bildirilen HER madde kapatıldı ve push edildi; bir sonraki oturum
+    kullanıcının yeni bir bulgu/isteğiyle başlayabilir.
+66. **KAPANDI (2026-09-02) — Son blog senkronizasyonu, cutover öncesi.**
+    Canlı `post-sitemap.xml` (629 URL) yerel 622 `.md` yazıyla karşılaştırıldı
+    — **7 yeni yazı** bulundu (2026-07-31→2026-09-01 arası yayınlanmış,
+    hepsi "Güncel Bilgiler" kategorisinde), 0 kaldırılmış/slug değiştirmiş
+    yazı. Standart zincirle işlendi: ham WP REST verisi (7 yazı + 7 öne
+    çıkan görsel medya kaydı) `reference/wordpress-export/posts.json`/
+    `media.json`'a eklendi → `extract-blog-posts.mjs` → `migrate-blog-to-
+    markdown.mjs` → `download-blog-images.mjs`/`relativize-blog-image-
+    urls.mjs` (7 görsel, hepsi yalnızca öne çıkan görsel — gövdede hiç
+    ek görsel yok). **Sonuç: 622→629 yazı, `check-json-ld.mjs`
+    `BlogPosting: 629` doğruladı.**
+    **Süreçte 2 gerçek bug bulunup düzeltildi:**
+    1. **`dateModified < datePublished` (6/7 yazıda, `check-json-ld.mjs`
+       6 geçersiz blok raporladı).** Kök neden: WP'nin ZAMANLANMIŞ
+       (scheduled) yayın akışında `modified` taslağın son kaydedildiği
+       anı (ör. sabah), `date` ise ileri ayarlanmış yayın anını (ör. aynı
+       günün öğleden sonrası) taşıyor — `modified` `date`'ten önce
+       kalabiliyor, önceki 622 yazıda hiç rastlanmamış bir desen.
+       `src/pages/blog/[slug].astro`'ya `effectiveModifiedDate` (yalnızca
+       `modifiedDate > date` iken kullanılır, aksi halde `date`'e düşülür)
+       eklenip JSON-LD `dateModified`, OG `article:modified_time` VE
+       görünür "Güncellendi" banner'ının HEPSİ bu tek kaynağa bağlandı —
+       6 yazıda artık banner hiç görünmüyor (46/618 yazıda `modifiedDate`
+       `date`'le aynıyken zaten uygulanan AYNI ilkeye genişletildi).
+    2. **7 yazının `<title>`'ı 50-60 karakter aralığını aştı (`check-
+       title-length.mjs`, 61-105 karakter)** — başlıklar orijinal
+       WP başlığı kadar uzun/betimleyici. Açık Nokta #28'in metodolojisiyle
+       (kısa/gerçek başlıktan türetme, uydurma yok) 7 `metaTitle` eklendi.
+    **Yan not (tek seferlik yardımcı script, commit EDİLMEDİ):** ham WP
+    verisini çekmek için kullanılan script `reference/wordpress-export/
+    posts.json`'ı yanlışlıkla pretty-print'e çevirmişti (1 satır → ~198k
+    satır, devasa/gürültülü diff) — commit'ten ÖNCE fark edilip dosya
+    orijinal tek-satır/compact formatına geri döndürüldü (`JSON.stringify`
+    indentsiz), gerçek diff 1 satır değişikliğe indi.
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9 regresyon
+    script'inin 8'i (yeni `check-prerender.mjs` dahil) sıfır sorun, yalnızca
+    `check-heading-hierarchy` bilinen 5 sayfalık taban çizgisinde (ilgisiz).
+    `curl` ile yeni bir yazının 200 döndüğü, `<title>`'ının `metaTitle`
+    kullandığı, öne çıkan görselin `idenfit.com`'a hiç hotlink YAPMADIĞI
+    (yerelden 200) doğrulandı.
+    **KARAR (kullanıcı, 2026-09-02): bu, projenin SON otomatik toplu blog
+    senkronizasyonuydu.** Bundan sonra yeni yazılar Keystatic panelinden
+    ekleniyor, otomatik senkronizasyon (`post-sitemap.xml` karşılaştırma +
+    `extract-blog-posts.mjs`/`migrate-blog-to-markdown.mjs` zinciri) artık
+    KULLANILMIYOR — bkz. Açık nokta #16'nın kapanışı.
+67. **TAMAMLANDI (2026-09-02) — Canlı dashboard widget'ı (`ProductPreviewWidget.tsx`)
+    mobilde artık bir bütün olarak ölçeklenip küçültülüyor.** Kullanıcı
+    bulgusu: "mobil görünümde tüm olarak bütün durmalı, ekrana sığacak
+    boyutta küçültülmeli, kullanıcı webdeki halinin küçültülmüş versiyonunu
+    görmeli." İki uygulama seçeneği sunuldu, kullanıcı düşük riskli olanı
+    onayladı:
+    - **(A) Seçilen/uygulanan — mevcut mobil-optimize düzeni ölçekle.**
+      `lg` altında (mevcut mobil kırılım noktasıyla AYNI) widget SABİT bir
+      "doğal" genişlikte (`NATURAL_MOBILE_WIDTH=480px`) render edilir —
+      bu, halihazırda ayarlanmış mobil düzenin (sidebar→yatay sekme
+      çubuğu, kartlar alt alta, Açık nokta #24/#31'in mobil optimizasyonu)
+      DEĞİŞMEDEN çizilmesini sağlar (`lg:` medya sorgusu viewport'a bakar,
+      bu sabit genişlik onu etkilemez) — sonra TÜMÜ `transform: scale()`
+      ile mevcut konteynerin genişliğine küçültülür (`[0.5,1]` aralığında
+      sınırlı, asla büyütülmez). `ResizeObserver` dış konteyner + iç
+      içerik (sekmeler arası otomatik geçişte yükseklik değişir) için
+      dinliyor, dış sarmalayıcının yüksekliği ölçeklenmiş değere eşitlenip
+      fazladan boşluk bırakılmıyor. Yeni `useMobileScale()` hook'u,
+      widget'ın ~2750 satırlık iç koduna (her sekmenin kendi `lg:`
+      kurallarına) HİÇ dokunmadan eklendi.
+    - **(B) İstendi ama ERTELENDİ — gerçek masaüstü düzenini mobilde
+      küçültme.** Kullanıcının orijinal ifadesi ("web'deki hali") aslında
+      buna daha yakın — mobilde de masaüstündeki BİREBİR aynı görünüm
+      (sol sidebar + kartlar yan yana grid) render edilip küçültülür.
+      Bunun için widget'ın `lg:` kurallarının CSS container query'lere
+      (Tailwind v4'ün yerleşik `@container` özelliği) çevrilmesi gerekir
+      — büyük, riskli bir değişiklik (aylarca özenle ayarlanmış widget'ı
+      bozma ihtimali). **Kullanıcı kararı: canlıya çıkış zaman baskısı
+      nedeniyle ERTELENDİ** — canlıya çıkış sonrası, bol zamanla, dikkatli
+      test edilerek ele alınabilir.
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8/9 regresyon
+    script'i sıfır sorun (yalnızca bilinen 5 sayfalık heading-hierarchy
+    taban çizgisi). **Canlı mobil viewport'ta uçtan uca GÖRSEL doğrulama
+    YAPILAMADI** — bu oturumdaki tarayıcı otomasyon aracı gerçek bir dar
+    viewport'a küçülemiyor (pencere hep masaüstü genişliğinde kaldı,
+    bilinen bir araç kısıtı) ve `matchMedia` override'ı enjekte etmek için
+    de çok geç kalıyor (widget `client:visible` ile sayfa yüklenir
+    yüklenmez hydrate oluyor, override script'i her zaman ondan SONRA
+    çalışıyor). Bunun yerine: (1) ölçekleme MATEMATİĞİ gerçek DOM'da
+    doğrudan hesaplanıp doğrulandı (360px konteyner + 480px doğal genişlik
+    → 0.75 ölçek, 808px doğal yükseklik → 606px ölçeklenmiş yükseklik,
+    doğru), (2) masaüstü davranışının DEĞİŞMEDİĞİ doğrulandı (gerçek
+    masaüstü viewport'ta hiçbir satır-içi stil uygulanmıyor, `isMobile`
+    doğru şekilde false kalıyor). Kod derleniyor, mantık doğru — canlıya
+    çıkış sonrası gerçek bir telefonda/DevTools'un cihaz modunda son bir
+    görsel kontrol önerilir.
+    **Takip turu (aynı gün) — kullanıcı gerçek cihazda 2 geri bildirim
+    daha verdi:**
+    1. "Çok ince uzun olmuş, biraz daha kısa ve geniş olsun" — kök neden:
+       `sm:`/`lg:` Tailwind sınıfları VIEWPORT'a bakıyor, ölçekleme
+       kutusunun kendi genişliğine değil — telefonlar her zaman `sm:`
+       (640px) eşiğinin altında olduğu için küçük KPI/mini-istatistik
+       kartları (`TrendKpiCard`/`StatCard`/`MiniTrendStatCard`) tek
+       sütuna düşüp dikey olarak uzuyordu, `transform:scale()` bu oranı
+       KORUYARAK küçültüyordu. 5 kompakt kart grid'i (Zaman/İzin/
+       Performans/Veri Analizi sekmelerinde) `sm:` beklemeden mobilde de
+       2 sütuna zorlandı (`lg:` üstü davranış AYNEN korundu) — grafik
+       içeren zengin kart çiftlerine (Devam Takibi vb.) bilinçli olarak
+       dokunulmadı, dar telefonda sıkışabilirdi.
+    2. "Ekrana sığmıyor, ekrana baktığımda hepsini görebilmeliyim" — kök
+       neden: `useMobileScale()`'in İLK sürümü yalnızca KONTEYNER
+       GENİŞLİĞİNE göre ölçekliyordu, `window.innerHeight`'ı hiç hesaba
+       katmıyordu — widget'ın alt kısmı ekranın dışında kalabiliyordu.
+       Ölçek artık İKİ adaydan (genişliğe sığdıran VE `window.innerHeight
+       × 0.85` hedef yüksekliğe sığdıran) KÜÇÜK olanı seçiyor — widget
+       artık HER ZAMAN hem yatayda hem dikeyde tek ekrana sığıyor.
+       `%85` payı (kullanıcının widget'a kaydırdığında başka içerik de
+       kısmen görünsün diye) ilk tahmin — kullanıcı hâlâ sığmadığını
+       söylerse bu oran düşürülebilir.
+    **Aynı doğrulama sınırı geçerli** — bu turlarda da canlı mobil
+    viewport'ta görsel doğrulama YAPILAMADI (AYNI araç kısıtı), yalnızca
+    `astro check`/8-9 regresyon script'i/masaüstü-değişmedi kontrolleri
+    tekrarlandı.
+    **Son tur (aynı gün) — Seçenek B araştırıldı, test edildi, REDDEDİLDİ;
+    Seçenek A'da gerçek bir kırpma hatası bulunup düzeltildi; bu kez
+    GERÇEK mobil viewport'ta görsel doğrulama da yapıldı:**
+    - **Seçenek B (masaüstü düzenini birebir mobilde küçültme) test edilip
+      REDDEDİLDİ — kod sorunu değil, tasarım/okunabilirlik kısıtı.**
+      Kullanıcı riski bilerek istedi; önce ucuz bir ön-test yapıldı:
+      widget'ın gerçek masaüstü DOM'u (1296×762px doğal boyut) tarayıcıda
+      canlı olarak 375px genişliğe `transform:scale()` ile küçültülüp
+      ekran görüntüsü alındı (kod değişikliği yok, yalnızca geçici DOM
+      manipülasyonu, sayfa sonra yeniden yüklenerek temizlendi). Sonuç:
+      büyük KPI sayıları okunabilir, ama ikincil metinler/trend
+      rozetleri/tarih-yüzde etiketleri/liste metadata'sı gerçekten
+      okunaksız (bulanık piksel yığını). **Bu, container query ile de
+      çözülemez** — sorun "CSS nasıl yazıldığı" değil, masaüstü bilgi
+      yoğunluğunun fiziksel olarak ~375-480px'e sığmaması. 24 dosya/satır
+      risklik dönüşüm bu nedenle yapılmadı.
+    - **Seçenek A'da bulunan gerçek kırpma hatası düzeltildi.** Aynı
+      ön-test sırasında, dış sarmalayıcının (`outerRef`, `flex
+      justify-center overflow-hidden`) `align-items` için Flexbox
+      varsayılanı (`stretch`) kullandığı fark edildi — bu, `scaledHeight`
+      ile sınırlanan dış kutunun yüksekliğini, `transform:scale()` ile
+      ölçeklenen `inner`'ın GERÇEK layout yüksekliğine (görsel değil,
+      DOM ölçüsü) dayatıp içeriği kırpıyordu (`inner.offsetHeight` dış
+      kutunun yüksekliğine sıkışıyor, `scrollHeight` çok daha büyük
+      kalıyordu). **Düzeltme:** `outerRef` div'inin className'ine
+      `items-start` eklendi (`ProductPreviewWidget.tsx`, ~satır 2963).
+    - **Bu kez gerçek mobil viewport'ta uçtan uca GÖRSEL doğrulama
+      YAPILDI** (önceki turlardaki araç kısıtı bu seferki denemede
+      aşıldı — yeni bir sekme açılıp `resize_window` ÖNCE, `navigate`
+      SONRA çağrıldığında pencere gerçekten 558px genişliğe küçüldü;
+      önceki turlarda mevcut bir sekmeyi sonradan yeniden boyutlandırma
+      işe yaramamıştı). 558px < 1024px mobil eşiği olduğu için widget
+      gerçekten hydrate olup `isMobile=true` durumuna geçti (doğrulandı:
+      `inner` üzerinde gerçek satır-içi `width:480px; transform:
+      scale(0.721)` stili göründü). Ölçüm: `inner.offsetHeight` (870px)
+      artık `inner.scrollHeight`'a (869px) eşit — kırpma YOK. Ekran
+      görüntüsü + yakın çekim: sekme çubuğu, KPI kartları, grafik başlığı
+      ve eksen etiketleri net okunabilir, içerik tam ve bütün görünüyor.
+    - ~~Kalıcı karar: Seçenek A benimsendi, Seçenek B bir daha gündeme
+      alınmayacak~~ — **BU KARAR AYNI GÜN GERİ ALINDI, bkz. aşağıdaki
+      BEŞİNCİ tur.** Kullanıcı okunabilirlik riskini bilerek yine de
+      Seçenek B'yi istedi.
+    **Doğrulama (bu tur):** `astro build` temiz, 8/9 regresyon script'i
+    sıfır sorun (aynı bilinen 5 sayfalık heading-hierarchy taban çizgisi,
+    bu değişiklikten bağımsız — yalnızca `ProductPreviewWidget.tsx` ve bu
+    dosya değişti).
+    **BEŞİNCİ tur (aynı gün) — Seçenek B UYGULANDI, kullanıcı riski
+    bilerek ısrar etti: "Kullanıcı, okunabilirlik riskini bilerek Seçenek B
+    (masaüstü düzeninin birebir mobilde küçültülmüş hali) ile devam etmek
+    istiyor kararlı."**
+    - **Güvenlik ağı:** Seçenek A'nın son çalışan hali (yukarıdaki dördüncü
+      tur — `items-start` kırpma düzeltmesi + genişlik-öncelikli ölçekleme +
+      StickyDemoBar kompaktlaştırma dahil, commit `314f04f`) `master`'da
+      commit edildi VE `mobil-widget-secenek-a-yedek` dalına (her iki
+      remote'a da push edildi) işaretlendi — geri dönüş gerekirse bu dal
+      kullanılabilir. `master` bu commit'in ÜZERİNE Seçenek B'yi inşa etti
+      (checkout edip geri dönmek yerine — StickyDemoBar düzeltmesi gibi
+      widget-mekanizmasından BAĞIMSIZ iyileştirmeler kaybolmasın diye).
+    - **Teknik uygulama:** `ProductPreviewWidget.tsx`'teki TÜM `lg:`/`sm:`
+      (viewport medya sorgusu) sınıfları `@min-[1024px]:`/`@min-[640px]:`
+      (Tailwind v4 container query, arbitrary-value söz dizimi — v4'ün
+      `@lg`/`@sm` varsayılan container eşikleri viewport eşiklerinden farklı
+      olduğu için bilinçli tercih) ile değiştirildi (~30 site). Widget artık
+      ÜÇ katmanlı: `outerRef` (gerçek viewport genişliğini ölçer) →
+      `containerRef` (`@container` + SABİT `DESKTOP_NATURAL_WIDTH=1280px` +
+      `transform:scale()` + `flexShrink:0`) → `innerRef` (asıl `flex-col
+      @min-[1024px]:flex-row` düzeni + tüm alt bileşenlerin container query
+      kuralları). CSS containment kısıtı (bir eleman kendi container
+      query'sinin hedefi olamaz) üç-katman yapısını ZORUNLU kıldı. `isMobile`/
+      `matchMedia` durumu TAMAMEN kaldırıldı — ölçek artık yalnızca genişlik
+      oranına bağlı, HER ZAMAN hesaplanıyor (masaüstünde doğal olarak ~1).
+    - **`align-items:stretch` kırpma hatası** (Seçenek A'dan miras, `outerRef`
+      className'inde `items-start` zaten vardı) — AYNEN korundu, hâlâ gerekli.
+    - **Bu turda YENİ bulunan bir ölçek-tabanı hatası düzeltildi:** Seçenek
+      A'nın `[0.5,1]` ölçek aralığı `NATURAL_MOBILE_WIDTH=480` içindi (0.5
+      tabanı → min 240px render, telefona sığar). `DESKTOP_NATURAL_WIDTH=1280`
+      ile AYNI 0.5 tabanı min 640px render demek — HİÇBİR telefonda
+      `outerRef`'e sığmaz, `overflow-hidden` tarafından KIRPILIR. Gerçek DOM
+      testinde doğrulandı (278px konteynerde 0.5 taban ile widget 640px
+      render edip taştı) — alt sınır TAMAMEN kaldırıldı, ölçek yalnızca üstten
+      (`Math.min(1, widthScale)`) sınırlı, her zaman tam genişliğe sığıyor.
+    - **Doğrulama:** `astro build` temiz, derlenen CSS'te `container-type:
+      inline-size` + `@container (width>=1024px)` kuralları doğrulandı
+      (gerçek container query üretildi). 8/9 regresyon script'i sıfır sorun
+      (aynı bilinen, ilgisiz heading-hierarchy taban çizgisi). **Gerçek
+      ürünüm koduyla (mock/DOM taklidi DEĞİL) canlı doğrulama yapıldı:**
+      widget'ın gerçek ata konteyneri (`HeroSection.astro`'nun `max-w-[88rem]`
+      sarmalayıcısı) geçici olarak 390px'e daraltıldı (tarayıcı
+      `resize_window` aracı bu oturumda güvenilmez çıktı, gerçek viewport
+      genişliği değişmedi — bu yüzden ata elemanın kendi genişliği
+      daraltılıp gerçek `ResizeObserver`'ın tepki vermesi izlendi), sonuç:
+      `outerRef` 278px'e küçüldü, `containerRef` `scale(0.217)` ile TAM
+      278px'e ölçeklendi (taşma/kırpma YOK), ekran görüntüsünde masaüstü
+      sidebar+2×2 grid düzeni (mobil-reflow DEĞİL, GERÇEK masaüstü hali)
+      bozulmadan, kesilmeden, üst üste binmeden göründü — yalnızca küçük
+      (kabul edilen okunabilirlik ödünü). Masaüstü viewport'ta (gerçek
+      geniş pencere) `scale(1)` doğrulandı, hiç değişmedi.
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
@@ -2902,9 +3646,55 @@ olsun olmasın) `npm run dev:clean` ile yeniden başlatın. Üretim build
 testi (`astro build`) sonrası dev server'a dönerken de aynı komut
 kullanılabilir (`dist/` çıktısını da temizler).
 
-## 🔶 AÇIK NOKTA (2026-08-30) — Sitedeki 6 form da backend'siz `console.log`
-stub'ı, ayrıca KVKK onay metniyle çelişen bir hukuki risk taşıyor. Kod
-değişikliği HENÜZ YAPILMADI — 2 gün sonra ele alınacak.
+## 🔶 AÇIK NOKTA (2026-08-30, 2026-09-02'de GÜNCELLENDİ) — Sitedeki 6 form
+artık gerçek bir backend'e BAĞLI (kod tarafı tamam) ama SendGrid API
+anahtarı HENÜZ YOK — bu yüzden pratikte hâlâ hiçbir e-posta göndermiyorlar,
+yalnızca artık `console.log` yerine DÜRÜST bir hata mesajı gösteriyorlar.
+
+**2026-09-02'de yapılan hazırlık (Açık nokta #2):**
+- Yeni `src/pages/api/lead.ts` (`prerender:false`, gerçek SSR route) — 6
+  formun TAMAMININ ortak varış noktası. Doğrulama, e-posta içeriği
+  oluşturma, hata kodları TAM ve çalışır durumda; SendGrid'e gerçek
+  istek yalnızca `SENDGRID_API_KEY` (+`SENDGRID_FROM_EMAIL`+
+  `LEAD_NOTIFICATION_EMAIL`) tanımlıysa atılıyor, tanımlı DEĞİLSE 503
+  dönüyor (sahte bir "başarılı" görüntüsü YARATILMIYOR).
+- Cloudflare Workers runtime'ında Node'un `@sendgrid/mail` SDK'sı DEĞİL,
+  SendGrid'in v3 REST API'sine doğrudan `fetch()` (yeni bir npm
+  bağımlılığı eklenmedi). Env erişimi `Astro.locals.runtime.env` DEĞİL
+  (bu adapter sürümünde — `^14.2.5` — KALDIRILMIŞ) — `import { env } from
+  'cloudflare:workers'` (adapter'ın kendisinin de kullandığı güncel
+  resmi desen, `npx astro check` ile bulunup düzeltildi). Yerel
+  geliştirme için `.dev.vars.example` şablonu + `.gitignore`'a `.dev.vars`
+  eklendi.
+- Yeni paylaşılan `src/data/formLead.ts` (`submitLead()`) — 6 formun
+  TAMAMI aynı `fetch()` mantığını tekrar YAZMIYOR, bunu çağırıyor.
+- 5 form component'i (`HeroForm.tsx` [Hero+İletişim ikisi de],
+  `LandingRequestForm.tsx`, `SupportRequestForm.tsx`,
+  `PresentationRequestForm.tsx`, `HrMaturityTest.tsx`'in
+  `EmailReportForm`'u) `console.log` çağrıları kaldırılıp gerçek
+  `submitLead()` ile bağlandı — gönderim sırasında buton devre dışı +
+  "Gönderiliyor…" metni, başarısız olunca GERÇEK bir hata mesajı
+  (`common.formSubmitError`, yeni `Translations.common` alanı, 5 dilin
+  hepsinde çevrildi). `SupportRequestForm.tsx` daha önce hiçbir yere
+  yönlendirmiyordu (gerçek bir eksiklik) — artık `redirectHref` prop'u
+  eklenip zaten VAR olan ama hiç bağlanmamış `SupportThankYouPage.astro`'ya
+  bağlandı.
+- reCAPTCHA v3 İSKELETİ: sunucu tarafı `verifyRecaptcha()` tam yazıldı
+  (secret yoksa doğrulama atlanır, form akışı bozulmaz) — istemci tarafı
+  widget'ı BİLİNÇLİ olarak eklenmedi (site key yok, CSP'ye
+  `google.com/recaptcha`/`gstatic.com` eklemenin faydası yok), token her
+  zaman `null` gönderiliyor. Site key gelince: (1) widget yükle,
+  `grecaptcha.execute()` sonucu `submitLead()`'e geçir, (2) CSP'ye
+  `recaptcha`/`gstatic` domain'lerini ekle — ikisi de `lead.ts`'in kendi
+  yorumunda adım adım yazılı.
+- **Doğrulama:** `astro build` + `npx astro check` (0 hata) temiz, 8/9
+  regresyon script'i sıfır sorun (aynı ilgisiz heading-hierarchy taban
+  çizgisi), gerçek tarayıcıda İletişim formu dolduruldu/gönderildi —
+  gerçek `POST /api/lead` isteği (503, anahtar yok) + kullanıcıya gerçek
+  hata mesajı gösterildiği doğrulandı.
+- **SendGrid anahtarı gelince yapılacak TEK şey:** `.dev.vars`/Cloudflare
+  Pages'e `SENDGRID_API_KEY`/`SENDGRID_FROM_EMAIL`/`LEAD_NOTIFICATION_EMAIL`
+  yazmak — kod DEĞİŞMEYECEK.
 
 Açık nokta #2'nin ("Faz 2 backend yok") eski, eksik listesi
 (yalnızca Hero formu + HR Maturity Test'ten bahsediyordu) bu turda tam
@@ -2933,16 +3723,19 @@ sunulurken, o onayın konu ettiği veri işleme fiilen HİÇ gerçekleşmiyor
 TUTARSIZLIK var. (Bu bir hukuki görüş DEĞİL, yalnızca kod davranışının
 tespitidir — nihai değerlendirme için hukuk danışmanına başvurulmalı.)
 
-**Kapsam netliği:** Bu madde yalnızca KAYDA GEÇİRİLDİ, hiçbir form/
-metin/backend değişikliği yapılmadı. Faz 2'de (aşağıdaki plan) ele
-alınacak — kullanıcı "2 gün sonra" (tahmini 2026-09-01) bu işe
-başlanacağını belirtti.
+**GÜNCELLEME (2026-09-02):** Yukarıdaki tablodaki TÜM `console.log(...)`
+çağrıları kaldırıldı, 5 form component'i gerçek `submitLead()`/`/api/lead`
+akışına bağlandı — bkz. yukarıdaki güncel özet. Bu madde SendGrid
+anahtarı gelip gerçek e-posta gönderimi doğrulanana kadar açık kalıyor.
 
-**TODO:**
-- [ ] Backend bağlanırken bu satırları kaldır (yukarıdaki tablodaki 5
-      dosyanın `console.log(...)` çağrıları — Ad/e-posta/telefon artık
-      gerçek bir backend'e gönderileceği için tarayıcı konsoluna
-      basılmamalı).
+**TODO (kalan, yalnızca anahtar gelince):**
+- [ ] `.dev.vars`/Cloudflare Pages env değişkenlerine
+      `SENDGRID_API_KEY`/`SENDGRID_FROM_EMAIL`/`LEAD_NOTIFICATION_EMAIL`
+      yazılacak.
+- [ ] Gerçek bir uçtan uca test: bir form gönderilip idenfit'in
+      `LEAD_NOTIFICATION_EMAIL` kutusuna e-posta düştüğü doğrulanacak.
+- [ ] reCAPTCHA site key alınırsa, istemci widget'ı + CSP güncellemesi
+      (bkz. `lead.ts`'teki `verifyRecaptcha()` yorumundaki adım adım not).
 
 ---
 

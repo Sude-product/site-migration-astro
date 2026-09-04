@@ -6,6 +6,8 @@ export const az: Translations = {
   common: {
     lastUpdated: 'Son yenilənmə',
     home: 'Əsas səhifə',
+    formSubmitting: 'Göndərilir…',
+    formSubmitError: 'Nəsə səhv getdi — bir azdan yenidən cəhd edin.',
   },
   nav: {
     products: 'MƏHSULLAR',
@@ -61,6 +63,25 @@ export const az: Translations = {
       back: 'Geri',
     },
     presentationTrustCaption: 'idenfit-ə güvənən 1.000-dən çox müştəriyə qoşulun.',
+    presentationTimeline: {
+      title: '3 Addımda idenfit',
+      steps: [
+        { title: '1. Qeydiyyatdan keçin', text: 'Hesabınızı açın — quraşdırma 48 saat ərzində tamamlanır.' },
+        { title: '2. Məlumatlarınızı Ötürün', text: 'Excel vasitəsilə toplu məlumat ötürməsi ilə işçi məlumatlarınızı sistemə yükləyin.' },
+        { title: '3. İdarəetməyə Başlayın', text: 'Canlı paneldən giriş-çıxış, icazə və əmək haqqı proseslərini anında idarə edin.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Əsas Xüsusiyyətlər',
+      items: [
+        { title: 'Bütöv İK İdarəçiliyi', text: 'Şəxsi məlumatlar tək mərkəzdən, işə başlama/işdən çıxma tapşırıq əsaslı izlənir.' },
+        { title: 'Vaxt, Növbə və Davamiyyət İzləmə', text: 'Canlı monitorla giriş-çıxış izlənməsi, mobil vasitəsilə əskik qeydlərin tamamlanması.' },
+        { title: 'Təsdiq və Tələb Axınları', text: 'İcazə, xərc, avans, əlavə iş vaxtı, ezamiyyət — iyerarxik təsdiq mexanizmləri ilə.' },
+        { title: 'Əmək Haqqı və Sənəd İdarəçiliyi', text: 'Şifrələnmiş mobil giriş, şəxsi sənədlər təhlükəsiz saxlanılır.' },
+        { title: 'Performans, Təlim, Ünsiyyət', text: '360 dərəcə qiymətləndirmə, təlim planlaması, anonim rəy bildirimi.' },
+        { title: 'Toplu Əməliyyat Çevikliyi', text: 'Excel vasitəsilə toplu məlumat ötürməsi, bir kliklə yüzlərlə işçiyə rol/növbə/icazə təyinatı.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
@@ -185,7 +206,8 @@ export const az: Translations = {
       promo: {
         category: 'KORPORATİV',
         title: 'idenfit Ailəsi ilə Tanış Olun',
-        imageAlt: 'idenfit komandası',
+        description: 'Təhlükəsiz, innovativ və insan mərkəzli həllərlə yanınızdayıq.',
+        imageAlt: 'idenfit təhlükəsiz rəqəmsal həllər illüstrasiyası',
       },
     },
     kesfet: {
@@ -318,6 +340,14 @@ export const az: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          'Otelimiz açıldığı gündən idenfit tətbiqindən istifadə edir. İdenfit tətbiqində məni ən çox cəlb edən və seçim səbəbim olan şeylərdən biri idenfitin ortaya qoyduğu fikir idi. İş həyatında alışdığımız kart oxutma, turniket sistemi və ya imza atma üsulunun hamısını bir kənara qoydu. Əməkdaşlarımızın mobil tətbiq üzərindən giriş-çıxış əməliyyatını edə bilmələri və bizim bunu anlıq və mobil olaraq hər yerdən izləyə bilməyimiz performansımızı da artırdı.',
+        name: 'Tolga Avcı',
+        role: 'Ümumi Direktor',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -379,6 +409,17 @@ export const az: Translations = {
       text:
         'idenfit, üz tanıma və barmaq oxuma cihazlarına inteqrasiya olunmuş sistem sayəsində işçilərin kimlik doğrulaması real zamanlı aparıla bilər. Eyni zamanda giriş-çıxış və fasilə vaxtlarının izlənməsi asanlıqla idarə oluna bilər.',
     },
+    partners: {
+      title: 'Partnyorlarımız',
+      text: 'idenfit-in inteqrasiya olunduğu etibarlı texnologiya və biznes tərəfdaşları.',
+      categories: {
+        turnstile: 'Turniket',
+        payroll: 'Əmək Haqqı',
+        lms: 'LMS',
+        task: 'Tapşırıq İdarəçiliyi',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'İnkişaf Etdirilə Bilən İşçi Təcrübəsi',
       intro:
@@ -407,11 +448,6 @@ export const az: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş idenfit ilə İK proseslərini tək paneldən idarə edir' },
       beyazFirinVideo: { headline: 'Beyaz Fırının idenfit ilə İK proseslərini necə transformasiya etdiyini izləyin' },
       ibisStylesVideo: { headline: 'ibis Styles Hotels-in idenfit ilə İK proseslərini necə transformasiya etdiyini izləyin' },
-      ibisStylesQuote: {
-        text: 'Otelimiz açıldığı gündən idenfit tətbiqindən istifadə edir. İdenfit tətbiqində məni ən çox cəlb edən və seçim səbəbim olan şeylərdən biri idenfitin ortaya qoyduğu fikir idi. İş həyatında alışdığımız kart oxutma, turniket sistemi və ya imza atma üsulunun hamısını bir kənara qoydu. Əməkdaşlarımızın mobil tətbiq üzərindən giriş-çıxış əməliyyatını edə bilmələri və bizim bunu anlıq və mobil olaraq hər yerdən izləyə bilməyimiz performansımızı da artırdı.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Ümumi Direktor',
-      },
     },
     faq: {
       viewAllLink: 'Bütün Sualları Görüntülə',

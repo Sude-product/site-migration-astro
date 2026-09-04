@@ -10,18 +10,19 @@
 // İCAT EDİLMEDİ, zaten onaylı deseni yeniden kullanıyor).
 import { Rocket, UploadCloud, LayoutDashboard, type LucideIcon } from 'lucide-react';
 import IdenfitStar from './icons/IdenfitStar';
+import { getTranslations } from '../i18n';
+import type { Locale } from '../data/nav';
 
-interface Step {
-  icon: LucideIcon;
-  title: string;
-  text: string;
-}
+// 2026-09-02 (kullanıcı bulgusu — "panelden sonraki yerlerde çeviri
+// olmuyor") — bu component ÖNCEDEN tamamen hardcoded Türkçe idi, hiçbir
+// i18n altyapısı yoktu. Metin artık `t.hero.presentationTimeline`'dan
+// geliyor (5 dilde gerçek çeviri, KARAR 1) — yalnızca İKONLAR burada
+// sabit kalıyor, `steps` dizisiyle 0-tabanlı INDEX'e göre eşleşiyor.
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { presentationTimeline } = t.hero;
 
-const STEPS: Step[] = [
-  { icon: Rocket, title: '1. Kaydolun', text: 'Hesabınızı açın — kurulum 48 saat içinde tamamlanır.' },
-  { icon: UploadCloud, title: '2. Verilerinizi Aktarın', text: 'Excel ile toplu veri aktarımıyla çalışan bilgilerinizi sisteme yükleyin.' },
-  { icon: LayoutDashboard, title: '3. Yönetmeye Başlayın', text: 'Canlı panelden giriş-çıkış, izin ve bordro süreçlerini anlık yönetin.' },
-];
+const ICONS: LucideIcon[] = [Rocket, UploadCloud, LayoutDashboard];
 ---
 
 <section class="relative bg-surface py-16 lg:py-24">
@@ -37,7 +38,7 @@ const STEPS: Step[] = [
   <IdenfitStar className="pointer-events-none absolute bottom-16 left-[12%] hidden h-10 w-10 -rotate-6 text-brand opacity-[0.09] sm:block" />
 
   <div class="relative mx-auto max-w-5xl px-6 lg:px-8">
-    <h2 class="reveal h2-section text-center text-heading">3 Adımda idenfit</h2>
+    <h2 class="reveal h2-section text-center text-heading">{presentationTimeline.title}</h2>
 
     <div class="relative mt-14 grid grid-cols-1 gap-6 lg:grid-cols-3 lg:gap-8">
       {/* Bağlayıcı çizgi — yalnızca `lg:`'de, kartların ORTA yüksekliğinden
@@ -49,7 +50,7 @@ const STEPS: Step[] = [
       />
 
       {
-        STEPS.map((step, i) => (
+        presentationTimeline.steps.map((step, i) => (
           <div
             class="reveal group relative rounded-2xl border border-[#F0E4E4] bg-white p-7 shadow-[0_10px_34px_-14px_rgba(120,0,0,0.18)] transition-transform duration-200 hover:-translate-y-1"
             style={`transition-delay: ${i * 120}ms`}
@@ -58,7 +59,10 @@ const STEPS: Step[] = [
               <IdenfitStar className="h-5 w-5" />
             </span>
             <div class="relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#C40000] text-white shadow-[0_8px_20px_-6px_rgba(255,0,0,0.55)]">
-              <step.icon className="h-6 w-6" aria-hidden="true" />
+              {(() => {
+                const Icon = ICONS[i];
+                return <Icon className="h-6 w-6" aria-hidden="true" />;
+              })()}
             </div>
             <h3 class="mt-5 text-lg font-semibold text-heading">{step.title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-body">{step.text}</p>

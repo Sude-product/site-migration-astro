@@ -30,7 +30,25 @@ export default function MaturityArcDecoration() {
     <div
       ref={containerRef}
       aria-hidden="true"
-      className="pointer-events-none absolute inset-x-0 top-0 -z-10 opacity-90"
+      // Kaynakta bu animasyon metin kolonundan (924px) BAĞIMSIZ, sabit
+      // 1220px genişlikte render ediliyor (`e-lottie__container`, canlı
+      // sayfada `getComputedStyle` ile ölçüldü). İlk denemede bunu
+      // `scale-[1.35]` (kapsayıcının kendi ~960px genişliğini büyüten bir
+      // transform) ile taklit ettik — ama üst bloğun `overflow-hidden`'ı
+      // büyüyen kısmı YANLARDAN KIRPIYORDU (kullanıcı bulgusu: "yandan
+      // kesik duruyor"). Kök neden: transform kutunun GERÇEK genişliğini
+      // değiştirmiyor, yalnızca GÖRSEL olarak taşırıyor — kırpma açık
+      // olduğu sürece kaçınılmazdı. Düzeltme: `overflow-hidden` üst
+      // bloktan kaldırıldı (bkz. o dosyadaki not) VE burada artık gerçek
+      // genişlik `w-screen` + `left-1/2 -translate-x-1/2` ("full-bleed"
+      // deseni — bu blok kendi mx-auto'lu üst konteynerinde ortalı
+      // olduğu için, bu ortalama viewport ortalamasıyla ÇAKIŞıYOR, ekstra
+      // bir viewport-genişliği hesaplamasına gerek yok) ile viewport'a
+      // göre ortalanıyor, `max-w-[1220px]` kaynağın kendi sabit
+      // genişliğini üst sınır olarak koruyor (büyük ekranlarda aşırı
+      // genişlemeyi önler, küçük ekranlarda `w-screen` doğal olarak
+      // daralır — hiçbir zaman kırpılmaz).
+      className="pointer-events-none absolute left-1/2 top-0 -z-10 w-screen max-w-[1220px] -translate-x-1/2 opacity-90"
     />
   );
 }

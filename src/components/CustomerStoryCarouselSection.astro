@@ -85,18 +85,6 @@ const cards: CustomerCarouselCardData[] = CUSTOMER_CAROUSEL_CARDS.map((card): Cu
       };
       return quoteCard;
     }
-    if (card.storyKey === 'ibisStyles') {
-      const quote = cc.ibisStylesQuote;
-      const quoteCard: QuoteCardData = {
-        ...base,
-        type: 'quote',
-        quoteText: quote.text,
-        personName: quote.name,
-        personRole: quote.jobTitle,
-        photoUrl: card.quotePhotoUrl,
-      };
-      return quoteCard;
-    }
     const labels = cs[card.storyKey];
     const quoteCard: QuoteCardData = {
       ...base,

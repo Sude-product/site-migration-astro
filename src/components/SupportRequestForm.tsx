@@ -8,6 +8,7 @@ import {
   type CountryPhoneDef,
 } from '../data/phoneCountries';
 import type { Locale } from '../data/nav';
+import { submitLead } from '../data/formLead';
 
 interface FormData {
   fullName: string;
@@ -60,6 +61,14 @@ export interface SupportRequestFormProps {
   locale: Locale;
   kvkkHref: string;
   termsHref: string;
+  /** Gerçek gönderim başarılı olduktan sonra yönlendirilecek, locale-doğru
+   * "Destek Talebi Teşekkürler" URL'i (2026-09-02, Açık nokta #2 —
+   * form daha önce başarı/hata FARKETMEKSİZİN hiçbir yere yönlendirmiyordu,
+   * `SupportThankYouPage.astro` zaten VARDI ama hiç bağlanmamıştı). */
+  redirectHref: string;
+  /** Gönderim SIRASINDA/BAŞARISIZ olunca gösterilen paylaşılan metinler
+   * (bkz. `src/data/formLead.ts`, `Translations.common`). */
+  common: { formSubmitting: string; formSubmitError: string };
 }
 
 // idenfit.com Destek Talebi formu (`/destek-talebi/`) — HeroForm.tsx'ten
@@ -72,13 +81,15 @@ export interface SupportRequestFormProps {
 // seçicisi HeroForm'la AYNI paylaşılan altyapıyı (`phoneCountries.ts`,
 // `PhoneCountrySelect.tsx`) kullanıyor — kod tekrarı yok.
 //
-// NOT: submit şimdilik yalnızca console.log — backend/CRM entegrasyonu
-// Faz 2'de yapılacak (bkz. CLAUDE.md "Açık noktalar" madde 2, HeroForm'la
-// aynı TODO).
-export default function SupportRequestForm({ labels, idPrefix = 'sr', locale, kvkkHref, termsHref }: SupportRequestFormProps) {
+// Gönderim (2026-09-02, Açık nokta #2) — `src/data/formLead.ts`'in
+// `submitLead()`'i üzerinden `/api/lead`'e POST atılıyor, başarılıysa
+// `redirectHref`'e (Destek Talebi'nin kendi Teşekkürler sayfası) yönlendirir.
+export default function SupportRequestForm({ labels, idPrefix = 'sr', locale, kvkkHref, termsHref, redirectHref, common }: SupportRequestFormProps) {
   const [data, setData] = useState<FormData>(EMPTY);
   const [country, setCountry] = useState<CountryPhoneDef>(() => getDefaultCountryForLocale(locale));
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const update = (field: 'fullName' | 'email' | 'company' | 'message') =>
     (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -96,12 +107,27 @@ export default function SupportRequestForm({ labels, idPrefix = 'sr', locale, kv
   const phoneValid = isValidPhoneForCountry(data.phone, country);
   const showPhoneError = attemptedSubmit && !phoneValid;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setAttemptedSubmit(true);
     if (!phoneValid) return;
-    // TODO: backend entegrasyonu — şimdilik sadece logla.
-    console.log('Destek talebi gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
+    setSubmitError(false);
+    setSubmitting(true);
+    const result = await submitLead({
+      formType: 'support',
+      locale,
+      fullName: data.fullName,
+      phone: `+${country.dialCode}${data.phone}`,
+      email: data.email,
+      company: data.company,
+      message: data.message,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(true);
+      return;
+    }
+    window.location.href = redirectHref;
   };
 
   // Kaynağın kendi input stili: dolu açık gri (`#F5F5F5`), ince açık
@@ -231,14 +257,21 @@ export default function SupportRequestForm({ labels, idPrefix = 'sr', locale, kv
         )}
       </p>
 
+      {submitError && (
+        <p role="alert" className="text-sm font-medium text-red-600">
+          {common.formSubmitError}
+        </p>
+      )}
+
       {/* Buton BİLİNÇLİ olarak yeşil (`#60A344`) — kaynakta birebir bu
           renk, sitenin geri kalanındaki kırmızı CTA'lardan FARKLI, kullanıcı
           isteğiyle olduğu gibi korundu (2026-07-27, Playwright ile ölçüldü). */}
       <button
         type="submit"
-        className="w-full rounded-[13px] bg-[#60A344] px-6 py-4 text-sm font-semibold uppercase tracking-wide text-white transition-opacity hover:opacity-90"
+        disabled={submitting}
+        className={`w-full rounded-[13px] bg-[#60A344] px-6 py-4 text-sm font-semibold uppercase tracking-wide text-white transition-opacity hover:opacity-90 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
       >
-        {labels.submit}
+        {submitting ? common.formSubmitting : labels.submit}
       </button>
     </form>
   );

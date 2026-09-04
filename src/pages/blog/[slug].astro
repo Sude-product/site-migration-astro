@@ -44,7 +44,19 @@ const relatedPosts = getRelatedPosts(allPosts, post);
 // kaynağın kendi hatası). Bizim verimiz zaten temiz olduğu için burada
 // yalnızca virgülle birleştirmek yeterli, ekstra bir dedupe GEREKMİYOR.
 const categoryLabel = categories.map((c) => c.name).join(', ');
-const showModifiedDate = modifiedDate && Math.abs(modifiedDate.getTime() - date.getTime()) >= DAY_MS;
+// `modifiedDate` WP'nin ZAMANLANMIŞ (scheduled) yazılarında `date`'ten
+// (yayın anı) ÖNCE olabilir — `modified`, taslağın son kaydedildiği anı
+// (ör. sabah) taşırken `date` ileri bir tarihe ayarlanmış yayın anını
+// (ör. aynı günün öğleden sonrası) yansıtır (2026-09-02, 7 yazılık son
+// senkronizasyon turunda 6'sında bulundu — `check-json-ld.mjs`'in
+// `dateModified >= datePublished` kuralını ihlal ediyordu). Yayınlanana
+// kadar hiç düzenlenmemiş bir yazının "en son değiştirilme" tarihi mantık
+// olarak yayın tarihinden ÖNCE olamaz — bu durumda "gerçek bir düzenleme
+// yok" kabul edilip `undefined`'a düşülür (JSON-LD/OG `date`'e, görünür
+// banner ise hiç göstermemeye geri döner — 46/618 yazıda `modifiedDate`
+// `date`'le aynıyken zaten uygulanan AYNI ilke).
+const effectiveModifiedDate = modifiedDate && modifiedDate > date ? modifiedDate : undefined;
+const showModifiedDate = effectiveModifiedDate && Math.abs(effectiveModifiedDate.getTime() - date.getTime()) >= DAY_MS;
 
 // JSON-LD (BlogPosting, schema.org) — 2026-08-10, structured data turu.
 // Site genelinde İLK JSON-LD uygulaması (daha önce hiç yoktu — bkz. CLAUDE.md
@@ -90,7 +102,7 @@ const jsonLd = {
   description: excerpt,
   image: featuredImage?.url ?? IDENFIT_LOGO_URL,
   datePublished: date.toISOString(),
-  dateModified: (modifiedDate ?? date).toISOString(),
+  dateModified: (effectiveModifiedDate ?? date).toISOString(),
   author: authorName ? { '@type': 'Person', name: authorName } : { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
   publisher: {
     '@type': 'Organization',
@@ -116,7 +128,7 @@ const jsonLd = {
   image={featuredImage?.url ?? IDENFIT_LOGO_URL}
   ogType="article"
   articlePublishedTime={date.toISOString()}
-  articleModifiedTime={(modifiedDate ?? date).toISOString()}
+  articleModifiedTime={(effectiveModifiedDate ?? date).toISOString()}
   hreflangLocales={['tr']}
   breadcrumb={[{ label: 'Blog', href: '/blog/' }, { label: title }]}
 >
@@ -138,7 +150,7 @@ const jsonLd = {
                 <>
                   <span aria-hidden="true">·</span>
                   <span>
-                    Güncellendi: <time datetime={modifiedDate!.toISOString()}>{formatBlogDate(modifiedDate!)}</time>
+                    Güncellendi: <time datetime={effectiveModifiedDate!.toISOString()}>{formatBlogDate(effectiveModifiedDate!)}</time>
                   </span>
                 </>
               )

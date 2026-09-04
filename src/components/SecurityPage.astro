@@ -24,8 +24,20 @@ const locale = (Astro.currentLocale ?? 'tr') as Locale;
 function isExternal(url: string) {
   return /^https?:\/\//.test(url);
 }
+// PDF'ler `deepRelativizeWpUrls()` turunda (Açık nokta #45) mutlak
+// `https://idenfit.com/wp-content/...`'ten göreli `/wp-content/...`'a
+// çevrildi (hotlink temizliği) — bu, `isExternal()`'ı false'a düşürüp
+// bu linklerin `getRelativeLocaleUrl()`'e (Astro SAYFA rotaları içindir,
+// statik dosya DEĞİL) düşmesine yol açtı: fonksiyon PDF uzantısının
+// sonuna bir `/` ekleyip linki kırıyordu (`bilgi_guvenligi.pdf/` — dosya
+// sistemde `/`SİZ duruyor, 404). `/wp-content/` altındaki her şey statik
+// bir varlık (asset), Astro sayfa rotası değil — locale önekleme/
+// trailing-slash mantığından muaf tutulmalı.
+function isStaticAsset(url: string) {
+  return url.startsWith('/wp-content/');
+}
 function resolveHref(url: string) {
-  return isExternal(url) ? url : getRelativeLocaleUrl(locale, url);
+  return isExternal(url) || isStaticAsset(url) ? url : getRelativeLocaleUrl(locale, url);
 }
 
 // `pageTitle ?? title` bazı dillerde 50 karakterin altında/üstünde olabilir
@@ -56,11 +68,11 @@ const seoTitle = buildIdenfitTitle(pageTitle ?? title, locale);
             </span>
             <a
               href={resolveHref(item.url)}
-              target={isExternal(item.url) ? '_blank' : undefined}
-              rel={isExternal(item.url) ? 'noopener noreferrer' : undefined}
+              target={isExternal(item.url) || isStaticAsset(item.url) ? '_blank' : undefined}
+              rel={isExternal(item.url) || isStaticAsset(item.url) ? 'noopener noreferrer' : undefined}
               class="shrink-0 text-sm font-semibold text-brand hover:underline"
             >
-              {item.linkText || (isExternal(item.url) ? 'PDF' : '→')}
+              {item.linkText || (isExternal(item.url) || isStaticAsset(item.url) ? 'PDF' : '→')}
             </a>
           </li>
         ))

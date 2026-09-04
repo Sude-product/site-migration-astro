@@ -17,7 +17,16 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 
-const DIST_DIR = process.env.DIST_DIR ?? 'dist';
+// DÜZELTME (2026-09-02, Açık nokta #53) — varsayılan `'dist'` DEĞİL
+// `'dist/client'`: `@astrojs/cloudflare` adapter'ı (server modu,
+// b73428a'dan beri) statik sayfaları `dist/client/` altına sarıyor.
+// `check-html-lang-attribute.mjs`'in AYNI kökten gelen bug'ı (Açık
+// nokta #52) düzeltildiğinde bu script'e de UYGULANMASI gerektiği not
+// edilmiş ama o turda `site` alanı hâlâ boş olduğu için `pagesWithHreflang
+// === 0` erken çıkışı devreye girip hata gizli kalıyordu — bu script
+// hiçbir zaman gerçek path karşılaştırmasına ulaşmıyordu. Şimdi `site`
+// dolduruluyor, düzeltme burada da uygulanıyor.
+const DIST_DIR = process.env.DIST_DIR ?? 'dist/client';
 
 async function findHtmlFiles(dir) {
   const results = [];

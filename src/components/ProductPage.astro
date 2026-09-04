@@ -77,6 +77,25 @@ interface Props {
    * `LastUpdated.astro`. GERÇEK WP `modified` tarihi verilmezse (kaynakta
    * yoksa/sentetik bir sayfaysa) hiçbir şey render edilmez, uydurulmaz. */
   modified?: Date;
+  /** `'side'` (varsayılan) — mevcut 2 kolonlu (metin/görsel yan yana) hero.
+   * `'stacked'` — ortalanmış metin + ALTINDA görsel + (varsa) `heroPartnerLogo`
+   * satırı (2026-09-02, İşe Alım Modülü/Hiringoz — canlı sitede hero artık
+   * bu düzeni kullanıyor: H1/paragraf ortalanmış, arka planda dekoratif bir
+   * illüstrasyon, altında CTA'nın yanında "hiringoz" marka logosu). Diğer
+   * TÜM sayfalarda verilmez, davranış DEĞİŞMEZ. */
+  heroLayout?: 'side' | 'stacked';
+  /** `heroLayout='stacked'` iken CTA butonunun yanında gösterilen ortak
+   * marka logosu (2026-09-02 — canlı sitede hero'daki "hiringoz →" logosu,
+   * kendisi bir LİNK değil, yalnızca dekoratif marka rozeti — bkz.
+   * `productTranslationOverrides.ts`'teki yorum). */
+  heroPartnerLogo?: { url: string; alt: string; width: number; height: number };
+  /** Breadcrumb'ın son kırıntı etiketi — verilmezse (varsayılan, diğer
+   * TÜM sayfalarda) `pageTitle` kullanılır. `pageTitle` kendisi uzun bir
+   * tanıtım cümlesiyse (İşe Alım Modülü/Donanım gibi) H1/breadcrumb'ın
+   * İKİSİ DE bu uzun cümleyi göstermesi istenmeyebilir — bu durumda
+   * `ctaKeyword` gibi kısa, gerçek bir isim geçirilebilir (2026-09-02,
+   * kullanıcı isteği). `title`/`ctaKeyword` override'larıyla AYNI ilke. */
+  breadcrumbLabel?: string;
 }
 
 const {
@@ -90,6 +109,9 @@ const {
   ctaTextOverride,
   sectionCtaOverrides,
   modified,
+  heroLayout = 'side',
+  heroPartnerLogo,
+  breadcrumbLabel,
 } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
@@ -116,44 +138,70 @@ const heroCtaText =
   hreflangLocales={hreflangLocales}
   image={hero.image?.url}
   dateModified={modified?.toISOString()}
-  breadcrumb={[{ label: pageTitle }]}
+  breadcrumb={[{ label: breadcrumbLabel ?? pageTitle }]}
 >
   <!-- Hero -->
-  <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-    <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
-      <div>
-        <h1
-          class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl"
-          set:html={hero.title}
-        />
-        {hero.text && <p class="mt-5 max-w-xl text-lg text-body" set:html={hero.text} />}
-        {
-          hero.ctaText && hero.ctaUrl && (
-            <a
-              href={hero.ctaUrl}
-              class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
-            >
-              {heroCtaText}
-            </a>
-          )
-        }
-      </div>
-      {
-        hero.image && (
-          <div class="flex items-center justify-center">
-            <img
-              src={hero.image.url}
-              alt={hero.image.alt}
-              loading="eager"
-              width={hero.image.width}
-              height={hero.image.height}
-              class="w-full rounded-2xl object-cover"
-            />
+  {
+    heroLayout === 'stacked' ? (
+      <section id={hero.id} class="mx-auto max-w-6xl px-4 py-12 text-center sm:px-6 lg:px-8 lg:py-20">
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-brand sm:text-4xl lg:text-5xl" set:html={hero.title} />
+        {hero.text && <div class="mx-auto mt-5 max-w-4xl text-lg text-body [&_p]:mb-3 [&_p:last-child]:mb-0" set:html={hero.text} />}
+        {hero.image && (
+          <div class="mx-auto mt-10 max-w-4xl">
+            <img src={hero.image.url} alt={hero.image.alt} loading="eager" width={hero.image.width} height={hero.image.height} class="w-full" />
           </div>
-        )
-      }
-    </div>
-  </section>
+        )}
+        {(heroPartnerLogo || (hero.ctaText && hero.ctaUrl)) && (
+          <div class="mt-8 flex flex-wrap items-center justify-center gap-6">
+            {heroPartnerLogo && (
+              <img src={heroPartnerLogo.url} alt={heroPartnerLogo.alt} width={heroPartnerLogo.width} height={heroPartnerLogo.height} loading="eager" />
+            )}
+            {hero.ctaText && hero.ctaUrl && (
+              <a href={hero.ctaUrl} class="btn-cta inline-flex items-center justify-center px-8 py-3 text-sm font-semibold">
+                {heroCtaText}
+              </a>
+            )}
+          </div>
+        )}
+      </section>
+    ) : (
+      <section id={hero.id} class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <div class="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+          <div>
+            <h1
+              class="text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl lg:text-5xl"
+              set:html={hero.title}
+            />
+            {hero.text && <p class="mt-5 max-w-xl text-lg text-body" set:html={hero.text} />}
+            {
+              hero.ctaText && hero.ctaUrl && (
+                <a
+                  href={hero.ctaUrl}
+                  class="btn-cta mt-8 inline-flex items-center justify-center px-8 py-3 text-sm font-semibold"
+                >
+                  {heroCtaText}
+                </a>
+              )
+            }
+          </div>
+          {
+            hero.image && (
+              <div class="flex items-center justify-center">
+                <img
+                  src={hero.image.url}
+                  alt={hero.image.alt}
+                  loading="eager"
+                  width={hero.image.width}
+                  height={hero.image.height}
+                  class="w-full rounded-2xl object-cover"
+                />
+              </div>
+            )
+          }
+        </div>
+      </section>
+    )
+  }
 
   <!-- İçerik blokları (veri kaynaklı, sabit sayı değil — sırayla alternatif zeminle) -->
   {
@@ -174,12 +222,19 @@ const heroCtaText =
       // zeminde render edilince görselin beyaz çizgi sanatı görünmez oluyordu
       // (2026-08-21, kullanıcı bulgusu).
       const isBrandSection = section.id === 'platform';
+      const bgStyle = section.backgroundImage
+        ? `background-image:url(${section.backgroundImage});background-position:center;background-repeat:no-repeat;background-size:contain;`
+        : undefined;
       return (
-        <section id={section.id} class={isBrandSection ? 'bg-brand' : i % 2 === 1 ? 'bg-brand-light' : ''}>
+        <section
+          id={section.id}
+          class={`${isBrandSection ? 'bg-brand' : i % 2 === 1 ? 'bg-brand-light' : ''} ${section.backgroundImage ? 'bg-[#EDEDED]' : ''}`}
+          style={bgStyle}
+        >
           <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
             <ProductSectionBlock
               section={effectiveSection}
-              reverse={i % 2 === 1}
+              reverse={effectiveSection.reverse ?? i % 2 === 1}
               variant={isBrandSection ? 'brand' : 'default'}
             />
           </div>

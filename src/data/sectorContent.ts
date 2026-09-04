@@ -6,6 +6,7 @@
 // fonksiyonları kullanır, JSON'a doğrudan dokunmaz.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import sectorsExport from '../../reference/wordpress-export/sectors.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { SECTOR_AZ_OVERRIDES, SECTOR_AZ_SLUGS } from './sectorTranslationOverrides';
 import type { Locale } from './nav';
 
@@ -48,7 +49,8 @@ interface SectorsExportRaw {
   sectors: SectorGroupRaw[];
 }
 
-const DATA = sectorsExport as unknown as SectorsExportRaw;
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(sectorsExport as unknown as SectorsExportRaw);
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 

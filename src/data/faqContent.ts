@@ -86,9 +86,9 @@ export function getFaqSlug(locale: Locale): string | undefined {
 // hatası değil — muhtemelen bilinçli, tek İngilizce PDF ile idare
 // ediliyor). Her ikisi de curl ile 200 doğrulandı.
 const FAQ_PDF_URLS: Record<FaqLocale, string> = {
-  tr: 'https://idenfit.com/wp-content/uploads/2025/08/sss-1.pdf',
-  en: 'https://idenfit.com/wp-content/uploads/2025/08/faq.pdf',
-  it: 'https://idenfit.com/wp-content/uploads/2025/08/faq.pdf',
+  tr: '/wp-content/uploads/2025/08/sss-1.pdf',
+  en: '/wp-content/uploads/2025/08/faq.pdf',
+  it: '/wp-content/uploads/2025/08/faq.pdf',
 };
 
 export function getFaqPdfUrl(locale: Locale): string | undefined {
@@ -110,6 +110,11 @@ export function getFaqLocaleUrls(): Partial<Record<Locale, string>> {
   // NL sayfası yok, ziyaretçi zaten EN içeriğe düşecek — bu artık dil
   // değiştiriciden de görünür/doğru şekilde gerçekleşiyor, kırık ara adım yok).
   result.nl = result.en;
+  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu — bkz.
+  // `supportRequestContent.ts`'teki eşdeğer düzeltmenin yorumu). SSS
+  // az'de KAPSAM DIŞI (Açık nokta #37) — `result.tr` (bare TR URL'i,
+  // `sss`) doğrudan kullanılıyor.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 

@@ -33,6 +33,25 @@ const LABELS: Record<string, { short: string; long: string; flag: FlagCode }> = 
   az: { short: 'AZ', long: 'Azərbaycan', flag: 'AZ' },
 };
 
+// Dil tercihi çerezi (2026-09-02) — eski WordPress/Polylang kurulumundaki
+// `pll_language` çerezinin işlevsel karşılığı: kullanıcı bir dil seçtiğinde
+// 1 yıl saklanır, bir sonraki ziyarette hatırlanır. Bu bir izleme/analitik
+// çerezi DEĞİL — yalnızca kullanıcının kendi açık tercihini (kendi isteğiyle
+// tıkladığı dil) hatırlıyor, aynı `pll_language`'ın GDPR altındaki
+// sınıflandırmasıyla tutarlı (işlevsel/gerekli), bu yüzden CookieScript'in
+// onay kategorilerinden BAĞIMSIZ, koşulsuz kaydediliyor.
+const LANG_COOKIE = 'idenfit_lang';
+const LANG_COOKIE_MAX_AGE = 60 * 60 * 24 * 365; // 1 yıl
+
+function readLangCookie(): string | null {
+  const match = document.cookie.match(/(?:^|;\s*)idenfit_lang=([^;]*)/);
+  return match ? decodeURIComponent(match[1]) : null;
+}
+
+function writeLangCookie(locale: string) {
+  document.cookie = `${LANG_COOKIE}=${locale}; path=/; max-age=${LANG_COOKIE_MAX_AGE}; SameSite=Lax`;
+}
+
 export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitcherProps) {
   const [open, setOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement>(null);
@@ -57,7 +76,25 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
   const current = LABELS[currentLocale] ?? LABELS.tr;
   const locales = Object.keys(LABELS).filter((l) => urls[l]);
 
+  // Geri dönen ziyaretçiyi kaydedilmiş diline yönlendirir — yalnızca TR
+  // (varsayılan, önek'siz) sayfalarda çalışır: bu tür sayfaların URL'i
+  // KENDİ BAŞINA bir dil bildirmiyor ("belirsiz"), bu yüzden çerez tercihi
+  // devreye girebilir. `/en/…`/`/nl/…`/`/it/…`/`/az/…` gibi AÇIKÇA bir dil
+  // öneki taşıyan sayfalar asla üzerine yazılmaz — kullanıcı doğrudan bir
+  // dil linkine tıklamışsa (ör. paylaşılan bir link) o seçim SAYGI görür,
+  // sonsuz yönlendirme döngüsü riski de böylece ortadan kalkar (hedef
+  // sayfanın locale'i çerezle eşleştiği an kural bir daha tetiklenmez).
+  useEffect(() => {
+    if (currentLocale !== 'tr') return;
+    const saved = readLangCookie();
+    if (saved && saved !== 'tr' && urls[saved]) {
+      window.location.href = urls[saved];
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const go = (locale: string) => {
+    writeLangCookie(locale);
     if (locale === currentLocale) {
       setOpen(false);
       return;

@@ -5,6 +5,7 @@
 // alanı otoriter (WP `slug` değil) — bu dosyada da aynı ilke.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import miscExport from '../../reference/wordpress-export/misc-pages.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, type ProductBlock, type ProductContent } from './productContent';
 import { fixLinkAccessibility } from './contentLinkAccessibility';
 import {
@@ -49,7 +50,8 @@ interface RawGroup {
     >
   >;
 }
-const DATA = miscExport as unknown as { pages: RawGroup[] };
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(miscExport as unknown as { pages: RawGroup[] });
 
 function findGroup(trSlug: string): RawGroup | undefined {
   return DATA.pages.find((g) => g.trSlug === trSlug);
@@ -94,6 +96,14 @@ function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
   // sayfadan tıklanırsa tıklansın) doğrudan EN'in gerçek URL'ine gider —
   // tutarsız ara-adım/404 riski kalmadı.
   if (!result.nl && result.en) result.nl = result.en;
+  // AYNI bug sınıfı, az için (2026-09-02, kullanıcı bulgusu —
+  // `/az/richiesta-supporto/` 404 veriyordu, bkz. `supportRequestContent.ts`'teki
+  // eşdeğer düzeltmenin yorumu). Bu sayfa ailesi (KVKK/Tüketici Hakları/
+  // Mesafeli Satış/Güvenlik) az'de KAPSAM DIŞI (Açık nokta #37) — gerçek
+  // az içeriği yok, `result.tr` (bare TR URL'i, zaten yukarıdaki döngüde
+  // hesaplandı) doğrudan kullanılıyor, `/az/...` üzerinden gereksiz bir
+  // redirect adımına GEREK YOK.
+  if (!result.az) result.az = result.tr;
   return result;
 }
 
@@ -208,15 +218,15 @@ export interface LegalContent {
 // stratejisiyle değişmeden kalıyor).
 const LEGAL_MANUAL_LINK_LABELS: Partial<Record<Locale, Record<string, string>>> = {
   tr: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2.docx.pdf':
       'Veri sahibi başvuru formunu indir (PDF)',
   },
   en: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
       'Download the data subject application form (PDF)',
   },
   it: {
-    'https://idenfit.com/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
+    '/wp-content/uploads/2025/09/Veri_Sahibi_Basvuru_Formu_v2-EN.docx.pdf':
       "Scarica il modulo di domanda dell'interessato (PDF)",
   },
 };

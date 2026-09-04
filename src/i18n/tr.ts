@@ -5,6 +5,8 @@ export const tr: Translations = {
   common: {
     lastUpdated: 'Son güncelleme',
     home: 'Ana Sayfa',
+    formSubmitting: 'Gönderiliyor…',
+    formSubmitError: 'Bir şeyler ters gitti, lütfen birazdan tekrar deneyin.',
   },
   nav: {
     products: 'ÜRÜNLER',
@@ -35,7 +37,7 @@ export const tr: Translations = {
     // tutuldu).
     headline: 'Siz insana odaklanın. Biz teknolojiyi yönetelim.',
     subheadline:
-      'idenfit; İK, iş gücü yönetimi, bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz süreçlerle değil, insanla ilgilensin.',
+      'İdenfit; İK, PDKS, performans yönetimi, iş gücü yönetimi, bordro ve çalışan deneyimini tek platformda birleştirir — ekipleriniz süreçlerle değil, insanla ilgilensin.',
     emailPlaceholder: 'Şirket E-postanız',
     formName: 'İsim Soyisim',
     formPhone: 'Telefon',
@@ -69,6 +71,25 @@ export const tr: Translations = {
       back: 'Geri',
     },
     presentationTrustCaption: '1.000’den fazla müşterinin güvendiği idenfit’e katılın.',
+    presentationTimeline: {
+      title: '3 Adımda idenfit',
+      steps: [
+        { title: '1. Kaydolun', text: 'Hesabınızı açın — kurulum 48 saat içinde tamamlanır.' },
+        { title: '2. Verilerinizi Aktarın', text: 'Excel ile toplu veri aktarımıyla çalışan bilgilerinizi sisteme yükleyin.' },
+        { title: '3. Yönetmeye Başlayın', text: 'Canlı panelden giriş-çıkış, izin ve bordro süreçlerini anlık yönetin.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Öne Çıkan Özellikler',
+      items: [
+        { title: 'Bütüncül İK Yönetimi', text: 'Özlük bilgileri tek merkezden, onboarding/offboarding görev bazlı takip edilir.' },
+        { title: 'Zaman, Vardiya ve Puantaj', text: 'Canlı monitörle giriş-çıkış takibi, mobil üzerinden eksik kayıt tamamlama.' },
+        { title: 'Onay ve Talep Akışları', text: 'İzin, harcama, avans, fazla mesai, seyahat — hiyerarşik onay mekanizmalarıyla.' },
+        { title: 'Bordro ve Doküman Yönetimi', text: 'Şifreli mobil erişim, özlük evrakları güvenle depolanır.' },
+        { title: 'Performans, Eğitim, İletişim', text: '360 derece değerlendirme, eğitim planlama, anonim geri bildirim.' },
+        { title: 'Toplu İşlem Esnekliği', text: 'Excel ile toplu veri aktarımı, tek tıkla yüzlerce çalışana rol/vardiya/izin atama.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
@@ -193,7 +214,8 @@ export const tr: Translations = {
       promo: {
         category: 'KURUMSAL',
         title: 'idenfit Ailesiyle Tanışın',
-        imageAlt: 'idenfit ekibi',
+        description: 'Güvenli, yenilikçi ve insan odaklı çözümlerle yanınızdayız.',
+        imageAlt: 'idenfit güvenli dijital çözümler illüstrasyonu',
       },
     },
     kesfet: {
@@ -332,6 +354,17 @@ export const tr: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    // 2026-09-03 — önceden yalnızca `home.customerCarousel.ibisStylesQuote`'ta
+    // yaşayan alıntı, kullanıcı isteğiyle buraya (tek kaynak) taşındı; metin
+    // AYNEN kopyalandı, yalnızca `role` şirket adı önekinden ayrıldı.
+    ibisStyles: {
+      quote: {
+        text:
+          'Otelimiz açıldığı günden beri idenfit uygulamasını kullanıyor. İdenfit uygulamasında beni en çok cezbeden ve tercih sebebi olan şeylerden bir tanesi idenfitin ortaya koymuş olduğu fikirdi. Çalışma hayatında alışık olduğumuz kart okutmaydı ya da turnike sistemiydi ya da imza atma şekliydi bunların hepsini bir kenara bıraktı. Çalışma arkadaşlarımızın mobil uygulama üzerinden giriş çıkış işlemi yapabilmeleri bizlerin bunu anlık ve mobil olarak her yerden takip edebiliyor olmamız performansımızı da arttırdı.',
+        name: 'Tolga Avcı',
+        role: 'Genel Müdür',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -393,6 +426,17 @@ export const tr: Translations = {
       text:
         'İdenfit, yüz tanıma ve parmak okuma cihazlarına entegre sistem sayesinde çalışanların kimlik doğrulaması gerçek zamanlı yapılabilir. Aynı zamanda giriş-çıkış ve mola süreleri takibi kolaylıkla yönetilebilir.',
     },
+    partners: {
+      title: 'Partnerlerimiz',
+      text: 'idenfit’in entegre çalıştığı güvenilir teknoloji ve iş ortakları.',
+      categories: {
+        turnstile: 'Turnike',
+        payroll: 'Bordro',
+        lms: 'LMS',
+        task: 'Görev Yönetimi',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Geliştirilebilir Çalışan Deneyimi',
       intro:
@@ -411,7 +455,7 @@ export const tr: Translations = {
       },
     },
     customerCarousel: {
-      title: 'İDENFİT İLE FARK YARATANLAR',
+      title: 'İdenfit ile fark yaratanlar',
       intro: 'idenfit ile İK süreçlerini dönüştüren firmalardan gerçek deneyimler.',
       prevLabel: 'Önceki hikaye',
       nextLabel: 'Sonraki hikaye',
@@ -421,11 +465,6 @@ export const tr: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş, idenfit ile İK süreçlerini tek panelden yönetiyor' },
       beyazFirinVideo: { headline: "Beyaz Fırın'ın idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin" },
       ibisStylesVideo: { headline: 'ibis Styles Hotels\'in idenfit ile İK süreçlerini nasıl dönüştürdüğünü izleyin' },
-      ibisStylesQuote: {
-        text: 'Otelimiz açıldığı günden beri idenfit uygulamasını kullanıyor. İdenfit uygulamasında beni en çok cezbeden ve tercih sebebi olan şeylerden bir tanesi idenfitin ortaya koymuş olduğu fikirdi. Çalışma hayatında alışık olduğumuz kart okutmaydı ya da turnike sistemiydi ya da imza atma şekliydi bunların hepsini bir kenara bıraktı. Çalışma arkadaşlarımızın mobil uygulama üzerinden giriş çıkış işlemi yapabilmeleri bizlerin bunu anlık ve mobil olarak her yerden takip edebiliyor olmamız performansımızı da arttırdı.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Genel Müdür',
-      },
     },
     faq: {
       viewAllLink: 'Tüm Soruları Görüntüleyin',

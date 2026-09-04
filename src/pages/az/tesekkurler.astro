@@ -1,0 +1,16 @@
+---
+export const prerender = true;
+// 2026-09-02 (kullanıcı bulgusu — "sayfa Azerbaycan diline geçmiyor") —
+// kaynakta gerçek bir az sayfası yok, TR'den gerçek/profesyonel çeviriyle
+// (KARAR 1) `thankYouContent.ts`'e eklendi. Bare slug TR ile AYNI
+// ("tesekkurler") — diğer az ürün/sektör sayfalarıyla AYNI mimari karar
+// (bkz. CLAUDE.md Açık nokta #37), yalnızca `/az/` önekiyle ayrışıyor.
+import ThankYouPage from '../../components/ThankYouPage.astro';
+import { getThankYouContent, getThankYouLocaleUrls, getThankYouModifiedDate } from '../../data/thankYouContent';
+
+const content = getThankYouContent('az')!;
+const localeUrls = getThankYouLocaleUrls();
+const modified = getThankYouModifiedDate('az');
+---
+
+<ThankYouPage content={content} localeUrls={localeUrls} modified={modified} />

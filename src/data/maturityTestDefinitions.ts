@@ -99,6 +99,51 @@ const CATEGORY_WEIGHTS: Record<MaturityCategoryKey, number> = {
   analitik: 15,
 };
 
+// ADIM 3 (2026-09-03) — Teknik spesifikasyon dokümanı v1.0, bölüm 4.2
+// "Dinamik Öneri Motoru". Kaynaktaki tablo 5 satır (Temel Altyapı/Zaman &
+// İzin/Performans/İşe Alım/Analitik) — bizim 5 `MaturityCategoryKey`'imizle
+// birebir eşleşiyor, "Çalışan Deneyimi" gibi ayrı bir 6. satır YOK (o
+// dokümanın 6-kategorili taslak sürümüne özgüydü, ADIM 0'da netleşen 5
+// kategorili şemada karşılığı bu tabloda gerekmiyor). Metinler dokümandan
+// birebir alındı, uydurulmadı.
+export const CATEGORY_PAIN_POINTS: Record<MaturityCategoryKey, { message: string; recommendedModule: string }> = {
+  temel: { message: 'Evrak operasyonu verimliliğinizi %40 düşürüyor.', recommendedModule: 'Dijital Özlük & Core HR' },
+  zaman: { message: 'Hatalı puantaj hesaplamaları maliyet yaratıyor.', recommendedModule: 'Idenfit PDKS' },
+  performans: { message: 'Hedefsiz yönetim çalışan bağlılığını düşürür.', recommendedModule: 'Performans Yönetimi' },
+  ise_alim: { message: 'Doğru yeteneği bulma süreniz sektör ortalamasının altında.', recommendedModule: 'İşe Alım & ATS' },
+  analitik: { message: 'Veriye dayalı karar alamamak stratejik hatalara yol açar.', recommendedModule: 'İK Analitiği Modülü' },
+};
+
+/** En düşük puanlı 2 kategoriyi döner (dokümanın "en düşük puan alan 2
+ * kategoriyi tespit eder" kuralı) — eşitlik durumunda `Object.keys`'in
+ * (dolayısıyla `CATEGORY_WEIGHTS`'in tanım sırası, temel→zaman→performans→
+ * ise_alim→analitik) sabit sırasını korur, sonuç deterministik kalır. */
+export function getWeakestCategories(categoryScores: Record<MaturityCategoryKey, number>): MaturityCategoryKey[] {
+  return (Object.keys(CATEGORY_WEIGHTS) as MaturityCategoryKey[])
+    .slice()
+    .sort((a, b) => categoryScores[a] - categoryScores[b])
+    .slice(0, 2);
+}
+
+// ADIM 1'de karşılama ekranındaki dropdown için tanımlanmıştı; ADIM 3'ün
+// "Firma Büyüklüğüne Göre Akıllı Filtre"si (teknik spesifikasyon
+// dokümanı, bölüm 6) AYNI 3 kovayı kullandığı için buraya (tek kaynak)
+// taşındı — `HrMaturityTest.tsx` her ikisini de buradan içe aktarıyor.
+export type EmployeeCountBucket = '<50' | '50-250' | '250+';
+
+export const EMPLOYEE_COUNT_OPTIONS: { value: EmployeeCountBucket; label: string }[] = [
+  { value: '<50', label: "50'den az" },
+  { value: '50-250', label: '50 - 250' },
+  { value: '250+', label: "250'den fazla" },
+];
+
+// Dokümandan (bölüm 6) birebir — uydurulmadı.
+export const EMPLOYEE_COUNT_ADVICE: Record<EmployeeCountBucket, string> = {
+  '<50': 'Önceliğiniz temel süreçleri (Özlük, İzin) dijitalleştirmek olmalı.',
+  '50-250': 'Önceliğiniz Performans Yönetimi ve ATS ile verimliliği artırmak.',
+  '250+': 'Önceliğiniz Veri Analitiği, Entegrasyonlar ve ERP uyumluluğu.',
+};
+
 export interface MaturityLevel {
   min: number;
   max: number;
@@ -147,6 +192,12 @@ export interface MaturityResult {
   totalScore: number;
   level: MaturityLevel;
   categoryScores: Record<MaturityCategoryKey, number>;
+  /** ADIM 4 (PDF raporu, "Yetkinlik Karnesi" sayfası) için — 10 alt-grubun
+   * kendi ham skoru (`GROUPS`'un anahtarları). Web sonuç ekranı bunu
+   * KULLANMIYOR (yalnızca 5 `categoryScores` gösteriliyor), ama hesaplama
+   * zaten yapılıyordu — önceden döndürülmüyordu, şimdi PDF'in ihtiyacı
+   * için dışa açıldı. */
+  groupScores: Record<string, number>;
 }
 
 function getLevel(score: number): MaturityLevel {
@@ -204,5 +255,21 @@ export function calculateMaturityResult(answers: Record<number, MaturityAnswerVa
   }
   const totalScore = Math.round(total);
 
-  return { totalScore, level: getLevel(totalScore), categoryScores };
+  return { totalScore, level: getLevel(totalScore), categoryScores, groupScores };
 }
+
+// PDF raporunun "Yetkinlik Karnesi" sayfası için — `GROUPS`'un 10
+// anahtarının görünen etiketleri (örnek PDF'teki bar sırası/isimleriyle
+// birebir, `hr-report-....pdf`'ten okunarak doğrulandı).
+export const GROUP_LABELS: Record<string, string> = {
+  ozluk: 'Özlük',
+  bordro: 'Bordro Süreci',
+  dijital_imza: 'Dijital İmza',
+  pdks: 'Pdks',
+  izin: 'İzin Yönetimi',
+  performans_surec: 'Performans Yönetimi',
+  ise_alim: 'İşe Alım',
+  egitim: 'Eğitim',
+  calisan_deneyimi: 'Çalışan Deneyimi',
+  raporlama: 'Raporlama',
+};

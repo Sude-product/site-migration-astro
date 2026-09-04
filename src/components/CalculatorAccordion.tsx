@@ -147,8 +147,8 @@ export default function CalculatorAccordion({ slug, calculateLabel }: Calculator
   return (
     <details className="group py-4">
       <summary className="flex cursor-pointer list-none items-center justify-between gap-4 text-left font-semibold text-heading marker:content-none">
-        <span className="flex items-center gap-3">
-          <img src={definition.icon} alt="" aria-hidden="true" className="h-6 w-6 shrink-0" />
+        <span className="flex items-center gap-4">
+          <img src={definition.icon} alt="" aria-hidden="true" className="h-14 w-14 shrink-0" />
           {definition.title}
         </span>
         <svg
@@ -258,9 +258,15 @@ export default function CalculatorAccordion({ slug, calculateLabel }: Calculator
 
         {error && <p className="mt-3 text-sm text-brand">{error}</p>}
 
+        {/* Kaynaktaki (`elementor-button`) dolgulu/kırmızı "Hesapla" butonu —
+            canlı sayfada ölçülen `bg:#FF0000, color:#fff, radius:10px,
+            padding:17px 40px, uppercase, weight:700` birebir uygulandı.
+            Site genelinde paylaşılan `.btn-cta` (beyaz zemin/kırmızı
+            çerçeve, pill) BİLEREK kullanılmadı — o sınıf diğer onlarca
+            sayfada da kullanılıyor, burada değiştirmek onları etkilerdi. */}
         <button
           type="submit"
-          className="btn-cta mt-4 px-6 py-2.5 text-sm font-semibold"
+          className="mt-4 rounded-[10px] bg-brand px-10 py-4 text-[15px] font-bold uppercase text-white transition-colors hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-brand/40"
         >
           {calculateLabel}
         </button>

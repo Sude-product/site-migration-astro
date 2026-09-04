@@ -4,6 +4,8 @@ export const nl: Translations = {
   common: {
     lastUpdated: 'Laatst bijgewerkt',
     home: 'Startpagina',
+    formSubmitting: 'Verzenden…',
+    formSubmitError: 'Er is iets misgegaan — probeer het straks opnieuw.',
   },
   nav: {
     products: 'PRODUCTEN',
@@ -65,6 +67,25 @@ export const nl: Translations = {
       back: 'Terug',
     },
     presentationTrustCaption: 'Sluit u aan bij 1.000+ klanten die idenfit vertrouwen.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Stappen',
+      steps: [
+        { title: '1. Meld u aan', text: 'Maak uw account aan — de installatie is binnen 48 uur voltooid.' },
+        { title: '2. Importeer uw gegevens', text: 'Upload uw medewerkersgegevens via bulkimport met Excel.' },
+        { title: '3. Begin met beheren', text: 'Beheer in- en uitklokken, verlof en salarisprocessen direct vanuit het live paneel.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Belangrijkste Functies',
+      items: [
+        { title: 'Volledig HR-beheer', text: 'Personeelsgegevens vanuit één centrum, onboarding/offboarding per taak bijgehouden.' },
+        { title: 'Tijd, Dienstroosters en Urenregistratie', text: 'Live monitoring van in- en uitklokken, ontbrekende gegevens aanvullen via mobiel.' },
+        { title: 'Goedkeurings- en Aanvraagstromen', text: 'Verlof, onkosten, voorschotten, overwerk, reizen — met hiërarchische goedkeuringsmechanismen.' },
+        { title: 'Salarisadministratie en Documentbeheer', text: 'Versleutelde mobiele toegang, personeelsdocumenten veilig opgeslagen.' },
+        { title: 'Prestaties, Training, Communicatie', text: '360-gradenbeoordeling, trainingsplanning, anonieme feedback.' },
+        { title: 'Flexibiliteit bij Bulkbewerkingen', text: 'Bulkimport van gegevens via Excel, met één klik rollen/diensten/verlof toewijzen aan honderden medewerkers.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
@@ -189,7 +210,8 @@ export const nl: Translations = {
       promo: {
         category: 'ZAKELIJK',
         title: 'Maak kennis met het idenfit-team',
-        imageAlt: 'idenfit-team',
+        description: 'Wij staan naast u met veilige, innovatieve en mensgerichte oplossingen.',
+        imageAlt: 'idenfit illustratie van veilige digitale oplossingen',
       },
     },
     kesfet: {
@@ -322,6 +344,14 @@ export const nl: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          'Ons hotel gebruikt idenfit vanaf de dag dat het werd geopend. Een van de dingen die mij het meest aanspraken aan idenfit, en de belangrijkste reden waarom we ervoor kozen, was het concept dat idenfit introduceerde. Het liet alles los waar we aan gewend waren — kaartlezers, tourniquetsystemen of handmatig ondertekenen. Onze collega\'s kunnen nu via de mobiele app in- en uitklokken, en het feit dat wij dit direct en mobiel van overal kunnen volgen, heeft onze prestaties ook verbeterd.',
+        name: 'Tolga Avcı',
+        role: 'Algemeen Directeur',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -383,6 +413,17 @@ export const nl: Translations = {
       text:
         'Dankzij de integratie van Idenfit met gezichtsherkenning en vingerafdrukscanners kan de identiteit van medewerkers in realtime worden geverifieerd. Ook het bijhouden van in- en uitklokken tijdens shifts en pauzes kan eenvoudig beheerd worden.',
     },
+    partners: {
+      title: 'Onze Partners',
+      text: 'De betrouwbare technologie- en zakenpartners waarmee idenfit integreert.',
+      categories: {
+        turnstile: 'Draaipoort',
+        payroll: 'Salarisadministratie',
+        lms: 'LMS',
+        task: 'Taakbeheer',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: 'Verbeter de werknemerservaring',
       intro:
@@ -411,11 +452,6 @@ export const nl: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş beheert zijn HR-processen vanuit één paneel met idenfit' },
       beyazFirinVideo: { headline: 'Bekijk hoe Beyaz Fırın zijn HR-processen transformeerde met idenfit' },
       ibisStylesVideo: { headline: 'Bekijk hoe ibis Styles Hotels zijn HR-processen transformeerde met idenfit' },
-      ibisStylesQuote: {
-        text: 'Ons hotel gebruikt idenfit vanaf de dag dat het werd geopend. Een van de dingen die mij het meest aanspraken aan idenfit, en de belangrijkste reden waarom we ervoor kozen, was het concept dat idenfit introduceerde. Het liet alles los waar we aan gewend waren — kaartlezers, tourniquetsystemen of handmatig ondertekenen. Onze collega\'s kunnen nu via de mobiele app in- en uitklokken, en het feit dat wij dit direct en mobiel van overal kunnen volgen, heeft onze prestaties ook verbeterd.',
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Algemeen Directeur',
-      },
     },
     faq: {
       viewAllLink: 'Bekijk Alle Vragen',

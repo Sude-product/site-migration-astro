@@ -4,6 +4,8 @@ export const it: Translations = {
   common: {
     lastUpdated: 'Ultimo aggiornamento',
     home: 'Home',
+    formSubmitting: 'Invio in corso…',
+    formSubmitError: 'Qualcosa è andato storto — riprova tra poco.',
   },
   nav: {
     products: 'PRODOTTI',
@@ -71,6 +73,25 @@ export const it: Translations = {
       back: 'Indietro',
     },
     presentationTrustCaption: 'Unisciti a oltre 1.000 clienti che si fidano di idenfit.',
+    presentationTimeline: {
+      title: 'idenfit in 3 Passi',
+      steps: [
+        { title: '1. Registrati', text: 'Crea il tuo account: la configurazione si completa entro 48 ore.' },
+        { title: '2. Importa i Tuoi Dati', text: 'Carica i dati dei dipendenti con importazione massiva tramite Excel.' },
+        { title: '3. Inizia a Gestire', text: 'Gestisci entrate/uscite, ferie e buste paga in tempo reale dal pannello live.' },
+      ],
+    },
+    presentationFeatures: {
+      title: 'Funzionalità Principali',
+      items: [
+        { title: 'Gestione HR Completa', text: 'Dati anagrafici centralizzati, onboarding/offboarding monitorati per attività.' },
+        { title: 'Tempo, Turni e Rilevazione Presenze', text: 'Monitoraggio live di entrate/uscite, completamento da mobile dei dati mancanti.' },
+        { title: 'Flussi di Approvazione e Richieste', text: 'Ferie, spese, anticipi, straordinari, trasferte — con meccanismi di approvazione gerarchici.' },
+        { title: 'Buste Paga e Gestione Documentale', text: 'Accesso mobile criptato, documenti del personale conservati in sicurezza.' },
+        { title: 'Performance, Formazione, Comunicazione', text: 'Valutazione a 360 gradi, pianificazione della formazione, feedback anonimo.' },
+        { title: 'Flessibilità nelle Operazioni Massive', text: 'Importazione massiva dei dati tramite Excel, assegnazione di ruoli/turni/ferie a centinaia di dipendenti con un clic.' },
+      ],
+    },
   },
   footer: {
     columnTitles: {
@@ -195,7 +216,8 @@ export const it: Translations = {
       promo: {
         category: 'AZIENDALE',
         title: 'Conosci il team idenfit',
-        imageAlt: 'team idenfit',
+        description: 'Siamo al tuo fianco con soluzioni sicure, innovative e centrate sulle persone.',
+        imageAlt: 'illustrazione di soluzioni digitali sicure idenfit',
       },
     },
     kesfet: {
@@ -328,6 +350,14 @@ export const it: Translations = {
         role: 'People & Culture Manager',
       },
     },
+    ibisStyles: {
+      quote: {
+        text:
+          "Il nostro hotel utilizza idenfit fin dal giorno dell'apertura. Una delle cose che mi ha colpito di più di idenfit, e il motivo principale per cui l'abbiamo scelto, è stata l'idea che ha proposto. Ha messo da parte tutto ciò a cui eravamo abituati: lettori di badge, tornelli o firme cartacee. I nostri colleghi possono ora registrare entrata e uscita tramite l'app mobile, e poter monitorare tutto questo in tempo reale e da remoto, ovunque ci troviamo, ha migliorato anche le nostre prestazioni.",
+        name: 'Tolga Avcı',
+        role: 'Direttore Generale',
+      },
+    },
   },
   home: {
     logoStrip: {
@@ -389,6 +419,17 @@ export const it: Translations = {
       text:
         "Grazie al sistema integrato con dispositivi di riconoscimento facciale e lettura delle impronte digitali, l'autenticazione dei dipendenti può essere effettuata in tempo reale. Allo stesso tempo, il monitoraggio di entrate, uscite e pause può essere gestito con facilità.",
     },
+    partners: {
+      title: 'I Nostri Partner',
+      text: 'I partner tecnologici e commerciali affidabili con cui idenfit si integra.',
+      categories: {
+        turnstile: 'Tornello',
+        payroll: 'Buste Paga',
+        lms: 'LMS',
+        task: 'Gestione Attività',
+        sso: 'SSO',
+      },
+    },
     testimonials: {
       title: "Miglioramento dell'Esperienza dei Dipendenti",
       intro:
@@ -417,11 +458,6 @@ export const it: Translations = {
       tugbaKuruyemis: { headline: 'Tuğba Kuruyemiş gestisce i processi HR da un unico pannello con idenfit' },
       beyazFirinVideo: { headline: 'Guarda come Beyaz Fırın ha trasformato i propri processi HR con idenfit' },
       ibisStylesVideo: { headline: 'Guarda come ibis Styles Hotels ha trasformato i propri processi HR con idenfit' },
-      ibisStylesQuote: {
-        text: "Il nostro hotel utilizza idenfit fin dal giorno dell'apertura. Una delle cose che mi ha colpito di più di idenfit, e il motivo principale per cui l'abbiamo scelto, è stata l'idea che ha proposto. Ha messo da parte tutto ciò a cui eravamo abituati: lettori di badge, tornelli o firme cartacee. I nostri colleghi possono ora registrare entrata e uscita tramite l'app mobile, e poter monitorare tutto questo in tempo reale e da remoto, ovunque ci troviamo, ha migliorato anche le nostre prestazioni.",
-        name: 'Tolga Avcı',
-        jobTitle: 'ibis Styles Hotels - Direttore Generale',
-      },
     },
     faq: {
       viewAllLink: 'Visualizza Tutte le Domande',

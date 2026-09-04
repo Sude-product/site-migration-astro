@@ -8,6 +8,7 @@ import {
   type CountryPhoneDef,
 } from '../data/phoneCountries';
 import type { Locale } from '../data/nav';
+import { submitLead } from '../data/formLead';
 
 interface FormData {
   fullName: string;
@@ -57,6 +58,9 @@ export interface LandingRequestFormProps {
    * `HeroForm.tsx`'teki AYNI kullanım, `getDefaultCountryForLocale()`). */
   locale: Locale;
   idPrefix?: string;
+  /** Gönderim SIRASINDA/BAŞARISIZ olunca gösterilen paylaşılan metinler
+   * (bkz. `src/data/formLead.ts`, `Translations.common`). */
+  common: { formSubmitting: string; formSubmitError: string };
 }
 
 // Landing Page (reklam trafiği, `/demo`) — 2 adımlı form: Adım 1 (ad soyad
@@ -64,12 +68,12 @@ export interface LandingRequestFormProps {
 // mantığı `HeroForm.tsx` ile AYNI paylaşılan `phoneCountries.ts`
 // yardımcılarını kullanıyor, kod tekrarı yok.
 //
-// Gerçek backend YOK (Faz 2 TODO, değişmedi) — Adım 2 gönderiminde
-// `HrMaturityTest.tsx`'teki `EmailReportForm`'un kullandığı AYNI dürüst
-// desen uygulanıyor: veriyi `console.log`'la, ardından "raporunuz
-// gönderildi" gibi YANLIŞ bir başarı iması YARATMADAN mevcut, genel
-// `/tesekkurler/` sayfasına yönlendir (bkz. CLAUDE.md 2026-08-06 planı).
-export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale, idPrefix = 'landing' }: LandingRequestFormProps) {
+// Gönderim (2026-09-02, Açık nokta #2) — Adım 2'de `src/data/formLead.ts`'in
+// `submitLead()`'i üzerinden `/api/lead`'e POST atılıyor, başarılıysa
+// mevcut/genel `/tesekkurler/` sayfasına yönlendirilir (yeni/özel bir
+// "başarılı" sayfası İCAT EDİLMEDİ — CLAUDE.md 2026-08-06 planındaki AYNI
+// karar). Başarısız olursa gerçek bir hata mesajı gösterilir.
+export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale, idPrefix = 'landing', common }: LandingRequestFormProps) {
   const [step, setStep] = useState<1 | 2>(1);
   const [data, setData] = useState<FormData>(EMPTY);
   const [country, setCountry] = useState<CountryPhoneDef>(() => getDefaultCountryForLocale(locale));
@@ -77,6 +81,8 @@ export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale
   // bırakılıyor (HeroForm'daki gibi) — bu bayrak yalnızca Adım 2'nin
   // telefon hatasını (tarayıcı doğrulayamadığı için) kontrol ediyor.
   const [attemptedSubmit, setAttemptedSubmit] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   const update = (field: 'fullName' | 'email' | 'company') => (e: React.ChangeEvent<HTMLInputElement>) =>
     setData((d) => ({ ...d, [field]: e.target.value }));
@@ -93,7 +99,7 @@ export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale
   const phoneValid = isValidPhoneForCountry(data.phone, country);
   const showPhoneError = attemptedSubmit && !phoneValid;
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (step === 1) {
       // fullName/email zaten `required`/`type=email` ile tarayıcı
@@ -103,7 +109,21 @@ export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale
     }
     setAttemptedSubmit(true);
     if (!phoneValid) return; // eksik/yanlış telefon — gönderme, hata görünür kalır.
-    console.log('Landing page form gönderildi:', { ...data, phone: `+${country.dialCode}${data.phone}` });
+    setSubmitError(false);
+    setSubmitting(true);
+    const result = await submitLead({
+      formType: 'landing',
+      locale,
+      fullName: data.fullName,
+      email: data.email,
+      phone: `+${country.dialCode}${data.phone}`,
+      company: data.company,
+    });
+    setSubmitting(false);
+    if (!result.ok) {
+      setSubmitError(true);
+      return;
+    }
     window.location.href = '/tesekkurler/';
   };
 
@@ -208,9 +228,19 @@ export default function LandingRequestForm({ labels, kvkkHref, termsHref, locale
       {/* `.btn-cta btn-cta-form` — site genelindeki form submit butonlarıyla
           (bkz. `HeroForm.tsx`'in `underline` varyantı) AYNI paylaşılan sınıf,
           yeni bir buton stili icat edilmedi. */}
-      <button type="submit" className="btn-cta btn-cta-form w-full px-6 py-3">
-        {step === 1 ? labels.next : labels.submit}
+      <button
+        type="submit"
+        disabled={submitting}
+        className={`btn-cta btn-cta-form w-full px-6 py-3 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
+      >
+        {submitting ? common.formSubmitting : step === 1 ? labels.next : labels.submit}
       </button>
+
+      {submitError && (
+        <p role="alert" className="text-sm font-medium text-red-600">
+          {common.formSubmitError}
+        </p>
+      )}
 
       {step === 2 && (
         <button

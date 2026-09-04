@@ -49,7 +49,16 @@
 // alıntı-yazarı rozetine (`quotePhotoUrl`) yerleştirildi.
 import { TESTIMONIAL_PEOPLE } from './homeContent';
 
-export type CustomerStoryKey = 'femas' | 'civil' | 'yatsan' | 'dogSer' | 'tugbaKuruyemis' | 'beyazFirin' | 'emreOzcan' | 'ismailUnal';
+export type CustomerStoryKey =
+  | 'femas'
+  | 'civil'
+  | 'yatsan'
+  | 'dogSer'
+  | 'tugbaKuruyemis'
+  | 'beyazFirin'
+  | 'emreOzcan'
+  | 'ismailUnal'
+  | 'ibisStyles';
 
 export interface StoryMedia {
   image?: string;
@@ -96,33 +105,33 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     key: 'civil',
     name: 'Civil',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/10/civil-2.png' },
+    media: { image: '/wp-content/uploads/2025/10/civil-2.png' },
     secondary: {
       mediaSide: 'right',
       media: { video: 'https://youtu.be/-MxZWA99a20' },
-      quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/mustafa-yildiran@2x.png',
+      quotePhotoUrl: '/wp-content/uploads/2025/08/mustafa-yildiran@2x.png',
     },
   },
   {
     key: 'yatsan',
     name: 'Yatsan',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/10/yatsan-magaza.png' },
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
+    media: { image: '/wp-content/uploads/2025/10/yatsan-magaza.png' },
+    quotePhotoUrl: '/wp-content/uploads/2025/10/Muzeyyen-Kiran-Mergen.png',
   },
   {
     key: 'tugbaKuruyemis',
     name: 'Tuğba Kuruyemiş',
     mediaSide: 'right',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/08/tugbakuruyemis.jpeg' },
+    media: { image: '/wp-content/uploads/2025/08/tugbakuruyemis.jpeg' },
     // Kaynakta Nevzat Atmaca'nın fotoğrafı YOK — yalnızca isim.
   },
   {
     key: 'dogSer',
     name: 'Doğ-Ser Makina',
     mediaSide: 'left',
-    media: { image: 'https://idenfit.com/wp-content/uploads/2025/08/dogser@2x.png' },
-    quotePhotoUrl: 'https://idenfit.com/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
+    media: { image: '/wp-content/uploads/2025/08/dogser@2x.png' },
+    quotePhotoUrl: '/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
   },
   {
     // 2026-08-20: kullanıcının doğrudan sağladığı 2 gerçek fotoğraf —
@@ -163,17 +172,30 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     media: { image: '/images/customer-zsazsazsu.jpg' },
     quotePhotoUrl: TESTIMONIAL_PEOPLE.ismailUnal.photoUrl,
   },
+  {
+    // 2026-09-03 (kullanıcı isteği) — ana sayfa carousel'inde önceden
+    // yalnızca video+alıntı kartı olarak var olan ibis Styles Hotels
+    // (bkz. `customerStoryCarousel.ts`), artık bu sayfada da GERÇEK bir
+    // blok — carousel'deki AYNI, zaten onaylı gerçek YouTube videosu
+    // yeniden kullanıldı (uydurma bir görsel/istatistik EKLENMEDİ; Tolga
+    // Avcı'nın fotoğrafı paylaşılmadığı için `quotePhotoUrl` Beyaz Fırın/
+    // Doğ-Ser'deki AYNI ilkeyle boş bırakıldı).
+    key: 'ibisStyles',
+    name: 'ibis Styles Hotels',
+    mediaSide: 'left',
+    media: { video: 'https://youtu.be/UDHFuDB53n8' },
+  },
 ];
 
 /** Hero'daki dekoratif illüstrasyon — idenfit.com'dan gerçek, doğrulanmış URL. */
 export const CUSTOMER_STORIES_HERO_IMAGE =
-  'https://idenfit.com/wp-content/uploads/2025/08/1@2x-3-1.png';
+  '/wp-content/uploads/2025/08/1@2x-3-1.png';
 
 /** İstatistik rozetlerinin (X çalışan / X mağaza vb.) gerçek marka ikon
  * görselleri — kaynakta generic SVG değil, bu iki görsel kullanılıyor. */
 export const STAT_ICONS = {
-  employee: 'https://idenfit.com/wp-content/uploads/2025/08/working@2x.png',
-  branch: 'https://idenfit.com/wp-content/uploads/2025/08/branch@2x.png',
+  employee: '/wp-content/uploads/2025/08/working@2x.png',
+  branch: '/wp-content/uploads/2025/08/branch@2x.png',
 } as const;
 
 /**
@@ -222,8 +244,9 @@ export function youtubeId(url: string): string {
 
 /** `youtu.be/<id>` kısa linkini embed URL'ine çevirir (otomatik oynatmalı —
  * yalnızca kullanıcı tıkladıktan SONRA render edilen iframe için). */
-export function toYoutubeEmbedUrl(url: string): string {
-  return `https://www.youtube.com/embed/${youtubeId(url)}?autoplay=1`;
+export function toYoutubeEmbedUrl(url: string, options?: { autoplay?: boolean }): string {
+  const id = youtubeId(url);
+  return options?.autoplay ? `https://www.youtube.com/embed/${id}?autoplay=1` : `https://www.youtube.com/embed/${id}`;
 }
 
 /** Gerçek YouTube thumbnail — tıkla-oynat kartının kapanış görseli

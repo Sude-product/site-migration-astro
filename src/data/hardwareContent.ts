@@ -8,6 +8,7 @@
 // yeniden kullanıldı (bkz. `src/pages/donanim.astro` ve locale eşdeğerleri).
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import hardwareExport from '../../reference/wordpress-export/hardware.json';
+import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, stripTags, type ProductBlock } from './productContent';
 import { HARDWARE_OVERRIDES } from './hardwareTranslationOverrides';
 import type { Locale } from './nav';
@@ -31,7 +32,8 @@ interface HardwareExportRaw {
   hardware: { trSlug: string; locales: Partial<Record<Locale, HardwareLocaleEntryRaw>> };
 }
 
-const DATA = hardwareExport as unknown as HardwareExportRaw;
+// Açık nokta #45, yol (B) — bkz. `relativizeWpUrls.ts` yorumu.
+const DATA = deepRelativizeWpUrls(hardwareExport as unknown as HardwareExportRaw);
 
 const LOCALE_CODES: readonly Locale[] = ['tr', 'en', 'nl', 'it'];
 
@@ -72,6 +74,16 @@ export function getHardwareLocaleUrls(): Partial<Record<Locale, string>> {
   const result: Partial<Record<Locale, string>> = {};
   for (const [locale, slug] of Object.entries(SLUG_INDEX) as [Locale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
+  }
+  // az (2026-09-02, hreflang denetimi bulgusu) — ham `hardware.json`'da az
+  // hiç yok (`SLUG_INDEX`'te de yok), ama `az/donanim.astro` GERÇEK bir
+  // sayfa (`HARDWARE_OVERRIDES.az`, bkz. aşağıdaki `getHardwareContent()`)
+  // ve TR ile AYNI bare slug'ı kullanıyor (CLAUDE.md Açık nokta #37'nin
+  // ürün/sektör/hub sayfalarındaki AYNI mimari kararı). Bu eksik yüzünden
+  // az/donanim kendi hreflang listesinde kendine bile referans veremiyordu
+  // (`buildHreflangAlternates()` bu locale'i haritada yoksa filtreliyor).
+  if (SLUG_INDEX.tr && HARDWARE_OVERRIDES.az) {
+    result.az = getRelativeLocaleUrl('az', SLUG_INDEX.tr);
   }
   return result;
 }

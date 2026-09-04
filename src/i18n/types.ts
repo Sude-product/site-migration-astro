@@ -12,6 +12,13 @@ export interface CommonLabels {
    * bir buton cümlesi ("Ana Sayfaya Dön"), bu ise düz bir isim tamlaması
    * ("Ana Sayfa") — breadcrumb'ta ayrı bir alan gerekti. */
   home: string;
+  /** Form gönderim durumları — TÜM formlar arasında (bkz. `src/data/formLead.ts`)
+   * PAYLAŞILAN, tek yerden çevrilen jenerik metinler (form backend
+   * hazırlığı, 2026-09-02, Açık nokta #2). Submit butonunun kendi
+   * metni (`labels.submit` vb.) DEĞİŞMEDİ — bu yalnızca gönderim SIRASINDA
+   * (`formSubmitting`) veya BAŞARISIZ olunca (`formSubmitError`) gösterilir. */
+  formSubmitting: string;
+  formSubmitError: string;
 }
 
 export interface NavLabels {
@@ -125,6 +132,24 @@ export interface HeroLabels {
    * ile AYNI onaylı "1000+" rakamını taşır, yalnızca farklı bir cümle
    * kalıbıyla ("X+ müşteriye katılın" — kullanıcının istediği ifade). */
   presentationTrustCaption: string;
+  /** "3 Adımda idenfit" (`PresentationTimeline.astro`) — 2026-09-02'ye
+   * kadar bu component TAMAMEN hardcoded Türkçe idi (kullanıcı bulgusu:
+   * "panelden sonraki yerlerde çeviri olmuyor"), `/demo`'nun (TR-only
+   * Landing Page) İÇERİĞİNDEN alınmıştı, hiçbir çeviri altyapısı yoktu.
+   * `steps` her zaman TAM 3 eleman taşır — component kendi `STEPS`
+   * dizisindeki ikonlarla 0-tabanlı INDEX'e göre eşleştiriyor. */
+  presentationTimeline: {
+    title: string;
+    steps: { title: string; text: string }[];
+  };
+  /** "Öne Çıkan Özellikler" (`PresentationFeatureGrid.astro`) — AYNI bulgu/
+   * AYNI kök neden (`presentationTimeline` yorumuna bkz.). `items` her
+   * zaman TAM 6 eleman taşır — component kendi `ITEMS` dizisindeki
+   * ikonlarla 0-tabanlı INDEX'e göre eşleştiriyor. */
+  presentationFeatures: {
+    title: string;
+    items: { title: string; text: string }[];
+  };
 }
 
 export interface FooterColumnTitles {
@@ -290,6 +315,9 @@ export interface MegaKurumsalLabels {
 export interface MegaKesfetReportItem {
   category: string;
   title: string;
+  /** Yalnızca KURUMSAL'ın promo kartında kullanılır (2026-09-02) — Raporlar
+   * kartlarında (KEŞFET) gerçek görsel alan yok, doldurulmuyor. */
+  description?: string;
   imageAlt: string;
 }
 
@@ -399,6 +427,13 @@ export interface CustomerStoriesLabels {
    * çünkü şirket adı bu sayfada zaten ayrı bir H2 olarak gösteriliyor). */
   emreOzcan: CustomerStoryLabels;
   ismailUnal: CustomerStoryLabels;
+  /** 2026-09-03 — ibis Styles Hotels (Tolga Avcı, Genel Müdür), önceden
+   * yalnızca ana sayfa carousel'inde (`home.customerCarousel.ibisStylesQuote`)
+   * yaşayan alıntı artık BURADA da (tek kaynak, aynı metin kopyalandı) —
+   * carousel'in "Devamını Oku"su `/musteriler/#ibisStyles`'a gidiyor.
+   * `role` alanı şirket adı önekinden ayrıldı (HAVAİST/Zsa Zsa Zsu'nun
+   * AYNI ilkesi, bkz. yukarıdaki yorum). */
+  ibisStyles: CustomerStoryLabels;
 }
 
 /** Ana sayfanın hero-altı bölümleri (bkz. `docs/homepage-sections-report.md`)
@@ -485,6 +520,24 @@ export interface HomeSupremaLabels {
   text: string;
 }
 
+/** "Partnerlerimiz" bölümü (2026-09-02, kullanıcı isteği) — anasayfada
+ * `SupremaSection`'ın (donanım entegrasyonu vurgusu) HEMEN ALTINDA,
+ * AYNI minimal marka-logosu-satırı deseniyle (bkz. `HARDWARE_BRAND_LOGOS`)
+ * — turnike/bordro/LMS/task/SSO kategorilerinde gerçek iş ortağı
+ * markaları. Logolar `src/data/homeContent.ts`'teki `PARTNER_CATEGORIES`'te
+ * (dile bağlı değil), yalnızca başlık/alt metin/kategori etiketleri burada. */
+export interface HomePartnersLabels {
+  title: string;
+  text: string;
+  categories: {
+    turnstile: string;
+    payroll: string;
+    lms: string;
+    task: string;
+    sso: string;
+  };
+}
+
 /** Tek bir testimonial'ın çevrilen metni (isim/fotoğraf gibi dile bağlı
  * olmayan alanlar `src/data/homeContent.ts`'de — `TESTIMONIAL_PEOPLE`). */
 export interface HomeTestimonialItemLabels {
@@ -545,16 +598,8 @@ export interface HomeCustomerCarouselLabels {
    * var (video + alıntı), ikisi de `/musteriler/#beyazFirin`'e gidiyor. */
   beyazFirinVideo: { headline: string };
   /** ibis Styles Hotels'in carousel'deki VİDEO kartı (2026-08-27, kullanıcı
-   * YouTube linki + 31-59sn arka plan döngü aralığı paylaştı) —
-   * `/musteriler/` sayfasında bu firmaya ait bir blok yok, yalnızca
-   * carousel'e eklendi. */
+   * YouTube linki + 31-59sn arka plan döngü aralığı paylaştı). */
   ibisStylesVideo: { headline: string };
-  /** ibis Styles Hotels'in video kartının YANINDAKİ alıntı kartı (aynı gün,
-   * ikinci tur) — Tolga Avcı (Genel Müdür), kullanıcının verdiği gerçek
-   * metin. Ne `customerStories` ne `home.testimonials` şemasında (o iki
-   * sistem `/musteriler/` sayfasıyla paylaşılıyor, bu firmanın orada bloğu
-   * yok) — doğrudan burada tutuluyor. */
-  ibisStylesQuote: { text: string; name: string; jobTitle: string };
 }
 
 export interface HomeLabels {
@@ -566,6 +611,7 @@ export interface HomeLabels {
   efficiency: HomeEfficiencyLabels;
   panel: HomePanelLabels;
   suprema: HomeSupremaLabels;
+  partners: HomePartnersLabels;
   testimonials: HomeTestimonialsLabels;
   customerCarousel: HomeCustomerCarouselLabels;
   faq: HomeFaqLabels;

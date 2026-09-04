@@ -9,49 +9,20 @@
 // EDİLMEDİ, zaten onaylı deseni yeniden kullanıyor).
 import { UserCog, CalendarClock, Workflow, FileLock2, Target, Table2, type LucideIcon } from 'lucide-react';
 import IdenfitStar from './icons/IdenfitStar';
+import { getTranslations } from '../i18n';
+import type { Locale } from '../data/nav';
 
-interface BentoItem {
-  icon: LucideIcon;
-  title: string;
-  text: string;
-  wide?: boolean;
-}
+// 2026-09-02 (kullanıcı bulgusu — "panelden sonraki yerlerde çeviri
+// olmuyor") — bu component ÖNCEDEN tamamen hardcoded Türkçe idi. Metin
+// artık `t.hero.presentationFeatures`'dan geliyor (5 dilde gerçek çeviri,
+// KARAR 1) — İKON'lar ve `wide` (geniş kart) bayrağı burada sabit kalıyor,
+// `items` dizisiyle 0-tabanlı INDEX'e göre eşleşiyor.
+const locale = (Astro.currentLocale ?? 'tr') as Locale;
+const t = getTranslations(locale);
+const { presentationFeatures } = t.hero;
 
-const ITEMS: BentoItem[] = [
-  {
-    icon: UserCog,
-    title: 'Bütüncül İK Yönetimi',
-    text: 'Özlük bilgileri tek merkezden, onboarding/offboarding görev bazlı takip edilir.',
-    wide: true,
-  },
-  {
-    icon: CalendarClock,
-    title: 'Zaman, Vardiya ve Puantaj',
-    text: 'Canlı monitörle giriş-çıkış takibi, mobil üzerinden eksik kayıt tamamlama.',
-  },
-  {
-    icon: Workflow,
-    title: 'Onay ve Talep Akışları',
-    text: 'İzin, harcama, avans, fazla mesai, seyahat — hiyerarşik onay mekanizmalarıyla.',
-  },
-  {
-    icon: FileLock2,
-    title: 'Bordro ve Doküman Yönetimi',
-    text: 'Şifreli mobil erişim, özlük evrakları güvenle depolanır.',
-    wide: true,
-  },
-  {
-    icon: Target,
-    title: 'Performans, Eğitim, İletişim',
-    text: '360 derece değerlendirme, eğitim planlama, anonim geri bildirim.',
-    wide: true,
-  },
-  {
-    icon: Table2,
-    title: 'Toplu İşlem Esnekliği',
-    text: 'Excel ile toplu veri aktarımı, tek tıkla yüzlerce çalışana rol/vardiya/izin atama.',
-  },
-];
+const ICONS: LucideIcon[] = [UserCog, CalendarClock, Workflow, FileLock2, Target, Table2];
+const WIDE = [true, false, false, true, true, false];
 ---
 
 <section class="relative bg-[#FAFAFA] py-16 lg:py-24">
@@ -63,15 +34,15 @@ const ITEMS: BentoItem[] = [
 
   <div class="relative mx-auto max-w-5xl px-6 lg:px-8">
     <div class="mx-auto max-w-2xl text-center">
-      <h2 class="reveal h2-section text-heading">Öne Çıkan Özellikler</h2>
+      <h2 class="reveal h2-section text-heading">{presentationFeatures.title}</h2>
     </div>
     <div class="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {
-        ITEMS.map(({ icon: Icon, title, text, wide }, i) => (
+        presentationFeatures.items.map(({ title, text }, i) => (
           <div
             class:list={[
               'reveal group relative rounded-2xl border border-[#F0E4E4] bg-white p-6 shadow-[0_10px_34px_-14px_rgba(120,0,0,0.14)] transition-transform duration-200 hover:-translate-y-1',
-              wide && 'lg:col-span-2',
+              WIDE[i] && 'lg:col-span-2',
             ]}
             style={`transition-delay: ${Math.min(i, 5) * 80}ms`}
           >
@@ -79,7 +50,10 @@ const ITEMS: BentoItem[] = [
               <IdenfitStar className="h-5 w-5" />
             </span>
             <div class="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-brand to-[#C40000] shadow-[0_8px_18px_-6px_rgba(255,0,0,0.5)]">
-              <Icon className="h-6 w-6 text-white" aria-hidden="true" />
+              {(() => {
+                const Icon = ICONS[i];
+                return <Icon className="h-6 w-6 text-white" aria-hidden="true" />;
+              })()}
             </div>
             <h3 class="mt-4 text-lg font-semibold text-heading">{title}</h3>
             <p class="mt-2 text-sm leading-relaxed text-body">{text}</p>
