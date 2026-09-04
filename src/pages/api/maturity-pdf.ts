@@ -56,19 +56,59 @@ function isRecord(value: unknown): value is Record<string, unknown> {
   return typeof value === 'object' && value !== null;
 }
 
+function isFiniteScore(value: unknown): value is number {
+  return typeof value === 'number' && Number.isFinite(value) && value >= 0 && value <= 100;
+}
+
+// GÜVENLİK (2026-09-04) — `categoryScores`/`groupScores`'un HER değerinin
+// GERÇEKTEN 0-100 arası bir sayı olduğunu doğrular. Önceki sürüm yalnızca
+// `isRecord()` (bir obje mi?) kontrol ediyordu, DEĞERLERİN tipini hiç
+// denetlemiyordu — bir istemci `categoryScores.temel` yerine HTML/script
+// içeren bir STRING gönderirse, bu değer `renderMaturityReportHtml()`
+// tarafından hiç kaçışlanmadan (bkz. o dosyanın ADIM 4/5 sürümü) doğrudan
+// PDF şablonuna yerleştiriliyordu — PDF üretimi `page.setContent()` ile
+// bu HTML'i GERÇEK bir headless Chromium'da render ettiği için, bu
+// enjekte edilen script Cloudflare Browser Rendering oturumu İÇİNDE
+// ÇALIŞIRDI (sunucu tarafı kod çalıştırma riski). Bu fonksiyon, `lead.ts`
+// (ADIM 5) ile PAYLAŞILAN TEK doğrulama noktası — ikinci bir kopya
+// YAZILMADI.
+export function isValidScoreRecord(value: unknown): value is Record<string, number> {
+  if (!isRecord(value)) return false;
+  return Object.values(value).every(isFiniteScore);
+}
+
 function parseMaturityPdfData(body: unknown): MaturityPdfData | null {
   if (!isRecord(body)) return null;
   const { companyName, totalScore, level, categoryScores, groupScores } = body;
   if (typeof companyName !== 'string' || companyName.trim().length === 0) return null;
-  if (typeof totalScore !== 'number') return null;
+  if (!isFiniteScore(totalScore)) return null;
   if (!isRecord(level) || typeof level.title !== 'string' || typeof level.subtitle !== 'string') return null;
-  if (!isRecord(categoryScores) || !isRecord(groupScores)) return null;
+  if (!isValidScoreRecord(categoryScores) || !isValidScoreRecord(groupScores)) return null;
   return body as unknown as MaturityPdfData;
+}
+
+// GÜVENLİK (2026-09-04) — bu endpoint yalnızca deploy-sonrası MANUEL pilot/
+// kabul testi içindir (bkz. dosya başı yorumu), gerçek test-taker akışının
+// parçası DEĞİL — halka açık, kimliksiz bırakılırsa (a) her istek gerçek
+// bir headless Chromium başlattığı için ucuz bir kaynak-tüketim/DoS
+// vektörü olur, (b) doğrulama gelecekte bir yerde atlanırsa render
+// motoruna doğrudan erişim sağlar. Paylaşılan bir secret
+// (`MATURITY_PDF_PILOT_SECRET`, `.dev.vars.example`) `X-Pilot-Secret`
+// header'ında eşleşmezse — veya env'de HİÇ TANIMLI DEĞİLSE (varsayılan,
+// anahtar ayarlanana kadar endpoint TAMAMEN devre dışı) — 404 dönülüyor
+// (403 DEĞİL, endpoint'in var olduğunu bile açığa çıkarmamak için).
+function isPilotRequestAuthorized(request: Request): boolean {
+  const secret = env.MATURITY_PDF_PILOT_SECRET;
+  return !!secret && request.headers.get('x-pilot-secret') === secret;
 }
 
 // Yalnızca deploy SONRASI manuel pilot/kabul testi içindir (bkz. dosya
 // başındaki yorum) — gerçek test-taker akışının parçası DEĞİL.
 export const POST: APIRoute = async ({ request }) => {
+  if (!isPilotRequestAuthorized(request)) {
+    return new Response(null, { status: 404 });
+  }
+
   let rawBody: unknown;
   try {
     rawBody = await request.json();
