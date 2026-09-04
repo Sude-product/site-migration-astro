@@ -36,7 +36,11 @@ const GROUP_LABELS = {
   raporlama: 'Raporlama',
 };
 
-function escapeHtml(value) {
+// `export` (2026-09-04) — form bildirim e-postalarının şablonu
+// (`leadEmailTemplate.ts`) da ziyaretçinin yazdığı serbest metni HTML'e
+// gömüyor ve AYNI kaçışlamaya ihtiyaç duyuyor. İkinci bir kopya yazmak
+// yerine bu (güvenlik turunda kanıtlanmış) fonksiyon paylaşılıyor.
+export function escapeHtml(value) {
   return String(value)
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')

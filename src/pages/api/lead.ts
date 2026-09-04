@@ -39,8 +39,18 @@ import { env } from 'cloudflare:workers';
 // tarafından PDF şablonuna yerleştiriliyor, PDF üretimi bunu gerçek bir
 // headless Chromium'da render ediyor).
 import { generateMaturityReportPdf, isValidScoreRecord } from './maturity-pdf';
+// E-posta SUNUMU (HTML + düz metin şablonu) ayrı bir dosyada — bu route
+// istek doğrulama/hız sınırı/SendGrid çağrısından sorumlu, biçimlendirmeden
+// değil. Bkz. `src/data/leadEmailTemplate.ts` dosya başı yorumu.
+import {
+  renderLeadNotificationEmail,
+  renderMaturityApplicantEmail,
+  type LeadFormType,
+} from '../../data/leadEmailTemplate';
 
-type FormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
+// Tek kaynak `leadEmailTemplate.ts` — ikinci bir birlik (union) tanımı
+// tutulmuyor, biri değişirse diğeri sessizce eskimesin diye.
+type FormType = LeadFormType;
 
 interface MaturityResultPayload {
   totalScore: number;
@@ -78,15 +88,6 @@ const REQUIRED_STRING_FIELDS: Record<FormType, (keyof LeadPayload)[]> = {
   // `companyName` alanı boş kalmamalı. `CompanyForm` (testin başı) bu alanı
   // zaten `required` tutuyor, bu yalnızca API seviyesinde bir güvenlik ağı.
   hrMaturityReport: ['email', 'company'],
-};
-
-const FORM_TYPE_TITLES: Record<FormType, string> = {
-  hero: 'Ana Sayfa / Panel Formu',
-  contact: 'İletişim Formu',
-  landing: 'Landing Page (/demo) Formu',
-  support: 'Destek Talebi Formu',
-  presentation: 'Online Sunum Talebi Formu',
-  hrMaturityReport: 'İK Dijital Olgunluk Testi — Rapor Talebi',
 };
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -160,32 +161,6 @@ async function verifyRecaptcha(token: string | null | undefined, secretKey: stri
     // devre dışı bir üçüncü tarafa bağımlı hale gelmemeli.
     return true;
   }
-}
-
-function buildEmailContent(payload: LeadPayload): { subject: string; text: string } {
-  const title = FORM_TYPE_TITLES[payload.formType];
-  const lines: string[] = [`Form: ${title}`, `Site dili: ${payload.locale ?? 'bilinmiyor'}`];
-  if (payload.pageUrl) lines.push(`Sayfa: ${payload.pageUrl}`);
-  lines.push('');
-
-  if (payload.formType === 'hrMaturityReport' && payload.maturityResult) {
-    lines.push(`E-posta: ${payload.email}`);
-    lines.push('');
-    lines.push(`Toplam skor: ${payload.maturityResult.totalScore}/100`);
-    lines.push(`Seviye: ${payload.maturityResult.levelTitle}`);
-    lines.push('Kategori bazlı skorlar:');
-    for (const [category, score] of Object.entries(payload.maturityResult.categoryScores)) {
-      lines.push(`  - ${category}: %${score}`);
-    }
-  } else {
-    if (payload.fullName) lines.push(`Ad Soyad: ${payload.fullName}`);
-    if (payload.phone) lines.push(`Telefon: ${payload.phone}`);
-    if (payload.company) lines.push(`Firma: ${payload.company}`);
-    if (payload.email) lines.push(`E-posta: ${payload.email}`);
-    if (payload.message) lines.push(`Mesaj: ${payload.message}`);
-  }
-
-  return { subject: `[idenfit.com] ${title}`, text: lines.join('\n') };
 }
 
 function jsonResponse(data: unknown, status: number): Response {
@@ -270,40 +245,71 @@ function resolveRecipients(formType: FormType): string[] {
     .filter(Boolean);
 }
 
-async function sendSendGridEmail(params: {
+interface SendGridMailParams {
   to: string[];
   toName?: string;
   subject: string;
   text: string;
+  html: string;
   replyTo?: { email: string; name?: string };
   attachment?: { filename: string; contentBase64: string };
-}): Promise<void> {
+}
+
+/**
+ * SendGrid v3 `mail/send` gövdesi — TEK yerde kuruluyor, iki gönderim yolu
+ * (senkron form bildirimi + asenkron olgunluk raporu) da bunu kullanıyor.
+ *
+ * **`tracking_settings` neden kapalı (2026-09-04):** SendGrid varsayılan
+ * olarak Click Tracking uyguluyor — gövdedeki HER URL'i kendi izleme
+ * alan adına (`url….idenfit.com/ls/click?upn=…`) yeniden yazıyor. Bu
+ * e-postalar İÇ BİLDİRİM/işlemsel teslim; tıklama istatistiği hiçbir işe
+ * yaramıyor, buna karşılık düz metin sürümündeki "Sayfa: …" URL'i okunamaz
+ * hâle geliyordu (kullanıcının bildirdiği ilk gerçek gönderimde tam olarak
+ * bu oldu). Aynı gerekçeyle `open_tracking` (izleme pikseli) ve
+ * `subscription_tracking` (işlemsel e-postaya abonelikten-çık dipnotu
+ * eklemek yanıltıcı olurdu) da kapatıldı.
+ */
+function buildSendGridBody(params: SendGridMailParams): Record<string, unknown> {
+  return {
+    personalizations: [
+      { to: params.to.map((email, i) => ({ email, name: i === 0 ? params.toName : undefined })), subject: params.subject },
+    ],
+    from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
+    ...(params.replyTo ? { reply_to: params.replyTo } : {}),
+    // Sıra ÖNEMLİ: SendGrid `content` dizisinin artan MIME karmaşıklığında
+    // olmasını şart koşuyor — `text/plain` ÖNCE, `text/html` SONRA.
+    content: [
+      { type: 'text/plain', value: params.text },
+      { type: 'text/html', value: params.html },
+    ],
+    tracking_settings: {
+      click_tracking: { enable: false, enable_text: false },
+      open_tracking: { enable: false },
+      subscription_tracking: { enable: false },
+    },
+    ...(params.attachment
+      ? {
+          attachments: [
+            {
+              content: params.attachment.contentBase64,
+              filename: params.attachment.filename,
+              type: 'application/pdf',
+              disposition: 'attachment',
+            },
+          ],
+        }
+      : {}),
+  };
+}
+
+async function sendSendGridEmail(params: SendGridMailParams): Promise<void> {
   const res = await fetch('https://api.sendgrid.com/v3/mail/send', {
     method: 'POST',
     headers: {
       Authorization: `Bearer ${env.SENDGRID_API_KEY}`,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({
-      personalizations: [
-        { to: params.to.map((email, i) => ({ email, name: i === 0 ? params.toName : undefined })), subject: params.subject },
-      ],
-      from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
-      ...(params.replyTo ? { reply_to: params.replyTo } : {}),
-      content: [{ type: 'text/plain', value: params.text }],
-      ...(params.attachment
-        ? {
-            attachments: [
-              {
-                content: params.attachment.contentBase64,
-                filename: params.attachment.filename,
-                type: 'application/pdf',
-                disposition: 'attachment',
-              },
-            ],
-          }
-        : {}),
-    }),
+    body: JSON.stringify(buildSendGridBody(params)),
   });
   if (!res.ok) {
     const errText = await res.text().catch(() => '');
@@ -330,28 +336,28 @@ async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
       groupScores: result.groupScores,
     });
     const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes));
-    const { subject: teamSubject, text: teamText } = buildEmailContent(payload);
+    const team = renderLeadNotificationEmail(payload);
+    const applicant = renderMaturityApplicantEmail({
+      fullName: payload.fullName,
+      totalScore: result.totalScore,
+      levelTitle: result.levelTitle,
+      levelSubtitle: result.levelSubtitle,
+    });
 
     await Promise.all([
       sendSendGridEmail({
         to: resolveRecipients('hrMaturityReport'),
-        subject: teamSubject,
-        text: teamText,
+        subject: team.subject,
+        text: team.text,
+        html: team.html,
         replyTo: payload.email ? { email: payload.email, name: payload.fullName || undefined } : undefined,
       }),
       sendSendGridEmail({
         to: [payload.email!],
         toName: payload.fullName || undefined,
-        subject: 'İK Dijital Olgunluk Testi — Sonuç Raporunuz',
-        text: [
-          `Merhaba${payload.fullName ? ' ' + payload.fullName : ''},`,
-          '',
-          'İK Dijital Olgunluk Testi sonuç raporunuz ekte yer almaktadır.',
-          '',
-          `Toplam skorunuz: ${result.totalScore}/100 (${result.levelTitle})`,
-          '',
-          'idenfit.com',
-        ].join('\n'),
+        subject: applicant.subject,
+        text: applicant.text,
+        html: applicant.html,
         attachment: { filename: 'ik-dijital-olgunluk-raporu.pdf', contentBase64: pdfBase64 },
       }),
     ]);
@@ -414,7 +420,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return jsonResponse({ ok: true }, 202);
   }
 
-  const { subject, text } = buildEmailContent(payload);
+  const { subject, text, html } = renderLeadNotificationEmail(payload);
 
   try {
     const sgRes = await fetch('https://api.sendgrid.com/v3/mail/send', {
@@ -423,12 +429,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
         Authorization: `Bearer ${env.SENDGRID_API_KEY}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        personalizations: [{ to: recipients.map((email) => ({ email })), subject }],
-        from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
-        ...(payload.email ? { reply_to: { email: payload.email, name: payload.fullName || undefined } } : {}),
-        content: [{ type: 'text/plain', value: text }],
-      }),
+      body: JSON.stringify(
+        buildSendGridBody({
+          to: recipients,
+          subject,
+          text,
+          html,
+          replyTo: payload.email ? { email: payload.email, name: payload.fullName || undefined } : undefined,
+        }),
+      ),
     });
 
     if (!sgRes.ok) {
