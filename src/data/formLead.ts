@@ -2,6 +2,8 @@
 // dosya başı yorumu) PAYLAŞTIĞI tek istemci-taraflı gönderim yardımcısı.
 // Kod tekrarı olmasın diye her form component'i kendi `fetch()`'ini
 // YAZMIYOR, bu fonksiyonu çağırıyor.
+import { getRecaptchaToken } from './recaptcha';
+
 export type LeadFormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
 
 export interface MaturityResultPayload {
@@ -30,17 +32,21 @@ export type LeadSubmitResult = { ok: true } | { ok: false; error: string };
 
 export async function submitLead(data: LeadSubmission): Promise<LeadSubmitResult> {
   try {
+    // reCAPTCHA v3 (2026-09-04) — iskelet KAPANDI, artık gerçek token
+    // üretiliyor. Altı formun hepsi bu fonksiyondan geçtiği için tek
+    // çağrı hepsini kapsıyor; `action` olarak form türü geçiliyor, böylece
+    // Google konsolunda hangi formun ne kadar bot trafiği aldığı ayrı ayrı
+    // görülebiliyor. Token alınamazsa `null` gider ve sunucu isteği
+    // reddeder (bkz. `recaptcha.ts`'in `getRecaptchaToken()` yorumu).
+    const recaptchaToken = await getRecaptchaToken(data.formType);
+
     const res = await fetch('/api/lead', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         ...data,
         pageUrl: window.location.href,
-        // reCAPTCHA SKELETON (bkz. `lead.ts`'teki `verifyRecaptcha()` tam
-        // yorumu) — istemci tarafında henüz hiçbir yerde widget YÜKLENMİYOR
-        // (site key yok), bu yüzden token her zaman `null`. Site key
-        // eklenince buraya gerçek `grecaptcha.execute()` sonucu geçirilir.
-        recaptchaToken: null,
+        recaptchaToken,
       }),
     });
     const body: unknown = await res.json().catch(() => null);
