@@ -1310,6 +1310,10 @@ hâlâ geçerli.)*
    TEKNİK olarak geçerli, formlar hâlâ hiçbir yere gerçek e-posta
    göndermiyor, yalnızca artık DOĞRU bir hata mesajı gösteriyorlar).
 6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
+   **GÜNCELLEME (2026-09-04):** cutover-öncesi sitemap denetiminde EN
+   karşılıkları da (`/en/customer-sales-agreement-micro/`,
+   `/en/customer-sales-agreement-sme/`) canlıda bulundu — kapsam yalnızca
+   TR değil, aynı açık nokta EN'i de kapsıyor.
 8. Puantaj modülünün gerçek YouTube `video_url`'i var ama bilinçli
    olarak embed edilmedi.
 9. İzin Yönetimi modülünün testimonial bloğu veride var ama PDKS

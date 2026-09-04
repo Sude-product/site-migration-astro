@@ -348,5 +348,19 @@ export default defineConfig({
     '/suprema': '/donanim',
     '/en/suprema-tools': '/en/hardware',
     '/it/dispositivi-suprema': '/it/hardware',
+    // 2026-09-04: cutover-öncesi kapsamlı sitemap denetiminde bulundu.
+    // Kaynak sitede İK Dijital Olgunluk Testi'nin eski 3-URL/sessionStorage
+    // akışından (bkz. `maturityTestDefinitions.ts` başındaki not) kalma iki
+    // GERÇEK/canlı URL var — `/ik-dijital-test/` (eski quiz sayfası) ve
+    // `/ik-dijital-olgunluk-testi-sonucu/` (eski sonuç sayfası). İkisi de
+    // canlıda içerik taşımıyor (boş sayfa, yalnızca global header/footer
+    // widget'ları render ediyor — `curl` ile doğrulandı, üçü de [bu ikisi +
+    // `/kampanya/`] BİREBİR aynı jenerik "360 İnsan Kaynakları Programı"
+    // metnini gösteriyor). İçerik kaybı yok ama olası eski bookmark/backlink
+    // trafiğinin 404 almaması için ucuz bir güvenlik ağı (aynı `/suprema`
+    // deseni) — bizim tek sayfalık React akışımıza (`/ik-dijital-olgunluk-testi/`)
+    // yönlendiriliyor.
+    '/ik-dijital-test': '/ik-dijital-olgunluk-testi',
+    '/ik-dijital-olgunluk-testi-sonucu': '/ik-dijital-olgunluk-testi',
   },
 });
