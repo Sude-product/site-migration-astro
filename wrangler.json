@@ -3,5 +3,11 @@
   "compatibility_flags": ["nodejs_compat"],
   "browser": {
     "binding": "BROWSER"
-  }
+  },
+  "kv_namespaces": [
+    {
+      "binding": "SESSION",
+      "id": "b2f65634236940da87f397afb29b0406"
+    }
+  ]
 }

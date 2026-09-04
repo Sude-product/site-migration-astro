@@ -16,7 +16,7 @@ Tüm sayısal değerler bu turda fiilen ölçüldü.
 
 | # | Konu | Durum | Öncelik |
 |---|---|---|---|
-| 1 | KV `SESSION` binding'inin `id`'si yok — deploy engeli | ⚠️ Yeni | 🔴 P0 |
+| 1 | ~~KV `SESSION` binding'inin `id`'si yok~~ | ✅ Kapandı | — |
 | 2 | ~~Sitemap'te 141 noindex stub'ı~~ | ✅ Kapandı | — |
 | 3 | ~~`_redirects` trailing slash → 301+307 zinciri~~ | ✅ Kapandı | — |
 | 4 | SendGrid anahtarı yok — formlar 503 dönüyor | ❌ Açık | 🟠 P1 |
@@ -33,22 +33,29 @@ Tüm sayısal değerler bu turda fiilen ölçüldü.
 
 ## 1. 🔴 Deploy engelleri
 
-### 1.1 KV `SESSION` binding'inin `id`'si yok
+### 1.1 ~~KV `SESSION` binding'inin `id`'si yok~~ — ✅ KAPANDI (2026-09-04)
 
-`dist/server/wrangler.json` (adapter üretimi):
+`SESSION` namespace'i Cloudflare'da oluşturuldu ve kök `wrangler.json`'a eklendi:
 
 ```json
-"kv_namespaces": [{ "binding": "SESSION" }]
+"kv_namespaces": [{ "binding": "SESSION", "id": "b2f65634236940da87f397afb29b0406" }]
 ```
 
-`id` alanı yok. Namespace oluşturulup kök `wrangler.json`'a yazılmadan deploy büyük olasılıkla
-reddedilir. `Astro.session` kodda hiç kullanılmıyor — namespace boş kalacak, KV kotasına dokunmaz.
+Adapter'ın ürettiği `dist/server/wrangler.json`'a `id` ile birlikte geçtiği doğrulandı.
 
-- [ ] `idenfit-com-session` namespace'i oluştur
-- [ ] Kök `wrangler.json`'a `"kv_namespaces":[{"binding":"SESSION","id":"…"}]` ekle
+**`wrangler deploy --dry-run` ile deploy'un kabul edileceği teyit edildi** (yükleme YAPILMADI):
 
-> Not: `.wrangler/deploy/config.json` mevcut ve `dist/server/wrangler.json`'a işaret ediyor —
-> yani kökte düz `npx wrangler deploy` doğru config'i alıyor, `--config` gerekmiyor. Doğrulandı.
+```
+env.SESSION (b2f65634236940da87f397afb29b0406)   KV Namespace
+env.BROWSER                                      Browser Run
+env.IMAGES                                       Images
+env.ASSETS                                       Assets
+
+Worker: 2478 KiB → gzip 523 KiB   (Free limiti 3 MB — %17)
+Statik: 4.568 dosya               (limit 20.000 — %22)
+```
+
+`Astro.session` kodda hiç kullanılmıyor; namespace boş kalacak, KV kotasına dokunmaz.
 
 ---
 
