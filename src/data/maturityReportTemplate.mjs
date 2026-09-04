@@ -82,8 +82,8 @@ export function renderMaturityReportHtml(data) {
       return `
         <div class="category-card">
           <p class="category-card__label">${escapeHtml(label)}</p>
-          <p class="category-card__tag" style="color:${tag.color}">${tag.label}</p>
-          <p class="category-card__score">%${score}</p>
+          <p class="category-card__tag" style="color:${escapeHtml(tag.color)}">${escapeHtml(tag.label)}</p>
+          <p class="category-card__score">%${escapeHtml(score)}</p>
         </div>`;
     })
     .join('');
@@ -93,8 +93,8 @@ export function renderMaturityReportHtml(data) {
       const score = groupScores[key] ?? 0;
       return `
         <div class="group-bar">
-          <div class="group-bar__track"><div class="group-bar__fill" style="height:${score}%"></div></div>
-          <p class="group-bar__pct">%${score}</p>
+          <div class="group-bar__track"><div class="group-bar__fill" style="height:${escapeHtml(score)}%"></div></div>
+          <p class="group-bar__pct">%${escapeHtml(score)}</p>
           <p class="group-bar__label">${escapeHtml(label)}</p>
         </div>`;
     })
@@ -106,7 +106,7 @@ export function renderMaturityReportHtml(data) {
         <div class="analysis-block">
           <div class="analysis-block__header">
             <h4>${escapeHtml(block.title)}</h4>
-            <span class="pill" style="background:${block.statusColor}1A;color:${block.statusColor}">${escapeHtml(block.status)}</span>
+            <span class="pill" style="background:${escapeHtml(block.statusColor)}1A;color:${escapeHtml(block.statusColor)}">${escapeHtml(block.status)}</span>
           </div>
           <p><strong>Analiz:</strong> ${escapeHtml(block.analysis)}</p>
           ${block.solution ? `<p><strong>Çözüm:</strong> ${escapeHtml(block.solution)}</p>` : ''}
@@ -115,7 +115,7 @@ export function renderMaturityReportHtml(data) {
     .join('');
 
   const roadmapHtml = model.roadmap
-    .map((step, i) => `<li><span class="roadmap-num">${i + 1}</span><span>${escapeHtml(step)}</span></li>`)
+    .map((step, i) => `<li><span class="roadmap-num">${escapeHtml(i + 1)}</span><span>${escapeHtml(step)}</span></li>`)
     .join('');
 
   return `<!doctype html>
@@ -212,7 +212,7 @@ export function renderMaturityReportHtml(data) {
 
     <p class="section-label">GENEL PUAN</p>
     <div class="score-row">
-      <div class="score-box"><span class="score">${totalScore}<small>/100</small></span></div>
+      <div class="score-box"><span class="score">${escapeHtml(totalScore)}<small>/100</small></span></div>
       <div>
         <p class="level-title">${escapeHtml(level.title)}</p>
         <p class="level-subtitle">${escapeHtml(level.subtitle)}</p>

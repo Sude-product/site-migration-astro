@@ -55,6 +55,52 @@ radar grafik gibi) doğrudan o parçayı düzeltmek tercih edilmeli — tüm
 özelliği geri almaya GEREK YOK, dal yalnızca büyük/kurtarılamaz bir
 regresyon senaryosu için son çare.
 
+**GÜVENLİK SERTLEŞTİRMESİ (2026-09-04, deploy öncesi) — 3 kritik bulgu
+düzeltildi.**
+1. **HTML/script enjeksiyonu (kritik):** `parseLeadPayload`/
+   `parseMaturityPdfData` `categoryScores`/`groupScores`'un yalnızca "bir
+   obje" olduğunu kontrol ediyordu, DEĞERLERİN sayı olduğunu HİÇ
+   doğrulamıyordu — bir saldırgan bu alanlara HTML/script içeren string
+   gönderirse, `renderMaturityReportHtml()` bunu kaçışlamadan doğrudan PDF
+   şablonuna yerleştiriyordu; PDF üretimi `page.setContent()` ile bu HTML'i
+   GERÇEK bir headless Chromium'da (Cloudflare Browser Rendering) render
+   ettiği için enjekte edilen script SUNUCU TARAFINDA ÇALIŞIRDI. Düzeltme:
+   paylaşılan `isValidScoreRecord()` (`maturity-pdf.ts`, `lead.ts` bunu
+   import ediyor) HER değerin 0-100 arası GERÇEK bir sayı olduğunu
+   zorluyor, aksi halde istek 400 ile reddediliyor. **Defense in depth:**
+   `maturityReportTemplate.mjs`'teki TÜM interpolasyonlar (yalnızca
+   companyName/level değil — score, totalScore, ve hatta içsel/güvenli
+   sabitler: `tag.color`, `block.statusColor`, roadmap indeksi) `escapeHtml()`'e
+   sarıldı — doğrulama bir gün atlanır/unutulursa bile şablon katmanı TEK
+   BAŞINA güvenli.
+2. **`/api/maturity-pdf` halka açık, kimliksizdi:** bu endpoint yalnızca
+   deploy-sonrası MANUEL pilot testi için (bkz. dosya başı yorumu) — halka
+   açık kalırsa hem ucuz bir kaynak-tüketim vektörü (her istek gerçek bir
+   headless Chromium başlatıyor) hem doğrulama atlanırsa render motoruna
+   doğrudan erişim riski taşıyordu. Paylaşılan bir secret
+   (`MATURITY_PDF_PILOT_SECRET`, `.dev.vars.example`) `X-Pilot-Secret`
+   header'ında eşleşmezse — veya env'de HİÇ TANIMLI DEĞİLSE (varsayılan) —
+   404 dönüyor (endpoint'in varlığını bile açığa çıkarmamak için 403
+   DEĞİL).
+3. **`/api/lead` için geçici IP bazlı hız sınırı** eklendi (60sn'de 10
+   istek) — reCAPTCHA site key gelene kadar tek savunma katmanı yoktu.
+   **Dürüst sınır:** Workers isolate'ı İÇİNDE tutulan basit bir sabit-
+   pencere sayaç, Cloudflare'ın edge ağında DAĞITIK/GARANTİLİ bir sınır
+   DEĞİL (aynı istemci farklı isolate'lara denk gelebilir) — yalnızca
+   ucuz bir ilk savunma katmanı, kalıcı çözüm Cloudflare Rate Limiting
+   kuralı (dashboard) veya reCAPTCHA v3.
+
+**Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9 regresyon
+script'i sıfır yeni sorun (bilinen 5 H1→H3 hariç). Enjeksiyon senaryosu
+İKİ bağımsız katmanda test edildi: (a) `/api/lead`'e kötü niyetli
+`categoryScores` (`<script>...`) POST edildi → 400 `invalid_payload` (API
+katmanı), (b) `renderMaturityReportHtml()` doğrulama HİÇ ÇAĞIRILMADAN
+doğrudan kötü niyetli değerlerle çağrıldı → çıktıda ham `<script>`/
+`<img onerror>`/`<svg onload>` YOK, yalnızca kaçışlanmış metin (şablon
+katmanı). Ayrıca doğrulandı: geçerli/meşru payload hâlâ kabul ediliyor
+(regresyon yok), `/api/maturity-pdf` hem secret'sız hem yanlış secret'la
+404 dönüyor, 12 ardışık `/api/lead` isteğinin 5'i 429 ile sınırlandı.
+
 ---
 
 ## 🔶 KEYSTATIC GEÇİŞİ — devam ediyor, karar bekleniyor (2026-08-27'de başladı)

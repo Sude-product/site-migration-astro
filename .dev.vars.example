@@ -17,3 +17,10 @@ LEAD_NOTIFICATION_EMAIL=
 # reCAPTCHA v3 sunucu-taraflı secret (skeleton — bkz. lead.ts). Boşken
 # doğrulama adımı atlanır, form akışı BOZULMAZ.
 RECAPTCHA_SECRET_KEY=
+
+# GÜVENLİK (2026-09-04) — /api/maturity-pdf'in paylaşılan pilot secret'ı.
+# Bu endpoint yalnızca deploy-sonrası MANUEL pilot/kabul testi içindir —
+# boşken (varsayılan) endpoint TAMAMEN 404 döner. Pilot testi tekrar
+# yapmak isterseniz güçlü/rastgele bir değer üretip buraya yazın, aynı
+# değeri isteğin `X-Pilot-Secret` header'ında gönderin.
+MATURITY_PDF_PILOT_SECRET=

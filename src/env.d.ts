@@ -42,5 +42,12 @@ declare module 'cloudflare:workers' {
      * Tip `any` — yalnızca bu tek binding için `@cloudflare/workers-types`
      * kurmak yerine minimal bırakıldı (dosyanın stated ilkesi). */
     BROWSER: any;
+    /** GÜVENLİK (2026-09-04) — `/api/maturity-pdf`'in paylaşılan pilot
+     * secret'ı. Bu endpoint yalnızca deploy-sonrası manuel test içindir;
+     * tanımlı DEĞİLSE endpoint tamamen 404 döner (varsayılan/güvenli
+     * durum). Kullanıcı kendi güçlü/rastgele bir değer üretip
+     * `.dev.vars`/Cloudflare Pages env'e yazacak, aynı değeri
+     * `X-Pilot-Secret` header'ında göndermeli. */
+    MATURITY_PDF_PILOT_SECRET?: string;
   };
 }

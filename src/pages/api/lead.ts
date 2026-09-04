@@ -32,7 +32,13 @@ import { env } from 'cloudflare:workers';
 // da beraberinde getiriyor ama Astro yalnızca dosyanın kendi route'unda
 // (`/api/maturity-pdf`) bunu bir endpoint olarak ele alıyor — buradan
 // import etmek `/api/lead`'i ikinci bir route yapmıyor.
-import { generateMaturityReportPdf } from './maturity-pdf';
+// `isValidScoreRecord` — GÜVENLİK (2026-09-04): `maturityResult.categoryScores`/
+// `groupScores`'un HER değerinin GERÇEKTEN 0-100 arası bir sayı olduğunu
+// doğrulayan TEK/paylaşılan fonksiyon, bkz. `maturity-pdf.ts`'teki tam
+// yorum (HTML/script enjeksiyonu — bu değerler `renderMaturityReportHtml()`
+// tarafından PDF şablonuna yerleştiriliyor, PDF üretimi bunu gerçek bir
+// headless Chromium'da render ediyor).
+import { generateMaturityReportPdf, isValidScoreRecord } from './maturity-pdf';
 
 type FormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
 
@@ -106,10 +112,13 @@ function parseLeadPayload(body: unknown): LeadPayload | null {
     if (
       !isRecord(result) ||
       typeof result.totalScore !== 'number' ||
+      !Number.isFinite(result.totalScore) ||
+      result.totalScore < 0 ||
+      result.totalScore > 100 ||
       typeof result.levelTitle !== 'string' ||
       typeof result.levelSubtitle !== 'string' ||
-      !isRecord(result.categoryScores) ||
-      !isRecord(result.groupScores)
+      !isValidScoreRecord(result.categoryScores) ||
+      !isValidScoreRecord(result.groupScores)
     ) {
       return null;
     }
@@ -181,6 +190,37 @@ function buildEmailContent(payload: LeadPayload): { subject: string; text: strin
 
 function jsonResponse(data: unknown, status: number): Response {
   return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
+}
+
+// GEÇİCİ HIZ SINIRLAMASI (2026-09-04) — reCAPTCHA site key gelene kadar
+// (bkz. `verifyRecaptcha()` yorumu) tek başına yeterli bir spam/kötüye
+// kullanım engeli yok. Bu, Workers ISOLATE'I İÇİNDE tutulan basit bir
+// sabit-pencere sayaç — **dürüst sınır:** Cloudflare'ın edge ağı aynı
+// istemciyi farklı coğrafi PoP'lara/isolate kopyalarına dağıtabilir, bu
+// yüzden bu sayaç DAĞITIK/GARANTİLİ bir sınır DEĞİL — yalnızca ucuz, ilk
+// savunma katmanı. Kalıcı/gerçek çözüm: Cloudflare Rate Limiting kuralı
+// (dashboard, kod dışı) VEYA reCAPTCHA v3 (iskeleti zaten hazır).
+const RATE_LIMIT_WINDOW_MS = 60_000;
+const RATE_LIMIT_MAX_REQUESTS = 10;
+const rateLimitLog = new Map<string, number[]>();
+
+function isRateLimited(ip: string): boolean {
+  const now = Date.now();
+  // Ucuz periyodik temizlik — pencere dışına çıkmış TÜM kayıtları at,
+  // uzun ömürlü bir isolate'ta Map'in sınırsız büyümesini önler.
+  if (rateLimitLog.size > 2000) {
+    for (const [key, timestamps] of rateLimitLog) {
+      if (timestamps.every((t) => now - t >= RATE_LIMIT_WINDOW_MS)) rateLimitLog.delete(key);
+    }
+  }
+  const recent = (rateLimitLog.get(ip) ?? []).filter((t) => now - t < RATE_LIMIT_WINDOW_MS);
+  if (recent.length >= RATE_LIMIT_MAX_REQUESTS) {
+    rateLimitLog.set(ip, recent);
+    return true;
+  }
+  recent.push(now);
+  rateLimitLog.set(ip, recent);
+  return false;
 }
 
 // `Buffer` yerine (nodejs_compat açık olsa da) taşınabilir/saf Workers
@@ -285,6 +325,11 @@ async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
 }
 
 export const POST: APIRoute = async ({ request, locals }) => {
+  const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
+  if (isRateLimited(clientIp)) {
+    return jsonResponse({ ok: false, error: 'rate_limited' }, 429);
+  }
+
   let rawBody: unknown;
   try {
     rawBody = await request.json();
