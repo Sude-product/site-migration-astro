@@ -3,10 +3,15 @@ import MaturityArcDecoration from './MaturityArcDecoration.tsx';
 import {
   MATURITY_QUESTIONS,
   MATURITY_CATEGORY_LABELS,
+  CATEGORY_PAIN_POINTS,
+  EMPLOYEE_COUNT_OPTIONS,
+  EMPLOYEE_COUNT_ADVICE,
+  getWeakestCategories,
   calculateMaturityResult,
   type MaturityAnswerValue,
   type MaturityCategoryKey,
   type MaturityResult,
+  type EmployeeCountBucket,
 } from '../data/maturityTestDefinitions';
 import {
   DigitalInfrastructureIcon,
@@ -18,6 +23,7 @@ import {
 import { ScoreBadgeIcon, InsightIcon, ApprovedReportIcon, RoadmapIcon } from './icons/ChecklistIcons';
 import { MaturityScoreIcon, CategoryAnalysisIcon, RiskAnalysisIcon, RoadmapResultIcon } from './icons/ResultCardIcons';
 import { submitLead } from '../data/formLead';
+import MaturityRadarChart from './MaturityRadarChart.tsx';
 
 // Dijital İK Olgunluk Testi — kaynağın 3 AYRI sayfa + sessionStorage'a
 // dayanan akışının (bkz. maturityTestDefinitions.ts başındaki not) temiz,
@@ -29,12 +35,15 @@ import { submitLead } from '../data/formLead';
 type Step = 'company' | 'quiz' | 'result';
 
 interface CompanyInfo {
+  fullName: string;
   name: string;
+  employeeCount: EmployeeCountBucket | '';
   sector: string;
-  employeeCount: string;
+  email: string;
+  phone: string;
 }
 
-const EMPTY_COMPANY: CompanyInfo = { name: '', sector: '', employeeCount: '' };
+const EMPTY_COMPANY: CompanyInfo = { fullName: '', name: '', employeeCount: '', sector: '', email: '', phone: '' };
 
 const ANSWER_OPTIONS: { value: MaturityAnswerValue; label: string }[] = [
   { value: 'evet', label: 'Evet' },
@@ -373,76 +382,129 @@ function ResultCardsSection() {
 // dönüştürülüp üst state'e taşınabilir.
 //
 // **Kaynakta bu form İKİ YERDE var** (hero'da `bc81c1b`, kapanış CTA'sında
-// `8039718` — birebir aynı 3 alan + buton, ayrı `sessionStorage` senkron
-// script'iyle "aynı" gösteriliyorlar, bkz. CLAUDE.md 2026-07-29 günlüğü) —
-// bu yüzden burada da PAYLAŞILAN tek bir `CompanyForm` component'i olarak
-// çıkarıldı, hero (`CompanyStep`) VE kapanış CTA'sı (`ClosingCtaSection`)
-// aynı component'i kendi bağımsız state'iyle iki kez render ediyor.
-// `idPrefix` çakışan DOM id'lerini (iki form aynı sayfada) önlüyor.
-function CompanyForm({ onSubmit, idPrefix }: { onSubmit: () => void; idPrefix: string }) {
+// `8039718`) — bu yüzden burada da PAYLAŞILAN tek bir `CompanyForm`
+// component'i olarak çıkarıldı, hero (`CompanyStep`) VE kapanış CTA'sı
+// (`ClosingCtaSection`) aynı component'i kendi bağımsız state'iyle iki kez
+// render ediyor. `idPrefix` çakışan DOM id'lerini (iki form aynı sayfada)
+// önlüyor.
+//
+// GÜNCELLEME (2026-09-03, ADIM 1 — teknik spesifikasyon dokümanı v1.0,
+// 2.1.a): form 3 alandan (Firma Adı/Sektör/Çalışan Sayısı) 6 alana
+// genişletildi (+ Ad Soyad/E-posta/Telefon, Çalışan Sayısı artık serbest
+// sayı DEĞİL 3 kovalı bir dropdown). Bu bilgi TEK SEFERDE, testin
+// BAŞINDA toplanıyor — `onSubmit` artık toplanan `CompanyInfo`'yu üst
+// state'e (`HrMaturityTest`) taşıyor, `ResultStep`'teki rapor gönderimi
+// bu SAKLANMIŞ e-postayı kullanıyor, kullanıcıya ikinci kez SORULMUYOR
+// (bkz. `ResultStep`'in güncellenmiş `EmailReportForm`'u).
+function CompanyForm({ onSubmit, idPrefix }: { onSubmit: (info: CompanyInfo) => void; idPrefix: string }) {
   const [company, setCompany] = useState<CompanyInfo>(EMPTY_COMPANY);
 
-  const update = (field: keyof CompanyInfo) => (e: React.ChangeEvent<HTMLInputElement>) =>
+  const update = (field: keyof CompanyInfo) => (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) =>
     setCompany((c) => ({ ...c, [field]: e.target.value }));
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit();
+    onSubmit(company);
   };
 
   return (
     // Form paneli — kaynağın kendi gri kartı (post-23868.css, `47d9ea6`/
     // `8993565` — ikisi de AYNI değerleri kullanıyor): bg ~%14 siyah (beyaz
-    // zeminde açık gri görünüyor), %80 beyaz kenarlık, 10px köşe. Masaüstünde
-    // yatay (flex-row, %30/%25/%25/%20 kolonlar), ≤767px'te dikey (kaynağın
-    // kendi breakpoint'i, Tailwind'in `md:` eşiğine en yakın düşen).
+    // zeminde açık gri görünüyor), %80 beyaz kenarlık, 10px köşe. 6 alan
+    // artık tek satıra sığmadığı için (önceki 3 alanlık flex-row deseni
+    // yerine) responsive bir grid + ayrı bir tam-genişlik gönder satırı
+    // kullanılıyor.
     <div className="relative rounded-[10px] border border-white/80 bg-black/14 p-5">
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3 text-left md:flex-row md:items-stretch">
-        <div className="md:basis-[30%]">
-          <label htmlFor={`${idPrefix}-name`} className="sr-only">Firma Adı</label>
-          <input
-            id={`${idPrefix}-name`}
-            type="text"
-            required
-            value={company.name}
-            onChange={update('name')}
-            placeholder="Firma Adı"
-            className={inputClass}
-          />
+      <form onSubmit={handleSubmit} className="text-left">
+        <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <div>
+            <label htmlFor={`${idPrefix}-fullname`} className="sr-only">Ad Soyad</label>
+            <input
+              id={`${idPrefix}-fullname`}
+              type="text"
+              required
+              value={company.fullName}
+              onChange={update('fullName')}
+              placeholder="Ad Soyad"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-name`} className="sr-only">Firma Adı</label>
+            <input
+              id={`${idPrefix}-name`}
+              type="text"
+              required
+              value={company.name}
+              onChange={update('name')}
+              placeholder="Firma Adı"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-employees`} className="sr-only">Çalışan Sayısı</label>
+            <select
+              id={`${idPrefix}-employees`}
+              required
+              value={company.employeeCount}
+              onChange={update('employeeCount')}
+              className={`${inputClass} ${company.employeeCount ? '' : 'text-muted'}`}
+            >
+              <option value="" disabled>
+                Çalışan Sayısı
+              </option>
+              {EMPLOYEE_COUNT_OPTIONS.map((opt) => (
+                <option key={opt.value} value={opt.value} className="text-heading">
+                  {opt.label}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-sector`} className="sr-only">Sektör</label>
+            <input
+              id={`${idPrefix}-sector`}
+              type="text"
+              required
+              value={company.sector}
+              onChange={update('sector')}
+              placeholder="Sektör"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-email`} className="sr-only">E-posta</label>
+            <input
+              id={`${idPrefix}-email`}
+              type="email"
+              required
+              value={company.email}
+              onChange={update('email')}
+              placeholder="E-posta"
+              className={inputClass}
+            />
+          </div>
+          <div>
+            <label htmlFor={`${idPrefix}-phone`} className="sr-only">Telefon</label>
+            <input
+              id={`${idPrefix}-phone`}
+              type="tel"
+              required
+              value={company.phone}
+              onChange={update('phone')}
+              placeholder="Telefon"
+              className={inputClass}
+            />
+          </div>
         </div>
-        <div className="md:basis-[25%]">
-          <label htmlFor={`${idPrefix}-sector`} className="sr-only">Sektör</label>
-          <input
-            id={`${idPrefix}-sector`}
-            type="text"
-            required
-            value={company.sector}
-            onChange={update('sector')}
-            placeholder="Sektör"
-            className={inputClass}
-          />
-        </div>
-        <div className="md:basis-[25%]">
-          <label htmlFor={`${idPrefix}-employees`} className="sr-only">Çalışan Sayısı</label>
-          <input
-            id={`${idPrefix}-employees`}
-            type="number"
-            min="1"
-            required
-            value={company.employeeCount}
-            onChange={update('employeeCount')}
-            placeholder="Çalışan Sayısı"
-            className={inputClass}
-          />
-        </div>
-        <div className="md:basis-[20%]">
+        <div className="mt-3">
           {/* Global `.elementor-button` kit kuralı (uicore-global.css):
               solid kırmızı zemin + beyaz yazı, 10px köşe — `.btn-cta`
               (outline) DEĞİL, ayrı bir solid stil (bkz. CLAUDE.md
               2026-07-29 KEŞİF notu). */}
           <button
             type="submit"
-            className="h-full w-full rounded-[10px] bg-brand px-4 py-2.5 text-[15px] font-bold text-white transition hover:brightness-110"
+            className="w-full rounded-[10px] bg-brand px-4 py-3 text-[15px] font-bold text-white transition hover:brightness-110 sm:w-auto"
           >
             Testi Başlat
           </button>
@@ -452,7 +514,7 @@ function CompanyForm({ onSubmit, idPrefix }: { onSubmit: () => void; idPrefix: s
   );
 }
 
-function CompanyStep({ onSubmit }: { onSubmit: () => void }) {
+function CompanyStep({ onSubmit }: { onSubmit: (info: CompanyInfo) => void }) {
   return (
     <div className="mx-auto max-w-[844px] text-center">
       <div className="mx-auto max-w-xl">
@@ -476,7 +538,7 @@ function CompanyStep({ onSubmit }: { onSubmit: () => void }) {
 
 // 6. bölüm — kapanış CTA (`3d265a3`/`8993565`). Kaynağın kendi ikinci
 // (birebir aynı) form kopyası — bkz. `CompanyForm`'un başındaki not.
-function ClosingCtaSection({ onSubmit }: { onSubmit: () => void }) {
+function ClosingCtaSection({ onSubmit }: { onSubmit: (info: CompanyInfo) => void }) {
   return (
     <section className="px-4 py-[50px] sm:px-6 md:py-20 lg:px-8 lg:py-[100px]">
       <div className="mx-auto max-w-[844px] text-center">
@@ -618,42 +680,40 @@ function ScoreRing({ score }: { score: number }) {
   );
 }
 
-// E-posta doğrulaması — kaynağın kendi `isValidEmail()`'iyle birebir aynı
-// basit regex (bkz. sonuç sayfasının ham script'i, `wp-json/hr-maturity/generate`
-// çağrısından önce kaynakta da yalnızca bu kontrol yapılıyor).
-const EMAIL_PATTERN = /\S+@\S+\.\S+/;
-
 // "Detaylı raporu e-postama gönder" — kaynakta bu buton `/wp-json/hr-maturity/generate`
 // adlı özel bir WP REST endpoint'ine POST atıp dönen URL'de bir PDF açıyordu
-// (bkz. CLAUDE.md TODO #12). Bizim tarafımızda hâlâ o özel PDF-üretim
-// backend'i YOK, ama gönderim artık GERÇEK (2026-09-02, Açık nokta #2)
-// — `src/data/formLead.ts`'in `submitLead()`'i ile `/api/lead`'e (SendGrid
-// üzerinden idenfit ekibine bildirim) POST atılıyor, skor/kategori
-// detayları da gövdeye ekleniyor. Başarılıysa siteye zaten var olan genel
-// Teşekkürler sayfasına yönlendiriyoruz (`/tesekkurler/`) — bu bileşen
-// TR-only (kaynak tamamen Türkçe hardcoded, i18n'e bağlı değil), bu yüzden
-// hata/yükleniyor metinleri de burada doğrudan Türkçe.
-function EmailReportForm({ result }: { result: MaturityResult }) {
-  const [email, setEmail] = useState('');
+// (bkz. CLAUDE.md TODO #12). Bizim tarafımızda artık GERÇEK bir PDF-üretim
+// backend'i VAR (ADIM 4, `src/pages/api/maturity-pdf.ts`) — bu buton
+// `submitLead()` ile `/api/lead`'e POST atıyor, `lead.ts`'in
+// `hrMaturityReport` dalı PDF'i üretip HEM idenfit ekibine bildirim HEM
+// testi dolduran kişinin KENDİSİNE (PDF eki ile) e-posta gönderiyor (ADIM
+// 5) — ikisi de `Astro.locals.cfContext.waitUntil()` içinde, bu YÜZDEN bu
+// buton 5-15sn'lik PDF üretimini HİÇ beklemeden anında `/tesekkurler/`'e
+// yönlendiriyor (bkz. `lead.ts`'in POST handler'ındaki yorum).
+//
+// GÜNCELLEME (2026-09-03, ADIM 1): e-posta artık testin BAŞINDA
+// (`CompanyForm`) toplandığı için burada TEKRAR SORULMUYOR — `company` prop
+// olarak geçiriliyor, kullanıcı yalnızca gönderimi ONAYLIYOR (tek buton,
+// metin girişi yok).
+function EmailReportForm({ result, company }: { result: MaturityResult; company: CompanyInfo }) {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!EMAIL_PATTERN.test(email)) {
-      setError('Geçerli bir e-posta adresi giriniz.');
-      return;
-    }
+  const handleSend = async () => {
     setError('');
     setSubmitting(true);
     const submitResult = await submitLead({
       formType: 'hrMaturityReport',
       locale: 'tr',
-      email,
+      email: company.email,
+      fullName: company.fullName,
+      company: company.name,
       maturityResult: {
         totalScore: result.totalScore,
         levelTitle: result.level.title,
+        levelSubtitle: result.level.subtitle,
         categoryScores: result.categoryScores,
+        groupScores: result.groupScores,
       },
     });
     setSubmitting(false);
@@ -665,28 +725,17 @@ function EmailReportForm({ result }: { result: MaturityResult }) {
   };
 
   return (
-    <div className="mx-auto mt-10 max-w-sm rounded-2xl border border-gray-100 p-6">
+    <div className="mx-auto mt-10 max-w-sm rounded-2xl border border-gray-100 p-6 text-center">
       <h3 className="text-sm font-semibold text-heading">Detaylı raporu e-postama gönder</h3>
-      <form onSubmit={handleSubmit} className="mt-3 flex flex-col gap-2 sm:flex-row">
-        <input
-          type="email"
-          required
-          value={email}
-          onChange={(e) => {
-            setEmail(e.target.value);
-            if (error) setError('');
-          }}
-          placeholder="E-posta adresinizi yazınız"
-          className="w-full rounded-[3px] border border-brand px-3.5 py-2.5 text-sm text-heading placeholder:text-[rgba(0,0,0,0.4)] focus:outline-none focus:ring-2 focus:ring-brand/20"
-        />
-        <button
-          type="submit"
-          disabled={submitting}
-          className={`shrink-0 rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
-        >
-          {submitting ? 'Gönderiliyor…' : 'Gönder'}
-        </button>
-      </form>
+      <p className="mt-1 text-sm text-muted">{company.email}</p>
+      <button
+        type="button"
+        onClick={handleSend}
+        disabled={submitting}
+        className={`mt-3 w-full rounded-md bg-brand px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110 ${submitting ? 'cursor-not-allowed opacity-70' : ''}`}
+      >
+        {submitting ? 'Gönderiliyor…' : 'Gönder'}
+      </button>
       {error && (
         <p role="alert" className="mt-2 text-xs text-brand">
           {error}
@@ -696,7 +745,14 @@ function EmailReportForm({ result }: { result: MaturityResult }) {
   );
 }
 
-function ResultStep({ result }: { result: MaturityResult }) {
+function ResultStep({ result, company }: { result: MaturityResult; company: CompanyInfo }) {
+  // ADIM 3 (2026-09-03) — Dinamik Öneri Motoru: en düşük puanlı 2 kategori
+  // (teknik spesifikasyon dokümanı, 4.2) + firma büyüklüğüne göre tavsiye
+  // (bölüm 6, ADIM 1'de toplanan `employeeCount`'u YENİDEN kullanıyor —
+  // ikinci kez sorulmuyor).
+  const weakestCategories = getWeakestCategories(result.categoryScores);
+  const sizeAdvice = company.employeeCount ? EMPLOYEE_COUNT_ADVICE[company.employeeCount] : null;
+
   return (
     <div className="mx-auto max-w-2xl text-center">
       <ScoreRing score={result.totalScore} />
@@ -707,25 +763,44 @@ function ResultStep({ result }: { result: MaturityResult }) {
 
       <div className="mt-10 text-left">
         <h3 className="text-center text-lg font-semibold text-heading">Kategori Bazlı Sonuçlarınız</h3>
-        <div className="mt-4 space-y-4">
+        <MaturityRadarChart categoryScores={result.categoryScores} />
+        {/* Radar grafiği görsel özet için — kesin yüzdeler (ekran okuyucu +
+            hassas okuma için) bu kompakt rozet listesinde AYRICA korunuyor,
+            eski bar listesinin yerini almadan önce taşıdığı bilgi
+            kaybolmuyor. */}
+        <dl className="mt-4 grid grid-cols-2 gap-2 text-sm sm:grid-cols-3">
           {(Object.keys(MATURITY_CATEGORY_LABELS) as MaturityCategoryKey[]).map((key) => (
-            <div key={key}>
-              <div className="flex items-center justify-between text-sm">
-                <span className="text-body">{MATURITY_CATEGORY_LABELS[key]}</span>
-                <span className="font-semibold text-heading">%{result.categoryScores[key]}</span>
-              </div>
-              <div className="mt-1.5 h-2 w-full overflow-hidden rounded-full bg-gray-100">
-                <div
-                  className="h-full rounded-full bg-brand transition-all duration-700"
-                  style={{ width: `${result.categoryScores[key]}%` }}
-                />
-              </div>
+            <div key={key} className="flex items-center justify-between gap-2 rounded-md bg-gray-50 px-3 py-2">
+              <dt className="text-body">{MATURITY_CATEGORY_LABELS[key]}</dt>
+              <dd className="font-semibold text-heading">%{result.categoryScores[key]}</dd>
             </div>
           ))}
-        </div>
+        </dl>
       </div>
 
-      <EmailReportForm result={result} />
+      <div className="mt-10 text-left">
+        <h3 className="text-center text-lg font-semibold text-heading">Size Özel Öneriler</h3>
+        <div className="mt-4 grid gap-4 sm:grid-cols-2">
+          {weakestCategories.map((key) => {
+            const pain = CATEGORY_PAIN_POINTS[key];
+            return (
+              <div key={key} className="rounded-2xl border border-gray-100 p-5">
+                <p className="text-xs font-semibold uppercase tracking-wide text-brand">{MATURITY_CATEGORY_LABELS[key]}</p>
+                <p className="mt-2 text-sm text-body">{pain.message}</p>
+                <p className="mt-3 text-sm font-semibold text-heading">Önerilen Modül: {pain.recommendedModule}</p>
+              </div>
+            );
+          })}
+        </div>
+        {sizeAdvice && (
+          <div className="mt-4 rounded-2xl bg-gray-50 p-5 text-center">
+            <p className="text-xs font-semibold uppercase tracking-wide text-muted">Uzman Tavsiyesi</p>
+            <p className="mt-1 text-sm text-body">{sizeAdvice}</p>
+          </div>
+        )}
+      </div>
+
+      <EmailReportForm result={result} company={company} />
 
       {/* "Ana Sayfa" / "Hemen Başvur" — kaynakta e-posta kutusunun ALTINDA
           bir ayırıcı çizgiyle ayrılmış 2 ek buton daha var (`post-24317.css`,
@@ -754,8 +829,18 @@ function ResultStep({ result }: { result: MaturityResult }) {
 
 export default function HrMaturityTest() {
   const [step, setStep] = useState<Step>('company');
+  const [company, setCompany] = useState<CompanyInfo>(EMPTY_COMPANY);
   const [answers, setAnswers] = useState<Record<number, MaturityAnswerValue>>({});
   const [result, setResult] = useState<MaturityResult | null>(null);
+
+  // ADIM 1 — karşılama ekranı artık (hero VEYA kapanış CTA'sından, ikisi de
+  // AYNI `CompanyForm`'u kullanıyor) toplanan bilgiyi üst state'e taşıyor;
+  // bu sayede `ResultStep` testin SONUNDA e-postayı tekrar SORMAK yerine
+  // burada saklanan `company.email`'i kullanabiliyor.
+  const handleCompanySubmit = (info: CompanyInfo) => {
+    setCompany(info);
+    setStep('quiz');
+  };
 
   const handleAnswer = (questionId: number, value: MaturityAnswerValue) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }));
@@ -797,13 +882,13 @@ export default function HrMaturityTest() {
               güvenli. */}
           <div className="relative isolate pb-[50px] pt-[34px] md:pb-[75px] md:pt-[75px] lg:pb-[100px] lg:pt-[100px]">
             <MaturityArcDecoration />
-            <CompanyStep onSubmit={() => setStep('quiz')} />
+            <CompanyStep onSubmit={handleCompanySubmit} />
           </div>
           <FiveAreasSection />
           <ChecklistSection />
           <ThreeStepsSection />
           <ResultCardsSection />
-          <ClosingCtaSection onSubmit={() => setStep('quiz')} />
+          <ClosingCtaSection onSubmit={handleCompanySubmit} />
         </>
       )}
       {step === 'quiz' && (
@@ -813,7 +898,7 @@ export default function HrMaturityTest() {
       )}
       {step === 'result' && result && (
         <div className="py-12 lg:py-16">
-          <ResultStep result={result} />
+          <ResultStep result={result} company={company} />
         </div>
       )}
     </div>

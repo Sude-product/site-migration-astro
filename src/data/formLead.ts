@@ -7,7 +7,12 @@ export type LeadFormType = 'hero' | 'contact' | 'landing' | 'support' | 'present
 export interface MaturityResultPayload {
   totalScore: number;
   levelTitle: string;
+  /** ADIM 5 — PDF şablonunun (`maturityReportTemplate.mjs`) alt başlık
+   * satırı için gerekiyor (`level.subtitle`), önceki turda taşınmıyordu. */
+  levelSubtitle: string;
   categoryScores: Record<string, number>;
+  /** ADIM 5 — PDF'in "Yetkinlik Karnesi" sayfası için 10 alt-grup skoru. */
+  groupScores: Record<string, number>;
 }
 
 export interface LeadSubmission {

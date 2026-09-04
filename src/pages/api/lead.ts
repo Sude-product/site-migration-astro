@@ -26,13 +26,22 @@ import type { APIRoute } from 'astro';
 // KALDIRILDI, bkz. `src/env.d.ts`'in tam yorumu. `cloudflare:workers`,
 // @astrojs/cloudflare'ın KENDİSİNİN de kullandığı güncel resmi desen.
 import { env } from 'cloudflare:workers';
+// ADIM 5 — aynı PDF üretim fonksiyonunu (ADIM 4'te `/api/maturity-pdf`
+// endpoint'i için yazılmıştı) burada da çağırıyoruz, ikinci bir kopya
+// YAZILMADI. Bu import `maturity-pdf.ts`'in kendi `POST` route export'unu
+// da beraberinde getiriyor ama Astro yalnızca dosyanın kendi route'unda
+// (`/api/maturity-pdf`) bunu bir endpoint olarak ele alıyor — buradan
+// import etmek `/api/lead`'i ikinci bir route yapmıyor.
+import { generateMaturityReportPdf } from './maturity-pdf';
 
 type FormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
 
 interface MaturityResultPayload {
   totalScore: number;
   levelTitle: string;
+  levelSubtitle: string;
   categoryScores: Record<string, number>;
+  groupScores: Record<string, number>;
 }
 
 interface LeadPayload {
@@ -59,7 +68,10 @@ const REQUIRED_STRING_FIELDS: Record<FormType, (keyof LeadPayload)[]> = {
   landing: ['fullName', 'phone', 'company', 'email'],
   support: ['fullName', 'phone', 'company', 'email', 'message'],
   presentation: ['fullName', 'phone', 'company', 'email'],
-  hrMaturityReport: ['email'],
+  // ADIM 5 — `company` (Firma Adı) artık ZORUNLU: PDF şablonunun
+  // `companyName` alanı boş kalmamalı. `CompanyForm` (testin başı) bu alanı
+  // zaten `required` tutuyor, bu yalnızca API seviyesinde bir güvenlik ağı.
+  hrMaturityReport: ['email', 'company'],
 };
 
 const FORM_TYPE_TITLES: Record<FormType, string> = {
@@ -95,7 +107,9 @@ function parseLeadPayload(body: unknown): LeadPayload | null {
       !isRecord(result) ||
       typeof result.totalScore !== 'number' ||
       typeof result.levelTitle !== 'string' ||
-      !isRecord(result.categoryScores)
+      typeof result.levelSubtitle !== 'string' ||
+      !isRecord(result.categoryScores) ||
+      !isRecord(result.groupScores)
     ) {
       return null;
     }
@@ -169,7 +183,108 @@ function jsonResponse(data: unknown, status: number): Response {
   return new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 }
 
-export const POST: APIRoute = async ({ request }) => {
+// `Buffer` yerine (nodejs_compat açık olsa da) taşınabilir/saf Workers
+// API'siyle — `btoa` global olarak var, ama tek seferde tüm PDF byte'larını
+// `String.fromCharCode(...bytes)`'e vermek 400KB+ dosyalarda call-stack
+// taşmasına yol açabildiği için 32KB'lık parçalar halinde işleniyor.
+function uint8ArrayToBase64(bytes: Uint8Array): string {
+  let binary = '';
+  const chunkSize = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunkSize) {
+    binary += String.fromCharCode(...bytes.subarray(i, i + chunkSize));
+  }
+  return btoa(binary);
+}
+
+async function sendSendGridEmail(params: {
+  to: string;
+  toName?: string;
+  subject: string;
+  text: string;
+  replyTo?: { email: string; name?: string };
+  attachment?: { filename: string; contentBase64: string };
+}): Promise<void> {
+  const res = await fetch('https://api.sendgrid.com/v3/mail/send', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${env.SENDGRID_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      personalizations: [{ to: [{ email: params.to, name: params.toName }], subject: params.subject }],
+      from: { email: env.SENDGRID_FROM_EMAIL, name: 'idenfit.com' },
+      ...(params.replyTo ? { reply_to: params.replyTo } : {}),
+      content: [{ type: 'text/plain', value: params.text }],
+      ...(params.attachment
+        ? {
+            attachments: [
+              {
+                content: params.attachment.contentBase64,
+                filename: params.attachment.filename,
+                type: 'application/pdf',
+                disposition: 'attachment',
+              },
+            ],
+          }
+        : {}),
+    }),
+  });
+  if (!res.ok) {
+    const errText = await res.text().catch(() => '');
+    throw new Error(`SendGrid isteği başarısız (${res.status}): ${errText}`);
+  }
+}
+
+// ADIM 5 — PDF üretimi (Browser Rendering, 5-15sn sürebilir) + 2 e-posta
+// gönderimi (ekip bildirimi + testi dolduran kişinin KENDİSİNE PDF eki).
+// POST handler bu fonksiyonu `locals.cfContext.waitUntil()` İÇİNE verip
+// AWAIT ETMEDEN hemen yanıt döner — kullanıcı bu süreyi asla beklemez
+// (ADIM 4'ün asenkronluk şartı). Hata olursa yalnızca konsola düşer, zaten
+// kullanıcıya dönecek bir yanıt YOK (istek çoktan yanıtlandı).
+async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
+  const result = payload.maturityResult;
+  if (!result) return;
+
+  try {
+    const pdfBytes = await generateMaturityReportPdf({
+      companyName: payload.company ?? 'Bilinmiyor',
+      totalScore: result.totalScore,
+      level: { title: result.levelTitle, subtitle: result.levelSubtitle },
+      categoryScores: result.categoryScores,
+      groupScores: result.groupScores,
+    });
+    const pdfBase64 = uint8ArrayToBase64(new Uint8Array(pdfBytes));
+    const { subject: teamSubject, text: teamText } = buildEmailContent(payload);
+
+    await Promise.all([
+      sendSendGridEmail({
+        to: env.LEAD_NOTIFICATION_EMAIL!,
+        subject: teamSubject,
+        text: teamText,
+        replyTo: payload.email ? { email: payload.email, name: payload.fullName || undefined } : undefined,
+      }),
+      sendSendGridEmail({
+        to: payload.email!,
+        toName: payload.fullName || undefined,
+        subject: 'İK Dijital Olgunluk Testi — Sonuç Raporunuz',
+        text: [
+          `Merhaba${payload.fullName ? ' ' + payload.fullName : ''},`,
+          '',
+          'İK Dijital Olgunluk Testi sonuç raporunuz ekte yer almaktadır.',
+          '',
+          `Toplam skorunuz: ${result.totalScore}/100 (${result.levelTitle})`,
+          '',
+          'idenfit.com',
+        ].join('\n'),
+        attachment: { filename: 'ik-dijital-olgunluk-raporu.pdf', contentBase64: pdfBase64 },
+      }),
+    ]);
+  } catch (err) {
+    console.error('[api/lead] hrMaturityReport asenkron işlem (PDF/e-posta) başarısız:', err);
+  }
+}
+
+export const POST: APIRoute = async ({ request, locals }) => {
   let rawBody: unknown;
   try {
     rawBody = await request.json();
@@ -193,6 +308,25 @@ export const POST: APIRoute = async ({ request }) => {
       { formType: payload.formType },
     );
     return jsonResponse({ ok: false, error: 'email_service_unavailable' }, 503);
+  }
+
+  // ADIM 5 — HR Olgunluk Testi raporu (PDF üretimi + 2 e-posta) her zaman
+  // ASENKRON işlenir: kullanıcı testi bitirdiğinde bu 5-15sn'lik süreci
+  // ASLA beklememeli (ADIM 4'ün şartı). `waitUntil` Worker'ın yanıt
+  // döndükten SONRA da bu iş bitene kadar canlı kalmasını sağlıyor —
+  // `locals.cfContext` bu adapter sürümünün gerçek `ExecutionContext`'i
+  // (bkz. `src/pages/api/maturity-pdf.ts`'in dosya başı yorumu). Yerel
+  // `astro dev`'de bu alan yoksa iş yine de (await edilmeden) başlatılır —
+  // yalnızca yerel ortamda erken kapanma riski taşır, üretimde sorun yok.
+  if (payload.formType === 'hrMaturityReport') {
+    const cfContext = (locals as { cfContext?: { waitUntil: (promise: Promise<unknown>) => void } }).cfContext;
+    const work = processMaturityReportAsync(payload);
+    if (cfContext?.waitUntil) {
+      cfContext.waitUntil(work);
+    } else {
+      void work;
+    }
+    return jsonResponse({ ok: true }, 202);
   }
 
   const { subject, text } = buildEmailContent(payload);

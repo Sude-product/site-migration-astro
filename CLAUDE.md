@@ -40,6 +40,23 @@ hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 
 ---
 
+## 🟢 İK Dijital Olgunluk Testi — 5 ADIM TAMAMLANDI (2026-09-03/04)
+
+İK Dijital Olgunluk Testi özelliği (ADIM 1-5: lead-capture formu genişletme,
+radar grafik, dinamik öneri motoru + firma büyüklüğü filtresi, Cloudflare
+Browser Rendering ile PDF üretimi, SendGrid ile PDF'in hem ekibe hem testi
+dolduran kişinin kendisine e-posta eki olarak gönderilmesi) tamamlandı.
+
+**Güvenlik ağı:** `ik-olgunluk-testi-oncesi-yedek` dalı hem `origin` hem
+`idenfit` remote'unda, özellik öncesi duruma dokunulmadan duruyor. **Canlıda
+ciddi/çözülemeyen bir sorun çıkarsa bu dala dönülerek özelliğin TAMAMI geri
+alınabilir.** Küçük/izole sorunlar için (örn. yalnızca PDF şablonu, yalnızca
+radar grafik gibi) doğrudan o parçayı düzeltmek tercih edilmeli — tüm
+özelliği geri almaya GEREK YOK, dal yalnızca büyük/kurtarılamaz bir
+regresyon senaryosu için son çare.
+
+---
+
 ## 🔶 KEYSTATIC GEÇİŞİ — devam ediyor, karar bekleniyor (2026-08-27'de başladı)
 
 Blog CMS aracı Decap CMS'ten Keystatic'e geçiriliyor. Projenin temel render

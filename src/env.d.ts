@@ -36,5 +36,11 @@ declare module 'cloudflare:workers' {
     /** reCAPTCHA v3 (skeleton, bkz. `lead.ts`'teki `verifyRecaptcha()`
      * yorumu) — sunucu tarafı doğrulama secret'ı. */
     RECAPTCHA_SECRET_KEY?: string;
+    /** Cloudflare Browser Rendering binding (`wrangler.json`'daki
+     * `browser.binding`) — İK Dijital Olgunluk Testi PDF üretimi (ADIM 4)
+     * `@cloudflare/puppeteer`'ın `launch(env.BROWSER)`'ına geçiriliyor.
+     * Tip `any` — yalnızca bu tek binding için `@cloudflare/workers-types`
+     * kurmak yerine minimal bırakıldı (dosyanın stated ilkesi). */
+    BROWSER: any;
   };
 }

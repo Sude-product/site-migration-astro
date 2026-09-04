@@ -19,6 +19,7 @@
     "@astrojs/markdown-remark": "^7.2.4",
     "@astrojs/react": "^6.0.4",
     "@astrojs/sitemap": "^3.7.4",
+    "@cloudflare/puppeteer": "^1.4.0",
     "@keystatic/astro": "^6.0.0",
     "@keystatic/core": "^0.6.9",
     "@tailwindcss/vite": "^4.3.3",
@@ -29,6 +30,7 @@
     "lucide-react": "^1.33.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "recharts": "^3.10.1",
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
@@ -36,6 +38,7 @@
     "@types/yauzl": "^3.4.0",
     "js-yaml": "^5.2.3",
     "parse5": "^8.0.1",
+    "puppeteer": "^25.10.0",
     "turndown": "^7.2.4",
     "typescript": "^6.0.3",
     "yauzl": "^3.4.0"
