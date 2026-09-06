@@ -97,7 +97,7 @@ Dijital çalışan deneyimi, sanal gerçeklik ile daha etkileşimli ve kişisell
 
 idenfit, dijital çalışan deneyimini uçtan uca sadeleştirir ve erişimi kolaylaştırır. Tüm İK süreçlerini tek platformda toplar, veriye dayalı karar almayı mümkün kılar. Ayrıca mobil uygulaması sayesinde çalışanlar, işlemlerini istedikleri yerden anında yönetir. Bildirimler, hatırlatmalarla günlük operasyonlar hız kazanır. idenfit, çalışanların kuruma daha bağlı ve yetkin hissetmesini destekler.
 
-[**Formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+[**Formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

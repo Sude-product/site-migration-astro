@@ -176,7 +176,7 @@ Puantaj hesaplamaları dijital olarak yapılıyor mu?
 
 Şirket içi veri gizliliği ve güvenliği sağlanıyor mu?
 
-Dijital İKY süreçlerinizi daha verimli hale getirmenin vakti geldi! idenfit, bordrodan performans yönetimine kadar tüm insan kaynakları süreçlerini kolayca dijitalleştirerek size zaman kazandırır. Ayrıca, hataları en aza indirir ve çalışan memnuniyetini artırır. İdenfit ile geleceğin İK yönetimine adım atın! Hemen şimdi **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=checklist)** doldurarak işletmenizi bir adım öne taşıyın.
+Dijital İKY süreçlerinizi daha verimli hale getirmenin vakti geldi! idenfit, bordrodan performans yönetimine kadar tüm insan kaynakları süreçlerini kolayca dijitalleştirerek size zaman kazandırır. Ayrıca, hataları en aza indirir ve çalışan memnuniyetini artırır. İdenfit ile geleceğin İK yönetimine adım atın! Hemen şimdi **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=checklist)** doldurarak işletmenizi bir adım öne taşıyın.
 
 ## **Dijitalleşme Odağında Yaklaşan İnsan Kaynakları Yönetimi Etkinlikleri**
 

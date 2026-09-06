@@ -301,7 +301,7 @@ idenfit’in izin yönetimi modülü, İKY profesyonellerine yönelik tasarlanm�
 
 İdenfit’in kullanıcı dostu arayüzü, izin türlerine göre özelleştirilebilir kurallar koyma, izin taleplerinin takvim üzerinden görüntülenebilmesi ve kolay raporlanabilmesi gibi özelliklerle donatılır. Sağlık raporları gibi gerekli belgelerin sisteme yüklenmesi ve izin dökümanlarına entegre edilmesi süreci de bu modül aracılığıyla yönetilir. Ayrıca, cinsiyet, yaş, medeni durum gibi demografik özellikler ile sendikalı durum ve izin bakiyesi gibi faktörlere dayanarak esnek izin tipleri oluşturulur. Ve bu izinler hedeflenen çalışan gruplarına atanır.
 
-**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/) **doldurun. idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/) **doldurun. idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **SSS**
 

@@ -97,7 +97,7 @@ idenfit, firmanızın yalnızca puantaj takibini kolaylaştırmakla kalmıyor. A
 
 idenfit uygulaması, fazla çalışma saatlerini doğru bir şekilde kaydediyor ve raporluyor. Böylece işverenler yasal düzenlemelere uyum sağlıyor. Ayrıca çalışanların haklarını güvence altına alıyor. Kapsamlı ve yenilikçi bu sistemle fazla mesai takibiniz her zamankinden daha kolay hale gelir!
 
-**idenfit’in puantaj takibi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer puantaj hesaplamalarında verimli, şeffaf ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in puantaj takibi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer puantaj hesaplamalarında verimli, şeffaf ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

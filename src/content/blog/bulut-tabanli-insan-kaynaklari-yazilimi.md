@@ -197,7 +197,7 @@ idenfit, çalışanları ve operasyonları tek bir platform altında, en verim
 *   Farklı web tabanlı sistemlerle entegre olarak kolayca çalışır.
 *   Çeşitli alanlarda gelişmiş raporları çok kısa süre içinde oluşturarak, şirketin içinde olduğu durumun haritasını çizer.
 
-idenfit’in tüm modülleri entegre çalışan insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=insan+kaynaklari+yazilimi+faydalari) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde verimliliği deneyimleyin!
+idenfit’in tüm modülleri entegre çalışan insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=insan+kaynaklari+yazilimi+faydalari) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

@@ -115,7 +115,7 @@ Tanıma ve takdir kültürü çalışan motivasyonunu artırıyor; çalışanlar
 *   Dijital Çözümlerle Verimliliği Yükseltin: İdenfit’in bulut tabanlı çözümleri ile zaman yönetiminden izin süreçlerine kadar tüm İK işlemlerinizi kolayca yönetin.
 *   Potansiyeli Maksimize Edin: Pulsifi’nin yetkinlik analizleriyle ekibinizin en yüksek performansa ulaşmasına katkı sağlayın.
 
-İdenfit ve **[Pulsifi](https://pulsifi.me/)** ile İş Süreçlerinizi Dijitalleştirin: İdenfit’in bulut tabanlı çözümleriyle zamandan tasarruf ederek İK süreçlerinizi kolayca yönetin. Zaman yönetimi, özlük ve izin işlemlerinden dijital imzaya kadar tüm operasyonlarınızı tek bir platformda toplayın. Pulsifi’nin derinlemesine yetkinlik analizleriyle ekibinizin en uygun alanlarda çalışmasını sağlayın; böylece hem çalışanlarınızın iş tatminini artırın hem de işletmenizin verimliliğini güçlendirin. **[Formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun, kapsamlı bilgi edinin!
+İdenfit ve **[Pulsifi](https://pulsifi.me/)** ile İş Süreçlerinizi Dijitalleştirin: İdenfit’in bulut tabanlı çözümleriyle zamandan tasarruf ederek İK süreçlerinizi kolayca yönetin. Zaman yönetimi, özlük ve izin işlemlerinden dijital imzaya kadar tüm operasyonlarınızı tek bir platformda toplayın. Pulsifi’nin derinlemesine yetkinlik analizleriyle ekibinizin en uygun alanlarda çalışmasını sağlayın; böylece hem çalışanlarınızın iş tatminini artırın hem de işletmenizin verimliliğini güçlendirin. **[Formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun, kapsamlı bilgi edinin!
 
 ## **Sık Sorulan Sorular**
 

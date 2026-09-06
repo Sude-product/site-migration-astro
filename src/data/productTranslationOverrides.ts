@@ -21,7 +21,7 @@ import type { Locale } from './nav';
 
 // idenfit.com'daki "Online Sunum Talebi" sayfasının HERHANGİ bir gerçek
 // kaynak slug'ı — `productContent.ts`'in `localizeCtaUrl()`'ü bunu tanıyıp
-// bizim canonical `online-sunum-talebi` slug'ımıza çeviriyor (bkz. o
+// bizim canonical `online-sunum-talep-et` slug'ımıza çeviriyor (bkz. o
 // dosyadaki `REQUEST_DEMO_SOURCE_SLUGS`). Override'larda CTA hedefi olarak
 // hep bu sentinel kullanılıyor.
 const DEMO_CTA_URL = 'https://idenfit.com/tr/online-sunum-talep-et/';

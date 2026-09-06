@@ -116,9 +116,10 @@ function dedupeHeadingIds(html) {
 // yazılarına (`/tr/blog/<slug>/`, bazen `#h-...`/`#:~:text=...` fragment'ıyla),
 // ürün/modül sayfalarına, ana sayfaya (`/tr/`) ve "Online Sunum Talebi"
 // CTA'sına (`online-sunum-talep-et`, bazen UTM query string'iyle) giden
-// linkler. `resolveCtaUrl()`'deki (productContent.ts) DEMO_CTA_URL
-// sentinel'iyle AYNI ilke: WP'nin ham slug'ı yerine bizim canonical
-// slug'ımıza ('online-sunum-talebi') çevriliyor.
+// linkler. **2026-09-06 — canonical slug artık kaynağın gerçek slug'ıyla
+// (`online-sunum-talep-et`) birebir aynı** (eski `online-sunum-talebi`
+// uyuşmazlığı düzeltildi, bkz. CLAUDE.md) — bu yüzden aşağıda ARTIK bir
+// slug dönüşümüne gerek yok, kaynağın ham href'i olduğu gibi kullanılır.
 function toRelativePath(rawHref) {
   // 618 yazının tamamı işlenirken (FAZ B) bulundu: kaynakta bazı linkler
   // yanlışlıkla URL'nin SONUNA aynı URL'nin ikinci bir kopyasını
@@ -142,8 +143,6 @@ function toRelativePath(rawHref) {
 
   if (path === '') path = '/';
   else if (!path.endsWith('/')) path += '/';
-
-  if (path === '/online-sunum-talep-et/') path = '/online-sunum-talebi/';
 
   return path + tail;
 }

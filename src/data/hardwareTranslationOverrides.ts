@@ -9,7 +9,7 @@ import type { ProductBlock } from './productContent';
 import type { Locale } from './nav';
 
 // bkz. productTranslationOverrides.ts'teki aynı sentinel — `localizeCtaUrl()`
-// bunu tanıyıp bizim canonical `online-sunum-talebi` slug'ımıza çeviriyor.
+// bunu tanıyıp bizim canonical `online-sunum-talep-et` slug'ımıza çeviriyor.
 const DEMO_CTA_URL = 'https://idenfit.com/tr/online-sunum-talep-et/';
 
 export interface HardwareOverride {

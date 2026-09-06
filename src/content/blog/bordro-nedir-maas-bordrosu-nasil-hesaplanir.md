@@ -253,7 +253,7 @@ idenfit bordro modülü, ERP ve çeşitli bordrolama programlarıyla çift yönl
 
 idenfit ve [**Datassist**](https://datassist.com.tr/?gad_source=1&gclid=Cj0KCQjw6auyBhDzARIsALIo6v-UOuvz5fdtcOOzC3rHeMSsDMrrIE6CLAxVy5xaQqYsNuWNYl6JpYgaAti2EALw_wcB)’in bulut tabanlı bordro yazılımı, gelir vergisi ve güncel asgari ücret gibi önemli bilgileri sürekli güncel tutarak insan kaynaklı hataları minimuma indirgiyor. İnternet bağlantısı olan her cihazdan erişilebilen idenfit bordro modülü, maaş hesaplamalarını, vardiya yönetimini ve bordrolamayı tek bir uygulamada topluyor. Bu sayede iş süreçlerini verimli bir şekilde yönetmenizi sağlıyor. 
 
-**idenfit’in bordro modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer bordro süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro+nedir) doldurun. idenfit ile bordro yönetiminde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in bordro modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer bordro süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro+nedir) doldurun. idenfit ile bordro yönetiminde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **SSS**
 

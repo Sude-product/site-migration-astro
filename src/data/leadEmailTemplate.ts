@@ -442,7 +442,7 @@ export function renderMaturityApplicantEmail(params: {
     params.levelSubtitle,
     '',
     'Raporunuzdaki önerileri birlikte değerlendirmek isterseniz ücretsiz bir online sunum planlayabiliriz:',
-    'https://idenfit.com/online-sunum-talebi/',
+    'https://idenfit.com/online-sunum-talep-et/',
     '',
     '—',
     'idenfit — Önce İnsan',
@@ -472,7 +472,7 @@ export function renderMaturityApplicantEmail(params: {
         </tr>
         <tr>
           <td style="padding:20px 32px 0;">
-            <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${buttonCell('https://idenfit.com/online-sunum-talebi/', 'Online sunum planla', 'solid')}</tr></table>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0"><tr>${buttonCell('https://idenfit.com/online-sunum-talep-et/', 'Online sunum planla', 'solid')}</tr></table>
           </td>
         </tr>`,
     footer: 'Bu e-postayı, idenfit.com üzerindeki İK Dijital Olgunluk Testi’ni tamamlayıp raporunuzu talep ettiğiniz için aldınız.',

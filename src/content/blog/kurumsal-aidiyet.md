@@ -68,7 +68,7 @@ Kurum kültürü oluşturma ve geliştirme, mevcut yapıyı analiz etmekle başl
 
 Kurumsal aidiyet ve **[çalışan bağlılığı](/blog/calisan-bagliligi/)**, sürdürülebilir başarı için vazgeçilmez iki yapı taşıdır. Çünkü çalışanlar, kendilerini kurumun bir parçası hissettiklerinde daha çok çaba gösterir. Bu nedenle aidiyet duygusu, sadece duygusal değil, stratejik bir değerdir. Aynı zamanda bağlılık arttıkça iş tatmini ve verimlilik de yükselir. Dahası, çalışanlar kurumun hedeflerini sahiplenir ve başarı için sorumluluk alır. Bununla birlikte güçlü bir bağlılık, **[çalışan devir oranını](/blog/calisan-devir-orani/)** da azaltır. Takdir edilmek ve değer görmek, bu bağı pekiştirmektedir. Elbette güven temelli iletişim ortamı da büyük rol oynar. Ayrıca ekip ruhu geliştiğinde, bağlılık duygusu daha hızlı yayılır. Sonuç olarak kurumsal aidiyet ve bağlılık, sadece İKY stratejisi değil, tüm kurumun ortak sorumluluğudur.
 
-Çalışanlarınızın memnuniyetini artırmak için şimdi harekete geçin! idenfit anket modülü’nü keşfetmek için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=%C3%A7al%C4%B1san+memnuniyeti&utm_content=calisan+memnuniyet+anketi)** doldurun!
+Çalışanlarınızın memnuniyetini artırmak için şimdi harekete geçin! idenfit anket modülü’nü keşfetmek için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=%C3%A7al%C4%B1san+memnuniyeti&utm_content=calisan+memnuniyet+anketi)** doldurun!
 
 ## **Kurumsal Aidiyet Neden Önemlidir?**
 

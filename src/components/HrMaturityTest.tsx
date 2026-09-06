@@ -817,7 +817,7 @@ function ResultStep({ result, company }: { result: MaturityResult; company: Comp
           Ana Sayfa
         </a>
         <a
-          href="/online-sunum-talebi/"
+          href="/online-sunum-talep-et/"
           className="rounded-lg bg-brand px-[18px] py-2.5 text-sm font-semibold text-white transition hover:brightness-110 sm:text-base"
         >
           Hemen Başvur

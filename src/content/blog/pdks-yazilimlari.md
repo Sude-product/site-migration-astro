@@ -147,7 +147,7 @@ idenfit’in PDKS modülü, insan kaynakları profesyonellerine, işverenlere ve
 
 İdenfit PDKS yazılımı, herhangi bir fiziksel donanım yatırımı gerektirmez. Konum doğrulaması gibi çeşitli metotlarla çalışanların zaman takibini kolaylaştırır. Kullanıcı dostu arayüzü sayesinde çalışanlar sisteme çabuk adapte olurken, işverenlere esnek raporlama imkanları sunar. İzin ve vardiya yönetimiyle entegre olan bu modül, güçlü veri güvenlik önlemleri ile korunmaktadır.
 
-**idenfit’in PDKS modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer iş gücü yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) **doldurun. idenfit ile PDKS yönetiminde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in PDKS modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer iş gücü yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) **doldurun. idenfit ile PDKS yönetiminde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ### **idenfit’in Sunduğu Eğitim ve Teknik Destek Hizmetleri Nelerdir?**
 

@@ -420,9 +420,9 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
         description: mega.urunler.promo.description,
         ctaText: mega.urunler.promo.ctaText,
         // NOT: idenfit.com'da gerçek slug "online-sunum-talep-et"; sitemizde
-        // Header.astro'daki CTA ile tutarlı olması için "online-sunum-talebi"
+        // Header.astro'daki CTA ile tutarlı olması için "online-sunum-talep-et"
         // kullanıldı (bkz. CLAUDE.md).
-        ctaHref: 'online-sunum-talebi',
+        ctaHref: 'online-sunum-talep-et',
         // idenfit.com'un canlı `#mega-menu` header template'inde (homepage
         // HTML'i üzerinden doğrulandı, 2026-07-24) "LATER IS NEVER" bloğunun
         // hemen üstünde bulunan gerçek görsel (590×590, alt="header image") —

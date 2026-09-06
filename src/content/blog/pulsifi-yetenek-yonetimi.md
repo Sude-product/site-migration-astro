@@ -68,7 +68,7 @@ idenfit, insan kaynakları süreçlerini dijitalleştirerek şirketlere zaman ve
 
 idenfit’in kapsamlı insan kaynakları çözümleri, Pulsifi’nin yetenek tahmin teknolojisiyle entegre çalışıyor. Sonuç olarak, işletmeler daha verimli ekipler oluşturabiliyor. Aynı zamanda çalışan bağlılığını artırabiliyor. Bu sayede, insan kaynakları yönetimi daha akıllı ve sürdürülebilir hale geliyor.
 
-İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İKY süreçlerinizde verimliliği deneyimleyin!
+İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İKY süreçlerinizde verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

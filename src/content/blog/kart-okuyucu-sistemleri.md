@@ -114,7 +114,7 @@ Mobil PDKS çözümleri ile turnike, kapı ya da diğer giriş-çıkış noktala
 
 Sistem, personel kart okuyucuların çalışan kartını okuttuğunda, personel kart ID’lerini zaman damgalı olarak yazılıma aktarır. Bu sayede, kart okuyucu ile kayıt altına alınan bilgiler idenfit PDKS tarafından değerlendirilir ve raporlanır. Bu entegre sistem sayesinde, çalışanların takibini kolayca yapabilir. **[Puantaj](/blog/puantaj-yazilimlari/)** hesaplamalarını hızlı ve hatasız bir şekilde gerçekleştirebilirsiniz. 
 
-**idenfit’in kart okuyucu sistemleri ile daha kontrollü bir personel giriş sistemi oluşturmaya ne dersiniz? idenfit’in  PDKS yazılımı ile entegre çalışan kart okuyucu sistemleri ile personel devam kontrol sistemini dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=kart+okuyucu+sistemleri&utm_content=kart+okuyucu+sistemleri) **doldurun.**
+**idenfit’in kart okuyucu sistemleri ile daha kontrollü bir personel giriş sistemi oluşturmaya ne dersiniz? idenfit’in  PDKS yazılımı ile entegre çalışan kart okuyucu sistemleri ile personel devam kontrol sistemini dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=kart+okuyucu+sistemleri&utm_content=kart+okuyucu+sistemleri) **doldurun.**
 
 **idenfit ile dijital personel yönetiminin gücünü deneyimleyin!**
 

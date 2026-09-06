@@ -91,7 +91,7 @@ Görev tanımı örneğinin yukarıda bahsedilen dikkat edilmesi gereken unsurla
 
 Karmaşık süreçleri basitleştirmek ve yaratıcı cümleler oluşturmak için talebinizi netleştirin. İhtiyaç duyduğunuz formatı belirtin ve sektör odaklı içeriklere yönlendirin. Bu adımlar, iş tanımınızın hem profesyonel hem de etkili olmasını sağlayacaktır.
 
-**idenfit, çalışanların onboarding süreçlerini sorunsuz bir akış içinde yönetmenizi sağlar. Eğer İKY süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit, çalışanların onboarding süreçlerini sorunsuz bir akış içinde yönetmenizi sağlar. Eğer İKY süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

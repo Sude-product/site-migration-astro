@@ -92,7 +92,7 @@ Yeni nesil çalışanlar, esneklik, anlam ve sürekli gelişim beklentisiyle iş
 
 Yeni nesil çalışanlar dijitalleşmiş, esnek ve anlam odaklı bir iş ortamı arar. Bu kuşak, teknolojiyle uyumlu süreçlerden yüksek verim bekler. idenfit, modern çalışanların beklentilerini karşılayacak insan kaynakları çözümleri sunar. Zaman yönetiminden **[performans](/blog/performans-yonetimi-yazilimlari/)** takibine kadar tüm süreçler dijital olarak yönetilir. Böylece hem yöneticiler hem çalışanlar için şeffaf ve adil bir yapı kurulur. Özelleştirilebilir modüller, çalışan deneyimini güçlendirir. idenfit, yeni nesil iş gücüne uyum sağlayan çevik altyapısıyla fark yaratır. Bu sayede kurumlar daha bağlı, motive ve üretken ekipler oluşturabilir.
 
-**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ### **Yeni Nesil Çalışanların İK’dan Beklentileri Nelerdir?**
 

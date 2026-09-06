@@ -1305,7 +1305,7 @@ gerekçeli olarak kapalı işaretlendi. Sıra ve commit'ler:
 3. **"No dateModified in structured data"** — KAPANDI, Açık nokta #29
    kısmen yeniden açıldı. `BaseLayout.astro`'ya genel `dateModified`
    prop'u eklendi, 7 shared component (~161 sayfa: ürün/sektör/hukuki/
-   fiyat/online-sunum-talebi/destek-talebi/teşekkürler) artık sade bir
+   fiyat/online-sunum-talep-et/destek-talebi/teşekkürler) artık sade bir
    `WebPage` JSON-LD'si taşıyor. Ürün-özel zengin şema (`Product`/
    `Service`) hâlâ AYRI, daha büyük bir karar (Açık nokta #29'da açık
    kaldı). (5289eda)
@@ -1736,7 +1736,7 @@ hâlâ geçerli.)*
        class'ı) — Astro build henüz Cloudflare Pages'e deploy edilmedi.
        `npm run dev` ile local dev server açılıp (`http://localhost:4321`)
        `curl http://localhost:4321/donanim/` ile gerçek render kontrol
-       edildi: `<a href="/online-sunum-talebi/" class="btn-cta ...">
+       edildi: `<a href="/online-sunum-talep-et/" class="btn-cta ...">
        Donanım Entegrasyonu için Başvur</a>` — birebir doğru. TAMAMEN
        KAPANDI.
     6. **KAPANDI (2026-08-26) — Görsel lazy load, local dev server ile
@@ -2751,7 +2751,7 @@ hâlâ geçerli.)*
       sırasında ilk denemede YANLIŞLIKLA `ProductPreviewWidget`'ın kendi
       dekoratif "Dil Seçin" panelindeki AYNI metinli "TR" butonu
       hedeflenmişti, o bir kod hatası DEĞİLDİ, salt test-script hatasıydı).
-    - **Online Sunum Talebi'nde (`/en/online-sunum-talebi/` dahil 4 dil)
+    - **Online Sunum Talebi'nde (`/en/online-sunum-talep-et/` dahil 4 dil)
       "panelden sonraki yerler çeviri olmuyor" bulgusu:** kök neden,
       2026-08-29'da eklenen `PresentationTimeline.astro`
       ("3 Adımda idenfit") ve `PresentationFeatureGrid.astro`
@@ -3273,7 +3273,7 @@ Tüm extraction script'leri (`extract-*.mjs`, `fetch-*.mjs`) bu kurala uyar.
 Ham ACF CTA URL'leri locale başına tutarsız slug kullanıyor. `resolveCtaUrl(rawUrl,
 locale)` bir `{ url, external, newTab }` döner. Dört durum:
 1. **"Online Sunum Talebi" hedefi** — kaynakta 3 farklı slug var, hepsi
-   bizim canonical slug'ımıza (`online-sunum-talebi`, `DEMO_CTA_URL`
+   bizim canonical slug'ımıza (`online-sunum-talep-et`, `DEMO_CTA_URL`
    sentinel'i ile tanınır) çevriliyor.
 2. **Çapraz-sektör/hub tanıtım linkleri** — ham metne güvenilmez, kendi
    veri setimiz üzerinden yeniden çözülür.
@@ -3434,7 +3434,7 @@ grubu (18 modül + Puantaj + 2 hub + Demirbaş + Seyahat) tamamlandı.
 
 **Diğer tekil sayfaların route'ları:** KVKK (`kisisel-verilerin-korunmasi`
 /`data-use-policy`/IT kendi slug'ı, NL→EN redirect) + KVK Protokol
-(`kvk-protokol`/`kvk-protocol`), Online Sunum Talebi (`online-sunum-talebi`,
+(`kvk-protokol`/`kvk-protocol`), Online Sunum Talebi (`online-sunum-talep-et`,
 4 dilde aynı slug — NL gerçek sayfa, `PRESENTATION_NL_OVERRIDE`), Fiyatlar
 (`fiyatlar`/`pricing`/`prijzen`/`prezzi`), İletişim
 (`iletisim`/`contact`/`contatti`/`mededelingen`), Tüketici

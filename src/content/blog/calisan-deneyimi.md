@@ -166,7 +166,7 @@ Net Tavsiye Skoru (NPS), çalışanların organizasyonu başkalarına önerme ol
 
 [Idenfit İnsan Kaynakları Yönetimi](/insan-kaynaklari-yonetimi-modulu/) yazılımı, [**Geri Bildirim**](/organizasyonel-geri-bildirim-modulu/) özelliği yaptığı anketler veya anlık durum güncellemeleri ile firmalara, yöneticiler ve çalışanlar arasında bildirim akışı sağlama olanağı sunar. Böylelikle, çalışan deneyimini iyileştirmek isteyen işveren veya yöneticiler çalışanlarından aldıkları geri bildirimler ve anket sonuçları ile kendilerinin göremedikleri problemleri görmüş olur ve iyileştirme yoluna gidebilirler. Bildirim ve anketler çalışanların istekleri doğrultusunda kendi isimleri ile veya anonim olarak yapılır.
 
-Idenfit’in Geri Bildirim özelliğiyle çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+Idenfit’in Geri Bildirim özelliğiyle çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ## **Çalışan Deneyimi için Yapılan Anketlerde Gizlilik**
 

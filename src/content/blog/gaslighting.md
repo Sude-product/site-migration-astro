@@ -74,7 +74,7 @@ Gaslighting uygulayan kişinin amacı karşısındaki kişinin kendinden şüphe
 
 İş yerinde gaslighting ile mücadelede ilk adım, çalışanların sesini duymaktan geçer. Düzenli çalışan deneyimi anketleri, psikolojik güvenlik alanlarını görünür kılar. idenfit **[Anket Modülü](/anket-modulu/)** ile çalışanlar düşünce ve duygularını rahatça paylaşır. Sistem üzerinden iletilen formlar, hızlı ve yapıcı geri bildirim sağlar. Yöneticiler anketleri ister topluca, ister departman bazlı şekilde planlayabilir. Böylece hem genel hem hedefli veriler elde edilir. Sonuçlar detaylı raporlarla analiz edilir, etkili çözümler geliştirilebilir. Gaslighting belirtileri yaygınsa, erken müdahale sağlanır.
 
-**idenfit’in anket modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? [Formu](/online-sunum-talebi/) doldurun. idenfit ile çalışanlarınızı dinleyin, güven ortamını birlikte inşa edin.**
+**idenfit’in anket modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? [Formu](/online-sunum-talep-et/) doldurun. idenfit ile çalışanlarınızı dinleyin, güven ortamını birlikte inşa edin.**
 
 ## **Sık Sorulan Sorular**
 

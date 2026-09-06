@@ -69,7 +69,7 @@ Dilerseniz önce bu sessiz ama etkili trendlerin gelişim sürecini hızlıca ha
 
 Ekibinizin ihtiyaçlarını anlamak için etkili geri bildirim araçları kullanmak önem taşır. idenfit **[Geri Bildirim Modülü](/organizasyonel-geri-bildirim-modulu/)**, çalışanların düşüncelerini rahatça paylaşmasına imkan tanır. Açık ve düzenli geri bildirim, iş yerinde güven ortamı oluşturur. Çalışanlar fikirlerinin değer gördüğünü hissettiğinde motivasyonları artar. İki yönlü iletişim sayesinde ekip içi iletişim güçlenir. Ayrıca, ekiplerin sesini duyurmasına ve yönetime katkı sağlamasına yardımcı olur. Geri bildirimlerle, kurum kültürü sürekli gelişir. Sessiz kısıtlama riski azalır ve ekipler şeffaf bir yapıya kavuşur.
 
-**idenfit’in geri bildirim modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz?  [Formu](/online-sunum-talebi/) doldurun. idenfit ile çalışanlarınızı dinleyin, güven ortamını birlikte inşa edin.**
+**idenfit’in geri bildirim modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz?  [Formu](/online-sunum-talep-et/) doldurun. idenfit ile çalışanlarınızı dinleyin, güven ortamını birlikte inşa edin.**
 
 ## **Sık Sorulan Sorular**
 

@@ -71,6 +71,6 @@ KOBİ’ler, büyük işletmeler kadar çevresel etki yaratmasa da sorumluluk ta
 *   Personel yönetimini optimize ederek İKY iş yükünü hafifletir.
 *   Maliyetleri düşürerek uzun vadeli tasarruf sağlar.
 
-Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
+Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
 
 KOBİ’ler için 2025 İKY trendleri içeriğimizin sonuna geldik. Şimdi keşfe devam için **[KOBİ’lerde İnsan Kaynakları Yönetimi](/blog/kobi-insan-kaynaklari-yonetimi/)** içeriğimize bekleriz!

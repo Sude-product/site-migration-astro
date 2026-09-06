@@ -56,7 +56,7 @@ Olumlu bir iş yeri ekosistemi için oldukça istendik bir koşul olan empatik y
 
 Takdir edilme en insani güdülerden biridir. Çalışanlarınızla yaptığınız performans değerlendirme görüşmelerinde çalışana başarılarından dolayı övgü dolu sözler söylemek oldukça şık bir yaklaşımdır. Takdir edildiğini hisseden çalışanlarda **[iş yerine aidiyet](/blog/kurumsal-aidiyet/)** ve daha fazlasını başarma hırsı görülebilir ki bunlarda önemli kurumsal kazanımlardır. Dolayısı ile çalışanlarınıza çabalarını takdir ettiğinizi hissettirmelisiniz. Olumlu yaklaşım olumlu geri dönüşleri beraberinde getirecektir.
 
-İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İK süreçlerinizde verimliliği deneyimleyin!
+İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İK süreçlerinizde verimliliği deneyimleyin!
 
 ## Sık Sorulan Sorular
 

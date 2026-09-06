@@ -143,7 +143,7 @@ Zaman damgası istemcisi, zaman damgası alınmak istenen dosyanın özetini ala
 
 5070 sayılı Elektronik İmza Kanununa göre Zaman Damgası, “Bir elektronik verinin, üretildiği, değiştirildiği, gönderildiği, alındığı ve/veya kaydedildiği zamanın tespit edilmesi amacıyla, elektronik sertifika hizmet sağlayıcısı tarafından elektronik imzayla doğrulanan kaydı” ifade eder.
 
-**idenfit’in dijital imza aracı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer imza süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) **doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in dijital imza aracı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer imza süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) **doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Tübitak Zaman Damgası Özellikleri** 
 

@@ -112,7 +112,7 @@ Yetenek yönetiminde başarı, doğru verileri doğru zamanda analiz edebilmekte
 
 idenfit ekosistemiyle entegre çalışan yapı sayesinde işe alım, değerlendirme ve yetenek geliştirme süreçleri tek bir platformda bütünleşir. Böylece kurumlar, operasyonel yükten kurtularak çalışan gelişimi, bağlılık ve sürdürülebilir başarı gibi stratejik alanlara daha fazla odaklanabilir.
 
-**idenfit’in işe alım modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer işe alım süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in işe alım modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer işe alım süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

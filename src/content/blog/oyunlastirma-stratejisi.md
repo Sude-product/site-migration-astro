@@ -78,7 +78,7 @@ anlamasını sağlar.
 ● Bu, çalışanların performanslarını hemen değerlendirme ve iyileştirme şansı\
 bulmalarına yardımcı olur.
 
-idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ### **Esneklik ve Kişiselleştirme**
 

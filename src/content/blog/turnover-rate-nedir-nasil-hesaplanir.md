@@ -109,7 +109,7 @@ Yüksek Turnover süresi eğer önlem alınmazsa ve bazı yapısal reformlara gi
 
 idenfit **[Geri Bildirim](/organizasyonel-geri-bildirim-modulu/)** modülü, anketler ve anlık durum güncellemeleri aracılığıyla firmalara, yöneticilere ve çalışanlara etkili bir iletişim ağı sunar. Bu sayede, çalışan deneyimini geliştirmek isteyen işverenler, ekiplerinden gelen geri bildirimler ve anket sonuçları doğrultusunda fark edemedikleri sorunları tespit ederek çözümler üretebilirler.
 
-idenfit’in Geri Bildirim özelliğiyle çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in Geri Bildirim özelliğiyle çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ## **Sık Sorulan Sorular**
 

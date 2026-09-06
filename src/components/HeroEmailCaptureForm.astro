@@ -31,7 +31,7 @@ interface Props {
 }
 
 const { locale, placeholder, submitLabel, ctaKeyword } = Astro.props;
-const demoHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+const demoHref = getRelativeLocaleUrl(locale, 'online-sunum-talep-et');
 const resolvedSubmitLabel = isGenericCtaText(submitLabel) ? buildCtaAnchorText(ctaKeyword, locale) : submitLabel;
 ---
 

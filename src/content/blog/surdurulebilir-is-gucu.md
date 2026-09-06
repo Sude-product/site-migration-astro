@@ -76,7 +76,7 @@ Sürdürülebilirlikte başarı, yalnızca stratejiyle değil, çalışanların 
 
 idenfit, sürdürülebilir bir iş gücü oluşturur ve insan odaklı dijital çözümler sunar. Veriye dayalı süreçlerle yetenek yönetimini güçlendirir, esenlik uygulamalarını destekler. Ayrıca esnek çalışma modellerini kolaylaştırarak çalışan bağlılığını artırır. Otomasyon sayesinde zaman kazandırır, manuel hataları azaltır. İzin, vardiya ve performans süreçlerini optimize eder. Böylece kaynak kullanımı azalır, verimlilik yükselir. idenfit, iş gücü planlamasını geleceğe taşıyarak dönüşüme rehberlik eder. Bu yaklaşım kurumsal itibarı güçlendirir, İK ekiplerine stratejik değer kazandırır. Sonuç olarak, idenfit sürdürülebilirlik hedeflerinize akıllı ve ölçülebilir katkılar sağlar.
 
-İKY süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) doldurun. Idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+İKY süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) doldurun. Idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

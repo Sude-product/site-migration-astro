@@ -150,7 +150,7 @@ Suprema FaceStation 2, eşleşme teknolojisinde Fusion Matching adını verdiği
 
 Yüz tanıma sistemi, çeşitli kimlik doğrulama seçenekleri sunarak yüz, mobil erişim, parmak izi ve kartlar gibi çoklu modları destekler. Bu özelliklerle FaceStation 2, yeni güvenlik ve hijyen standartlarını karşılayan temassız bir çözüm olarak öne çıkar. Ayrıca, maskeli kullanıcıların tanınmasını da destekleyerek pandemi sonrası dünyanın ihtiyaçlarına cevap verir. Suprema’nın termal kamera entegrasyonu ile yüksek cilt sıcaklığı olan kullanıcıları tespit eder. Böylece sağlık ve güvenlik önlemlerine katkı sunar.
 
-**idenfit’in yüz tanıma sistemleri ile daha güvenilir bir personel takibi sistemi yaratmak ister misiniz?  PDKS sürecinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=yuz-tanima-sistemleri) **doldurun, sizi arayalım. idenfit’in PDKS yazılımı ile entegre Suprema yüz tanıma sistemleri ile dijital personel yönetiminin gücünü deneyimleyin!**
+**idenfit’in yüz tanıma sistemleri ile daha güvenilir bir personel takibi sistemi yaratmak ister misiniz?  PDKS sürecinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=yuz-tanima-sistemleri) **doldurun, sizi arayalım. idenfit’in PDKS yazılımı ile entegre Suprema yüz tanıma sistemleri ile dijital personel yönetiminin gücünü deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

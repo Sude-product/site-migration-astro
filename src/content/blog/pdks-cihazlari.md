@@ -171,7 +171,7 @@ Personel devam kontrol cihazlarının kullanımı noktasında işletmelerin yere
 
 Bulut tabanlı insan kaynakları yazılımı idenfit ile çalışan işe giriş-çıkış bilgilerini, mola kayıtlarını, izin, vardiya ve fazla mesaileri kolaylıkla kayıt altına alabilirsiniz. Dilediğiniz zaman PDKS rapor çıktıları alır, işletmeniz onay süreçlerini ve [**puantaj**](/blog/puantaj-nedir/) takibini sorunsuz şekilde yönetebilirsiniz. idenfit’in PDKS programı her sektöre uygun olarak tasarlanmıştır. Müşteri deneyimi ekibimizle, işletmenize uygun olan kural ve kurguları bir defa yapmanız yeterli olacaktır.
 
-**idenfit’in PDKS cihazları ve PDKS yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer PDKS süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=PDKS-Cihazlar%C4%B1) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in PDKS cihazları ve PDKS yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer PDKS süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=PDKS-Cihazlar%C4%B1) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

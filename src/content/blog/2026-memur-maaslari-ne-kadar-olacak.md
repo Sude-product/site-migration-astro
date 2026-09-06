@@ -39,7 +39,7 @@ Unvanlara göre memur maaşlarının farklılaşması, kamu personel sisteminin 
 
 Kamu kurumlarında 2026 yılı **[maaş ve bordro takibi](/blog/bordro-nedir-maas-bordrosu-nasil-hesaplanir/)**, artan hesaplama kalemleri ve dönem dönem güncellenen mevzuat nedeniyle dikkatle yönetilmesi gereken bir süreç olarak ilerliyor. Toplu sözleşme zamları, enflasyon farkı ve katsayı değişikliklerinin manuel bordro yöntemleriyle takip edilmesi durumunda, bordro maaş hesaplama süreçlerinde hata riski ve iş yükü önemli ölçüde artıyor. Bu tür hatalar, maaşların yanlış ödenmesine yol açabiliyor. **[Dijital İK](/blog/dijital-ik-surecleri/)** ve bordro yönetim sistemleri ise otomatik bordro maaş hesaplama altyapısıyla, güncel mevzuata hızlı uyum ve detaylı raporlama imkanı sunuyor. Böylece bordro süreçleri daha şeffaf, tutarlı ve sürdürülebilir bir yapıya kavuşuyor.
 
-**Maaş ve bordro süreçlerini tek platformdan yönetmek için idenfit çözümlerini [inceleyin](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=İse+alim+zorluklari&utm_content=İse+alim+zorluklari+2024).**
+**Maaş ve bordro süreçlerini tek platformdan yönetmek için idenfit çözümlerini [inceleyin](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=İse+alim+zorluklari&utm_content=İse+alim+zorluklari+2024).**
 
 ## **Sıkça Sorulan Sorular**
 

@@ -142,7 +142,7 @@ Bulut tabanlı insan kaynakları yazılımı idenfit ile personel takibi çok da
 
 idenfit sayesinde dilediğiniz anda PDKS rapor çıktıları alabilir ve puantaj takibini sorunsuz şekilde yönetirsiniz. idenfit’in PDKS programı her sektöre uygun özellikte sunulur.
 
-**idenfit’in PDKS cihazları ve PDKS yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer PDKS süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=parmak+izi+okuma+sistemi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in PDKS cihazları ve PDKS yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer PDKS süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=parmak+izi+okuma+sistemi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## Sık Sorulan Sorular
 

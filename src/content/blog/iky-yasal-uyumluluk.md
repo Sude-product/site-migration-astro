@@ -83,7 +83,7 @@ Küresel iş gücü değişirken yetenek yönetimi, upskilling ve reskilling sü
 
 Daha fazlası için **[2025 İK Teknolojisi Trendleri](/blog/2025-ik-teknolojisi-trendleri/)** içeriğimize göz atmayı unutmayın!
 
-idenfit, tüm İK süreçlerini tek bir platformda topluyor. Böylece, verimlilik ve güvenlik sağlıyor. Ayrıca, bordro, izin, performans ve PDKS yönetimi gibi tüm süreçleri bulut tabanlı yapısıyla kesintisiz şekilde yönetme imkanı yaratıyor. Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
+idenfit, tüm İK süreçlerini tek bir platformda topluyor. Böylece, verimlilik ve güvenlik sağlıyor. Ayrıca, bordro, izin, performans ve PDKS yönetimi gibi tüm süreçleri bulut tabanlı yapısıyla kesintisiz şekilde yönetme imkanı yaratıyor. Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
 
 ## **Sık Sorulan Sorular**
 

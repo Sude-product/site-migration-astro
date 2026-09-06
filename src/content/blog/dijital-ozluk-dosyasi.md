@@ -134,7 +134,7 @@ Kolay erişim ve paylaşım, elektronik denetim
 
 idenfit özlük dosyası modülü ile çalışanlarınıza ait tüm belgeleri dijital ortamda güvenle saklayın. İş sözleşmeleri, izin evrakları, finansal belgeler ve daha fazlasını dijital imza ile doğrulayın. KVKK’ya uygun şekilde saklayın. Güncel ve eksiksiz özlük dosyalarına her an, her yerden erişim sağlayın.
 
-**Zaman ve maliyet tasarrufu sağlayarak insan kaynakları süreçlerinizi optimize edin. Daha fazla bilgi almak için hemen şimdi [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=ozluk+dosyasi&utm_content=dijital+ozluk+dosyasi) doldurun!**
+**Zaman ve maliyet tasarrufu sağlayarak insan kaynakları süreçlerinizi optimize edin. Daha fazla bilgi almak için hemen şimdi [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=ozluk+dosyasi&utm_content=dijital+ozluk+dosyasi) doldurun!**
 
 ## **Sık Sorulan Sorular**
 

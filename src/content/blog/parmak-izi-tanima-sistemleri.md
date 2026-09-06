@@ -151,7 +151,7 @@ Dünya standartlarında eşleşme kapasitesi
 
 Erişim kontrolü ve zaman yönetimi
 
-**İdenfit’in PDKS modülü ile entegre çalışan parmak izi tanıma sistemleri hakkında bilgi sahibi olmak ister misiniz ? Eğer personel giriş-çıkış takibi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=parmak-izi-tanima-sistemleri) doldurun, sizi arayalım.**
+**İdenfit’in PDKS modülü ile entegre çalışan parmak izi tanıma sistemleri hakkında bilgi sahibi olmak ister misiniz ? Eğer personel giriş-çıkış takibi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=parmak-izi-tanima-sistemleri) doldurun, sizi arayalım.**
 
 **idenfit ile personel takibinde ölçülebilir ve güvenli süreçlerin kapılarını aralayın!**
 

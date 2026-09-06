@@ -85,7 +85,7 @@ Turnover rate, organizasyonların sürdürülebilirliği için kritik bir göste
 
 ## **idenfit Etkili bir Offboarding Süreci İçin Nasıl Avantajlar Sunar?**
 
-idenfit **[Offboarding modülü](/offboarding-modulu/)**, işten çıkış sürecini düzenli ve şeffaf biçimde yönetmenizi sağlar. Çünkü ayrılık anı, hem çalışan hem de işveren için kritik bir dönüm noktasıdır. idenfit sayesinde zimmet teslimi, departman bilgilendirmeleri ve çıkış görüşmeleri tek panelden kolayca yürütülür. Ayrıca süreç boyunca maksimum iletişim kurularak çalışan deneyimi pozitif tutulur. Bu sayede işletmenizin marka algısı korunurken, çalışan da öngörülebilir bir süreç yaşar. Dahası, raporlama özellikleriyle işten çıkış oranları takip edilir ve stratejik iyileştirmeler yapılır. Siz de **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun, hemen keşfetmeye başlayın!
+idenfit **[Offboarding modülü](/offboarding-modulu/)**, işten çıkış sürecini düzenli ve şeffaf biçimde yönetmenizi sağlar. Çünkü ayrılık anı, hem çalışan hem de işveren için kritik bir dönüm noktasıdır. idenfit sayesinde zimmet teslimi, departman bilgilendirmeleri ve çıkış görüşmeleri tek panelden kolayca yürütülür. Ayrıca süreç boyunca maksimum iletişim kurularak çalışan deneyimi pozitif tutulur. Bu sayede işletmenizin marka algısı korunurken, çalışan da öngörülebilir bir süreç yaşar. Dahası, raporlama özellikleriyle işten çıkış oranları takip edilir ve stratejik iyileştirmeler yapılır. Siz de **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun, hemen keşfetmeye başlayın!
 
 ## **Sık Sorulan Sorular**
 

@@ -103,7 +103,7 @@ for (const [trSlug, azSlug] of Object.entries(SECTOR_AZ_SLUGS)) {
 
 // idenfit.com'da "Online Sunum Talebi" sayfasının 4 dildeki gerçek slug'ı
 // birbirinden tamamen farklı (bkz. page-inventory.md) — ama BİZİM sitemiz
-// tek bir canonical slug kullanıyor (`online-sunum-talebi`, bkz.
+// tek bir canonical slug kullanıyor (`online-sunum-talep-et`, bkz.
 // `navigation.ts`'teki aynı not, Header.astro'nun CTA'sıyla tutarlı).
 const REQUEST_DEMO_SOURCE_SLUGS = new Set([
   'online-sunum-talep-et', // tr
@@ -129,7 +129,7 @@ const REQUEST_DEMO_SOURCE_SLUGS = new Set([
 function localizeCtaUrl(rawUrl: string, locale: Locale): string {
   const bare = bareSlugFromUrl(rawUrl);
   if (REQUEST_DEMO_SOURCE_SLUGS.has(bare)) {
-    return getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+    return getRelativeLocaleUrl(locale, 'online-sunum-talep-et');
   }
   const matchedTrSlug = SLUG_TO_TRSLUG[bare];
   if (matchedTrSlug) {

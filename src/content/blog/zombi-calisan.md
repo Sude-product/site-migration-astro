@@ -89,7 +89,7 @@ Toksik liderler çalışanların motivasyonunu hızla tüketir. Çünkü olumsuz
 
 idenfit, zombi çalışanların ortaya çıkmasını önlemek için güçlü çözümler sunar. Dijital **[performans](/calisan-performans-degerlendirme-sistemi-modulu/)** yönetimi ile çalışanların motivasyonu düzenli izlenebilir. Ayrıca 360 derece **[geri bildirim](/organizasyonel-geri-bildirim-modulu/)** sistemi şeffaflık sağlar ve güven ortamı kurar. Böylece çalışanlar kendilerini daha değerli hisseder. Kariyer gelişim modülleriyle yeni beceriler kazanmak kolaylaşır. Esnek izin ve zaman yönetimi özellikleri ise **[iş-yaşam dengesini](/blog/is-yasam-uyumu/)** güçlendirir. Sonuçta idenfit, zombi çalışan riskini azaltır.
 
-idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ## Sık Sorulan Sorular
 

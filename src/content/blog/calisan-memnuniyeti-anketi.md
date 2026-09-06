@@ -204,7 +204,7 @@ Anketi değerlendirme süreci, iş yerinizdeki genel atmosferi ve çalışanlar�
 
 idenfit anket modülü ile çalışan memnuniyetini en hızlı ve etkili şekilde ölçün! Çalışanlarınızın düşüncelerini ve geri bildirimlerini toplamak artık hiç olmadığı kadar kolay. iİdenfit anket modülü, departman bazlı veya toplu anketlerle işletmenizin nabzını tutmanıza olanak tanır. Bu sayede, çalışanlarınızın ihtiyaçlarına ve beklentilerine uygun adımlar atarak, daha verimli ve mutlu bir iş yeri yaratabilirsiniz. Gerçek zamanlı veriler ve detaylı raporlamalarla, işletmenizin geleceğine yön verecek kararları hızlıca alın.
 
-Çalışanlarınızın memnuniyetini artırmak için şimdi harekete geçin! idenfit anket modülü’nü keşfetmek için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=%C3%A7al%C4%B1san+memnuniyeti&utm_content=calisan+memnuniyet+anketi)** doldurun!
+Çalışanlarınızın memnuniyetini artırmak için şimdi harekete geçin! idenfit anket modülü’nü keşfetmek için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=%C3%A7al%C4%B1san+memnuniyeti&utm_content=calisan+memnuniyet+anketi)** doldurun!
 
 ## **Sık Sorulan Sorular**
 

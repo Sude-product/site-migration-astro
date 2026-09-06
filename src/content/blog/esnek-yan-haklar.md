@@ -150,7 +150,7 @@ Sosyal Sorumluluk İzinleri
 
 Bu haklar, sağlık sigortası, eğitim destekleri ve esnek çalışma düzenlemeleri gibi çeşitli şekillerde sunulabiliyor. Çalışanların iş-yaşam dengelerini iyileştiriyor. İşverenler, çalışanlarının ihtiyaçlarına ve beklentilerine uygun yan hak paketleri oluşturuyor. Bu sayede onların iş-yaşam dengesini geliştirmeyi ve genel iş tatminini artırmayı hedefliyor. Yan hakların etkin bir şekilde uygulanması, çalışanların şirkete olan bağlılığını artırıyor. İşverenin rekabet gücünü de güçlendiriyor. Dolayısıyla, yan haklar, çalışanlar için cazip bir çalışma ortamı sunuyor. Ayrıca, şirketlerin de yetenekli çalışanları çekmesine ve elde tutmasına yardımcı oluyor.
 
-Çalışanların düşüncelerini en kısa yoldan öğrenerek işletme içi motivasyonu arttırmaya ne dersiniz? Esnek yan hak uygulamaları ve diğer konularda sağlıklı bir geri bildirim kültürü yaratmak için hemen şimdi [**idenfit anket modülü**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=yan+haklar&utm_content=esnek+yan+haklar) ile tanışın!
+Çalışanların düşüncelerini en kısa yoldan öğrenerek işletme içi motivasyonu arttırmaya ne dersiniz? Esnek yan hak uygulamaları ve diğer konularda sağlıklı bir geri bildirim kültürü yaratmak için hemen şimdi [**idenfit anket modülü**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=yan+haklar&utm_content=esnek+yan+haklar) ile tanışın!
 
 ### **2024 Yılında Uygulanan Güncel Yan Hak Uygulamaları**
 

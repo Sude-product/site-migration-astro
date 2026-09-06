@@ -118,7 +118,7 @@ idenfit ve Vedubox, uzaktan eğitimde yenilikçi çözümler sunmak için iş bi
 *   Her yerden erişilebilen dinamik bir öğrenme ortamı sunar. Çalışanlara eğitim süreçlerini kendilerine uygun şekilde takip etme olanağı tanır.
 *   Eğitim verimliliğini ölçme ve değerlendirme süreçlerini kolaylaştırır. Raporlama için gerekli araçları sağlar.
 
-idenfit eğitim yönetimi modülü ile eğitimlerin başarısını kolayca ölçün!  idenfit’in eğitim yönetimi modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer eğitim yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+idenfit eğitim yönetimi modülü ile eğitimlerin başarısını kolayca ölçün!  idenfit’in eğitim yönetimi modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer eğitim yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

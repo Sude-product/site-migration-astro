@@ -44,7 +44,7 @@ Bu program kapsamında firmaların, insan kaynakları süreçlerini stratejik bi
 
 Program, firmaların çalışan performansını ölçmek ve geliştirmek için sistematik yöntemler kullanmalarını teşvik ediyor. Performans yönetim sistemlerinin, bireysel ve kurumsal hedeflerle uyumlu olması ve çalışanların yetkinliklerini artırmaya odaklanması öneriliyor.
 
-**idenfit’in tüm modülleri entegre çalışan insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=insan+kaynaklari+yazilimi+faydalari) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde verimliliği deneyimleyin!**
+**idenfit’in tüm modülleri entegre çalışan insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer insan kaynakları yönetimi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=insan+kaynaklari+yazilimi+faydalari) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde verimliliği deneyimleyin!**
 
 ## **Turquality Sürecinde Performans Yönetimi ve KPI Takibi**
 

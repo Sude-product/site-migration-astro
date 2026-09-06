@@ -153,7 +153,7 @@ Sunumunuzun başarısını değerlendirmek ve izleyicilerinizden geri bildirim a
 *   **Kolay Kullanım ve Destek:** Kullanıcı dostu arayüzü ve ücretsiz desteğiyle sunumlarınıza profesyonel bir dokunuş katın.
 *   **Güçlü Altyapı:** Güvenli ve ölçeklenebilir veritabanı ile verilerinizi güvenle saklayın.
 
-İdenfit’in sunduğu avantajlardan yararlanmak için hemen **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=veri+analiti%C4%9Fi&utm_content=veri+analiti%C4%9Fi+sunumu)** doldurun.
+İdenfit’in sunduğu avantajlardan yararlanmak için hemen **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=veri+analiti%C4%9Fi&utm_content=veri+analiti%C4%9Fi+sunumu)** doldurun.
 
 ## **Sık Sorulan Sorular**
 

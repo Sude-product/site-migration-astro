@@ -143,7 +143,7 @@ Profesyonel teknik destek ve müşteri hizmetleri.
 
 Profesyonel destek sınırlı.
 
-**idenfit’in puantaj modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer puantaj takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in puantaj modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer puantaj takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **idenfit Puantaj Yazılımı Nasıl Avantajlar Sağlar?**
 

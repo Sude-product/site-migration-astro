@@ -200,7 +200,7 @@ Puantaj takibi yapan pek çok sistem, puantaj için gereken bilgileri (giriş �
 
 idenfit, firmanız için yalnızca **[puantaj takibi](/puantaj-takip-programi-modulu/)** yapmakla sınırlı kalmıyor. Aynı zamanda puantaj için gereken ham bilgiyi, mobil ve tablet uygulamaları aracılığıyla parmak okuma, yüz tanıma ve kart okuyucu teknolojileri üzerinden alıyor. Ardından sisteme otomatik aktarıyor ve bu verileri online olarak tutarak oldukça kapsamlı bir puantaj takip hizmeti sunuyor.
 
-**idenfit’in puantaj takibi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer puantaj hesaplamalarında verimli, şeffaf ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in puantaj takibi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer puantaj hesaplamalarında verimli, şeffaf ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

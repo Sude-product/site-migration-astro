@@ -65,7 +65,7 @@ Teknoloji, iş süreçlerini dönüştürürken bazı zorlukları da beraberinde
 *   Farklı mağazaları tek bir sistem üzerinden yönetme imkanı sunar.
 *   Veri güvenliği ve mevzuata uyum süreçlerini eksiksiz şekilde destekler.
 
-Detaylı bilgi almak için hemen **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=Dijital+%C4%B0K+S%C3%BCrecleri)** doldurun.
+Detaylı bilgi almak için hemen **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=Dijital+%C4%B0K+S%C3%BCrecleri)** doldurun.
 
 ## **Sık Sorulan Sorular**
 
