@@ -4,7 +4,7 @@ title: 2024’ün Yükselen Meslekleri Neler?
 date: '2024-01-31T22:30:06'
 excerpt: “Geleceği satın alabilecek tek şey bugündür.”. İngiliz Aristokrat Samuel Johnson’ın da altını çizdiği gibi geleceği şekillendirmek için elimizde olan en önemli…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2024un-yukselen-meslekleri-neler-1392x696-1.jpg
+  image: /img/blog-featured/2024un-yukselen-meslekleri/featured.jpg
   alt: 2024’ün Yükselen Meslekleri Neler?
   width: 1392
   height: 696

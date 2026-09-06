@@ -4,7 +4,7 @@ title: İnsan Kaynakları Dönüşümü ve İşbirliği Buluşması (Mersin)
 date: '2024-02-19T10:25:10'
 excerpt: Büyüme ve değişim, her organizasyonun temel hedeflerindendir. Bu süreçte en önemli kaynaklarımızdan biri, çalışanlarımızdır. İnsan kaynaklarının hukuk, yönetim…
 featuredImage:
-  url: /wp-content/uploads/2025/08/mersin-ik-bulusmasi-20240312-1392x783-1.jpg
+  image: /img/blog-featured/insan-kaynaklari-donusumu-ve-isbirligi-bulusmasi-mersin/featured.jpg
   alt: İnsan Kaynakları Dönüşümü ve İşbirliği Buluşması (Mersin)
   width: 1392
   height: 783

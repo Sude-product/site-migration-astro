@@ -4,7 +4,7 @@ title: 'Perakendede Mağaza Performansı: Vardiya ve İş Gücü KPI’ları Nas
 date: '2026-09-01T14:00:00'
 excerpt: Perakendede mağaza performansı yalnızca ciroyla ölçüldüğünde iş gücünün satış üzerindeki gerçek etkisi görünmez. Aynı satış rakamına ulaşan iki mağazadan biri…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Perakendede-Magaza-PerformansiVardiya-ve-Is-Gucu-KPIlari-Nasil-Kullanilir.webp
+  image: /img/blog-featured/perakendede-magaza-performansi-vardiya-ve-is-gucu-kpilari-nasil-kullanilir/featured.webp
   alt: 'Perakendede Mağaza Performansı: Vardiya ve İş Gücü KPI’ları Nasıl Kullanılır?'
   width: 1740
   height: 904

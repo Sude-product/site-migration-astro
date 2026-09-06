@@ -4,7 +4,7 @@ title: Stajyer Adayı ve Stajyerler için 10 Öneri
 date: '2023-04-25T23:58:23'
 excerpt: Bu sayfayı merakla incelemeye hazırlanıyorsanız, staj dönemi geldi çattı demektir! Stajyer adayı olanların meslek hayatına dair ilk deneyimlerini kazanacağı bu…
 featuredImage:
-  url: /wp-content/uploads/2023/04/stajyer-ve-stajyer-adaylari-icin10-etkili-oneri.jpg
+  image: /img/blog-featured/stajyer-adayi/featured.jpg
   alt: Stajyer Adayı ve Stajyerler için 10 Öneri
   width: 1621
   height: 811

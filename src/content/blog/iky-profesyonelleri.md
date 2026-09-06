@@ -4,7 +4,7 @@ title: 'İKY Profesyonelleri: Değişen Rolleri ve Stratejik Katkıları'
 date: '2024-03-13T15:55:02'
 excerpt: İş dünyası, insan kaynakları yönetimi (İKY) alanında devrim niteliğinde değişimlere tanık oluyor. Geleneksel İKY rolleri, artık daha stratejik ve yenilikçi bir…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ik-profesyonellerinin-5-sorumlulugu@2x-100-1392x696-1.jpg
+  image: /img/blog-featured/iky-profesyonelleri/featured.jpg
   alt: 'İKY Profesyonelleri: Değişen Rolleri ve Stratejik Katkıları'
   width: 1392
   height: 696

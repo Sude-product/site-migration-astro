@@ -4,7 +4,7 @@ title: İşe Alımlarda “Hobiler” Gerçekten Önemli mi?
 date: '2020-02-04T11:44:23'
 excerpt: Yalnızca iş görüşmeleri nde değil hayatın her alanında hobilerinizin neler olduğuna ve boş zamanlarınızda neler yaptığınıza dair sorularla karşılaşırsınız.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/GOÃàREV-kopya@2x.png
+  image: /img/blog-featured/ise-alimlarda-hobilerin-onemi/featured.png
   alt: İşe Alımlarda “Hobiler” Gerçekten Önemli mi?
   width: 1515
   height: 998

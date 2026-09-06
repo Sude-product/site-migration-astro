@@ -4,7 +4,7 @@ title: 2021 İK Trendleri Nelerdir?
 date: '2021-05-07T11:10:36'
 excerpt: COVID-19 pandemisi ile değişen dinamiklere uyum sağlama konusunda çoğu şirket uyum sağlama aşamasını geçerek yeniliklerini daha da geliştirme yoluna girdi.…
 featuredImage:
-  url: /wp-content/uploads/2021/09/2021-Yili-Insan-Kaynaklari-Trendleri-ve-IKnin-Gelecegi@2x-4.jpg
+  image: /img/blog-featured/2021-ik-trendleri/featured.jpg
   alt: 2021 İK Trendleri Nelerdir?
   width: 810
   height: 534

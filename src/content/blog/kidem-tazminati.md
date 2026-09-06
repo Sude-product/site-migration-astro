@@ -4,7 +4,7 @@ title: 2020 Yılı Kıdem Tazminatı
 date: '2020-01-13T14:34:14'
 excerpt: Kıdem tazminatı 2020 yılı şartları sigortalı çalışanların hakkında en çok soru sorduğu ve değişiklikleri yakından takip ettiği konuların başında gelir.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-kidem-tazminati-tavan-tutari-696x392-1.jpg
+  image: /img/blog-featured/kidem-tazminati/featured.jpg
   alt: 2020 Yılı Kıdem Tazminatı
   width: 696
   height: 392

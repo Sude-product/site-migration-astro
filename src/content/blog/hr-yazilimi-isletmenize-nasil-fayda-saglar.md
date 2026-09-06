@@ -4,7 +4,7 @@ title: HR Yazılımı İşletmenizin Büyümesine Nasıl Yardımcı Olur?
 date: '2025-05-25T20:19:41'
 excerpt: Bir işletmenin kısa, orta ve uzun vadeli planlarını gerçekleştirmesi için insan kaynakları yönetiminin tutarlı ve doğru şekilde sürdürülmesi gerekir. Sahip…
 featuredImage:
-  url: /wp-content/uploads/2025/05/hr-yazilimi-1.png
+  image: /img/blog-featured/hr-yazilimi-isletmenize-nasil-fayda-saglar/featured.png
   alt: HR Yazılımı İşletmenizin Büyümesine Nasıl Yardımcı Olur?
   width: 1024
   height: 675

@@ -4,7 +4,7 @@ title: Fazla Mesai Hesaplaması Rehberi
 date: '2023-10-02T16:32:15'
 excerpt: Fazla mesai hesaplaması kavramı ülkemiz için haftalık 45 saat olan azami çalışma süresini aşan her türlü çalışma aralığını ifade etmektedir. Bu durum işverenin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/fazla-mesai-hesaplamasi-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
+  image: /img/blog-featured/fazla-mesai-hesaplamasi/featured.jpg
   alt: Fazla Mesai Hesaplaması Rehberi
   width: 1392
   height: 696

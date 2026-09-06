@@ -4,7 +4,7 @@ title: İş Göremezlik Ödeneği Şartları
 date: '2021-06-25T10:38:54'
 excerpt: İş göremezlik ödemeleri, 5510 Sayılı Sosyal Güvenlik Yasası kapsamında sosyal güvenlik sisteminin sigortalı çalışanlara emekli maaşının yanı sıra hastalık, iş…
 featuredImage:
-  url: /wp-content/uploads/2021/06/is-gormezlik-odeneginden-yararlanma-sartlari@2x-100.jpg
+  image: /img/blog-featured/is-goremezlik/featured.jpg
   alt: İş Göremezlik Ödeneği Şartları
   width: 1514
   height: 999

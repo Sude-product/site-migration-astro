@@ -4,7 +4,7 @@ title: Bordro Yazılımları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-06-02T15:38:54'
 excerpt: Bordro süreçleri karmaşık ve zaman alıcı olabiliyor. Neyse ki doğru bordro yazılımıyla bu süreçlerin üstesinden kolayca gelmek mümkün oluyor. Modern bordro…
 featuredImage:
-  url: /wp-content/uploads/2025/08/bordro-yazilimlari-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
+  image: /img/blog-featured/bordro-yazilimlari/featured.jpg
   alt: Bordro Yazılımları Hakkında Tüm Bilmeniz Gerekenler
   width: 1392
   height: 696

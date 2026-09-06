@@ -4,7 +4,7 @@ title: Eğitim Yönetimi Yazılımları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-06-13T11:54:13'
 excerpt: Günümüzün hızla dijitalleşen iş dünyasında, eğitim yönetimi yazılımları, bilgi akışını pratikleştirerek şirketlerin rekabetçi kalmasını sağlıyor. Bu dinamik…
 featuredImage:
-  url: /wp-content/uploads/2025/08/egitim-yonetimi-yazilimlari-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
+  image: /img/blog-featured/egitim-yonetimi-yazilimlari/featured.jpg
   alt: Eğitim Yönetimi Yazılımları Hakkında Tüm Bilmeniz Gerekenler
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Eğitim İhtiyaç Analizi Nedir?
 date: '2021-06-16T11:00:35'
 excerpt: Bir eğitim ihtiyaç analizi daima belirli bir nedenle gerçekleşir ve bir amaca hizmet eder. Bu tür bir analize duyulan ihtiyaç genellikle şirket için bir…
 featuredImage:
-  url: /wp-content/uploads/2021/06/egitim-ihtiyac-analizi-nedir-ik-hangi-durumlarda-ihtiyac-duyar@2x-100.jpg
+  image: /img/blog-featured/egitim-ihtiyac-analizi/featured.jpg
   alt: Eğitim İhtiyaç Analizi Nedir?
   width: 1515
   height: 999

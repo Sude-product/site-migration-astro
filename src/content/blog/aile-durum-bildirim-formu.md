@@ -4,7 +4,7 @@ title: Aile Durum Bildirim Formu Nasıl Doldurulur?
 date: '2021-07-16T10:49:17'
 excerpt: Aile durum bildirim formu, kişinin aile bilgilerinin yer aldığı formdur. Çalışanın çocuk sayısı ve eşinin iş durumuna göre yardımdan faydalanabilmesini sağlar.…
 featuredImage:
-  url: /wp-content/uploads/2021/07/aile-durum-bildirgesi@2x.png
+  image: /img/blog-featured/aile-durum-bildirim-formu/featured.png
   alt: Aile Durum Bildirim Formu Nasıl Doldurulur?
   width: 1515
   height: 996

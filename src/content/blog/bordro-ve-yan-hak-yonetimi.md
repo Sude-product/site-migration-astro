@@ -4,7 +4,7 @@ title: 'Bordro & Yan Hak Yönetimi: Şirketler İçin Kapsamlı Rehber'
 date: '2025-12-28T17:17:05'
 excerpt: Bordro ve yan hak yönetimi, şirketlerin yalnızca yasal yükümlülüklerini yerine getirdiği operasyonel bir alan değil; çalışan deneyimini doğrudan etkileyen…
 featuredImage:
-  url: /wp-content/uploads/2025/12/Bordro-Yan-Hak-Yonetimi-Sirketler-Icin-Kapsamli-Rehber@2x.png
+  image: /img/blog-featured/bordro-ve-yan-hak-yonetimi/featured.png
   alt: Bordro & Yan Hak Yönetimi Şirketler İçin Kapsamlı Rehber
   width: 1281
   height: 721

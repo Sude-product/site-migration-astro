@@ -4,7 +4,7 @@ title: Evlilik İzni Kaç Gün? Nasıl Kullanılır?
 date: '2021-05-26T08:38:25'
 excerpt: Evlilik izni, özel sektörde veya kamuda çalışan ve evlilik planı yapan her işçiyi yakından ilgilendiren bir izin türüdür. Bu izin türünün nasıl ve ne zaman…
 featuredImage:
-  url: /wp-content/uploads/2021/05/evlilik-izni-kac-gun-evlilik-izni-nasil-kullanilir@2x-100.jpg
+  image: /img/blog-featured/evlilik-izni/featured.jpg
   alt: Evlilik İzni Kaç Gün? Nasıl Kullanılır?
   width: 1514
   height: 999

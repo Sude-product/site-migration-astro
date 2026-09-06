@@ -4,7 +4,7 @@ title: Turizm ve Restoranlarda Sezonluk Personel Yönetimi
 date: '2026-07-22T10:20:18'
 excerpt: Turizm ve restoranlarda sezonluk personel yönetimi, yalnızca yoğun dönemde daha fazla çalışan bulmak anlamına gelmez. Asıl zorluk, kısa sürede işe alım…
 featuredImage:
-  url: /wp-content/uploads/2026/07/Turizm-ve-Restoranlarda-Sezonluk-Personel-Yonetimi.png
+  image: /img/blog-featured/turizm-ve-restoranlarda-sezonluk-personel-yonetimi/featured.png
   alt: Turizm ve Restoranlarda Sezonluk Personel Yönetimi
   width: 1719
   height: 967

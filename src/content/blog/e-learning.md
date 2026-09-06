@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında E-Learning
 date: '2022-02-23T15:37:31'
 excerpt: E-learning yani dilimize uyarlanmış haliyle e-öğrenme, dijitalleşme etkisinin eğitim süreçlerine yansıması olarak tanımlanıyor. Şirketlerde eğitim…
 featuredImage:
-  url: /wp-content/uploads/2022/02/I╠cnsan-Kaynaklar─▒nda-E-Learning-Yaklas╠g─▒m─▒@2x.jpg
+  image: /img/blog-featured/e-learning/featured.jpg
   alt: İnsan Kaynaklarında E-Learning
   width: 1515
   height: 999

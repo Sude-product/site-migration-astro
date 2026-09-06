@@ -4,7 +4,7 @@ title: Uzaktan Çalışma ve Bilgi Güvenliği
 date: '2020-11-09T10:38:35'
 excerpt: Bilgi güvenliği, işletmelerin birçoğunun yeniden uzaktan çalışmaya geçtiği şu günlerde tekrar gündeminde yer bulan bir çalışma alanıdır. Pandemi süreciyle…
 featuredImage:
-  url: /wp-content/uploads/2020/11/uzaktan-calisma-ve-bilgi-guvenligi.png
+  image: /img/blog-featured/uzaktan-calisma-ve-bilgi-guvenligi/featured.png
   alt: Uzaktan Çalışma ve Bilgi Güvenliği
   width: 2271
   height: 1497

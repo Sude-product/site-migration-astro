@@ -4,7 +4,7 @@ title: İnsan Kaynakları İşe Alım Süreci
 date: '2020-02-17T14:20:16'
 excerpt: İnsan kaynakları işe alım süreci belirli standartlarda yürütülmelidir. İşe alım süreci aşamaları arasında insan kaynağının bulunması, seçilmesi ve işe…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ik-isÃse-alƒ±m-@3x.png
+  image: /img/blog-featured/insan-kaynaklari-ise-alim-sureci/featured.png
   alt: İnsan Kaynakları İşe Alım Süreci
   width: 2272
   height: 1498

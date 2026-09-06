@@ -4,7 +4,7 @@ title: Start-up’larda Hiyerarşi ve Organizasyon Yapısı
 date: '2020-08-17T13:43:23'
 excerpt: Hiyerarşi her işletme için işlerin düzenli yürümesi açısından önem arz ediyor. Ancak start-up’larda açıkça tanımlanmış bir hiyerarşi düzenine sahip olmak…
 featuredImage:
-  url: /wp-content/uploads/2025/08/startup@3x.png
+  image: /img/blog-featured/startuplarda-hiyerarsi-nasil-olmali/featured.png
   alt: Start-up’larda Hiyerarşi ve Organizasyon Yapısı
   width: 2271
   height: 1497

@@ -4,7 +4,7 @@ title: Çalışma Hayatında Tükenmişlik Sendromu
 date: '2025-05-05T20:59:06'
 excerpt: Tükenmişlik sendromu, günümüz iş dünyasında çalışanlar arasında giderek yaygınlaşan bir sorundur. Özellikle yoğun tempo, sürekli stres hali ve daimi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/depresyon@3x.png
+  image: /img/blog-featured/tukenmislik-sendromu/featured.png
   alt: Çalışma Hayatında Tükenmişlik Sendromu
   width: 2272
   height: 1498

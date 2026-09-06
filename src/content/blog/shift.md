@@ -4,7 +4,7 @@ title: Shift Nedir? Vardiya/Shift Yönetimi Nasıl Yapılır?
 date: '2024-08-02T16:58:55'
 excerpt: Shift yönetimi, pek çok işletmenin sağlıklı yürütmesi gereken, yürütmediği taktirde ise fazlasıyla başını ağrıtan bir süreçtir. Doğru ve etkin yürütülen…
 featuredImage:
-  url: /wp-content/uploads/2021/07/shift-nedir-vardiya-yonetimi-nasil-yapilir@2x.png
+  image: /img/blog-featured/shift/featured.png
   alt: Shift Nedir? Vardiya/Shift Yönetimi Nasıl Yapılır?
   width: 1515
   height: 998

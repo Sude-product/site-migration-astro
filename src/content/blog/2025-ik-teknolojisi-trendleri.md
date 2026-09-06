@@ -4,7 +4,7 @@ title: 2025 İK Teknolojisi Trendleri
 date: '2025-01-15T19:47:50'
 excerpt: 2025, insan kaynakları teknolojilerinde devrim niteliğinde değişimlere sahne olacak gibi görünüyor. Çeşitli araştırmalardan derlediğimiz bu içerikte, 2025’in…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri.jpg
+  image: /img/blog-featured/2025-ik-teknolojisi-trendleri/featured.jpg
   alt: 2025 İK Teknolojisi Trendleri
   width: 1280
   height: 720

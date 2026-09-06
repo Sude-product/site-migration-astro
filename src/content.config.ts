@@ -120,9 +120,15 @@ const blogSchema = z.object({
   // değerleri WP'den taşıyor, yeni yazılarda görsel etiketi bu alanlar
   // olmadan render edilir (küçük bir CLS ödünü, otomatik boyut ölçümü
   // olmadan kabul edilebilir).
+  // **2026-09-06 — `url` → `image` (bkz. keystatic.config.ts'in AYNI
+  // tarihli yorumu).** Keystatic'in `fields.image()`'ı NULL değeri
+  // serialize ederken YAML anahtarını tamamen ATLAYABİLİYOR (`value:
+  // undefined` döndürüyor, obje düzeyinde anahtar hiç yazılmayabilir) —
+  // bu yüzden `image` de `alt`/`width`/`height` gibi `.optional()`
+  // (eksik anahtar) VE `.nullable()` (açık `null` değeri) kabul etmeli.
   featuredImage: z
     .object({
-      url: z.string(),
+      image: z.string().nullish(),
       alt: z.string(),
       width: z.number().optional(),
       height: z.number().optional(),

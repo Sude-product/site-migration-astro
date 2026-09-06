@@ -4,7 +4,7 @@ title: 'Dijital İK Dönüşümü: 2026’da CHRO’ların Değişen Öncelikler
 date: '2026-01-29T12:50:30'
 excerpt: İnsan Kaynakları artık sadece operasyonel bir fonksiyon değil; şirketlerin büyüme, verimlilik ve yetenek stratejilerinde doğrudan rol oynayan stratejik bir…
 featuredImage:
-  url: /wp-content/uploads/2026/01/Dijital-IK-Donusumu-2026da-CHROlarin-Degisen-Oncelikleri.png
+  image: /img/blog-featured/dijital-ik-donusumu-chro-oncelikleri/featured.png
   alt: 'Dijital İK Dönüşümü: 2026’da CHRO’ların Değişen Öncelikleri'
   width: 1281
   height: 720

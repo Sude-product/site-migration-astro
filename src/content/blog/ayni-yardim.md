@@ -4,7 +4,7 @@ title: Ayni Yardım Hakkında Tüm Merak Ettikleriniz
 date: '2024-10-09T22:28:21'
 excerpt: Ayni yardım, doğrudan parasal olmayan ürün veya hizmet olarak sağlanan yardım anlamına geliyor. Bayram, Ramazan ayı, yılbaşı gibi özel zaman dilimlerinde…
 featuredImage:
-  url: /wp-content/uploads/2022/04/ayni-yard─▒m@2x.jpg
+  image: /img/blog-featured/ayni-yardim/featured.jpg
   alt: Ayni Yardım Hakkında Tüm Merak Ettikleriniz
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: 2024 Memur Maaşları Rehberi
 date: '2024-01-17T22:34:29'
 excerpt: Merakla beklenen 2024 memur maaş zam oranları belli oldu. Memur ve memur emeklisine %49,25 zam oranı açıklandı. Çalışma ve Sosyal Güvenlik Bakanı Vedat…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2024-Memur-Maaslari-Rehberi@2x-1392x696-1.jpg
+  image: /img/blog-featured/2024-memur-maaslari/featured.jpg
   alt: 2024 Memur Maaşları Rehberi
   width: 1392
   height: 696

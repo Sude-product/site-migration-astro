@@ -4,7 +4,7 @@ title: Personel Devam Kontrol Sistemleri ve Avantajları
 date: '2020-10-05T10:37:39'
 excerpt: Personel devam kontrol sistemleri ( PDKS ) işletmelerin en çok ihtiyaç duyduğu sistemlerden biridir. Peki PDKS neden bu kadar önemli ve avantajları nelerdir,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/PDKS-Nedir-PDKS-Tercih-Edilirken-Nelere-Dikkat-Edilmeli@3x.png
+  image: /img/blog-featured/personel-devam-kontrol-sistemleri/featured.png
   alt: Personel Devam Kontrol Sistemleri ve Avantajları
   width: 2271
   height: 1497

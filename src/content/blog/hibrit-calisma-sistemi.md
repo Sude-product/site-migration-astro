@@ -4,7 +4,7 @@ title: Hibrit Çalışma Sisteminden Nasıl Verim Alınır?
 date: '2021-06-28T12:21:54'
 excerpt: Çoğu İK uzmanı hibrit çalışma sistemi ile yeni tanıştı. Pandemi ile birlikte değişen çalışma sistemlerine yeni getirilen düzenlemelerden biri de hibrit çalışma…
 featuredImage:
-  url: /wp-content/uploads/2021/09/hibrit-calisma-yeni-normal-mi@2x.png
+  image: /img/blog-featured/hibrit-calisma-sistemi/featured.png
   alt: Hibrit Çalışma Sisteminden Nasıl Verim Alınır?
   width: 1515
   height: 998

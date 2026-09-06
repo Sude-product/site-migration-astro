@@ -4,7 +4,7 @@ title: Liderlik ve Yöneticilik Farkları
 date: '2022-08-22T17:12:15'
 excerpt: Liderlik ve yöneticilik genellikle aynı anlamı ifade ettiği düşünülen ancak farklı nitelikleri tanımlayan kavramlardır. Hiç şüphesiz birbiriyle bağlantılı olan…
 featuredImage:
-  url: /wp-content/uploads/2022/08/lider-ve-yonetici-arasindaki-farklar.jpg
+  image: /img/blog-featured/liderlik-ve-yoneticilik/featured.jpg
   alt: Liderlik ve Yöneticilik Farkları
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: '2026 İşe Alım Trendleri Rehberi: Neler Öne Çıkıyor?'
 date: '2026-04-21T09:33:12'
 excerpt: İşe alım artık yalnızca açık pozisyonları kapatma işi değil. 2026’ya girerken şirketler, doğru adayı daha hızlı bulmanın ötesinde; aday deneyimini güçlendiren,…
 featuredImage:
-  url: /wp-content/uploads/2026/04/2026-Ise-Alim-Trendleri-Rehberi-Neler-One-Cikiyor.jpg
+  image: /img/blog-featured/2026-ise-alim-trendleri-rehberi-neler-one-cikiyor/featured.jpg
   alt: '2026 İşe Alım Trendleri Rehberi: Neler Öne Çıkıyor?'
   width: 1280
   height: 721

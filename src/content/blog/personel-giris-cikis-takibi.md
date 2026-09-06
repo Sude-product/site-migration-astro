@@ -4,7 +4,7 @@ title: Personel Giriş Çıkış Takibi Rehberi
 date: '2024-07-15T23:45:00'
 excerpt: Personel yönetimi, özellikle büyük ölçekli işletmelerde karmaşık bir hal alabiliyor. İşte bu noktada, personel giriş çıkış takibi sistemleri devreye giriyor.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/personel-giris-cikis-takibi.jpg
+  image: /img/blog-featured/personel-giris-cikis-takibi/featured.jpg
   alt: Personel Giriş Çıkış Takibi Rehberi
   width: 1281
   height: 721

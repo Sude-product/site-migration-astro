@@ -4,7 +4,7 @@ title: Elektronik İmza Nasıl Alınır?
 date: '2020-12-28T12:47:45'
 excerpt: Elektronik imza (mobil imza), dijital dönüşümün hızla iş süreçlerini dönüştürdüğü iş dünyasında ıslak imza kadar geçerli ve bağlayıcı olması özelliğiyle…
 featuredImage:
-  url: /wp-content/uploads/2020/12/Elektronik-İmza-Nasil-Alinir-_e-İmza-Hakkinda-Bilmeniz-Gereken-Her-Şey.png
+  image: /img/blog-featured/elektronik-imza-nedir-nasil-alinir/featured.png
   alt: Elektronik İmza Nasıl Alınır?
   width: 757
   height: 499

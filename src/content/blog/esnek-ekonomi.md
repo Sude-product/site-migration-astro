@@ -4,7 +4,7 @@ title: Esnek Ekonomi Yükselişine Devam Ediyor!
 date: '2022-05-27T11:53:18'
 excerpt: Esnek ekonomi yani gig ekonomi tüm dünyada etkisini artırmaya ve yeni sektörler yaratmaya hız kesmeden devam ediyor. Pandemi ile hızlanan dijitalleşme süreci…
 featuredImage:
-  url: /wp-content/uploads/2022/05/gig-ekonomisi-scaled.jpg
+  image: /img/blog-featured/esnek-ekonomi/featured.jpg
   alt: Esnek Ekonomi Yükselişine Devam Ediyor!
   width: 2560
   height: 1688

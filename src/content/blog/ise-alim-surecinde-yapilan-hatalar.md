@@ -4,7 +4,7 @@ title: İşe Alım Sürecinde Sık Yapılan Hatalar
 date: '2020-08-28T10:43:14'
 excerpt: Şirketler için uzun vadeli katkı sunabilecek personeli bulmak son derece önemli bir konudur. İnsan kaynakları departmanları başta olmak üzere şirketlerin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/işe-alim-hatalari@3x.png
+  image: /img/blog-featured/ise-alim-surecinde-yapilan-hatalar/featured.png
   alt: İşe Alım Sürecinde Sık Yapılan Hatalar
   width: 2271
   height: 1497

@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi
 date: '2023-05-09T11:12:52'
 excerpt: Dijital teknolojilerin iş dünyasına olan etkisi hızla artmaktadır ve bu değişim, insan kaynakları yönetimi alanında da hissedilmektedir. Bu zirve, işletmelerin…
 featuredImage:
-  url: /wp-content/uploads/2023/05/ik-dijital-donusum-zirvesi-guncel.jpg
+  image: /img/blog-featured/insan-kaynaklarinin-dijital-donusumu-zirvesi/featured.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi
   width: 1920
   height: 1080

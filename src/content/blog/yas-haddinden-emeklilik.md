@@ -4,7 +4,7 @@ title: Yaş Haddinden Emeklilik Şartları
 date: '2020-02-20T17:02:14'
 excerpt: Yaş haddinden emeklilik hak etmek için üç şart bulunur. Emeklilik için temel şartlar arasında prim gün sayısı, sigortalı geçirilen süre ve yaş vardır. Buna…
 featuredImage:
-  url: /wp-content/uploads/2025/08/emeklilik.png
+  image: /img/blog-featured/yas-haddinden-emeklilik/featured.png
   alt: Yaş Haddinden Emeklilik Şartları
   width: 2272
   height: 1498

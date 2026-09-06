@@ -4,7 +4,7 @@ title: Hibrit Çalışma Sistemi
 date: '2021-09-16T12:25:45'
 excerpt: Covid-19 salgını, hayatın her alanında köklü değişikliklere neden oldu ve olmaya devam ediyor. Pandemiden en çok etkilenen alanlardan biri de çalışma modelleri…
 featuredImage:
-  url: /wp-content/uploads/2021/09/hibrit-calisma-yeni-normal-mi@2x.png
+  image: /img/blog-featured/hibrit-calisma-sistemi-2/featured.png
   alt: Hibrit Çalışma Sistemi
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: PDKS Nedir? PDKS Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-11-20T21:28:02'
 excerpt: PDKS nedir sorusu hakkında araştırmaya daldıysanız, iş süreçlerinizde daha verimli bir dönemin kapılarını aralamak üzere olabilirsiniz. Çünkü PDKS sistemi…
 featuredImage:
-  url: /wp-content/uploads/2020/09/pdks-nedir@3x.png
+  image: /img/blog-featured/pdks-nedir/featured.png
   alt: PDKS Nedir? PDKS Hakkında Tüm Bilmeniz Gerekenler
   width: 2271
   height: 1497

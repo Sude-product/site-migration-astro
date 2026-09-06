@@ -4,7 +4,7 @@ title: Organizasyonel Öğrenme İK’cılar Tarafından Nasıl Geliştirilebili
 date: '2021-06-02T13:16:31'
 excerpt: Organizasyonel öğrenme, bir organizasyon içinde bilgi aktarma sürecini tanımlamak için kullanılır. Şirketiniz deneyim kazandıkça, zamanla gelişme…
 featuredImage:
-  url: /wp-content/uploads/2021/06/organizasyonel-ogrenme.jpg
+  image: /img/blog-featured/organizasyonel-ogrenme/featured.jpg
   alt: Organizasyonel Öğrenme İK’cılar Tarafından Nasıl Geliştirilebilir?
   width: 1515
   height: 999

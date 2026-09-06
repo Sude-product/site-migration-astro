@@ -4,7 +4,7 @@ title: 'Yeni Nesil Personel Devam Kontrol Sistemi: Bulut PDKS'
 date: '2020-05-20T10:58:01'
 excerpt: Şirketinizin veya işletmenizin büyümesi için üretken, nitelikli, deneyimli, dürüst ve dakik çalışanlara ihtiyacınız vardır. Bu doğrultuda işletmenizin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/bulut-pdks-ana.png
+  image: /img/blog-featured/personel-devam-kontrol-sistemi/featured.png
   alt: 'Yeni Nesil Personel Devam Kontrol Sistemi: Bulut PDKS'
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Sağlık Sektöründe İnsan Kaynakları Yönetimi
 date: '2020-11-30T13:31:57'
 excerpt: Sağlık sektöründe insan kaynakları yönetimi, bilim, teknoloji ve ekonominin gelişmesiyle birlikte daha çok önem kazanmıştır. Sektörde sağlık kurumları finansal…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Sağlik-Sektöründe-İnsan-Kaynaklari-Yönetimi_-ve-İK-Yazilimi-Uygulamalari@3x.png
+  image: /img/blog-featured/saglik-sektorunde-insan-kaynaklari-yonetimi/featured.png
   alt: Sağlık Sektöründe İnsan Kaynakları Yönetimi
   width: 2271
   height: 1497

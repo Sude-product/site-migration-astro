@@ -4,7 +4,7 @@ title: Mesai Takip Sistemleri Hakkında Tüm Merak Ettikleriniz
 date: '2025-03-11T23:17:58'
 excerpt: Mesai takibi, işletmeler için verimliliği artıran ve çalışma düzenini koruyan kritik bir süreçtir. Çalışanların giriş-çıkış saatlerinin doğru şekilde…
 featuredImage:
-  url: /wp-content/uploads/2025/08/fazla-mesai-hesaplamasi-hakkinda-tum-bilmeniz-gerekenler-1392x696-1.jpg
+  image: /img/blog-featured/mesai-takip-sistemleri/featured.jpg
   alt: Mesai Takip Sistemleri Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

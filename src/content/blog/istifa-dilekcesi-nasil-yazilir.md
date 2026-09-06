@@ -4,7 +4,7 @@ title: İstifa Dilekçesi Nasıl Yazılır? | İstifa İhbar Süresi
 date: '2024-09-14T17:38:33'
 excerpt: İstifa dilekçesi nasıl yazılıyor? sorusu her çalışanın iş hayatında bir kez karşılaşabileceği sorulardan biridir. İstifa dilekçesi, bir iş yerinde çalışan…
 featuredImage:
-  url: /wp-content/uploads/2021/02/istifa-dilekcesi-nasil-yazilir-istifa-ihbar-suresi.png
+  image: /img/blog-featured/istifa-dilekcesi-nasil-yazilir/featured.png
   alt: İstifa Dilekçesi Nasıl Yazılır? | İstifa İhbar Süresi
   width: 1514
   height: 998

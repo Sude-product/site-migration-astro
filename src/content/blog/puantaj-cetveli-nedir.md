@@ -4,7 +4,7 @@ title: Puantaj Cetveli Nedir, Nasıl Kullanılır?
 date: '2020-08-06T17:19:07'
 excerpt: Çalışanların belirlenen saatler içinde iş yerinde olması ve onlardan beklenilen işleri yerine getirilmesi bir kurumun en temel isteğidir. Çalışanların önceden…
 featuredImage:
-  url: /wp-content/uploads/2025/08/puantaj-cetveli@3x.png
+  image: /img/blog-featured/puantaj-cetveli-nedir/featured.png
   alt: Puantaj Cetveli Nedir, Nasıl Kullanılır?
   width: 2271
   height: 1497

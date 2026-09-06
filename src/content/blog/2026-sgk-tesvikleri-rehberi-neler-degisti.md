@@ -4,7 +4,7 @@ title: '2026 SGK Teşvikleri Rehberi: Neler Değişti?'
 date: '2026-04-28T11:52:16'
 excerpt: SGK teşvikleri, birçok işveren için sadece maliyet avantajı sağlayan teknik bir başlık gibi görünür. Oysa uygulamada durum bundan daha geniştir. Teşvikler;…
 featuredImage:
-  url: /wp-content/uploads/2026/04/2026-SGK-Tesvikleri-Rehberi-Neler-Degisti.jpg
+  image: /img/blog-featured/2026-sgk-tesvikleri-rehberi-neler-degisti/featured.jpg
   alt: '2026 SGK Teşvikleri Rehberi: Neler Değişti?'
   width: 1280
   height: 720

@@ -4,7 +4,7 @@ title: 2024 İdari Para Cezaları
 date: '2024-02-18T15:59:37'
 excerpt: Ceza her ne kadar sevimsiz bir kelime olsa da hayatımızın bir parçası maalesef. Toplumsal normları korumak adına belirlenen idari para cezaları pek çok farklı…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2024-idari-para-cezalari-1392x696-1.jpg
+  image: /img/blog-featured/2024-idari-para-cezalari/featured.jpg
   alt: 2024 İdari Para Cezaları
   width: 1392
   height: 696

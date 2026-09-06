@@ -4,7 +4,7 @@ title: 'Çok Dilli İş Gücü Yönetimi: Farklı Lokasyonlardaki İK Süreçler
 date: '2026-08-25T14:00:00'
 excerpt: Birden fazla şubede, şehirde ya da ülkede çalışan ekipleri yönetmek yalnızca bordro veya izin takibi meselesi değildir. Dil farklılıkları, yerel uygulamalar,…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Cok-Dilli-Is-Gucu-Yonetimi.webp
+  image: /img/blog-featured/cok-dilli-is-gucu-yonetimi-farkli-lokasyonlardaki-ik-surecleri-nasil-standartlastirilir/featured.webp
   alt: 'Çok Dilli İş Gücü Yönetimi: Farklı Lokasyonlardaki İK Süreçleri Nasıl Standartlaştırılır?'
   width: 1672
   height: 941

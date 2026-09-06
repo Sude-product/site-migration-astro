@@ -4,7 +4,7 @@ title: 'Etkili İletişim: Şirketlerin Gizli Silahı!'
 date: '2021-11-25T09:25:17'
 excerpt: Etkili iletişim kabiliyeti hiç şüphesiz hayatın her alanında büyük avantajlar sağlayan güçlü bir silah. Sosyal ilişkileri güçlendiren ve hayatı her yönden…
 featuredImage:
-  url: /wp-content/uploads/2021/11/etkili-iletisim@2x.jpg
+  image: /img/blog-featured/etkili-iletisim/featured.jpg
   alt: 'Etkili İletişim: Şirketlerin Gizli Silahı!'
   width: 810
   height: 534

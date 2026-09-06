@@ -4,7 +4,7 @@ title: Pulsifi Yetenek Yönetiminde Nasıl Avantajlar Sağlar?
 date: '2025-03-05T22:36:29'
 excerpt: Geçtiğimiz aylarda idenfit ve Pulsifi arasındaki güçlü iş birliğini duyurmuştuk. Bir kez daha paylaşmaktan mutluluk duyuyoruz ki, bu ortaklık neticesinde…
 featuredImage:
-  url: /wp-content/uploads/2025/08/pulsifi-yetenek-yonetiminde-nasil-avantajlar-saglar@2x-100.jpg
+  image: /img/blog-featured/pulsifi-yetenek-yonetimi/featured.jpg
   alt: Pulsifi Yetenek Yönetiminde Nasıl Avantajlar Sağlar?
   width: 1280
   height: 720

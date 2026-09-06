@@ -4,7 +4,7 @@ title: Uzaktan Çalışmada İş Sağlığı ve Güvenliği
 date: '2021-04-14T11:06:09'
 excerpt: Uzaktan çalışmada iş kazası, covid-19 pandemi süreci ile birlikte gündemde yerini almıştır. İşverenler, uzaktan çalışma sürecinin başından sonuna çalışanın…
 featuredImage:
-  url: /wp-content/uploads/2021/04/uzaktan-calismada-is-kazasi-is-sagligi-ve-guvenligi-_@2x-100.jpg
+  image: /img/blog-featured/uzaktan-calismada-is-kazasi/featured.jpg
   alt: Uzaktan Çalışmada İş Sağlığı ve Güvenliği
   width: 1514
   height: 999

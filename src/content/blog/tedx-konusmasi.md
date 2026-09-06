@@ -4,7 +4,7 @@ title: Erteleme Üzerine 6 TEDx Konuşması
 date: '2023-08-16T15:08:39'
 excerpt: TEDx konuşması içerisinde yer alan o pek değerli hikayeler verdikleri ilhamla hayatımıza renk katıyor. Ertelemek ise günümüzün en önemli ve sorun yaratan…
 featuredImage:
-  url: /wp-content/uploads/2023/08/erteleme-uzerine-en-iyi-TEDx-konusmasi.jpg
+  image: /img/blog-featured/tedx-konusmasi/featured.jpg
   alt: Erteleme Üzerine 6 TEDx Konuşması
   width: 1621
   height: 811

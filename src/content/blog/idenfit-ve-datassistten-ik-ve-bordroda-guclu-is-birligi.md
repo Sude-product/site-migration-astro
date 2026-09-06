@@ -4,7 +4,7 @@ title: idenfit ve Datassist’ten İK ve Bordroda Güçlü İş Birliği!
 date: '2023-09-14T16:20:06'
 excerpt: İnsan kaynakları operasyonlarınızı daha verimli hale getirme hedefiyle ilerlediğimiz yolculuğumuzda, önemli bir gelişmeyi sizinle paylaşmak istiyoruz. idenfit,…
 featuredImage:
-  url: /wp-content/uploads/2023/09/idenfit-datassist-is-birligi-duyurusu.jpg
+  image: /img/blog-featured/idenfit-ve-datassistten-ik-ve-bordroda-guclu-is-birligi/featured.jpg
   alt: idenfit ve Datassist’ten İK ve Bordroda Güçlü İş Birliği!
   width: 1621
   height: 811

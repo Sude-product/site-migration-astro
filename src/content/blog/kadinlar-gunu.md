@@ -4,7 +4,7 @@ title: Kadınlar Günü Özel Röportajımız
 date: '2022-03-08T18:04:45'
 excerpt: 'Atlantik Okyanusu’nu tek başına aşan ilk kadın pilot Amelia Earhart kendi hikayesini şu sözlerle özetlemiş: “En zoru harekete geçme kararıdır, geri kalanı ise…'
 featuredImage:
-  url: /wp-content/uploads/2022/03/sevinc.jpg
+  image: /img/blog-featured/kadinlar-gunu/featured.jpg
   alt: Kadınlar Günü Özel Röportajımız
   width: 810
   height: 534

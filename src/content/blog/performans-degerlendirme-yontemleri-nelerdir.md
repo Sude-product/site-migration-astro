@@ -4,7 +4,7 @@ title: Performans Değerlendirme Yöntemleri Nelerdir?
 date: '2020-08-10T15:07:38'
 excerpt: Her kurumun en temel ve en değerli parçası olarak çalışanları öne çıkar. Bu nedenle bir kurumun verimliliği yine bu en değerli parça ile ölçülür. Çalışanların…
 featuredImage:
-  url: /wp-content/uploads/2025/08/performans-yöntemleri@3x.png
+  image: /img/blog-featured/performans-degerlendirme-yontemleri-nelerdir/featured.png
   alt: Performans Değerlendirme Yöntemleri Nelerdir?
   width: 2271
   height: 1497

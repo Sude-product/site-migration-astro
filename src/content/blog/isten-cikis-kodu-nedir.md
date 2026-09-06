@@ -4,7 +4,7 @@ title: İşten Çıkış Kodu Nedir, İşten Çıkış Kod Listesi
 date: '2024-07-12T23:43:32'
 excerpt: İşten çıkış süreçleri, insan kaynakları profesyonelleri için organizasyonun yasal uyumluluğunu korumak adına büyük bir önem taşıyor. İşe alımdan yetenek…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Çalişma-Yüzeyi-3-kopya@2x.png
+  image: /img/blog-featured/isten-cikis-kodu-nedir/featured.png
   alt: İşten Çıkış Kodu Nedir, İşten Çıkış Kod Listesi
   width: 1515
   height: 999

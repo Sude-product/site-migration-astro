@@ -4,7 +4,7 @@ title: İş Görüşmesi Hazırlık Rehberi
 date: '2024-01-20T15:16:01'
 excerpt: İş görüşmesi, bir iş başvurusu sürecinin önemli bir aşamasıdır. Bu, iş arayanın potansiyel bir işverenle yüz yüze veya çevrimiçi olarak buluştuğu bir görüşme…
 featuredImage:
-  url: /wp-content/uploads/2025/08/is-gorusmesi-rehberi@2x-1-1392x696-1.jpg
+  image: /img/blog-featured/is-gorusmesi-hazirlik-rehberi/featured.jpg
   alt: İş Görüşmesi Hazırlık Rehberi
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Çalışma Hayatında Sıkı Denetim ve Cezalar Gündemde
 date: '2025-04-22T00:12:03'
 excerpt: 2025 yılı itibarıyla SGK ekipleri iş yerlerini daha sık ziyaret etmek üzere hazırlıklara başladı. Yılın ilk çeyreğinde iş dünyasında SGK denetimleri artış…
 featuredImage:
-  url: /wp-content/uploads/2025/08/blog.-calisma-hayatinda-siki-deneim-ve-cezalar-gundemde.jpg
+  image: /img/blog-featured/sgk-ceza-ve-denetimleri/featured.jpg
   alt: Çalışma Hayatında Sıkı Denetim ve Cezalar Gündemde
   width: 1281
   height: 720

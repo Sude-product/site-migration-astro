@@ -4,7 +4,7 @@ title: Cinsiyete Dayalı Ücret Farkı
 date: '2023-06-05T14:39:29'
 excerpt: Cinsiyete dayalı ücret farkı iş dünyasında hala varlığını hissettiriyor mu? Benzer eğitim ve deneyim düzeyinde kadın ve erkek çalışanların farklı maaşlar…
 featuredImage:
-  url: /wp-content/uploads/2023/06/cinsiyete-dayali-ucret-farklari.jpg
+  image: /img/blog-featured/cinsiyete-dayali-ucret-farki/featured.jpg
   alt: Cinsiyete Dayalı Ücret Farkı
   width: 1621
   height: 811

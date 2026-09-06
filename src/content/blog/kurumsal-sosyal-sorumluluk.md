@@ -4,7 +4,7 @@ title: Kurumsal Sosyal Sorumluluk Projeleri
 date: '2022-06-09T15:34:56'
 excerpt: Kurumsal sosyal sorumluluk projeleri son zamanlarda iş dünyasının gündeminde yer alıyor. Profesyonel şekilde yürütülmesi halinde işletmelere ciddi avantajlar…
 featuredImage:
-  url: /wp-content/uploads/2022/06/kurumsal-sosyal-sorumluluk-projeleri.jpg
+  image: /img/blog-featured/kurumsal-sosyal-sorumluluk/featured.jpg
   alt: Kurumsal Sosyal Sorumluluk Projeleri
   width: 1514
   height: 998

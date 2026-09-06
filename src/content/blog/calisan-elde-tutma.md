@@ -4,7 +4,7 @@ title: 'Yetenekleri Elde Tutmak: Çalışan Elde Tutma'
 date: '2023-01-02T09:23:31'
 excerpt: Çalışan elde tutma, 2023 yılında tüm organizasyonların önceliklerinden biri haline geldi. Sessiz istifa, yetenek krizi, büyük istifa ve dijitalleşme etkisiyle…
 featuredImage:
-  url: /wp-content/uploads/2023/08/10-sasirtici-calisan-elde-tutma-istatistigi.jpg
+  image: /img/blog-featured/calisan-elde-tutma/featured.jpg
   alt: 'Yetenekleri Elde Tutmak: Çalışan Elde Tutma'
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: İbraname Nedir? İbraname Geçerlilik Şartları
 date: '2021-07-28T10:41:39'
 excerpt: İbraname, iş sözleşmesi sona eren işçinin işverenden izin, kıdem, ihbar gibi alacaklarını aldığını ve herhangi bir alacağı kalmadığını gösteren belgedir. İlk…
 featuredImage:
-  url: /wp-content/uploads/2021/07/ibraname.png
+  image: /img/blog-featured/ibraname-nedir/featured.png
   alt: İbraname Nedir? İbraname Geçerlilik Şartları
   width: 1515
   height: 998

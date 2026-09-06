@@ -4,7 +4,7 @@ title: '2026 Dijitalleşme Rehberi: İnsan Kaynakları Yazılımları'
 date: '2026-04-27T15:34:27'
 excerpt: İnsan kaynaklarında dijitalleşme, artık yalnızca teknolojik bir yatırım başlığı değil; iş yapış biçimini yeniden tanımlayan operasyonel bir gereklilik haline…
 featuredImage:
-  url: /wp-content/uploads/2026/04/2026-Dijitallesme-Rehberi-Insan-Kaynaklari-Yazilimlari_.jpg
+  image: /img/blog-featured/2026-dijitallesme-rehberi-insan-kaynaklari-yazilimlari/featured.jpg
   alt: '2026 Dijitalleşme Rehberi: İnsan Kaynakları Yazılımları'
   width: 1280
   height: 720

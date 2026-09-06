@@ -4,7 +4,7 @@ title: Özlük Dosyası Nasıl Hazırlanır?
 date: '2024-11-22T20:16:56'
 excerpt: Özlük dosyası hazırlama ve saklama İK departmanlarının vaktini alan en önemli konuların başında geliyor. İnsan kaynakları departmanı, faaliyette bulunduğu…
 featuredImage:
-  url: /wp-content/uploads/2025/08/personel-ozluk-dosyasi.png
+  image: /img/blog-featured/personel-ozluk-dosyasi/featured.png
   alt: Özlük Dosyası Nasıl Hazırlanır?
   width: 2271
   height: 1497

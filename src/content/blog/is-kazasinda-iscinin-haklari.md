@@ -4,7 +4,7 @@ title: İş Kazasında İşçinin Hakları
 date: '2020-05-08T17:49:12'
 excerpt: Çalışma hayatında, kimi zaman iş sağlığı ve iş güvenliği önlemlerinin alınmaması nedeniyle kimi zamansa işçinin ya da üçüncü bir kişinin hatası nedeniyle iş…
 featuredImage:
-  url: /wp-content/uploads/2025/08/alişma-Yüzeyi-3-kopya-2@2x-1-e1588948374105.png
+  image: /img/blog-featured/is-kazasinda-iscinin-haklari/featured.png
   alt: İş Kazasında İşçinin Hakları
   width: 1500
   height: 989

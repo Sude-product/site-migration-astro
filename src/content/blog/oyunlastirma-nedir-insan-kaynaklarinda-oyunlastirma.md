@@ -4,7 +4,7 @@ title: Oyunlaştırma Nedir? İnsan Kaynaklarında Oyunlaştırma
 date: '2021-02-12T15:36:10'
 excerpt: “Oyunlaştırma nedir? İşimize, kurum kültürüne faydası ne olur?” soruları son zamanların iş dünyasında oldukça merak edilen sorular. 2010 yılından itibaren…
 featuredImage:
-  url: /wp-content/uploads/2021/02/yapboz@2x.jpg
+  image: /img/blog-featured/oyunlastirma-nedir-insan-kaynaklarinda-oyunlastirma/featured.jpg
   alt: Oyunlaştırma Nedir? İnsan Kaynaklarında Oyunlaştırma
   width: 810
   height: 534

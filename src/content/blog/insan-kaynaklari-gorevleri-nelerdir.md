@@ -4,7 +4,7 @@ title: İnsan Kaynakları Görevleri ve Sorumlulukları Nelerdir?
 date: '2025-02-08T20:45:06'
 excerpt: İnsan kaynakları görevleri nelerdir deyince akla hemen üretim ve hizmetin yer aldığı her kurumun sahip olduğu en değerli kaynak olan insanın doğru…
 featuredImage:
-  url: /wp-content/uploads/2025/08/insan-kaynaklari-görevleri.png
+  image: /img/blog-featured/insan-kaynaklari-gorevleri-nelerdir/featured.png
   alt: İnsan Kaynakları Görevleri ve Sorumlulukları Nelerdir?
   width: 2271
   height: 1497

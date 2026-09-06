@@ -4,7 +4,7 @@ title: Ara Dinlenmesi (Mola) Süresi ve Uygulamaları
 date: '2022-04-18T09:52:50'
 excerpt: Ara dinlenmesi yani mola saatleri iş hayatının vazgeçilmez bir parçasıdır ve kullanım şartları hakkında merak edilen birçok detay bulunur. Çalışanların mesai…
 featuredImage:
-  url: /wp-content/uploads/2022/04/Ara-Dinlenmeleri-Zorunlu-mu_-Molalar.jpg
+  image: /img/blog-featured/ara-dinlenmesi/featured.jpg
   alt: Ara Dinlenmesi (Mola) Süresi ve Uygulamaları
   width: 1515
   height: 998

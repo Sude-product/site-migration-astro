@@ -4,7 +4,7 @@ title: Mekan Bağımsız Çalışma
 date: '2022-06-10T09:02:51'
 excerpt: Mekan bağımsız çalışma günden güne daha çok tercih edilen bir çalışma modeli haline geliyor. Uzaktan çalışma konusunda çekimser davranan şirketler dahi artık…
 featuredImage:
-  url: /wp-content/uploads/2022/06/evden-calisma-rehberi.jpg
+  image: /img/blog-featured/mekan-bagimsiz-calisma/featured.jpg
   alt: Mekan Bağımsız Çalışma
   width: 1515
   height: 999

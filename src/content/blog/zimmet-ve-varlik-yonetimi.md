@@ -4,7 +4,7 @@ title: idenfit Zimmet ve Varlık Yönetiminde Nasıl Avantajlar Sağlar?
 date: '2025-03-30T23:55:20'
 excerpt: İnsan kaynakları yönetiminde zimmet ve varlık takibi, düzen ve verimlilik açısından büyük önem taşır. Özellikle büyük işletmelerde, demirbaşların doğru…
 featuredImage:
-  url: /wp-content/uploads/2025/08/blog-idenfit-zimmet-ve-varlik-yonetiminde-nasil-avantajlar-saglar.jpg
+  image: /img/blog-featured/zimmet-ve-varlik-yonetimi/featured.jpg
   alt: idenfit Zimmet ve Varlık Yönetiminde Nasıl Avantajlar Sağlar?
   width: 1280
   height: 720

@@ -4,7 +4,7 @@ title: Ekibinizi Tanımak için 5 Etkili Yöntem
 date: '2024-04-03T23:32:00'
 excerpt: Ekibinizi tanımak, etkili bir çalışan deneyimi inşa etmenin kapılarını arayalabilir. Çalışanlarınızla kurulan güçlü bağlar, işletmenizin başarısını belirleyen…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ekip-uyelerini-tanimanin-8-yolu-1.png
+  image: /img/blog-featured/ekibinizi-tanimak/featured.png
   alt: Ekibinizi Tanımak için 5 Etkili Yöntem
   width: 811
   height: 406

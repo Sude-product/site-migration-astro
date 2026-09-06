@@ -4,7 +4,7 @@ title: Ay Işığı Sorunu Nedir?
 date: '2023-08-07T15:55:17'
 excerpt: Ay ışığı sorunu endüstride bir iş yerinde tam zamanlı olarak çalışan bir kişinin akşamları ya da boş vakitlerinde ikinci bir işte çalışması olarak ifade…
 featuredImage:
-  url: /wp-content/uploads/2023/08/ay-isigi-sendromu.jpg
+  image: /img/blog-featured/ay-isigi-sorunu-nedir/featured.jpg
   alt: Ay Işığı Sorunu Nedir?
   width: 1621
   height: 811

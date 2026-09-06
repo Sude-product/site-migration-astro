@@ -4,7 +4,7 @@ title: Uzaktan Çalışma Sisteminde Süt İzni
 date: '2021-09-23T15:53:09'
 excerpt: Pandemi döneminde çalışan anne adaylarının en sık merak ettiği konular arasında uzaktan çalışma sisteminde doğum sonrası süt izni kullanımı şartları yer…
 featuredImage:
-  url: /wp-content/uploads/2021/09/Uzaktan-Calisma-Sisteminde-Sut-İzni@2x.png
+  image: /img/blog-featured/uzaktan-calisma-sisteminde-sut-izni/featured.png
   alt: Uzaktan Çalışma Sisteminde Süt İzni
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: Çalışan Deneyiminden Potansiyele
 date: '2024-10-01T22:22:34'
 excerpt: Geçtiğimiz hafta, Webrazzi New HR Summit’te sponsor olarak yer aldık. Bu etkinlik, İK dünyasındaki değerli profesyonelerle bir araya gelme olanağı sundu.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/calisan-deneyiminden-potasiyele.jpg
+  image: /img/blog-featured/calisan-deneyimi-2/featured.jpg
   alt: Çalışan Deneyiminden Potansiyele
   width: 1281
   height: 721

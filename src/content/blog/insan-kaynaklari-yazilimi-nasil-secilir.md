@@ -4,7 +4,7 @@ title: Firmanız İçin İnsan Kaynakları Yazılımı Nasıl Seçilir?
 date: '2020-07-13T14:05:30'
 excerpt: Dijitalleşen dünyada insan kaynakları yönetimi de teknolojiden yararlanan birimler arasında yer alır. Bir şirketin en önemli potansiyelini ve kaynağını…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ik-yazilimi@3x-1.png
+  image: /img/blog-featured/insan-kaynaklari-yazilimi-nasil-secilir/featured.png
   alt: Firmanız İçin İnsan Kaynakları Yazılımı Nasıl Seçilir?
   width: 2271
   height: 1497

@@ -100,7 +100,7 @@ const jsonLd = {
   '@type': 'BlogPosting',
   headline: title,
   description: excerpt,
-  image: featuredImage?.url ?? IDENFIT_LOGO_URL,
+  image: featuredImage?.image ?? IDENFIT_LOGO_URL,
   datePublished: date.toISOString(),
   dateModified: (effectiveModifiedDate ?? date).toISOString(),
   author: authorName ? { '@type': 'Person', name: authorName } : { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
@@ -125,7 +125,7 @@ const jsonLd = {
 <BaseLayout
   title={`${metaTitle ?? title} — idenfit Blog`}
   description={excerpt}
-  image={featuredImage?.url ?? IDENFIT_LOGO_URL}
+  image={featuredImage?.image ?? IDENFIT_LOGO_URL}
   ogType="article"
   articlePublishedTime={date.toISOString()}
   articleModifiedTime={(effectiveModifiedDate ?? date).toISOString()}
@@ -159,9 +159,9 @@ const jsonLd = {
         </header>
 
         {
-          featuredImage?.url && (
+          featuredImage?.image && (
             <img
-              src={featuredImage.url}
+              src={featuredImage.image}
               alt={featuredImage.alt}
               width={featuredImage.width}
               height={featuredImage.height}
@@ -190,10 +190,10 @@ const jsonLd = {
                 class="reveal group"
                 style={`transition-delay: ${Math.min(i, 6) * 60}ms`}
               >
-                {related.data.featuredImage?.url && (
+                {related.data.featuredImage?.image && (
                   <span class="block aspect-[4/3] w-full overflow-hidden rounded-md">
                     <img
-                      src={related.data.featuredImage.url}
+                      src={related.data.featuredImage.image}
                       alt={related.data.featuredImage.alt}
                       width={related.data.featuredImage.width}
                       height={related.data.featuredImage.height}

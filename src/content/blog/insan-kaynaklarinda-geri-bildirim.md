@@ -4,7 +4,7 @@ title: Geri Bildirim ve İnsan Kaynaklarında Geri Bildirimin Önemi
 date: '2020-09-18T16:58:05'
 excerpt: Geri bildirim, hayatın her alanında karşılaştığımız, talep ettiğimiz ve iletişim çağının en önemli konularından biri. Modern yönetimde ve dolayısıyla işletme…
 featuredImage:
-  url: /wp-content/uploads/2025/08/4.-Geri-bildirim@2x.jpg
+  image: /img/blog-featured/insan-kaynaklarinda-geri-bildirim/featured.jpg
   alt: Geri Bildirim ve İnsan Kaynaklarında Geri Bildirimin Önemi
   width: 1515
   height: 999

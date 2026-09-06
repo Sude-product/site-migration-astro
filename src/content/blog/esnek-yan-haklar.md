@@ -4,7 +4,7 @@ title: Esnek Yan Haklar Hakkında Tüm Merak Ettikleriniz
 date: '2024-08-07T23:56:17'
 excerpt: Günümüzde çalışan bağlılığı konusu kıymetli insan kaynakları profesyonellerinin odağın yer alıyor. Dolayısıyla iş dünyasında çalışan memnuniyeti ve…
 featuredImage:
-  url: /wp-content/uploads/2025/08/esnek-yan-haklar-hakkinda-tum-merak-ettikleriniz.jpg
+  image: /img/blog-featured/esnek-yan-haklar/featured.jpg
   alt: Esnek Yan Haklar Hakkında Tüm Merak Ettikleriniz
   width: 1281
   height: 721

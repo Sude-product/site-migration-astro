@@ -4,7 +4,7 @@ title: Organizasyonel Başarı İçin Gereken İnsan Yönetimi Becerileri
 date: '2021-02-03T11:34:57'
 excerpt: İnsan yönetimi, bir işletmenin başarı yakalayabilmesi için temel belirleyicilerden biridir. Organizasyonel başarı ancak insan yönetimi becerilerinin…
 featuredImage:
-  url: /wp-content/uploads/2021/02/organizasyonel-basari-icin-gereken-insan-yonetimi-becerileri@2x.png
+  image: /img/blog-featured/organizasyonel-basarida-insan-yonetimi-becerileri/featured.png
   alt: Organizasyonel Başarı İçin Gereken İnsan Yönetimi Becerileri
   width: 1514
   height: 998

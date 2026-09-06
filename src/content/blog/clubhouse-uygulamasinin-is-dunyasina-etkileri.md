@@ -4,7 +4,7 @@ title: Clubhouse Uygulamasının İş Dünyasına Etkileri
 date: '2021-02-05T09:20:00'
 excerpt: Clubhouse, son haftaların şüphesiz en çok konuşulan ve merak edilen sosyal medya uygulaması. Sadece 9 ayda unicorn statüsüne ulaşan ve değeri her geçen gün…
 featuredImage:
-  url: /wp-content/uploads/2021/02/clubhouse-uygulamasinin-is-dunyasina-etkisi-ne-olur@2x.jpg
+  image: /img/blog-featured/clubhouse-uygulamasinin-is-dunyasina-etkileri/featured.jpg
   alt: Clubhouse Uygulamasının İş Dünyasına Etkileri
   width: 810
   height: 534

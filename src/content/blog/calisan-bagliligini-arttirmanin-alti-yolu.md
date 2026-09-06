@@ -4,7 +4,7 @@ title: Çalışan Bağlılığını Arttırmanın 6 Etkin Yolu
 date: '2020-08-24T13:52:34'
 excerpt: Çalışan bağlılığı içeride, müşteri memnuniyeti dışarıda ayakta tutar işletmeleri derler. Gerçekten de şirketlerin başarı grafiğini yükselten en önemli unsur,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/başarili-şirket@3x.png
+  image: /img/blog-featured/calisan-bagliligini-arttirmanin-alti-yolu/featured.png
   alt: Çalışan Bağlılığını Arttırmanın 6 Etkin Yolu
   width: 2271
   height: 1497

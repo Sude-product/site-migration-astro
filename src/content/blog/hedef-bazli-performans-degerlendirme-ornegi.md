@@ -4,7 +4,7 @@ title: Hedef Bazlı Performans Değerlendirme Örneği
 date: '2021-02-01T10:23:13'
 excerpt: Hedef bazlı performans değerlendirme, belirlenen hedeflerle sayısal odaklı bir ilişki içerisinde olduğu için genellikle üretim veya satış gibi departmanlara…
 featuredImage:
-  url: /wp-content/uploads/2021/02/hedef_bazli_performans_degerlendirme_ornegi_faydalari_nelerdir@2x.png
+  image: /img/blog-featured/hedef-bazli-performans-degerlendirme-ornegi/featured.png
   alt: Hedef Bazlı Performans Değerlendirme Örneği
   width: 1514
   height: 998

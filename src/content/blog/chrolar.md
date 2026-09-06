@@ -4,7 +4,7 @@ title: CHRO’lar Neden Harika CEO’lar Olur?
 date: '2023-10-20T16:47:44'
 excerpt: CHRO(Chief Human Resources Officer) insan kaynakları bölüm başkanını ifade eden kavramdır. CHRO’lar bir şirket için çok daha fazlasını ifade eder. CHRO’lar bir…
 featuredImage:
-  url: /wp-content/uploads/2023/05/chrolar-neden-harika-ceolar-olur.jpg
+  image: /img/blog-featured/chrolar/featured.jpg
   alt: CHRO’lar Neden Harika CEO’lar Olur?
   width: 1621
   height: 811

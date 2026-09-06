@@ -4,7 +4,7 @@ title: Performans Yönetimi Sistemi Hakkında Bilmeniz Gerekenler
 date: '2020-10-09T09:58:04'
 excerpt: Performans yönetimi sistemi; çalışanların potansiyeline ve çalıştıkları pozisyona uygun olacak şekilde hedeflerin belirlenmesi ve bu hedeflerin…
 featuredImage:
-  url: /wp-content/uploads/2020/10/performans_yönetimi_sistemi.png
+  image: /img/blog-featured/performans-yonetimi-sistemi/featured.png
   alt: Performans Yönetimi Sistemi Hakkında Bilmeniz Gerekenler
   width: 2271
   height: 1497

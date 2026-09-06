@@ -4,7 +4,7 @@ title: E-bordro Nedir? E-bordro ile Maaş Hesaplama
 date: '2020-09-28T13:36:20'
 excerpt: E-bordro, korona virüs ile mücadele ettiğimiz bu günlerde önemi artan işlemlerden biri haline geldi. Sosyal izolasyonla birlikte online işlemler hızla değer…
 featuredImage:
-  url: /wp-content/uploads/2025/08/E-bordro-Nedir-E-Bordro-ile-Maaş-Hesaplama-Nasil-Yapilir@3x.png
+  image: /img/blog-featured/e-bordro-nedir/featured.png
   alt: E-bordro Nedir? E-bordro ile Maaş Hesaplama
   width: 2271
   height: 1497

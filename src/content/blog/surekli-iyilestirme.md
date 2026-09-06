@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Sürekli İyileştirme
 date: '2024-04-29T16:32:38'
 excerpt: İnsan kaynaklarında sürekli iyileştirme, sürdürülebilirlik hedefi bulunan şirketlerin öncelikleri arasında yer alıyor. İKY departmanları, işletmelerin kalbi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/insan-kaynaklarinda-surekli-iyilestirme-1392x696-1.jpg
+  image: /img/blog-featured/surekli-iyilestirme/featured.jpg
   alt: İnsan Kaynaklarında Sürekli İyileştirme
   width: 1392
   height: 696

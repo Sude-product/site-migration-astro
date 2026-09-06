@@ -4,7 +4,7 @@ title: İK Analitiği (HR Analytics)
 date: '2020-10-12T10:40:57'
 excerpt: İK analitiği, şirket içinde insan kaynakları yönetimi alanındaki ilgili tüm verileri toplayarak İK yönetimindeki her bir süreç hakkında daha iyi bir bakış…
 featuredImage:
-  url: /wp-content/uploads/2020/10/ik-analitiği-şirkette-nasil-başariyla-uygulanir@3x.png
+  image: /img/blog-featured/ik-analitigi/featured.png
   alt: İK Analitiği (HR Analytics)
   width: 2271
   height: 1497

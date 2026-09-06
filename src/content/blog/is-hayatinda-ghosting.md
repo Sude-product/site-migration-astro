@@ -4,7 +4,7 @@ title: İş Hayatında Ghosting
 date: '2023-01-09T11:58:26'
 excerpt: İş hayatında ghosting, ilişkilerden aşina olduğumuz bir kavramın iş dünyasına yansıması olarak son dönemde oldukça sık karşımıza çıkıyor. Ghosting kavramı…
 featuredImage:
-  url: /wp-content/uploads/2023/01/is-hayatinda-ghosting.jpg
+  image: /img/blog-featured/is-hayatinda-ghosting/featured.jpg
   alt: İş Hayatında Ghosting
   width: 1515
   height: 999

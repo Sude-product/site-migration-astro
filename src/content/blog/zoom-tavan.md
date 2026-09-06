@@ -4,7 +4,7 @@ title: 'Zoom Tavan: Modern Cam Tavan Sendromu'
 date: '2025-05-11T19:05:34'
 excerpt: Her geçen gün dijitalleşmenin iş hayatına etkileri daha görünür hale geliyor. Bunlardan biri de Zoom Tavan olarak adlandırılan modern cam tavan sendromu. Artık…
 featuredImage:
-  url: /wp-content/uploads/2025/08/zoom-tavan-scaled-1.jpg
+  image: /img/blog-featured/zoom-tavan/featured.jpg
   alt: 'Zoom Tavan: Modern Cam Tavan Sendromu'
   width: 2560
   height: 1688

@@ -2985,6 +2985,114 @@ hâlâ geçerli.)*
       bozulmadan, kesilmeden, üst üste binmeden göründü — yalnızca küçük
       (kabul edilen okunabilirlik ödünü). Masaüstü viewport'ta (gerçek
       geniş pencere) `scale(1)` doğrulandı, hiç değişmedi.
+68. **KAPANDI (2026-09-06) — self-hosted `fields.image()` uygulandı, 629
+    yazının 628'i kayıpsız göç etti, panelde canlı doğrulandı.**
+    Kullanıcı kararı: `fields.cloudImage()` Pro plan gerektirdiği için
+    self-hosted yol seçildi. `keystatic.config.ts`'in `featuredImage.url`
+    (`fields.url()`) alanı `featuredImage.image` (`fields.image()`,
+    gerçek sürükle-bırak/dosya-seç yükleme) oldu; `content` (markdoc
+    gövdesi) için de `options.image` açıldı (önceden VARSAYILAN olarak
+    kapalıydı, gövde-içi görsel yükleme desteği HİÇ yoktu).
+    **Kritik teknik bulgu (node_modules kaynağı okunarak + canlı panelde
+    doğrulanarak):** Keystatic'in asset alanları (`fields.image()`)
+    HER ZAMAN `directory`/`publicPath`'i entry'nin kendi `slug`'ıyla
+    (VE re-save'de ayrıca alan-yolu — `featuredImage/image` — ile)
+    otomatik ad alanına ayırıyor (`getSrcPrefix()`) — panelde
+    görüntülenebilmesi/yeniden kaydedilebilmesi için görsel dosyanın
+    fiilen bu yolda bulunması ŞART, aksi halde alan sessizce boş
+    yükleniyor ve SAVE'de görsel referansı SİLİNEBİLİYOR. Bu yüzden
+    mevcut 628 yazının (629'un 1'i `featuredImage: null`) görseli yeni
+    `scripts/migrate-featured-image-to-keystatic-field.mjs` ile
+    `public/img/blog-featured/<slug>/featured.<uzantı>` yapısına
+    KOPYALANDI (eski `public/wp-content/uploads/...` dosyaları
+    SİLİNMEDİ) ve frontmatter'daki `url:` `image:`'e çevrildi — dosya
+    başına TEK satır değişti (`git diff --stat` ile doğrulandı, tam
+    628 dosyada "2 +-"). **Yan bulgu — Windows MAX_PATH (260 karakter)
+    sınırı canlı olarak yakalandı:** bazı slug'lar 89 karaktere kadar
+    çıkıyor, orijinal WP dosya adlarıyla (bazıları 90+ karakter)
+    birleşince `git add`'i "Filename too long" ile çökertiyordu —
+    düzeltme: migrasyonda dosya adı orijinal WP adı yerine sabit/kısa
+    `featured.<uzantı>`'ya normalize edildi, `directory` de kısaltıldı
+    (`public/img/blog-featured`), en uzun yol 187 karaktere indi.
+    **Canlı panelde İKİ ayrı uçtan uca test yapıldı** (Keystatic Cloud'un
+    içeriği yerel diskten DEĞİL, `idenfit/idenfit.com` GitHub reposundan
+    okuduğu bu turda keşfedildi — şema değişikliği önce PUSH edilmeden
+    panel eski `url:` formatını arayıp hata veriyordu):
+    1. **Eski yazı (`2021-ik-trendleri`) açılıp görsel önizlemesi doğru
+       göründüğü doğrulandı**, trivial bir düzenlemeyle (Save'in
+       "sıfır net değişiklikte" sessiz no-op olduğu bu turda keşfedildi,
+       gerçek bir değişiklik gerekti) gerçek bir commit (`8dea072`)
+       tetiklendi — görsel BOZULMADI (yeniden adlandırıldı:
+       `featured.jpg`→`featuredImage/image.jpg`, ama byte-birebir aynı,
+       blob boyutu doğrulandı), `git revert` ile (panelden TEKRAR
+       düzenleme DEĞİL, aynı yeniden-biçimlendirmeyi tekrar tetiklerdi)
+       byte-birebir orijinale döndürülüp `idenfit` remote'una push edildi.
+       **Aynı turda datetime-saniye doğrulama bug'ı (2026-08-28'den
+       bilinen, bkz. "KALICI GOTCHA") tekrar karşılaşıldı** — saat
+       alanına dokunup (Up/Down) aşıldı.
+    2. **Yeni bir taslak yazı oluşturulup gerçek bir dosya "Choose file"
+       kontrolüyle yüklendi** (native OS dosya seçici otomasyonda
+       kontrol edilemediği için `HTMLInputElement.prototype.click`
+       `DataTransfer` tabanlı bir yama ile geçici olarak override edildi,
+       gerçek bir dosyanın seçilmesini simüle etti) → gerçek commit
+       (`445afc0`), yüklenen dosya repoda doğru nested yolda
+       (`public/img/blog-featured/<slug>/featuredImage/image.jpg`)
+       fiilen mevcut, `astro build` ile render doğrulandı. Test yazısı
+       ardından silinip commit edildi (`e8cd767`).
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9
+    regresyon script'i (bilinen 5 H1→H3 hariç) sıfır yeni sorun.
+    **Repo durumu:** `idenfit` remote'unda tam commit zinciri
+    (`2428862`→`8dea072`→`c6a3f53`→`445afc0`→`e8cd767`, test
+    commit'leri dahil — Keystatic Cloud bota doğrudan bu repoya push
+    ediyor), `origin`'de yalnızca gerçek migrasyon commit'i `2428862`
+    (içerik ağacı ikisinde de birebir aynı, yalnızca commit-gürültüsü
+    farklı — Açık nokta #41'in AYNI bilinen sınıfı). Detaylı teknik
+    döküm: `memory/keystatic-image-field-self-hosted.md`.
+    **Kapsam dışı bırakılan (kullanıcı önceliklendirmedi):** markdoc
+    gövde-içindeki ESKİ `![alt](/wp-content/uploads/...)` referansları
+    bu turda migrate EDİLMEDİ (yalnızca YENİ yükleme desteği eklendi).
+
+**Eski analiz (2026-09-04, artık yukarıdaki kapanışla GÜNCEL DEĞİL,
+yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alanı şu an
+    `fields.url()` (elle URL yapıştırma), gerçek bir dosya yükleme
+    (upload) alanı DEĞİL.** Panelde "dosya seç/sürükle-bırak" yok —
+    hem kod incelemesiyle (`keystatic.config.ts`) hem canlı panelde
+    doğrulandı. Pazarlama ekibi için ideal değil (yeni bir yazı için
+    görseli önce kendi başına bir yere yükleyip URL'sini elle
+    yapıştırması gerekiyor) ama İŞLEVSEL — canlıya çıkışı
+    engellemiyor. **Araştırılan iki gerçek çözüm:**
+    - `fields.image()` — self-hosted (repoya commit edilir,
+      `public/`'e benzer), ücretsiz, ama daha karmaşık bir şema/render
+      değişikliği gerektiriyor (bare dosya adı + `directory`/`publicPath`
+      ile URL yeniden inşası, mevcut `{url,alt,width,height}` şeklinden
+      farklı).
+    - `fields.cloudImage()` — mevcut şekle çok yakın (`{src,alt,width,height}`,
+      yalnızca `url`→`src` adı farklı) ama **"Cloud Images" özelliği
+      Keystatic'in Pro planına özel** (resmi dokümantasyon: `keystatic.com/docs/cloud`,
+      doğrudan alıntı: "Multi-player editing" ve "Cloud Images" "subscribed
+      to Pro" sonrası kullanılabilir — ücretsiz katman 3 kullanıcıyla
+      sınırlı, Pro ayda $10'dan başlıyor + 3 kullanıcı üstü kişi başı
+      $5/ay). **Kullanıcının hesabında GERÇEKTEN erişilebilir olup
+      olmadığı CANLI test EDİLMEDİ** (izole bir scratch-test koleksiyonu
+      hazırlanmıştı ama kullanıcı bu turu durdurup canlıya çıkışı
+      önceliklendirdi — scratch-test config'ten tamamen geri alındı,
+      kod tabanında iz YOK).
+    - `fields.markdoc()`'un gövde-içi "görsel ekle" ikonu da AYRI bir
+      mekanizma (`options.image`, yalnızca `fields.image()`'ın
+      self-hosted yöntemini destekliyor — `cloudImage`'ı DEĞİL).
+    **Kod değişikliği YAPILMADI** (kullanıcı kararı, 2026-09-04) —
+    canlıya çıkış sonrası, ekip gerçekten içerik yazmaya başlamadan
+    önce ayrı bir turda: (1) `fields.cloudImage()`'ın gerçekten
+    kullanılabilir olup olmadığı (Pro plana geçiş gerekip gerekmediği)
+    netleştirilecek, (2) hangi yaklaşımın (self-hosted vs Cloud Images)
+    seçileceğine karar verilecek, (3) seçilirse `fields.cloudImage()`
+    yolu **629 mevcut yazının `featuredImage.url`→`src` anahtar
+    göçünü** (Keystatic'in SAVE'de dokunulmayan alanları bile yeniden
+    yazma davranışı yüzünden — bkz. "KALICI GOTCHA" — göçsüz bırakmak
+    eski yazıların görselini SESSİZCE SİLME riski taşır) + 4 kod
+    dosyasındaki (`content.config.ts`, `BlogListPage.astro`,
+    `BlogSidebar.astro`, `blog/[slug].astro`) ~13 okuma noktasını
+    gerektirecek.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

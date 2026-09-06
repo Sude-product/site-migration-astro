@@ -4,7 +4,7 @@ title: Performans ve Ödül Yönetimi Zirvesi
 date: '2023-08-21T17:28:24'
 excerpt: Katılımcılar, dijital performansın iş stratejilerine entegrasyonunu, yenilikçi ödül ve teşvik yönetimini keşfedecekler. İK liderleri, uzmanlar, dijital…
 featuredImage:
-  url: /wp-content/uploads/2025/08/zirve-performans-ve-odul-yonetimi-20230921-16x9-1-1392x783-1.jpg
+  image: /img/blog-featured/performans-ve-odul-yonetimi-zirvesi/featured.jpg
   alt: Performans ve Ödül Yönetimi Zirvesi
   width: 1392
   height: 783

@@ -4,7 +4,7 @@ title: Etkili Bir İç Denetim Hizmetinde Güncel Trendler – 2
 date: '2022-11-28T10:51:44'
 excerpt: İşletmelerin iş modelleri, mevzuat gereklilikleri ve teknolojik gelişmeler gibi konularda kendilerini güncellerken iç denetim departmanının öngörülerine…
 featuredImage:
-  url: /wp-content/uploads/2022/11/etkili-bir-ic-denetim-hizmetinde-guncel-trendler-2.jpg
+  image: /img/blog-featured/etkili-bir-ic-denetim-hizmetinde-guncel-trendler-2/featured.jpg
   alt: Etkili Bir İç Denetim Hizmetinde Güncel Trendler – 2
   width: 1515
   height: 999

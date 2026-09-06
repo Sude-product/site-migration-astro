@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Ölçülmesi Gereken Metrikler Nelerdir?
 date: '2020-08-31T16:01:19'
 excerpt: Günümüzde insan kaynakları departmanının bir şirketin bel kemiği olduğu artık yadsınamaz bir gerçek. İnsan kaynakları hem bir şirket ya da kuruluş için çalışan…
 featuredImage:
-  url: /wp-content/uploads/2025/08/insan-kaynaklarinda-ölçülmesi-gereken-metrikler.png
+  image: /img/blog-featured/insan-kaynaklarinda-olculmesi-gereken-metrikler/featured.png
   alt: İnsan Kaynaklarında Ölçülmesi Gereken Metrikler Nelerdir?
   width: 2271
   height: 1497

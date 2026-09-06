@@ -4,7 +4,7 @@ title: Engelli Çocuğu Olan Çalışan Ebeveynler
 date: '2023-10-15T19:11:22'
 excerpt: Engelli çocuğu olan çalışan ebeveynler, çocuklarının özel ihtiyaçlarına uygun olarak iş ve aile yaşamlarını dengelemelerini sağlamak amacıyla çeşitli haklara…
 featuredImage:
-  url: /wp-content/uploads/2023/07/engelli-cocugu-olan-calisan-ebeveynlerin-haklari.jpg
+  image: /img/blog-featured/engelli-cocugu-olan-calisan-ebeveynler/featured.jpg
   alt: Engelli Çocuğu Olan Çalışan Ebeveynler
   width: 1620
   height: 811

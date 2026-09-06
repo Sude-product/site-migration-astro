@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Personel Maliyet Analizi ve Önemi
 date: '2020-07-31T15:04:14'
 excerpt: Çoğu şirket için çalışan maaşları şirketin en büyük giderini oluşturur. Çalışanlarına aylık olarak ödediği parayı brüt olarak değil net olarak vermeyi tercih…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Culture-1.png
+  image: /img/blog-featured/insan-kaynaklari-yonetiminde-personel-maliyet-analizi/featured.png
   alt: İnsan Kaynakları Yönetiminde Personel Maliyet Analizi ve Önemi
   width: 2272
   height: 1498

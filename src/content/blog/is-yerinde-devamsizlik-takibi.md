@@ -4,7 +4,7 @@ title: İş Yerinde Devamsızlık Takibi için 7 İpucu
 date: '2023-12-10T20:45:12'
 excerpt: İş yerinde devamsızlık takibi hakkında bilgi sahibi olmak verimlilik ve süreklilik yakalamak isteyen iş dünyası profesyonelleri için kritik önem taşıyor. PDKS…
 featuredImage:
-  url: /wp-content/uploads/2023/12/WhatsApp-Image-2023-12-10-at-20.24.52.jpeg
+  image: /img/blog-featured/is-yerinde-devamsizlik-takibi/featured.jpeg
   alt: İş Yerinde Devamsızlık Takibi için 7 İpucu
   width: 1621
   height: 811

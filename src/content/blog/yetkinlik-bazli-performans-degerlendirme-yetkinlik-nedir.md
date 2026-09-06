@@ -4,7 +4,7 @@ title: Yetkinlik Bazlı Performans Değerlendirme – Yetkinlik Nedir?
 date: '2020-11-27T14:29:39'
 excerpt: Yetkinlik bazlı performans değerlendirme, globalleşen dünyada işletmelerin rekabet avantajı elde edebilmesi ve varlığını sürdürebilmesi için insan kaynakları…
 featuredImage:
-  url: /wp-content/uploads/2020/11/Yetkinlik-Bazlı-Performans-Değerlendirme-–-Yetkinlik-Nedir@3x.png
+  image: /img/blog-featured/yetkinlik-bazli-performans-degerlendirme-yetkinlik-nedir/featured.png
   alt: Yetkinlik Bazlı Performans Değerlendirme – Yetkinlik Nedir?
   width: 2271
   height: 1497

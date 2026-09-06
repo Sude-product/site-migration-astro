@@ -4,7 +4,7 @@ title: İzin Formu Nasıl Yazılır?
 date: '2020-09-30T12:24:50'
 excerpt: İzin formu , çalışanların yıllık izin talebinde bulundukları zaman ihtiyaç duydukları belgedir. Yıllık izin talebinde bulunamak için çalışanların belirli…
 featuredImage:
-  url: /wp-content/uploads/2025/08/çalişma-ve-yaşam-dengesi@3x.png
+  image: /img/blog-featured/izin-formu-nasil-yazilir/featured.png
   alt: İzin Formu Nasıl Yazılır?
   width: 2271
   height: 1497

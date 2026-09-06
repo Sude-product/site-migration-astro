@@ -74,23 +74,44 @@ export default config({
         }),
         // width/height editöre vurgulu SUNULMUYOR (Decap'teki emsalle AYNI
         // karar, bkz. src/content.config.ts featuredImage yorumu) ama
-        // ŞEMADAN da çıkarılamaz — eski 622 yazının WP'den miras kalan
+        // ŞEMADAN da çıkarılamaz — eski 629 yazının WP'den miras kalan
         // `featuredImage.width/height` alanları Keystatic'in objectfield'ı
         // STRICT olduğu için (bilinmeyen anahtar reddediliyor) şemada
         // bulunmalı, yalnızca opsiyonel bırakılıyor.
-        // BİLİNÇLİ OLARAK fields.conditional KULLANILMADI (2026-08-28,
-        // izole scratch-test'te doğrulandı): conditional YAML'a düz
-        // `featuredImage: null` DEĞİL, `{discriminant, value}` sarmalayıcısı
-        // yazıyor — mevcut zod şemasıyla/render koduyla uyuşmuyor, [slug]
-        // sayfalarını da değiştirmeyi gerektirirdi. Bunun yerine görselsiz
-        // tek yazının (`featuredImage: null`) SAVE edilince zararsız
-        // boş-string'li bir objeye dönüşmesi kabul edildi VE render
-        // tarafı (`src/pages/blog/[slug].astro`, hem hero hem "Benzer
-        // Yazılar" bloğu) `featuredImage?.url &&` şeklinde sağlamlaştırıldı
-        // — hem `null` hem boş-string'li obje için doğru davranıyor.
+        //
+        // **2026-09-06 — `url: fields.url()` (elle URL yapıştırma) yerine
+        // `image: fields.image()` (self-hosted sürükle-bırak yükleme,
+        // Cloud Images ücretli olduğu için — bkz. CLAUDE.md Açık nokta
+        // #68) getirildi.** Kritik bulgu: Keystatic'in asset alanları
+        // (`fields.image()`) her zaman `directory`/`publicPath`'i
+        // ENTRY'NİN KENDİ `slug` alanıyla otomatik ad alanına ayırıyor
+        // (`getSrcPrefix()`, node_modules'ta doğrulandı) — yani panelde
+        // GÖRÜNTÜLENEBİLMESİ/yeniden kaydedilebilmesi için her görsel
+        // fiilen `public/img/blog-featured/<slug>/<dosya>` yolunda
+        // BULUNMALI. **`directory` kısa tutuldu VE migrasyonda dosya adı
+        // sabit `featured.<uzantı>`'ya normalize edildi** (orijinal WP
+        // dosya adı DEĞİL) — bazı slug'lar 89 karaktere kadar çıkıyor,
+        // orijinal WP dosya adlarıyla (bazıları da 90+ karakter) birleşince
+        // Windows'un 260 karakterlik MAX_PATH sınırını aşıp `git add`'i
+        // "Filename too long" ile çökertiyordu (canlı olarak yakalandı).
+        // Mevcut 628 yazının görseli (629'un 1'i `featuredImage: null`)
+        // `scripts/migrate-featured-image-to-keystatic-field.mjs` ile bu
+        // yapıya KOPYALANDI (eski `public/wp-content/uploads/...`
+        // dosyaları SİLİNMEDİ, yalnızca kopyalandı — geri dönüş her zaman
+        // mümkün) ve frontmatter'daki `url:` alanı `image:` alanına
+        // (yeni yola işaret edecek şekilde) çevrildi. Bu artık `fields.
+        // conditional` denemesindeki (2026-08-28) `{discriminant,value}`
+        // sorununu da ORTADAN KALDIRIYOR — `fields.image()` DOĞRUDAN
+        // `null` yazabiliyor (asset alanları bunun için özel olarak
+        // nullable), görselsiz tek yazının (`featuredImage: null`)
+        // SAVE'de bozulma riski yok.
         featuredImage: fields.object(
           {
-            url: fields.url({ label: 'Görsel URL' }),
+            image: fields.image({
+              label: 'Görsel',
+              directory: 'public/img/blog-featured',
+              publicPath: '/img/blog-featured/',
+            }),
             alt: fields.text({ label: 'Alt Metin (görme engelliler ve SEO için)' }),
             width: fields.integer({ label: 'Genişlik (px, opsiyonel — genelde boş bırakılır)' }),
             height: fields.integer({ label: 'Yükseklik (px, opsiyonel — genelde boş bırakılır)' }),
@@ -112,7 +133,27 @@ export default config({
         // authorName yorumu (sayfada görünür bir "Yazar: X" satırı YOK,
         // kullanıcı kararı).
         authorName: fields.text({ label: 'Yazar (opsiyonel, yalnızca JSON-LD için — sayfada görünmez)' }),
-        content: fields.markdoc({ label: 'İçerik', extension: 'md' }),
+        // `options.image` (2026-09-06) — varsayılan olarak KAPALI olan
+        // markdoc gövde-içi görsel yükleme desteği açıldı (editördeki
+        // "görsel ekle" ikonu artık gerçek sürükle-bırak/dosya-seç
+        // yükleme yapıyor, `featuredImage.image` ile AYNI slug-bazlı ad
+        // alanı mekanizmasını kullanıyor ama ayrı bir dizinde — ikisi
+        // karışmasın). Mevcut yazıların gövdesindeki eski
+        // `![alt](/wp-content/uploads/...)` referansları BU turda migrate
+        // EDİLMEDİ (kapsam yalnızca yeni yükleme desteği eklemekti) —
+        // onlar zaten göreli URL'ler olarak (Açık nokta #14/#45) çalışmaya
+        // devam ediyor, yalnızca YENİ eklenen görseller bu mekanizmayı
+        // kullanacak.
+        content: fields.markdoc({
+          label: 'İçerik',
+          extension: 'md',
+          options: {
+            image: {
+              directory: 'public/img/blog-content',
+              publicPath: '/img/blog-content/',
+            },
+          },
+        }),
       },
     }),
   },

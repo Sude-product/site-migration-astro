@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Ödüllendirme
 date: '2021-02-08T11:32:01'
 excerpt: İnsan kaynaklarında ödüllendirme, aslında başarının kazanılması kadar başarının ödüllendirilmesinin de ne kadar önemli olduğunu ortaya koyar. Çünkü…
 featuredImage:
-  url: /wp-content/uploads/2021/02/insan-kaynaklarinda-odullendirme-odullendirme-nedir@2x.png
+  image: /img/blog-featured/insan-kaynaklarinda-odullendirme/featured.png
   alt: İnsan Kaynaklarında Ödüllendirme
   width: 1514
   height: 998

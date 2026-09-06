@@ -4,7 +4,7 @@ title: İnsan Kaynakları Bölümünde Çalışmak İçin 7 Neden
 date: '2021-03-03T11:33:04'
 excerpt: İnsan Kaynakları bölümünde çalışmak isteyen yeni mezunlar veya bu bölümde kariyer hedefi olan, İK bölümünde çalışmaya heves duyan birçok kişinin kendine göre…
 featuredImage:
-  url: /wp-content/uploads/2021/03/insan-kaynaklari-bolumunde-calismak-icin-7-neden@2x.png
+  image: /img/blog-featured/insan-kaynaklari-bolumunde-calismak-icin-yedi-neden/featured.png
   alt: İnsan Kaynakları Bölümünde Çalışmak İçin 7 Neden
   width: 1514
   height: 998

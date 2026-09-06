@@ -4,7 +4,7 @@ title: Excel ile Personel Takibinin Gizli Maliyetleri
 date: '2026-07-31T11:05:59'
 excerpt: Excel ile personel takibi, birçok işletmede yıllardır “şimdilik iş görüyor” mantığıyla sürdürülen bir alışkanlık. İlk bakışta ucuz, esnek ve herkesin bildiği…
 featuredImage:
-  url: /wp-content/uploads/2026/07/Excel-ile-Personel-Takibinin-Gizli-Maliyetleri.png
+  image: /img/blog-featured/excel-ile-personel-takibinin-gizli-maliyetleri/featured.png
   alt: Excel ile Personel Takibinin Gizli Maliyetleri
   width: 1672
   height: 941

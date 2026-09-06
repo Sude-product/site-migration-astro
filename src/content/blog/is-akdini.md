@@ -4,7 +4,7 @@ title: İş Akdini Sağlık Nedeniyle Feshetmek
 date: '2021-11-18T20:23:32'
 excerpt: Çalışanların herhangi bir sağlık sorunu nedeniyle iş akdini feshedebilmesi İş Kanununun 24/I maddesi kapsamında korunmaktadır. İş Yasası’nın kapsamında iki…
 featuredImage:
-  url: /wp-content/uploads/2021/06/is-akdinin-feshi.jpg
+  image: /img/blog-featured/is-akdini/featured.jpg
   alt: İş Akdini Sağlık Nedeniyle Feshetmek
   width: 1514
   height: 999

@@ -4,7 +4,7 @@ title: Linkedin Şirket Hesabı Açma ve Yönetme Adımları
 date: '2020-11-25T11:49:09'
 excerpt: Linkedin şirket hesabı açma, linkedin nedir sorusundan sonra en çok aranan ve sorulan sorulardan biridir. Şirketler için Linkedin, sahip olduğu alanlarında…
 featuredImage:
-  url: /wp-content/uploads/2020/11/Linkedin-Şirket-Hesabı-Açma-ve-Yönetme-Adımları.png
+  image: /img/blog-featured/linkedin-sirket-hesabi-acma/featured.png
   alt: Linkedin Şirket Hesabı Açma ve Yönetme Adımları
   width: 2271
   height: 1497

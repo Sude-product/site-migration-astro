@@ -4,7 +4,7 @@ title: Startuplar ve Esnek Çalışma Kültürü
 date: '2024-03-11T13:44:44'
 excerpt: Startuplar ve esnek çalışma kültürü ayrılmaz bir bütünün parçaları olarak öne çıkıyor. Özellikle iş süreçlerini dinamik ve sürekli artan bir ivmeyle yürüten…
 featuredImage:
-  url: /wp-content/uploads/2025/08/startuplarda-esnek-calisma-kulturu@2x-100-1392x696-1.jpg
+  image: /img/blog-featured/startuplar-ve-esnek-calisma-kulturu/featured.jpg
   alt: Startuplar ve Esnek Çalışma Kültürü
   width: 1392
   height: 696

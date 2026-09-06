@@ -4,7 +4,7 @@ title: Girişim Profilini Güçlendirmenin 5 Yolu
 date: '2021-08-24T10:51:11'
 excerpt: Girişim profili ortaya koymak, heyecanlı olduğu kadar yoğun ve tempolu bir iştir. Girişim için gerek duyulan insan gücü işe alındı, gerekli olan ürün ortaya…
 featuredImage:
-  url: /wp-content/uploads/2021/08/girisim-profilini-guclendirecek-6-ipucu@2x-100.jpg
+  image: /img/blog-featured/girisim-profili/featured.jpg
   alt: Girişim Profilini Güçlendirmenin 5 Yolu
   width: 1515
   height: 999

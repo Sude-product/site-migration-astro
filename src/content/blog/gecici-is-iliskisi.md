@@ -4,7 +4,7 @@ title: Geçici İş İlişkisi Hakkında Tüm Merak Ettikleriniz
 date: '2024-04-15T23:40:00'
 excerpt: Çalışma dünyasında esneklik her zaman önemli olmuştur. İşverenlerin değişen ihtiyaçlarına hızlı bir şekilde cevap verebilmek, iş arayanların da geçici olarak…
 featuredImage:
-  url: /wp-content/uploads/2025/08/gecici-is-iliskisi-nedir-1392x696-1.jpg
+  image: /img/blog-featured/gecici-is-iliskisi/featured.jpg
   alt: Geçici İş İlişkisi Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: Vardiya Yönetimi Nasıl İyileştirilir?
 date: '2020-07-16T10:51:28'
 excerpt: Çalışanların çalışma süreleri, izinleri, işe giriş ve çıkış saatlerini düzenlemek insan kaynakları departmanının en önemli görevleri arasında yer alır. Hem…
 featuredImage:
-  url: /wp-content/uploads/2025/08/VARDİYA-YÖNETİMİ@3x-1.png
+  image: /img/blog-featured/vardiya-yonetimi-nasil-iyilestirilir/featured.png
   alt: Vardiya Yönetimi Nasıl İyileştirilir?
   width: 2271
   height: 1497

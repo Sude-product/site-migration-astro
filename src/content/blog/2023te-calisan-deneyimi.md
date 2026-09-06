@@ -4,7 +4,7 @@ title: 2023’te Çalışan Deneyimi Trendleri
 date: '2023-09-25T13:07:43'
 excerpt: 2023’te çalışan deneyimi, küresel ve lokal dinamiklerin ışığında 2023 yılı iş dünyası için son derece ilginç gelişmelere sahne oluyor. Değişen çalışma…
 featuredImage:
-  url: /wp-content/uploads/2023/09/2023te-calisan-deneyimi-etkileyecek-temel-trendler.jpg
+  image: /img/blog-featured/2023te-calisan-deneyimi/featured.jpg
   alt: 2023’te Çalışan Deneyimi Trendleri
   width: 1621
   height: 811

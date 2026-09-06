@@ -4,7 +4,7 @@ title: 2026 İhbar Tazminatı Hesaplamaları
 date: '2026-03-26T11:42:23'
 excerpt: 2026 yılında ihbar tazminatı hesaplamaları çalışanlar ve işverenler için önemli bir konu olmaya devam etmektedir. İşten ayrılma sürecinde doğru hesaplama…
 featuredImage:
-  url: /wp-content/uploads/2025/04/WhatsApp-Image-2026-03-13-at-15.17.53.jpeg
+  image: /img/blog-featured/2026-ihbar-tazminati/featured.jpeg
   alt: 2026 İhbar Tazminatı Hesaplamaları
   width: 1280
   height: 720

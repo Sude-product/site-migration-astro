@@ -4,7 +4,7 @@ title: Çalışan Takdiri Uygulamaları
 date: '2022-01-21T01:08:46'
 excerpt: Çalışan takdiri kavramı bir süredir İK dünyasının gündeminde yer alıyor. Uzun yıllar boyunca sadece daha verimli çalışmayı hedefleyen ve buna uygun çalışmalar…
 featuredImage:
-  url: /wp-content/uploads/2022/01/2.-Resim@2x.jpg
+  image: /img/blog-featured/calisan-takdiri/featured.jpg
   alt: Çalışan Takdiri Uygulamaları
   width: 1515
   height: 999

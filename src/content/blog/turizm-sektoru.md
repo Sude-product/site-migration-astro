@@ -4,7 +4,7 @@ title: Turizm Sektörü ve İnsan Kaynakları Yönetimi
 date: '2022-05-31T09:37:19'
 excerpt: Turizm sektörü gelir ve gider dengesi açısından doğrudan insan unsuruna bağlıdır. Misafirlerin işletmeye geldiği anda karşılanması, resepsiyonda kayıt…
 featuredImage:
-  url: /wp-content/uploads/2022/05/turizm-sektorunde-insan-kaynaklari.jpg
+  image: /img/blog-featured/turizm-sektoru/featured.jpg
   alt: Turizm Sektörü ve İnsan Kaynakları Yönetimi
   width: 1515
   height: 999

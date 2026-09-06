@@ -4,7 +4,7 @@ title: Stratejik İK Yaklaşımı ile İş Gücünüzü Verimli Yönetin
 date: '2022-05-11T15:48:57'
 excerpt: Stratejik İK yaklaşımı değişen dünya düzeninde her geçen gün önemini arttırıyor. Sanayi devrimi sonrasında iş dünyasında kullanılmaya başlanan ve insanlığın…
 featuredImage:
-  url: /wp-content/uploads/2022/05/Stratejik-I╠cK-Yaklas╠g─▒m─▒.jpg
+  image: /img/blog-featured/stratejik-yaklasimi/featured.jpg
   alt: Stratejik İK Yaklaşımı ile İş Gücünüzü Verimli Yönetin
   width: 1515
   height: 998

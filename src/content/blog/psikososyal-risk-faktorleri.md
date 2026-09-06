@@ -4,7 +4,7 @@ title: İş Sağlığı Psikososyal Risk Faktörleri
 date: '2022-11-07T11:13:00'
 excerpt: Teknolojik gelişmelere bağlı olarak her bir toplumsal aşamada değişen ve dönüşen iş süreçleri ve çalışma koşullarının, çalışanların sağlığı ve güvenliği…
 featuredImage:
-  url: /wp-content/uploads/2022/11/is-sagligi-ve-guvenliginde-onemli-bir-boyut-psikososyal-risk-faktorleri.jpg
+  image: /img/blog-featured/psikososyal-risk-faktorleri/featured.jpg
   alt: İş Sağlığı Psikososyal Risk Faktörleri
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Big Data Nedir?
 date: '2025-05-25T22:26:23'
 excerpt: Büyük veri, modern çağın dijital altınlarından biridir. Big Data olarak da bilinen bu kavram, yalnızca verinin miktarıyla değil; aynı zamanda hızla artması ve…
 featuredImage:
-  url: /wp-content/uploads/2025/05/big-data-ve-insan-kaynaklarinda-ise-alim-surecleri.png
+  image: /img/blog-featured/big-data-ve-ise-alim-sureci/featured.png
   alt: Big Data Nedir?
   width: 757
   height: 499

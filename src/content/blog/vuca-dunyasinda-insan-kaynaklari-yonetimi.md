@@ -4,7 +4,7 @@ title: VUCA Dünyasında İnsan Kaynakları Yönetimi
 date: '2021-09-30T13:50:53'
 excerpt: VUCA dünyasında insan kaynakları yönetimi, pandemi şartlarında tüm profesyonellerin hakim olması gereken bir kavram haline geldi. VUCA kavramı, ilk kez ABD…
 featuredImage:
-  url: /wp-content/uploads/2021/09/VUCA@2x.jpg
+  image: /img/blog-featured/vuca-dunyasinda-insan-kaynaklari-yonetimi/featured.jpg
   alt: VUCA Dünyasında İnsan Kaynakları Yönetimi
   width: 810
   height: 534

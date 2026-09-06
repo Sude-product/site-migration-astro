@@ -4,7 +4,7 @@ title: Asgari Ücret 2023 Ne Kadar Oldu?
 date: '2021-01-06T10:54:12'
 excerpt: Asgari ücret 2023 ile ilgili soruların cevabı geçtiğimiz günlerde yanıt buldu. Yılın ilk günü, 1 Temmuz 2023 itibariyle geçerli olan ve bir insanın en temel…
 featuredImage:
-  url: /wp-content/uploads/2021/01/Asgari-Ücret-2021-Asgari-Ücret-Ne-Kadar-Oldu_.png
+  image: /img/blog-featured/asgari-ucret-2023-ne-kadar-oldu/featured.png
   alt: Asgari Ücret 2023 Ne Kadar Oldu?
   width: 1514
   height: 998

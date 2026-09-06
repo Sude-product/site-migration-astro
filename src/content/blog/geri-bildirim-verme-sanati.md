@@ -4,7 +4,7 @@ title: Geri Bildirim Verme Sanatı
 date: '2022-12-19T18:50:58'
 excerpt: Geri bildirim verme sanatı ile tanışmaya hazır mısınız? Yapıcı geri bildirim, uyumlu çalışan ve nitelikli işler başaran ekipler oluşturmak için çok değerli bir…
 featuredImage:
-  url: /wp-content/uploads/2022/12/geri-bildirim-verme-sanati-yap─▒c─▒-geri-bildirim-sunmam─▒n-6-yolu@2x-100.jpg
+  image: /img/blog-featured/geri-bildirim-verme-sanati/featured.jpg
   alt: Geri Bildirim Verme Sanatı
   width: 1515
   height: 999

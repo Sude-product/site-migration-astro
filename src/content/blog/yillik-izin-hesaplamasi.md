@@ -4,7 +4,7 @@ title: Yıllık İzin Hesaplama Nasıl Yapılır?
 date: '2019-12-09T09:48:21'
 excerpt: Yıllık izin hesaplama yada izin hakediş hesaplama her çalışan için oldukça önemli bir konudur. Yıllık izin veya daha doğru adıyla yıllık ücretli izin, hem…
 featuredImage:
-  url: /wp-content/uploads/2019/12/yillik-izin-hesaplama-nasil-yapilir.png
+  image: /img/blog-featured/yillik-izin-hesaplamasi/featured.png
   alt: Yıllık İzin Hesaplama Nasıl Yapılır?
   width: 2272
   height: 1497

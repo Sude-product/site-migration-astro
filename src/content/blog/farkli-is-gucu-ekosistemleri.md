@@ -4,7 +4,7 @@ title: Farklı İş Gücü Ekosistemleri
 date: '2023-01-28T17:56:58'
 excerpt: Farklı iş gücü ekosistemleri, son dönemlerde İK dünyasının gündemini meşgul ediyor. Pandemi sonrasında hızla değişen çalışma modelleri ve yeni İK trendleri göz…
 featuredImage:
-  url: /wp-content/uploads/2023/01/Farkli-is-Gucu-Ekosistemleri-I╠ccin-Performans-Yonetimi@2x-100.jpg
+  image: /img/blog-featured/farkli-is-gucu-ekosistemleri/featured.jpg
   alt: Farklı İş Gücü Ekosistemleri
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: Bulut Tabanlı İK Yazılımı ile İK Süreçlerini İyileştirin
 date: '2021-02-24T10:56:18'
 excerpt: Bulut tabanlı İK yazılımı, yeni teknolojilerin hayatımıza girmesiyle birlikte bilgiye hızla ulaşımın mümkün olduğu bir ortamda insan kaynakları departmanları…
 featuredImage:
-  url: /wp-content/uploads/2021/02/bulut-tabanli-ik-yazilimi@2x.png
+  image: /img/blog-featured/bulut-tabanli-ik-yazilimi/featured.png
   alt: Bulut Tabanlı İK Yazılımı ile İK Süreçlerini İyileştirin
   width: 1514
   height: 998

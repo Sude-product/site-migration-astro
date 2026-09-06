@@ -4,7 +4,7 @@ title: Yol İzni Nedir?
 date: '2021-08-04T09:59:14'
 excerpt: Yol izni, yıllık ücretli izne çıkan çalışanların izinlerini yolda geçirmemeleri için yapılmış bir düzenlemedir. Çalışanlar yıllık izinlerini şehir dışında veya…
 featuredImage:
-  url: /wp-content/uploads/2021/08/Yol-izni-nedir_-Yol-izni-Nasil-Hesaplanir_@2x.png
+  image: /img/blog-featured/yol-izni/featured.png
   alt: Yol İzni Nedir?
   width: 1515
   height: 998

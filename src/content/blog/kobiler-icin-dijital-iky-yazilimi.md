@@ -4,7 +4,7 @@ title: KOBİ’ler İçin Dijital İKY Yazılımı Kullanma Avantajları Nelerdi
 date: '2024-02-05T06:49:10'
 excerpt: KOBİ, “Küçük ve Orta Büyüklükteki İşletmeler” kısaltmasıdır. Bu terim, işletmelerin büyüklüklerine göre sınıflandırılmasında kullanılıyor. KOBİ’ler genellikle…
 featuredImage:
-  url: /wp-content/uploads/2025/08/kobiler-icin-dijital-iky-yazilimi-kullanma-avantajlari@2x-1392x696-1.jpg
+  image: /img/blog-featured/kobiler-icin-dijital-iky-yazilimi/featured.jpg
   alt: KOBİ’ler İçin Dijital İKY Yazılımı Kullanma Avantajları Nelerdir?
   width: 1392
   height: 696

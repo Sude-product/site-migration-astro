@@ -4,7 +4,7 @@ title: Doğum İzni Kaç Gün?
 date: '2020-03-02T10:30:00'
 excerpt: Çalışan anne ve baba adayları için doğum i zinleri en merak edilen konular arasında yer alır. İznin kapsamının ne olduğu, ne zaman başlayıp ne zaman biteceği…
 featuredImage:
-  url: /wp-content/uploads/2025/08/hamilelik@3x.png
+  image: /img/blog-featured/dogum-izni/featured.png
   alt: Doğum İzni Kaç Gün?
   width: 2272
   height: 1498

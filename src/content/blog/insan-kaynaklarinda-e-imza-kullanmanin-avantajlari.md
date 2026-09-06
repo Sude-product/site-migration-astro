@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde E-imza (Mobil İmza)
 date: '2021-03-26T15:52:48'
 excerpt: E-imza (mobil imza) son zamanlarda işletmelerin ihtiyaç duyduğu en büyük kolaylıklardan biri. İşletmelerde evrak işleri hiç bitmez biliyoruz. İş teklifi, iş…
 featuredImage:
-  url: /wp-content/uploads/2021/03/Varlik-3@3x-scaled.png
+  image: /img/blog-featured/insan-kaynaklarinda-e-imza-kullanmanin-avantajlari/featured.png
   alt: İnsan Kaynakları Yönetiminde E-imza (Mobil İmza)
   width: 2560
   height: 1438

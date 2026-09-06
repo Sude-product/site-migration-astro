@@ -4,7 +4,7 @@ title: ATS Nedir? İşe Alımlarda Neden Kullanılır?
 date: '2026-07-01T16:59:25'
 excerpt: İşe alım artık yalnızca ilan açıp özgeçmiş toplama süreci olarak görülmüyor. Başvuru hacmi arttıkça, aday iletişimi hızlandıkça ve ekipler daha ölçülebilir…
 featuredImage:
-  url: /wp-content/uploads/2026/07/ats-nedir.png
+  image: /img/blog-featured/ats-nedir-ise-alimlarda-neden-kullanilir/featured.png
   alt: ATS Nedir? İşe Alımlarda Neden Kullanılır?
   width: 1672
   height: 941

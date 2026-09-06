@@ -4,7 +4,7 @@ title: Dijital Göçebe Trendi
 date: '2022-12-28T12:32:46'
 excerpt: Dijital göçebe trendi, daha fazla esneklik ve özerklik hedefleyen çalışanlar tarafından tercih ediliyor. Özgürlük isteğinin biraz tutku ve cesaretle…
 featuredImage:
-  url: /wp-content/uploads/2022/12/Dijital-Gocbe-Trendi-Hakkinda-Tum-Merak-Ettikleriniz.jpg
+  image: /img/blog-featured/dijital-gocebe-trendi/featured.jpg
   alt: Dijital Göçebe Trendi
   width: 1515
   height: 999

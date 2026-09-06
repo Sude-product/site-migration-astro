@@ -4,7 +4,7 @@ title: İş Yaşam Uyumu Rehberi
 date: '2024-04-23T23:39:00'
 excerpt: İş yaşam dengesi, günümüzde iş ve kişisel hayat arasında giderek daha fazla önem kazanıyor. Ancak, geleneksel dengenin yerini iş-yaşam uyumu alıyor. Artık…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Devlet-memurlarinin-izin-hakki-1392x696-1.jpg
+  image: /img/blog-featured/is-yasam-uyumu/featured.jpg
   alt: İş Yaşam Uyumu Rehberi
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: İK Süreçlerinde Dijitalleşme Dönemi
 date: '2021-12-15T13:03:56'
 excerpt: İK süreçlerinde dijitalleşme dünyada ve ülkemizde uzun süredir gündemde olan bir konu. Geleneksel yöntemlerle yürütülen İK süreçleri artık yetersiz bulunuyor.…
 featuredImage:
-  url: /wp-content/uploads/2021/12/i̇k-sureclerinde-dijitallesme-donemi-dijitallesme-neden-kacinilmaz_@2x.jpg
+  image: /img/blog-featured/ik-sureclerinde/featured.jpg
   alt: İK Süreçlerinde Dijitalleşme Dönemi
   width: 810
   height: 534

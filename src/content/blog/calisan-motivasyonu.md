@@ -4,7 +4,7 @@ title: Çalışan Motivasyonunu Artırmak
 date: '2020-02-12T13:26:23'
 excerpt: Çalışanların motivasyonunu artırmak , şirketlerin hedeflerine ulaşmaları konusunda en çok dikkat edilmesi gereken noktalardan bir tanesidir. Bu nedenle pek çok…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Calisan-Bagliligini-Artirmanin-Yollari-696x459-1.jpg
+  image: /img/blog-featured/calisan-motivasyonu/featured.jpg
   alt: Çalışan Motivasyonunu Artırmak
   width: 696
   height: 459

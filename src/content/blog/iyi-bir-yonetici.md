@@ -4,7 +4,7 @@ title: İyi Bir Yönetici Olmanız İçin İletişim Özellikleri
 date: '2020-01-23T17:04:51'
 excerpt: İyi bir yönetici hedefiniz bulunuyorsa her koşulda bir liderde olması gereken özellikler sizde de bulunmalı. İyi yönetici olmak ve bu konuda kendinizi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/yoÃàneticide-bulunmasƒ±-gereken-oÃàzellikler@3x.png
+  image: /img/blog-featured/iyi-bir-yonetici/featured.png
   alt: İyi Bir Yönetici Olmanız İçin İletişim Özellikleri
   width: 2272
   height: 1497

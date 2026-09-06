@@ -4,7 +4,7 @@ title: Çalışan Emekli Hakları Nelerdir?
 date: '2023-01-16T08:46:37'
 excerpt: Çalışan emekli hakları, özellikle emekli adayları tarafından en sık merak edilenler arasında yer alıyor. Günümüzde her üç emekliden birinin çalışmaya devam…
 featuredImage:
-  url: /wp-content/uploads/2023/01/Emekli-calisanlarin-hakki-nedir.jpg
+  image: /img/blog-featured/calisan-emekli-haklari/featured.jpg
   alt: Çalışan Emekli Hakları Nelerdir?
   width: 1515
   height: 999

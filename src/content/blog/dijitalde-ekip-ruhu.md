@@ -4,7 +4,7 @@ title: Dijitalde Ekip Ruhunu Korumak
 date: '2025-06-23T21:28:13'
 excerpt: Evden çalışmak artık geçici bir çözüm değil, kalıcı bir çalışma biçimine dönüşmüş durumda. Ancak bu yeni düzende, ekip ruhunu canlı tutmak her zamankinden daha…
 featuredImage:
-  url: /wp-content/uploads/2025/06/dijitalde-ekip-ruhu.jpg
+  image: /img/blog-featured/dijitalde-ekip-ruhu/featured.jpg
   alt: Dijitalde Ekip Ruhunu Korumak
   width: 1024
   height: 675

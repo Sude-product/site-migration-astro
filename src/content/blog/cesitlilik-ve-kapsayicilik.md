@@ -4,7 +4,7 @@ title: Çeşitlilik ve Kapsayıcılık
 date: '2022-08-26T14:25:15'
 excerpt: İK profesyonelleri son yıllarda ivmeli bir değişime şahitlik ve öncülük ediyor. İK dünyası geleceğe öngörülenden çok daha hızlı ulaşmakta kararlı görünüyor ve…
 featuredImage:
-  url: /wp-content/uploads/2022/08/cesitlilik-ve-kapsayicilik-daha-guclu-ekipler-insa-edin.jpg
+  image: /img/blog-featured/cesitlilik-ve-kapsayicilik/featured.jpg
   alt: Çeşitlilik ve Kapsayıcılık
   width: 1515
   height: 999

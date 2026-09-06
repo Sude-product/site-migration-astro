@@ -4,7 +4,7 @@ title: İnsan Kaynakları Programları Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-05-15T17:45:30'
 excerpt: İnsan kaynakları programları dijitalleşen şirketlerin odağında yer alıyor. Tüm organizasyonların en temel kaynağı olan insan kaynağını yöneten İKY…
 featuredImage:
-  url: /wp-content/uploads/2025/08/insan_kaynaklari_yazilimlari@3x.png
+  image: /img/blog-featured/insan-kaynaklari-programlari/featured.png
   alt: İnsan Kaynakları Programları Hakkında Tüm Bilmeniz Gerekenler
   width: 2271
   height: 1497

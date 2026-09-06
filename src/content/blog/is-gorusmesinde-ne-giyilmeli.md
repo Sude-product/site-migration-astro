@@ -4,7 +4,7 @@ title: İş Görüşmesinde Ne Giyilmeli?
 date: '2019-11-21T11:26:46'
 excerpt: İş görüşmesi kıyafetleri , genellikle resmî olsa da kuruluşun kültürü bu durumu tam tersine çevirebiliyor. Bu nedenle iş görüşmesi kıyafeti dendiğinde döpiyes…
 featuredImage:
-  url: /wp-content/uploads/2019/11/is-gorusmesinde-ne-giyilmeli.jpg
+  image: /img/blog-featured/is-gorusmesinde-ne-giyilmeli/featured.jpg
   alt: İş Görüşmesinde Ne Giyilmeli?
   width: 1515
   height: 1080

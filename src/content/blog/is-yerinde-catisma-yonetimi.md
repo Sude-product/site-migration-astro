@@ -4,7 +4,7 @@ title: İş Yerinde ÇatışmaYönetimi
 date: '2020-09-14T15:05:44'
 excerpt: Çatışma, insan faktörünün bulunduğu her yerde karşınıza çıkabilir. Bu sebeple iş hayatında da sıklıkla çatışma yaşanması, kaçınılmaz ve doğal bir durumdur.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/çatişma-yönetimi.png
+  image: /img/blog-featured/is-yerinde-catisma-yonetimi/featured.png
   alt: İş Yerinde ÇatışmaYönetimi
   width: 2271
   height: 1497

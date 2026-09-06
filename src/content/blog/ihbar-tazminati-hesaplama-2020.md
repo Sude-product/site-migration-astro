@@ -4,7 +4,7 @@ title: İhbar Tazminatı Nedir? İhbar Tazminatı Hesaplama 2020
 date: '2020-04-29T17:15:16'
 excerpt: Herhangi bir sebep ile işine son verilen sigortalı işçilerin en merak ettikleri konuların başında ihbar tazminatı gelir. İhbar tazminatı, çalışana kanun…
 featuredImage:
-  url: /wp-content/uploads/2025/08/İhbar-Tazminati-2020.png
+  image: /img/blog-featured/ihbar-tazminati-hesaplama-2020/featured.png
   alt: İhbar Tazminatı Nedir? İhbar Tazminatı Hesaplama 2020
   width: 1515
   height: 999

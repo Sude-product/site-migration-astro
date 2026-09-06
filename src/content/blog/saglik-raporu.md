@@ -4,7 +4,7 @@ title: Sağlık Raporu ve İşverenlerin Sorumlulukları
 date: '2022-02-01T09:33:21'
 excerpt: Sağlık raporu hemen her çalışanın iş hayatının bir döneminde yararlandığı ve hakkında merak edilen birçok detay bulunan bir belgedir. İşçinin hastalanması veya…
 featuredImage:
-  url: /wp-content/uploads/2022/01/C╠gal─▒s╠gan─▒n-Sag╠al─▒k-Raporu-Almas─▒-Durumunda-Uygulanmas─▒-Gereken-Ad─▒mlar@2x.jpg
+  image: /img/blog-featured/saglik-raporu/featured.jpg
   alt: Sağlık Raporu ve İşverenlerin Sorumlulukları
   width: 1515
   height: 998

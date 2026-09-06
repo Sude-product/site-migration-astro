@@ -4,7 +4,7 @@ title: İK İçin Proje Yönetimi Nedir?
 date: '2021-05-17T10:08:30'
 excerpt: İK uzmanları sektördeki değişimlere liderlik ederek başarı sağlayabilir. Akıllı teknolojileri kullanarak işe alım süreçlerini yönetme, şirket kültürüne katkı…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2x.jpg
+  image: /img/blog-featured/ik-icin-proje-yonetimi/featured.jpg
   alt: İK İçin Proje Yönetimi Nedir?
   width: 810
   height: 534

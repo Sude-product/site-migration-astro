@@ -4,7 +4,7 @@ title: 2026 Amortisman Oranları ve Sınırı Hakkında Detaylar
 date: '2026-07-01T16:56:55'
 excerpt: Amortisman, çoğu zaman yalnızca muhasebe ekiplerinin gündeminde olan teknik bir konu gibi görülür. Oysa 2026’da yatırım maliyetlerinin yükselmesi, küçük ve…
 featuredImage:
-  url: /wp-content/uploads/2026/07/2026-Amortisman.png
+  image: /img/blog-featured/2026-amortisman-oranlari-ve-siniri-hakkinda-detaylar/featured.png
   alt: 2026 Amortisman Oranları ve Sınırı Hakkında Detaylar
   width: 1672
   height: 941

@@ -4,7 +4,7 @@ title: Personel Servisi Yönetmeliği
 date: '2022-08-05T17:05:02'
 excerpt: Personel servisi yönetmeliği post pandemi sürecinde en sık merak edilen konular arasında yer alıyor. Personeller İş Kanunu hükümleri gereğince işyerine…
 featuredImage:
-  url: /wp-content/uploads/2022/08/Personellere-Servis-Hizmeti-saglanmasi.jpg
+  image: /img/blog-featured/personel-servisi-yonetmeligi/featured.jpg
   alt: Personel Servisi Yönetmeliği
   width: 1515
   height: 999

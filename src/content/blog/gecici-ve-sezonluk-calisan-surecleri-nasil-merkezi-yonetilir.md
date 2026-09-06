@@ -4,7 +4,7 @@ title: Geçici ve Sezonluk Çalışan Süreçleri Nasıl Merkezi Yönetilir?
 date: '2026-08-21T14:00:00'
 excerpt: Otel, restoran, perakende ve etkinlik operasyonlarında çalışan ihtiyacı her zaman kalıcı kadroyla karşılanmaz. Yoğun dönemlerde geçici çalışanlar, dönemsel…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Gecici-ve-Sezonluk-Calisan-Surecleri-Nasil-Merkezi-Yonetilir_-1.webp
+  image: /img/blog-featured/gecici-ve-sezonluk-calisan-surecleri-nasil-merkezi-yonetilir/featured.webp
   alt: Geçici ve Sezonluk Çalışan Süreçleri Nasıl Merkezi Yönetilir?
   width: 1672
   height: 941

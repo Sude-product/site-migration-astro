@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
 date: '2024-03-15T16:49:11'
 excerpt: Günümüzde insan kaynakları profesyonellerinin, iş gücünü oluşturan insan sermayesini şekillendiren rekabet, aidiyet ve adaletli yönetim beklentisi gibi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/bursa-ik-zirvesi-20240417-1-1392x783-1.jpg
+  image: /img/blog-featured/insan-kaynaklarinin-dijital-donusumu-zirvesi-bursa/featured.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
   width: 1392
   height: 783

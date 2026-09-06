@@ -4,7 +4,7 @@ title: 'Sessiz İstifa: Yeni Fenomen'
 date: '2022-09-08T12:50:14'
 excerpt: Sessiz istifa kavramı her geçen gün daha popüler geliyor ve büyük istifa dönemi sona ererken yeni bir dönem başlıyor. Geçtiğimiz yıl popüler bir internet…
 featuredImage:
-  url: /wp-content/uploads/2022/09/sessiz-istifa-kad─▒n.jpg
+  image: /img/blog-featured/sessiz-istifa/featured.jpg
   alt: 'Sessiz İstifa: Yeni Fenomen'
   width: 1514
   height: 998

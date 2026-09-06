@@ -4,7 +4,7 @@ title: Aile Şirketlerinde İnsan Kaynakları Yönetimi
 date: '2021-03-08T13:47:09'
 excerpt: Aile şirketlerinde insan kaynakları yönetimi son zamanların en hassas ve dikkat gerektiren konularından biridir. İK departmanının aile üyeleri ile oldukça…
 featuredImage:
-  url: /wp-content/uploads/2021/03/aile-sirketlerinde-ik-yonetimi-insan-kaynaklari-yonetimi-nedir@2x.png
+  image: /img/blog-featured/aile-sirketlerinde-insan-kaynaklari-yonetimi/featured.png
   alt: Aile Şirketlerinde İnsan Kaynakları Yönetimi
   width: 1514
   height: 999

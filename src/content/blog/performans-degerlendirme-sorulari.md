@@ -4,7 +4,7 @@ title: Performans Değerlendirme Soruları
 date: '2025-10-30T20:32:20'
 excerpt: Performans değerlendirme ile işletme belirlenen zaman dilimlerinde çalışan performanslarının ölçümlerini sağlayabiliyor. Bu inceleme esnasında sorulan…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Performans-Değerlendirme-Sorulari-–-Yönetici-ve-Çalişan-Hangi-Sorulari-Sormali@2x.png
+  image: /img/blog-featured/performans-degerlendirme-sorulari/featured.png
   alt: Performans Değerlendirme Soruları
   width: 1514
   height: 998

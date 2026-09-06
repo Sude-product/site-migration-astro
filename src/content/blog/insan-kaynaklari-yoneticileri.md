@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yöneticileri için Kitaplar
 date: '2019-12-18T17:46:58'
 excerpt: Şirketlerde çalışanların verimli bir şekilde çalışabilmesini sağlamak, yönetici ve insan kaynakları yöneticileri ve insan kaynakları uzmanlarının görevidir. Bu…
 featuredImage:
-  url: /wp-content/uploads/2025/08/kitap-okuma@3x-100.jpg
+  image: /img/blog-featured/insan-kaynaklari-yoneticileri/featured.jpg
   alt: İnsan Kaynakları Yöneticileri için Kitaplar
   width: 2272
   height: 1497

@@ -4,7 +4,7 @@ title: 'Bumerang Çalışanlar: Yeniden İşe Alımın Yükselişi'
 date: '2023-01-13T11:17:42'
 excerpt: Bumerang çalışanlar, herhangi bir nedenle çalıştığı şirketten ayrılan ve daha sonra geri dönen kişileri tanımlıyor. Geçmiş yıllarda istifa eden bir çalışanın…
 featuredImage:
-  url: /wp-content/uploads/2023/01/bumerang-calisanlar.jpg
+  image: /img/blog-featured/bumerang-calisanlar/featured.jpg
   alt: 'Bumerang Çalışanlar: Yeniden İşe Alımın Yükselişi'
   width: 1515
   height: 999

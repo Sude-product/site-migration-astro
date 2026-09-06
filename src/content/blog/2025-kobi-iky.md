@@ -4,7 +4,7 @@ title: KOBİ’ler için 2025 İKY Kılavuzu
 date: '2025-01-31T22:30:00'
 excerpt: Küçük ve orta ölçekli işletmeler için insan kaynakları yönetimi, başarılı bir büyüme sürecinin sırrı rolünü üstleniyor. Doğru yetenekleri çekmek, çalışan…
 featuredImage:
-  url: /wp-content/uploads/2025/08/KOBIler-icin-2025-IK-Klavuzu.jpg
+  image: /img/blog-featured/2025-kobi-iky/featured.jpg
   alt: KOBİ’ler için 2025 İKY Kılavuzu
   width: 1280
   height: 721

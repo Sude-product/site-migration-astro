@@ -4,7 +4,7 @@ title: Kuşak Farkı Bir Avantaja Dönüştürülebilir mi?
 date: '2022-05-05T13:45:40'
 excerpt: Kuşak farkı konusu özellikle Z kuşağının aktif olarak iş hayatına katılması ile iş dünyasında sık konuşulan konular arasında yerini aldı. İK dünyası…
 featuredImage:
-  url: /wp-content/uploads/2022/05/xyz.jpg
+  image: /img/blog-featured/kusak-farki/featured.jpg
   alt: Kuşak Farkı Bir Avantaja Dönüştürülebilir mi?
   width: 1514
   height: 998

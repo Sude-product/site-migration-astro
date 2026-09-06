@@ -4,7 +4,7 @@ title: Korku Kültürü ile Savaşarak Şirketinizi Bir Adım İleri Taşıyın
 date: '2022-01-11T17:37:23'
 excerpt: Korku kültürü, iş dünyasında varlık gösteren herkes tarafından bilinen fakat hakkında konuşulmayan gerçekler arasında yer alıyor. Özellikle son yıllarda…
 featuredImage:
-  url: /wp-content/uploads/2022/01/Korku-Kültürü-ile-Savaşarak-Şirketinizi-Bir-Adim-İleri-Taşiyin.jpg
+  image: /img/blog-featured/korku-kulturu/featured.jpg
   alt: Korku Kültürü ile Savaşarak Şirketinizi Bir Adım İleri Taşıyın
   width: 759
   height: 501

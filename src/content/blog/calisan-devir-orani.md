@@ -4,7 +4,7 @@ title: Çalışan Devir Oranı Rehberi
 date: '2025-07-15T20:52:49'
 excerpt: Çalışan devir oranı işletmeniz için düşündüğünüzden çok daha yüksek maliyetlere neden olabilir. İnsan kaynakları kavramından kısa süre sonra şekillenen ve o…
 featuredImage:
-  url: /wp-content/uploads/2025/07/Calisan-Devir-Orani.jpg
+  image: /img/blog-featured/calisan-devir-orani/featured.jpg
   alt: Çalışan Devir Oranı Rehberi
   width: 1024
   height: 675

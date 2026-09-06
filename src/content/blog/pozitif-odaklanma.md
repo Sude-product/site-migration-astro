@@ -4,7 +4,7 @@ title: İş Hayatında Pozitif Odaklanma
 date: '2023-07-28T15:07:52'
 excerpt: Pozitif odaklanma, odaklanma becerisini olumlu düşünceler ve duygularla yönlendirmeyi ifade eder. Bu, günlük yaşamda karşılaşılan zorluklara, stresli durumlara…
 featuredImage:
-  url: /wp-content/uploads/2023/07/pozitif-odaklanma@2x-100.jpg
+  image: /img/blog-featured/pozitif-odaklanma/featured.jpg
   alt: İş Hayatında Pozitif Odaklanma
   width: 1620
   height: 811

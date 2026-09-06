@@ -4,7 +4,7 @@ title: İşten Çıkış Mülakatları Nasıl Verimli Gerçekleştirilir?
 date: '2021-10-28T15:30:08'
 excerpt: İşten çıkış mülakatları, işverenlerin görevden ayrılan çalışanın görev süresinin sonunda gerçekleştirdiği görüşmedir. İşten çıkış süreci en az insan kaynakları…
 featuredImage:
-  url: /wp-content/uploads/2021/10/isten-cikis-mulakatlarini-onemseyin-@2x-3.png
+  image: /img/blog-featured/isten-cikis-mulakatlari/featured.png
   alt: İşten Çıkış Mülakatları Nasıl Verimli Gerçekleştirilir?
   width: 1515
   height: 999

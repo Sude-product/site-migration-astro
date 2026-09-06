@@ -4,7 +4,7 @@ title: İşletmelerde Çatışma Yönetimi
 date: '2021-04-16T09:57:01'
 excerpt: İşletmelerde çatışma yönetimi konusu, kontrol altında tutulması gereken oldukça önemli bir alandır. Çünkü kurum içindeki veya kişiler arasındaki çatışmaya…
 featuredImage:
-  url: /wp-content/uploads/2021/04/isletmelerde-catisma-yonetimi.jpg
+  image: /img/blog-featured/isletmelerde-catisma-yonetimi/featured.jpg
   alt: İşletmelerde Çatışma Yönetimi
   width: 1515
   height: 999

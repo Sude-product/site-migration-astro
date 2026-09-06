@@ -4,7 +4,7 @@ title: Linkedin Nedir? Adım Adım Linkedin Profil Oluşturma
 date: '2020-10-14T19:42:31'
 excerpt: Son zamanların en popüler sorularından biri Linkedin nedir ve ne işe yarar sorusudur. “ Linkedin nedir ?” sorusuna cevap verecek olursak; dünya çapında işini…
 featuredImage:
-  url: /wp-content/uploads/2020/10/linkedin-nedir-adim-adim-linkedin-profil-olusturma.png
+  image: /img/blog-featured/linkedin-nedir-linkedin-profil-olusturma/featured.png
   alt: Linkedin Nedir? Adım Adım Linkedin Profil Oluşturma
   width: 2271
   height: 1497

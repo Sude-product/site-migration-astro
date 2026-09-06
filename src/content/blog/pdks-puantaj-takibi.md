@@ -4,7 +4,7 @@ title: İK Departmanları için PDKS Puantaj Çözümü 2026 Rehberi
 date: '2025-12-25T18:41:18'
 excerpt: 2026’ya yaklaşırken İK departmanlarının en büyük sınavı artık yalnızca personel sayısını yönetmek değil; zamanı, emeği ve veriyi doğru okumak oluyor. Dağınık…
 featuredImage:
-  url: /wp-content/uploads/2025/12/Ik-Departmanlari-icin-PDKS-Puantaj-Cozumu-2026-Rehberi@2x.png
+  image: /img/blog-featured/pdks-puantaj-takibi/featured.png
   alt: İK Departmanları için PDKS Puantaj Çözümü 2026 Rehberi
   width: 1281
   height: 720

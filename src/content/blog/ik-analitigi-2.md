@@ -4,7 +4,7 @@ title: İK Analitiği Sunumu Hazırlama Rehberi
 date: '2024-08-11T20:10:09'
 excerpt: İnsan kaynakları (İK) analitiği, şirketlerin stratejik karar alma süreçlerinde giderek daha kritik bir rol oynuyor. Ancak, bu verileri sadece toplamak yeterli…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ik-analitigi-sunumu-hazirlama-rehberi-.jpg
+  image: /img/blog-featured/ik-analitigi-2/featured.jpg
   alt: İK Analitiği Sunumu Hazırlama Rehberi
   width: 1281
   height: 721

@@ -4,7 +4,7 @@ title: Başarılı Bir İK Uzmanı Olabilmek İçin Gereken 8 Özellik
 date: '2020-12-18T17:18:13'
 excerpt: İK uzmanı, başarılı olabilmek için şirketlerin birbirinden farklı ihtiyaçlara sahip olduğunu bilir ve işletme büyümesi için çaba harcar. Şirketlerde İK…
 featuredImage:
-  url: /wp-content/uploads/2020/12/Başarili-Bir-İKcinin-Sahip-Olmasi-Gereken-Özellikler@2x.png
+  image: /img/blog-featured/ik-uzmani-olabilmek-icin-gereken-ozellikler/featured.png
   alt: Başarılı Bir İK Uzmanı Olabilmek İçin Gereken 8 Özellik
   width: 1514
   height: 998

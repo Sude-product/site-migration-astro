@@ -4,7 +4,7 @@ title: Nakdi Yardım
 date: '2024-11-27T23:35:12'
 excerpt: Nakdi yardım, ihtiyaç sahiplerine doğrudan para şeklinde yapılan destekleri ifade eder. Temel amacı, ekonomik sıkıntı yaşayan bireylerin veya ailelerin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/avans-yonetimi.jpg
+  image: /img/blog-featured/nakdi-yardim/featured.jpg
   alt: Nakdi Yardım
   width: 1280
   height: 720

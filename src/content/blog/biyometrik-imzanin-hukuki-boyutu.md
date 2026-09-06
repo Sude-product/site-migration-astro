@@ -4,7 +4,7 @@ title: Özlük Dosyaları Biyometrik İmza ile Hukuki Kimlik Kazanıyor
 date: '2020-05-22T17:26:50'
 excerpt: Özlük dosyalarının ve resmi belgelerin manuel yöntemlerle saklanması ve paylaşılması hem iş yükünü arttıran hem de hukuki boyutları olan bir durum. Idenfit…
 featuredImage:
-  url: /wp-content/uploads/2025/08/E-İMZA@3x-1.png
+  image: /img/blog-featured/biyometrik-imzanin-hukuki-boyutu/featured.png
   alt: Özlük Dosyaları Biyometrik İmza ile Hukuki Kimlik Kazanıyor
   width: 2272
   height: 1498

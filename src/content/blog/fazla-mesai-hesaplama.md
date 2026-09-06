@@ -4,7 +4,7 @@ title: Fazla Mesai Hesaplama Fazla Mesai Nasıl Hesaplanır?
 date: '2019-11-14T17:42:01'
 excerpt: Fazla mesai hesaplama çalışanlar açısından oldukça önem arz eden bir konudur. Çalışanların ve işverenlerin hak ve yükümlülükleri, hem çalışanlar hem de…
 featuredImage:
-  url: /wp-content/uploads/2019/11/fazla-mesai-hesaplama-fazla-mesai-nasil-hesaplanir.jpg
+  image: /img/blog-featured/fazla-mesai-hesaplama/featured.jpg
   alt: Fazla Mesai Hesaplama Fazla Mesai Nasıl Hesaplanır?
   width: 1515
   height: 1080

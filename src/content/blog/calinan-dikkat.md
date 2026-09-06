@@ -4,7 +4,7 @@ title: Çalınan Dikkat ve Ofis Ortamı
 date: '2024-01-02T00:10:00'
 excerpt: Ofis ortamında dikkat dağılması, çalışanların odaklanma ve konsantrasyonlarını sürdürmekte zorlandıkları durumları ifade eder. Bu durum, çeşitli faktörlerden…
 featuredImage:
-  url: /wp-content/uploads/2024/01/ofis-ortaminda-calinan-dikkate-dikkat.jpg
+  image: /img/blog-featured/calinan-dikkat/featured.jpg
   alt: Çalınan Dikkat ve Ofis Ortamı
   width: 1621
   height: 811

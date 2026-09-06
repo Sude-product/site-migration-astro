@@ -4,7 +4,7 @@ title: 7 Adımda İnsan Kaynaklarında Dijital Dönüşüm!
 date: '2020-09-11T16:47:18'
 excerpt: Yakın zamana kadar İK profesyonelleri organizasyonel dönüşümler, otomasyon veya yapay zeka konularında uyum problemleriyle ya da yönetimsel engellerle…
 featuredImage:
-  url: /wp-content/uploads/2025/08/7-adimda-dönüşüm@3x.png
+  image: /img/blog-featured/insan-kaynaklarinda-dijital-donusum/featured.png
   alt: 7 Adımda İnsan Kaynaklarında Dijital Dönüşüm!
   width: 2271
   height: 1497

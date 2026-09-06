@@ -4,7 +4,7 @@ title: İş Arama İzni Nedir?
 date: '2022-08-18T23:52:16'
 excerpt: İş arama izni, İş Kanunu içerisinde yer alan ve kanun kapsamında tüm işçilere tanınan haklardan biridir. Çalışmakta olduğu iş yerinden ayrılacak olan kişilere…
 featuredImage:
-  url: /wp-content/uploads/2022/08/is╠g-arama-izni-nedir-ve-nasil-hesaplanir.jpg
+  image: /img/blog-featured/is-arama-izni/featured.jpg
   alt: İş Arama İzni Nedir?
   width: 1515
   height: 999

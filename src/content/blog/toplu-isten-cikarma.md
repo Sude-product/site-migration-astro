@@ -4,7 +4,7 @@ title: Toplu İşten Çıkarma
 date: '2020-09-25T12:38:18'
 excerpt: Toplu işten çıkarma , işletmelerin zaman zaman yaşadıkları ekonomik sıkıntılardan kaynaklı veya başka sebeplerle işçi maliyetlerini azaltmak için çok sayıda…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Toplu-İşten-Çikarma-Hakkinda-Bilinmesi-Gerekenler@3x.png
+  image: /img/blog-featured/toplu-isten-cikarma/featured.png
   alt: Toplu İşten Çıkarma
   width: 2271
   height: 1497

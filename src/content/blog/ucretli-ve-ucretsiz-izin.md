@@ -4,7 +4,7 @@ title: Ücretli ve Ücretsiz İzin Şartları Nelerdir?
 date: '2024-10-30T22:02:24'
 excerpt: Ücretli ve ücretsiz izin arasındaki farkları ve bu izinlerin hangi koşullarda verildiğini bilmek, çalışanların haklarını koruma ve işverenlerin izin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ücretsizizin.png
+  image: /img/blog-featured/ucretli-ve-ucretsiz-izin/featured.png
   alt: Ücretli ve Ücretsiz İzin Şartları Nelerdir?
   width: 2272
   height: 1498

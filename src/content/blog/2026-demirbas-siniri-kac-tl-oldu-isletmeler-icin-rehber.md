@@ -4,7 +4,7 @@ title: 2026 Demirbaş Sınırı Kaç TL Oldu? İşletmeler İçin Rehber
 date: '2026-06-17T12:21:18'
 excerpt: 2026 demirbaş sınırı, işletmelerin satın alma kararlarından muhasebe kayıtlarına kadar birçok başlığı doğrudan etkiliyor. Çünkü bir harcamanın doğrudan gider…
 featuredImage:
-  url: /wp-content/uploads/2026/06/2026-Demirbas-Siniri-Kac-TL-Oldu.-Isletmeler-Icin-Rehber.jpg
+  image: /img/blog-featured/2026-demirbas-siniri-kac-tl-oldu-isletmeler-icin-rehber/featured.jpg
   alt: 2026 Demirbaş Sınırı Kaç TL Oldu? İşletmeler İçin Rehber
   width: 1280
   height: 721

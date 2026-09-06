@@ -4,7 +4,7 @@ title: 2024 Yılında Takım Ruhunu Artıracak 5 Çalışan Bağlılığı Oyunu
 date: '2024-02-29T11:29:14'
 excerpt: Çalışan bağlılığını arttırmanın pek çok yöntemi vardır. Pek çok geleneksel yöntemi yanında postmodern bir yöntem olarak son dönemde popülerliği artan…
 featuredImage:
-  url: /wp-content/uploads/2025/08/WhatsApp-Image-2024-02-29-at-11.24.58-1392x696-1.jpeg
+  image: /img/blog-featured/calisan-bagliligi-oyunu/featured.jpeg
   alt: 2024 Yılında Takım Ruhunu Artıracak 5 Çalışan Bağlılığı Oyunu
   width: 1392
   height: 696

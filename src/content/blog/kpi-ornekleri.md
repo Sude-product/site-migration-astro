@@ -4,7 +4,7 @@ title: Kpi Örnekleri – (Anahtar Performans Göstergesi Örnekleri)
 date: '2025-11-04T19:11:05'
 excerpt: Kpi örnekleri konusunu açıklamak için öncelikle Kpi kavramını incelemek gerekir. “ Key Performance Indicator” kelimelerinin baş harflerinden oluşur. Kpi…
 featuredImage:
-  url: /wp-content/uploads/2020/10/kpi_ornekleri.png
+  image: /img/blog-featured/kpi-ornekleri/featured.png
   alt: Kpi Örnekleri – (Anahtar Performans Göstergesi Örnekleri)
   width: 2271
   height: 1497
