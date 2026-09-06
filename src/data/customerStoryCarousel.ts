@@ -55,6 +55,20 @@ export interface VideoCarouselCard extends CarouselCardBase {
    * paylaşılmadı) eski tıkla-oynat davranışı DEĞİŞMEDEN kalır. */
   loopStart?: number;
   loopEnd?: number;
+  /** Yerel, önceden kesilmiş sessiz döngü videosu (2026-09-06, kullanıcı
+   * isteği — bu videoların hepsi şirketin KENDİ YouTube kanalına
+   * yüklediği, kullanım izni olan içerik). `loopStart`/`loopEnd`
+   * saniyeleri `yt-dlp`+`ffmpeg` ile BİREBİR bu aralığı kare-doğru
+   * (`-c copy` DEĞİL, yeniden encode) kesilerek üretildi — kaynak
+   * saniyeler hâlâ ÜRETİM KOMUTUNUN referansı, video dosyası bu
+   * aralığın DIŞINA hiç çıkmıyor. Verilmişse `VideoCard` artık gerçek
+   * bir YouTube IFrame Player'ı (`BackgroundLoopVideo`) DEĞİL, düz bir
+   * `<video>` etiketi render ediyor — YouTube'un kendi arayüzünün
+   * (başlık/altyazı/kontrol) sızması mimari olarak İMKANSIZ hale geliyor
+   * (oynatılan artık bizim kendi dosyamız, üçüncü taraf bir iframe
+   * değil). Verilmemişse (henüz yerel dosyaya taşınmamış kartlar) eski
+   * YouTube tabanlı döngü DEĞİŞMEDEN çalışmaya devam ediyor. */
+  loopVideoUrl?: string;
 }
 
 export interface QuoteCarouselCard extends CarouselCardBase {
@@ -94,6 +108,10 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     // doğrulanmadı, doğrudan kullanıcı kararı uygulandı.
     loopStart: 41,
     loopEnd: 59,
+    // PİLOT (2026-09-06) — `yt-dlp`+`ffmpeg` ile üretilen yerel dosya,
+    // bkz. `loopVideoUrl` alan yorumu. Onay sonrası kalan 3 videoya
+    // (Beyaz Fırın/Femaş/ibis Styles) da aynı yöntemle uygulanacak.
+    loopVideoUrl: '/videos/civil-loop.mp4',
   },
   {
     type: 'quote',
@@ -135,6 +153,9 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     // Kullanıcı kendi izleyip 46sn-1dk15sn (75sn) aralığını BİZZAT verdi.
     loopStart: 46,
     loopEnd: 75,
+    // TAM UYGULAMA (2026-09-06) — pilot Civil'de onaylanan yöntem
+    // (yt-dlp+ffmpeg, 960px/CRF20/kare-doğru kesim) bu videoya da uygulandı.
+    loopVideoUrl: '/videos/beyazfirin-loop.mp4',
   },
   {
     type: 'stat',
@@ -179,6 +200,8 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     // aralığını BİZZAT verdi.
     loopStart: 37,
     loopEnd: 55,
+    // TAM UYGULAMA (2026-09-06) — bkz. Beyaz Fırın'ın AYNI yorumu.
+    loopVideoUrl: '/videos/femas-loop.mp4',
   },
   {
     type: 'quote',
@@ -229,6 +252,8 @@ export const CUSTOMER_CAROUSEL_CARDS: CustomerCarouselCard[] = [
     videoUrl: 'https://youtu.be/UDHFuDB53n8',
     loopStart: 31,
     loopEnd: 59,
+    // TAM UYGULAMA (2026-09-06) — bkz. Beyaz Fırın'ın AYNI yorumu.
+    loopVideoUrl: '/videos/ibis-loop.mp4',
     anchorId: 'ibisStyles',
   },
   {

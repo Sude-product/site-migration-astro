@@ -30,6 +30,10 @@ export interface VideoCardData extends CardBase {
    * oynayan bir arka plan videosu render eder. */
   loopStart?: number;
   loopEnd?: number;
+  /** Verilmişse (2026-09-06) YouTube IFrame Player DEĞİL, düz bir yerel
+   * `<video>` etiketi render edilir — bkz. `customerStoryCarousel.ts`'in
+   * `VideoCarouselCard.loopVideoUrl` yorumu. */
+  loopVideoUrl?: string;
 }
 
 export interface QuoteCardData extends CardBase {
@@ -236,6 +240,7 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
       mute: () => void;
       playVideo: () => void;
       destroy: () => void;
+      unloadModule: (module: string) => void;
     } | null = null;
     let intervalId: ReturnType<typeof setInterval> | null = null;
     let cancelled = false;
@@ -254,11 +259,20 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
           rel: 0,
           disablekb: 1,
           iv_load_policy: 3,
+          cc_load_policy: 0,
           start,
         },
         events: {
           onReady: (e: { target: NonNullable<typeof player> }) => {
             e.target.mute();
+            // `cc_load_policy:0` YouTube'un kendi dokümantasyonuna göre
+            // yalnızca "kullanıcı tercihine göre davran" demek — bazı
+            // videolarda (yükleyicinin zorladığı/otomatik çeviri altyazı)
+            // ALTYAZIYI ZORLA KAPATMIYOR (kullanıcı bulgusu, 2026-09-06:
+            // altyazı metni videonun altında GERÇEKTEN yanıyordu).
+            // `unloadModule('captions')` altyazı modülünü oynatıcıdan
+            // TAMAMEN çıkarıyor — playerVars'ın aksine kesin/zorlayıcı.
+            e.target.unloadModule('captions');
             e.target.playVideo();
             intervalId = setInterval(() => {
               if (e.target.getCurrentTime() >= end) e.target.seekTo(start, true);
@@ -267,8 +281,15 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
           // `1` = `YT.PlayerState.PLAYING` (henüz API script yüklenmeden
           // sabit kullanılamadığı için sayısal literal — resmi YouTube
           // IFrame API sabiti).
-          onStateChange: (e: { data: number }) => {
-            if (e.data === 1) setStarted(true);
+          onStateChange: (e: { data: number; target: NonNullable<typeof player> }) => {
+            if (e.data === 1) {
+              setStarted(true);
+              // Altyazı modülü `seekTo` sonrası (özellikle döngünün başa
+              // sardığı her an) sessizce YENİDEN yüklenebiliyor — her
+              // `PLAYING` durumunda tekrar kapatılıyor, tek seferlik
+              // `onReady` çağrısı döngü boyunca yeterli olmuyordu.
+              e.target.unloadModule('captions');
+            }
           },
         },
       });
@@ -304,6 +325,99 @@ function BackgroundLoopVideo({ videoId, start, end, title }: { videoId: string; 
   );
 }
 
+// Yerel, önceden kesilmiş sessiz döngü videosu (2026-09-06) —
+// `BackgroundLoopVideo`'nun (gerçek YouTube IFrame Player) YERİNE geçer.
+// Artık üçüncü taraf bir oynatıcı/iframe YOK — bu yüzden YouTube'un kendi
+// başlık/altyazı/kontrol arayüzünün sızması mimari olarak imkansız (önceki
+// turlarda `cc_load_policy`/`unloadModule('captions')`/CSS karartma ile
+// uğraşılan sorunun kökten çözümü). Video dosyası zaten `loopStart`/
+// `loopEnd` aralığına kare-doğru kesilmiş halde geliyor — burada ayrıca
+// bir `start`/`end`/`seekTo` mantığına GEREK YOK, düz `loop` yeterli.
+// DÜZELTME (2026-09-06, kullanıcı düzeltmesi — "tıklayınca YouTube'a
+// yönlendirecek, SADECE BUTON KOYMAMANI istemiştim"): tıklama davranışı
+// (kartın tamamını kaplayan görünmez `<a>`, gerçek YouTube izleme
+// sayfasına yeni sekmede götürüyor) GERİ EKLENDİ — bir önceki turda
+// yanlış anlaşılıp tamamen kaldırılmıştı. Kaldırılması gereken yalnızca
+// GÖRÜNÜR ipucuydu (hover'daki "▶ YouTube'da izle" rozeti) — o rozet
+// kalıcı olarak kaldırıldı, tıklanabilirlik SESSİZCE duruyor (kullanıcı
+// tıklarsa gider, görsel bir çağrı/rozet YOK).
+// TEMBEL YÜKLEME (2026-09-06, kullanıcı bulgusu — carousel'deki 4 video
+// kartı da, ekranda görünsün görünmesin, sayfa yüklenir yüklenmez AYNI ANDA
+// yükleniyordu; `<video src>` DOM'a hemen konduğu için tarayıcı hiç
+// görünmeyen 3 kartın videosunu da indirmeye başlıyordu). Çözüm:
+// `IntersectionObserver` — bir kez görünüp yüklendikten SONRA `shouldLoad`
+// kalıcı `true` kalıyor — kullanıcı kartı kaydırıp geri gelirse video
+// YENİDEN İNDİRİLMİYOR (tarayıcı zaten önbelleğe aldı).
+// DÜZELTME (2026-09-06, kullanıcı şartı — "SADECE dosyanın indirilmesi
+// ertelensin, `<video>` ETİKETİ statik HTML'den hiç kaybolmamalı"): önceki
+// sürüm `{shouldLoad && <video .../>}` şeklindeydi — `shouldLoad`'ın
+// SUNUCU/BUILD zamanındaki başlangıç değeri her zaman `false` olduğu için
+// (İntersectionObserver yalnızca tarayıcıda var), `<video>` etiketinin
+// TAMAMI `dist/`'teki statik HTML'den TAMAMEN kayboluyordu — JS hiç
+// çalışmasa/gecikse bile (crawler, JS kapalı kullanıcı, yavaş hydration)
+// içerik boş kalırdı. Artık `<video>` etiketi HER ZAMAN render ediliyor
+// (`preload="none"`, `src` YOK) — yalnızca `src` özniteliği `shouldLoad`
+// `true` olunca EKLENİYOR. Tarayıcı, `src` özniteliği hiç yokken hiçbir
+// medya isteği ATMAZ (indirme ertelemesi burada gerçekleşiyor), ama
+// `<video>` elemanının kendisi baştan beri DOM'da/statik HTML'de var.
+function LocalLoopVideo({ src, videoId, title }: { src: string; videoId: string; title: string }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [shouldLoad, setShouldLoad] = useState(false);
+
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el || shouldLoad) return;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '200px' },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // `autoplay` HTML özniteliği tek başına yeterli olmayabiliyor (tarayıcının
+  // kendi arka-plan-sekme/görünürlük sezgiselleri devreye girip videoyu
+  // sessizce duraklatabiliyor) — `BackgroundLoopVideo`'nun `playVideo()`'yu
+  // AÇIKÇA çağırdığı AYNI dayanıklılık deseni: mount'ta (artık `shouldLoad`
+  // true olunca) ve her `pause` olayında (kullanıcı bir şey yapmadan,
+  // tarayıcı kendi kendine durdurduysa) yeniden `play()` deneniyor.
+  useEffect(() => {
+    if (shouldLoad) videoRef.current?.play().catch(() => {});
+  }, [shouldLoad]);
+
+  return (
+    <div ref={containerRef} className="absolute inset-0 overflow-hidden bg-black">
+      <video
+        ref={videoRef}
+        src={shouldLoad ? src : undefined}
+        preload="none"
+        autoPlay
+        muted
+        loop
+        playsInline
+        onPause={(e) => {
+          e.currentTarget.play().catch(() => {});
+        }}
+        className="pointer-events-none absolute inset-0 h-full w-full object-cover"
+      />
+      <a
+        href={`https://www.youtube.com/watch?v=${videoId}`}
+        target="_blank"
+        rel="noreferrer noopener"
+        aria-label={title}
+        className="absolute inset-0"
+      />
+    </div>
+  );
+}
+
 function VideoCard({ card, variant }: { card: VideoCardData; variant: CardVariant }) {
   const v = VARIANT_STYLES[variant];
   // 2026-08-24, kullanıcı isteği — `loopStart`/`loopEnd` verilmiş kartlar
@@ -319,22 +433,39 @@ function VideoCard({ card, variant }: { card: VideoCardData; variant: CardVarian
       className={`group relative ${CARD_HEIGHT} overflow-hidden rounded-[1.75rem] ring-1 ring-white/70 transition-transform duration-300 hover:-translate-y-1 ${CARD_SHADOW}`}
     >
       <div className="absolute inset-0">
-        {hasLoop ? (
+        {card.loopVideoUrl ? (
+          <LocalLoopVideo src={card.loopVideoUrl} videoId={videoId} title={card.companyName} />
+        ) : hasLoop ? (
           <BackgroundLoopVideo videoId={videoId} start={card.loopStart!} end={card.loopEnd!} title={card.companyName} />
         ) : (
           <YoutubeClickToPlay videoUrl={card.videoUrl} title={card.companyName} playLabel={card.playLabel} />
         )}
       </div>
-      {/* Üst/alt karartma — video görseli üzerindeki beyaz metnin okunabilirliği için. */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-black/70 to-transparent" />
+      {/* Üst/alt karartma — video görseli üzerindeki beyaz metnin okunabilirliği için.
+          Üstteki karartma İKİ FARKLI moda sahip: hâlâ YouTube tabanlı oynatılan
+          kartlarda (`BackgroundLoopVideo`/`YoutubeClickToPlay`, `loopVideoUrl` YOK)
+          0-40% aralığında BİLEREK TAM OPAK kalıyor (kullanıcı bulgusu, 2026-09-06:
+          `controls=0` YouTube'un kendi video başlığını/CC simgesini engellemiyor,
+          oynatıcı `PLAYING`'e geçmeden YouTube bu overlay'i kısa süreliğine
+          gösterebiliyor — resmi bir URL parametresi yok, tam opak karartma TEK
+          güvenilir gizleme yöntemi). Yerel video dosyasına taşınmış kartlarda
+          (`loopVideoUrl` VAR) bu risk mimari olarak yok — kullanıcı isteğiyle
+          (2026-09-06, ikinci tur) karartma KISMEN ŞEFFAF bir gradyana çevrildi,
+          video arkada hafifçe görünüyor, metin hâlâ okunabilir kalıyor. */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-36"
+        style={{
+          background: card.loopVideoUrl
+            ? 'linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0) 100%)'
+            : 'linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 40%, rgba(0,0,0,0) 100%)',
+        }}
+      />
       <div className={`pointer-events-none absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t ${v.scrimFrom} to-transparent`} />
       <CardStar tone="text-white" />
       <p className="pointer-events-none absolute left-6 right-16 top-6 text-lg font-semibold leading-snug text-white">{card.headline}</p>
-      <div className="absolute inset-x-6 bottom-6 flex items-end">
-        {card.readMoreHref && card.readMoreLabel && (
-          <ReadMoreLink href={card.readMoreHref} label={card.readMoreLabel} tone="white" />
-        )}
-      </div>
+      {/* "Devamını Oku" bu 4 videolu karttan TAMAMEN kaldırıldı (2026-09-06,
+          kullanıcı isteği — yalnızca video kartları, diğer alıntı/istatistik
+          kartlarında `ReadMoreLink` AYNEN kalıyor, bkz. `QuoteCard`/`StatCard`). */}
       <CardLogo url={card.logoUrl} width={card.logoWidth} height={card.logoHeight} alt={card.companyName} />
     </div>
   );
