@@ -1,0 +1,67 @@
+---
+// Google Analytics 4 + Google Consent Mode v2 (2026-09-07, Açık nokta
+// SEO-18 — "sitede hiç analitik yok" bulgusu).
+//
+// NEDEN CONSENT MODE: site KVKK kapsamında çalışıyor ve zaten bir çerez
+// onay banner'ı (Cookie-Script) taşıyor. Consent Mode v2 olmadan eklenen
+// bir GA4, ziyaretçi onay vermeden ÖNCE ölçüm yapardı — hem hukuken
+// sorunlu hem de banner'ı anlamsız kılardı. Bu bileşen, ölçümü
+// varsayılan olarak KAPALI başlatır ve yalnızca Cookie-Script "granted"
+// güncellemesini gönderdiğinde açılmasına izin verir.
+//
+// YÜKLEME SIRASI KRİTİK — bu bileşen `<meta charset>` ile Cookie-Script
+// etiketi ARASINA konur (bkz. BaseLayout/LandingLayout). Google'ın kendi
+// kuralı: `consent default` komutu HER Google tag'inden ve her `consent
+// update`'ten ÖNCE çalışmalı. Cookie-Script'in kendi belgesi de banner
+// embed'inin Google tag'lerinin üstünde olmasını istiyor — bu sıralama
+// ikisini birden karşılıyor:
+//   1) burada: consent = denied (güvenli taban)
+//   2) Cookie-Script yüklenir, ziyaretçinin seçimine göre `update` gönderir
+//   3) gtag.js async yüklenir ve o anki consent durumuna uyar
+// `wait_for_update: 500` bu üçlü arasındaki yarışı kapatır: gtag, consent
+// güncellemesi için 500ms bekler, erken/onaysız ölçüm göndermez.
+//
+// KURULUM: ölçüm kimliği ortam değişkeninden gelir, koda GÖMÜLMEZ.
+// `PUBLIC_GA4_MEASUREMENT_ID` tanımlı DEĞİLSE bu bileşen HİÇBİR ŞEY
+// render etmez — yani anahtar gelene kadar sitede tek satır analitik
+// kodu bulunmaz (bkz. `.env.example`). Astro `PUBLIC_*` değişkenlerini
+// BUILD ZAMANINDA gömer; sayfalar prerender edildiği için değişkenin
+// Cloudflare'ın BUILD ortamında tanımlı olması gerekir (runtime
+// secret'ları gibi `wrangler secret` ile DEĞİL).
+//
+// ⚠️ TEK ELLE ADIM: Cookie-Script panelinde Settings > Google Consent
+// Mode > "Enable Google Consent Mode v2" AÇIK olmalı. Kapalıysa banner
+// hiç `consent update` göndermez ve GA4 kalıcı olarak "denied"da kalıp
+// hiç veri toplamaz (sessizce — hata vermez). Kurulumdan sonra bu
+// mutlaka doğrulanmalı.
+const measurementId = import.meta.env.PUBLIC_GA4_MEASUREMENT_ID;
+const gtagSrc = measurementId ? `https://www.googletagmanager.com/gtag/js?id=${measurementId}` : '';
+---
+
+{
+  measurementId && (
+    <>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() {
+          dataLayer.push(arguments);
+        }
+        gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: 'denied',
+          functionality_storage: 'denied',
+          personalization_storage: 'denied',
+          security_storage: 'granted',
+          wait_for_update: 500,
+        });
+        gtag('js', new Date());
+      </script>
+      <script async src={gtagSrc} is:inline />
+      <script is:inline define:vars={{ measurementId }}>
+        gtag('config', measurementId, { anonymize_ip: true });
+      </script>
+    </>
+  )
+}

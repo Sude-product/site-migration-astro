@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -160,6 +161,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 <html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
+		<Analytics />
 		<!-- Cookie-Script çerez onay banner'ı — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="text/javascript"

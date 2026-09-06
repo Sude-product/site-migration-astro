@@ -8,6 +8,7 @@
 import '../styles/global.css';
 import LandingHeader from '../components/LandingHeader.astro';
 import LandingFooter from '../components/LandingFooter.astro';
+import Analytics from '../components/Analytics.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 
 interface Props {
@@ -43,6 +44,7 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 <html lang="tr">
 	<head>
 		<meta charset="utf-8" />
+		<Analytics />
 		<!-- Cookie-Script çerez onay banner'ı (Landing) — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="text/javascript"
