@@ -160,41 +160,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 <html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
-		<!-- CookieScript.com çerez onay banner'ı (2026-09-02) — kullanıcının
-		     cookie-script.com panelinden aldığı gömme kodu, mümkün olduğunca
-		     erken (charset'ten hemen sonra) yüklenir (CookieScript'in kendi
-		     yerleştirme önerisi — SONRAKİ üçüncü taraf script'leri onay
-		     alınana kadar engelleyebilmesi için).
-		     İKİ DÜZELTME uygulandı, ikisi de Chrome'da CANLI test edilip
-		     doğrulandı (bkz. CLAUDE.md):
-		     1. **`type` özniteliği** — panelden kopyalanan ham kod
-		        `type="09207fd21f00871cda04c7eb-text/javascript"` taşıyordu
-		        (hesaba özel bir önek + "-text/javascript"). Tarayıcı
-		        TANIMADIĞI bir `type` değeri taşıyan `<script>` etiketlerini
-		        SESSİZCE atlıyor — HİÇ ağ isteği ATMIYOR (HTML Standard'ın
-		        script-etiketi işleme algoritması, boş/`text/javascript`/
-		        `module` dışındaki tipleri "veri bloğu" sayıp yürütmüyor).
-		        Bu, Cookie-Script'in WordPress eklentisine özel bir
-		        paketleme deseni (kendi WP eklentisinin çalışma zamanı JS'i
-		        muhtemelen bu tipi tanıyıp yeniden yazıyor) — bizim
-		        projemizde (statik Astro, WP eklentisi yok) hiçbir şey bu
-		        etiketi ETKİNLEŞTİRMİYORDU, banner asla YÜKLENMİYORDU (network
-		        sekmesinde `cookie-script.com`'a sıfır istek — doğrulandı).
-		        Standart/genel (WordPress-dışı) kurulum kodunun kullandığı
-		        gerçek `type="text/javascript"`'e düzeltildi — kaynak/id
-		        DEĞİŞMEDİ, yalnızca tip.
-		     2. **`data-cs-platform` ÖZNİTELİĞİ KASITLI OLARAK ATLANDI** —
-		        script'in kendi kaynağı incelendi (`geo.cookie-script.com/s/*.js`):
-		        bu öznitelik yalnızca `wp_consent_*` önekli çerezleri
-		        (WordPress'in native Consent API'si) otomatik "strict" sayıp
-		        taramadan muaf tutuyor (`data-cs-platform==='wordpress'`
-		        kontrolü, kaynak koddan doğrulandı) — proje artık Astro/
-		        statik, hiçbir zaman `wp_consent_*` çerezi üretilmiyor, bu
-		        yüzden öznitelik burada tamamen etkisiz/anlamsız olurdu.
-		     `public/_headers` + `middleware.ts` PUBLIC_CSP'sine
-		     `*.cookie-script.com` (script-src: script kaynağı, connect-src:
-		     `consent.cookie-script.com`'a onay kaydı XHR'ı) eklendi — ikisi
-		     de senkron tutulmalı. -->
+		<!-- Cookie-Script çerez onay banner'ı — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="text/javascript"
 			charset="UTF-8"
@@ -231,16 +197,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			<meta property="article:modified_time" content={articleModifiedTime} />
 		)}
 
-		<!-- Organization JSON-LD (2026-08-22) — `sameAs`, idenfit'in gerçek/
-		     doğrulanmış sosyal medya profillerini işaret eder. Tek veri
-		     kaynağı `FOOTER_SOCIAL` (`data/footer.ts`) — sosyal linkler iki
-		     ayrı yerde bakımı gereken iki liste olarak TUTULMUYOR. Sayfa
-		     türünden bağımsız, HER sayfada basılır (kurum kimliği page-özel
-		     değildir) — `WebPage`/`BlogPosting` bloklarıyla birlikte var
-		     olabilir, Google birden fazla JSON-LD bloğunu aynı sayfada
-		     destekler. `url` yalnızca `Astro.site` tanımlıysa eklenir (bkz.
-		     `pageUrl`'in dosya başındaki AYNI ilkesi — prod domain Faz 2'ye
-		     kadar bağlanmadı, uydurma bir domain YAZILMADI). -->
+		<!-- Organization JSON-LD sameAs notu — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="application/ld+json"
 			set:html={JSON.stringify({
@@ -253,13 +210,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			is:inline
 		/>
 
-		<!-- "No dateModified in structured data" GEO bulgusu (2026-08-19) —
-		     blog DIŞINDAKİ sayfalar için sade bir `WebPage` JSON-LD bloğu
-		     (blog kendi `BlogPosting`'ini `blog/[slug].astro`'da ZATEN
-		     üretiyor, `ogType==='article'` kontrolü çift blok olmasını
-		     önlüyor). `url` göreli — `pageUrl`'in dosya başındaki AYNI
-		     ilkesi (mutlak prod domain, `Astro.site`, Faz 2'de bağlanınca
-		     otomatik mutlak olur). -->
+		<!-- dateModified JSON-LD notu — detaylı teknik notlar CLAUDE.md'de -->
 		{ogType !== 'article' && dateModified && (
 			<script
 				type="application/ld+json"
@@ -275,12 +226,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			/>
 		)}
 
-		<!-- BreadcrumbList JSON-LD (2026-08-24, "No BreadcrumbList schema" GEO
-		     bulgusu) — GÖRÜNÜR breadcrumb şeridiyle (bkz. `<body>` içinde
-		     `breadcrumbTrail`) AYNI veriden üretilir, ikinci bir kaynak İCAT
-		     EDİLMEZ. Son öğenin `item`'ı mevcut sayfanın kendi URL'i (`href`
-		     verilmemiş demek "buradasınız" demek) — Google'ın rehberi son
-		     öğede `item`'ı opsiyonel sayıyor ama eklemek de geçerli/tutarlı. -->
+		<!-- BreadcrumbList JSON-LD — detaylı teknik notlar CLAUDE.md'de -->
 		{breadcrumbTrail.length > 0 && (
 			<script
 				type="application/ld+json"
@@ -305,12 +251,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		<meta name="twitter:description" content={description} />
 		<meta name="twitter:image" content={ogImage} />
 
-		<!-- Quicksand (idenfit.com marka fontu) — self-hosted, bkz. global.css'in
-		     @font-face yorumu (Google Fonts'un GDPR/IP-sızıntı riski nedeniyle
-		     2026-08-31'de taşındı). "latin" iki subset'ten biri değil, TEK
-		     BAŞINA en kritik olanı (temel Latin karakterler + noktasız ı) —
-		     ikisi de preload edildi çünkü büyük İ (latin-ext) site adının
-		     kendisinde ("İK") her sayfada geçiyor. -->
+		<!-- Quicksand self-hosted font notu — detaylı teknik notlar CLAUDE.md'de -->
 		<link
 			rel="preload"
 			href="/fonts/quicksand/quicksand-latin.woff2"
@@ -341,12 +282,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 	<body class="min-h-screen bg-surface text-body font-sans antialiased">
 		<Header localeUrls={localeUrls} />
 		<main>
-			<!-- Görünür breadcrumb (2026-08-24, "No BreadcrumbList schema" GEO
-			     bulgusu) — yukarıdaki JSON-LD AYNI `breadcrumbTrail`'den üretilir,
-			     yapılandırılmış veri yalnızca görünen içeriği yansıtır (Google'ın
-			     kuralı + projenin OG tarihleri/Speakable'da zaten uyguladığı AYNI
-			     ilke). Son öğe tıklanamaz düz metin (`aria-current="page"`) —
-			     mevcut sayfa. -->
+			<!-- Görünür breadcrumb — detaylı teknik notlar CLAUDE.md'de -->
 			{breadcrumbTrail.length > 0 && (
 				<div class="pb-3" style={heroBackground ? `background: ${heroBackground};` : undefined}>
 					<nav aria-label="Breadcrumb" class="mx-auto max-w-7xl px-4 pt-4 sm:px-6 lg:px-8">

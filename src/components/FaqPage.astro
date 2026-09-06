@@ -112,19 +112,7 @@ const CATEGORY_ICONS = [
         {
           categories.map((category, i) => (
             <div id={`faq-tab-${i}`} class:list={['faq-tab-panel space-y-8', i !== 0 && 'hidden']} role="tabpanel">
-              <!-- "Few H2 subheadings" SEO bulgusu (2026-08-17) — 6 kategorinin
-                   HER BİRİ DOM'da gerçekten var (yalnızca CSS `hidden` ile
-                   gizli, bkz. yukarıdaki class:list), ama kategori adı
-                   önceden yalnızca sol sekme butonundaki bir span öğesiydi,
-                   sağ panelde hiç heading yoktu. Sorular zaten H3 seviyesi
-                   (birebir kaynak yapı) — kategori adı üstlerine gerçek bir
-                   H2 olarak eklendi, doğru H2→H3 hiyerarşisi kuruluyor.
-                   ⚠️ Bu yorumun kendisi "H2"/"H3" gibi köşeli parantezsiz
-                   kelimeler kullanıyor — `check-heading-hierarchy.mjs`'in
-                   naif regex'i (`<h([1-6])`) köşeli parantezli bir yazım
-                   yakalar, bu yüzden köşeli parantez KULLANILMADI (ilk
-                   denemede tam bu sebeple sahte bir "H1→H3" atlaması
-                   raporlanmıştı, kendi kendine yanıltma). -->
+              <!-- SSS H2 alt başlık SEO düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
               <h2 class="text-2xl font-bold text-heading">{category.name}</h2>
               {category.items.map((item) => (
                 <div>

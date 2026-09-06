@@ -111,16 +111,7 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
   image={content.heroImage?.url}
   breadcrumb={[{ label: content.pageTitle }]}
 >
-  <!-- ⚠️ DÜZELTME (2026-08-11, 8. tur): kaynağın gerçek konteyner tekniği
-       İKİ KATMANLI — DIŞ eleman `width:100%` + SABİT `padding:0 100px`
-       (viewport ne olursa olsun sol kenar HEP x=100), İÇ eleman AYRI bir
-       `max-width:1440px` + `margin:auto` taşıyor (yalnızca viewport çok
-       geniş olduğunda — ör. >1640px — devreye girip içeriği ortalar).
-       Tek katmanlı `max-w-[1440px] mx-auto px-[100px]` YANLIŞTI: o desende
-       `mx-auto`'nun kendi ortalama boşluğu 100px padding'in ÜSTÜNE
-       biniyor (1536px viewport'ta soldan 148px, gerçek 100px yerine) —
-       element-ID doğrulamalı ölçümle bulundu (`h1Rect.x` gerçekte 100,
-       bizde 152 çıkıyordu). İki katmanlı yapı bunu düzeltiyor. -->
+  <!-- İletişim formu konteyner düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
   <div class="w-full px-4 py-12 sm:px-6 lg:px-[100px] lg:py-16">
   <section class="mx-auto max-w-[1440px]">
     <div class="grid items-center gap-10 lg:grid-cols-2">
@@ -128,12 +119,7 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
         <h1 class="text-4xl font-medium text-brand" set:html={content.pageTitle} />
         <p class="mt-4 max-w-xl text-lg text-muted" set:html={content.pageSubtitle} />
 
-        <!-- ⚠️ DÜZELTME (2026-08-11, 8. tur): önceki `sm:flex-row` YANLIŞTI —
-             kaynak `1536px` viewport'ta bile "Bizi arayın!"/"Bize Yazın!"
-             HER ZAMAN alt alta (`getComputedStyle` yerine doğrudan
-             `getBoundingClientRect` ile görsel doğrulandı, ikisi de AYNI
-             x=100 sol kenardan başlıyor) — yan yana hiç değildi, önceki
-             turun "zaten yatay" tespiti hatalıydı. -->
+        <!-- İletişim formu sm:flex-row düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
         <div class="mt-10 flex flex-col gap-10">
           <div>
             <h2 class="text-[26px] font-light text-muted">{content.callTitle}</h2>
@@ -164,22 +150,11 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
       }
     </div>
 
-    <!-- `lg:max-w-xl` KALDIRILDI — kaynağın gerçek formu (element-ID
-         doğrulamalı ölçüldü: `.elementor-form` genişliği ~1321px, sayfanın
-         geri kalanıyla AYNI konteyner) dar bir kart DEĞİL, `max-w-7xl`
-         section'ının TAMAMINI kullanıyor — 3'lü yatay alan düzeni
-         (`layout="grid"`, bkz. HeroForm.tsx) ancak bu genişlikte anlamlı
-         görünüyor. -->
+    <!-- İletişim formu genişlik düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
     <div class="mt-16 rounded-2xl border border-gray-100 bg-surface p-6 shadow-sm sm:p-8 lg:p-12">
       <h2 class="text-4xl font-light text-muted">{content.formTitle}</h2>
       <div class="mt-6">
-        <!-- `submit`: `t.cta.submit` ("Gönder", jenerik) yerine
-             `t.hero.formSubmit` ("Hemen Başvur") — canlı sitede ölçüldü,
-             gerçek buton metni BİREBİR bu (`uppercase` CSS ile
-             "HEMEN BAŞVUR" render ediliyor, `submitStyle="green"`, bkz.
-             HeroForm.tsx). `redirectHref`: geçerli gönderim sonrası
-             Teşekkürler sayfasına yönlendirir (2026-08-11 KARAR, GERÇEK
-             backend YOK — bkz. yukarıdaki `thankYouHref` yorumu). -->
+        <!-- İletişim formu submit metni — detaylı teknik notlar CLAUDE.md'de -->
         <HeroForm
           client:visible
           idPrefix="contact"
@@ -250,11 +225,7 @@ const thankYouHref = getRelativeLocaleUrl(locale, getThankYouSlug(locale) ?? get
   </section>
   </div>
 
-  <!-- Ofisler — gerçek ofis fotoğrafı (kolaj) + liste, TAM GENİŞLİK/
-       full-bleed bant (kaynakta canlı ölçüldü: `left-1/2 -mx-[50vw]`
-       tekniği, `CustomerLogoMarquee.astro`'daki AYNI kanıtlanmış desen —
-       section'ın kendi `max-w-7xl` padding'inden bağımsız çalışır). Zemin
-       rengi gerçek ölçülen `#FBD7D3` (bkz. component başındaki yorum). -->
+  <!-- İletişim ofisler bölümü — detaylı teknik notlar CLAUDE.md'de -->
   <div class="relative left-1/2 right-1/2 w-screen -mx-[50vw] bg-[#FBD7D3] py-12 sm:py-16">
     <div class="px-4 sm:px-6 lg:px-[100px]">
     <div class="mx-auto max-w-[1440px]">

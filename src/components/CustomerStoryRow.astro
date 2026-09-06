@@ -29,13 +29,7 @@ interface Props {
 const { id, mediaSide, media, companyName, description, quote, quotePhotoUrl, stats, videoPlayLabel, revealDelayMs = 0 } = Astro.props;
 ---
 
-<!-- 2026-07-28 (dördüncü tur): kartlar büyütüldü — kullanıcı isteği,
-     `CustomerStoriesPage.astro`'nun konteynerini `max-w-7xl`'e genişletmesiyle
-     birlikte. Dikey boşluk (`py-10/14` → `py-12/20`) ve satırlar arası boşluk
-     (`gap-8/16` → `gap-10/20`) orantılı büyütüldü, medya kutusu da
-     (`max-w-sm`→`max-w-md`, `lg:w-2/5`→`lg:w-[45%]`) biraz genişledi.
-     Görsel hover'ı (`hover:scale-105`, altta) korunuyor — büyüyen kartla
-     birlikte hâlâ çalışıyor, dokunulmadı. -->
+<!-- Müşteri hikayesi kart boyutu — detaylı teknik notlar CLAUDE.md'de -->
 <div
 	id={id}
 	class:list={[

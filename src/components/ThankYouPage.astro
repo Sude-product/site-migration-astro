@@ -27,12 +27,7 @@ const homeHref = getRelativeLocaleUrl(locale, '');
 const title = buildIdenfitTitle(content.title, locale);
 ---
 
-<!-- NL'de kaynak sayfa yok (bkz. `getThankYouLocaleUrls()`'in NL→EN alias
-     yorumu) — hreflang bu yüzden yalnızca gerçek dilleri bildiriyor
-     (2026-08-17, "No hreflang tags" SEO turu). `az` (2026-09-02, hreflang
-     denetimi bulgusu) eklendi — `az/tesekkurler.astro` gerçek bir sayfa
-     (`SLUGS.az`, bkz. `thankYouContent.ts`) ama bu liste az eklenmeden
-     ÖNCE yazıldığı için az kendi kendine bile referans veremiyordu. -->
+<!-- Teşekkürler sayfası NL fallback notu — detaylı teknik notlar CLAUDE.md'de -->
 <BaseLayout
   title={title}
   description={content.text}

@@ -148,78 +148,22 @@ const navItemsWithActive = navItems.map((item) => ({
 ---
 
 <header class="sticky top-0 z-40 isolate w-full border-b border-gray-100 bg-surface/95 will-change-transform">
-	<!-- ⚠️ 2026-07-31 — `backdrop-blur` KALICI OLARAK KALDIRILDI (geri
-	     GETİRİLMEDİ). Playwright'ın Chrome trace/rAF frame-timing ölçümüyle
-	     kök neden KESİN olarak `backdrop-blur` çıktı — sticky bir elemanın
-	     arkasını her scroll frame'inde yeniden örneklemesi pahalı: ortalama
-	     frame süresi 19.68ms'den (60fps bütçesi: 16.67ms, %17.4 frame
-	     "jank" — >32ms) `backdrop-blur` kaldırılınca 16.71ms'e (%0.2 jank)
-	     düştü — `will-change:transform`'u KALDIRMAK tek başına HİÇBİR fark
-	     yaratmadı (ayrıca ölçüldü), yani asıl suçlu blur'du. Kaynak sitede
-	     (idenfit.com) de zaten `backdrop-filter` hiç kullanılmıyor. `bg-surface/95`
-	     (%95 opak) korunuyor. `scripts/verify-navbar-jank.mjs`.
-
-	     Marquee'nin scroll'da gizlenip gösterilmesi (aşağıya bkz.) daha
-	     önce (aynı gün, bu değişiklikten ÖNCE) TAMAMEN kaldırılmıştı — 3
-	     düzeltme turu titremeyi gideremediği için. Kullanıcı marquee'nin
-	     GERÇEKTEN gizlenmesini istediğini netleştirince GERİ GETİRİLDİ.
-	     Önceki 3 denemenin hepsi `backdrop-blur` HÂLÂ VARKEN yapılmıştı —
-	     sticky+backdrop-filter+layout-değişikliği üçlüsü asıl jank
-	     kaynağıydı (bkz. yukarıdaki not). `backdrop-blur` artık YOK,
-	     bu yüzden aynı `grid-template-rows` tekniği bu kez ölçülüp
-	     (frame-timing, yalnızca CLS değil) DOĞRULANDI — bkz.
-	     `scripts/verify-marquee-scroll.mjs`. -->
-	<!-- Duyuru barı: `#marquee-wrap` — scroll'a göre gösterip gizlemenin
-	     mekanizması (bkz. `src/scripts/marquee-scroll.js`): `grid-template-rows`
-	     1fr↔0fr geçişi (modern "smooth height animasyonu" tekniği), React
-	     DEĞİL vanilla JS ile (React re-render'larının jank'a yol açması,
-	     2026-07-28). İçindeki `<div>` `overflow-hidden` olmadan grid satırı
-	     0'a inince taşan içerik görünür kalır. `contain-layout contain-paint`:
-	     içerideki reflow'un dışarı sızmasını engelliyor + komşu alanların
-	     yeniden boyanma kapsamını daraltıyor. -->
+	<!-- Marquee/backdrop-blur kaldırma gerekçesi — detaylı teknik notlar CLAUDE.md'de -->
+	<!-- Duyuru barı scroll-hide mantığı — detaylı teknik notlar CLAUDE.md'de -->
 	<div id="marquee-wrap" class="grid contain-layout contain-paint will-change-transform transition-[grid-template-rows] duration-250 ease-in-out motion-reduce:transition-none" style="grid-template-rows: 1fr;">
 		<div class="overflow-hidden">
 			<MarqueeBar />
 		</div>
 	</div>
-	<!-- 2026-08-11 — konteyner düzeltmesi: `mx-auto max-w-7xl` (1280px,
-	     ortalanan) kaynakla UYUŞMUYORDU — canlı `<header>` element-ID
-	     doğrulamalı ölçüldü, gerçek davranış `width:100%; padding:0 100px`
-	     (max-width KAPAĞI YOK, `mx-auto` ORTALAMA YOK). Önceki `max-w-7xl
-	     mx-auto` 1536px viewport'ta logoyu x≈152'de başlatıyordu (gerçek
-	     x=100) — Contact/Legal sayfalarında bulunan AYNI "tek katmanlı
-	     max-width+mx-auto, padding'in üstüne biniyor" bug sınıfı, bkz.
-	     ContactPage.astro yorumu. Header'da iç içe max-width KATMANI da
-	     GEREKMİYOR (ölçülen `maxWidth:100%` — kaynak çok geniş ekranlarda
-	     bile yeniden ortalamıyor, sabit 100px kenar boşluğu sürüyor). -->
+	<!-- Header konteyner genişlik düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
 	<div class="flex h-16 w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-[100px]">
-		<!-- Sol: logo (idenfit.com'un gerçek logotype'ı, bkz. IdenfitLogo.tsx).
-		     2026-07-28 (YEDİNCİ tur, KONU 1): `h-8`(32px) kaynaktan KÜÇÜKMÜŞ —
-		     canlı HTML'de logo widget'ının gerçek element ID'si (`87adeaf`)
-		     bulunup `post-9695.css`'te arandı: `.elementor-element-87adeaf
-		     img{width:136px;height:50px;}` — GERÇEK render boyutu 50px yükseklik
-		     (136px genişlik, SVG'nin kendi 98:36 oranıyla birebir tutarlı,
-		     `w-auto` otomatik doğru hesaplıyor). Bu, kullanıcının "ince/farklı
-		     harf aralığına sahip duruyor" izleniminin kök nedeniydi — logo bir
-		     FONT değil (elle vektörleştirilmiş SVG, bkz. IdenfitLogo.tsx'in
-		     kendi yorumu), yani font-family/letter-spacing kavramları
-		     uygulanmıyor; sorun tamamen RENDER BOYUTUYDU (32px→50px, %56 fark).
-		     Yıldızın panel içi konumu (viewBox'ın sağ-üst köşesi, x≈85.5–98/
-		     y≈1.3–13.3) tek bir SVG içinde tutulduğu için boyutla orantılı
-		     büyüdü, ayrıca dokunulmadı. -->
+		<!-- Header logo/navigasyon yapısı — detaylı teknik notlar CLAUDE.md'de -->
 		<a href={homeHref} class="shrink-0 text-heading" aria-label={ui.brandHome}>
 			<IdenfitLogo className="h-[50px] w-auto" />
 		</a>
 
 		<!-- Orta: navigasyon (masaüstü, lg ve üstü) -->
-		<!-- ⚠️ 2026-07-31 — ayrı üst-seviye "BLOG" linki kaldırıldı (bkz.
-		     nav.ts). Kalan 7 öğe arası `gap-4`(16px)→`gap-8`(32px): kaynağın
-		     canlı `post-9695.css`'inden ölçülen gerçek değer — her nav linki
-		     `padding-left:16px;padding-right:16px` taşıyor (gap DEĞİL,
-		     link'in kendi padding'i), yani komşu iki link arası GERÇEK
-		     mesafe 16+16=32px. Dikey `padding-top/bottom:26px` bilinçli
-		     olarak UYGULANMADI (bizim `h-16` header'ımızla çakışır, bkz.
-		     logo yorumu). -->
+		<!-- BLOG linki kaldırma notu — detaylı teknik notlar CLAUDE.md'de -->
 		<nav class="hidden lg:block" aria-label={ui.mainNav}>
 			<ul class="flex items-center gap-8">
 				{

@@ -33,58 +33,11 @@ const WHATSAPP_URL = 'https://wa.me/905375265307';
 const CALL_URL = 'tel:02162950927';
 ---
 
-<!-- 2026-08-19 (SEKİZİNCİ tur) — kullanıcı iki-kolonlu (sol metin/sağ
-     kırmızı görsel paneli) düzeni terk edip TEK KOLON istedi: metin/form
-     ortalanıp üstte, "dashboard" bölümü aralarında boşluk bırakılarak
-     ALTA taşındı. Önceki `grid-cols-2`/full-bleed sağ panel mimarisi
-     (birden fazla turun konusu olmuştu) bu yüzden TAMAMEN kaldırıldı —
-     artık `<section>` doğrudan iki dikey blok içeriyor: üstte ortalanmış
-     metin/form, altında (aralarında boşluk) dashboard bölümü. DOKUZUNCU
-     turda bu alt blok statik görselden GERÇEK/canlı
-     `ProductPreviewWidget`'a çevrildi (önce yalnızca TR'de, ON BİRİNCİ
-     turda — aşağıda — 4 dilin hepsine genişletildi). -->
-<!-- Arka plan alt-tonu (2026-08-24, kullanıcı isteği: "Personio web
-     sayfası tasarımına benzer" — dashboard widget'ının HEMEN ALTINDA
-     başlayan yumuşak bir renk parıltısının, metin/form bölümüne doğru
-     yukarı sızması). Düz `#F8F8F8` yerine, widget çerçevesinin KENDİ
-     gradyanıyla (`#FFDCDC→#FFF3F3→#FFFFFF`, hemen aşağıda) AYNI kırmızı
-     tonu ailesinden radyal bir geçiş — yeni bir renk İCAT EDİLMEDİ,
-     sitenin zaten kullandığı ton yeniden kullanıldı. Merkez alt-ortada
-     (widget'a en yakın nokta) en yoğun, yukarı doğru beyaza sönümleniyor. -->
+<!-- Hero tek-kolon düzen kararı — detaylı teknik notlar CLAUDE.md'de -->
+<!-- Hero arka plan alt-tonu — detaylı teknik notlar CLAUDE.md'de -->
 <section class="py-12 lg:py-20" style="background: radial-gradient(120% 90% at 50% 100%, #FFDCDC 0%, #FFF3F3 40%, #FFFFFF 75%);">
 	<div class="mx-auto flex w-full max-w-2xl flex-col items-center px-4 text-center sm:px-6 lg:max-w-7xl lg:px-8">
-		<!-- 2026-07-28 (üçüncü tur): boyut/renk kaynaktan BİREBİR okundu
-		     (`post-25148.css`, `.elementor-element-0c8eb2b`/`4ec6dae`) —
-		     H1 mobilde 20px, `lg:` 35px/`font-weight:600`/`line-height:45px`
-		     (kaynağın kendi custom CSS'i, `!important`); paragraf mobilde
-		     16px, `lg:` 20px, renk TAM OLARAK `#808080` = bizim `--color-muted`
-		     token'ımızla birebir aynı. Boşluklar (`mt-[15px]`) kaynağın
-		     `padding:15px 0px` kuralından BİREBİR.
-		     DÜZELTME (2026-08-27, kullanıcı isteği): masaüstünde başlık
-		     büyütüldü (35px→44px, AYNI GÜN ikinci turda 44px→52px'e bir kez
-		     daha büyütüldü — "biraz daha büyüt" — + MOBİLDE de büyütüldü
-		     20px→30px, kaynaktan gelen mobil boyut artık bilinçli olarak
-		     terk edildi) — rengi (`text-heading`, koyu) DEĞİŞMEDİ. Mobilde
-		     tek satır GARANTİ EDİLMİYOR (dar viewport'ta doğal olarak
-		     sarabilir, kullanıcı yalnızca "büyük olmalı" dedi, tek satır
-		     şartı masaüstüne özgüydü) — `whitespace-pre-line` zaten var olan
-		     davranış korunuyor. Daha geniş bir tek satıra yer açmak için
-		     üstteki sarmalayıcı
-		     `lg:max-w-7xl`'e genişletildi (ProductPreviewWidget'ın altındaki
-		     `max-w-[88rem]`'den hâlâ dar, görsel hiyerarşi bozulmuyor). Alt
-		     paragraf AYNI punto (`lg:text-xl`, DEĞİŞMEDİ) kalıp kendi
-		     `max-w-xl` kısıtı masaüstünde kaldırıldı (`lg:max-w-none`).
-		     **`whitespace-nowrap` BİLİNÇLİ OLARAK KULLANILMADI:** TR metni
-		     (kullanıcının hedeflediği dil) ~1536px+ genişlikte konteynerin
-		     genişletilmiş alanına zaten doğal olarak tek satır sığıyor
-		     (ölçüldü) — ama proje 5 dilli (`HeroSection` TÜM locale'lerle
-		     PAYLAŞILAN tek component) ve IT'nin alt metni (1578px) genişletilmiş
-		     konteynerden (1280px) bile taşıyor; zorlamalı `nowrap` denendi,
-		     IT'de sayfa geneli yatay scrollbar'a yol açtığı görülüp GERİ
-		     ALINDI. Doğal sarma (varsayılan `whitespace-normal`) hem taşma
-		     RİSKİ TAŞIMIYOR hem geniş ekranlarda (TR dahil çoğu dil) zaten
-		     tek satır gösteriyor — yalnızca IT gibi uzun metinli diller/dar
-		     ekranlarda güvenle 2 satıra sarıyor. -->
+		<!-- Hero boyut/renk kaynak doğrulaması — detaylı teknik notlar CLAUDE.md'de -->
 		<h1 class="whitespace-pre-line text-3xl font-semibold leading-tight tracking-tight text-brand lg:text-[52px] lg:leading-[62px]">
 			{t.hero.headline}
 		</h1>
@@ -92,12 +45,7 @@ const CALL_URL = 'tel:02162950927';
 			{t.hero.subheadline}
 		</p>
 
-		<!-- 2026-08-27 (üçüncü tur, kullanıcı isteği: "yazıyla email girme
-		     butonları arasında biraz boşluk olsun") — üstteki alt metinle
-		     form arasındaki boşluk (`mt-[15px]`) büyütülen font boyutlarına
-		     (52px başlık) göre artık dar kalıyordu, `mt-8 lg:mt-10`'a
-		     genişletildi (dashboard'ın altındaki AYNI değer ailesiyle
-		     tutarlı, aşağıya bkz.). -->
+		<!-- Hero e-posta formu tek-alan kararı — detaylı teknik notlar CLAUDE.md'de -->
 		<div class="mt-8 flex w-full max-w-md flex-col items-center lg:mt-10">
 			<HeroEmailCaptureForm
 				locale={locale}
@@ -144,24 +92,7 @@ const CALL_URL = 'tel:02162950927';
 		</div>
 	</div>
 
-	<!-- 2026-08-19 (ON BİRİNCİ tur) — kullanıcı "diğer dillerde canlı
-	     dashboard görünmüyor, düzelt" dedi: DOKUZUNCU turdaki `locale ===
-	     'tr'` koşulu (widget'ı yalnızca TR'ye sınırlayan, statik görseli
-	     EN/NL/IT'ye bırakan dal) TAMAMEN kaldırıldı — artık widget 4 dilde
-	     de aynı şekilde render ediliyor. Widget'ın kendi içeriği hâlâ
-	     Türkçe (kurgusal veri/etiketler, bkz. CLAUDE.md §Açık noktalar —
-	     i18n kapsamı onayı) ama bu artık BİLİNÇLİ bir kullanıcı kararı,
-	     ertelenmiş bir eksiklik değil. Statik `HOME_HERO_IMAGE`/
-	     `heroImage`/`sideTitle`/`sideSubtitle` dalı ARTIK KULLANILMIYOR,
-	     kaldırıldı (import da temizlendi) — i18n şemasındaki
-	     `sideTitle`/`sideSubtitle` alanları başka hiçbir yerde
-	     kullanılmadığı için dokunulmadan bırakıldı (şema değişikliği bu
-	     turun kapsamı DIŞINDA). Çerçeve/gradyan/sahte tarayıcı bar'ı
-	     (2026-08-20'de kaldırılan) `HomeProductPreview.astro`'nun aynısıydı
-	     (ikinci bir görsel dil İCAT EDİLMEDİ) — o component artık sayfada
-	     YOK (widget iki kez gösteriliyordu, hero'daki bu YETERLİ görüldüğü
-	     için alttaki kaldırıldı, bkz. CLAUDE.md Açık nokta #35). Genişlik/
-	     yükseklik ayarları (ONUNCU tur) aynen korundu. -->
+	<!-- Canlı dashboard widget'ının çok dilli genişletilmesi — detaylı teknik notlar CLAUDE.md'de -->
 	<!-- 2026-08-27 (üçüncü tur, kullanıcı isteği: "dashboard ile email
 	     girme alanı arasında da biraz boşluk olmalı, daha temiz görünmeli")
 	     — form/buton bloğuyla dashboard arasındaki boşluk (`mt-8 lg:mt-10`)

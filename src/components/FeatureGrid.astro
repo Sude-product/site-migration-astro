@@ -31,12 +31,7 @@ import { getTranslations } from '../i18n';
 const t = getTranslations(Astro.currentLocale ?? 'tr');
 const { featureGrid } = t.home;
 ---
-<!-- 2026-08-20 — kullanıcı "yazılardaki puntoyu büyüt" dedi: kart
-     başlığı/açıklaması canlı idenfit.com'da ölçüldü (`getComputedStyle`,
-     "Zaman ve İzin Yönetimi" kartı) — başlık 24px/600/leading 29px
-     (önceki `text-lg`=18px'ten büyük), açıklama 16px/400/leading 20px
-     (önceki `text-sm`=14px'ten büyük). Kaynağın kesin px değerleri
-     BİREBİR kullanıldı, en yakın Tailwind adımına yuvarlanmadı. -->
+<!-- Özellik kartları punto büyütme — detaylı teknik notlar CLAUDE.md'de -->
 
 <section class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
   <div class="mx-auto max-w-3xl text-center">
