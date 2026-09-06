@@ -4,7 +4,7 @@ title: Taşınma İzni Kaç Gün? Nasıl Kullanılır?
 date: '2021-06-30T09:59:00'
 excerpt: Taşınma oldukça yorucu ve kapsamlı bir süreçtir. Bu süreç, hem nakliyat hem de abonelik, ikametgah gibi resmi kurum işleri nedeniyle uzun sürebilir. Kişilerin…
 featuredImage:
-  url: /wp-content/uploads/2021/06/tasinma-izni-kac-gun-tasinma-izni-nasil-kullanilabilir@2x.png
+  image: /img/blog-featured/tasinma-izni/featured.png
   alt: Taşınma İzni Kaç Gün? Nasıl Kullanılır?
   width: 1514
   height: 999

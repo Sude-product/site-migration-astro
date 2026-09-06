@@ -4,7 +4,7 @@ title: Deneme Süresinde Sigortalılık
 date: '2023-02-07T16:11:06'
 excerpt: Deneme süresinde sigortalılık, özellikle yeni işe başlayacak olan işçi adayları tarafından sık merak edilen konuların başında yer alıyor. Deneme süreci keyfi…
 featuredImage:
-  url: /wp-content/uploads/2023/02/deneme-suresincesigortalilik@2x-100.jpg
+  image: /img/blog-featured/deneme-suresinde-sigortalilik/featured.jpg
   alt: Deneme Süresinde Sigortalılık
   width: 1515
   height: 999

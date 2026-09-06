@@ -4,7 +4,7 @@ title: 2022 Asgari Ücret Beklentisi Nedir?
 date: '2021-12-03T15:57:59'
 excerpt: 2022 asgari ücret beklentisi son günlerde en çok konuşulan konular arasında yer alıyor. Enflasyon oranı ve asgari ücret zammının yakın değerlerde olup…
 featuredImage:
-  url: /wp-content/uploads/2021/12/2022-Asgari-Ücret-@2x.jpg
+  image: /img/blog-featured/2022-asgari-ucret/featured.jpg
   alt: 2022 Asgari Ücret Beklentisi Nedir?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Çalışan Bağlılığını Artırmanın Yolları
 date: '2025-07-09T23:06:08'
 excerpt: Çalışan bağlılığını artırmanın yolları, tüm işveren ve insan kaynakları departmanları tarafından sıklıkla aranılan konuların başında gelir. Çünkü, çalışan…
 featuredImage:
-  url: /wp-content/uploads/2025/07/Calisan-Bagliligini-Artirmanin-Yollari.jpg
+  image: /img/blog-featured/calisan-bagliligini-artirmanin-yollari/featured.jpg
   alt: Çalışan Bağlılığını Artırmanın Yolları
   width: 1024
   height: 675

@@ -4,7 +4,7 @@ title: 2026 İşsizlik Maaşı Ne Kadar Oldu?
 date: '2026-03-26T11:07:26'
 excerpt: İşsizlik maaşı tutarı, işten ayrılan çalışanların maddi güvenliğini sağlamak açısından büyük önem taşımaktadır. 2026 yılı itibarıyla işsizlik maaşı en düşük…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-issizlik-maasi-ara-gorsel.jpg
+  image: /img/blog-featured/2026-issizlik-maasi/featured.jpg
   alt: 2026 İşsizlik Maaşı Ne Kadar Oldu?
   width: 1281
   height: 581

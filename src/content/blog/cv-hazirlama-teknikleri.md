@@ -4,7 +4,7 @@ title: İşe Alınmanızı Sağlayacak CV Hazırlama Teknikleri
 date: '2025-04-15T20:45:41'
 excerpt: CV hazırlama öğrenci ya da çalışan demeden herkesin hayatının bir döneminde üzerinde çalıştığı bir eylemdir. Rekabetin bu denli güçlü olduğu, tek bir pozisyona…
 featuredImage:
-  url: /wp-content/uploads/2025/08/cv-hazirlama.jpg
+  image: /img/blog-featured/cv-hazirlama-teknikleri/featured.jpg
   alt: İşe Alınmanızı Sağlayacak CV Hazırlama Teknikleri
   width: 2272
   height: 1497

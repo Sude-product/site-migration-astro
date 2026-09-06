@@ -4,7 +4,7 @@ title: Turnover Rate Nedir? Nasıl Hesaplanır?
 date: '2025-02-03T22:03:13'
 excerpt: Turnover rate, yani iş gücü devir oranı, insan kaynakları ekiplerinin yakından takip ettiği en kritik metriklerden biridir. İşletmeler için yalnızca bir…
 featuredImage:
-  url: /wp-content/uploads/2020/10/Turnover-Rate-Nedir-Nasıl-Hesaplanır-işten-çıkış-oranı@3x.png
+  image: /img/blog-featured/turnover-rate-nedir-nasil-hesaplanir/featured.png
   alt: Turnover Rate Nedir? Nasıl Hesaplanır?
   width: 2271
   height: 1497

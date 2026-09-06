@@ -5,7 +5,7 @@ metaTitle: idenfit'ten Yeni Yatırım ve Büyüme Duyurusu
 date: '2024-10-02T09:30:00'
 excerpt: İnsan kaynakları ve iş gücü yönetiminde yenilikçi çözümleriyle öne çıkan İdenfit , şubat ayında başarıyla tamamladığı yatırım turunun ardından şimdi de bir ara…
 featuredImage:
-  url: /wp-content/uploads/2025/08/r1.-yatirim-2-1392x783-1.jpg
+  image: /img/blog-featured/idenfit-yatirim-duyurusu/featured.jpg
   alt: İnsan Kaynakları Teknolojilerinde Lider İdenfit, Stratejik Yatırımlarla Küresel Büyüme Yolculuğunda Düğmeye Bastığını Duyurdu!
   width: 1392
   height: 783

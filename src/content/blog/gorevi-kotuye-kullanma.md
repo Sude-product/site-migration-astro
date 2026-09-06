@@ -4,7 +4,7 @@ title: Görevi Kötüye Kullanma ve İK
 date: '2021-06-23T11:36:21'
 excerpt: Çalışan davranışını yönetmek ve şirketin güvenli ve mutlu çalışanlara sahip bir kurum olması İnsan Kaynakları Uzmanlarının sorumluluklarından biridir. Çalışma…
 featuredImage:
-  url: /wp-content/uploads/2021/06/gorevi-kotuye-kullanma-nedir-ik-uzmanlari-neler-yapmalidir@2x-100.jpg
+  image: /img/blog-featured/gorevi-kotuye-kullanma/featured.jpg
   alt: Görevi Kötüye Kullanma ve İK
   width: 1514
   height: 999

@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Sosyal Medya Kullanımı
 date: '2021-02-22T12:30:02'
 excerpt: İnsan kaynaklarında sosyal medya kullanımı, son yıllarda tüm iş dünyasında yükselen bir trend olarak kendini gösteriyor. Özellikle dijital dönüşüm rüzgarı ile…
 featuredImage:
-  url: /wp-content/uploads/2021/02/insan-kaynaklarinda-sosyal-medya-kullanimi@2x.png
+  image: /img/blog-featured/insan-kaynaklarinda-sosyal-medya-kullanimi/featured.png
   alt: İnsan Kaynaklarında Sosyal Medya Kullanımı
   width: 1514
   height: 998

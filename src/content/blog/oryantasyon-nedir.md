@@ -4,7 +4,7 @@ title: Oryantasyon Nedir?
 date: '2019-12-27T17:41:58'
 excerpt: Yeni işe alınan personelin işe başlatıldığı günde duyarlılık gösterilmesi oldukça önemli. Genellikle pek çok çalışan ilk iş günü nü bir şey yapmadan sadece…
 featuredImage:
-  url: /wp-content/uploads/2025/08/oryantasyon@3x-100.jpg
+  image: /img/blog-featured/oryantasyon-nedir/featured.jpg
   alt: Oryantasyon Nedir?
   width: 2272
   height: 1497

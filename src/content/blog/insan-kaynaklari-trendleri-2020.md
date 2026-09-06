@@ -4,7 +4,7 @@ title: İnsan Kaynakları Trendleri 2020 ve İK’nın Geleceği
 date: '2020-06-09T10:13:38'
 excerpt: Her sene olduğu gibi bu sene de insan kaynakları trendleri belirlendi. İnsan kaynaklarının geleceği konusuna adeta yön verecek olan bu trendler, hem…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-IK-Teknolojisi-Trendleri-696x392-1.jpg
+  image: /img/blog-featured/insan-kaynaklari-trendleri-2020/featured.jpg
   alt: İnsan Kaynakları Trendleri 2020 ve İK’nın Geleceği
   width: 696
   height: 392

@@ -4,7 +4,7 @@ title: Ölüm İzni Kimlere Verilir, Kaç Gündür?
 date: '2025-06-22T21:14:24'
 excerpt: Ölüm izni süresi her çalışan grubu için farklılık göstermesi nedeniyle sık merak edilen konular arasında yer alır. Çalışanların sahip olduğu en önemli haklar…
 featuredImage:
-  url: /wp-content/uploads/2025/06/olum-izni-1.jpg
+  image: /img/blog-featured/olum-izni/featured.jpg
   alt: Ölüm İzni Kimlere Verilir, Kaç Gündür?
   width: 1024
   height: 675

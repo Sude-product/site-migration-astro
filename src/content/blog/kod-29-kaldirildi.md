@@ -4,7 +4,7 @@ title: Kod 29 | Kod 29 Kaldırıldı
 date: '2021-04-09T12:21:18'
 excerpt: Sosyal Güvenlik Kurumu, milyonlarca çalışanı ilgilendiren ve 16 Nisan 2021 tarihiyle birlikte geçerli olacak yeni bir genelge yayınladı. Covid-19 salgını…
 featuredImage:
-  url: /wp-content/uploads/2021/04/Varlik-135.png
+  image: /img/blog-featured/kod-29-kaldirildi/featured.png
   alt: Kod 29 | Kod 29 Kaldırıldı
   width: 758
   height: 500

@@ -4,7 +4,7 @@ title: Yabancı İşçi Çalıştırma İzni Nasıl Alınır?
 date: '2021-05-05T12:06:19'
 excerpt: Bazı şirketlerin bünyesinde yabancı çalışanlar bulunabilir. Şirketin konumu ve iş kapsamı nedeniyle yabancı işçiye ihtiyaç durumu ortaya çıkabilir. Ülkemizde…
 featuredImage:
-  url: /wp-content/uploads/2021/05/yabanci-isci-calistirma-izni-nedir-yabanci-isci-calistirma-izni-nasil-alinir@2x.jpg
+  image: /img/blog-featured/yabanci-isci-calistirma-izni/featured.jpg
   alt: Yabancı İşçi Çalıştırma İzni Nasıl Alınır?
   width: 1514
   height: 999

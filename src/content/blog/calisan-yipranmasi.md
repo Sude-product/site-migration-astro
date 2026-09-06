@@ -4,7 +4,7 @@ title: Çalışan Yıpranması ile Nasıl Mücadele Edilir?
 date: '2023-03-01T22:49:42'
 excerpt: Çalışan yıpranması, derin motivasyon düşüşü, tükenmişlik hissi, işe karşı ilgisizlik gibi belirtilerle kendini gösteriyor. Pek çok farklı sebeple ortaya…
 featuredImage:
-  url: /wp-content/uploads/2023/03/calisan-yipranmasi-konusunda-nasil-onlemler-alinabilir.jpg
+  image: /img/blog-featured/calisan-yipranmasi/featured.jpg
   alt: Çalışan Yıpranması ile Nasıl Mücadele Edilir?
   width: 1515
   height: 999

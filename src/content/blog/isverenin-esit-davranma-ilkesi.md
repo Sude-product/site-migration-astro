@@ -4,7 +4,7 @@ title: İşverenin Eşit Davranma İlkesi
 date: '2023-04-10T16:00:11'
 excerpt: Çeşitlilik ve eşitlik İKY dünyasının gündeminde. Tabii, işverenin eşit davranma ilkesi de bu gündemde önemli bir rol oynuyor. Çünkü bu yaklaşım, verimli iş…
 featuredImage:
-  url: /wp-content/uploads/2023/04/isverenin-esit-davranma-ilkesi.jpg
+  image: /img/blog-featured/isverenin-esit-davranma-ilkesi/featured.jpg
   alt: İşverenin Eşit Davranma İlkesi
   width: 1621
   height: 811

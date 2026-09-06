@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Mindfulness Etkisi
 date: '2023-10-23T12:39:40'
 excerpt: İnsan kaynaklarında mindfulness etkisi her geçen gün ağırlığını artırıyor. Çünkü iş dünyasında yaşam kalitesini artırmanın anahtarı bu yaklaşımda saklı.…
 featuredImage:
-  url: /wp-content/uploads/2023/10/insan-kaynaklarinda-mindfulness-etkisi.jpg
+  image: /img/blog-featured/insan-kaynaklarinda-mindfulness/featured.jpg
   alt: İnsan Kaynaklarında Mindfulness Etkisi
   width: 1621
   height: 811

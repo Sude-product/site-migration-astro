@@ -4,7 +4,7 @@ title: Çalışan Ruh Sağlığı ve İK Uzmanları
 date: '2021-05-31T10:48:06'
 excerpt: İK, başka hiçbir yere uymayan küçük ve büyük tüm görevleri yerine getirerek bir kuruluşun çatlaklarını doldurur. İK’nın bir şirket içinde oynadığı en önemli…
 featuredImage:
-  url: /wp-content/uploads/2021/05/calisan-ruh-sagligi.jpg
+  image: /img/blog-featured/calisan-ruh-sagligi/featured.jpg
   alt: Çalışan Ruh Sağlığı ve İK Uzmanları
   width: 810
   height: 534

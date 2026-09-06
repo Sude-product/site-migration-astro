@@ -4,7 +4,7 @@ title: Kültürel Çeşitlilik ve Kapsayıcılık
 date: '2021-01-29T15:22:56'
 excerpt: Kültürel çeşitlilik, iş dünyasındaki globalleşmeye paralel sıkça duymaya alıştığımız bir kavram. Kültürel çeşitliliğin yanında şüphesiz kapsayıcılık kavramı da…
 featuredImage:
-  url: /wp-content/uploads/2021/01/insan-kaynaklari-yonetiminde-kulturel-cesitlilik-ve-onemli@15x.jpg
+  image: /img/blog-featured/kulturel-cesitlilik-ve-kapsayicilik/featured.jpg
   alt: Kültürel Çeşitlilik ve Kapsayıcılık
   width: 810
   height: 534

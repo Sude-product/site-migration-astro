@@ -4,7 +4,7 @@ title: Görev Yönetimi Yazılımı Nedir?
 date: '2020-01-28T16:47:14'
 excerpt: Ofis ortamında iş gücünün etkili şekilde yönetilebilmesi adına görevlerin bir yönetici tarafından sürekli olarak takip edilmesi ve düzenlenmesi gerekir.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/GÖREV@2x.png
+  image: /img/blog-featured/gorev-yonetimi-yazilimi/featured.png
   alt: Görev Yönetimi Yazılımı Nedir?
   width: 1515
   height: 998

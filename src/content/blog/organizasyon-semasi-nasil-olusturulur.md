@@ -4,7 +4,7 @@ title: Organizasyon Şeması Nedir, Nasıl Oluşturulur?
 date: '2021-03-22T15:23:49'
 excerpt: Organizasyon şeması, insan kaynakları yönetimi alanında oluşturması ciddi emek gerektiren ve önem verilen konuların başında gelir. İnsan kaynakları yönetimi,…
 featuredImage:
-  url: /wp-content/uploads/2021/03/Varlik-125@2x.png
+  image: /img/blog-featured/organizasyon-semasi-nasil-olusturulur/featured.png
   alt: Organizasyon Şeması Nedir, Nasıl Oluşturulur?
   width: 1514
   height: 999

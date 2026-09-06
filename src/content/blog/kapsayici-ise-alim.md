@@ -4,7 +4,7 @@ title: Kapsayıcı İşe Alım Rehberi
 date: '2023-01-20T19:52:17'
 excerpt: Kapsayıcı işe alım aradığınız yetenekleri çekmek ve elde tutmak için izlenebilecek en mantıklı yöntem olabilir. Çeşitliliğin ve kapsayıcılığın öneminden her…
 featuredImage:
-  url: /wp-content/uploads/2023/01/kapsayici-ise-allim-rehberi.jpg
+  image: /img/blog-featured/kapsayici-ise-alim/featured.jpg
   alt: Kapsayıcı İşe Alım Rehberi
   width: 1515
   height: 998

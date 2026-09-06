@@ -4,7 +4,7 @@ title: Puantaj Takibi Nedir?
 date: '2019-11-29T17:40:26'
 excerpt: Puantaj takibi , bir firmanın sağlıklı şekilde işleyebilmesi için eksiksiz olarak gerçekleştirilmesi gereken süreçler arasında yer alıyor. Puantaj takibi…
 featuredImage:
-  url: /wp-content/uploads/2019/11/puantaj-takibi-nedir.png
+  image: /img/blog-featured/puantaj-takibi/featured.png
   alt: Puantaj Takibi Nedir?
   width: 2272
   height: 1497

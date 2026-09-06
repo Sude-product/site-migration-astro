@@ -4,7 +4,7 @@ title: İşçi Savunması Nasıl Hazırlanır?
 date: '2024-09-21T22:31:07'
 excerpt: İşçi savunması, iş yerinde çalışan ve işveren arasında anlaşmazlık yaşandığı durumlarda talep edilebilir. Zorlu iş dünyasında dönem dönem yaşanabilen…
 featuredImage:
-  url: /wp-content/uploads/2022/07/isci-Savunmasi-Hangi-sartlarda-ve-Nasil-Hazirlanir.jpg
+  image: /img/blog-featured/isci-savunmasi/featured.jpg
   alt: İşçi Savunması Nasıl Hazırlanır?
   width: 1515
   height: 999

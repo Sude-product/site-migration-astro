@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Çeviklik
 date: '2021-01-22T09:18:05'
 excerpt: Çeviklik (agile) kavramı kurumsal literatürde son yıllarda sık sık karşılaştığımız bir kavram. Çeviklik deyince hepimizin aklına hızlı olmak, farkında olup…
 featuredImage:
-  url: /wp-content/uploads/2021/01/cevik_ik@2x.jpg
+  image: /img/blog-featured/insan-kaynaklari-yonetiminde-ceviklik/featured.jpg
   alt: İnsan Kaynakları Yönetiminde Çeviklik
   width: 810
   height: 534

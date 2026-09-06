@@ -4,7 +4,7 @@ title: İş Gücü Nedir?
 date: '2020-10-23T13:03:54'
 excerpt: İş gücü, tam anlamıyla bir işletmenin bel kemiğidir desek yanlış olmaz. Bu nedenle de son zamanlarda pek çok yönetici ve insan kaynakları uzmanının kafasında…
 featuredImage:
-  url: /wp-content/uploads/2020/10/is-gucu-nedir.png
+  image: /img/blog-featured/is-gucu-nedir/featured.png
   alt: İş Gücü Nedir?
   width: 2271
   height: 1497

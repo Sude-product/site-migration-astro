@@ -4,7 +4,7 @@ title: 2026 Memur Maaşları Ne Kadar Olacak? Güncel Zam Beklentileri
 date: '2025-12-18T20:42:47'
 excerpt: 2026 memur maaşları, hem kamu çalışanlarının alım gücü hem de bütçe dengeleri açısından kritik önem taşıyor ve pek çok kişi tarafından yakından takip ediliyor.…
 featuredImage:
-  url: /wp-content/uploads/2025/12/2026-memur-maaslari.png
+  image: /img/blog-featured/2026-memur-maaslari-ne-kadar-olacak/featured.png
   alt: 2026 Memur Maaşları
   width: 1281
   height: 720

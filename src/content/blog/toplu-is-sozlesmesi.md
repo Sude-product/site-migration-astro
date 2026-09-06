@@ -4,7 +4,7 @@ title: Toplu İş Sözleşmesi Nedir? Şartları Nelerdir?
 date: '2024-04-25T22:52:59'
 excerpt: Toplu iş sözleşmesi, çalışanlar ve işverenler arasında yapılan resmi bir anlaşma olarak tanımlanıyor. Bu sözleşme, çalışma koşullarını düzenliyor ve tarafların…
 featuredImage:
-  url: /wp-content/uploads/2025/08/toplu-is-hukuku-1392x696-1.jpg
+  image: /img/blog-featured/toplu-is-sozlesmesi/featured.jpg
   alt: Toplu İş Sözleşmesi Nedir? Şartları Nelerdir?
   width: 1392
   height: 696

@@ -4,7 +4,7 @@ title: İşten Çıkış Yönetimi Metrikleri
 date: '2025-08-31T17:40:37'
 excerpt: İşten çıkış yönetimi, bir çalışanın şirketten ayrılma sürecini kapsar ve bu süreci ölçmek ve yönetmek için kullanılan çeşitli metrikler bulunmaktadır. İşten…
 featuredImage:
-  url: /wp-content/uploads/2023/11/isten-cikis-yonetimi-metrikleri.jpg
+  image: /img/blog-featured/isten-cikis-yonetimi-metrikleri/featured.jpg
   alt: İşten Çıkış Yönetimi Metrikleri
   width: 1621
   height: 811

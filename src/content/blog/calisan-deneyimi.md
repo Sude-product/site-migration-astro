@@ -4,7 +4,7 @@ title: Çalışan Deneyimi Nedir?
 date: '2024-09-28T14:51:14'
 excerpt: Çalışan deneyimi , bir çalışanın şirketiyle çalışmasının sonucunda ona verdiği değerler toplamını ifade eder. Hem metot hem de yaklaşım bakımından bakıldığında…
 featuredImage:
-  url: /wp-content/uploads/2025/08/cÃsalƒ±sÃsma.png
+  image: /img/blog-featured/calisan-deneyimi/featured.png
   alt: Çalışan Deneyimi Nedir?
   width: 2272
   height: 1497

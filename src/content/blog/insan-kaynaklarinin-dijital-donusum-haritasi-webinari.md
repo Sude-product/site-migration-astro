@@ -4,7 +4,7 @@ title: İnsan Kaynaklarının Dijital Dönüşüm Haritası Webinarı
 date: '2024-01-11T17:01:44'
 excerpt: Bu etkinlik, katılımcılara işletmelerinde dijitalleşme sürecinde insan kaynakları yönetimini etkili bir şekilde nasıl entegre edebileceklerini öğretmeyi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/webinar-ik-dijital-donusum-1392x783-1.jpg
+  image: /img/blog-featured/insan-kaynaklarinin-dijital-donusum-haritasi-webinari/featured.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşüm Haritası Webinarı
   width: 1392
   height: 783

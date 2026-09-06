@@ -4,7 +4,7 @@ title: 'İş Yerinde Stres: İKY Profesyonelleri Bu Konuda Neler Yapabilir?'
 date: '2024-03-20T23:30:00'
 excerpt: Birçoğumuz bazı dönemlerde işyerinde stres altında hissediyoruz. Hatta bazılarımız bunu daha yoğun ve daha sık deneyimliyor. İşe odaklı bir dünyada yaşıyoruz.…
 featuredImage:
-  url: /wp-content/uploads/2025/08/is-yerinde-stresli-misiniz-1392x696-1.jpg
+  image: /img/blog-featured/isyerinde-stres/featured.jpg
   alt: 'İş Yerinde Stres: İKY Profesyonelleri Bu Konuda Neler Yapabilir?'
   width: 1392
   height: 696

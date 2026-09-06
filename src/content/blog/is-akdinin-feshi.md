@@ -4,7 +4,7 @@ title: İş Akdinin İşveren Tarafından Feshi
 date: '2021-06-18T09:09:39'
 excerpt: İş akdinin feshi, işçi ve işveren arasındaki diğer ilişkilerin de düzenlediği 4857 sayılı İş Kanunu ile düzenlenmiştir. İşçi ve işveren arasındaki…
 featuredImage:
-  url: /wp-content/uploads/2021/06/is-akdinin-feshi.jpg
+  image: /img/blog-featured/is-akdinin-feshi/featured.jpg
   alt: İş Akdinin İşveren Tarafından Feshi
   width: 1514
   height: 999

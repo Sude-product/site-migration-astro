@@ -4,7 +4,7 @@ title: SGK Hizmet Dökümü Nasıl Alınır?
 date: '2021-07-02T09:03:04'
 excerpt: Sosyal Güvenlik Kurumu çalışan haklarını güvence altına almak ve emeklilik durumlarının takibini yapmak için çalışmalar yürütür. SGK hizmet dökümü ise,…
 featuredImage:
-  url: /wp-content/uploads/2021/06/sgk-hizmet-dokumu-nereden-ve-nasil-alinir@2x.png
+  image: /img/blog-featured/sgk-hizmet-dokumu/featured.png
   alt: SGK Hizmet Dökümü Nasıl Alınır?
   width: 1515
   height: 999

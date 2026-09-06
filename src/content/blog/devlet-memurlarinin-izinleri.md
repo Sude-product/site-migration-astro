@@ -4,7 +4,7 @@ title: Devlet Memurlarının İzinleri
 date: '2023-06-15T15:47:11'
 excerpt: Devlet memurlarının izinleri en sık merak edilen konular arasında yer alıyor. Her türlü sosyal durum gözetilerek yasal çerçeveler ile belirlenen bu izinlerin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Devlet-memurlarinin-izin-hakki-1392x696-1.jpg
+  image: /img/blog-featured/devlet-memurlarinin-izinleri/featured.jpg
   alt: Devlet Memurlarının İzinleri
   width: 1392
   height: 696

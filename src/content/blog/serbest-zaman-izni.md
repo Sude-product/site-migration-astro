@@ -4,7 +4,7 @@ title: Serbest Zaman İzni Nedir?
 date: '2022-08-09T22:49:59'
 excerpt: Serbest zaman izni, çalışanların fazla mesai saatleri ile hak kazandığı ücrete alternatif olarak kullanılabilen izin türüdür. İş sözleşmelerinin başlangıcında…
 featuredImage:
-  url: /wp-content/uploads/2022/08/serbest-zaman-izni-fazla-mesaide-para-yerine-izin-hakki-taninmasi@2x-100.jpg
+  image: /img/blog-featured/serbest-zaman-izni/featured.jpg
   alt: Serbest Zaman İzni Nedir?
   width: 1515
   height: 998

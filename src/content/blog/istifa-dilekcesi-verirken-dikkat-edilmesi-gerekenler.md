@@ -4,7 +4,7 @@ title: İstifa Dilekçesi Verirken Dikkat Edilmesi Gerekenler
 date: '2021-03-24T11:05:59'
 excerpt: İstifa dilekçesi yazmak ve istifa etmenin usulleri çalışanların iş hayatlarında bilmesi gereken konular arasında yer alır. İstifa etmek, tıpkı bir işe yeni…
 featuredImage:
-  url: /wp-content/uploads/2021/03/istifa-dilekcesi-verirken-nelere-dikkat-edilmelidir@2x.png
+  image: /img/blog-featured/istifa-dilekcesi-verirken-dikkat-edilmesi-gerekenler/featured.png
   alt: İstifa Dilekçesi Verirken Dikkat Edilmesi Gerekenler
   width: 1514
   height: 999

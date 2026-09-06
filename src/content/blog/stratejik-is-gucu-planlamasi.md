@@ -4,7 +4,7 @@ title: Stratejik İş Gücü Planlaması
 date: '2022-10-14T12:24:42'
 excerpt: Her ölçekteki işletmelerde sosyal ve ekonomik yaşamın dinamizminden kaynaklanan planlama ihtiyacı, tüm stratejik yönetim süreçlerinin ilk basamağı olarak kabul…
 featuredImage:
-  url: /wp-content/uploads/2022/10/stratejik-is-gucu-planlamasi.jpg
+  image: /img/blog-featured/stratejik-is-gucu-planlamasi/featured.jpg
   alt: Stratejik İş Gücü Planlaması
   width: 1515
   height: 999

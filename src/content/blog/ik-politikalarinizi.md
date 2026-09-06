@@ -4,7 +4,7 @@ title: İK Politikalarınızı Maslow’un Gözünden İnceleyin
 date: '2022-02-05T11:32:30'
 excerpt: İK politikalarınızı geliştirme aşamasında hiç şüphesiz her detayı incelikle ve uzun uzun düşündünüz. Kısa ve uzun vadeli planlar yaptınız ve ekibinizin…
 featuredImage:
-  url: /wp-content/uploads/2022/02/I╠cK-Politikalar─▒n─▒z─▒-Maslowun-Go╠ezu╠enden-I╠cnceleyin-@2x.jpg
+  image: /img/blog-featured/ik-politikalarinizi/featured.jpg
   alt: İK Politikalarınızı Maslow’un Gözünden İnceleyin
   width: 1515
   height: 998

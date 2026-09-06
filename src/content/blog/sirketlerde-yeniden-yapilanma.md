@@ -4,7 +4,7 @@ title: Şirketlerde Yeniden Yapılanma
 date: '2023-03-20T18:15:23'
 excerpt: Şirketlerde yeniden yapılanma konusunda bilginiz var mı? Bize sorarsanız bu konuya zaman ayırmanız faydalı olacaktır. Zira değişen endüstriyel koşullar…
 featuredImage:
-  url: /wp-content/uploads/2023/03/Sirketlerde-Yeniden-Yapilanma.jpg
+  image: /img/blog-featured/sirketlerde-yeniden-yapilanma/featured.jpg
   alt: Şirketlerde Yeniden Yapılanma
   width: 1621
   height: 811

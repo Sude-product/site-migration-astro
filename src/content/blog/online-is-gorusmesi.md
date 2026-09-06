@@ -4,7 +4,7 @@ title: Online İş Görüşmesi Sırasındaki Arka Planınız Neler Söylüyor?
 date: '2021-04-23T13:12:15'
 excerpt: Pandemi ile beraber değişen iş yaşamı, işe alım süreçlerinde de online görüşmeler yeni normal halini aldı. Mart 2020 itibariyle işverenlerin %89’u online iş…
 featuredImage:
-  url: /wp-content/uploads/2021/04/online-is-gorusmesi.jpg
+  image: /img/blog-featured/online-is-gorusmesi/featured.jpg
   alt: Online İş Görüşmesi Sırasındaki Arka Planınız Neler Söylüyor?
   width: 1514
   height: 999

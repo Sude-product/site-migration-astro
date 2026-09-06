@@ -4,7 +4,7 @@ title: Dijital Yetenek Yönetimi
 date: '2021-07-26T15:29:33'
 excerpt: İK, dijital dönüşümde hayati bir rol oynar. Dijitalleşmenin bir sonucu olarak,, insan kaynakları departmanları yetenek yönetimi gibi çeşitli rolleri daha…
 featuredImage:
-  url: /wp-content/uploads/2021/07/dijital-yetenek-yonetimi.png
+  image: /img/blog-featured/dijital-yetenek-yonetimi/featured.png
   alt: Dijital Yetenek Yönetimi
   width: 1515
   height: 998

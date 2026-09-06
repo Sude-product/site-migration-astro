@@ -4,7 +4,7 @@ title: İnsan Kaynakları Trendleri Sözlüğü – 2025
 date: '2025-04-12T14:11:44'
 excerpt: Dijitalleşme insan kaynakları alanında ağırlığını artırdı, yeni kavramlar ortaya çıktı ve İKY terimleri farklılaştı. İnsan kaynakları trendleri 2025’te yepyeni…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-ik-Trendleri-Sozlugu.jpg
+  image: /img/blog-featured/insan-kaynaklari-trendleri-sozlugu/featured.jpg
   alt: İnsan Kaynakları Trendleri Sözlüğü – 2025
   width: 1281
   height: 721

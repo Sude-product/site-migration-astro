@@ -4,7 +4,7 @@ title: Mobbing Nedir?
 date: '2019-12-24T17:36:48'
 excerpt: Ofis yaşamında karşılaşılan bir zorbalık çeşidi olan mobbing , pek çok çalışanın başına gelen bir durumdur. Her ne kadar pek çok insan işyerinde mobbinge maruz…
 featuredImage:
-  url: /wp-content/uploads/2025/08/mobbing@3x-100.jpg
+  image: /img/blog-featured/mobbing-nedir/featured.jpg
   alt: Mobbing Nedir?
   width: 2272
   height: 1497

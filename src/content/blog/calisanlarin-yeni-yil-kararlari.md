@@ -4,7 +4,7 @@ title: Çalışanların Yeni Yıl Kararları ve Hedefleri
 date: '2023-12-21T22:53:03'
 excerpt: “Çalışanların Yeni Yıl Kararlarını ve Hedeflerini İşinize Dahil Etmek” ifadesi, bir iş veya şirketin çalışanlarının bireysel hedefleri, amaçları ve yeni yıl…
 featuredImage:
-  url: /wp-content/uploads/2023/12/calisanlarin-yeni-yil-kararlarini-ve-hedeflerini-isinize-dahil-etmek-2.jpg
+  image: /img/blog-featured/calisanlarin-yeni-yil-kararlari/featured.jpg
   alt: Çalışanların Yeni Yıl Kararları ve Hedefleri
   width: 1621
   height: 811

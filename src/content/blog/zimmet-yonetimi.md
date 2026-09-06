@@ -4,7 +4,7 @@ title: İşletmelerde Zimmet Yönetimi
 date: '2024-12-05T23:14:27'
 excerpt: İnsan kaynaklarının işletmedeki fiziksel varlıkları korumak ve personeller arasındaki kullanımlarını takip etmek ile ilgili olan görevleri zimmet yönetimi ile…
 featuredImage:
-  url: /wp-content/uploads/2020/07/zimmet-yönetimi@3x-1.png
+  image: /img/blog-featured/zimmet-yonetimi/featured.png
   alt: İşletmelerde Zimmet Yönetimi
   width: 2271
   height: 1497

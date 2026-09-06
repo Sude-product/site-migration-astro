@@ -4,7 +4,7 @@ title: E-bildirge Başvurusu Nedir?
 date: '2025-08-10T20:17:40'
 excerpt: Belirli sayıda çalışana ulaşan işletmeler için zorunlu tutulan ve Sosyal Güvenlik Kurumuna bildirilmesi gereken pek çok işlemin internet üzerinden pratik bir…
 featuredImage:
-  url: /wp-content/uploads/2025/08/e-bildirge.jpg
+  image: /img/blog-featured/e-bildirge-basvurusu-nedir/featured.jpg
   alt: E-bildirge Başvurusu Nedir?
   width: 1024
   height: 675

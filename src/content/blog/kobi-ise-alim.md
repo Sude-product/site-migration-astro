@@ -4,7 +4,7 @@ title: KOBİ’lerde İşe Alım Süreçleri
 date: '2025-12-08T16:38:43'
 excerpt: KOBİ’ler, ülke ekonomisinin bel kemiği olarak önemli bir rol üstlenir. Aynı zamanda istihdam süreçlerinde de kritik bir aktör konumunda yer alırlar. Fakat bu…
 featuredImage:
-  url: /wp-content/uploads/2025/08/blok-kobilerde-ise-alim-surecleri.jpg
+  image: /img/blog-featured/kobi-ise-alim/featured.jpg
   alt: KOBİ’lerde İşe Alım Süreçleri
   width: 1280
   height: 720

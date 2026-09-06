@@ -4,7 +4,7 @@ title: İK Yönetiminde Smart Hedefler
 date: '2021-03-05T16:46:14'
 excerpt: SMART hedefler uzun zamandır iş hayatında kullanılan bir araç ve pek çok çalışan da başarıya ulaşmada hala bu yöntemden yararlanıyor. 2021 yılında iş dünyası…
 featuredImage:
-  url: /wp-content/uploads/2021/03/smart-hedefler@2x.png
+  image: /img/blog-featured/insan-kaynaklari-yonetiminde-smart-hedefler/featured.png
   alt: İK Yönetiminde Smart Hedefler
   width: 1514
   height: 999

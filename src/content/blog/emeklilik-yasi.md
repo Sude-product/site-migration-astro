@@ -4,7 +4,7 @@ title: Kadınlarda ve Erkeklerde Emeklilik Yaşı ve Şartları
 date: '2024-10-06T21:25:18'
 excerpt: Türkiye’de emeklilik yaşı ve şartları, Sosyal Güvenlik Kurumu (SGK) tarafından belirlenen bir dizi kriter ve düzenlemeye tabidir. Emeklilik yaşı ve şartları,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Kadinlarda-ve-erkeklerde-emeklilik-yasi-ve-sartlari-1392x696-1.jpg
+  image: /img/blog-featured/emeklilik-yasi/featured.jpg
   alt: Kadınlarda ve Erkeklerde Emeklilik Yaşı ve Şartları
   width: 1392
   height: 696

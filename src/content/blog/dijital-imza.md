@@ -4,7 +4,7 @@ title: Dijital İmza Hakkında Tüm Merak Ettikleriniz
 date: '2024-05-27T23:22:50'
 excerpt: İş dünyasında dijital dönüşüm hız kesmeden devam ediyor. Otomatize edilen rutin işler ve artan teknoloji kullanımı iş dünyası profesyonellerine hız, verimlilik…
 featuredImage:
-  url: /wp-content/uploads/2025/08/dijital-imza-rehberi-1392x696-1.jpg
+  image: /img/blog-featured/dijital-imza/featured.jpg
   alt: Dijital İmza Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

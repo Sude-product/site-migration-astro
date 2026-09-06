@@ -4,7 +4,7 @@ title: Uzaktan Çalışma Yönetmeliği | Uzaktan Çalışmaya Geçiş
 date: '2021-04-12T14:01:59'
 excerpt: Uzaktan çalışma yönetmeliği, covid-19 pandemi süreci ile birlikte artış gösteren uzaktan çalışma eğiliminin sonucu olarak hazırlandı. “Uzaktan Çalışma…
 featuredImage:
-  url: /wp-content/uploads/2021/04/uzaktan-calisma-yonetmeligi-.jpg
+  image: /img/blog-featured/uzaktan-calisma-yonetmeligi/featured.jpg
   alt: Uzaktan Çalışma Yönetmeliği | Uzaktan Çalışmaya Geçiş
   width: 1514
   height: 999

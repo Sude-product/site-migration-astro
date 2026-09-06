@@ -4,7 +4,7 @@ title: Puantaj Nedir? Puantaj Hakkında Tüm Bilmeniz Gerekenler
 date: '2024-05-11T12:07:20'
 excerpt: Puantaj nedir, puantaj cetveli nasıl hazırlanır ve dahası onlarca soru aklınızı kurcalıyorsa doğru yerdesiniz. Öyle ki puantaj hesaplamaları yalnızca sizin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/süreksiz-iş-nedir.-sürekli-ve-süreksiz-iş-sözleşmesi@3x.png
+  image: /img/blog-featured/puantaj-nedir/featured.png
   alt: Puantaj Nedir? Puantaj Hakkında Tüm Bilmeniz Gerekenler
   width: 2271
   height: 1497

@@ -4,7 +4,7 @@ title: Ücret Bordrosu ve Ücret Hesap Pusulası
 date: '2025-01-19T20:34:55'
 excerpt: İş dünyasının temel unsurları arasında yer alan ücret bordrosu ve ücret hesap pusulası, çalışanların haklarını güvence altına alan önemli yasal belgeler…
 featuredImage:
-  url: /wp-content/uploads/2020/10/Bordro-Nedir-Maaş-Bordrosu-Hesaplama-Hakkında-Bilinmesi-Gerekenler@3x.png
+  image: /img/blog-featured/ucret-bordrosu/featured.png
   alt: Ücret Bordrosu ve Ücret Hesap Pusulası
   width: 2271
   height: 1497

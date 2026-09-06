@@ -4,7 +4,7 @@ title: Z Kuşağı İş Hayatında Nelere Önem Veriyor?
 date: '2021-07-05T11:07:52'
 excerpt: 1996 ile 2000’lerin başı arasında doğan kişiler Z kuşağı olarak adlandırılıyor. Z kuşağının iş hayatına katılımı yoğun şekilde başladı. Yalnızca Amerika…
 featuredImage:
-  url: /wp-content/uploads/2021/07/z-kusagi-is-hayatina-katilmak-icin-nelere-onem-veriyor@2x.jpg
+  image: /img/blog-featured/z-kusagi-is-hayati/featured.jpg
   alt: Z Kuşağı İş Hayatında Nelere Önem Veriyor?
   width: 810
   height: 534

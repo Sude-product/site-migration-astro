@@ -4,7 +4,7 @@ title: Puantaj İşlemleri Rehberi
 date: '2023-11-16T09:55:39'
 excerpt: Puantaj işlemleri, bir çalışanın çalışma saatlerini ve işe geliş-gidiş zamanlarını kaydederek, bu verileri işveren tarafından izlenmesini sağlayan bir sistem…
 featuredImage:
-  url: /wp-content/uploads/2023/11/puantaj-islemleri-hakkinda-tum-merak-ettikleriniz.jpg
+  image: /img/blog-featured/puantaj-islemleri/featured.jpg
   alt: Puantaj İşlemleri Rehberi
   width: 1621
   height: 811

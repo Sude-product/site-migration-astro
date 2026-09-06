@@ -4,7 +4,7 @@ title: Evlilik Tazminatı Alma Şartları
 date: '2025-05-31T23:35:00'
 excerpt: Evlilik nedeniyle işten ayrılma durumunda kadın çalışanların kıdem tazminatı alıp alamayacağı sıklıkla merak edilir. Halk arasında evlilik tazminatı olarak…
 featuredImage:
-  url: /wp-content/uploads/2025/05/evlilik-tazminati.jpg
+  image: /img/blog-featured/evlilik-tazminati-alma-sartlari/featured.jpg
   alt: Evlilik Tazminatı Alma Şartları
   width: 1024
   height: 675

@@ -4,7 +4,7 @@ title: IX. Kurumsal Eğitim ve Gelişim Zirvesi
 date: '2023-12-11T17:24:53'
 excerpt: idenfit ve Yüksekbilgili Eğitim işbirliğinde gerçekleştirilen bu zirvede, proaktif Öğrenme ve Geliştirme kültürünün oluşturulmasına, en son teknolojilerin…
 featuredImage:
-  url: /wp-content/uploads/2023/12/kurumsal-egitim-ve-gelisim-zirvesi-butonlu-2023.jpg
+  image: /img/blog-featured/ix-kurumsal-egitim-ve-gelisim-zirvesi/featured.jpg
   alt: IX. Kurumsal Eğitim ve Gelişim Zirvesi
   width: 1920
   height: 1080

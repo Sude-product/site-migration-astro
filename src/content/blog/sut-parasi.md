@@ -4,7 +4,7 @@ title: Süt Parası (Emzirme Ödeneği) 2022 Yılı Tutarı
 date: '2022-01-28T13:48:14'
 excerpt: 2022 Süt parası yani emzirme ödeneği tutarı birçok anne ve anne adayı tarafından merakla bekleniyor. Çocuk sahibi olan ailelerin hak kazandığı emzirme ödeneği…
 featuredImage:
-  url: /wp-content/uploads/2022/01/Su╠et-paras─▒@2x.jpg
+  image: /img/blog-featured/sut-parasi/featured.jpg
   alt: Süt Parası (Emzirme Ödeneği) 2022 Yılı Tutarı
   width: 1515
   height: 998

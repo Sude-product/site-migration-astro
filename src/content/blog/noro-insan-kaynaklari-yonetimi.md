@@ -4,7 +4,7 @@ title: Nöro İnsan Kaynakları Yönetimi
 date: '2023-11-17T11:20:46'
 excerpt: Nöro insan kaynakları yönetimi, geleneksel İKY uygulamalarını nörolojik bilimlerin ve bilişsel psikolojinin bulgularıyla birleştiren bir yaklaşımı ifade eder.…
 featuredImage:
-  url: /wp-content/uploads/2023/11/noro-insan-kaynaklari-yonetimi-nedir-1.jpg
+  image: /img/blog-featured/noro-insan-kaynaklari-yonetimi/featured.jpg
   alt: Nöro İnsan Kaynakları Yönetimi
   width: 1621
   height: 811

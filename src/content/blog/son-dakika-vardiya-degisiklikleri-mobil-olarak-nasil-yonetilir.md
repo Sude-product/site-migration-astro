@@ -4,7 +4,7 @@ title: Son Dakika Vardiya Değişiklikleri Mobil Olarak Nasıl Yönetilir?
 date: '2026-08-14T14:00:00'
 excerpt: Perakende, restoran, çağrı merkezi ve saha hizmetlerinde vardiya planı günler öncesinden hazırlanmış olsa bile operasyon her zaman plana uymaz. Hastalık,…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Son-Dakika-Vardiya-Degisiklikleri-Mobil-Olarak-Nasil-Yonetilir-1.webp
+  image: /img/blog-featured/son-dakika-vardiya-degisiklikleri-mobil-olarak-nasil-yonetilir/featured.webp
   alt: Son Dakika Vardiya Değişiklikleri Mobil Olarak Nasıl Yönetilir?
   width: 1672
   height: 941

@@ -4,7 +4,7 @@ title: Dijital Dönüşüm İnsan Kaynaklarında İhtiyaç mı İstek mi?
 date: '2020-08-19T13:25:06'
 excerpt: Dijitalleşme, günlük operasyonlarda dijital araçlardan yararlanan bir organizasyon olmayı içerir. Bir işi yürütmek için teknolojiyi kullanma kültürünü…
 featuredImage:
-  url: /wp-content/uploads/2025/08/dijital-dönüşüm@3x.png
+  image: /img/blog-featured/dijital-donusum-ihtiyac-mi-istek-mi/featured.png
   alt: Dijital Dönüşüm İnsan Kaynaklarında İhtiyaç mı İstek mi?
   width: 2271
   height: 1497

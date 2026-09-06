@@ -4,7 +4,7 @@ title: Liderlikte En Çok Yapılan Hatalar ve Çözüm Yolları
 date: '2020-09-16T17:06:55'
 excerpt: Liderlikte en çok yapılan hatalar ve bu hatalar nasıl önlenebilir konusu modern yönetimin en önemli konularındandır. Yöneticiler farklı liderlik özelliklerine…
 featuredImage:
-  url: /wp-content/uploads/2025/08/liderlikte-yapilan-hatalar.png
+  image: /img/blog-featured/liderlikte-en-cok-yapilan-hatalar/featured.png
   alt: Liderlikte En Çok Yapılan Hatalar ve Çözüm Yolları
   width: 2271
   height: 1497

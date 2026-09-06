@@ -4,7 +4,7 @@ title: Vardiya Yönetimi Yazılımları Hakkında Tüm Merak Ettikleriniz
 date: '2024-06-09T22:48:00'
 excerpt: Vardiya yönetimi, özellikle sürekli operasyon gerektiren sektörlerde iş gücünü yönetmek konusunda önem taşıyor. İşletmelerin 24 saat boyunca verimli ve…
 featuredImage:
-  url: /wp-content/uploads/2025/08/vardiya-yonetimi-yazilimlari-1392x696-1.jpg
+  image: /img/blog-featured/vardiya-yonetimi-yazilimlari/featured.jpg
   alt: Vardiya Yönetimi Yazılımları Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

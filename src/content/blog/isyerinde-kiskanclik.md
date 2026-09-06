@@ -4,7 +4,7 @@ title: İşyerinde Kıskançlık
 date: '2023-10-18T16:24:02'
 excerpt: İşyerinde kıskançlık konusu günümüzün bilinen ama hakkında konuşulmayan gerçekleri arasında yer alıyor. Bu yıkıcı rekabet hissi şirket iklimini olumsuz…
 featuredImage:
-  url: /wp-content/uploads/2023/07/is-yerinde-kiskancligi-onleme.jpg
+  image: /img/blog-featured/isyerinde-kiskanclik/featured.jpg
   alt: İşyerinde Kıskançlık
   width: 1620
   height: 811

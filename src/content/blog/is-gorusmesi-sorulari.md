@@ -4,7 +4,7 @@ title: İş Görüşmesi Soruları & En İyi Cevaplar
 date: '2019-11-18T17:49:08'
 excerpt: İş görüşmesi soruları çoğu insan için oldukça stresli ve göz korkutan bir tecrübedir. Sorulacak soruların belirsizliği, bir süredir iş arıyor olmanın ağır…
 featuredImage:
-  url: /wp-content/uploads/2019/11/is-gorusmesi-sorulari-and-en-iyi-cevaplar.jpg
+  image: /img/blog-featured/is-gorusmesi-sorulari/featured.jpg
   alt: İş Görüşmesi Soruları & En İyi Cevaplar
   width: 1515
   height: 1080

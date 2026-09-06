@@ -4,7 +4,7 @@ title: Video Mülakatlar için İpuçları
 date: '2023-05-02T16:17:08'
 excerpt: Özellikle Covid-19 salgının etkisinden sonra iş dünyasına popülerlik kazanan video mülakatlar iş görüşmelerinde yeni bir standart halini aldı. Artık pek çok…
 featuredImage:
-  url: /wp-content/uploads/2023/05/video-mulakatlar-icin-ipuclari.jpg
+  image: /img/blog-featured/video-mulakatlar/featured.jpg
   alt: Video Mülakatlar için İpuçları
   width: 1621
   height: 811

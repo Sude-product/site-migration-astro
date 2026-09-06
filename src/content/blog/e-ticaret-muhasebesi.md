@@ -4,7 +4,7 @@ title: E-Ticaret Muhasebesi Nedir?
 date: '2022-10-13T12:22:46'
 excerpt: E-Ticaret, başta internet olmak üzere elektronik bir ağ üzerinden mal ve hizmetlerin alınıp satılması ya da verilerin iletilmesi olarak tanımlanmaktadır.…
 featuredImage:
-  url: /wp-content/uploads/2022/10/e-ticaret-muhasebesi-nedi-ve-neden-onemlidir.jpg
+  image: /img/blog-featured/e-ticaret-muhasebesi/featured.jpg
   alt: E-Ticaret Muhasebesi Nedir?
   width: 1515
   height: 999

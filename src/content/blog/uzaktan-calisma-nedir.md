@@ -4,7 +4,7 @@ title: Uzaktan Çalışma Nedir? Avantajları ve Dezavantajları
 date: '2020-07-24T12:32:47'
 excerpt: Uzun yıllardır dünyanın birçok yerinde firmaların tercih ettiği uzaktan çalışma sistemi, pandemi nedeniyle çaresiz kalan firmaların çıkış kapısı olarak öne…
 featuredImage:
-  url: /wp-content/uploads/2025/08/çalişma-ve-yaşam-dengesi@3x-1.png
+  image: /img/blog-featured/uzaktan-calisma-nedir/featured.png
   alt: Uzaktan Çalışma Nedir? Avantajları ve Dezavantajları
   width: 2271
   height: 1497

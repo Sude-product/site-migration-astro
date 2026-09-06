@@ -4,7 +4,7 @@ title: 'Aidiyetin Gücü: Çalışan Bağlılığı Webinarı'
 date: '2023-06-15T09:14:39'
 excerpt: Bu webinar; çalışan aidiyetinin temelini oluşturan unsurlardan, liderlik ve iletişim etkisine, işe alımda aidiyetin değerlendirilmesinden, çalışan deneyimi ve…
 featuredImage:
-  url: /wp-content/uploads/2023/06/webinar-calisan-bagliligi-webinari-20230713.jpg
+  image: /img/blog-featured/aidiyetin-gucu-calisan-bagliligi-webinari/featured.jpg
   alt: 'Aidiyetin Gücü: Çalışan Bağlılığı Webinarı'
   width: 1920
   height: 1080

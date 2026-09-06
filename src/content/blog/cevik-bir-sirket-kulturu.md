@@ -4,7 +4,7 @@ title: Çevik Bir Şirket Kültürü İnşa Etmek
 date: '2022-03-11T21:32:58'
 excerpt: Çevik bir şirket kültürü, değişim ve farklı yaklaşımlara açık, inovatif ve bireylere değil sistemlere odaklanan bir yapıyı ifade eder. Şirketinizde çevik…
 featuredImage:
-  url: /wp-content/uploads/2022/03/3.-çevik-şirket-@2x.jpg
+  image: /img/blog-featured/cevik-bir-sirket-kulturu/featured.jpg
   alt: Çevik Bir Şirket Kültürü İnşa Etmek
   width: 1515
   height: 998

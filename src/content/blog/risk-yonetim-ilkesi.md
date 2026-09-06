@@ -4,7 +4,7 @@ title: 5 Temel Risk Yönetimi İlkesi
 date: '2022-11-03T14:17:44'
 excerpt: Her denetim planı, risk yönetimi gerektirir. Eğer denetim planınızı bir yol olarak düşünürseniz, karşılaşacağınız riskler de yolda karşınıza çıkabilecek…
 featuredImage:
-  url: /wp-content/uploads/2022/11/Risk-değerlendirme.jpg
+  image: /img/blog-featured/risk-yonetim-ilkesi/featured.jpg
   alt: 5 Temel Risk Yönetimi İlkesi
   width: 1515
   height: 999

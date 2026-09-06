@@ -73,9 +73,9 @@ const pageItems = getPaginationItems(currentPage, totalPages);
                   class="reveal group flex flex-col gap-5 overflow-hidden rounded-2xl border border-gray-100 shadow-sm transition-shadow hover:shadow-md sm:flex-row"
                   style={`transition-delay: ${Math.min(i, 6) * 60}ms`}
                 >
-                  {post.data.featuredImage && (
+                  {post.data.featuredImage?.image && (
                     <img
-                      src={post.data.featuredImage.url}
+                      src={post.data.featuredImage.image}
                       alt={post.data.featuredImage.alt}
                       loading="lazy"
                       class="aspect-[16/9] w-full shrink-0 object-cover transition-transform duration-700 ease-out group-hover:scale-110 sm:aspect-[4/3] sm:w-56"

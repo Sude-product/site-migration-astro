@@ -4,7 +4,7 @@ title: Maaş Bordrosu Nasıl Hazırlanır?
 date: '2025-01-28T20:31:48'
 excerpt: Bordro, işverenin düzenli takibini gerektiren en önemli insan kaynakları süreçleri arasında yer alıyor. Çünkü çalışanların maaş bordrolarının hazırlanması ve…
 featuredImage:
-  url: /wp-content/uploads/2025/08/blog.-maas-bordrosu-nasil-hazirlanir.jpg
+  image: /img/blog-featured/bordro-nedir-maas-bordrosu-nasil-hesaplanir/featured.jpg
   alt: Maaş Bordrosu Nasıl Hazırlanır?
   width: 1280
   height: 720

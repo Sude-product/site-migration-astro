@@ -4,7 +4,7 @@ title: İnsan Kaynakları Unvanları Nelerdir?
 date: '2021-05-10T10:54:33'
 excerpt: İnsan kaynakları unvanları, her kurum ve organizasyonun kendi iç dinamiklerine bağlı olarak insan kaynakları konumlandırması değişebildiği için çeşitlilik…
 featuredImage:
-  url: /wp-content/uploads/2021/05/insan-kaynaklari-unvanlari-nelerdir@2x.jpg
+  image: /img/blog-featured/insan-kaynaklari-unvanlari/featured.jpg
   alt: İnsan Kaynakları Unvanları Nelerdir?
   width: 1514
   height: 999

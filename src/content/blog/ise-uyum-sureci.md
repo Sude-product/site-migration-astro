@@ -4,7 +4,7 @@ title: 'İşe Uyum Süreci: Kusursuz Bir Onboarding Deneyimi'
 date: '2022-01-26T13:08:06'
 excerpt: İşe uyum süreci şirketinizde yeterince önemseniyor mu? İşe alım süreci için son günlerde hemen hemen her şirket özel planlamalar gerçekleştiriyor. Şirketin…
 featuredImage:
-  url: /wp-content/uploads/2022/01/I╠cs╠ge-Uyum-Su╠ereci@2x-kopya.jpg
+  image: /img/blog-featured/ise-uyum-sureci/featured.jpg
   alt: 'İşe Uyum Süreci: Kusursuz Bir Onboarding Deneyimi'
   width: 1514
   height: 998

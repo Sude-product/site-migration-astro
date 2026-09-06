@@ -4,7 +4,7 @@ title: Hileli Maaş Ödemesi Yöntemi
 date: '2022-03-08T15:13:12'
 excerpt: Hileli maaş yöntemi bir süredir en sık konuşulan konular arasında yer alıyor. Asgari ücret zam tutarının %50 dolaylarında belirlenmesi ve net asgari ücret in…
 featuredImage:
-  url: /wp-content/uploads/2022/03/Hileli-Maas╠g-Yo╠entemine-Dikkat-maas╠g─▒n-asgari-u╠ecret-go╠esterilmesi-elden-nakit-para-al─▒nmas─▒-@2x.jpg
+  image: /img/blog-featured/hileli-maas-odemesi/featured.jpg
   alt: Hileli Maaş Ödemesi Yöntemi
   width: 1515
   height: 998

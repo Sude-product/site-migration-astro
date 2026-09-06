@@ -4,7 +4,7 @@ title: 2026 Günlük Yemek ve Yol Ücreti İstisna Tutarları
 date: '2026-04-17T07:53:42'
 excerpt: 2026’da yemek ve yol yardımlarına ilişkin istisna tutarları, bordro süreçlerinde en çok takip edilen başlıklardan biri haline geldi. Çünkü bu rakamlar sadece…
 featuredImage:
-  url: /wp-content/uploads/2026/04/WhatsApp-Image-2026-03-13-at-14.51.50-5.jpeg
+  image: /img/blog-featured/2026-gunluk-yemek-ve-yol-ucreti-istisna-tutarlari/featured.jpeg
   alt: 2026 Günlük Yemek ve Yol Ücreti İstisna Tutarları
   width: 1280
   height: 720

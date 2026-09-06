@@ -4,7 +4,7 @@ title: Ücret Nedir Ücret Türleri Nelerdir?
 date: '2020-12-30T10:18:59'
 excerpt: Ücret nedir, ücret türleri nelerdir gibi soruların yanıtı sıklıkla aranmaktadır. Ücret, ekonomik olarak üretimde kullanılan beden ve zihin gücünün karşılığında…
 featuredImage:
-  url: /wp-content/uploads/2020/12/Ucret-Nedir_-Ucret-Turleri-Nelerdir_@2x.png
+  image: /img/blog-featured/ucret-nedir-ucret-turleri-nelerdir/featured.png
   alt: Ücret Nedir Ücret Türleri Nelerdir?
   width: 1514
   height: 998

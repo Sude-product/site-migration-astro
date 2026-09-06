@@ -4,7 +4,7 @@ title: KOBİ’lerde İnsan Kaynakları Yönetimi
 date: '2022-10-07T10:45:37'
 excerpt: Dünya genelinde hemen hemen her ülkede olduğu gibi Türkiye’de de Küçük ve Orta Ölçekli İşletme (Kobi)’ler, giderek artan bir öneme sahiptir. Öyle ki KOBİ’leri…
 featuredImage:
-  url: /wp-content/uploads/2022/10/KOBİlerde-İnsan-Kaynaklari-Yönetimi.jpg
+  image: /img/blog-featured/kobi-insan-kaynaklari-yonetimi/featured.jpg
   alt: KOBİ’lerde İnsan Kaynakları Yönetimi
   width: 1515
   height: 998

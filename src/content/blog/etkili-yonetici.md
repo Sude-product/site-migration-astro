@@ -4,7 +4,7 @@ title: Etkili Bir Yönetici Olmak İçin Gereken Özellikler
 date: '2022-08-02T10:15:45'
 excerpt: Etkili yönetici kavramı herkes için farklı anlamlar ifade edebiliyor. Çalışanlar, işverenler ve çalışma arkadaşlarının yöneticilerden farklı istekleri…
 featuredImage:
-  url: /wp-content/uploads/2022/08/etkili-yoneticilerin-temel-nitelikleri.jpg
+  image: /img/blog-featured/etkili-yonetici/featured.jpg
   alt: Etkili Bir Yönetici Olmak İçin Gereken Özellikler
   width: 1515
   height: 999

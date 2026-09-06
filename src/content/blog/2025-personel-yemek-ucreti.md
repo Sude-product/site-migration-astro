@@ -4,7 +4,7 @@ title: 2025 Personel Yemek Ücreti
 date: '2025-01-05T21:01:51'
 excerpt: Personel yemek ücreti, işverenlerin çalışanlarına sunduğu yemek hizmetinin maliyetini ifade ediyor. Bu ödeme, çalışan refahını artırmada önemli bir rol…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-personel-yemek-ucreti.jpg
+  image: /img/blog-featured/2025-personel-yemek-ucreti/featured.jpg
   alt: 2025 Personel Yemek Ücreti
   width: 1280
   height: 720

@@ -4,7 +4,7 @@ title: PDKS Sistemi Nasıl Kullanılır? | Mobil PDKS
 date: '2021-03-29T12:50:25'
 excerpt: PDKS sistemi, şirketlerde çalışanların işe devamlılığının takibi amacıyla kullanılan programlardır. PDKS açılımı “personel devam kontrol sistemleri”…
 featuredImage:
-  url: /wp-content/uploads/2021/03/PDKS-sistemi-nasil-kullanilir-mobil-PDKS@2x.png
+  image: /img/blog-featured/pdks-sistemi-nasil-kullanilir-mobil-pdks/featured.png
   alt: PDKS Sistemi Nasıl Kullanılır? | Mobil PDKS
   width: 1515
   height: 999

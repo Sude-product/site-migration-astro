@@ -24,10 +24,10 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
           {popularPosts.map((post) => (
             <li>
               <a href={`/blog/${post.data.slug}/`} class="group flex items-start gap-3">
-                {post.data.featuredImage && (
+                {post.data.featuredImage?.image && (
                   <span class="block h-10 w-10 shrink-0 overflow-hidden rounded">
                     <img
-                      src={post.data.featuredImage.url}
+                      src={post.data.featuredImage.image}
                       alt={post.data.featuredImage.alt}
                       loading="lazy"
                       class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
@@ -58,10 +58,10 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
           {upcomingEventPosts.map((post) => (
             <li>
               <a href={`/blog/${post.data.slug}/`} class="group flex items-start gap-3">
-                {post.data.featuredImage && (
+                {post.data.featuredImage?.image && (
                   <span class="block h-10 w-10 shrink-0 overflow-hidden rounded">
                     <img
-                      src={post.data.featuredImage.url}
+                      src={post.data.featuredImage.image}
                       alt={post.data.featuredImage.alt}
                       loading="lazy"
                       class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"

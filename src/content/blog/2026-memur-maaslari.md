@@ -4,7 +4,7 @@ title: 2026 Memur Maaşları
 date: '2026-03-11T08:09:46'
 excerpt: 2026 yılının ilk yarısına girerken, milyonlarca memur ve memur emeklisinin merakla beklediği Ocak maaş zammı nihayet açıklandı. Türkiye İstatistik Kurumu…
 featuredImage:
-  url: /wp-content/uploads/2025/07/Seffaf-maas-politikas─▒.jpg
+  image: /img/blog-featured/2026-memur-maaslari/featured.jpg
   alt: 2026 Memur Maaşları
   width: 1515
   height: 998

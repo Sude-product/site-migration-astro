@@ -4,7 +4,7 @@ title: Seyahat ve Konaklama Süresi Fazla Mesaiden Sayılır mı?
 date: '2022-04-22T15:28:22'
 excerpt: Seyahat ve konaklama süresi ile fazla mesai hesaplamaları özellikle sık seyahat eden işçiler tarafından en sık merak edilen konular arasında yer alıyor. Bazı…
 featuredImage:
-  url: /wp-content/uploads/2022/04/Seyahat-ve-Konaklama-Süresi-Fazla-Mesaiden-Sayilir-mi_@2x-100.jpg
+  image: /img/blog-featured/seyahat-ve-konaklama-suresi/featured.jpg
   alt: Seyahat ve Konaklama Süresi Fazla Mesaiden Sayılır mı?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: KPİ Nedir ve Nasıl Belirlenir?
 date: '2020-07-10T09:59:21'
 excerpt: Key Performance Indicator ( Anahtar Temel Performans Göstergesi) kısaca KPI, son yılların yükselen kavramları arasında yer alır. Özellikle çalışanların…
 featuredImage:
-  url: /wp-content/uploads/2025/08/performans-yöntemleri@3x-1.png
+  image: /img/blog-featured/kpi-nedir-ve-nasil-belirlenir/featured.png
   alt: KPİ Nedir ve Nasıl Belirlenir?
   width: 2271
   height: 1497

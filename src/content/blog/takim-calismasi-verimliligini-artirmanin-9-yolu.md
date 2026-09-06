@@ -4,7 +4,7 @@ title: Takım Çalışması Verimliliğini Artırmanın 9 Yolu
 date: '2021-01-04T10:19:55'
 excerpt: Takım çalışması verimliliği ve üretkenliği işletmeler için kritik önem arz eder. Çünkü işveren çalışmalar sonucunda takımlardan beklentilerinin karşılanmasını…
 featuredImage:
-  url: /wp-content/uploads/2021/01/Takim-çalişmasi-verimliliğini-arttirmanin-9-yolu@2x.png
+  image: /img/blog-featured/takim-calismasi-verimliligini-artirmanin-9-yolu/featured.png
   alt: Takım Çalışması Verimliliğini Artırmanın 9 Yolu
   width: 1514
   height: 998

@@ -4,7 +4,7 @@ title: PDKS Cihazları Rehberi
 date: '2024-05-28T19:16:22'
 excerpt: PDKS cihazlarından bahsetmeden önce PDKS’nin açılımından bahsetmemiz gerekiyor. PDKS yani personel devam kontrol sistemi, işletmelerdeki personelin işe…
 featuredImage:
-  url: /wp-content/uploads/2025/08/PDKS-cihazlari-rehberi-1392x696-1.jpg
+  image: /img/blog-featured/pdks-cihazlari/featured.jpg
   alt: PDKS Cihazları Rehberi
   width: 1392
   height: 696

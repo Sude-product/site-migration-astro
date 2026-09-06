@@ -4,7 +4,7 @@ title: Gig Ekonomisi Hakkında Tüm Merak Ettikleriniz
 date: '2025-05-11T21:22:52'
 excerpt: Çoğumuz için yeni bir terim olarak “Gig Ekonomisi” aslında son 10 yıldır pek çok yabancı kaynakta kullanılmakta. Gig her ne kadar müzik sektörüne ait bir terim…
 featuredImage:
-  url: /wp-content/uploads/2025/05/gig-ekonomisi.jpg
+  image: /img/blog-featured/gig-ekonomisi/featured.jpg
   alt: Gig Ekonomisi Hakkında Tüm Merak Ettikleriniz
   width: 810
   height: 534

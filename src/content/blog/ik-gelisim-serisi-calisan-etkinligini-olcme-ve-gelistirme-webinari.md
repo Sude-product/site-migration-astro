@@ -4,7 +4,7 @@ title: 'İK Gelişim Serisi: Çalışan Etkinliğini Ölçme ve Geliştirme Webi
 date: '2024-01-15T10:27:35'
 excerpt: Bu webinar, işyerindeki performans yönetimi süreçlerinin etkinliğini ve eğitim programlarının başarısını ölçmeyi hedeflemektedir.
 featuredImage:
-  url: /wp-content/uploads/2025/08/webinar-ik-gelisim-calisan-etkinligi-20240207-1392x783-1.jpg
+  image: /img/blog-featured/ik-gelisim-serisi-calisan-etkinligini-olcme-ve-gelistirme-webinari/featured.jpg
   alt: 'İK Gelişim Serisi: Çalışan Etkinliğini Ölçme ve Geliştirme Webinarı'
   width: 1392
   height: 783

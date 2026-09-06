@@ -4,7 +4,7 @@ title: İşveren Yemek ve Yol Ücreti Ödemek Zorunda Mı?
 date: '2020-10-21T14:01:14'
 excerpt: Yemek ve yol ücreti işçiye ödenmeli mi sorusu hem işçiyi hem de işvereni yakından ilgilendiren bir konudur. İşçi hakları, her grup işçinin 4857 sayılı İş…
 featuredImage:
-  url: /wp-content/uploads/2020/10/isveren-yemek-ve-yol-ucreti-odemek-zorunda-mi.png
+  image: /img/blog-featured/yemek-ve-yol-ucreti/featured.png
   alt: İşveren Yemek ve Yol Ücreti Ödemek Zorunda Mı?
   width: 2271
   height: 1497

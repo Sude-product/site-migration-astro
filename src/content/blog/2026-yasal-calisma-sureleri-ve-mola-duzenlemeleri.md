@@ -4,7 +4,7 @@ title: 2026 Yasal Çalışma Süreleri ve Mola Düzenlemeleri
 date: '2026-04-24T14:05:42'
 excerpt: Çalışma süreleri ve mola düzeni, birçok şirkette yalnızca operasyonel bir planlama konusu gibi ele alınıyor. Oysa konu bundan çok daha büyük. Yasal çalışma…
 featuredImage:
-  url: /wp-content/uploads/2026/04/2026-Yasal-Calisma-Sureleri-ve-Mola-Duzenlemeleri_.jpg
+  image: /img/blog-featured/2026-yasal-calisma-sureleri-ve-mola-duzenlemeleri/featured.jpg
   alt: 2026 Yasal Çalışma Süreleri ve Mola Düzenlemeleri
   width: 1280
   height: 720

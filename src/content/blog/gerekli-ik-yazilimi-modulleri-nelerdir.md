@@ -4,7 +4,7 @@ title: Bütün Sektörler İçin Gerekli İK Yazılımı Modülleri Nelerdir?
 date: '2020-12-21T11:13:48'
 excerpt: İK yazılımı, bir işletmede iş gücünün daha verimli ve daha iyi organize edilebilmesi adına büyük önem taşır. Şirketin en büyük potansiyeli olan insan faktörünü…
 featuredImage:
-  url: /wp-content/uploads/2020/12/Bütün-Sektörler-İçin-Olmazsa-Olmaz-İK-Yazilimi-Modülleri-Nelerdir@2x.png
+  image: /img/blog-featured/gerekli-ik-yazilimi-modulleri-nelerdir/featured.png
   alt: Bütün Sektörler İçin Gerekli İK Yazılımı Modülleri Nelerdir?
   width: 1514
   height: 998

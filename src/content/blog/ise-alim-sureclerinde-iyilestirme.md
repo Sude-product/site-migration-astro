@@ -4,7 +4,7 @@ title: İşe Alım Süreçlerinde İyileştirme ve Geliştirme
 date: '2020-07-29T21:21:03'
 excerpt: Bir kurumu başarıya veya başarısızlığa iten, ona yön veren en önemli unsur insandır. Kurumlarda yer alacak kişilerin ihtiyacı karşılayacak şekilde seçilmesi,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/işe-alimm@3x-1.png
+  image: /img/blog-featured/ise-alim-sureclerinde-iyilestirme/featured.png
   alt: İşe Alım Süreçlerinde İyileştirme ve Geliştirme
   width: 2271
   height: 1497

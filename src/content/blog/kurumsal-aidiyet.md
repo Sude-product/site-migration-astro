@@ -4,7 +4,7 @@ title: Kurumsal Aidiyet Nedir?
 date: '2025-06-15T10:33:53'
 excerpt: Kurumsal aidiyet, çalışanların kuruma duyduğu içten bağlılığı tanımlar. Dahası, bu bağlılık çalışanların motivasyonunu gözle görülür biçimde artırır. Çünkü…
 featuredImage:
-  url: /wp-content/uploads/2025/06/kurumsal-aidiyet-nedir.jpg
+  image: /img/blog-featured/kurumsal-aidiyet/featured.jpg
   alt: Kurumsal Aidiyet Nedir?
   width: 1024
   height: 675

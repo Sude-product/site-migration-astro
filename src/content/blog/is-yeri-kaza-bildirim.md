@@ -4,7 +4,7 @@ title: İş Yeri Kaza Bildirim Süreleri
 date: '2025-10-19T19:37:04'
 excerpt: İş yeri kaza bildirim süreleri, bildirimin yapılacağı kuruma bağlı olarak farklılık gösterebilir. Sosyal güvencesi olan ve hizmet akdi dahilinde çalışan bir…
 featuredImage:
-  url: /wp-content/uploads/2022/09/is╠g-kazas─▒-bildirim-su╠ereleri.jpg
+  image: /img/blog-featured/is-yeri-kaza-bildirim/featured.jpg
   alt: İş Yeri Kaza Bildirim Süreleri
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: İK Yönetiminde İş Analizi ve Verimlilik
 date: '2020-06-23T16:46:26'
 excerpt: Günümüzde işletmeler, insan kaynaklarıyla alakalı çözülememiş ve çeşitli sıkıntıların yaşandığı süreçler yaşayabilir. Özellikle iş gücü planlaması yapmak,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/verimlilik.png
+  image: /img/blog-featured/is-analizi-ve-verimlilik/featured.png
   alt: İK Yönetiminde İş Analizi ve Verimlilik
   width: 2272
   height: 1498

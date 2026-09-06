@@ -4,7 +4,7 @@ title: Çalışma Saatleri Kısalacak mı? 4 Günlük Çalışma Modeli Yaygınl
 date: '2025-01-22T21:28:54'
 excerpt: Haftada 4 gün çalışma modeli tüm dünyada konuşuluyor. Ayrıca mesai saatlerinin kısalması da gündemi meşgul ediyor. Eğer bu sistem hayata geçerse, milyonlarca…
 featuredImage:
-  url: /wp-content/uploads/2022/07/4-gun-calisma-modeli.jpg
+  image: /img/blog-featured/4-gun-calisma-modeli/featured.jpg
   alt: Çalışma Saatleri Kısalacak mı? 4 Günlük Çalışma Modeli Yaygınlaşacak mı?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Parlayan Nesne Sendromu
 date: '2023-08-09T10:30:30'
 excerpt: İş hayatındaki hemen hemen herkesin kariyerleri boyunca bir ya da bir kaç kez yaşadığı Parlayan Nesne Sendromu ya da ingilizce ismiyle Shiny Object Syndrome…
 featuredImage:
-  url: /wp-content/uploads/2023/08/parlayan-nesne-sendromu.jpg
+  image: /img/blog-featured/parlayan-nesne-sendromu/featured.jpg
   alt: Parlayan Nesne Sendromu
   width: 1621
   height: 810

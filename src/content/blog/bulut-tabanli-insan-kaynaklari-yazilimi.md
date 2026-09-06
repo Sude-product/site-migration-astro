@@ -4,7 +4,7 @@ title: Bulut Tabanlı İnsan Kaynakları Yazılımı Faydaları
 date: '2024-06-22T23:01:41'
 excerpt: Gün geçtikçe hızlanan hayat akışı nedeniyle her bilgiye her an ve hızlıca ulaşmak insan kaynakları için de büyük önem taşır. Bulut tabanlı insan kaynakları…
 featuredImage:
-  url: /wp-content/uploads/2025/08/tekyazilim.png
+  image: /img/blog-featured/bulut-tabanli-insan-kaynaklari-yazilimi/featured.png
   alt: Bulut Tabanlı İnsan Kaynakları Yazılımı Faydaları
   width: 2271
   height: 1497

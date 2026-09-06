@@ -4,7 +4,7 @@ title: Kötü Niyet Tazminatı Nedir?
 date: '2025-01-21T23:18:10'
 excerpt: Kötü niyet tazminatı, işverenin art niyetli davranışları neticesinde işçinin zarar görmesi ve işini kaybetmesi durumunda almaya hak kazandığı tazminat türüdür.…
 featuredImage:
-  url: /wp-content/uploads/2021/09/Kötü-Niyet-Tazminati@2x.png
+  image: /img/blog-featured/kotu-niyet-tazminati/featured.png
   alt: Kötü Niyet Tazminatı Nedir?
   width: 1515
   height: 998

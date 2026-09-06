@@ -4,7 +4,7 @@ title: Kuşak Çatışması ve İş Dünyası
 date: '2021-09-23T15:34:25'
 excerpt: Kuşak çatışması, son zamanlarda sık gündeme gelen konular arasında yer alıyor. Peki, kuşak çatışması nedir? Daha da önemlisi kuşak çatışmasının insan…
 featuredImage:
-  url: /wp-content/uploads/2021/09/kusak-catismalarinda-i̇k-nin-rolu-@2x.jpg
+  image: /img/blog-featured/kusak-catismasi/featured.jpg
   alt: Kuşak Çatışması ve İş Dünyası
   width: 810
   height: 534

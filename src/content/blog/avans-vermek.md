@@ -4,7 +4,7 @@ title: İşveren İşçiye Avans Vermek Zorunda mı?
 date: '2022-03-28T14:51:01'
 excerpt: Avans vermek konusunda her işletmede farklı yaklaşımlar izlenebilir. Hiç şüphesiz tüm çalışanlar dönem dönem mali olarak zorluklar yaşayabilir ve bu durumlarda…
 featuredImage:
-  url: /wp-content/uploads/2022/03/I╠cs╠gveren-I╠cs╠gc╠giye-Avans-Vermek-Zorunda-M─▒@2x.jpg
+  image: /img/blog-featured/avans-vermek/featured.jpg
   alt: İşveren İşçiye Avans Vermek Zorunda mı?
   width: 1515
   height: 998

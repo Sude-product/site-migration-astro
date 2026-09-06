@@ -4,7 +4,7 @@ title: Her İK Profesyonelinin Okuması Gereken İnsan Kaynakları Yönetimi Kit
 date: '2023-09-08T16:04:12'
 excerpt: İnsan kaynakları yönetimi kitapları, İKY profesyonelleri başta olmak üzere iş dünyasında yoğun rağbet görüyor. Çünkü, işletmenin başarısı için insan kaynağını…
 featuredImage:
-  url: /wp-content/uploads/2023/09/linkedin-iky-profesyonellerinin-okumasi-gereken-6-kitap.jpg
+  image: /img/blog-featured/insan-kaynaklari-yonetimi-kitaplari/featured.jpg
   alt: Her İK Profesyonelinin Okuması Gereken İnsan Kaynakları Yönetimi Kitapları
   width: 2561
   height: 1441

@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Veri Analizi
 date: '2021-01-20T10:59:53'
 excerpt: Veri analizi, insan kaynaklarında dataların doğru şekilde yorumlanarak geri bildirim döngüsü içerisine dahil edilmesi sonucunda İK uzmanlarına yardımcı olur.…
 featuredImage:
-  url: /wp-content/uploads/2021/01/ik-verileri-analizinde-dikkat-edilmesi-gerekenler-ik-uygulamalari.png@2x.png
+  image: /img/blog-featured/insan-kaynaklarinda-veri-analizi/featured.png
   alt: İnsan Kaynaklarında Veri Analizi
   width: 1514
   height: 998

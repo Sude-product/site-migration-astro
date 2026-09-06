@@ -4,7 +4,7 @@ title: Stratejik İnsan Kaynakları Yönetimi Nedir?
 date: '2019-12-31T08:58:31'
 excerpt: Yaşamın ve insanların değişmesiyle beraber işletmelerin de hedeflerine ulaşması ve planlarını gerçekleştirebilmesi için insan kaynağına hem daha çok önem…
 featuredImage:
-  url: /wp-content/uploads/2025/08/stratejik@3x.png
+  image: /img/blog-featured/stratejik-insan-kaynaklari-yonetimi/featured.png
   alt: Stratejik İnsan Kaynakları Yönetimi Nedir?
   width: 2272
   height: 1620

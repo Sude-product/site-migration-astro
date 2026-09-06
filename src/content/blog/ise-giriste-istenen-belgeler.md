@@ -4,7 +4,7 @@ title: İşe Girerken İstenen Belgeler Nelerdir?
 date: '2020-01-16T11:40:25'
 excerpt: Yeni bir işe girme süreci işe kabul edilme stresinin yanı sıra işe kabul edildikten sonra işe başlama evrakları hazırlamak açısından da bir miktar zorlayıcı…
 featuredImage:
-  url: /wp-content/uploads/2025/08/isÃse-alƒ±m-2020@3x.png
+  image: /img/blog-featured/ise-giriste-istenen-belgeler/featured.png
   alt: İşe Girerken İstenen Belgeler Nelerdir?
   width: 2272
   height: 1497

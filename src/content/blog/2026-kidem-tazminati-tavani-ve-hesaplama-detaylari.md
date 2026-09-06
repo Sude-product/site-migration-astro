@@ -4,7 +4,7 @@ title: 2026 Kıdem Tazminatı Tavanı ve Hesaplama Detayları
 date: '2026-04-22T09:03:36'
 excerpt: 2026 kıdem tazminatı tavanı, yılın başında en çok takip edilen bordro parametrelerinden biri oldu. Çünkü kıdem tazminatı hesaplama sürecinde yalnızca çalışma…
 featuredImage:
-  url: /wp-content/uploads/2026/04/2026-Kidem-Tazminati-Tavani-ve-Hesaplama-Detaylari_.jpg
+  image: /img/blog-featured/2026-kidem-tazminati-tavani-ve-hesaplama-detaylari/featured.jpg
   alt: 2026 Kıdem Tazminatı Tavanı ve Hesaplama Detayları
   width: 1280
   height: 720

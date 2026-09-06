@@ -4,7 +4,7 @@ title: İşbirlikçi Bir Lider misiniz?
 date: '2024-02-11T16:35:19'
 excerpt: İşbirlikçi liderlik, liderin, ekibin başarılarına odaklanan, iletişimi teşvik eden ve takım içinde birlikte çalışma kültürünü destekleyen bir liderlik…
 featuredImage:
-  url: /wp-content/uploads/2025/08/isveren_markasi.png
+  image: /img/blog-featured/isbirlikci-bir-lider/featured.png
   alt: İşbirlikçi Bir Lider misiniz?
   width: 757
   height: 499

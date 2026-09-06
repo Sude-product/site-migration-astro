@@ -4,7 +4,7 @@ title: Yıpranma Payı Nedir?
 date: '2023-03-26T17:45:29'
 excerpt: Yıpranma payı, çalışma şartları yasal çerçeveyle ağır olarak tanımlanmış mesleklerde çalışan kişilere erken emeklilik ve bazı sosyal haklar tanıyan kavramdır.…
 featuredImage:
-  url: /wp-content/uploads/2023/03/yipranma-payi-nedir.jpg
+  image: /img/blog-featured/yipranma-payi/featured.jpg
   alt: Yıpranma Payı Nedir?
   width: 1621
   height: 811

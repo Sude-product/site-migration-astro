@@ -4,7 +4,7 @@ title: Süreksiz İş Nedir?
 date: '2020-11-04T14:38:45'
 excerpt: Süreksiz iş , sürekli iş ile birlikte 4857 sayılı İş Kanununda düzenlenmiş olan iş sözleşmesi çeşitleri arasındadır. İş sözleşmeleri ve iş sözleşmesi…
 featuredImage:
-  url: /wp-content/uploads/2020/11/sureksiz-is-nedir-surekli-ve-sureksiz-is-sozlesmesi.png
+  image: /img/blog-featured/sureksiz-is-nedir/featured.png
   alt: Süreksiz İş Nedir?
   width: 2271
   height: 1497

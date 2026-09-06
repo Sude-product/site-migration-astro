@@ -4,7 +4,7 @@ title: 2023 Gelir Vergisi Dilimleri
 date: '2022-12-26T10:45:44'
 excerpt: 2023 yılı asgari ücret oranının belirlenmesinin ardından vergi oranları ve pek çok farklı hesaplamada değişiklik gerçekleşti. Son güncellemelerin ardından…
 featuredImage:
-  url: /wp-content/uploads/2022/12/2023-gelir-vergisi.jpg
+  image: /img/blog-featured/2023-gelir-vergisi-dilimleri/featured.jpg
   alt: 2023 Gelir Vergisi Dilimleri
   width: 1515
   height: 999

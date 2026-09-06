@@ -4,7 +4,7 @@ title: İşe Alım Metodolojisi ve Kişilik Analizi Webinarı
 date: '2024-02-12T11:39:39'
 excerpt: Bu webinar, işe alım sürecinde etkili bir metodoloji oluşturmayı ve kişilik analiz raporlarını doğru şekilde kullanmayı öğretmeyi amaçlamaktadır. İşverenler ve…
 featuredImage:
-  url: /wp-content/uploads/2025/08/20240308-ise-alim-webinari-konusmacilar-1-1392x783-1.jpg
+  image: /img/blog-featured/ise-alim-metodolojisi-ve-kisilik-analizi-webinari/featured.jpg
   alt: İşe Alım Metodolojisi ve Kişilik Analizi Webinarı
   width: 1392
   height: 783

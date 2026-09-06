@@ -4,7 +4,7 @@ title: Kurum Kültürü Nedir?
 date: '2020-02-27T09:17:03'
 excerpt: Bir kurumun en önemli yapı taşları arasında gösterilen kurum kültürü , bazı çevreler tarafından yalnızca bazı yazılı kurallardan oluşuyormuş gibi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Culture.png
+  image: /img/blog-featured/kurum-kulturu/featured.png
   alt: Kurum Kültürü Nedir?
   width: 2272
   height: 1498

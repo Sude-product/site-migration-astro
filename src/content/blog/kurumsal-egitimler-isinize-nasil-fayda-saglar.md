@@ -4,7 +4,7 @@ title: Kurumsal Eğitimler İşinize Nasıl Fayda Sağlar?
 date: '2020-07-17T11:12:04'
 excerpt: Çalışma ortamlarının verimliğini arttıran, kaliteli hizmet ve ürünlerin ortaya çıkmasını etkileyen en önemli unsur çalışanların niteliği ve bilgi düzeyidir. Bu…
 featuredImage:
-  url: /wp-content/uploads/2025/08/eğitim@3x-1.png
+  image: /img/blog-featured/kurumsal-egitimler-isinize-nasil-fayda-saglar/featured.png
   alt: Kurumsal Eğitimler İşinize Nasıl Fayda Sağlar?
   width: 2271
   height: 1497

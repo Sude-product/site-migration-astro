@@ -4,7 +4,7 @@ title: İlk İş Gününe Nasıl Hazırlanmalı?
 date: '2019-12-12T13:37:33'
 excerpt: İlk iş günü , hem çalışan hem de işveren için oldukça önemlidir. İşyerinde ilk gün , işe yeni başlayacak kişi için stresli geçebileceğinden bu süreci işverenin…
 featuredImage:
-  url: /wp-content/uploads/2019/12/ilk-is-gunune-nasil-hazirlanmali.png
+  image: /img/blog-featured/ilk-is-gunu/featured.png
   alt: İlk İş Gününe Nasıl Hazırlanmalı?
   width: 2272
   height: 1497

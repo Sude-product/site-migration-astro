@@ -4,7 +4,7 @@ title: Vardiya Nedir? Nasıl Yapılır?
 date: '2019-12-16T16:42:00'
 excerpt: Vardiya sistemi düzenli ve sistematik çalışan bir işletmenin en önemli uygulamalarındandır. Pek çok işletmede ya da mağazada çalışanların sonraki hafta hangi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/vardiya@3x.png
+  image: /img/blog-featured/vardiya-nedir/featured.png
   alt: Vardiya Nedir? Nasıl Yapılır?
   width: 2272
   height: 1497

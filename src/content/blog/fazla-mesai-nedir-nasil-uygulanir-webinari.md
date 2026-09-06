@@ -4,7 +4,7 @@ title: Fazla Mesai Nedir, Nasıl Uygulanır Webinarı
 date: '2023-07-25T13:51:55'
 excerpt: Fazla mesai şartları, çalışma düzenlemeleri ve sözleşmelere eklenmesi gereken maddeler, çalışanların çalışma sürelerini ve fazla mesai yapma koşullarını…
 featuredImage:
-  url: /wp-content/uploads/2023/07/webinar-fazla-mesai-20230824.jpg
+  image: /img/blog-featured/fazla-mesai-nedir-nasil-uygulanir-webinari/featured.jpg
   alt: Fazla Mesai Nedir, Nasıl Uygulanır Webinarı
   width: 1920
   height: 1080

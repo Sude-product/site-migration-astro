@@ -4,7 +4,7 @@ title: Mağaza Personel İhtiyacı Nasıl Tahmin Edilir? Satış ve Ziyaretçi V
 date: '2026-08-28T14:00:00'
 excerpt: Mağazada doğru personel sayısını belirlemek çoğu zaman geçmiş deneyime veya yöneticinin sezgisine bırakılır. Ancak müşteri trafiği gün, saat, kampanya, hava…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Magaza-Personel-Ihtiyaci-Nasil-Tahmin-Edilir-Satis-ve-Ziyaretci-Verisiyle-4-Adimli-Yontem.webp
+  image: /img/blog-featured/magaza-personel-ihtiyaci-nasil-tahmin-edilir-satis-ve-ziyaretci-verisiyle-4-adimli-yontem/featured.webp
   alt: Mağaza Personel İhtiyacı Nasıl Tahmin Edilir? Satış ve Ziyaretçi Verisiyle 4 Adımlı Yöntem
   width: 1672
   height: 941

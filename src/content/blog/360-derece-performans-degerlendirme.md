@@ -4,7 +4,7 @@ title: 360 Derece Performans Değerlendirme Yöntemi Nedir?
 date: '2020-09-09T14:42:34'
 excerpt: 360 derece performans değerlendirme, hem insan kaynakları hem de yönetim süreçleri açısından oldukça önemlidir. İşletmeler, geçerli ve güvenilir bir performans…
 featuredImage:
-  url: /wp-content/uploads/2025/08/360-derece-performans-değerlendirme.png
+  image: /img/blog-featured/360-derece-performans-degerlendirme/featured.png
   alt: 360 Derece Performans Değerlendirme Yöntemi Nedir?
   width: 2271
   height: 1497

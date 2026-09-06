@@ -4,7 +4,7 @@ title: Otomotiv Sektöründe İnsan Kaynakları Yazılımı Kullanımı
 date: '2024-08-16T01:26:41'
 excerpt: Otomotiv sektörü, hız ve hassasiyetin birleştiği bir dinamik sektörler arasında yer alıyor. Bu yüksek tempolu sektörde, sadece üretim hatlarının kusursuz…
 featuredImage:
-  url: /wp-content/uploads/2025/08/otomotiv-sanayi-neden-insan-kaynaklari-yazilimi-kullanmali.jpg
+  image: /img/blog-featured/otomotiv-sektorunde-insan-kaynaklari/featured.jpg
   alt: Otomotiv Sektöründe İnsan Kaynakları Yazılımı Kullanımı
   width: 1281
   height: 721

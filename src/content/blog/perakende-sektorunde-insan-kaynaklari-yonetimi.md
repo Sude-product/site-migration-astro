@@ -4,7 +4,7 @@ title: Perakende Sektöründe İKY ve İK Yazılımı
 date: '2021-09-11T13:26:42'
 excerpt: Perakende sektörü sıklıkla “Perakende insanla başlar, insanla biter” sözüyle tanımlanır. Her aşaması insanla ilgili olan perakende sektörü, insan kaynakları…
 featuredImage:
-  url: /wp-content/uploads/2021/09/perakende-sektorunde-insan-kaynaklari-yonetimi-ve-ik-yazilimi@2x-2.png
+  image: /img/blog-featured/perakende-sektorunde-insan-kaynaklari-yonetimi/featured.png
   alt: Perakende Sektöründe İKY ve İK Yazılımı
   width: 1515
   height: 998

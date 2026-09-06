@@ -4,7 +4,7 @@ title: Engelli Personel Çalıştırmama Cezası
 date: '2023-12-13T10:37:40'
 excerpt: Engelli bireyler tıpkı sosyal hayatta olduğu gibi iş dünyasında da pek çok önemli roller üstlenmektedir. Buna göre engelli bireylerin istihdama katılması…
 featuredImage:
-  url: /wp-content/uploads/2023/12/WhatsApp-Image-2023-12-10-at-20.46.34.jpeg
+  image: /img/blog-featured/engelli-personel-calistirmama/featured.jpeg
   alt: Engelli Personel Çalıştırmama Cezası
   width: 1621
   height: 810

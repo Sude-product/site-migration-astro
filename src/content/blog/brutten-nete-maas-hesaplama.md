@@ -4,7 +4,7 @@ title: Brütten Nete Maaş Hesaplama
 date: '2021-03-15T10:47:38'
 excerpt: Brütten nete maaş hesaplama veya netten brüte maaş hesaplama yapabilmek için öncelikle brüt maaş ve net maaş kavramlarının neler olduğunun bilinmesi gerekir.…
 featuredImage:
-  url: /wp-content/uploads/2021/03/brutten-nete-maas-hesaplama-net-maas-hesaplama@2x.png
+  image: /img/blog-featured/brutten-nete-maas-hesaplama/featured.png
   alt: Brütten Nete Maaş Hesaplama
   width: 1514
   height: 999

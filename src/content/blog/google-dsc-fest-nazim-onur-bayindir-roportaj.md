@@ -4,7 +4,7 @@ title: Nazım Onur Bayındır Röportaj- DSC Fest (İdenfit)
 date: '2020-12-14T12:12:17'
 excerpt: İdenfit’in kurucusu Nazım Onur Bayındır, DSC Fest kapsamında öğrencilerin teknoloji şirketi girişimlerine dair sorularını insan kaynakları yazılımı alanında…
 featuredImage:
-  url: /wp-content/uploads/2020/12/calisma-yuzeyi-2.jpg
+  image: /img/blog-featured/google-dsc-fest-nazim-onur-bayindir-roportaj/featured.jpg
   alt: Nazım Onur Bayındır Röportaj- DSC Fest (İdenfit)
   width: 810
   height: 534

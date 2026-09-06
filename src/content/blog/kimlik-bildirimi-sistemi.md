@@ -4,7 +4,7 @@ title: Kimlik Bildirimi Sistemi Nedir?
 date: '2024-09-05T22:12:08'
 excerpt: Kimlik bildirimi sistemi, işyerlerinin çalışan kimliklerini tespit ettiği ve kolluk kuvvetlerine bildirdiği sistemdir. 1774 Sayılı Kimlik Bildirme Kanunu…
 featuredImage:
-  url: /wp-content/uploads/2021/04/kimlik-bildirimi-sistemi-nedir-.jpg
+  image: /img/blog-featured/kimlik-bildirimi-sistemi/featured.jpg
   alt: Kimlik Bildirimi Sistemi Nedir?
   width: 1514
   height: 999

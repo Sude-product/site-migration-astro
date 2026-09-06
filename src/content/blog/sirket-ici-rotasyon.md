@@ -4,7 +4,7 @@ title: Şirket İçi Rotasyon Nedir, Nasıl Faydalar Sağlar?
 date: '2024-03-16T14:31:05'
 excerpt: Şirket içi rotasyon, çalışan motivasyonunu artırmak ve iş süreçlerini daha verimli bir hale getirmek konusunda önemli katkılar sağlıyor. Bu yöntem, bir kuruluş…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ofis-arkadaslari-sirket-ici-rotasyon-hakkinda-tum-merak-ettikleriniz@2x-100-1392x696-1.jpg
+  image: /img/blog-featured/sirket-ici-rotasyon/featured.jpg
   alt: Şirket İçi Rotasyon Nedir, Nasıl Faydalar Sağlar?
   width: 1392
   height: 696

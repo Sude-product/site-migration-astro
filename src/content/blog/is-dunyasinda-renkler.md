@@ -4,7 +4,7 @@ title: İş Dünyasında Renkler ve Algıları
 date: '2023-10-09T12:34:04'
 excerpt: İş dünyasında renkler önemli bir rol oynar çünkü renkler, bir işletmenin veya markanın kimliğini, algısını ve hatta müşteri davranışlarını etkiler. Renkler,…
 featuredImage:
-  url: /wp-content/uploads/2023/10/is-dunyasinda-renklerin-dili@2x-100.jpg
+  image: /img/blog-featured/is-dunyasinda-renkler/featured.jpg
   alt: İş Dünyasında Renkler ve Algıları
   width: 1621
   height: 811

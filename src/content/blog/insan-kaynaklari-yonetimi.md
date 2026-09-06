@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetimi Nedir?
 date: '2019-11-05T17:44:44'
 excerpt: İnsan kaynakları yönetimi , genel olarak işletme bilimi için de farklı sektörlerdeki şirketler için de ayrı bir önem taşıyor. İşletme biliminin en etkili alt…
 featuredImage:
-  url: /wp-content/uploads/2019/11/insan-kaynaklari-yonetimi-nedir.jpg
+  image: /img/blog-featured/insan-kaynaklari-yonetimi/featured.jpg
   alt: İnsan Kaynakları Yönetimi Nedir?
   width: 2272
   height: 1621

@@ -4,7 +4,7 @@ title: Start-up’larda Performans Yönetimi Süreci
 date: '2021-01-27T12:11:15'
 excerpt: Performans yönetimi süreci, her işletme için oldukça titizlikle ve etkili biçimde yürütülmesi gereken bir süreçtir. Özellikle de tanım gereği start-up…
 featuredImage:
-  url: /wp-content/uploads/2021/01/start-uplarda-performas-yonetimi-sureci@2x.png
+  image: /img/blog-featured/startuplarda-performans-yonetimi-sureci/featured.png
   alt: Start-up’larda Performans Yönetimi Süreci
   width: 1514
   height: 998

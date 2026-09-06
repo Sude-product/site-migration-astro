@@ -4,7 +4,7 @@ title: İşe Giriş Bildirgesi Nedir ve Nasıl Yapılır?
 date: '2020-08-07T17:20:25'
 excerpt: Bir kurum bir personeli işe alırken Sosyal Sigortalar ve Genel Sağlık Sigortası Kanunu’na göre işe giriş bildirgesi düzenlemelidir. Bu belgenin Sosyal Güvenlik…
 featuredImage:
-  url: /wp-content/uploads/2025/08/WhatsApp-Image-2020-08-07-at-17.28.26.jpeg
+  image: /img/blog-featured/ise-giris-bildirgesi-nedir-ve-nasil-yapilir/featured.jpeg
   alt: İşe Giriş Bildirgesi Nedir ve Nasıl Yapılır?
   width: 1600
   height: 1054

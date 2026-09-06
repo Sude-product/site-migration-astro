@@ -4,7 +4,7 @@ title: VR Oryantasyon ve Eğitim Videoları
 date: '2023-05-12T17:46:36'
 excerpt: VR oryantasyon ve eğitim videoları, son dönemde İKY sektöründe ağırlığını hissettiren bir trend olarak öne çıkıyor. Çünkü VR uygulamaları hayal edilen çalışan…
 featuredImage:
-  url: /wp-content/uploads/2023/05/vr-oryantasyon-ve-egitim-videolari-ile-iky-kesisimi.jpg
+  image: /img/blog-featured/vr-oryantasyon-ve-egitim-videolari/featured.jpg
   alt: VR Oryantasyon ve Eğitim Videoları
   width: 1621
   height: 811

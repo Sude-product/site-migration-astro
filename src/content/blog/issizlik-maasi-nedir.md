@@ -4,7 +4,7 @@ title: İşsizlik Maaşı
 date: '2019-11-01T16:21:19'
 excerpt: İşsizlik maaşı, zor zamanlarda mükemmel bir kurtarıcıya dönüşebiliyor. İşsizlik gibi sıkıntılı bir süreci olabildiğince az zararla atlatmak için…
 featuredImage:
-  url: /wp-content/uploads/2019/11/issizlik-maasi-nedir.jpg
+  image: /img/blog-featured/issizlik-maasi-nedir/featured.jpg
   alt: İşsizlik Maaşı
   width: 2272
   height: 1497

@@ -4,7 +4,7 @@ title: İKY ve Sanal Gerçeklik Uygulamaları
 date: '2023-02-16T20:21:27'
 excerpt: İnsan kaynaklarında sanal gerçeklik gerçeklik uygulamaları hakkında yeterince bilgi sahibi misiniz? Şu bir gerçek ki; söz konusu teknoloji olduğunda tüm…
 featuredImage:
-  url: /wp-content/uploads/2023/02/insna-kaynaklarinda-sanal-gerceklik-uygulamalari@2x-100.jpg
+  image: /img/blog-featured/insan-kaynaklarinda-sanal-gerceklik-uygulamalari/featured.jpg
   alt: İKY ve Sanal Gerçeklik Uygulamaları
   width: 1515
   height: 999

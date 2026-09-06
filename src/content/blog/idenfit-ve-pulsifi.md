@@ -4,7 +4,7 @@ title: 'İdenfit ve Pulsifi Güçlerini Birleştiriyor: Yetenek Yönetiminde Yen
 date: '2024-09-16T13:30:00'
 excerpt: 150 yıllık köklü geçmişiyle personel devam kontrol sistemleri ve insan kaynakları yönetimi alanında öncü olan idenfit, dijital dönüşüm yolunda bir adım daha…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2-blog-linkedin-pulsifi-is-birligi-1280x720-1.jpg
+  image: /img/blog-featured/idenfit-ve-pulsifi/featured.jpg
   alt: 'İdenfit ve Pulsifi Güçlerini Birleştiriyor: Yetenek Yönetiminde Yeni Bir Dönem Başlıyor!'
   width: 1280
   height: 720

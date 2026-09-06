@@ -4,7 +4,7 @@ title: KOBİ’ler için Dijital İnsan Kaynakları Yapılanması Webinarı
 date: '2024-03-05T10:29:14'
 excerpt: Sürdürülebilir ve büyüyen bir işletme olma yolundaki KOBİ’ler, sahip oldukları sınırlı işgücü ve bütçe ile rekabette ön plana çıkmak için her iki kaynağını da…
 featuredImage:
-  url: /wp-content/uploads/2025/08/20240319-kobi-dijital-ik-1392x783-1.jpg
+  image: /img/blog-featured/kobiler-icin-dijital-insan-kaynaklari-yapilanmasi-webinari/featured.jpg
   alt: KOBİ’ler için Dijital İnsan Kaynakları Yapılanması Webinarı
   width: 1392
   height: 783

@@ -4,7 +4,7 @@ title: İş Kazalarında İşverenin Yükümlülükleri
 date: '2020-03-09T15:54:30'
 excerpt: İş kazalarında çeşitli önlemler ve tedbirler alınsa da zaman zaman yeterli gelmeyebilir. İş kazasının tanımı , Sosyal Sigortalar ve Genel Sağlık Sigortası…
 featuredImage:
-  url: /wp-content/uploads/2025/08/IÃásÃs-kazasƒ±@3x.png
+  image: /img/blog-featured/is-kazalarinda-isverenin-yukumlulukleri/featured.png
   alt: İş Kazalarında İşverenin Yükümlülükleri
   width: 2272
   height: 1498

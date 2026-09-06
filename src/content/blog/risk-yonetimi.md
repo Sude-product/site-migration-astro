@@ -4,7 +4,7 @@ title: ​​Risk Yönetimi Nedir?
 date: '2022-10-26T14:49:25'
 excerpt: Tüm işletmeler, faaliyetlerini yürütürken paylarına düşen sürprizler ve aksilikler ile karşı karşıya kalabilmekte. Fakat bu durum, dikkatli risk…
 featuredImage:
-  url: /wp-content/uploads/2022/10/Risk-Yonetimi.jpg
+  image: /img/blog-featured/risk-yonetimi/featured.jpg
   alt: ​​Risk Yönetimi Nedir?
   width: 1515
   height: 999

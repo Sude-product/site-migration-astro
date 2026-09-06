@@ -4,7 +4,7 @@ title: İşçiye Avans Vermek Zorunlu mu?
 date: '2020-11-16T11:59:14'
 excerpt: Avans, işçinin hak ettiği ücretin bir kısmını sözleşme yapılan zamandan daha önce işverenden talep etmesi anlamına geliyor. Hem talep edilmesi hem de ödenmesi…
 featuredImage:
-  url: /wp-content/uploads/2020/11/Avans-İstemenin-Koşulları-Nelerdir.-İşçiye-Avans-Vermek-Zorunlu-Mu.@3x.png
+  image: /img/blog-featured/isciye-avans-vermek-zorunlu-mu/featured.png
   alt: İşçiye Avans Vermek Zorunlu mu?
   width: 2271
   height: 1497

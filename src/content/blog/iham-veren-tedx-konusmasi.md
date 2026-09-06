@@ -4,7 +4,7 @@ title: İlham Veren 8 TEDX Konuşması
 date: '2023-09-21T15:34:23'
 excerpt: TEDx konuşmaları, TED (Technology, Entertainment, Design) konferanslarının bağımsız olarak düzenlenen ve lokal topluluklar tarafından organize edilen…
 featuredImage:
-  url: /wp-content/uploads/2023/09/ilham-veren-8-tedx-konusmasi.jpg
+  image: /img/blog-featured/iham-veren-tedx-konusmasi/featured.jpg
   alt: İlham Veren 8 TEDX Konuşması
   width: 1621
   height: 811

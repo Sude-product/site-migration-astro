@@ -4,7 +4,7 @@ title: Performans Değerlendirme Nedir?
 date: '2025-12-08T18:42:15'
 excerpt: Performans değerlendirme sürecinin ne olduğunu anlayabilmemiz için önce performansın tanımını yapmamız gerekiyor. Sanayi Devrimi’nden önce ve Sanayi…
 featuredImage:
-  url: /wp-content/uploads/2019/12/performans-degerlendirme-nedir.png
+  image: /img/blog-featured/performans-degerlendirme/featured.png
   alt: Performans Değerlendirme Nedir?
   width: 2272
   height: 1497

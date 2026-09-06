@@ -4,7 +4,7 @@ title: OKR ile Tanışmaya Hazır mısınız?
 date: '2021-12-14T11:20:54'
 excerpt: OKR kalıbı Objective ve Key Results kelimelerinin kısaltılması sonucunda geliştirilmiştir. OKR metodolojisi ile işletmelerin ölçülebilir sonuçlarla hedeflerine…
 featuredImage:
-  url: /wp-content/uploads/2021/12/okrler-yani-basari-kriterleri-ile-tanismaya-hazir-misiniz@2x-1.jpg
+  image: /img/blog-featured/okr/featured.jpg
   alt: OKR ile Tanışmaya Hazır mısınız?
   width: 810
   height: 534

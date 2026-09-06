@@ -4,7 +4,7 @@ title: Örgüt Kültürünün Şifreleri
 date: '2024-02-11T19:58:40'
 excerpt: Örgüt kültürü, bir organizasyonun üyeleri arasında paylaşılan değerler, normlar, inançlar, davranış biçimleri, ritüeller ve paylaşılan bir amaç etrafında…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Şirket-Kültürü-Nedir-Şirket-Kültürü-Nasil-Kalici-Hale-Gelir.@3x.png
+  image: /img/blog-featured/orgut-kulturunun/featured.png
   alt: Örgüt Kültürünün Şifreleri
   width: 2271
   height: 1497

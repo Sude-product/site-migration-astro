@@ -4,7 +4,7 @@ title: 2025 Yetenek Yönetimi Trendleri
 date: '2025-02-23T20:23:50'
 excerpt: İş dünyası hızla değişiyor, yetenek yönetimi de bu değişime uyum sağlıyor. 2025’te şirketler, yetenekleri çekmek ve elde tutmak için yeni stratejiler…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2025-yetenek-yonetimi-trendleri@2x-100.jpg
+  image: /img/blog-featured/yetenek-yonetimi-trendleri/featured.jpg
   alt: 2025 Yetenek Yönetimi Trendleri
   width: 1280
   height: 721

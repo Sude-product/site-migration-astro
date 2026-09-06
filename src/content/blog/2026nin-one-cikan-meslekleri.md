@@ -4,7 +4,7 @@ title: 2026’nın Öne Çıkan Meslekleri
 date: '2026-03-26T12:12:21'
 excerpt: Dijitalleşmenin hız kazanması, yapay zekâ teknolojilerinin gelişmesi ve iş yapış şekillerinin dönüşmesiyle birlikte meslekler de her geçen yıl değişmeye devam…
 featuredImage:
-  url: /wp-content/uploads/2025/02/WhatsApp-Image-2026-03-13-at-15.17.53-1.jpeg
+  image: /img/blog-featured/2026nin-one-cikan-meslekleri/featured.jpeg
   alt: 2026’nın Öne Çıkan Meslekleri
   width: 1280
   height: 721

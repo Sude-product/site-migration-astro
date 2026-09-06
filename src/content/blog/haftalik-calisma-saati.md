@@ -4,7 +4,7 @@ title: Haftalık Çalışma Saati Nasıl Belirlenir?
 date: '2021-01-11T10:31:20'
 excerpt: Haftalık çalışma saati, İş Kanunu 63. maddesinde “çalışma süresi” kavramı adı altında kendine yer bulur. Çalışma süresi, bir işçinin işbaşında geçirdiği süreyi…
 featuredImage:
-  url: /wp-content/uploads/2021/01/Haftalik-Calisma-Saati-–-Mesai-Saatleri-Nasil-Belirlenir.@2x.png
+  image: /img/blog-featured/haftalik-calisma-saati/featured.png
   alt: Haftalık Çalışma Saati Nasıl Belirlenir?
   width: 1514
   height: 998

@@ -4,7 +4,7 @@ title: 'Gece Çalışması ve İş Hukuku: İşçi ve İşveren Hakları'
 date: '2024-03-29T23:55:00'
 excerpt: Gece çalışması, genellikle vardiyalı çalışma sistemine sahip işyerlerinde yaygın olarak görülen bir uygulamadır. Ancak, bazı durumlarda işin niteliği sebebiyle…
 featuredImage:
-  url: /wp-content/uploads/2025/08/is-hukukunda-gece-calismasi-2024.png
+  image: /img/blog-featured/gece-calismasi/featured.png
   alt: 'Gece Çalışması ve İş Hukuku: İşçi ve İşveren Hakları'
   width: 811
   height: 406

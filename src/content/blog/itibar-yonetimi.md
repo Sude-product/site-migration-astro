@@ -4,7 +4,7 @@ title: İtibar Yönetimi Nedir?
 date: '2021-07-07T10:31:07'
 excerpt: Bir kurum olarak kendi itibarını bilmek ve yönetmek yani itibar yönetimi İK stratejileri üzerinde çok etkilidir. Çalışan bağlılığı , yetenekli adayları çekme…
 featuredImage:
-  url: /wp-content/uploads/2021/07/itibar-yonetimi-nedir.jpg
+  image: /img/blog-featured/itibar-yonetimi/featured.jpg
   alt: İtibar Yönetimi Nedir?
   width: 1514
   height: 999

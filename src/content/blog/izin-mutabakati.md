@@ -4,7 +4,7 @@ title: İzin Mutabakatları Hakkında Tüm Merak Edilenler
 date: '2024-12-22T18:51:27'
 excerpt: Yeni yıl hızla yaklaşırken, iş süreçlerinizin yoğunluğu da aynı hızda artıyor olmalı. Fakat bu yoğunluk içerisinde gözden kaçmaması gereken önemli bir konu…
 featuredImage:
-  url: /wp-content/uploads/2025/08/yiilik-izin-mutabakatlari.jpg
+  image: /img/blog-featured/izin-mutabakati/featured.jpg
   alt: İzin Mutabakatları Hakkında Tüm Merak Edilenler
   width: 1280
   height: 720

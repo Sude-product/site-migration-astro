@@ -4,7 +4,7 @@ title: İnsan Kaynakları Teknolojileri Buluşması – HR Tech Meetup
 date: '2024-04-26T16:51:46'
 excerpt: HR TECH MEETUP, İK teknolojileri kullanmaları sayesinde firmaların işlerini daha verimli hale nasıl getirecekleri konusunda deneyimleri, geçiş sürecindeki…
 featuredImage:
-  url: /wp-content/uploads/2025/08/hrtech-meetup-20240523-1392x783-1.jpg
+  image: /img/blog-featured/insan-kaynaklari-teknolojileri-bulusmasi-hr-tech-meetup/featured.jpg
   alt: İnsan Kaynakları Teknolojileri Buluşması – HR Tech Meetup
   width: 1392
   height: 783

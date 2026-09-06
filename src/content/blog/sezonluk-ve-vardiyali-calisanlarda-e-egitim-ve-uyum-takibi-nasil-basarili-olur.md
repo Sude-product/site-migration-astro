@@ -4,7 +4,7 @@ title: Sezonluk ve Vardiyalı Çalışanlarda E-Eğitim ve Uyum Takibi Nasıl Ba
 date: '2026-08-18T14:00:00'
 excerpt: Turizm, restoran ve perakende gibi sezonluk istihdamın yüksek olduğu sektörlerde eğitim için ayrılan süre sınırlıdır. Yeni çalışanların kısa sürede ürün…
 featuredImage:
-  url: /wp-content/uploads/2026/08/Sezonluk-ve-Vardiyali-Calisanlarda-E-Egitim-ve-Uyum-Takibi-Nasil-Basarili-Olur-2.webp
+  image: /img/blog-featured/sezonluk-ve-vardiyali-calisanlarda-e-egitim-ve-uyum-takibi-nasil-basarili-olur/featured.webp
   alt: Sezonluk ve Vardiyalı Çalışanlarda E-Eğitim ve Uyum Takibi Nasıl Başarılı Olur?
   width: 1672
   height: 941

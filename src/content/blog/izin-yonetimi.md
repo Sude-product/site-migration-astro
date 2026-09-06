@@ -4,7 +4,7 @@ title: İzin Yönetimi Hakkında Tüm Merak Ettikleriniz
 date: '2024-05-17T18:45:07'
 excerpt: İzin yönetimi, insan kaynakları yönetimi profesyonellerinin en çok efor sarf ettiği alanlar arasında yer alıyor. Geleneksel yöntemlerle sürdürülen izin…
 featuredImage:
-  url: /wp-content/uploads/2025/08/izin-yonetimi-hakkinda-tum-merak-ettiklerimiz-1392x696-1.jpg
+  image: /img/blog-featured/izin-yonetimi/featured.jpg
   alt: İzin Yönetimi Hakkında Tüm Merak Ettikleriniz
   width: 1392
   height: 696

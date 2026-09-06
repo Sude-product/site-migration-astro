@@ -4,7 +4,7 @@ title: Star Mülakat Tekniği Nedir?
 date: '2021-10-21T19:46:02'
 excerpt: Star mülakat tekniği ile mülakatlarda egolu görünme endişesi yaşamadan kendinizi en iyi şekilde ifade edebilirsiniz. İş mülakatlarında gergin mi…
 featuredImage:
-  url: /wp-content/uploads/2021/10/Star-Mulakat-Teknigi-Nedir_-@2x.png
+  image: /img/blog-featured/star-mulakat-teknigi/featured.png
   alt: Star Mülakat Tekniği Nedir?
   width: 1515
   height: 999

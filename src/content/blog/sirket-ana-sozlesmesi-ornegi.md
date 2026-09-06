@@ -4,7 +4,7 @@ title: Şirket Ana Sözleşmesi Örneği
 date: '2021-04-07T10:03:34'
 excerpt: Şirket ana sözleşmesinin şirketlerin kurulumu esnasında mutlaka hazırlanması gerekir. Bu belge Türk Ticaret Kanunu çerçevesinde şirket tiplerine göre farklılık…
 featuredImage:
-  url: /wp-content/uploads/2021/04/sirket-ana-sozlesmesi-ornegi-sirket-ana-sozlesmesi-nedir@2x.png
+  image: /img/blog-featured/sirket-ana-sozlesmesi-ornegi/featured.png
   alt: Şirket Ana Sözleşmesi Örneği
   width: 1514
   height: 999

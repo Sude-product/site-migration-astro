@@ -4,7 +4,7 @@ title: 'Çalışma Hayatının Yeni Aktörleri: Z Kuşağı'
 date: '2025-03-18T21:32:46'
 excerpt: Teknolojinin içine doğan Z kuşağı, iş dünyasına hızlı bir giriş yaptı. Onlar, internetle iç içe büyüyen, dijital çağın yerlileri. Bilgiye anında ulaşmak ister,…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Calisma-Hayatinin-Yeni-Aktorleri-Z-Kusagi0A@2x-100.jpg
+  image: /img/blog-featured/calisma-hayatinin-yeni-aktorleri-z-kusagi/featured.jpg
   alt: 'Çalışma Hayatının Yeni Aktörleri: Z Kuşağı'
   width: 1515
   height: 999

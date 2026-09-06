@@ -4,7 +4,7 @@ title: Değişim Yönetimi ve Dijital İK Çözümleri
 date: '2020-06-17T12:47:49'
 excerpt: Yaşadığımız son aylar Covid-19 nedeniyle, dünyaya değişim getirirken, bireyin de kendini güncellemesini ve yenilenmesini zorunlu kılıyor. İş hayatında…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ana-resim@3x.png
+  image: /img/blog-featured/degisim-yonetimi-dijital-ik/featured.png
   alt: Değişim Yönetimi ve Dijital İK Çözümleri
   width: 2272
   height: 1498

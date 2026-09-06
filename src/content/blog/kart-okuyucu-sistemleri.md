@@ -4,7 +4,7 @@ title: Kart Okuyucu Sistemleri Hakkında Tüm Merak Ettikleriniz
 date: '2024-06-28T16:45:21'
 excerpt: Kart okuyucu sistemleri, günümüzün güvenlik ve erişim kontrolü ihtiyaçlarına yenilikçi çözümler sunuyor. Böylece iş dünyasında güvenlik ve personel yönetimi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/kart-okuyucu-sistemleri.jpg
+  image: /img/blog-featured/kart-okuyucu-sistemleri/featured.jpg
   alt: Kart Okuyucu Sistemleri Hakkında Tüm Merak Ettikleriniz
   width: 1281
   height: 721

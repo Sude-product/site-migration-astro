@@ -4,7 +4,7 @@ title: İş Yerinde Stres ve Çalışanlarda Stres Yönetimi
 date: '2020-06-26T12:21:17'
 excerpt: İş yaşamında herkesin herhangi bir dönemde yaşayabileceği stres, çeşitli ciddi sorunları da beraberinde getirir. Nihayetinde hem çeşitli sağlık sorunlarıyla…
 featuredImage:
-  url: /wp-content/uploads/2025/08/stresssss.png
+  image: /img/blog-featured/isyerinde-stres-yonetimi/featured.png
   alt: İş Yerinde Stres ve Çalışanlarda Stres Yönetimi
   width: 2272
   height: 1498

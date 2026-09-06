@@ -4,7 +4,7 @@ title: 2024’te Sürdürülebilirlik ve İKY Trendleri
 date: '2024-03-25T23:30:00'
 excerpt: Her yeni yılda, iş dünyası için öncelikler gözle görülür bir şekilde değişiyor. Son yıllarda ise işletmeler sadece kâr odaklı olmanın çok daha ötesine…
 featuredImage:
-  url: /wp-content/uploads/2025/08/2024-surdurulebilirlik-trendleri-ve-iky-1392x696-1.jpg
+  image: /img/blog-featured/2024te-surdurulebilirlik/featured.jpg
   alt: 2024’te Sürdürülebilirlik ve İKY Trendleri
   width: 1392
   height: 696

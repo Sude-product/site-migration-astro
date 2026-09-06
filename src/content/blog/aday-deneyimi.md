@@ -4,7 +4,7 @@ title: İlk Aday Deneyiminiz Bağlılığınızı Nasıl Etkiledi?
 date: '2024-11-03T13:09:48'
 excerpt: İş hayatınıza başlarken yaşadığığınız deneyimleri bir düşünün. En iyi aday deneyimini yaşadığınız şirketi hatırlayın – iş görüşmesindeki atmosfer, süreçteki…
 featuredImage:
-  url: /wp-content/uploads/2025/08/ilk-aday-deneyiminiz-bagliliginizi-nasil-etkiledi.jpg
+  image: /img/blog-featured/aday-deneyimi/featured.jpg
   alt: İlk Aday Deneyiminiz Bağlılığınızı Nasıl Etkiledi?
   width: 1280
   height: 720

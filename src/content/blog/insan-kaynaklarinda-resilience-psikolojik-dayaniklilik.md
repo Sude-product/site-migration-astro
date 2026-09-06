@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetiminde Resilience
 date: '2020-07-02T13:23:29'
 excerpt: İş hayatında mutlaka türlü zorluklarla karşılaşan, her koşulda mücadele etmeye devam eden, motivasyonundan bir şey kaybetmeyen ve idealleri için çalışmayı…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Culture-1.png
+  image: /img/blog-featured/insan-kaynaklarinda-resilience-psikolojik-dayaniklilik/featured.png
   alt: İnsan Kaynakları Yönetiminde Resilience
   width: 2272
   height: 1498

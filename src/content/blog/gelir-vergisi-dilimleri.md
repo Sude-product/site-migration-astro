@@ -4,7 +4,7 @@ title: Gelir Vergisi Dilimleri 2020
 date: '2019-11-11T17:36:26'
 excerpt: Gelir vergisi dilimleri ve gelir vergisinin nasıl hesaplanacağı her yıl çalışanlar açısından büyük önem taşıyan konulardır. Türk Dil Kurumu vergi kelimesinin…
 featuredImage:
-  url: /wp-content/uploads/2019/11/gelir-vergisi-hesaplama-1.jpg
+  image: /img/blog-featured/gelir-vergisi-dilimleri/featured.jpg
   alt: Gelir Vergisi Dilimleri 2020
   width: 2272
   height: 1620

@@ -4,7 +4,7 @@ title: Çalışan Performansı Uzaktan Çalışma Sürecinde Nasıl Artırılır
 date: '2020-12-23T17:04:50'
 excerpt: Çalışan performansı, işverenler ve İK uzmanları tarafından covid-19 sürecinde belirsiz bir süreliğine ofislerde değil evlerdeki çalışma koşullarında…
 featuredImage:
-  url: /wp-content/uploads/2020/12/Çalişan-Performansinin-Uzaktan-Çalişmada-Artirilmasi-ve-İKnin-Rolü@2x.png
+  image: /img/blog-featured/calisan-performansi-nasil-artirilir/featured.png
   alt: Çalışan Performansı Uzaktan Çalışma Sürecinde Nasıl Artırılır?
   width: 1514
   height: 998

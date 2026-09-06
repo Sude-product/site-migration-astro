@@ -4,7 +4,7 @@ title: Personel Yönetimi İle İnsan Kaynakları Yönetimi Arasındaki Farklar
 date: '2021-01-13T10:16:50'
 excerpt: Personel yönetimi ile insan kaynakları yönetimi arasındaki farklar, işletmelerin veya kişilerin çoğu zaman merak edip üzerinde durduğu bir konudur. Geçmişte…
 featuredImage:
-  url: /wp-content/uploads/2021/01/personel-yonetimi-ile-insan-kaynaklari-yonetimi-arasindaki-farklar@2x.png
+  image: /img/blog-featured/personel-yonetimi-ile-insan-kaynaklari-arasindaki-farklar/featured.png
   alt: Personel Yönetimi İle İnsan Kaynakları Yönetimi Arasındaki Farklar
   width: 1514
   height: 998

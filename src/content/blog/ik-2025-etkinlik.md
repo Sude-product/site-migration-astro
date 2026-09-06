@@ -4,7 +4,7 @@ title: People First Meetup
 date: '2025-05-20T20:24:30'
 excerpt: İnsan Kaynakları profesyonelleri olarak her gün işin merkezine insanı koyuyoruz. Peki, çalışan deneyimini gerçekten nasıl dönüştürüyoruz? Kurum kültürünü…
 featuredImage:
-  url: /wp-content/uploads/2025/05/Hrtech-etkinlik.png
+  image: /img/blog-featured/ik-2025-etkinlik/featured.png
   alt: People First Meetup
   width: 2134
   height: 1200

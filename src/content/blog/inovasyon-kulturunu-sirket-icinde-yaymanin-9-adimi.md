@@ -4,7 +4,7 @@ title: İnovasyon Kültürünü Şirket İçinde Yaymanın 9 Adımı
 date: '2020-11-02T12:01:45'
 excerpt: İnovasyon kültürü, şirketlerin kurum kültürü haline getirmeye çalıştıkları uzun bir süreçtir. Şirketlerin artan uluslararası rekabet ve dinamik pazarların…
 featuredImage:
-  url: /wp-content/uploads/2020/11/inovasyon-kulturunu-sirket-icinde-yaymanin-9-adimi.png
+  image: /img/blog-featured/inovasyon-kulturunu-sirket-icinde-yaymanin-9-adimi/featured.png
   alt: İnovasyon Kültürünü Şirket İçinde Yaymanın 9 Adımı
   width: 2271
   height: 1497

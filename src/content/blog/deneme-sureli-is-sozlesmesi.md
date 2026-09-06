@@ -4,7 +4,7 @@ title: Deneme Süreli İş Sözleşmesi
 date: '2021-02-10T12:35:58'
 excerpt: Deneme süreli iş sözleşmesi, işçi ve işveren tarafları arasındaki ilişkinin başladığı bir dönemdir. Sözleşme süreci, karşılıklı güven, özen ve şeffaflığa…
 featuredImage:
-  url: /wp-content/uploads/2021/02/deneme-sureli-is-sozlesmesi-deneme-suresi-ne-kadar@2x.png
+  image: /img/blog-featured/deneme-sureli-is-sozlesmesi/featured.png
   alt: Deneme Süreli İş Sözleşmesi
   width: 1514
   height: 998

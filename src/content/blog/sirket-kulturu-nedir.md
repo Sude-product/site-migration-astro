@@ -4,7 +4,7 @@ title: Şirket Kültürü Nedir?
 date: '2020-11-13T17:06:37'
 excerpt: Şirket kültürü, değerler bütünü olmasının yanında bir organizasyonda işlerin nasıl yürüdüğünün herkes tarafından bilinen şekli, toplam davranışlar ve…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Şirket-Kültürü-Nedir-Şirket-Kültürü-Nasil-Kalici-Hale-Gelir.@3x.png
+  image: /img/blog-featured/sirket-kulturu-nedir/featured.png
   alt: Şirket Kültürü Nedir?
   width: 2271
   height: 1497

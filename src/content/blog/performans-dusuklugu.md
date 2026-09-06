@@ -4,7 +4,7 @@ title: Performans Düşüklüğü ve İşverenin Hakları
 date: '2021-11-26T10:40:42'
 excerpt: Performans düşüklüğü içalışanların işverenlerin beklentilerini karşılamadığı ve bunun uzun süre devam ettiği durumlarda kullanılan kapsamı oldukça geniş bir…
 featuredImage:
-  url: /wp-content/uploads/2021/11/Performans-Düşüklüğü-Durumunda-İşverenin-Haklari@2x.png
+  image: /img/blog-featured/performans-dusuklugu/featured.png
   alt: Performans Düşüklüğü ve İşverenin Hakları
   width: 1515
   height: 999

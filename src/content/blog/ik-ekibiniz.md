@@ -4,7 +4,7 @@ title: İK Ekibiniz Tükenmişlik Sendromu Yaşıyor Olabilir!
 date: '2022-04-13T10:32:53'
 excerpt: İK Ekibiniz tükenmişlik sendromu riski ile karşı karşıya olabilir. Tüm iş süreçlerinin insani tarafı ile ilgilenmek keyifli ancak dönem dönem zorlayıcı ve…
 featuredImage:
-  url: /wp-content/uploads/2022/04/İK-Ekibiniz-Tükenmişlik-Sendromuna-Kapilmasini-Nasil-Önleyebilirsiniz_.jpg
+  image: /img/blog-featured/ik-ekibiniz/featured.jpg
   alt: İK Ekibiniz Tükenmişlik Sendromu Yaşıyor Olabilir!
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Performans Değerlendirme Hataları
 date: '2025-12-08T15:56:25'
 excerpt: Performans değerlendirmeleri, çalışan gelişimi ve şirket başarısı için kritik bir süreç olarak öne çıkıyor. Ancak hatalı yaklaşımlar, adaletsizlik hissi…
 featuredImage:
-  url: /wp-content/uploads/2025/08/Performans-yonetimi-nedir-ve-nasil-yapilir_.png
+  image: /img/blog-featured/performans-degerlendirme-hatalari/featured.png
   alt: Performans Değerlendirme Hataları
   width: 2271
   height: 1497
