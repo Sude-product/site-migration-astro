@@ -48,17 +48,7 @@ const sectionCtaOverrides = {
 };
 ---
 
-<!-- ⚠️ BULUNAN BUG (2026-08-17, hreflang doğrulama script'inde yakalandı) —
-     ilk denemede burada `hreflangLocales={['tr']}` vardı (dosya adlarına
-     bakarak "Puantaj'ın EN/NL/IT'si yok" varsayıldı — TAM OLARAK CLAUDE.md'nin
-     uyardığı "slug değil, gerçek veriye güven" hatası). Gerçekte
-     `en/time-attendance-module.astro`/`nl/tijdregistratie.astro`/
-     `it/modulo-gestione-presenze.astro` ÜÇÜ DE `trSlug='puantaj-takip-programi-modulu'`
-     kullanıyor — yani Puantaj'ın GERÇEK 4/4 dili var, yalnızca dosya adları
-     "time-attendance"/"tijdregistratie" gibi PDKS'i çağrıştırıyor (PDKS
-     `pdks-modulu.astro` TAMAMEN AYRI bir aile). Override KALDIRILDI —
-     varsayılan (LOCALES, `localeUrls`'un kendi anahtarlarıyla filtrelenir)
-     doğru sonucu zaten veriyor. -->
+<!-- hreflang doğrulama script bug notu — detaylı teknik notlar CLAUDE.md'de -->
 <ProductPage
   content={content}
   pageTitle={pageTitle}

@@ -39,16 +39,7 @@ const title = buildIdenfitTitle(nf.pageTitle, locale);
 
 <BaseLayout title={title} description={nf.metaDescription} noindex={true}>
 	<section class="mx-auto flex max-w-3xl flex-col items-center px-4 py-20 text-center sm:px-6 lg:py-28">
-		<!-- Kaynağın (idenfit.com) gerçek 404 sayfasından — dürbünle bakan
-		     illüstrasyon, tema asset'i (`wp-content/themes/vault/`, medya
-		     kütüphanesi DEĞİL, bu yüzden diğer görsellerden farklı bir
-		     yol). 2026-08-11'de canlı `idenfit.com/<var-olmayan-url>/`
-		     ziyaret edilip bulundu, uydurulmadı. Dekoratif (hemen altındaki
-		     H1 zaten anlamı taşıyor). Açık nokta #45 (2026-09-02) —
-		     `public/wp-content/themes/vault/assets/img/bg-404.png`'e
-		     indirilip göreliye çevrildi (aynı "Görsel bağımlılık kuralı",
-		     yalnızca `uploads/` DIŞINDA bir WP tema yolu olduğu için
-		     yol (A)/(B)'nin script'lerine dahil edilmedi, elle yapıldı). -->
+		<!-- 404 sayfası kaynak tasarım notu — detaylı teknik notlar CLAUDE.md'de -->
 		<img
 			src="/wp-content/themes/vault/assets/img/bg-404.png"
 			alt=""

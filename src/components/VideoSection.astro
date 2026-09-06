@@ -58,13 +58,7 @@ const ctaHref = getRelativeLocaleUrl(locale, getWhyIdenfitSlug(locale) ?? 'neden
      ortalanmış — ikisi de `max-w-3xl` içinde tek kolon olarak duruyor
      (kaynağın kendi kompakt, tam-genişlik-olmayan boyutuyla tutarlı,
      bkz. yukarıdaki not). -->
-<!-- 2026-08-20 — kullanıcı "video ana sitedekine benzer şekilde daha
-     büyük olsun" dedi: canlı idenfit.com'da (1536px viewport) video
-     genişliği 788.8px ölçüldü, bizimki `max-w-2xl` (672px) ile
-     sınırlıydı. `max-w-2xl` kaldırıldı — video artık dış `max-w-3xl`
-     (768px) konteynerinin TAMAMINI dolduruyor, canlının 788.8px'ine
-     %2.6 farkla (dış konteyner sabit rem birimli, kaynağın fluid
-     yüzde-tabanlı Elementor grid'i birebir taklit edilmedi). -->
+<!-- Video bölümü boyutlandırma — detaylı teknik notlar CLAUDE.md'de -->
 <section class="py-12 text-center lg:py-16">
   <div class="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8">
     <h2 class="h2-section text-heading">{video.title}</h2>

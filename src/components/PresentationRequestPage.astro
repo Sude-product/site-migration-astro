@@ -186,9 +186,5 @@ const redirectHref = thankYouUrls[locale] ?? thankYouUrls.tr ?? '/tesekkurler/';
   </div>
 </BaseLayout>
 
-<!-- `PresentationTimeline`/`PresentationFeatureGrid`'in `.reveal` scroll-fade'i
-     için (bkz. `LandingPage.astro`'daki AYNI kullanım) — `BaseLayout.astro`
-     bu script'i KENDİLİĞİNDEN yüklemiyor, yalnızca `.reveal`'ın JS-kapalı
-     `<noscript>` geri düşüşünü tanımlıyor; script'in kendisi onu gerçekten
-     kullanan her sayfada/component'te ayrı eklenmeli. -->
+<!-- Online Sunum Talebi scroll-fade — detaylı teknik notlar CLAUDE.md'de -->
 <script src="../scripts/scroll-reveal.js"></script>

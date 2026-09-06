@@ -65,20 +65,10 @@ const title = buildIdenfitTitle(breadcrumbLabel, locale);
     </div>
   </section>
 
-  <!-- Pilot (4 logo) onaylandı, 2026-07-30 — tam 14 logoluk
-       `CUSTOMER_LOGO_MARQUEE` dizisi (bkz. customerStories.ts'teki yorum).
-       Sarmalayıcı `<section>` BİLİNÇLİ olarak YOK (padding/max-w taşımıyor)
-       — `CustomerLogoMarquee.astro`'nun kendi full-bleed tekniği (`left-1/2
-       -mx-[50vw]`) yalnızca ATASINDA yatay padding OLMADIĞINDA viewport
-       kenarına tam (0 kalıntı offset) hizalanıyor; bir padding'li container
-       içine konsaydı birkaç px'lik kalıntı offset kalırdı. -->
+  <!-- Müşteri logosu şeridi pilot onayı — detaylı teknik notlar CLAUDE.md'de -->
   <CustomerLogoMarquee logos={CUSTOMER_LOGO_MARQUEE} />
 
-  <!-- 2026-07-28 (dördüncü tur): container `max-w-5xl` (1024px) → `max-w-7xl`
-       (1280px, sayfanın geri kalanıyla — hero bölümüyle — TUTARLI standart
-       genişlik) — kullanıcı isteği: kartlar "yana doğru daha geniş" olsun.
-       İç boşluklar (padding/gap) `CustomerStoryRow.astro`'da orantılı
-       büyütüldü. -->
+  <!-- Müşteri Hikayeleri konteyner genişliği — detaylı teknik notlar CLAUDE.md'de -->
   <section class="mx-auto max-w-7xl divide-y divide-gray-100 px-4 pb-16 sm:px-6 lg:px-8 lg:pb-24">
     {
       CUSTOMER_STORIES.map((story, i) => {

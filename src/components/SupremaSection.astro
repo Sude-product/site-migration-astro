@@ -43,15 +43,7 @@ const href = getRelativeLocaleUrl(locale, getHardwareSlug(locale) ?? 'donanim');
         <h2 class="h2-section text-heading">{suprema.title}</h2>
         <p class="mt-4 text-lg text-body">{suprema.text}</p>
 
-        <!-- 2026-08-27 (kullanıcı isteği, referans görsel) — eski "Hardware
-             partner" görünür link etiketi + tek küçük Suprema logosu bu 4
-             markalı satırla DEĞİŞTİRİLDİ (`HARDWARE_BRAND_LOGOS`). AYNI GÜN,
-             takip eden turlarda: "Donanım Özgürlüğü" ikon+başlık bloğu
-             kaldırıldı; ardından logo satırı BAŞLIK+METNİN ÜSTÜNDEN ALTINA
-             taşındı ve daha da küçültüldü (`h-5`[20px]→`h-4`[16px]) —
-             "yazının altına sola doğru koyulmalı" + "logolar küçültülsün".
-             Sol hizalı (`items-start` DEĞİL, flex zaten sola dayalı,
-             `justify-*` verilmedi) — ekstra bir hizalama sınıfı gerekmiyor. -->
+        <!-- Donanım entegrasyonu bölümü yeniden tasarımı — detaylı teknik notlar CLAUDE.md'de -->
         <ul class="mt-6 flex flex-wrap items-center gap-x-4 gap-y-2">
           {
             HARDWARE_BRAND_LOGOS.map((brand) => (
@@ -69,14 +61,7 @@ const href = getRelativeLocaleUrl(locale, getHardwareSlug(locale) ?? 'donanim');
           }
         </ul>
       </div>
-      <!-- DÜZELTME (2026-08-27, kullanıcı isteği: "gri arkapanelin alt
-           kısmı ile yandaki mobil görünümün alt kısmı bitişik olmalı") —
-           üstteki sarmalayıcı div artık YALNIZCA üst dolgu taşıyor
-           (`pt-12 lg:pt-16`, alt dolgu YOK) — grid `items-center` olduğu
-           için satır yüksekliğini bu görsel (metin sütunundan daha uzun)
-           belirliyor, alt dolgu kaldırılınca görselin alt kenarı doğrudan
-           gri panelin (`bg-[#EDEDED]`) alt sınırına/tilt divider'a
-           bitişik oluyor — aralarında boşluk kalmıyor. -->
+      <!-- Donanım bölümü gri zemin düzeltmesi — detaylı teknik notlar CLAUDE.md'de -->
       <a href={href} class="reveal block self-end">
         <img
           src={image.url}

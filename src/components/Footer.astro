@@ -167,12 +167,7 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 					{FOOTER_CONTACT.emailLabel}
 				</a>
 
-				<!-- 2026-08-27 (kullanıcı isteği: "yanyana olacak şekilde ayarla
-				     çok az daha büyük görünsün") — X/Pinterest kaldırılınca
-				     (bkz. `FOOTER_SOCIAL`) kalan 5 ikon zaten yan yana tek
-				     satıra sığıyor (`flex-wrap` artık pratikte devreye
-				     girmiyor); ikon rozeti `h-8 w-8`→`h-9 w-9`, SVG `16`→`18`px'e
-				     bir kademe büyütüldü. -->
+				<!-- Footer güven rozetleri düzeni — detaylı teknik notlar CLAUDE.md'de -->
 				<ul class="mt-5 flex flex-wrap items-center gap-3">
 					{
 						FOOTER_SOCIAL.map((social) => {
@@ -279,19 +274,7 @@ const APP_ICON_PATHS: Record<string, { viewBox: string; paths: string[] }> = {
 			</div>
 		</div>
 
-		<!-- Alt bar: güven rozetleri + telif hakkı + yasal linkler —
-		     footer'ın kendi gri zemininin İÇİNDE.
-		     DÜZELTME (2026-08-27, kullanıcı isteği):
-		     1. "en aşağıdaki footerdan kredi kartı bölümünü sil" — ödeme
-		        yöntemi rozeti render'ı TAMAMEN kaldırıldı, artık kullanılmayan
-		        `FOOTER_PAYMENT_IMAGE` (`data/footer.ts`) + `paymentMethodsAlt`
-		        i18n alanı (5 dil) da temizlendi — HRTech kaldırma turundaki
-		        AYNI ilke (bkz. CLAUDE.md).
-		     2. "soldaki logoları beyaz alt tabanlı değil de transparan
-		        yapmayı dene" — SSL/ISO artık gerçek alfa kanallı (bkz.
-		        `TRUST_BADGE_LOGOS` yorumu), Peryön/GDPR zaten öyleydi;
-		        4'ünün de sarmalayıcı beyaz kartı (`bg-white/95`) kaldırıldı,
-		        gri footer zemininde çıplak/şeffaf render ediliyor. -->
+		<!-- Footer alt bar (güven rozetleri/telif/yasal linkler) — detaylı teknik notlar CLAUDE.md'de -->
 		<div class="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-white/10 pt-6 sm:justify-start">
 			{
 				TRUST_BADGE_LOGOS.map((badge) => (
