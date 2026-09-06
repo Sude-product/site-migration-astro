@@ -34,7 +34,9 @@ const {
   ogType = 'website',
 } = Astro.props;
 
-const ogImage = image ?? HOME_PANEL_IMAGE.tr.url;
+const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
+// `BaseLayout.astro`'daki AYNI mutlak-URL kuralı (bkz. oradaki tam yorum).
+const ogImage = toAbsoluteUrl(image ?? HOME_PANEL_IMAGE.tr.url);
 // `BaseLayout.astro`'daki AYNI ilke (bkz. o dosyadaki tam yorum) — `site`
 // alanı boşken uydurma bir domain kullanılmıyor, göreli yola düşülüyor.
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
