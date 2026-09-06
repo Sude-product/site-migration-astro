@@ -3805,6 +3805,15 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   canlıdaki worker'ın master'dan ayrışması bu turda gerçek bir risk olarak
   yaşandı (master 11 commit geriden geliyordu, o hâliyle build alınsa
   formlar/e-postalar sessizce kaybolurdu).
+- **Deploy YALNIZCA merge sonrası, `master`'dan yapılır (kullanıcı kararı,
+  2026-09-06).** Doğrulanmış bir dal build'inden deploy etmek — bu turda
+  birkaç kez yapıldığı gibi — canlıdaki worker'ı master'dan ayrıştırıyor.
+  Sıra: dalda geliştir → `astro check` + `astro build` + 9 regresyon
+  script'i → PR aç → **ekip merge eder** → `master`'a geç, oradan build alıp
+  `npx wrangler deploy`. Deploy sonrası `git rev-parse origin/master` ile
+  canlıya çıkan commit'in master'la aynı olduğu doğrulanır. Yalnızca
+  dokümantasyon değişen PR'lar (CLAUDE.md/docs) build'e girmediği için
+  deploy GEREKTİRMEZ.
 
 ## Development
 Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:
