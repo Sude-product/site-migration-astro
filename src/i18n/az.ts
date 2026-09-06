@@ -107,6 +107,8 @@ export const az: Translations = {
         leaveManagement: 'İcazə İdarəçiliyi',
         hardware: 'Avadanlıqlar',
         timeAttendance: 'PDKS',
+        assetManagement: 'Əmlak İdarəçiliyi',
+        travelManagement: 'Səyahət İdarəçiliyi',
       },
       general: {
         pricing: 'Qiymətlər və Modullar',

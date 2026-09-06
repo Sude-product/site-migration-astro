@@ -176,6 +176,8 @@ export interface FooterProductLinks {
   leaveManagement: string;
   hardware: string;
   timeAttendance: string;
+  assetManagement: string;
+  travelManagement: string;
 }
 
 export interface FooterGeneralLinks {

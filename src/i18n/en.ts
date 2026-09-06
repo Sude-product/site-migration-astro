@@ -111,6 +111,8 @@ export const en: Translations = {
         leaveManagement: 'Leave Management',
         hardware: 'Hardware',
         timeAttendance: 'Time & Attendance',
+        assetManagement: 'Asset Management',
+        travelManagement: 'Travel Management',
       },
       general: {
         pricing: 'Pricing & Modules',

@@ -101,6 +101,11 @@ const IDENFIT_LOGO_URL = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 // yakalamıyor: yalnızca alanın VARLIĞINI ve söz dizimini doğruluyor, URL'in
 // mutlak olup olmadığına bakmıyor). `BaseLayout.astro`'nun breadcrumb
 // JSON-LD'siyle AYNI `Astro.site` tabanlı dönüşüm.
+// Blog TR-only — dil değiştirici için TÜM diller bare TR URL'ine işaret
+// etmeli. Aksi halde generic hesaplama /nl/blog/<slug>/ gibi var olmayan
+// (canlıda 404) adresler üretiyor. Bkz. Açık nokta #62, aynı sınıf.
+const trOnlyLocaleUrls = (path: string) => ({ tr: path, en: path, nl: path, it: path, az: path });
+
 const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
 
 const jsonLd = {
@@ -134,6 +139,7 @@ const jsonLd = {
   articlePublishedTime={date.toISOString()}
   articleModifiedTime={(effectiveModifiedDate ?? date).toISOString()}
   hreflangLocales={['tr']}
+  localeUrls={trOnlyLocaleUrls(`/blog/${post.data.slug}/`)}
   breadcrumb={[{ label: 'Blog', href: '/blog/' }, { label: title }]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

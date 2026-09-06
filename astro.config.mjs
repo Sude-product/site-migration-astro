@@ -34,6 +34,34 @@ function isRedirectStub(pathname) {
   }
 }
 
+// Sitemap `<lastmod>` (2026-09-07, denetim bulgusu SEO-10) — önceden 932
+// URL'nin HİÇBİRİNDE yoktu. Google yeniden-tarama önceliğini bu alandan
+// okuyor; 629 yazılık bir blogda güncellenen içeriğin fark edilme süresini
+// doğrudan etkiliyor.
+//
+// Değer, `isRedirectStub` ile AYNI ilkeyle üretilmiş HTML'den okunuyor —
+// ikinci bir tarih kaynağı kurulmadı (veri katmanını config'e import etmek
+// content collection'lar yüzünden mümkün değil, ayrıca iki kaynak zamanla
+// birbirinden ayrışırdı). İki desen kapsanıyor:
+//   1) blog yazıları  -> <meta property="article:modified_time">
+//   2) diğer sayfalar -> WebPage JSON-LD'sinin "dateModified" alanı
+// Hiçbiri yoksa `undefined` döner ve o URL lastmod'suz kalır — sitemap
+// şemasında bu tamamen geçerli, uydurma bir tarih yazmaktan iyidir.
+/** @param {string} pathname @returns {string|undefined} ISO 8601 (sitemap şeması string ister) */
+function lastmodFor(pathname) {
+  try {
+    const html = readFileSync(`dist/client${pathname}index.html`, 'utf-8');
+    const raw =
+      html.match(/<meta\s+property="article:modified_time"\s+content="([^"]+)"/)?.[1] ??
+      html.match(/"dateModified":"([^"]+)"/)?.[1];
+    if (!raw) return undefined;
+    const d = new Date(raw);
+    return Number.isNaN(d.getTime()) ? undefined : d.toISOString();
+  } catch {
+    return undefined;
+  }
+}
+
 // Blog gövdesinde yanlışlıkla kullanılmış `<h1>` başlıklarını render-time'da
 // `<h2>`'ye indirger (2026-08-12, SEO uyarısı: "2026-sgk-tesvikleri-rehberi-
 // neler-degisti" yazısında canlı idenfit.com'da 7 H1 bulundu — WordPress
@@ -155,6 +183,10 @@ export default defineConfig({
       filter: (page) => {
         if (/\/(404|not-found|demo)\/$/.test(page)) return false;
         return !isRedirectStub(new URL(page).pathname);
+      },
+      serialize: (item) => {
+        const lastmod = lastmodFor(new URL(item.url).pathname);
+        return lastmod ? { ...item, lastmod } : item;
       },
     }),
   ],

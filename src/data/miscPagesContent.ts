@@ -38,7 +38,7 @@ import {
 } from './miscPagesTranslationOverrides';
 
 export type { SecurityItem, PresentationContent };
-import type { Locale } from './nav';
+import { LOCALES, type Locale } from './nav';
 
 interface RawGroup {
   trSlug: string;
@@ -104,6 +104,13 @@ function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
   // hesaplandı) doğrudan kullanılıyor, `/az/...` üzerinden gereksiz bir
   // redirect adımına GEREK YOK.
   if (!result.az) result.az = result.tr;
+  // GENELLEŞTİRME (2026-09-07): yukarıdaki iki düzeltme yalnızca `nl` ve
+  // `az`'ı kapsıyordu, ama aynı boşluk `it` için de vardı — KVK Protokol
+  // sayfası yalnızca TR/EN/NL'de yayınlanmış, bu yüzden EN sayfasının dil
+  // değiştiricisi generic hesaplamaya düşüp `/it/kvk-protocol/` (404)
+  // üretiyordu. Kalan HER eksik dil artık açıkça dolduruluyor, böylece bu
+  // hata sınıfı dil bazında tek tek değil topluca kapanıyor.
+  for (const locale of LOCALES) if (!result[locale]) result[locale] = result.en ?? result.tr;
   return result;
 }
 

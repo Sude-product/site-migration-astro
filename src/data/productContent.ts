@@ -10,7 +10,7 @@ import productsExport from '../../reference/wordpress-export/products.json';
 import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { PRODUCT_OVERRIDES } from './productTranslationOverrides';
 import { PRODUCT_OVERRIDES_AZ } from './productTranslationOverridesAz';
-import type { Locale } from './nav';
+import { LOCALES, type Locale } from './nav';
 
 export interface ProductImage {
   url: string;
@@ -251,6 +251,18 @@ export function getProductLocaleUrls(trSlug: string): Partial<Record<Locale, str
   const result: Partial<Record<Locale, string>> = {};
   for (const [locale, slug] of Object.entries(perLocale) as [Locale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
+  }
+  // Bu üründe gerçek sayfası OLMAYAN diller (ör. Demirbaş/Seyahat modülleri
+  // NL'de hiç yayınlanmamış) burada AÇIKÇA dolduruluyor. Aksi halde
+  // `Header.astro` eksik anahtarlar için generic hesaplamaya düşüyor ve
+  // slug'ı körü körüne locale önekiyle birleştirip var olmayan bir URL
+  // (`/nl/demirbas-yonetimi-modulu/`, canlıda 404) üretiyor — Açık nokta
+  // #62'de KVKK/SSS/Destek ailesi için düzeltilen AYNI hata sınıfı.
+  // Hedef seçimi: NL'nin genel içerik fallback'i EN olduğu için önce EN,
+  // o da yoksa bare TR (her zaman var).
+  const fallback = result.en ?? result.tr;
+  if (fallback) {
+    for (const locale of LOCALES) if (!result[locale]) result[locale] = fallback;
   }
   return result;
 }

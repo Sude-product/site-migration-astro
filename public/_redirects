@@ -26,3 +26,33 @@
 # etkileniyor). Kalıcı çözüm ayrı bir turda ele alınabilir (muhtemel yön:
 # Astro'nun i18n fallback'ini bu spesifik yol için bypass eden özel bir
 # middleware, veya i18n `fallback` haritasından geçici çıkarma).
+
+# ---------------------------------------------------------------------------
+# Eski WordPress arşiv/besleme yolları (2026-09-07, denetim bulgusu SEO-21).
+#
+# Bu adresler yıllarca her WP yazısından link aldı ve dış sitelerden bağlantı
+# biriktirdi; migrasyonda karşılıkları üretilmediği için canlıda 404
+# dönüyorlardı (ölçüldü: /category/ik-akademi/ 337 yazılık arşiv, /tag/... 63
+# dolu etiket, /feed/, /author/...). 404 bırakmak biriken bağlantı değerini
+# ve indeks girdilerini boşa harcıyor.
+#
+# Hedef seçimi: kategori/etiket hub SAYFALARI henüz yok (Açık nokta #22 —
+# ayrı bir yapısal karar bekliyor). O hub'lar açılana kadar en doğru hedef
+# blog listesinin kendisi; hub'lar geldiğinde bu satırlar ilgili hub'a
+# yönlendirilecek şekilde güncellenebilir.
+#
+# `/feed/` ise gerçek karşılığına gidiyor: yeni RSS feed'i (src/pages/rss.xml.ts).
+#
+# ⚠️ Bu kurallar `astro.config.mjs`'in `redirects` bloğunda DEĞİL burada:
+# Astro'nun `redirects` yapılandırması gerçek route desenleri bekliyor,
+# joker (`*`) eşleme Cloudflare'ın kendi `_redirects` söz diziminin özelliği.
+# Adapter kendi ürettiği kuralları bu dosyanın SONUNA ekliyor, yani buradaki
+# satırlar önce eşleşiyor — çakışma yok (hiçbir üretilen kural /category,
+# /tag, /author veya /feed ile başlamıyor).
+/feed/                    /rss.xml    301
+/feed                     /rss.xml    301
+/category/*               /blog/      301
+/tag/*                    /blog/      301
+/author/*                 /blog/      301
+/en/category/*            /blog/      301
+/en/tag/*                 /blog/      301
