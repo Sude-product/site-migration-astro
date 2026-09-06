@@ -81,7 +81,7 @@ idenfit, KOBİ’lerin insan kaynakları yönetiminde etkin çözümler sunar. �
 
 KOBİ’ler için işe alım süreçlerini yönetmek artık sadece doğru adayı bulmakla sınırlı değil; hız, doğruluk, maliyet optimizasyonu ve aday deneyimi de sürecin temel başarı kriterleri arasında yer alıyor. İşte bu noktada idenfit işe alim modülü Hiringoz, KOBİ’lerin işe alım yaklaşımını yeniden tanımlayan güçlü bir yapay zeka destekli çözüm sunuyor. Hiringoz, aday taramasından değerlendirmeye, mülakat planlamasından yetenek doğrulamasına kadar tüm adımları dijitalleştirerek İK profesyonellerinin operasyonel iş yükünün %74’ünü ortadan kaldırıyor. Böylece ekipler, zamanlarını tekrar eden manuel süreçlere değil; stratejik karar alma, kültürel uyum analizi ve aday deneyimini güçlendirme gibi yüksek değer yaratan alanlara ayırabiliyor. Yapay zeka destekli değerlendirmeler sayesinde her aday objektif, hızlı ve standart bir süreçten geçiyor. Bu da hem doğru aday seçim oranını artırıyor hem de işe alım maliyetlerini düşürüyor. Böylece KOBİ’ler, Hiringoz ile daha akıllı, daha öngörülebilir ve daha verimli bir işe alım sistemi kurarak güçlü ekipler oluşturabiliyor.
 
-**Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!**
+**Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!**
 
 ## **KOBİ’ler İKY Süreçlerini Nasıl Otomatize Edebilir?**
 

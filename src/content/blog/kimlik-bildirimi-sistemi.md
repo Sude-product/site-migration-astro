@@ -151,7 +151,7 @@ Kimlik bildirimi yapılmadığı takdirde, işverenlere idari para cezası uygul
 *   Esnek yapısı sayesinde, çalışan bilgilerini özelleştirilebilir alanlarla dilediğiniz gibi düzenleyin.
 *   idenfit ile özlük dosyalarını dijital ortamda eksiksiz ve güncel tutun, manuel evrak yükünden kurtulun.
 
-idenfit ile en kısa sürede tanışmak istiyorsanız, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=kimlik+bildirim+sistemi&utm_content=revize+blog)** doldurun.
+idenfit ile en kısa sürede tanışmak istiyorsanız, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=kimlik+bildirim+sistemi&utm_content=revize+blog)** doldurun.
 
 ## **Sık Sorulan Sorular**
 

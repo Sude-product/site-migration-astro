@@ -75,7 +75,7 @@ Performans yönetimi artık yalnızca hedef takibinden çok daha fazlasını ifa
 
 OKR, KPI ve 360° değerlendirme yapısının uyumlu şekilde çalışması, karmaşık süreçlerin sade bir deneyime dönüşmesini sağlıyor. Ekip içi hizalanma artıyor, hedeflerde sapmalar erken aşamada fark ediliyor ve yönetim ekipleri organizasyonu gerçek zamanlı olarak yönlendirebiliyor. Sonuç olarak daha öngörülebilir bir iş gücü planlaması, daha ölçülebilir performans çıktıları ve daha güçlü bir kurum kültürü ortaya çıkıyor. idenfit ile performans yönetimi yalnızca bir değerlendirme süreci değil; organizasyonların geleceğini şekillendiren stratejik bir büyüme motoruna dönüşüyor.
 
-**idenfit’in performans yönetimi modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer performans yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in performans yönetimi modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer performans yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

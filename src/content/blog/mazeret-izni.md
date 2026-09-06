@@ -164,7 +164,7 @@ Kanunen belirlenmiş mazeret izinlerinin süresi genellikle sabit ve belirli dur
 *   **Raporlama ve Belgeler:** Sağlık raporları ve diğer belgeleri sisteme yükleyin, izin dokümanlarını kolayca entegre edin.
 *   **Esnek İzin Tipleri:** Cinsiyet, yaş, medeni durum gibi faktörlere göre esnek izin tipleri oluşturun ve hedeflenen çalışan gruplarına atayın.
 
-**Daha fazla bilgi almak ve izin yönetiminizi dijitale taşımak için [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=mazeret+izni&utm_content=mazeret+izni+blog) doldurun. İdenfit ile hız ve verimliliği keşfedin!**
+**Daha fazla bilgi almak ve izin yönetiminizi dijitale taşımak için [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=mazeret+izni&utm_content=mazeret+izni+blog) doldurun. İdenfit ile hız ve verimliliği keşfedin!**
 
 ## **Sık Sorulan Sorular**
 

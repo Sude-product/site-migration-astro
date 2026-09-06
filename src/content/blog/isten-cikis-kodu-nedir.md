@@ -53,7 +53,7 @@ Sistemde çıkış bildirimi yaparken seçilen **işten çıkış kod** ile i�
 
 İşten çıkış süreçleri üzücü de olsa insan kaynaklarının yapması ve yürütmesi gereken görevlerdir. **[İdenfit insan kaynakları yönetimi yazılımı](/)** ile [**offboarding – işten çıkış**](/offboarding-modulu/) sürecini maksimum iletişimle yönetin.
 
-**idenfit offboarding modülü hakkında bilgi sahibi olmak için [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=isten+cikis+kodu) doldurun, size ulaşalım!**
+**idenfit offboarding modülü hakkında bilgi sahibi olmak için [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=isten+cikis+kodu) doldurun, size ulaşalım!**
 
 ## SGK İşten Çıkış Kodları Neden Önemlidir?
 

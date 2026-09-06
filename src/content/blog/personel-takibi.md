@@ -115,7 +115,7 @@ Bunun yanında çalışanların sadece kendilerine özel tanımlanan alanlara gi
 
 En büyük avantajları ise çalışan sayısı fazla olan ya da farklı lokasyonlarda faaliyet gösteren işletmelerde iş gücünün takibi noktasında sağlar.
 
-**Eğer siz de personel giriş çıkış takibinde dijitalleşmeye adım atmak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=personel+giris+cikis+takibi) doldurun.** **idenfit ile otomatize personel takibi süreçlerinin tadını çıkarın.**
+**Eğer siz de personel giriş çıkış takibinde dijitalleşmeye adım atmak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=personel+giris+cikis+takibi) doldurun.** **idenfit ile otomatize personel takibi süreçlerinin tadını çıkarın.**
 
 ## **Sık Sorulan Sorular**
 

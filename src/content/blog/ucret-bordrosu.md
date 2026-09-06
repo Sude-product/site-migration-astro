@@ -76,7 +76,7 @@ Datassist işbirliğiyle geliştirilen bu yazılım, gelir vergisi ve asgari üc
 
 idenfit bordro modülü, ERP ve diğer bordro sistemleriyle çift yönlü entegrasyon sağlayarak bordro işlemlerini kolaylaştırır. Puantaj hazırlama, resmi bildirimlerin düzenlenmesi ve bordro kapanış işlemlerini tek bir platformda birleştirir. İş gücü yönetimi modülüyle tam entegre çalışır. Ayrıca, puantaj verilerinin merkezi bir noktadan yönetilmesini mümkün kılar. 
 
-**idenfit’in bordro yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer bordro yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro-yaz%C4%B1l%C4%B1m%C4%B1-rehberi) **doldurun.**
+**idenfit’in bordro yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer bordro yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro-yaz%C4%B1l%C4%B1m%C4%B1-rehberi) **doldurun.**
 
 **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 

@@ -90,7 +90,7 @@ Kurumsal zimmet yönetim yazılımları, demirbaşların zimmet durumu ve varlı
 
 idenfit’in kullanıcı dostu arayüzü, tüm işlemleri hızlı ve pratik hale getirir. Mobil uygulama desteği sayesinde verilere her yerden erişmek mümkündür. idenfit ile zimmet yönetimini profesyonelce yönetin, iş yükünüzü hafifletin! Dijitalleşme, iş gücü verimliliği ve kaynak kontrolü sağlar.
 
-**idenfit’in zimmet yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer demirbaş ve varlık takibinde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun. idenfit ile zimmet yönetiminde hız ve kontrolü deneyimleyin!**
+**idenfit’in zimmet yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer demirbaş ve varlık takibinde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun. idenfit ile zimmet yönetiminde hız ve kontrolü deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

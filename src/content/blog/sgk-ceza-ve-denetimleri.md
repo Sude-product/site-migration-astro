@@ -73,7 +73,7 @@ Personel verilerinin güvenli ve düzenli şekilde saklanması, İKY süreçleri
 
 Yetkilendirme sistemi sayesinde her veri, yalnızca ilgili kişiler tarafından görüntülenebilmektedir. Veriler KVKK’ya uygun olarak saklanmaktadır ve gerektiğinde kolayca raporlanmaktadır. Gelişmiş arama ve filtreleme özellikleri sayesinde ihtiyaç duyulan bilgiye anında ulaşılmaktadır.
 
-**İnsan kaynakları süreçlerinizi dijitalleştirmek, mevzuata tam uyum sağlamak ve operasyonel yükünüzü azaltmak artık çok daha kolay. Çalışma saatlerinden özlük dosyalarına, izinlerden personel verilerine kadar tüm süreçleri tek platformda yönetin. Denetimlere hazır, hatasız ve güçlü bir İK yapısı için [formu](/online-sunum-talebi/) doldurun, şimdi idenfit ile tanışın!**
+**İnsan kaynakları süreçlerinizi dijitalleştirmek, mevzuata tam uyum sağlamak ve operasyonel yükünüzü azaltmak artık çok daha kolay. Çalışma saatlerinden özlük dosyalarına, izinlerden personel verilerine kadar tüm süreçleri tek platformda yönetin. Denetimlere hazır, hatasız ve güçlü bir İK yapısı için [formu](/online-sunum-talep-et/) doldurun, şimdi idenfit ile tanışın!**
 
 ## **Sık Sorulan Sorular**
 

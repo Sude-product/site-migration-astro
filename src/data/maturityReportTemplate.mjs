@@ -267,7 +267,7 @@ export function renderMaturityReportHtml(data) {
 
     <div class="closing-box">${escapeHtml(model.closingSummary)}</div>
     <p class="package-line">Önerilen İdenfit Paketi:<br /><strong>${escapeHtml(model.recommendedPackage)}</strong></p>
-    <a class="cta-button" href="https://idenfit.com/online-sunum-talebi/">${escapeHtml(model.ctaLabel)}</a>
+    <a class="cta-button" href="https://idenfit.com/online-sunum-talep-et/">${escapeHtml(model.ctaLabel)}</a>
 
     <div class="footer"><span>© idenfit ${generatedAt.getFullYear()}</span><span>support@idenfit.com · www.idenfit.com</span></div>
   </section>

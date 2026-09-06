@@ -271,7 +271,7 @@ Geçiş Hızı
 
 Serbest geçiş modu: 60 kişi/dk.- 0,8 saniye Nominal:30 kişi/dk
 
-**İdenfit’in PDKS modülü ve turnike geçiş sistemleri hakkında detaylı bilgi sahibi olmak ister misiniz? İş gücü yönetimi süreçlerinizi dijitale taşımak için şimdi [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=turnike-gecis-sistemleri) doldurun. idenfit ile dijitalleşen insan kaynakları süreçlerinin hızını ve verimliliğini deneyin!**
+**İdenfit’in PDKS modülü ve turnike geçiş sistemleri hakkında detaylı bilgi sahibi olmak ister misiniz? İş gücü yönetimi süreçlerinizi dijitale taşımak için şimdi [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=turnike-gecis-sistemleri) doldurun. idenfit ile dijitalleşen insan kaynakları süreçlerinin hızını ve verimliliğini deneyin!**
 
 ## **Sık Sorulan Sorular**
 

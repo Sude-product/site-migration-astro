@@ -78,7 +78,7 @@ Personel devir oranının yüksek olması durumunda işletmeler birçok yönden 
 
 idenfit, çalışan devir oranını azaltmak için veriye dayalı, bütüncül çözümler sunar. Çünkü doğru analizlerle, çalışan bağlılığını etkileyen tüm faktörler görünür hale gelir. Geçiş süreçlerinde sağlanan şeffaf iletişim, çalışan güvenini ve aidiyet duygusunu güçlendirir. İzin, **[performans](/calisan-performans-degerlendirme-sistemi-modulu/)** ve eğitim süreçlerinin dijital takibi iş yükünü azaltır. Ayrıca özelleştirilebilir raporlar sayesinde yöneticiler, zamanında aksiyon alabilir. Tüm bunlar, işten ayrılma nedenlerini erkenden tespit etmeye yardımcı olur. Böylece sadece sirkülasyon azalmaz, kurum kültürü de güç kazanır.
 
-[**Formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+[**Formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

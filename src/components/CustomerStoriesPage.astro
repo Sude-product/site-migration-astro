@@ -19,7 +19,7 @@ import type { Locale } from '../data/nav';
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const cs = t.customerStories;
-const ctaHref = getRelativeLocaleUrl(locale, 'online-sunum-talebi');
+const ctaHref = getRelativeLocaleUrl(locale, 'online-sunum-talep-et');
 const breadcrumbLabel = cs.heroTitle.replace('\n', ' ');
 const title = buildIdenfitTitle(breadcrumbLabel, locale);
 ---

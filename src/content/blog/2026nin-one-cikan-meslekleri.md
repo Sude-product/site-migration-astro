@@ -115,7 +115,7 @@ Yetenek yönetimi iş dünyasında giderek daha önemli hale geliyor. Fast Compa
 2026, iş dünyasında köklü değişimlerin yaşanacağı bir yıl olacak. Dijitalleşme, yapay zeka ve yeşil dönüşüm, meslekleri dönüştürerek yeni iş kollarının yükselmesini sağlıyor. Verimliliği yükselten ve teknolojiyi etkin kullanan meslekler, geleceğin yetenek ihtiyaçlarını şekillendiriyor. Bu dönüşüme ayak uydurmak, bireyler ve işletmeler için pek çok avantaj vadediyor.
 
 \
-**Şirketinizin geleceğin iş dünyasına hazır olmasını sağlamak için doğru insan kaynakları teknolojilerine yatırım yapın. idenfit, bordro yönetimi, izin takibi, performans değerlendirme ve PDKS süreçlerini tek platformda birleştirerek iş gücü yönetiminizi kolaylaştırır. Dijitalleşmenin sunduğu fırsatlardan yararlanarak verimliliği artırmak ve çalışan deneyimini iyileştirmek için hemen [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Geleceğin İK teknolojileriyle tanışmak için şimdi harekete geçin! 🚀**
+**Şirketinizin geleceğin iş dünyasına hazır olmasını sağlamak için doğru insan kaynakları teknolojilerine yatırım yapın. idenfit, bordro yönetimi, izin takibi, performans değerlendirme ve PDKS süreçlerini tek platformda birleştirerek iş gücü yönetiminizi kolaylaştırır. Dijitalleşmenin sunduğu fırsatlardan yararlanarak verimliliği artırmak ve çalışan deneyimini iyileştirmek için hemen [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Geleceğin İK teknolojileriyle tanışmak için şimdi harekete geçin! 🚀**
 
 ## **Sık Sorulan Sorular**
 

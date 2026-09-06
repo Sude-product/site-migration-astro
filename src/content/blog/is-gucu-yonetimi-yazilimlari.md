@@ -205,7 +205,7 @@ Organizasyonun büyüklüğüne ve değişen ihtiyaçlarına uyum sağlayacak ş
 *   **Şirket Takvimi:** Önemli toplantılar, randevular ve etkinlikler idenfit şirket takvimine kaydedilir. Böylece tüm planlamalar tek bir ekranda görülür.
 *   **Güvenlik Tur Kontrol Sistemi:** Yöneticiler, personelin durumunu gerçek zamanlı olarak takip eder.
 
-**idenfit’in iş gücü yönetimi sistemi ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer personel yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=is+gucu+y%C3%B6netimi&utm_content=is+gucu+yonetimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in iş gücü yönetimi sistemi ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer personel yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=is+gucu+y%C3%B6netimi&utm_content=is+gucu+yonetimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

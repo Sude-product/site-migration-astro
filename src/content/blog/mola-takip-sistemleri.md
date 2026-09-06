@@ -100,7 +100,7 @@ Mola takip sistemlerinin fiyatı çalışan sayısı, sistemin bulut tabanlı m�
 
 İdenfit PDKS ile çalışanlarınızın molalarını dijital olarak organize edebilirsiniz. Son derece kullanıcı dostu bir arayüze sahip olan idenfit mola takibi sistemi yasal mevzuat değişikliklerinde güncellenerek herhangi bir yasal sorun yaşamanızın önüne geçer. Bordro yazılımı ile idenfit çalışan puantajı hesaplamanıza ve bunu geriye dönük olarak kontrol etmenize imkan tanır.
 
-**idenfit’in mola takip cihazları ve PDKS yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer personel takibi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pdks&utm_content=mola+takip) doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in mola takip cihazları ve PDKS yazılımı hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer personel takibi süreçlerinizi dijitale taşımak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pdks&utm_content=mola+takip) doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

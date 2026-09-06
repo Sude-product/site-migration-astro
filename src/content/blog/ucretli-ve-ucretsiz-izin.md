@@ -135,7 +135,7 @@ Türkiye’de ücretli ve ücretsiz izin koşulları, hem İş Kanunu’na hem d
 *   Cinsiyet, yaş, medeni durum gibi izin tipleri oluşturuluyor ve atanıyor.
 *   İzin süreçleri kolayca raporlanıyor. Böylece İK profesyonelleri için daha verimli bir iş akışı sağlanıyor.
 
-İdenfit ile izin yönetiminde hız ve verimliliği deneyimlemek ister misiniz? **[Formu](/online-sunum-talebi/)** doldurarak detaylı bilgi alın!
+İdenfit ile izin yönetiminde hız ve verimliliği deneyimlemek ister misiniz? **[Formu](/online-sunum-talep-et/)** doldurarak detaylı bilgi alın!
 
 ## **Sık Sorulan Sorular**
 

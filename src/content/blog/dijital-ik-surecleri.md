@@ -200,7 +200,7 @@ idenfit, firmanızın insan kaynakları yönetimini dijitalleştirerek süreçle
 
 **İdenfit’in bulut tabanlı İK yazılımı ve iş gücü yönetimi sistemi, insan kaynakları süreçlerinizi dijital dünyaya taşıma fırsatı sunuyor. İşletmenizin İK süreçlerinde hız, güvenilirlik ve verimliliği maksimize etmek için, sizi birkaç tıkla dönüşüme davet ediyoruz.**  
 
-**İhtiyacınız olan tüm detaylar için şimdi** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=Dijital+%C4%B0K+S%C3%BCrecleri) **doldurun**. **idenfit ile insan kaynakları yönetiminizi bir üst boyuta taşıyın.**
+**İhtiyacınız olan tüm detaylar için şimdi** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=Dijital+%C4%B0K+S%C3%BCrecleri) **doldurun**. **idenfit ile insan kaynakları yönetiminizi bir üst boyuta taşıyın.**
 
 ## **Sık Sorulan Sorular**
 

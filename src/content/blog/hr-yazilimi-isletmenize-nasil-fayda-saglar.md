@@ -124,7 +124,7 @@ idenfit, insan kaynakları süreçlerini dijitalleştirmek isteyen kurumlar içi
 
 idenfit, veriye dayalı karar alma süreçlerini hızlandırır. Aynı zamanda esnek yapısıyla farklı sektörlere kolayca uyum sağlar. Kurum içi iletişim güçlenir, çalışan deneyimi bütünsel biçimde gelişir. idenfit, sadece bir hr yazılımı değil; dijitalleşmenin stratejik ortağıdır.
 
-[**Formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+[**Formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=egitim+yonetimi&utm_content=egitim+yonetimi+yazilimi) doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

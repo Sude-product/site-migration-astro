@@ -73,7 +73,7 @@ Kurumun hedeflerine yönelik olarak çalışanları seçen, yerleştiren ve dene
 
 • **İşten Ayrılma:** Kurumun ya da çalışanın birbirleri ile yollarını ayırmaya karar vermesi sonrası çalışana verilen zimmet eşyalarının alınması, gerekli sosyal hakların teslimi ve yasal bildirimlerin yapılması.\
 \
-Tüm bu işlemler ve daha fazlası için idenfit insan kaynakları ve iş gücü yazılımını [deneyin](/online-sunum-talebi/)!
+Tüm bu işlemler ve daha fazlası için idenfit insan kaynakları ve iş gücü yazılımını [deneyin](/online-sunum-talep-et/)!
 
 ## **Dijitalleşme ile İnsan Kaynakları Görevlerinde Yaşanan Değişimler**
 
@@ -93,7 +93,7 @@ Hibrit ve uzaktan çalışma, insan kaynakları profesyonellerinin rollerini kö
 
 Uzaktan ekip yönetimi, liderlik becerilerini yeniden şekillendiriyor. İşe alım süreçleri, coğrafi sınırları aşarak global yetenek havuzuna erişim sağlıyor. Sanal eğitim programları, sürekli öğrenmeyi destekleyerek çalışanların gelişimine hız kazandırıyor. Well-being uygulamaları, iş-yaşam dengesini sağlamak için daha fazla önem kazanıyor. Hibrit ve uzaktan çalışma, İK’nın geleneksel sınırlarını aşıyor. Böylece daha esnek, yenilikçi ve dijital hale gelmesini sağlıyor.
 
-Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
+Şirketinizi geleceğin İKY teknolojileriyle buluşturmak için [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS+yaz%C4%B1l%C4%B1m%C4%B1&utm_content=bordro+nedir) doldurun. Hemen şimdi idenfit’i keşfedin!
 
 ## **Sık Sorulan Sorular**
 

@@ -73,7 +73,7 @@ Süreç yürütücü olarak demokratik yaklaşımınız yeni gerginliklerin ön�
 
 Zayıf şirket içi iletişim, yanlış anlaşılmalara ve güvensizliğe yol açar. Fakat iletişim artırıldığında sorunlar azalır. Çünkü bilgi paylaşımı şeffaflaştığında belirsizlik ortadan kalkar. Öncelikle açık kanallar oluşturulmalı, ayrıca geri bildirim kültürü desteklenmelidir. Böylece çalışanlar kendini rahatça ifade eder. Sonuç olarak hem iş birliği artar hem de iş yerinde çatışmalar minimuma iner.
 
-idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ### **Hızlı Aksiyon Alın**
 

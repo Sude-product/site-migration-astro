@@ -41,7 +41,7 @@ Fiyatı etkileyen temel faktörler şunlardır:
 *   Özelleştirme ve destek talepleri
 
 Örneğin sadece temel İK süreçlerini yöneten bir şirket ile bordro, vardiya takibi ve performans modüllerini aktif kullanan bir şirketin maliyeti aynı olmayacaktır.Bu noktada en kritik soru şudur: “Benim şirketim için doğru fiyat nedir?”\
-Bunun için en sağlıklı yöntem, ihtiyaçlarınıza özel bir değerlendirme yapılmasıdır. Detaylı bilgi almak ve size özel teklif görmek için  **insan kaynakları yazılımı fiyatı** hakkında [sunum talep](/online-sunum-talebi/) edebilirsiniz.
+Bunun için en sağlıklı yöntem, ihtiyaçlarınıza özel bir değerlendirme yapılmasıdır. Detaylı bilgi almak ve size özel teklif görmek için  **insan kaynakları yazılımı fiyatı** hakkında [sunum talep](/online-sunum-talep-et/) edebilirsiniz.
 
 ## **Dijital İK Yazılımı Kullanmak Şirketlere Ne Kazandırır?**
 

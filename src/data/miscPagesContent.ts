@@ -637,9 +637,9 @@ export function getAboutTitle(locale: Locale): string {
 // proje GENELİNDE (bkz. `productContent.ts`'in `localizeCtaUrl()`'ü,
 // `sectorContent.ts`, `hardwareTranslationOverrides.ts` vb. — ONLARCA
 // mevcut CTA çağrı noktası) bu sayfaya giden her CTA zaten TEK bir
-// canonical slug'a (`online-sunum-talebi`) çözülecek şekilde kurulmuştu.
+// canonical slug'a (`online-sunum-talep-et`) çözülecek şekilde kurulmuştu.
 // **Bulunan gerçek bug:** bu slug'a hiçbir zaman karşılık gelen bir SAYFA
-// kurulmamıştı — `online-sunum-talebi` her yerde referans alınıyordu ama
+// kurulmamıştı — `online-sunum-talep-et` her yerde referans alınıyordu ama
 // `src/pages/`'de hiç dosyası yoktu (Header'ın kırmızı CTA butonu dahil,
 // tüm sitedeki "Online Sunum Talebi" butonları 404 veriyordu). Bu artık
 // düzeltiliyor — mevcut onlarca çağrı noktasını değiştirmek yerine, route
@@ -650,7 +650,7 @@ export function getAboutTitle(locale: Locale): string {
 // locale'de aynı olduğu için Astro'nun otomatik `i18n.fallback`'i (nl→en)
 // manuel bir `redirects` girdisi gerekmeden doğru çalışıyor (KARAR 2 —
 // kaynakta olmayan dil için yeni sayfa üretilmedi).
-export const PRESENTATION_CANONICAL_SLUG = 'online-sunum-talebi';
+export const PRESENTATION_CANONICAL_SLUG = 'online-sunum-talep-et';
 // Yalnızca `misc-pages.json`'daki gruba erişmek için — GERÇEK route slug'ı
 // DEĞİL (bkz. yukarıdaki not).
 const PRESENTATION_TR_SLUG = 'online-sunum-talep-et';

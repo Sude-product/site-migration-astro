@@ -197,7 +197,7 @@ export function resolveCtaUrl(rawUrl: string, locale: Locale): ResolvedCtaUrl {
   }
   const bare = bareSlugFromUrl(rawUrl);
   if (REQUEST_DEMO_SOURCE_SLUGS.has(bare)) {
-    return { url: getRelativeLocaleUrl(locale, 'online-sunum-talebi'), external: false, newTab: false };
+    return { url: getRelativeLocaleUrl(locale, 'online-sunum-talep-et'), external: false, newTab: false };
   }
   // Diğer ürün/modül sayfalarına link (henüz nadir görüldü) — kendi ürün
   // slug indeksimizde varsa doğru locale'e çözülür, yoksa kaynaktaki

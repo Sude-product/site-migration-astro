@@ -85,7 +85,7 @@ Evet, bir çalışana yıllık izin hakkı doğmadan önce avans izin verilebilm
 
 Çalışanlar, izin taleplerini dijital ortamda iletir ve yöneticiler anında değerlendirme yaparak hızlı kararlar alır. Şirket politikalarına uygun izin tipleri oluşturulur ve esnek kurallar belirlenir. Sağlık raporları ve diğer belgeler sisteme yüklenir. Böylece tüm kayıtlar güvenli bir şekilde saklanır. Çalışan izin bakiyeleri anlık olarak güncellenir. Ayrıca otomatik hesaplama sayesinde hatalar en aza indirilmektedir.
 
-idenfit ile izin süreçlerini dijitale taşıyarak zamandan tasarruf edin, yönetim sürecinizi optimize edin! Daha fazla bilgi almak ve verimliliği artıran çözümleri keşfetmek için **[formu](/online-sunum-talebi/)** doldurun, bizimle iletişime geçin.
+idenfit ile izin süreçlerini dijitale taşıyarak zamandan tasarruf edin, yönetim sürecinizi optimize edin! Daha fazla bilgi almak ve verimliliği artıran çözümleri keşfetmek için **[formu](/online-sunum-talep-et/)** doldurun, bizimle iletişime geçin.
 
 ## **Sık Sorulan Sorular**
 

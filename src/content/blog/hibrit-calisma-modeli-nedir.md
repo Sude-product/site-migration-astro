@@ -169,7 +169,7 @@ Bu çalışma modeli, çalışanların verimliliğini olumlu yönde etkileyebili
 
 Hibrit çalışma sisteminde iş gücünüzü idenfit ile yönetmek, işletmenizin verimliliğini ve esnekliğini artırır. idenfit, zaman ve vardiya yönetimini kolaylaştırarak, çalışanlarınızın işe giriş-çıkış bilgilerini anında kaydeder ve raporlar. **[İzin yönetimi modülü](/yillik-izin-takip-programi/)**, çalışanların farklı izin tiplerini tek bir takvimde toplar ve onay süreçlerini hızlandırır. Akıllı vardiya yönetimi ile çalışanlarınızın programlarını esnek bir şekilde düzenleyebilir, kayıp saatleri ve molaları optimize edebilirsiniz. Güvenlik ve denetim yazılımları, sahadaki tüm süreçleri anlık olarak izleyerek iş gücünüzü güvence altına alır. idenfit, hibrit çalışma ortamınızda iş gücü yönetimini en etkili şekilde yapmanızı sağlar ve işletmenizin zamandan ve maliyetten tasarruf etmesine yardımcı olur.
 
-idenfit ile hemen şimdi tanışmak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=hibrit+%C3%A7al%C4%B1%C5%9Fma&utm_content=hibrit+calisma+revize)** doldurun ve ekibimizle bir görüşme planlayın!
+idenfit ile hemen şimdi tanışmak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=hibrit+%C3%A7al%C4%B1%C5%9Fma&utm_content=hibrit+calisma+revize)** doldurun ve ekibimizle bir görüşme planlayın!
 
 ## **Sık Sorulan Sorular**
 

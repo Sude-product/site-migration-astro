@@ -66,7 +66,7 @@ Günümüzde şirketler, hızla değişen iş modellerine ayak uydurabilmek içi
 
 Hiringoz, adayları yalnızca özgeçmişlerine göre değil; gerçek becerilerine, potansiyellerine ve pozisyona uygunluklarına göre objektif bir şekilde değerlendirir. Bu sayede gözden kaçan yetenekler ortaya çıkar, işe alım süreçleri daha adil, şeffaf ve öngörülebilir hale gelir. Doğru insanları doğru rollerle buluşturarak güçlü, **[sürdürülebilir](/blog/surdurulebilir-is-gucu/)** ve yüksek performanslı ekipler kurmak Hiringoz ile çok daha kolay.
 
-Doğru insanları doğru pozisyonlara yerleştirmek için doğru araçları kullanın. Daha fazla bilgi için idenfit İşe Alım Modülü hakkında **<a href="/online-sunum-talebi/?utm_source=blog&amp;utm_medium=Text_link&amp;utm_campaign=%C4%B0se+alim+zorluklari&amp;utm_content=%C4%B0se+alim+zorluklari+2024" target="_blank" rel="noreferrer noopener" aria-label="Online Sunum Talebi sayfası">buradan</a>** bilgi alın.
+Doğru insanları doğru pozisyonlara yerleştirmek için doğru araçları kullanın. Daha fazla bilgi için idenfit İşe Alım Modülü hakkında **<a href="/online-sunum-talep-et/?utm_source=blog&amp;utm_medium=Text_link&amp;utm_campaign=%C4%B0se+alim+zorluklari&amp;utm_content=%C4%B0se+alim+zorluklari+2024" target="_blank" rel="noreferrer noopener" aria-label="Online Sunum Talebi sayfası">buradan</a>** bilgi alın.
 
 ## **Sık Sorulan Sorular**
 

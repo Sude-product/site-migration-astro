@@ -55,7 +55,7 @@ export const nl: Translations = {
     whatsappLabel: 'Stuur ons een bericht via WhatsApp',
     callLabel: 'Bel ons nu',
     // Online Sunum Talebi sayfasının kendi NL versiyonu YOK (`i18n.fallback`
-    // ile `/en/online-sunum-talebi/`e yönleniyor, bkz. astro.config.mjs) —
+    // ile `/en/online-sunum-talep-et/`e yönleniyor, bkz. astro.config.mjs) —
     // bu alan asla render EDİLMİYOR, yalnızca tip tamlığı için EN'in gerçek
     // değerleriyle tutarlı Hollandaca karşılıklar verildi.
     presentationForm: {

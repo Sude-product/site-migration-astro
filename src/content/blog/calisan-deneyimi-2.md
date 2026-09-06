@@ -31,7 +31,7 @@ Son olarak, tüm bu süreçleri başarıyla yönetmek için stratejik bir yakla�
 
 Tüm bu konulara dair daha fazla konuşacağımız ve sizlerle yeni projelerde buluşacağımız heyecan dolu bir dönemin içindeyiz. Global partnerliğimizin sunduğu yeni fırsatları bu stratejilerle birleştirerek, daha güçlü adımlar atmayı hedefliyoruz.
 
-Yeni projeler ve global partnerliklerimizle daha da güçlü adımlar atmak için heyecanlıyız. Şirketinizde yeteneklerinizi daha etkili bir şekilde yönetmek, çalışan bağlılığını artırmak ve benzersiz bir çalışan deneyimi yaratmak için bizimle **[iletişime geçin](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=checklist)**. Birlikte, geleceğin iş dünyasını şekillendirelim.
+Yeni projeler ve global partnerliklerimizle daha da güçlü adımlar atmak için heyecanlıyız. Şirketinizde yeteneklerinizi daha etkili bir şekilde yönetmek, çalışan bağlılığını artırmak ve benzersiz bir çalışan deneyimi yaratmak için bizimle **[iletişime geçin](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=dijital+%C4%B0K&utm_content=checklist)**. Birlikte, geleceğin iş dünyasını şekillendirelim.
 
 ## **idenfit Hakkında**
 

@@ -65,7 +65,7 @@ Gelir Vergisi Kanunu 61. maddesinde belirtildiği üzere bu yardım türü: “�
 
 Gelir vergisinden muaf tutulan ayni yardımlar şu şekilde sıralanıyor. İşçilere işyeri içerisinde verilen yemek, işçilerin ulaşımı için sunulan servis hizmeti bu kapsamda yer alıyor. 100 metrekareye kadar olan lojman kirası, iş giysileri, yemek çeki veya yemek kartları, toplam olarak yıllık asgari ücret tutarını aşmayan sağlık sigortası ve bireysel emeklilik katkı payları da bu kapsamda değerlendiriliyor.
 
-**idenfit’in [bordro yazılımı](/blog/bordro-yazilimlari/) hakkında detaylı bilgi sahibi olmaya ne dersiniz? Eğer bordro yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro-yaz%C4%B1l%C4%B1m%C4%B1-rehberi) **doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in [bordro yazılımı](/blog/bordro-yazilimlari/) hakkında detaylı bilgi sahibi olmaya ne dersiniz? Eğer bordro yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=bordro&utm_content=bordro-yaz%C4%B1l%C4%B1m%C4%B1-rehberi) **doldurun. idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Ayni Yardımın İşletmelere Sunduğu Avantajlar**
 

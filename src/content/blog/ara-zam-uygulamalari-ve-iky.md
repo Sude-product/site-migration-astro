@@ -101,7 +101,7 @@ Ara zam uygulamaları, İKY profesyonelleri için sadece bir maaş düzenlemesi 
 
 Ara zam uygulamaları, **[bordro](/blog/bordro-nedir-maas-bordrosu-nasil-hesaplanir/)** sistemlerinde kapsamlı güncellemeler gerektiriyor. Yeni maaş oranlarının sisteme eklenmesi, bordroların yeniden hesaplanması ve tüm bu süreçlerin hatasız bir şekilde yönetilmesi gerekiyor. Dolayısıyla tüm bu süreçler İKY profesyonellerinin üzerine ek bir yük getiriyor. Hatalı bir bordro güncellemesi, çalışanların maaşlarını zamanında ve doğru şekilde almamalarına yol açıyor. Bu durum hem çalışan memnuniyetini hem de şirketin itibarını olumsuz etkiliyor.
 
-idenfit Bordro Modülü ile tanışmak için en doğru zaman tam da şu an. **[Formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=ara+zam+uygulamalar%C4%B1&utm_content=bordro)** doldurun ve deneyimli ekibimizle görüşerek bordro süreçlerinizi dijitale taşıyın.
+idenfit Bordro Modülü ile tanışmak için en doğru zaman tam da şu an. **[Formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=ara+zam+uygulamalar%C4%B1&utm_content=bordro)** doldurun ve deneyimli ekibimizle görüşerek bordro süreçlerinizi dijitale taşıyın.
 
 ### **Vergi Hesaplamaları**
 

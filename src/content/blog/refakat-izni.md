@@ -87,7 +87,7 @@ Devlet memurları için 657 sayılı Kanunda açık şekilde tanımlanan izin ha
 
 Kamu çalışanlarına 1. derece yakınlarının sağlık sorunlarında kullanabilmeleri için tanımlanan maksimum izin süresi 6 aydır. 3 aylık sürenin tamamlanmasının ardından kişi işverenine bildirmek kaydıyla izin süresini 6 aya kadar uzatabiliyor. Refakat izninin süresinin uzatılabilmesi için hasta olan yakının [sağlık](/blog/saglik-raporu/) sorununun belgelendirilmesi gerekiyor. Çalışanların birinci dereceden yakınları için sağlanan bu özel izin her hastalıkta kullanılamıyor.
 
-**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/) **doldurun. idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/) **doldurun. idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

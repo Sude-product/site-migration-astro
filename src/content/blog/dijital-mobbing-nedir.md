@@ -60,7 +60,7 @@ Kimilerimiz zorbalık ve tacizin yalnızca çalışanların yüz yüze etkileşi
 
 Geldiğimiz noktada çalışanların Hangouts, Zoom, Microsoft Teams veya Skype gibi uygulamalar aracılığıyla günün 24 saatinin her anında, gerçek hayatta olduğu gibi iletişim kurabilmesi yaşanan olumsuzlukları mesai saatleri dışına da taşıyor. İşin kötüsü yönetimler bu tarz bir yaklaşımı artık normal buluyor ve yadırgamıyor. Ayrıca ekran arkasında gerçek hayatta yapılmayacak hakaret ve hareketlerin yapılmasının daha kolay olması ve bu konuda net yaptırımların olmaması dijital mobbinge davetiye çıkarıyor. Uzaktan çalışmada geldiğimiz son nokta dijital mobbing konusunda acil düzenlemelerin yapılmasını gerektiriyor.
 
-idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in geri bildirim modülü ile çalışanlarınızın sesini daha iyi duyun ve işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ## **Dijital Mobbing Örnekleri**
 

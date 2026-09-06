@@ -105,7 +105,7 @@ Hizmet sektöründe müşteri memnuniyeti, çalışanların verimli ve mutlu olm
 
 Vardiyalı çalışma sistemleri, manuel planlamayla büyük zaman kaybettirir. idenfit vardiya yönetimi, çakışmaları önleyerek operasyonel düzeni sağlar. Çalışan izin süreçleri, onay mekanizmaları ve puantaj yönetimi tek bir platformda yönetilir. İdenfit, bordro, performans ve eğitim modülleriyle hizmet sektöründe insan kaynakları dijital dönüşümünü hızlandırır.
 
-İdenfit ile tüm İK süreçlerinizi modernize edin, işletmenizi geleceğe taşıyın! Hemen **[formu](/online-sunum-talebi/)** doldurun, avantajları keşfedin!
+İdenfit ile tüm İK süreçlerinizi modernize edin, işletmenizi geleceğe taşıyın! Hemen **[formu](/online-sunum-talep-et/)** doldurun, avantajları keşfedin!
 
 ## **Sık Sorulan Sorular**
 

@@ -69,7 +69,7 @@ Eğer sigorta girişiniz beklediğiniz tarihte görünmüyorsa, işvereninizle i
 
 Böyle bir durum işverenin maddi ve manevi tazminat davalarına maruz kalması gibi sonuçlar doğuruyor. Kanunlar bu tarz bildirgelerin geciktiği her gün için işyerine ceza uygulanıyor. Bu cezaların ödenmemesi durumunda da yasal faiz işliyor. Böyle bir sorunla karşılaşmamak için işyerlerinin öngörülen yasal süreler içinde sigorta ile ilgili iş ve işlemleri yerine getirmesi gerekiyor. 
 
-**idenfit çalışanların onboarding ve offboarding süreçlerini sorunsuz bir akış içinde yönetmenizi sağlıyor. idenfit hakkında bilgi sahibi olmak için [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=isten+cikis+kodu) doldurun, size ulaşalım!**
+**idenfit çalışanların onboarding ve offboarding süreçlerini sorunsuz bir akış içinde yönetmenizi sağlıyor. idenfit hakkında bilgi sahibi olmak için [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=insan+kaynaklari+yazilimi&utm_content=isten+cikis+kodu) doldurun, size ulaşalım!**
 
 ## **Vize için SGK İşe Giriş Bildirgesi Nereden Alınır?**
 

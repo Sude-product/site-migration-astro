@@ -53,4 +53,4 @@ Idenfit ve Pulsifi hakkında daha detaylı bilgi sahibi olmak için Eylül ayı 
 
 İnsan kaynakları ve iş gücü yönetimi süreçlerinde önemli farklar yaratacak bu iş birliğinin tüm detaylarını siz çok değerli insan kaynakları profesyonelleri ile paylaşmaya hazırız!
 
-İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. İdenfit ile İK süreçlerinizde verimliliği deneyimleyin!
+İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. İdenfit ile İK süreçlerinizde verimliliği deneyimleyin!

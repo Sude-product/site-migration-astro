@@ -81,7 +81,7 @@ Hiringoz, işe alım süreçlerini dijitalleştirerek hız, doğruluk ve verimli
 
 Hiringoz, aday iletişimini kişiselleştirir, süreci şeffaf ve tarafsız hale getirir. AI destekli testler ve simülasyonlarla güvenilir yetenek doğrulaması yapar, her işe alımı kurum standartlarına uygun hale getirir. Kısacası, Hiringoz ile işe alımda hızlanır, önyargısız kararlar alır ve veriye dayalı stratejik öngörülerle geleceğin İK süreçlerine adım atarsınız.
 
-İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İK süreçlerinizde verimliliği deneyimleyin!
+İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İK süreçlerinizde verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

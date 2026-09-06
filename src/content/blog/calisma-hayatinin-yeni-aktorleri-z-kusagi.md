@@ -125,7 +125,7 @@ Z kuşağının iş hayatından başlıca beklentileri esneklik, hız ve dijital
 
 Şeffaf performans değerlendirme modülleri sayesinde, çalışanların kariyer gelişimleri desteklenir. Ayrıca, dijital **[izin yönetimi](/yillik-izin-takip-programi/)** ve self-servis çözümler ile Z kuşağı, iş süreçlerinde daha bağımsız hareket eder. idenfit ile modern İK yönetimi, Z kuşağı’nın beklentilerine uyum sağlayarak bağlılığı ve verimliliği artırır.
 
-İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İKY süreçlerinizde verimliliği deneyimleyin!
+İnsan kaynakları yönetiminizi dijitalleştirmek ve idenfit’in tüm modülleri hakkında daha fazla bilgi almak isterseniz, **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pulsifi&utm_content=is+birligi)** doldurarak bizimle iletişime geçebilirsiniz. idenfit ile İKY süreçlerinizde verimliliği deneyimleyin!
 
 ## **Sık Sorulan Sorular**
 

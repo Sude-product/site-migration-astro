@@ -148,7 +148,7 @@ idenfit Mobil PDKS, dijitalleşen iş dünyasında operasyonel süreçleri hızl
 
 İzin, vardiya ve mesai takibi mobil cihazlar üzerinden rahatça yönetilir. Bu da zaman tasarrufu sağlar, iş yükünü önemli ölçüde azaltır. Üstelik kullanıcı dostu arayüz çalışanların sisteme kolayca uyum sağlamasına yardımcı olur. Gelişmiş güvenlik özellikleriyle birlikte İK süreçleri daha güvenilir bir zemine taşınır. Sonuç olarak, idenfit işleyişi kolaylaştırır, iş gücü yönetimi kalitesini iyileştirir.
 
-**idenfit’in mobil uyumlu PDKS sistemi hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in mobil uyumlu PDKS sistemi hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

@@ -75,7 +75,7 @@ Yapay zeka, en çok İK departmanının yetenek edinme sürecinde faydalıdır. 
 
 Sonuç olarak yapay zeka, verimli çalışma için verilerin uygun şekilde depolanmasına ve bakımına ihtiyaç duyar. Gerekli tüm verileri toplar ve analiz eder ve İK departmanının veri odaklı kararlar almasını sağlar.
 
-idenfit’in eğitim modülüyle işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
+idenfit’in eğitim modülüyle işletmenizi geliştirin. Daha fazla bilgi almak için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve hemen keşfetmeye başlayın!
 
 ### **Performans Değerlendirme**
 

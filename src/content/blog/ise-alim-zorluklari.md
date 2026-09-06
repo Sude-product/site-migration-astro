@@ -116,7 +116,7 @@ Teklifi kabul eden aday için başarılı bir onboarding süreci düzenleyin. Bu
 İşe alım maliyetlerini azaltın, zamandan tasarruf edin ve objektif değerlendirmelerle doğru adayı bulun! idenfit işe alım modülü Hiringoz, işe alım süreçlerini dijitalleştirerek hız, doğruluk ve verimlilik sağlar. Yapay zeka destekli değerlendirmeler, akıllı mülakat planlaması ve aday analizleriyle operasyonel yükün %74’ünü ortadan kaldırır. Hiringoz, ekibinize bir AI agent kazandırarak süreci uçtan uca optimize eder; siz stratejiye ve aday deneyimine odaklanırsınız. Doğru adayları, gerçek becerileriyle objektif biçimde değerlendirin, gözden kaçan yetenekleri keşfedin.\
 Hiringoz ile işe alımda yeni bir döneme adım atın, operasyonel yükleri geride bırakın, güçlü ekipler kurun.
 
-Doğru insanları doğru pozisyonlara yerleştirmek için doğru araçları kullanın. Daha fazla bilgi için idenfit İşe Alım Modülü hakkında **<a href="/online-sunum-talebi/?utm_source=blog&amp;utm_medium=Text_link&amp;utm_campaign=%C4%B0se+alim+zorluklari&amp;utm_content=%C4%B0se+alim+zorluklari+2024" target="_blank" rel="noreferrer noopener" aria-label="Online Sunum Talebi sayfası">buradan</a>** bilgi alın.
+Doğru insanları doğru pozisyonlara yerleştirmek için doğru araçları kullanın. Daha fazla bilgi için idenfit İşe Alım Modülü hakkında **<a href="/online-sunum-talep-et/?utm_source=blog&amp;utm_medium=Text_link&amp;utm_campaign=%C4%B0se+alim+zorluklari&amp;utm_content=%C4%B0se+alim+zorluklari+2024" target="_blank" rel="noreferrer noopener" aria-label="Online Sunum Talebi sayfası">buradan</a>** bilgi alın.
 
 ## **Sık Sorulan Sorular**
 

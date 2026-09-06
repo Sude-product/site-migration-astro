@@ -98,7 +98,7 @@ ChatGPT, mülakat süreçlerinde pozisyona uygun soruların taslağını hazırl
 
 Çalışan bağlılığını artırmak için ChatGPT, ekiplere özel anket içerikleri oluşturmada büyük bir yardımcıdır. ChatGPT, çalışanların ihtiyaçlarını ve beklentilerini anlayarak, kişiselleştirilmiş anket soruları hazırlar. Bu anketler, çalışanların memnuniyetini ve motivasyonunu ölçmeye yardımcı olur. Ekiplere özel anket içerikleri, yöneticilere değerli geri bildirimler sunar ve çalışanların bağlılığını artırmak için gerekli önlemleri almalarını sağlar. Ayrıca, çalışanların görüş ve önerilerini dikkate alarak, iş ortamını daha olumlu hale getirebilirsiniz.
 
-**Çalışanların düşüncelerini en kısa yoldan öğrenmek ve hızla harekete geçmek istiyorsanız, sizi [böyle alalım!](/online-sunum-talebi/)**
+**Çalışanların düşüncelerini en kısa yoldan öğrenmek ve hızla harekete geçmek istiyorsanız, sizi [böyle alalım!](/online-sunum-talep-et/)**
 
 idenfit anket modülü ile çalışan anketlerinize hız ve verimlilik katın!
 

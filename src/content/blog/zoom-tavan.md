@@ -156,7 +156,7 @@ idenfit, uzaktan veya hibrit çalışan ekipler için bütünleşik ve erişileb
 
 idenfit’in dijital performans ve **[iş gücü yönetimi](/blog/is-gucu-yonetimi-yazilimlari/)** sistemleri, veriye dayalı adil değerlendirme süreçleri sunar. Görevler net biçimde tanımlanır, ilerlemeler anlık olarak raporlanabilir hale gelir. Bu sistem sayesinde çalışanlar görünürlük kaygısı yaşamadan katkılarını gösterir. Aynı zamanda yöneticiler, performansı kişi değil sonuç odaklı değerlendirir. Ekipler arası iş paylaşımı dengeli olurken bireysel başarılar da sistematik şekilde kaydedilir. Bu şeffaf yapı, uzaktan çalışmada güveni artırır ve adalet duygusunu besler.
 
-**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer personel yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=is+gucu+y%C3%B6netimi&utm_content=is+gucu+yonetimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer personel yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=is+gucu+y%C3%B6netimi&utm_content=is+gucu+yonetimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ### **Esnek ve Adil Çalışma Düzeni ile Zoom Tavan’ı Aşmak**
 

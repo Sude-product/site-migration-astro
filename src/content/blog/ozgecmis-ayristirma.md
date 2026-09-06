@@ -45,7 +45,7 @@ Adaylardan alınan başvuruların manuel olarak incelenmesi, analiz edilmesi hat
 
 Hiringoz, işe alım süreçlerini tamamen dijitalleştirerek insan kaynakları ekiplerine hız, doğruluk ve stratejik bakış kazandırıyor. Yapay zeka destekli analizler sayesinde **[özgeçmiş](/blog/oz-gecmis/)** tarama, değerlendirme ve mülakat planlama adımları otomatik hale geliyor. Bu sayede işe alım uzmanları operasyonel işlere harcadıkları zamanı stratejik kararlara yönlendirebiliyor. Hiringoz, sadece uygun adayları değil, potansiyel yetenekleri de belirleyerek kurumların geleceğini şekillendirmesine yardımcı oluyor. Verimliliği artıran bu akıllı sistemle, işe alım süreci artık daha hızlı, adil ve ölçülebilir hale geliyor.
 
-**idenfit’in işe alım modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer işe alım süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**\
+**idenfit’in işe alım modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer işe alım süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**\
 
 ## **Sık Sorulan Sorular**
 

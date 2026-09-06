@@ -44,7 +44,7 @@ Start-up gibi genellikle az çalışanların olduğu ve ivme kazanma aşamasınd
 
 ## Hedefiniz Büyümek mi Yoksa Maliyeti mi Azaltmak?
 
-<a href="/online-sunum-talebi/" aria-label="IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!"><img decoding="async" src="/wp-content/uploads/2020/08/linkedin-1-1.png" alt="" class="wp-image-2096" style="width:451px;height:376px"></a>
+<a href="/online-sunum-talep-et/" aria-label="IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!"><img decoding="async" src="/wp-content/uploads/2020/08/linkedin-1-1.png" alt="" class="wp-image-2096" style="width:451px;height:376px"></a>
 
 IDENFIT DİJİTAL DÖNÜŞÜMDE START-UP’LARIN YANINDA!
 

@@ -167,7 +167,7 @@ idenfit **[puantaj takip yazılımı](/puantaj-takip-programi-modulu/)**, çalı
 
 idenfit akıllı vardiya yönetimi sistemi, çalışanların vardiya süreçlerini tek bir panel üzerinden yönetmenizi sağlar. İş süreçlerinde verimliliği artırmak için esnek ve sabit mola süreleri belirlenir ve sistem üzerinden takip edilir. Çalışanların işe giriş-çıkış bilgileri anlık olarak görüntülenir. Kimlik doğrulaması gerektiren noktalarda, yetkisiz geçişlerin önüne geçilir. idenfit puantaj modülü, çalışanların mesai saatlerini, izin günlerini ve fazla mesailerini otomatik olarak hesaplar. Ardından veriler güvenli bir şekilde bulut sunucularda saklanır.
 
-idenfit’in puantaj modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer puantaj takibi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) doldurun. Idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
+idenfit’in puantaj modülü ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer puantaj takibi süreçlerinizi dijitale taşımak istiyorsanız, [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=puantaj&utm_content=puantaj+yaz%C4%B1l%C4%B1mlar%C4%B1) doldurun. Idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!
 
 ## **SSS**
 

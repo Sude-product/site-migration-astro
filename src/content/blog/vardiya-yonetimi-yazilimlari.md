@@ -213,7 +213,7 @@ idenfit’in kullanıcı dostu arayüzü, vardiya yönetimini birkaç tıklama i
 *   **Puantaj Hesaplamaları:** Ay sonunda yapılan puantaj hesaplamaları, idenfit’in gelişmiş algoritmaları sayesinde hızlı ve hatasız bir şekilde gerçekleşir.
 *   **Özelleştirilmiş Vardiya Atamaları:** İşletmenin ihtiyaçlarına göre kişiye özel vardiya atamaları yapılır.
 
-**idenfit’in vardiya yönetimi özelliği ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in vardiya yönetimi özelliği ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

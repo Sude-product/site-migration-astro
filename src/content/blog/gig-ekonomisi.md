@@ -179,7 +179,7 @@ Gig çalışanların performansını ölçmek, geleneksel yöntemlerle oldukça 
 
 idenfit, insan kaynakları süreçlerini dijitalleştirerek zamandan ve kaynaktan büyük tasarruf sağlar. Özellikle gig çalışanlarla yürütülen işe alım, sözleşme ve belge süreçleri otomatikleşir. Bu da İK ekiplerinin manuel iş yükünü azaltır. Aynı zamanda çalışan verileri merkezi sistemde saklandığı için bilgiye erişim kolaylaşır. Dijital platform üzerinden izin, vardiya ve iletişim süreçleri düzenli şekilde ilerler. Tek ekran yönetimi, çok sayıda gig çalışanı aynı anda koordine etmeyi mümkün kılar. Bu yapı, operasyonel verimliliği artırırken hata payını da düşürür. Sonuç olarak idenfit, dinamik iş gücü yönetiminde net ve sistemli çözümler sunar.
 
-**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

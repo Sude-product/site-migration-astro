@@ -150,7 +150,7 @@ idenfit performans yönetim modülü, hedefleri, KPI ve OKR’leri projeler ve g
 
 Tüm süreçleri tek panelden yönetin; manuel iş yüklerini ortadan kaldırın ve karmaşık operasyonları sadeleştirerek yalnızca önemli olana odaklanın.
 
-**idenfit’in performans yönetimi modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer performans yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in performans yönetimi modülü hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer performans yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=performans+y%C3%B6netimi+yazilimi&utm_content=performans+y%C3%B6netimi+yazilimi+rehberi) **doldurun.** **idenfit ile insan kaynakları yönetimi süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

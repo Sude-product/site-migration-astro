@@ -78,7 +78,7 @@ Temassız teknolojiler olarak isimlendirilen Rfıd teknolojileri de güvenlik se
 
 Vardiya planlarını görselleştirip düzenleme imkanı sunan idenfit, iş süreçlerinde verimliliği artırırken, manuel hataları da en aza indiriyor. Çift vardiya atama ve vardiya bilgilerini takip etme gibi özellikleriyle, güvenlik operasyonlarını daha etkin bir şekilde yönetmenizi sağlıyor.
 
-**idenfit’in vardiya yönetimi özelliği ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.**
+**idenfit’in vardiya yönetimi özelliği ve tüm modülleri entegre çalışan 360 derece insan kaynakları yazılımı hakkında detaylı bilgi sahibi olmak ister misiniz? Eğer vardiya takibi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=vardiya+y%C3%B6netimi&utm_content=vardiya+y%C3%B6netimi+yazilimi) **doldurun.**
 
 ## **SSS**
 

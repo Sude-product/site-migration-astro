@@ -68,7 +68,7 @@ E-mutabakat, işletmelerin finansal ve idari süreçlerini dijital ortamda uzla�
 
 Yasal uyumluluğu destekleyen idenfit dijital imza, tüm izin kayıtlarını eksiksiz şekilde saklar. idenfit’in izin yönetimi modülü ise İKY profesyonellerine yönelik tasarlanmış, zaman tasarrufu ve pratiklik sunan gelişmiş bir araçtır. Bu modül, işverenlerin izin süreçlerini merkezi bir platform üzerinden yönetmelerini sağlar. Ayrıca izin takvimlerini tek bir panel üzerinden gözlemleme imkanı verir. Çalışanlar, izin taleplerini kolayca ve şeffaf bir biçimde ilgili yöneticilere iletir. 
 
-**idenfit’in dijital imza aracı ya da izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer İKY süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) **doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
+**idenfit’in dijital imza aracı ya da izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya hazır mısınız? Eğer İKY süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=Dijital+%C4%B0mza&utm_content=dijital+imza+rehberi) **doldurun. idenfit ile iş süreçlerinde hız, güvenilirlik ve verimliliği deneyimleyin!**
 
 ## **Dijital İmza ile Hangi İşlemleri Kolayca Yönetebilirsiniz?**
 

@@ -95,7 +95,7 @@ Kurban Bayramı 6-9 Haziran arasında kutlanacak, salı ve çarşamba izinle tat
 
 idenfit’in izin yönetimi modülü, İKY profesyonellerine zaman tasarrufu ve pratiklik sunuyor. Bu modül, işverenlerin izin süreçlerini merkezi bir platform üzerinden yönetmelerini sağlıyor. Ayrıca izin takvimlerini tek bir panel üzerinden gözlemleme imkanı veriyor. Çalışanlar, izin taleplerini kolayca ve şeffaf bir biçimde ilgili yöneticilere iletiyor. Ayrıca, sağlık raporları gibi belgeler kolayca yükleniyor ve ilgili izinlere entegre ediliyor. Cinsiyet, yaş, medeni durum gibi izin tipleri oluşturuluyor ve atanıyor. Böylece İK profesyonelleri için daha verimli bir iş akışı sağlanıyor.
 
-**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/) **doldurun. Hemen şimdi idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in izin yönetimi modülü hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer izin yönetimi süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/) **doldurun. Hemen şimdi idenfit ile izin yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 

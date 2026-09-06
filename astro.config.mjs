@@ -313,17 +313,20 @@ export default defineConfig({
     // turda bu bulgu raporlanmış ama redirect eklenmemişti — burada
     // düzeltildi.
     '/blog/sgk': '/blog/sgk-ceza-ve-denetimleri',
-    // 2026-07-30: "Online Sunum Talebi" sayfasının route'u BİLİNÇLİ olarak
-    // kaynağın gerçek TR slug'ından (`online-sunum-talep-et`) farklı bir
-    // canonical slug (`online-sunum-talebi`) kullanıyor — bkz.
-    // `miscPagesContent.ts`'teki "Online Sunum Talebi" bölümünün başındaki
-    // ayrıntılı gerekçe (proje genelinde onlarca CTA çağrı noktası bu
-    // canonical slug'a göre ZATEN kurulmuştu, kaynağın gerçek slug'ına
-    // geçmek büyük bir refactor gerektirirdi). Bu, o kararı GERİ ALMIYOR —
-    // yalnızca kaynağın gerçek URL'ine (dış linkler/SEO/yer imleri
-    // olabilir) gelen bir ziyaretçinin 404 almaması için ucuz bir
-    // güvenlik ağı.
-    '/online-sunum-talep-et': '/online-sunum-talebi',
+    // ✅ DÜZELTME (2026-09-06) — "Online Sunum Talebi" sayfasının canonical
+    // slug'ı `online-sunum-talebi`'den kaynağın GERÇEK TR slug'ına
+    // (`online-sunum-talep-et`) çevrildi (2026-07-30'daki BİLİNÇLİ farklı-
+    // slug kararı, "eski URL'ler birebir korunacak" kuralına aykırı olduğu
+    // gerekçesiyle GERİ ALINDI — bkz. CLAUDE.md). Kaynağın gerçek slug'ı
+    // artık DOĞRUDAN bizim route'umuz, bu yüzden eski
+    // `'/online-sunum-talep-et': '/online-sunum-talebi'` redirect'i
+    // KALDIRILDI (kendi kendine döngü olurdu). Bunun yerine, kendi
+    // SİTEMİZİN eski (yanlış) URL'lerinden yeni doğru URL'lere:
+    '/online-sunum-talebi': '/online-sunum-talep-et',
+    '/en/online-sunum-talebi': '/en/online-sunum-talep-et',
+    '/it/online-sunum-talebi': '/it/online-sunum-talep-et',
+    '/nl/online-sunum-talebi': '/nl/online-sunum-talep-et',
+    '/az/online-sunum-talebi': '/az/online-sunum-talep-et',
     // 2026-08-05: kapsamlı URL denetimi (canlı sitemap_index.xml'in 4 alt
     // sitemap'i ile `astro build` çıktısının tam karşılaştırması) 9 sayfa
     // için AYNI kalıbı buldu — içerik bizde zaten var, ama canlının gerçek
@@ -333,8 +336,9 @@ export default defineConfig({
     '/en/customers': '/en/musteriler',
     '/it/clienti': '/it/musteriler',
     '/nl/klanten': '/nl/musteriler',
-    '/en/request-online-presentation': '/en/online-sunum-talebi',
-    '/it/richiedi-presentazione-online': '/it/online-sunum-talebi',
+    // Hedefler 2026-09-06'da yukarıdaki DÜZELTME ile birlikte güncellendi:
+    '/en/request-online-presentation': '/en/online-sunum-talep-et',
+    '/it/richiedi-presentazione-online': '/it/online-sunum-talep-et',
     // ⚠️ DÜZELTME (2026-08-29): yukarıdaki 2026-08-05 denetiminin
     // `/en/thank-you` → `/en/thanks` eşlemesi YANLIŞ ÇIKTI — canlı sitede
     // `curl`/tarayıcı ile doğrulandı: `/en/thank-you/` Online Sunum

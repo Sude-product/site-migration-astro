@@ -62,7 +62,7 @@ Yüz tanıma sistemi ile mesai takibi, çalışanların biyometrik verilerini ku
 
 idenfit, Personel Devam Kontrol Sistemi (PDKS) ile işletmelere çalışanlarının mesai takibini etkili ve verimli bir şekilde yapma imkânı sunuyor. PDKS sistemi, çalışanların giriş-çıkış saatlerini, fazla mesai durumlarını ve vardiya düzenlemelerini kolaylıkla izliyor. Ancak, bu verilerin işlenmesi sırasında yasal uyumluluk büyük önem taşıyor. İdenfit, yasal gerekliliklere tam uyum sağlayarak, çalışanların kişisel verilerini koruma konusunda yüksek standartlar sunuyor. Böylece, hem işverenler yasal yükümlülüklerini yerine getiriyor. Hem de çalışanların hakları güvence altına alınmış oluyor.
 
-idenfit’in fırsatlarla dolu PDKS modülü hakkında bilgi sahibi olmak için hemen şimdi **_[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=pdks&utm_content=pdks+yasal+mi)_** doldurun!
+idenfit’in fırsatlarla dolu PDKS modülü hakkında bilgi sahibi olmak için hemen şimdi **_[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=pdks&utm_content=pdks+yasal+mi)_** doldurun!
 
 ## Sık Sorulan Sorular
 

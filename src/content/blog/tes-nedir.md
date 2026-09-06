@@ -43,7 +43,7 @@ Tamamlayıcı Emeklilik Sistemi gibi yeni uygulamalar, bordro süreçlerinde hat
 
 Bordro sürecinin tek bir merkezden yönetilmesi, TES sürecinin sağlıklı biçimde yürütülmesi açısından büyük bir avantaj sunuyor. Bu noktada idenfit bu süreçlerin bordroya doğru ve şeffaf biçimde yansıtılmasını kolaylaştırıyor. Dijital bordro altyapısı sayesinde kesintiler otomatik hesaplanıyor, işveren katkıları doğru kalemlerle izleniyor ve mevzuat değişiklikleri anlık olarak sisteme entegre ediliyor. Böylece hem İK hem de finans ekipleri, TES sürecini tek merkezden, kontrollü ve sürdürülebilir bir şekilde yönetebiliyor.
 
-**Bordro süreçlerini tek platformdan yönetmek için idenfit çözümlerini [inceleyin](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=İse+alim+zorluklari&utm_content=İse+alim+zorluklari+2024).**\
+**Bordro süreçlerini tek platformdan yönetmek için idenfit çözümlerini [inceleyin](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=İse+alim+zorluklari&utm_content=İse+alim+zorluklari+2024).**\
 
 ## **Sıkça Sorulan Sorular**
 

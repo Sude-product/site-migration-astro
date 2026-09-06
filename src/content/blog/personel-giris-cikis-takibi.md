@@ -135,7 +135,7 @@ Personel takip sistemi kurulumu, öncelikle doğru cihaz ve yazılım seçimiyle
 
 **[İdenfit PDKS modülü](/blog/pdks-yazilimlari/)**, personel vardiyası takibini kolaylaştırarak işverenlere ve İKY profesyonellerine büyük avantajlar sağlıyor. Çalışanların vardiya düzenlerini, saatlik çalışma kayıtlarını net ve doğru bir şekilde yönetiyor. Mobil uyumlu yapısı sayesinde, çalışanlar her yerden vardiya değişikliklerini görebiliyor. Ayrıca, izin taleplerini anında iletebiliyor. Bu sistem, işverenlere esnek raporlama seçenekleri sunarak personel verimliliğini artırıyor ve yöneticilere gerçek zamanlı bilgi akışı sağlıyor. Güvenli veri saklama ve erişim kolaylığı, idenfit’in sunduğu başlıca özellikler arasında yer alıyor. idenfit, iş süreçlerinin sorunsuz işlemesini destekliyor.
 
-**Eğer siz de personel giriş çıkış takibinde dijitalleşmeye adım atmak istiyorsanız, [formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=personel+giris+cikis+takibi) doldurun. idenfit ile otomatize edilmiş personel takibi süreçlerinin tadını çıkarın.**
+**Eğer siz de personel giriş çıkış takibinde dijitalleşmeye adım atmak istiyorsanız, [formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=PDKS&utm_content=personel+giris+cikis+takibi) doldurun. idenfit ile otomatize edilmiş personel takibi süreçlerinin tadını çıkarın.**
 
 ## **Sık Sorulan Sorular**
 

@@ -171,7 +171,7 @@ Veri toplama ve analiz işlemlerinin takibi ve yasal zorunluluklara uyum noktas�
 
 İdenfit, tüm İK süreçlerinizi tek bir arayüz üzerinden yönetmenizi sağlayan, entegre, kullanıcı dostu ve esnek özellikler sunan bir platformdur.  Yeni nesil insan kaynakları ve iş gücü yazılımı idenfit, modüler yapısı sayesinde farklı programlar ile kolaylıkla bir bütün haline gelir.  Kullanıcı dostu arayüzü ile iletişimi basitleştirir. Ayrıca verimliliği sürekli kılma, iş yükünü azaltma gibi hedefler doğrultusunda tasarlanmıştır. İşletmeler, idenfit sayesinde çalışanlarının performansını ve iş güçlerini düzenli olarak izler.
 
-**idenfit insan kaynakları ve iş gücü yönetimi yazılımı hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer insan kaynakları süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talebi/) **doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit insan kaynakları ve iş gücü yönetimi yazılımı hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer insan kaynakları süreçlerinizi dijitale taşımak istiyorsanız,** [**formu**](/online-sunum-talep-et/) **doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sonuç**
 

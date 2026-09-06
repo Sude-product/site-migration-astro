@@ -95,7 +95,7 @@ Geleneksel performans değerlendirmeleri yerini dinamik süreçlere bırakıyor.
 
 idenfit  geri bildirim modülü sayesinde firmalara etkili bir iletişim ağı sunuyor. Anketler ve anlık durum güncellemeleri ile yöneticiler, çalışanların düşüncelerini doğrudan alabiliyor. Bu sistem, işverenlerin fark edemediği sorunları ortaya çıkararak iyileştirme süreçlerini hızlandırıyor. Çalışanlar, geri bildirimlerini ister isimleriyle ister anonim şekilde paylaşabiliyor.
 
-idenfit’in Geri Bildirim Modülü ile çalışanlarınızın görüşlerine daha fazla kulak verin ve iş süreçlerinizi daha verimli hale getirin. Daha fazla bilgi edinmek için **[formu](/online-sunum-talebi/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve şimdi keşfetmeye başlayın!
+idenfit’in Geri Bildirim Modülü ile çalışanlarınızın görüşlerine daha fazla kulak verin ve iş süreçlerinizi daha verimli hale getirin. Daha fazla bilgi edinmek için **[formu](/online-sunum-talep-et/?utm_source=blog&utm_medium=Text_link&utm_campaign=calisan+deneyimi&utm_content=revize)** doldurun ve şimdi keşfetmeye başlayın!
 
 ## **Sık Sorulan Sorular**
 

@@ -143,7 +143,7 @@ Personel Devam Kontrol Sistemleri (PDKS), 2025 yılında da iş dünyasında kri
 
 <cite>Deloitte</cite>’un 2023 raporuna göre, şeffaflık ve adil takip, **[çalışan memnuniyetini](/blog/oyunlastirma-stratejisi/)** %30 oranında artırıyor. <cite>PwC</cite>’nin “Future of Work 2025” araştırması, mobil uyumlu PDKS çözümlerinin esnek çalışma modellerini destekleyerek memnuniyeti %25’e kadar yükselttiğini vurguluyor. Veri analitiğiyle güçlendirilen PDKS, performans değerlendirmelerini iyileştiriyor. <cite>McKinsey</cite>’nin çalışmaları ise gerçek zamanlı geri bildirimle çalışan bağlılığının %20 oranında arttığını gösteriyor. Ayrıca, PDKS sistemlerinin devamsızlık oranlarını %15 oranında azaltarak operasyonel verimliliği artırdığı belirtiliyor. Otomatik raporlama özellikleri, yöneticilere zaman kazandırırken stratejik kararları da kolaylaştırıyor. 2025 itibarıyla, PDKS’nin yalnızca bir takip aracı değil, geleceğin iş gücü yönetimini şekillendiren bir stratejik ortak haline gelmesi bekleniyor.
 
-**Geleceği bugünden yakalamak için PDKS teknolojileri ile tanışmanın tam zamanı! Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun**
+**Geleceği bugünden yakalamak için PDKS teknolojileri ile tanışmanın tam zamanı! Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun**
 
 ## **idenfit PDKS Programı Genel Özellikler**
 
@@ -159,7 +159,7 @@ Günümüz iş dünyasında, firmaların en değerli kaynağı şüphesiz ki ins
 
 idenfit PDKS, sadece bir kez yapılandırılarak tüm sektörlere uyarlanabilen bir yapıya sahip. İKY profesyonellerine sunulan bu esneklik ve mobilite, iş süreçlerinin kesintisiz bir şekilde yönetilmesine imkan tanıyor. Böylece kurumların genel performansını artırıyor. Özellikle yüksek iş gücü gerektiren sektörlerde, İdenfit PDKS ile iş gücü yönetimi artık çok daha kolay ve etkili!
 
-**idenfit’in PDKS sistemi hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talebi/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
+**idenfit’in PDKS sistemi hakkında daha detaylı bilgi sahibi olmaya ne dersiniz? Eğer personel yönetiminde verimli ve pratik bir çözüm arıyorsanız, [formu](/online-sunum-talep-et/) doldurun. idenfit ile insan kaynakları yönetiminde hız ve verimliliği deneyimleyin!**
 
 ## **Sık Sorulan Sorular**
 
