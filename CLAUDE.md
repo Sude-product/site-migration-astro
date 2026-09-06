@@ -3791,6 +3791,21 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   açığı değil, yalnızca `npm run` üzerinden çağrıldığında ortaya çıkan
   bir tooling quirk'ü.
 
+- **Git akışı — master'a DOĞRUDAN push YOK, PR üzerinden gidilir
+  (kullanıcı kararı, 2026-09-06).** Değişiklikler bir dalda geliştirilip
+  `master`'a **pull request** olarak açılır; merge kararı kullanıcıya/ekibe
+  aittir. Gerekçe: bu turda 12 commit'lik bir iş (form backend'i, reCAPTCHA,
+  e-posta şablonu, favicon, deploy altyapısı) master'a doğrudan fast-forward
+  edilmişti — inceleme adımı atlanmış oldu, geriye dönük PR açmak da force
+  push gerektirdiği için (Keystatic Cloud botu doğrudan bu repoya commit
+  atıyor) yapılmadı. **İki pratik not:** (1) Keystatic panelinden yayınlanan
+  yazılar `master`'a bot tarafından commit edildiği için, PR açmadan ÖNCE
+  dala `master` merge edilip güncel tutulmalı; (2) canlıya çıkan build'in
+  master ile aynı commit'te olduğu `git rev-parse` ile doğrulanmalı —
+  canlıdaki worker'ın master'dan ayrışması bu turda gerçek bir risk olarak
+  yaşandı (master 11 commit geriden geliyordu, o hâliyle build alınsa
+  formlar/e-postalar sessizce kaybolurdu).
+
 ## Development
 Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:
 `astro dev stop`, `astro dev status`, `astro dev logs`.
