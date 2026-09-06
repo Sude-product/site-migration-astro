@@ -56,7 +56,7 @@ _**Dijital imza; bir kullanıcı, sunucu ya da host’tan gönderilen bilgilerin
 
 ## **Dijital İmza Nasıl Oluşturulur?**
 
-Dijital imzanın oluşturulması, kriptografik tekniklerle gerçekleşir. Öncelikle, ilgili belgenin dijital bir özeti çıkarılır. Ardından bu özet, imza sahibinin özel anahtarı ile şifrelenir. Sonuç olarak mobil imza meydana gelir. **[Dijital imza](/digital-imza-modulu/)** çözümleri, siber saldırılara karşı imza süreçlerini koruyabilmek adına ortaya çıkmıştır. Bu sayede çevrimiçi yollarla paylaşılan herhangi bir hassas bilgi, yalnızca ilgili alıcılar tarafından görülecek şekilde korumaya alınır.
+Dijital imzanın oluşturulması, kriptografik tekniklerle gerçekleşir. Öncelikle, ilgili belgenin dijital bir özeti çıkarılır. Ardından bu özet, imza sahibinin özel anahtarı ile şifrelenir. Sonuç olarak mobil imza meydana gelir. **Dijital imza** çözümleri, siber saldırılara karşı imza süreçlerini koruyabilmek adına ortaya çıkmıştır. Bu sayede çevrimiçi yollarla paylaşılan herhangi bir hassas bilgi, yalnızca ilgili alıcılar tarafından görülecek şekilde korumaya alınır.
 
 Hash fonksiyonları, açık anahtar kriptografisi ve şifreleme teknikleri yani kriptografik teknikler kullanılır. Değiştirilemez, kopyalanamaz ve veri bütünlüğü sağlanır. Oluşturulan QR kod ile elektronik bir parmak izi yaratır. Mobil imza, imzalanan belgeye eklenerek, bu belgenin ve imza sahibinin kimliğinin güvenliğini sağlar. 
 

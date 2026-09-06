@@ -76,7 +76,7 @@ Dijital imzanın geleceği, iş dünyasında daha da önemli bir rol üstlenmeye
 
 ## **idenfit ile Dijital İmza Kullanımı**
 
-İdenfit, **[dijital imza](/digital-imza-modulu/)** kullanımını Tübitak Zaman Damgası entegrasyonu ile sunarak iş süreçlerinde güvenliği ve verimliliği artırıyor. Tübitak Zaman Damgası, belgelerin belirli bir tarihte oluşturulduğunu ve imzalandığını güvence altına alarak yasal geçerliliğini korur. Böylece, belgeleriniz üzerinde değişiklik yapılmadığından emin olur. Böylece, işlemlerinizi dijital ortamda güvenli bir şekilde tamamlayabilirsiniz. İdenfit’in dijital imza çözümleri, fiziksel imza süreçlerini dijitalleştirerek, hem zamandan hem de maliyetten tasarruf etmenizi sağlar.
+İdenfit, **[dijital imza](/blog/dijital-imza/)** kullanımını Tübitak Zaman Damgası entegrasyonu ile sunarak iş süreçlerinde güvenliği ve verimliliği artırıyor. Tübitak Zaman Damgası, belgelerin belirli bir tarihte oluşturulduğunu ve imzalandığını güvence altına alarak yasal geçerliliğini korur. Böylece, belgeleriniz üzerinde değişiklik yapılmadığından emin olur. Böylece, işlemlerinizi dijital ortamda güvenli bir şekilde tamamlayabilirsiniz. İdenfit’in dijital imza çözümleri, fiziksel imza süreçlerini dijitalleştirerek, hem zamandan hem de maliyetten tasarruf etmenizi sağlar.
 
 ## **Sık Sorulan Sorular**
 

@@ -60,7 +60,7 @@ Haksız şekilde işten çıkarılan bir işçi, bazı yasal şartlar sağlandı
 
 ### **İşe Başlatmama Tazminatı**
 
-İşe iade kararı kesinleştiğinde, işverenin işçiyi yeniden işe alma yükümlülüğü doğar. Ancak işverenin, işçiyi işe başlatmama hakkı da bulunmaktadır. Bu durumda, işçiye en az dört, en çok sekiz aylık ücreti tutarında işe başlatmama tazminatı ödemesi gerekir.  Tazminat tutarı belirlenirken, işçinin **[kıdem](/blog/2025-kidem-tazminati/)** süresi ve aldığı brüt maaş dikkate alınır. Ayrıca sosyal haklar da hesaplamaya dahil edilmektedir. Tazminat tutarı işçinin kıdemi 6 ay ile 5 yıl arasında ise 4, 5 yıl ile 15 yıl arasında ise 5, 15 yıldan fazla ise 6 ay ile 8 ay olarak belirlenecektir. Bu tazminat, iş güvencesini koruma amacı taşır ve işverenin keyfi fesih uygulamalarına karşı caydırıcı rol oynar.
+İşe iade kararı kesinleştiğinde, işverenin işçiyi yeniden işe alma yükümlülüğü doğar. Ancak işverenin, işçiyi işe başlatmama hakkı da bulunmaktadır. Bu durumda, işçiye en az dört, en çok sekiz aylık ücreti tutarında işe başlatmama tazminatı ödemesi gerekir.  Tazminat tutarı belirlenirken, işçinin **[kıdem](/blog/2026-kidem-tazminati/)** süresi ve aldığı brüt maaş dikkate alınır. Ayrıca sosyal haklar da hesaplamaya dahil edilmektedir. Tazminat tutarı işçinin kıdemi 6 ay ile 5 yıl arasında ise 4, 5 yıl ile 15 yıl arasında ise 5, 15 yıldan fazla ise 6 ay ile 8 ay olarak belirlenecektir. Bu tazminat, iş güvencesini koruma amacı taşır ve işverenin keyfi fesih uygulamalarına karşı caydırıcı rol oynar.
 
 ## **İşe İade Davası Ne Kadar Sürer?**
 

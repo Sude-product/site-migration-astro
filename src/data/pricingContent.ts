@@ -321,10 +321,23 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
 // DOKUNULMADI. `pageTitle`'IN KENDİSİ değiştirilmedi (H1 için hâlâ doğru) —
 // yalnızca META ETİKETİ için sayfanın kendi gerçek paket isimlerinden
 // (Mikro/KOBİ/Pro) genişletilmiş bir açıklama.
-const PRICING_META_DESCRIPTION_TR =
-  "En değerli varlığınız insan kaynaklarını verimli yönetin — idenfit'in Mikro, KOBİ ve Pro paketleriyle işletmenize uygun fiyatlandırmayı keşfedin.";
+// GENİŞLETME (2026-09-07, denetim bulgusu SEO-07): yukarıdaki not
+// "EN/NL/IT'nin pageTitle'ları zaten 70+, DOKUNULMADI" diyordu — uzunluk
+// açısından doğruydu ama başka bir kural gözden kaçmıştı: sayfa BAŞLIĞINI
+// meta description olarak kullanmak projenin kendi kuralınca YASAK.
+// Ölçümde 3 fiyat sayfasında (en/nl/it) description H1 ile kelimesi
+// kelimesine aynıydı; az'ınki de aynı desende. Artık 5 dilin hepsinde
+// sayfanın GERÇEK paket adlarından (Mikro/Micro, KOBİ/SME/KMO/PMI/Orta,
+// Pro) türetilen ayrı bir açıklama var.
+const PRICING_META_DESCRIPTION: Record<Locale, string> = {
+  tr: "En değerli varlığınız insan kaynaklarını verimli yönetin — idenfit'in Mikro, KOBİ ve Pro paketleriyle işletmenize uygun fiyatlandırmayı keşfedin.",
+  en: "Manage your most valuable asset — your people — efficiently. Explore idenfit's Micro, SME and Pro packages and find the right fit for your business.",
+  nl: 'Beheer uw belangrijkste bezit — uw mensen — efficiënt. Ontdek de Micro-, KMO- en Pro-pakketten van idenfit en vind de juiste prijs voor uw bedrijf.',
+  it: 'Gestisci in modo efficiente la tua risorsa più preziosa: le persone. Scopri i pacchetti Micro, PMI e Pro di idenfit e trova il prezzo su misura.',
+  az: 'Ən dəyərli sərmayəniz olan insan resurslarını səmərəli idarə edin — idenfit-in Mikro, Orta və Pro paketləri ilə uyğun qiyməti kəşf edin.',
+};
 export function getPricingMetaDescription(locale: Locale): string | undefined {
-  return locale === 'tr' ? PRICING_META_DESCRIPTION_TR : undefined;
+  return PRICING_META_DESCRIPTION[locale];
 }
 
 // az (2026-08-21) — kaynakta az sayfası yok, gerçek Azerice slug elle

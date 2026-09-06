@@ -56,7 +56,7 @@ Kötü niyet tazminatına hak kazanılabilmesi için işverenin iş akdini köt�
 
 1,5 yıldan 3 yıla kadar olan kıdemi için 6 hafta,
 
-3 yıl ve üzeri olan kıdemi için 8 hafta ihbar süresi hakkı vardır. [Tazminat hesaplamasında](/blog/2025-kidem-tazminati/#:~:text=2024%20y%C4%B1l%C4%B1nda%2041.827%20TL%20olarak,tutar%C4%B1%2046.658%20TL%20olarak%20belirlendi.) brüt maaş üzerinden hesaplama yapılmaktadır.
+3 yıl ve üzeri olan kıdemi için 8 hafta ihbar süresi hakkı vardır. [Tazminat hesaplamasında](/blog/2026-kidem-tazminati/) brüt maaş üzerinden hesaplama yapılmaktadır.
 
 ## **Kötü Niyet Fesih İşleminde Bildirim Süresi Ne Kadar?**
 

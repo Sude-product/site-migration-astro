@@ -33,7 +33,7 @@ E-imza (mobil imza) insan kaynaklarında işe alım sürecinden eğitim planlama
 
 İnsan kaynakları süreçlerinde İdenfit ile güvenli bir şekilde imzalayıp saklayabileceğiniz belge türlerinde herhangi bir sınırlama yoktur. Burada, mevcut **[İdenfit](/)** kullanıcılarının  sıklıkla kullandığı İK belgelerine birkaç örnek veriyoruz. Şimdiden **mobil imza özelliğimizle** binlerce belgenin imzalanmasına yardımcı olduk!
 
-[![e-imza idenfit](/wp-content/uploads/2021/03/e-imza-1-1024x576.png)](/digital-imza-modulu/)
+[![e-imza idenfit](/wp-content/uploads/2021/03/e-imza-1-1024x576.png)](/blog/dijital-imza/)
 
 **İDENFİT MOBİL İMZA ÖZELLİĞİ**
 

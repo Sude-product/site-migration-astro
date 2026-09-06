@@ -75,7 +75,7 @@ Part time çalışanın maaşı hesaplanırken aylık olarak çalıştığı ça
 
 ## **Part Time Çalışanlar İçin Kıdem Tazminatı Hesaplaması Nasıl Yapılır?**
 
-Part time çalışanların **[kıdem tazminatının](/blog/2025-kidem-tazminati/)** hesaplanması tıpkı tam zamanlı çalışanların kıdem tazminatının hesaplaması gibi olur. Buna göre part time çalışanın kıdem tazminatı işe girdiği günden itibaren başlar. Ayrıca kıdem tazminatının işlemesi ile iş akdinin sona erdiği güne kadar devam eder. Kısaca part time kıdem tazminatı için iş sözleşmesindeki başlangıç ve bitiş tarihleri esas alınmaktadır. Geri kalan formülasyon ve teknik detaylar da tam zamanlı çalışanlar ile aynı şekildedir.
+Part time çalışanların **[kıdem tazminatının](/blog/2026-kidem-tazminati/)** hesaplanması tıpkı tam zamanlı çalışanların kıdem tazminatının hesaplaması gibi olur. Buna göre part time çalışanın kıdem tazminatı işe girdiği günden itibaren başlar. Ayrıca kıdem tazminatının işlemesi ile iş akdinin sona erdiği güne kadar devam eder. Kısaca part time kıdem tazminatı için iş sözleşmesindeki başlangıç ve bitiş tarihleri esas alınmaktadır. Geri kalan formülasyon ve teknik detaylar da tam zamanlı çalışanlar ile aynı şekildedir.
 
 ## **SGK Açısından Part Time Çalışmanın Farklılığı Nedir?**
 

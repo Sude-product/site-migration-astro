@@ -38,7 +38,7 @@ Malulen emeklilikte %40 ile %49 arasında çalışma gücü kaybı yaşayan sigo
 
 ## **Malulen Emekli Maaşı Ne Kadar?**
 
-2025 yılında malulen emekli maaşları, sigortalının prime esas kazancı ve prim ödeme gün sayısına göre belirlenir. Genel hesaplama, ortalama kazancın yaklaşık %60’ı üzerinden yapılır ve **[maaş](/blog/2025-memur-maaslari/)** hiçbir şekilde asgari ücretin altında olamaz.
+2025 yılında malulen emekli maaşları, sigortalının prime esas kazancı ve prim ödeme gün sayısına göre belirlenir. Genel hesaplama, ortalama kazancın yaklaşık %60’ı üzerinden yapılır ve **[maaş](/blog/2026-memur-maaslari/)** hiçbir şekilde asgari ücretin altında olamaz.
 
 Brüt kazancı 50.000 TL olan bir sigortalı için bu tutar, 50.000 TL x %60 = 30.000 TL olarak hesaplanır.
 

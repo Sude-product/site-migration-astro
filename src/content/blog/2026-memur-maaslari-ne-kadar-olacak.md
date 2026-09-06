@@ -25,7 +25,7 @@ Memur maaşları, yasal düzenlemeler ve ekonomik göstergeler dikkate alınarak
 
 2026 yılı için memur maaşı zam beklentileri, 2025 yılının ikinci yarısında açıklanan enflasyon verileri ve yürürlükteki toplu sözleşme hükümleri doğrultusunda şekilleniyor. TÜİK verilerine göre Temmuz ayında yüzde 2,06, Ağustos’ta yüzde 2,04, Eylül’de yüzde 3,23, Ekim’de yüzde 2,55 ve Kasım’da yüzde 0,87 oranında artan TÜFE, Ocak ayında uygulanacak zamda enflasyon farkının belirleyici olacağını gösteriyor. Merkez Bankası’nın Aralık ayı için yüzde 1,08 seviyesindeki enflasyon beklentisi de bu hesaplamalara yön veriyor.
 
-Öte yandan Resmi Gazete’de yayımlanan 8. Dönem Toplu Sözleşme’ye göre memurlar için 2026’nın ilk altı ayında yüzde 11, ikinci altı ayında yüzde 7 oranında zam öngörülüyor. Oluşacak enflasyon farkı da bu oranlara eklenebilecek. **[2025 memur maaş artışının](/blog/2025-memur-maaslari/)** yüzde 15,57 olarak gerçekleşmiş olması, önceki yıllarda enflasyonun maaş artışlarını yukarı yönlü desteklediğini ortaya koyuyor. Bu veriler enflasyon farkı beklentisi sunsa da 2026 Ocak zammının kesin oranı Aralık ayı enflasyon verisiyle netleşecek.
+Öte yandan Resmi Gazete’de yayımlanan 8. Dönem Toplu Sözleşme’ye göre memurlar için 2026’nın ilk altı ayında yüzde 11, ikinci altı ayında yüzde 7 oranında zam öngörülüyor. Oluşacak enflasyon farkı da bu oranlara eklenebilecek. **[2025 memur maaş artışının](/blog/2026-memur-maaslari/)** yüzde 15,57 olarak gerçekleşmiş olması, önceki yıllarda enflasyonun maaş artışlarını yukarı yönlü desteklediğini ortaya koyuyor. Bu veriler enflasyon farkı beklentisi sunsa da 2026 Ocak zammının kesin oranı Aralık ayı enflasyon verisiyle netleşecek.
 
 ## **Unvanlara Göre Memur Maaşları Nasıl Değişebilir?**
 
