@@ -89,6 +89,19 @@ const FEATURES_TITLE_FIX: Partial<Record<Locale, string>> = {
   it: 'Caratteristiche',
 };
 
+// AYNI kaynak veri hatası sınıfı, bu kez `page_title` alanında (2026-09-07,
+// denetim bulgusu SEO-07): `pricing.json`'da IT'nin `pageTitle`'ı EN'inkinin
+// BİREBİR kopyası ("Manage your most valuable asset, human resources...").
+// Sonuç: `<html lang="it">` taşıyan sayfanın H1'i İngilizceydi — sayfanın
+// geri kalanı (paket adları, özellik listesi, tablo başlıkları) düzgün
+// İtalyanca olduğu için tek başına daha da göze batıyordu. NL'nin kendi
+// gerçek çevirisi var, yani boşluk yalnızca IT'de. Fiyatlar A-kritik bir
+// sayfa; TR kaynaktan gerçek çeviri (KARAR 1), `<br><b>` işaretlemesi
+// diğer dillerdekiyle aynı yapıda korundu.
+const PAGE_TITLE_FIX: Partial<Record<Locale, string>> = {
+  it: 'Gestisci la tua risorsa più preziosa, le risorse umane, <br><b>in modo efficiente e completo!</b>',
+};
+
 // Pro kartının üstünde beliren Suprema donanım rozetinin metni
 // (`.suprema-text`, `pricing.css`) — kaynak template'in ACF/REST alanı
 // DEĞİL, ham PHP şablonuna gömülü sabit metin olduğu için `pricing.json`
@@ -303,6 +316,7 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
   const pro = resolvePlan(c.pro, locale);
   return {
     ...c,
+    pageTitle: PAGE_TITLE_FIX[locale] ?? c.pageTitle,
     featuresTitle: FEATURES_TITLE_FIX[locale] ?? c.featuresTitle,
     micro: resolvePlan(c.micro, locale),
     sme: { ...sme, price: SME_PRICE_OVERRIDE[locale] ?? sme.price },
