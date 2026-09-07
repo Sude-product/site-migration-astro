@@ -11,6 +11,7 @@ import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { PRODUCT_OVERRIDES } from './productTranslationOverrides';
 import { PRODUCT_OVERRIDES_AZ } from './productTranslationOverridesAz';
 import { LOCALES, type Locale } from './nav';
+import { withMeaningfulAlt } from './imageAlt';
 
 export interface ProductImage {
   url: string;
@@ -289,7 +290,7 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
       text: cleanRichText(b.text),
       ctaText: b.ctaText,
       ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-      image: b.image,
+      image: withMeaningfulAlt(b.image, b.title),
       id: b.id,
       images: b.images,
       reverse: b.reverse,
@@ -311,7 +312,7 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.image,
+    image: withMeaningfulAlt(b.image, b.title),
     id: b.id,
     images: b.images,
     reverse: b.reverse,

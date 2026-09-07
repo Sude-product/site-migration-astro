@@ -5,6 +5,7 @@
 // import edilir; sayfalar/component'ler bu dosyanın export ettiği
 // fonksiyonları kullanır, JSON'a doğrudan dokunmaz.
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { withMeaningfulAlt } from './imageAlt';
 import sectorsExport from '../../reference/wordpress-export/sectors.json';
 import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { SECTOR_AZ_OVERRIDES, SECTOR_AZ_SLUGS } from './sectorTranslationOverrides';
@@ -205,13 +206,14 @@ export function getSectorContent(trSlug: string, locale: Locale) {
     if (!azContent) return undefined;
     const resolveBlock = (b: SectorBlock): SectorBlock => ({
       ...b,
+      image: withMeaningfulAlt(b.image, b.title),
       ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : b.ctaUrl,
     });
     const hero = resolveBlock(azContent.hero);
     return {
       pageTitle: hero.title || trSlug,
       hero,
-      whyIdenfit: azContent.whyIdenfit,
+      whyIdenfit: { ...azContent.whyIdenfit, image: withMeaningfulAlt(azContent.whyIdenfit.image, azContent.whyIdenfit.title) },
       features: azContent.features.map(resolveBlock),
     };
   }
@@ -222,6 +224,7 @@ export function getSectorContent(trSlug: string, locale: Locale) {
   const c = entry.content;
   const resolveBlock = (b: SectorBlock): SectorBlock => ({
     ...b,
+    image: withMeaningfulAlt(b.image, b.title),
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : b.ctaUrl,
   });
 
@@ -236,7 +239,7 @@ export function getSectorContent(trSlug: string, locale: Locale) {
     // düşüyoruz — sayfa hiçbir zaman tamamen başlıksız kalmaz.
     pageTitle: hero.title || entry.title || trSlug,
     hero,
-    whyIdenfit: c.whyIdenfit,
+    whyIdenfit: { ...c.whyIdenfit, image: withMeaningfulAlt(c.whyIdenfit.image, c.whyIdenfit.title) },
     features: c.features.map(resolveBlock),
   };
 }

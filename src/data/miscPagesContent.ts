@@ -39,6 +39,7 @@ import {
 
 export type { SecurityItem, PresentationContent };
 import { LOCALES, type Locale } from './nav';
+import { withMeaningfulAlt } from './imageAlt';
 
 interface RawGroup {
   trSlug: string;
@@ -446,7 +447,7 @@ function resolveBlock(b: ProductBlock, locale: Locale): ProductBlock {
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.image,
+    image: withMeaningfulAlt(b.image, b.title),
   };
 }
 
