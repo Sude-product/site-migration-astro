@@ -32,6 +32,25 @@ interface Props {
 const { content, pageTitle, localeUrls, hreflangLocales, title: titleOverride } = Astro.props;
 const { hero, intro, tiles, faq } = content;
 
+// FAQPage JSON-LD — `ProductPage.astro`/`HomeFaqSection.astro` ile AYNI şekil
+// ve aynı dürüst beklenti notu (Google FAQ rich result'ları 7 Mayıs 2026'da
+// kaldırıldı; bu şema LLM tabanlı araçların soru-cevap yapısını okuması için).
+const faqJsonLd =
+  faq.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        mainEntity: faq.map((item) => ({
+          '@type': 'Question',
+          name: item.question,
+          acceptedAnswer: {
+            '@type': 'Answer',
+            text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
+          },
+        })),
+      }
+    : null;
+
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
 const description = hero.text.replace(/<[^>]+>/g, '').slice(0, 160);
@@ -125,6 +144,7 @@ const tileHeadingLevel = intro && intro.title ? 'h3' : 'h2';
   {
     faq.length > 0 && (
       <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} is:inline />
         <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
         <div class="mt-6 divide-y divide-gray-100">
           {faq.map((item) => (
