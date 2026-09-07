@@ -4,7 +4,7 @@ title: Güçlü Bir İK Departmanı İçin Dikkat!
 date: '2022-02-02T14:09:33'
 excerpt: Güçlü bir İK departmanı kuşkusuz küçük, orta veya büyük çaplı her işletmenin verimli ve sistemli şekilde çalışması için olmazsa olmazlar arasında yer alıyor.…
 featuredImage:
-  image: /img/blog-featured/ik-departmani/featured.jpg
+  image: /img/blog-featured/ik-departmani/featured.webp
   alt: Güçlü Bir İK Departmanı İçin Dikkat!
   width: 1515
   height: 998

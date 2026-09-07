@@ -4,7 +4,7 @@ title: İşten Çıkarma ve Küçülme Süreçleri
 date: '2022-04-27T13:36:17'
 excerpt: İşten çıkarma ve küçülme hiçbir zaman ilk tercih olmamakla birlikte dönem dönem şirket stratejisi gereği uygulanması gereken yöntemler arasında yer alıyor.…
 featuredImage:
-  image: /img/blog-featured/isten-cikarma/featured.jpg
+  image: /img/blog-featured/isten-cikarma/featured.webp
   alt: İşten Çıkarma ve Küçülme Süreçleri
   width: 1514
   height: 998

@@ -4,7 +4,7 @@ title: Malulen Emeklilik Nedir, Şartları Nelerdir?
 date: '2025-10-02T20:45:48'
 excerpt: Çalışma hayatı boyunca kimsenin planında olmasa da, sağlık koşulları bazen rotayı değiştirir. İşte tam da bu noktada, sosyal güvence sistemi devreye girer.…
 featuredImage:
-  image: /img/blog-featured/malulen-emeklilik/featured.jpg
+  image: /img/blog-featured/malulen-emeklilik/featured.webp
   alt: Malulen Emeklilik Nedir, Şartları Nelerdir?
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: İnsan Kaynakları Yönetimi Süreçlerinizde Ne Kadar Dijitalsiniz?
 date: '2024-09-26T23:24:50'
 excerpt: Dijital insan kaynakları yönetimi, günümüzde yalnızca çalışanların bordro ve izin takibi ile sınırlı kalmıyor. Artık dijitalleşme, İKY süreçlerinin her…
 featuredImage:
-  image: /img/blog-featured/dijital-ik/featured.jpg
+  image: /img/blog-featured/dijital-ik/featured.webp
   alt: İnsan Kaynakları Yönetimi Süreçlerinizde Ne Kadar Dijitalsiniz?
   width: 1515
   height: 999

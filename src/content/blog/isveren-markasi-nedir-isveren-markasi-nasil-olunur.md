@@ -4,7 +4,7 @@ title: İşveren Markası Nedir? İşveren Markası Nasıl Olunur?
 date: '2021-02-26T09:11:28'
 excerpt: İşveren markası kavramı (employer branding) son 30 yıldır var olmasına rağmen son dönemde nitelikli işgücü ihtiyacı doğrultusunda, insan kaynakları alanında…
 featuredImage:
-  image: /img/blog-featured/isveren-markasi-nedir-isveren-markasi-nasil-olunur/featured.png
+  image: /img/blog-featured/isveren-markasi-nedir-isveren-markasi-nasil-olunur/featured.webp
   alt: İşveren Markası Nedir? İşveren Markası Nasıl Olunur?
   width: 757
   height: 499

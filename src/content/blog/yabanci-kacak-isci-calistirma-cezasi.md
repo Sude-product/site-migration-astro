@@ -4,7 +4,7 @@ title: Yabancı Kaçak İşçi Çalıştırma Cezası 2023
 date: '2023-05-12T00:01:02'
 excerpt: Yabancı kaçak işçi çalıştırma cezası, 2023 yılı bedeli 35.816 TL! Peki bu ceza hangi şartlarda uygulanıyor? Yabancı kaçak işçi çalıştıran işverenlere nasıl…
 featuredImage:
-  image: /img/blog-featured/yabanci-kacak-isci-calistirma-cezasi/featured.jpg
+  image: /img/blog-featured/yabanci-kacak-isci-calistirma-cezasi/featured.webp
   alt: Yabancı Kaçak İşçi Çalıştırma Cezası 2023
   width: 1621
   height: 811

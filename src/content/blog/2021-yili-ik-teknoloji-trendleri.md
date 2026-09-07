@@ -4,7 +4,7 @@ title: 2021 Yılında Öne Çıkacak İK Teknoloji Trendleri
 date: '2020-12-17T16:15:20'
 excerpt: İk teknoloji trendleri son yıllarda ik trendlerinin ana konusu haline geldi. Tüm dünyada işverenler iş gücünde büyük yere ve öneme sahip olan Y ve Z kuşağının…
 featuredImage:
-  image: /img/blog-featured/2021-yili-ik-teknoloji-trendleri/featured.jpg
+  image: /img/blog-featured/2021-yili-ik-teknoloji-trendleri/featured.webp
   alt: 2021 Yılında Öne Çıkacak İK Teknoloji Trendleri
   width: 1280
   height: 720

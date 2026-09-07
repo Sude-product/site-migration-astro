@@ -4,7 +4,7 @@ title: Açık Kurumsal Kültür ile Tanışmaya Hazır mısınız?
 date: '2022-07-20T12:36:29'
 excerpt: Açık kurumsal kültür bu konuda gönüllü olmasak dahi hayatımıza dahil olmakta kararlı gibi görünüyor. Değişim başladığında kayıtsız kalmanın imkansız olduğu…
 featuredImage:
-  image: /img/blog-featured/acik-kurumsal-kultur/featured.jpg
+  image: /img/blog-featured/acik-kurumsal-kultur/featured.webp
   alt: Açık Kurumsal Kültür ile Tanışmaya Hazır mısınız?
   width: 2560
   height: 1688

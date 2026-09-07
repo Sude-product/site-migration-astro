@@ -4,7 +4,7 @@ title: Perakende Sektörü ve İKY Teknolojileri
 date: '2025-02-16T21:54:12'
 excerpt: Perakende sektörü, tüketici beklentilerinin hızla değiştiği, rekabetin her an yeniden tanımlandığı dinamik bir dünya. Dijital dönüşüm ve e-ticaret gibi…
 featuredImage:
-  image: /img/blog-featured/perakende-sektoru-ve-iky/featured.jpg
+  image: /img/blog-featured/perakende-sektoru-ve-iky/featured.webp
   alt: Perakende Sektörü ve İKY Teknolojileri
   width: 1280
   height: 720

@@ -4,7 +4,7 @@ title: Zoom Yorgunluğunu Önlemek
 date: '2021-06-14T09:37:34'
 excerpt: İş için veya sosyalleşmek için yapılan görüntülü aramalar gibi COVID-19 öncesi yapılan her şey artık bir video görüşmesi aracılığıyla yapılıyor. Görüntülü…
 featuredImage:
-  image: /img/blog-featured/zoom-yorgunlugu/featured.jpg
+  image: /img/blog-featured/zoom-yorgunlugu/featured.webp
   alt: Zoom Yorgunluğunu Önlemek
   width: 1515
   height: 999

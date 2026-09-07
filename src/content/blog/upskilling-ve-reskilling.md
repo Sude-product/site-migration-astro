@@ -4,7 +4,7 @@ title: Upskilling ve Reskilling Nedir?
 date: '2022-01-06T12:06:02'
 excerpt: Pandemi sonrası değişen çalışma modelleri, büyük istifa hareketi ile art arda kaybedilen yıldız çalışanlar ve tüm iş süreçlerinde artan yoğun teknoloji…
 featuredImage:
-  image: /img/blog-featured/upskilling-ve-reskilling/featured.jpg
+  image: /img/blog-featured/upskilling-ve-reskilling/featured.webp
   alt: Upskilling ve Reskilling Nedir?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: İş İlanlarınızı Adayların Gözünden İnceleyin
 date: '2022-03-30T17:18:54'
 excerpt: İş ilanlarınızı hiç potansiyel adayların gözünden incelediniz mi? İşveren markası kavramı günden güne ağırlık kazanıyor. Özellikle bazı sektörlerde doğru…
 featuredImage:
-  image: /img/blog-featured/is-ilanlarinizi/featured.jpg
+  image: /img/blog-featured/is-ilanlarinizi/featured.webp
   alt: İş İlanlarınızı Adayların Gözünden İnceleyin
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: Ücret Eşitliği Nedir?
 date: '2023-12-16T18:45:46'
 excerpt: Ücret eşitliği, kadınlar ve erkekler arasında aynı işi yapmalarına rağmen aynı işte eşit ücret alabilmelerini ifade eder. Temelde cinsiyet ayrımcılığına karşı…
 featuredImage:
-  image: /img/blog-featured/ucret-esitligi/featured.jpg
+  image: /img/blog-featured/ucret-esitligi/featured.webp
   alt: Ücret Eşitliği Nedir?
   width: 1621
   height: 811

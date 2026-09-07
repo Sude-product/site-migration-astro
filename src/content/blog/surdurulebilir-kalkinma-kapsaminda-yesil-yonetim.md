@@ -4,7 +4,7 @@ title: Sürdürülebilir Kalkınma Kapsamında Yeşil Yönetim
 date: '2022-11-14T18:25:00'
 excerpt: Sürdürülebilir kalkınma anlayışı kapsamında son yıllarda çalışma hayatında “sağlıklı”, “insan dostu” ve “çevre dostu” olmak ile özdeşleşen yeşil yönetim…
 featuredImage:
-  image: /img/blog-featured/surdurulebilir-kalkinma-kapsaminda-yesil-yonetim/featured.jpg
+  image: /img/blog-featured/surdurulebilir-kalkinma-kapsaminda-yesil-yonetim/featured.webp
   alt: Sürdürülebilir Kalkınma Kapsamında Yeşil Yönetim
   width: 1515
   height: 998

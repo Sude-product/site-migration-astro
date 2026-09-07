@@ -4,7 +4,7 @@ title: İnsan Kaynakları Raporlaması Nedir?
 date: '2022-06-03T13:31:50'
 excerpt: İnsan kaynakları raporlaması, şirket bünyesinde yer alan tüm çalışanların ayrıntılı bilgilerini, insan kaynakları faaliyetlerini ve performans…
 featuredImage:
-  image: /img/blog-featured/insan-kaynaklari-raporlamasi/featured.jpg
+  image: /img/blog-featured/insan-kaynaklari-raporlamasi/featured.webp
   alt: İnsan Kaynakları Raporlaması Nedir?
   width: 1515
   height: 998

@@ -4,7 +4,7 @@ title: Ekip Liderlerinin Dikkatine!
 date: '2021-11-11T09:29:41'
 excerpt: Ekip liderlerinin üzerine düşen sorumlulukları eksiksiz ve hatasız olarak şirketlerin hedeflerine ulaşması için yeterli midir? Sorunun yanıtı hepinizin tahmin…
 featuredImage:
-  image: /img/blog-featured/ekip-liderlerinin/featured.png
+  image: /img/blog-featured/ekip-liderlerinin/featured.webp
   alt: Ekip Liderlerinin Dikkatine!
   width: 1515
   height: 999

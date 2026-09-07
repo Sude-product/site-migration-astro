@@ -4,7 +4,7 @@ title: İş Gücü Çeşitliliği Neden Önemlidir?
 date: '2025-10-16T20:15:35'
 excerpt: Kuruluşların daha geniş bir müşteri ve çalışan yelpazesine hitap etmesine yardımcı olan temel fikir, iş gücü çeşitliliğidir. Ancak teoriden pratiğe geçiş son…
 featuredImage:
-  image: /img/blog-featured/is-gucu-cesitliligi/featured.jpg
+  image: /img/blog-featured/is-gucu-cesitliligi/featured.webp
   alt: İş Gücü Çeşitliliği Neden Önemlidir?
   width: 1621
   height: 811

@@ -4,7 +4,7 @@ title: İşverenler Maymun Çiçeği Konusunda Endişelenmeli mi?
 date: '2022-07-06T17:59:19'
 excerpt: Maymun çiçeği vakalarının artışı ve ülkemizde ilk vakanın görülmesi ile iş dünyasında genel bir endişe dalgası yayılıyor. Koronavirüs salgınında yaşanan ani…
 featuredImage:
-  image: /img/blog-featured/maymun-cicegi/featured.jpg
+  image: /img/blog-featured/maymun-cicegi/featured.webp
   alt: İşverenler Maymun Çiçeği Konusunda Endişelenmeli mi?
   width: 1515
   height: 999

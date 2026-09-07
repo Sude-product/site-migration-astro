@@ -4,7 +4,7 @@ title: İç Denetim Hakkında Bilinmesi Gerekenler
 date: '2022-11-09T12:19:00'
 excerpt: İç denetim kavramı sadece kelime anlamıyla bile işletmeler için rahatsızlık duygusu uyandıran bir kavram olabilir. En iyi koşullar sağlansa dahi, çoğu zaman…
 featuredImage:
-  image: /img/blog-featured/ic-denetim-hakkinda-bilinmesi-gerekenler/featured.jpg
+  image: /img/blog-featured/ic-denetim-hakkinda-bilinmesi-gerekenler/featured.webp
   alt: İç Denetim Hakkında Bilinmesi Gerekenler
   width: 1515
   height: 999

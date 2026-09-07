@@ -4,7 +4,7 @@ title: Kurumsal İtibar Rehberi
 date: '2023-10-05T17:51:49'
 excerpt: Kurumsal itibar, bir şirketin veya organizasyonun genel olarak kamuya veya müşterilere yansıttığı imajın ve algının bir yansımasıdır. Bir organizasyonun…
 featuredImage:
-  image: /img/blog-featured/kurumsal-itibar/featured.jpg
+  image: /img/blog-featured/kurumsal-itibar/featured.webp
   alt: Kurumsal İtibar Rehberi
   width: 1621
   height: 811

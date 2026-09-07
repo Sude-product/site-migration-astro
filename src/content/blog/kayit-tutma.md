@@ -4,7 +4,7 @@ title: Kayıt Tutma İşleminden İK Yönetimine Geçiş
 date: '2022-10-24T16:55:14'
 excerpt: Çalışma hayatının dinamik bir unsuru olan insanı temel alan İnsan Kaynakları Yönetimi (İKY), 18. yüzyılın ikinci yarısında gerçekleşen Sanayi Devrimi ile…
 featuredImage:
-  image: /img/blog-featured/kayit-tutma/featured.jpg
+  image: /img/blog-featured/kayit-tutma/featured.webp
   alt: Kayıt Tutma İşleminden İK Yönetimine Geçiş
   width: 1515
   height: 999

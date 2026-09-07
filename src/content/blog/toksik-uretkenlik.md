@@ -4,7 +4,7 @@ title: Toksik Üretkenlik Rehberi
 date: '2022-06-24T10:15:22'
 excerpt: Toksik üretkenlik verimli iş süreçlerinin yeni düşmanı olabilir! Dijital dönüşüm, pandemi etkisi ve her geçen gün daha hızlı akan hayat temposu sizi üretken…
 featuredImage:
-  image: /img/blog-featured/toksik-uretkenlik/featured.jpg
+  image: /img/blog-featured/toksik-uretkenlik/featured.webp
   alt: Toksik Üretkenlik Rehberi
   width: 1515
   height: 999

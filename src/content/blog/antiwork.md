@@ -4,7 +4,7 @@ title: Antiwork Akımı
 date: '2022-02-08T17:09:22'
 excerpt: Antiwork akımı ile tanışmaya hazır mısınız? Pandemi ile hayatımıza yeni katılan çalışma modelleri, dijital gezgin furyası ve büyük istifa hareketi derken son…
 featuredImage:
-  image: /img/blog-featured/antiwork/featured.jpg
+  image: /img/blog-featured/antiwork/featured.webp
   alt: Antiwork Akımı
   width: 1514
   height: 998

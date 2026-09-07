@@ -4,7 +4,7 @@ title: İK’da Çeşitlilik Yaklaşımı
 date: '2021-12-20T17:44:02'
 excerpt: Çeşitlilik kavramı 2020 yılından itibaren iş dünyasında etkisini arttırıyor. Pandemi sonrasında dünyada değişen dinamikler İK 3.0 olarak adlandırılan insan…
 featuredImage:
-  image: /img/blog-featured/cesitlilik/featured.jpg
+  image: /img/blog-featured/cesitlilik/featured.webp
   alt: İK’da Çeşitlilik Yaklaşımı
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: Çalışan Yetkilendirmesi
 date: '2022-07-28T13:05:56'
 excerpt: Çalışan yetkilendirmesi, liderlerin ekip üyelerine gerekli araç, kaynak ve özgürlüğü sağlamalarına odaklanan bir sistemdir. Çalışan bağlılığı konusunda oldukça…
 featuredImage:
-  image: /img/blog-featured/calisan-yetkilendirmesi/featured.jpg
+  image: /img/blog-featured/calisan-yetkilendirmesi/featured.webp
   alt: Çalışan Yetkilendirmesi
   width: 2560
   height: 1688

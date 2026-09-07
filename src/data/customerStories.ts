@@ -130,7 +130,7 @@ export const CUSTOMER_STORIES: CustomerStoryItem[] = [
     key: 'dogSer',
     name: 'Doğ-Ser Makina',
     mediaSide: 'left',
-    media: { image: '/wp-content/uploads/2025/08/dogser@2x.png' },
+    media: { image: '/wp-content/uploads/2025/08/dogser@2x.webp' },
     quotePhotoUrl: '/wp-content/uploads/2025/08/dogser-cemcolak@2x.png',
   },
   {

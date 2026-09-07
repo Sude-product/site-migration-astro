@@ -4,7 +4,7 @@ title: Özgeçmiş Ayrıştırma Hakkında Tüm Merak Ettikleriniz
 date: '2025-10-26T18:09:46'
 excerpt: Bir iş ilanına yüzlerce başvuru geldiğinde, hepsini tek tek incelemek hem zaman hem enerji kaybına neden olabiliyor. İşte bu noktada devreye dijital özgeçmiş…
 featuredImage:
-  image: /img/blog-featured/ozgecmis-ayristirma/featured.jpg
+  image: /img/blog-featured/ozgecmis-ayristirma/featured.webp
   alt: Özgeçmiş Ayrıştırma Hakkında Tüm Merak Ettikleriniz
   width: 1514
   height: 998

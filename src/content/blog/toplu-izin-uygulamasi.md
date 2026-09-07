@@ -4,7 +4,7 @@ title: Toplu İzin Uygulaması Nedir?
 date: '2021-05-12T11:14:41'
 excerpt: Yıllık izin çalışanların en önemli haklarından biridir. Çalışan kişi hizmet yılına karşılık gelen yıllık izin hakkını kullanabilir. Bu hakkı ne zaman…
 featuredImage:
-  image: /img/blog-featured/toplu-izin-uygulamasi/featured.jpg
+  image: /img/blog-featured/toplu-izin-uygulamasi/featured.webp
   alt: Toplu İzin Uygulaması Nedir?
   width: 1514
   height: 999
