@@ -17,6 +17,7 @@
 // yönetilebilsin — kaynakta bu ayrı bir `<style>` bloğuyla yapılıyordu,
 // burada Tailwind utility'leriyle eşdeğeri kuruldu).
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildFaqJsonLd } from '../data/faqJsonLd';
 import { getTranslations } from '../i18n';
 import { getFaqCategories, getFaqLocaleUrls, getFaqPdfUrl } from '../data/faqContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
@@ -41,21 +42,7 @@ const categories = getFaqCategories(locale);
 // Buradaki sorular kategori panellerine bölünmüş durumda — şema hepsini TEK
 // bir FAQPage altında topluyor (sayfa bir bütün olarak SSS sayfası).
 const faqItems = categories.flatMap((c) => c.items);
-const faqJsonLd =
-  faqItems.length > 0
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faqItems.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-          },
-        })),
-      }
-    : null;
+const faqJsonLd = buildFaqJsonLd(faqItems);
 const localeUrls = getFaqLocaleUrls();
 const title = t.footer.links.general.faq;
 const pdfUrl = getFaqPdfUrl(locale);

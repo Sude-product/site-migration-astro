@@ -717,11 +717,11 @@ const PRESENTATION_META_DESCRIPTION: Partial<Record<Locale, string>> = {
 // anlattığı gerçek hikâyeden türetildi (1878 İstanbul, Johann Meyer,
 // 5 nesil, 146 yıl, "kim, nerede ve ne zaman?") — uydurma bilgi yok.
 const ABOUT_META_DESCRIPTION: Record<Locale, string> = {
-  tr: "1878'de İstanbul'da başlayan 5 nesillik hikâye — idenfit 146 yıldır “kim, nerede ve ne zaman?” sorusunu yanıtlıyor. Ekibimizi ve yolculuğumuzu tanıyın.",
-  en: 'A five-generation story that began in Istanbul in 1878 — for 146 years idenfit has answered “who, where and when?”. Meet our team and our journey.',
-  nl: 'Een verhaal van vijf generaties dat in 1878 in Istanbul begon — al 146 jaar beantwoordt idenfit “wie, waar en wanneer?”. Maak kennis met ons team.',
-  it: 'Una storia di cinque generazioni iniziata a Istanbul nel 1878: da 146 anni idenfit risponde a “chi, dove e quando?”. Scopri il nostro team e il percorso.',
-  az: '1878-ci ildə İstanbulda başlayan beş nəsillik hekayə — idenfit 146 ildir “kim, harada və nə zaman?” sualını cavablandırır. Komandamızla tanış olun.',
+  tr: "1878'de İstanbul'da bir saat dükkânında başlayan 5 nesillik hikâye — idenfit “kim, nerede ve ne zaman?” sorusunu yanıtlıyor. Ekibimizi ve yolculuğumuzu tanıyın.",
+  en: 'A five-generation story that began in a watchmaker’s shop in Istanbul in 1878 — idenfit answers “who, where and when?”. Meet our team and our journey.',
+  nl: 'Een verhaal van vijf generaties dat in 1878 in een horlogewinkel in Istanbul begon — idenfit beantwoordt “wie, waar en wanneer?”. Maak kennis met ons team.',
+  it: 'Una storia di cinque generazioni iniziata in un negozio di orologi a Istanbul nel 1878: idenfit risponde a “chi, dove e quando?”. Scopri il nostro team.',
+  az: '1878-ci ildə İstanbulda bir saat dükanında başlayan beş nəsillik hekayə — idenfit “kim, harada və nə zaman?” sualını cavablandırır. Komandamızla tanış olun.',
 };
 export function getAboutMetaDescription(locale: Locale): string {
   return ABOUT_META_DESCRIPTION[locale];

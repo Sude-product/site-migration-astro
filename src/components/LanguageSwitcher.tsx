@@ -87,9 +87,22 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
   useEffect(() => {
     if (currentLocale !== 'tr') return;
     const saved = readLangCookie();
-    if (saved && saved !== 'tr' && urls[saved]) {
-      window.location.href = urls[saved];
-    }
+    if (!saved || saved === 'tr') return;
+    const target = urls[saved];
+    if (!target) return;
+    // ⚠️ SONSUZ DÖNGÜ KORUMASI (2026-09-07): hedef URL zaten AÇIK OLAN sayfaysa
+    // gezinme YAPILMAMALI. `window.location.href = <aynı adres>` tam bir sayfa
+    // yeniden yüklemesi tetikler, ada hydrate olur, bu efekt yine çalışır ve
+    // döngü kapanmaz. Bu durum TR-only içerikte gerçek: blog (629 yazı + 53
+    // sayfalama) ve az kapsamı dışındaki hukuki/SSS sayfaları TÜM dilleri
+    // bilerek bare TR URL'ine yönlendiriyor (bkz. Açık nokta #62 ve blog
+    // sayfalarının `localeUrls` prop'u), yani `urls[saved] === mevcut yol`.
+    // Bu sayfalarda doğru davranış hiçbir şey yapmamak: kullanıcı zaten
+    // o içeriğin var olan tek sürümünde.
+    const here = window.location.pathname;
+    const same = (a: string, b: string) => a.replace(/\/+$/, '') === b.replace(/\/+$/, '');
+    if (same(target, here)) return;
+    window.location.href = target;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

@@ -348,7 +348,7 @@ const PRICING_META_DESCRIPTION: Record<Locale, string> = {
   en: "Manage your most valuable asset — your people — efficiently. Explore idenfit's Micro, SME and Pro packages and find the right fit for your business.",
   nl: 'Beheer uw belangrijkste bezit — uw mensen — efficiënt. Ontdek de Micro-, KMO- en Pro-pakketten van idenfit en vind de juiste prijs voor uw bedrijf.',
   it: 'Gestisci in modo efficiente la tua risorsa più preziosa: le persone. Scopri i pacchetti Micro, PMI e Pro di idenfit e trova il prezzo su misura.',
-  az: 'Ən dəyərli sərmayəniz olan insan resurslarını səmərəli idarə edin — idenfit-in Mikro, Orta və Pro paketləri ilə uyğun qiyməti kəşf edin.',
+  az: 'Ən dəyərli sərmayəniz olan insan resurslarını səmərəli idarə edin — idenfit-in Mikro, KOB və Pro paketləri ilə uyğun qiyməti kəşf edin.',
 };
 export function getPricingMetaDescription(locale: Locale): string | undefined {
   return PRICING_META_DESCRIPTION[locale];

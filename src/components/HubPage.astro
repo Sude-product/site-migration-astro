@@ -6,6 +6,7 @@
 // CLAUDE.md "İK Hub sayfaları — GERÇEK İÇERİK UYGULANDI"). Bilinçli olarak
 // ProductPage'e zorlanmadı, ayrı bir basit component.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildFaqJsonLd } from '../data/faqJsonLd';
 import HubTileCard from './HubTileCard.astro';
 import { getTranslations } from '../i18n';
 import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
@@ -35,21 +36,7 @@ const { hero, intro, tiles, faq } = content;
 // FAQPage JSON-LD — `ProductPage.astro`/`HomeFaqSection.astro` ile AYNI şekil
 // ve aynı dürüst beklenti notu (Google FAQ rich result'ları 7 Mayıs 2026'da
 // kaldırıldı; bu şema LLM tabanlı araçların soru-cevap yapısını okuması için).
-const faqJsonLd =
-  faq.length > 0
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'FAQPage',
-        mainEntity: faq.map((item) => ({
-          '@type': 'Question',
-          name: item.question,
-          acceptedAnswer: {
-            '@type': 'Answer',
-            text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-          },
-        })),
-      }
-    : null;
+const faqJsonLd = buildFaqJsonLd(faq);
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
