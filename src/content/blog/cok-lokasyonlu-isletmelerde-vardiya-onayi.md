@@ -158,5 +158,3 @@ Yetkili yöneticinin geçici olarak görevde olmadığı durumda belirli onay i�
 ### **Vardiya onayı neden fazla mesaiyle birlikte değerlendirilmelidir?**
 
 Vardiya değişikliği toplam çalışma süresini artırabileceği için onay anında olası fazla mesai etkisini görmek maliyet kontrolünü güçlendirir.
-
-\
