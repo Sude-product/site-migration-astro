@@ -4,7 +4,7 @@ title: İnsan Kaynaklarında Geri Bildirimin Önemi
 date: '2022-03-17T13:39:27'
 excerpt: İnsan kaynaklarında geri bildirim İK tarihinin her döneminde önemli bulunan fakat günümüze kadar çok aktif kullanılmayan kavramlar arasında yer alıyor. Rutin…
 featuredImage:
-  image: /img/blog-featured/insan-kaynaklarinda-geri-bildirimin-onemi/featured.jpg
+  image: /img/blog-featured/insan-kaynaklarinda-geri-bildirimin-onemi/featured.webp
   alt: İnsan Kaynaklarında Geri Bildirimin Önemi
   width: 1515
   height: 999

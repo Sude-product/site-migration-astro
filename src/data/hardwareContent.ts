@@ -7,6 +7,7 @@
 // render tarafında da yeni bir component yazılmadı, `ProductPage.astro`
 // yeniden kullanıldı (bkz. `src/pages/donanim.astro` ve locale eşdeğerleri).
 import { getRelativeLocaleUrl } from 'astro:i18n';
+import { withMeaningfulAlt } from './imageAlt';
 import hardwareExport from '../../reference/wordpress-export/hardware.json';
 import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { cleanRichText, localizeCtaUrl, stripTags, type ProductBlock } from './productContent';
@@ -113,7 +114,7 @@ export function getHardwareContent(locale: Locale): HardwareContent | undefined 
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.id === 'turnikeler' ? null : b.image,
+    image: b.id === 'turnikeler' ? null : withMeaningfulAlt(b.image, b.title),
     images: b.id === 'turnikeler' ? TURNSTILE_GALLERY_IMAGES : undefined,
     id: b.id,
   });

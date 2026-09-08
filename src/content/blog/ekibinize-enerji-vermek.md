@@ -4,7 +4,7 @@ title: Ekibinize Enerji Vermek İçin 8 Strateji
 date: '2023-12-17T16:45:24'
 excerpt: “Bir ekip enerjisini artırmak” genellikle bir iş ortamında veya bir grup insanın birlikte çalıştığı herhangi bir bağlamda kullanılan bir ifadedir. Ekip…
 featuredImage:
-  image: /img/blog-featured/ekibinize-enerji-vermek/featured.jpg
+  image: /img/blog-featured/ekibinize-enerji-vermek/featured.webp
   alt: Ekibinize Enerji Vermek İçin 8 Strateji
   width: 1621
   height: 811

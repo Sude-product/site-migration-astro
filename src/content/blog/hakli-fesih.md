@@ -4,7 +4,7 @@ title: Haklı Fesih Sebepleri Nelerdir?
 date: '2021-05-19T11:19:42'
 excerpt: Haklı fesih, iş akdinin sözleşmede yer alan süre sona ermeden kanunda sayılan sebeplerle derhal ve kıdem tazminatına hak kazanarak sonlandırılması olarak ifade…
 featuredImage:
-  image: /img/blog-featured/hakli-fesih/featured.jpg
+  image: /img/blog-featured/hakli-fesih/featured.webp
   alt: Haklı Fesih Sebepleri Nelerdir?
   width: 1515
   height: 999

@@ -4,7 +4,7 @@ title: İK Yazılımı Hakkında Bilinmesi Gerekenler
 date: '2022-10-03T16:26:25'
 excerpt: Hangi düzeyde olursa olsun işletmelerin başarısı ve sürdürülebilir bir şekilde büyümesi, büyük ölçüde, insan kaynağının ne kadar iyi yönetildiğine ve olumlu…
 featuredImage:
-  image: /img/blog-featured/ik-yazilimi/featured.jpg
+  image: /img/blog-featured/ik-yazilimi/featured.webp
   alt: İK Yazılımı Hakkında Bilinmesi Gerekenler
   width: 1515
   height: 998

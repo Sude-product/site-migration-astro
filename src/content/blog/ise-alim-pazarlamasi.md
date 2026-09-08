@@ -4,7 +4,7 @@ title: İşe Alım Pazarlaması
 date: '2022-02-20T19:24:26'
 excerpt: İşe alım pazarlaması kavramını ilk kez mi duydunuz yoksa 2021 trendlerinden aşina mısınız? İşe alım sürecinde en yüksek maliyetin mülakat aşamasına ait olduğu…
 featuredImage:
-  image: /img/blog-featured/ise-alim-pazarlamasi/featured.jpg
+  image: /img/blog-featured/ise-alim-pazarlamasi/featured.webp
   alt: İşe Alım Pazarlaması
   width: 1515
   height: 999

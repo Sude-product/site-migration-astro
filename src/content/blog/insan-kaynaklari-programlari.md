@@ -131,7 +131,7 @@ Geleneksel yöntemlerden farklı şekilde performans değerlendirmeyi periyodik 
 
 ### **Evraklar Modülü**
 
-Veri toplama ve analiz işlemlerinin takibi ve yasal zorunluluklara uyum noktasında insan kaynakları departmanının stratejik kararlar almasına yardımcı olur. Bu modül sayesinde çalışanlarınızın resmi evraklarını güvenle saklayabilirsiniz. Kişilere özel, yeni evrak tipi oluşturabilirsiniz. Ayrıca idenfit evraklar modülüyle belgelerinizi [**dijital  imza**](/digital-imza-modulu/) ile imzalayabilirsiniz.
+Veri toplama ve analiz işlemlerinin takibi ve yasal zorunluluklara uyum noktasında insan kaynakları departmanının stratejik kararlar almasına yardımcı olur. Bu modül sayesinde çalışanlarınızın resmi evraklarını güvenle saklayabilirsiniz. Kişilere özel, yeni evrak tipi oluşturabilirsiniz. Ayrıca idenfit evraklar modülüyle belgelerinizi [**dijital  imza**](/blog/dijital-imza/) ile imzalayabilirsiniz.
 
 ### **Geri Bildirim**
 

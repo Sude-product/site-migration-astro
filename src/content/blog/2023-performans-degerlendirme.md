@@ -4,7 +4,7 @@ title: 2025 Performans Değerlendirme İpuçları
 date: '2025-10-05T19:06:50'
 excerpt: 2025 performans değerlendirme süreçleri sürekli bir dönüşüm içinde. Tıpkı tüm İKY ve hatta iş dünyasında olduğu gibi. E; dijitalleşme çağının gereği bu ivmeli…
 featuredImage:
-  image: /img/blog-featured/2023-performans-degerlendirme/featured.jpg
+  image: /img/blog-featured/2023-performans-degerlendirme/featured.webp
   alt: 2025 Performans Değerlendirme İpuçları
   width: 1621
   height: 811

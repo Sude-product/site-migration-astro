@@ -64,10 +64,9 @@ const showModifiedDate = effectiveModifiedDate && Math.abs(effectiveModifiedDate
 // WP'nin gerçek `modified` alanından geliyor; göç etmiş `.md` yazılarında
 // (Decap CMS, henüz düzenleme-tarihi takibi YOK) bu alan yok — bu durumda
 // `date`'e (yayın tarihi) düşer ("hiç düzenlenmemişse mantıklı bir varsayım",
-// kullanıcı kararı). `mainEntityOfPage.@id` göreli bir yol (`Astro.url.pathname`)
-// — proje henüz kalıcı bir prod domain'e (`astro.config.mjs`'in `site` alanı)
-// sahip değil, mutlak bir URL icat ETMEDİK; domain netleşince buraya
-// `Astro.site` tabanlı mutlak bir URL eklenmeli. `publisher.logo` gerçek,
+// kullanıcı kararı). `image`/`publisher.logo`/`mainEntityOfPage.@id`
+// 2026-09-07'de mutlak URL'e çevrildi (aşağıdaki `toAbsoluteUrl`) —
+// `site` alanı 2026-09-02'de dolduruldu. `publisher.logo` gerçek,
 // canlı idenfit.com barındırılan logo dosyası (bkz. `IdenfitLogo.tsx`'in
 // kaynak yorumu) — uydurulmadı.
 const IDENFIT_LOGO_URL = '/wp-content/uploads/2025/07/idenfit-logo.svg';
@@ -95,21 +94,35 @@ const IDENFIT_LOGO_URL = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 // hem göç etmiş Markdown hem legacy JSON kaynaklı yazılarda ilk eleman
 // her zaman doğrudan bir `<p>`) hook'larına karşılık geliyor; ikisi de
 // SADECE bu işaretleme için eklendi, görsel/stil etkisi YOK.
+// Google'ın Article/BlogPosting yapılandırılmış veri kuralları `image`,
+// `publisher.logo.url` ve `mainEntityOfPage.@id` alanlarında TAM NİTELİKLİ
+// URL istiyor — göreli değerler yok sayılıyor. 2026-09-07 denetiminde 629
+// yazının tamamında göreli oldukları ölçüldü (`check-json-ld.mjs` bunu
+// yakalamıyor: yalnızca alanın VARLIĞINI ve söz dizimini doğruluyor, URL'in
+// mutlak olup olmadığına bakmıyor). `BaseLayout.astro`'nun breadcrumb
+// JSON-LD'siyle AYNI `Astro.site` tabanlı dönüşüm.
+// Blog TR-only — dil değiştirici için TÜM diller bare TR URL'ine işaret
+// etmeli. Aksi halde generic hesaplama /nl/blog/<slug>/ gibi var olmayan
+// (canlıda 404) adresler üretiyor. Bkz. Açık nokta #62, aynı sınıf.
+const trOnlyLocaleUrls = (path: string) => ({ tr: path, en: path, nl: path, it: path, az: path });
+
+const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
   headline: title,
   description: excerpt,
-  image: featuredImage?.image ?? IDENFIT_LOGO_URL,
+  image: toAbsoluteUrl(featuredImage?.image ?? IDENFIT_LOGO_URL),
   datePublished: date.toISOString(),
   dateModified: (effectiveModifiedDate ?? date).toISOString(),
   author: authorName ? { '@type': 'Person', name: authorName } : { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
   publisher: {
     '@type': 'Organization',
     name: 'idenfit',
-    logo: { '@type': 'ImageObject', url: IDENFIT_LOGO_URL },
+    logo: { '@type': 'ImageObject', url: toAbsoluteUrl(IDENFIT_LOGO_URL) },
   },
-  mainEntityOfPage: { '@type': 'WebPage', '@id': Astro.url.pathname },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': toAbsoluteUrl(Astro.url.pathname) },
   speakable: {
     '@type': 'SpeakableSpecification',
     cssSelector: ['#post-title', '.post-content > p:first-of-type'],
@@ -126,6 +139,7 @@ const jsonLd = {
   articlePublishedTime={date.toISOString()}
   articleModifiedTime={(effectiveModifiedDate ?? date).toISOString()}
   hreflangLocales={['tr']}
+  localeUrls={trOnlyLocaleUrls(`/blog/${post.data.slug}/`)}
   breadcrumb={[{ label: 'Blog', href: '/blog/' }, { label: title }]}
 >
   <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />

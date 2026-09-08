@@ -4,7 +4,7 @@ title: İzin Mutabakatları Hakkında Tüm Merak Edilenler
 date: '2024-12-22T18:51:27'
 excerpt: Yeni yıl hızla yaklaşırken, iş süreçlerinizin yoğunluğu da aynı hızda artıyor olmalı. Fakat bu yoğunluk içerisinde gözden kaçmaması gereken önemli bir konu…
 featuredImage:
-  image: /img/blog-featured/izin-mutabakati/featured.jpg
+  image: /img/blog-featured/izin-mutabakati/featured.webp
   alt: İzin Mutabakatları Hakkında Tüm Merak Edilenler
   width: 1280
   height: 720
@@ -64,7 +64,7 @@ E-mutabakat, işletmelerin finansal ve idari süreçlerini dijital ortamda uzla�
 
 ## **İzin Yönetiminde Dijital İmza**
 
-İzin yönetiminde **[dijital imza](/digital-imza-modulu/)**, süreçleri hızlandıran ve hata riskini en aza indiren bir çözümdür. Geleneksel yöntemlerin aksine, idenfit dijital imza sistemiyle izin onayları saniyeler içinde tamamlanır. Çalışanların izin talepleri, sistem üzerinden hızlı ve güvenilir bir şekilde onaylanır. Bu süreç, hem işverenin hem de çalışanların zamandan tasarruf etmesini sağlar.
+İzin yönetiminde **[dijital imza](/blog/dijital-imza/)**, süreçleri hızlandıran ve hata riskini en aza indiren bir çözümdür. Geleneksel yöntemlerin aksine, idenfit dijital imza sistemiyle izin onayları saniyeler içinde tamamlanır. Çalışanların izin talepleri, sistem üzerinden hızlı ve güvenilir bir şekilde onaylanır. Bu süreç, hem işverenin hem de çalışanların zamandan tasarruf etmesini sağlar.
 
 Yasal uyumluluğu destekleyen idenfit dijital imza, tüm izin kayıtlarını eksiksiz şekilde saklar. idenfit’in izin yönetimi modülü ise İKY profesyonellerine yönelik tasarlanmış, zaman tasarrufu ve pratiklik sunan gelişmiş bir araçtır. Bu modül, işverenlerin izin süreçlerini merkezi bir platform üzerinden yönetmelerini sağlar. Ayrıca izin takvimlerini tek bir panel üzerinden gözlemleme imkanı verir. Çalışanlar, izin taleplerini kolayca ve şeffaf bir biçimde ilgili yöneticilere iletir. 
 

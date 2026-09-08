@@ -29,6 +29,8 @@ export const FOOTER_PRODUCT_LINKS: FooterLinkItem<keyof Translations['footer']['
   { slug: 'yillik-izin-takip-programi', key: 'leaveManagement' },
   { slug: 'donanim', key: 'hardware' },
   { slug: 'pdks-modulu', key: 'timeAttendance' },
+  { slug: 'demirbas-yonetimi-modulu', key: 'assetManagement' },
+  { slug: 'seyahat-ve-gorevlendirme-yonetimi-modulu', key: 'travelManagement' },
 ];
 
 // Sıra + 7. madde (`securityPolicy`) idenfit.com'un canlı GENEL kolonundan

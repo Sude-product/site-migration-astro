@@ -117,6 +117,8 @@ export const it: Translations = {
         leaveManagement: 'Gestione Ferie e Permessi',
         hardware: 'Hardware',
         timeAttendance: 'Controllo Accessi',
+        assetManagement: 'Gestione Cespiti',
+        travelManagement: 'Gestione Viaggi',
       },
       general: {
         pricing: 'Prezzi e Moduli',

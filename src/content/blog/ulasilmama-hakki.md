@@ -4,7 +4,7 @@ title: Ulaşılmama Hakkı Nedir?
 date: '2022-03-21T10:12:27'
 excerpt: Ulaşılmama hakkı pandemi sonrasında sık tartışılan konular arasında yer alıyor. Post pandemi sürecinde yeni çalışma modelleri hayatımızda kalıcı olarak yer…
 featuredImage:
-  image: /img/blog-featured/ulasilmama-hakki/featured.jpg
+  image: /img/blog-featured/ulasilmama-hakki/featured.webp
   alt: Ulaşılmama Hakkı Nedir?
   width: 1515
   height: 998

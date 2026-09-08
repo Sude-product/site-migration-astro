@@ -30,7 +30,7 @@ AI ile aday eşleştirme, yapay zekâ teknolojilerinin kullanılarak iş ilanı 
 
 Bu sistemler; adayların CV bilgilerini, deneyimlerini, yetkinliklerini ve eğitim geçmişlerini analiz ederek iş ilanındaki kriterlerle karşılaştırır. Böylece en uygun adaylar hızlı şekilde belirlenebilir.
 
-Bu noktada AI destekli işe alım çözümleri sunan **[hiringoz](/hiring-module/)**, aday verilerini analiz ederek pozisyona en uygun adayların hızlı şekilde belirlenmesine yardımcı olur ve işe alım süreçlerinin daha verimli ilerlemesini sağlar.
+Bu noktada AI destekli işe alım çözümleri sunan **[hiringoz](/ise-alim-modulu/)**, aday verilerini analiz ederek pozisyona en uygun adayların hızlı şekilde belirlenmesine yardımcı olur ve işe alım süreçlerinin daha verimli ilerlemesini sağlar.
 
 ## **AI Destekli İşe Alım Süreçleri Nasıl Çalışır?**
 

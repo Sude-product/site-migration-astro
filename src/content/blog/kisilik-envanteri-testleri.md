@@ -4,7 +4,7 @@ title: Kişilik Envanteri Testleri
 date: '2022-08-31T13:07:27'
 excerpt: Kişilik envanteri testleri, insan kaynakları yönetiminde en sık kullanılan araçlar arasında yer alır. İşe alım, yetenek yönetimi ve çalışan bağlılığı…
 featuredImage:
-  image: /img/blog-featured/kisilik-envanteri-testleri/featured.jpg
+  image: /img/blog-featured/kisilik-envanteri-testleri/featured.webp
   alt: Kişilik Envanteri Testleri
   width: 1515
   height: 999

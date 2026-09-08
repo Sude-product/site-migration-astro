@@ -4,7 +4,7 @@ title: Çalışan Yaşam Döngüsü
 date: '2023-02-19T20:29:30'
 excerpt: Çalışan yaşam döngüsü, sürekli gelişimin ana odak olduğu günümüz iş dünyasında çalışan bağlılığının en önemli unsurları arasında yer alıyor. Çalışanların işe…
 featuredImage:
-  image: /img/blog-featured/calisan-yasam-dongusu/featured.jpg
+  image: /img/blog-featured/calisan-yasam-dongusu/featured.webp
   alt: Çalışan Yaşam Döngüsü
   width: 1515
   height: 999

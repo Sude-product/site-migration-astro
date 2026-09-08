@@ -38,7 +38,8 @@ import {
 } from './miscPagesTranslationOverrides';
 
 export type { SecurityItem, PresentationContent };
-import type { Locale } from './nav';
+import { LOCALES, type Locale } from './nav';
+import { withMeaningfulAlt } from './imageAlt';
 
 interface RawGroup {
   trSlug: string;
@@ -104,6 +105,13 @@ function localeUrlsFor(trSlug: string): Partial<Record<Locale, string>> {
   // hesaplandı) doğrudan kullanılıyor, `/az/...` üzerinden gereksiz bir
   // redirect adımına GEREK YOK.
   if (!result.az) result.az = result.tr;
+  // GENELLEŞTİRME (2026-09-07): yukarıdaki iki düzeltme yalnızca `nl` ve
+  // `az`'ı kapsıyordu, ama aynı boşluk `it` için de vardı — KVK Protokol
+  // sayfası yalnızca TR/EN/NL'de yayınlanmış, bu yüzden EN sayfasının dil
+  // değiştiricisi generic hesaplamaya düşüp `/it/kvk-protocol/` (404)
+  // üretiyordu. Kalan HER eksik dil artık açıkça dolduruluyor, böylece bu
+  // hata sınıfı dil bazında tek tek değil topluca kapanıyor.
+  for (const locale of LOCALES) if (!result[locale]) result[locale] = result.en ?? result.tr;
   return result;
 }
 
@@ -439,7 +447,7 @@ function resolveBlock(b: ProductBlock, locale: Locale): ProductBlock {
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.image,
+    image: withMeaningfulAlt(b.image, b.title),
   };
 }
 
@@ -696,7 +704,29 @@ export function getPresentationModifiedDate(locale: Locale): Date | undefined {
 const PRESENTATION_META_DESCRIPTION: Partial<Record<Locale, string>> = {
   nl: 'Ervaar snelheid en efficiëntie in HR-beheer met idenfit — binnen 48 uur klaar, met moeiteloze onboarding en veilige gegevensmigratie.',
   en: 'Get started with idenfit — no credit card needed, pay only for the employees you need, with free updates included.',
+  // tr/it/az (2026-09-07, SEO-07): bu üç dilde alan boştu ve sayfa `pageTitle`'a
+  // (yani H1'e) düşüyordu. Metinler sayfanın KENDİ bölümlerinden türetildi
+  // ("3 Adımda idenfit" akışı + form), yeni bir vaat eklenmedi.
+  tr: "Uzman ekibimizle birebir online sunum planlayın — idenfit'in İK modüllerini 3 adımda kendi süreçlerinizde görün. Formu doldurun, sizi arayalım.",
+  it: 'Prenota una demo online personalizzata: scopri in 3 passaggi come i moduli HR di idenfit si adattano ai tuoi processi. Compila il modulo, ti ricontattiamo.',
+  az: 'Mütəxəssis komandamızla fərdi onlayn təqdimat planlaşdırın — idenfit-in İR modullarını 3 addımda öz proseslərinizdə görün. Formu doldurun.',
 };
+// Hakkımızda meta description (2026-09-07, SEO-07) — `AboutPage.astro`
+// önceden hero başlığını (misyon alıntısı) 160 karaktere kesip description
+// olarak kullanıyordu, yani description = H1. Metinler sayfanın KENDİ
+// anlattığı gerçek hikâyeden türetildi (1878 İstanbul, Johann Meyer,
+// 5 nesil, 146 yıl, "kim, nerede ve ne zaman?") — uydurma bilgi yok.
+const ABOUT_META_DESCRIPTION: Record<Locale, string> = {
+  tr: "1878'de İstanbul'da bir saat dükkânında başlayan 5 nesillik hikâye — idenfit “kim, nerede ve ne zaman?” sorusunu yanıtlıyor. Ekibimizi ve yolculuğumuzu tanıyın.",
+  en: 'A five-generation story that began in a watchmaker’s shop in Istanbul in 1878 — idenfit answers “who, where and when?”. Meet our team and our journey.',
+  nl: 'Een verhaal van vijf generaties dat in 1878 in een horlogewinkel in Istanbul begon — idenfit beantwoordt “wie, waar en wanneer?”. Maak kennis met ons team.',
+  it: 'Una storia di cinque generazioni iniziata in un negozio di orologi a Istanbul nel 1878: idenfit risponde a “chi, dove e quando?”. Scopri il nostro team.',
+  az: '1878-ci ildə İstanbulda bir saat dükanında başlayan beş nəsillik hekayə — idenfit “kim, harada və nə zaman?” sualını cavablandırır. Komandamızla tanış olun.',
+};
+export function getAboutMetaDescription(locale: Locale): string {
+  return ABOUT_META_DESCRIPTION[locale];
+}
+
 export function getPresentationMetaDescription(locale: Locale): string | undefined {
   return PRESENTATION_META_DESCRIPTION[locale];
 }

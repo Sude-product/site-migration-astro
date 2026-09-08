@@ -6,6 +6,7 @@
 // URL'leri (dil değiştirici düzeltmesi) + CTA URL'lerinin kendi route
 // şemamıza göre yeniden çözülmesi.
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { buildFaqJsonLd } from '../data/faqJsonLd';
 import ProductSectionBlock from './ProductSectionBlock.astro';
 import LastUpdated from './LastUpdated.astro';
 import { getTranslations } from '../i18n';
@@ -119,6 +120,20 @@ const {
 // olabilir (PDKS örneği) — bu bilinçli olarak düzeltilmiyor, aynen
 // gösteriliyor.
 const { hero, sections, faq } = content;
+
+// FAQPage JSON-LD — `HomeFaqSection.astro`'daki AYNI şekil ve aynı ilke
+// (`acceptedAnswer.text` HTML'den arındırılmış düz metin; görsel render
+// kaynağın işaretlemesini korumaya devam ediyor).
+//
+// ⚠️ DÜRÜST BEKLENTİ (2026-09-07): Google FAQ rich result'larını önce
+// Ağustos 2023'te devlet/sağlık sitelerine kısıtladı, 7 Mayıs 2026'da ise
+// tamamen kaldırdı — yani bu şema arama sonucunda açılır soru-cevap kutusu
+// ÜRETMEYECEK. Yine de eklendi çünkü (a) FAQPage geçerli bir schema.org tipi
+// olmaya devam ediyor ve LLM tabanlı arama araçları soru-cevap yapısını bu
+// işaretlemeden okuyor, (b) maliyeti tek bir component değişikliği: içerik
+// zaten sayfada, ikinci bir metin yazılmıyor. Fayda ÖLÇÜLMÜŞ değil,
+// spekülatif — bu yüzden düşük öncelikli bir ekleme olarak yapıldı.
+const faqJsonLd = buildFaqJsonLd(faq);
 
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
 const t = getTranslations(locale);
@@ -247,6 +262,7 @@ const heroCtaText =
   {
     faq.length > 0 && (
       <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
+        <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} is:inline />
         <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
         <div class="mt-6 divide-y divide-gray-100">
           {faq.map((item) => (

@@ -9,6 +9,7 @@
 // deseni yeniden kullanıldı (site genelinde tutarlı tek bir accordion
 // dili), yeni bir görsel dil İCAT EDİLMEDİ.
 import { getTranslations } from '../i18n';
+import { buildFaqJsonLd } from '../data/faqJsonLd';
 import { getHomeFaqItems, getFaqLocaleUrls } from '../data/faqContent';
 import type { Locale } from '../data/nav';
 
@@ -23,18 +24,7 @@ const faqHref = getFaqLocaleUrls()[locale];
 // arındırılmış düz metin — görsel render (`set:html`, aşağıda) kaynağın
 // `<p>`/`<br>` işaretlemesini KORUYOR, yalnızca JSON-LD'nin kendisi düz
 // metin (schema.org validator'ları için en taşınabilir biçim).
-const jsonLd = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: items.map((item) => ({
-    '@type': 'Question',
-    name: item.question,
-    acceptedAnswer: {
-      '@type': 'Answer',
-      text: item.answer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(),
-    },
-  })),
-};
+const jsonLd = buildFaqJsonLd(items);
 ---
 
 {

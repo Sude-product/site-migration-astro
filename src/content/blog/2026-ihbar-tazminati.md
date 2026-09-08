@@ -29,7 +29,7 @@ modifiedDate: '2026-03-26T11:46:57'
 
 Kıdem ve ihbar tazminatı, çalışma hayatında sıkça karıştırılan iki önemli kavramdır. İhbar tazminatı, işten çıkarılmadan önce yapılan bildirim süresine bağlıdır. İşverenin çalışanı işten çıkarırken bildirim yapma zorunluluğu bulunmaktadır. Aynı şekilde çalışan da istifa durumunda işverene önceden bildirim yapmalıdır. Bu süre, çalışanın işyerindeki kıdemine göre değişiklik gösterir.
 
-**[Kıdem tazminatı](/blog/2025-kidem-tazminati/)** ise çalışanın işyerindeki hizmet süresine göre hesaplanır. İşten ayrılma durumunda, uzun yıllar emek vermiş çalışanların hakkını güvence altına almaktadır. İhbar tazminatı, işverenin çalışanı bilgilendirme yükümlülüğüyken; kıdem tazminatı, çalışanın emeğinin karşılığı olarak ödenmektedir.
+**[Kıdem tazminatı](/blog/2026-kidem-tazminati/)** ise çalışanın işyerindeki hizmet süresine göre hesaplanır. İşten ayrılma durumunda, uzun yıllar emek vermiş çalışanların hakkını güvence altına almaktadır. İhbar tazminatı, işverenin çalışanı bilgilendirme yükümlülüğüyken; kıdem tazminatı, çalışanın emeğinin karşılığı olarak ödenmektedir.
 
 ## **İhbar Tazminatı Kimlere Verilir?**
 
@@ -79,7 +79,7 @@ _**[İşten Çıkış Görüşmesi Nedir?](/blog/isten-cikis-gorusmesi/)**_ baş
 
 Bu tutar üzerinden gelir vergisi ve damga vergisi kesintisi yapılmaktadır.
 
-Bu tutar üzerinden **[gelir vergisi](/blog/2025-gelir-vergisi/)** ve damga vergisi kesintisi yapılacaktır.
+Bu tutar üzerinden **[gelir vergisi](/blog/2026-gelir-vergisi/)** ve damga vergisi kesintisi yapılacaktır.
 
 ## **Sık Sorulan Sorular**
 

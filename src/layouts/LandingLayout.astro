@@ -8,6 +8,7 @@
 import '../styles/global.css';
 import LandingHeader from '../components/LandingHeader.astro';
 import LandingFooter from '../components/LandingFooter.astro';
+import Analytics from '../components/Analytics.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 
 interface Props {
@@ -33,7 +34,9 @@ const {
   ogType = 'website',
 } = Astro.props;
 
-const ogImage = image ?? HOME_PANEL_IMAGE.tr.url;
+const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
+// `BaseLayout.astro`'daki AYNI mutlak-URL kuralı (bkz. oradaki tam yorum).
+const ogImage = toAbsoluteUrl(image ?? HOME_PANEL_IMAGE.tr.url);
 // `BaseLayout.astro`'daki AYNI ilke (bkz. o dosyadaki tam yorum) — `site`
 // alanı boşken uydurma bir domain kullanılmıyor, göreli yola düşülüyor.
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
@@ -43,6 +46,7 @@ const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astr
 <html lang="tr">
 	<head>
 		<meta charset="utf-8" />
+		<Analytics />
 		<!-- Cookie-Script çerez onay banner'ı (Landing) — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="text/javascript"

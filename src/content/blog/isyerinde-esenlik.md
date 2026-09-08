@@ -4,7 +4,7 @@ title: 'İşyerinde Esenlik: Wellbeing Nedir?'
 date: '2022-03-15T11:29:13'
 excerpt: İşyerinde esenlik yani Wellbeing kavramı, çalışanların ofis ortamında mutlu ve huzurlu olabilmesi adına şirketlerde yürütülen uygulamalar ve yaklaşımları ifade…
 featuredImage:
-  image: /img/blog-featured/isyerinde-esenlik/featured.jpg
+  image: /img/blog-featured/isyerinde-esenlik/featured.webp
   alt: 'İşyerinde Esenlik: Wellbeing Nedir?'
   width: 1516
   height: 1000

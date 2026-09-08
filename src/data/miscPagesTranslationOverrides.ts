@@ -195,10 +195,10 @@ export const WHY_IDENFIT_IT_SECTIONS: ProductBlock[] = [
 // geçirildi, artık `wp-content/uploads` HOTLINK değil (Açık nokta #14'ün
 // bu tek görsel için kapanması).
 export const ABOUT_TEAM_PHOTO_IMAGE = {
-  url: '/images/about-team-photo.jpg',
+  url: '/images/about-team-photo.webp',
   alt: 'idenfit çalışanlarının fotoğraflarından oluşan kolaj',
-  width: 4096,
-  height: 2235,
+  width: 2048,
+  height: 1118,
 };
 
 export const ABOUT_EN_SECTIONS: ProductBlock[] = [

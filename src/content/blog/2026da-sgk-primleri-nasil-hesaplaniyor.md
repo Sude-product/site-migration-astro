@@ -32,7 +32,7 @@ Bu rehberde 2026 SGK prim oranları, bordro SGK ilişkisi ve hesaplamanın kriti
 
 Bu nedenle SGK primi hesaplama sürecinde önce çalışanın prime esas kazancı belirlenir, ardından bu kazanç SGK matrah alt ve üst sınırlarıyla karşılaştırılır. Sonrasında güncel SGK prim oranları uygulanır ve son olarak çalışan ile işveren payları ayrı ayrı bordroya yansıtılır.
 
-Burada yapılan en yaygın hata, prime dahil olmayan kalemleri gözden kaçırmak ya da güncel parametreleri sisteme işlememektir. Özellikle manuel çalışan ekipler için bu risk daha yüksektir. Bordro sürecinin genel mantığını daha detaylı görmek için [bordro hesaplama](/blog/bordro-hesaplama/) rehberine, SGK hesaplama adımlarını ayrı bir çerçevede incelemek için ise [SGK primleri nasıl hesaplanır](/blog/sgk-primleri-nasil-hesaplanir/) içeriğine göz atılabilir.\
+Burada yapılan en yaygın hata, prime dahil olmayan kalemleri gözden kaçırmak ya da güncel parametreleri sisteme işlememektir. Özellikle manuel çalışan ekipler için bu risk daha yüksektir. Bordro sürecinin genel mantığını daha detaylı görmek için [bordro hesaplama](/blog/bulut-tabanli-yazilimda-bordro-hesaplama/) rehberine, SGK hesaplama adımlarını ayrı bir çerçevede incelemek için ise SGK primleri nasıl hesaplanır içeriğine göz atılabilir.\
 \
 Kısacası 2026’da doğru hesaplama yapabilmek için brüt ücret ile SGK matrahının aynı şey olmadığını bilmek, istisna ve yan hakların sonucu değiştirebildiğini görmek, alt ve üst sınırları her çalışan için ayrı kontrol etmek ve bordro parametrelerini yıl başında mutlaka güncellemek gerekir.
 

@@ -4,7 +4,7 @@ title: KİŞİLİK ENVANTERİ İLE EĞİTİM VE GELİŞİM İHTİYAÇLARINI BEL�
 date: '2023-12-02T19:53:40'
 excerpt: Çalışanlarınızın performansının toplamı şirketin verimliliğini belirliyor. Dolayısıyla çalışanlarınızı, ekipleri ve organizasyonu tanımak, ihtiyaçlarını,…
 featuredImage:
-  image: /img/blog-featured/kisilik-envanteri-2/featured.jpg
+  image: /img/blog-featured/kisilik-envanteri-2/featured.webp
   alt: KİŞİLİK ENVANTERİ İLE EĞİTİM VE GELİŞİM İHTİYAÇLARINI BELİRLEME
   width: 1920
   height: 1080

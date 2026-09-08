@@ -2,7 +2,7 @@
 slug: insan-kaynaklari-ve-dijital-donusum-bulusmasi-eskisehir
 title: İnsan Kaynakları ve Dijital Dönüşüm Buluşması | Eskişehir
 date: '2024-05-16T14:45:57'
-excerpt: Günümüzde insan kaynakları profesyonellerinin, iş gücünü oluşturan insan sermayesini şekillendiren rekabet, aidiyet ve adaletli yönetim beklentisi gibi…
+excerpt: İnsan Kaynakları ve Dijital Dönüşüm Buluşması Eskişehir’de gerçekleşti — İK profesyonelleriyle rekabet, aidiyet ve adaletli yönetim beklentilerini ele aldık.
 featuredImage:
   image: /img/blog-featured/insan-kaynaklari-ve-dijital-donusum-bulusmasi-eskisehir/featured.jpg
   alt: İnsan Kaynakları ve Dijital Dönüşüm Buluşması | Eskişehir
@@ -15,7 +15,7 @@ tags:
   - dijital-ik-tr
   - idenfit-ik-tr
   - insan-kaynaklari-tr
-metaTitle: İnsan Kaynakları ve Dijital Dönüşüm Buluşması
+metaTitle: 'İK ve Dijital Dönüşüm Buluşması | Eskişehir'
 modifiedDate: '2025-09-05T11:55:46'
 ---
 

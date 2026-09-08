@@ -26,6 +26,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildIdenfitTitle } from '../data/pageTitle';
 import type { ProductContent } from '../data/productContent';
 import type { Locale } from '../data/nav';
+import { getAboutMetaDescription } from '../data/miscPagesContent';
 
 interface Props {
   content: ProductContent;
@@ -36,8 +37,10 @@ interface Props {
 const { content, pageTitle, localeUrls } = Astro.props;
 const { hero, sections } = content;
 const [historySection, teamPhotoSection] = sections;
-const description = hero.title.replace(/<[^>]+>/g, '').slice(0, 160);
 const locale = (Astro.currentLocale ?? 'tr') as Locale;
+// Sayfa BAŞLIĞINI description olarak kullanmak proje kuralınca yasak
+// (2026-09-07, SEO-07) — artık ayrı, dile göre yazılmış gerçek metin.
+const description = getAboutMetaDescription(locale);
 // `pageTitle` bazı dillerde 50 karakterin altında (2026-08-10 title
 // uzunluk denetimi) — bkz. `buildIdenfitTitle()`.
 const title = buildIdenfitTitle(pageTitle, locale);

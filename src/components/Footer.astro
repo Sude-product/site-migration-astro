@@ -78,7 +78,18 @@ const PRODUCT_TR_SLUG_OVERRIDES: Partial<Record<string, string>> = {
 const productFooterHref = (slug: string) => {
   if (slug === 'donanim') return l(getHardwareSlug(currentLocale) ?? 'donanim');
   const trSlug = PRODUCT_TR_SLUG_OVERRIDES[slug] ?? slug;
-  return l(getProductSlug(trSlug, currentLocale) ?? slug);
+  const localeSlug = getProductSlug(trSlug, currentLocale);
+  if (localeSlug) return l(localeSlug);
+  // Bu üründe AKTİF locale'in gerçek bir sayfası yok (2026-09-07: Demirbaş ve
+  // Seyahat modülleri NL'de hiç yayınlanmamış). Eski davranış slug'ı körü
+  // körüne locale önekiyle birleştiriyordu — var olmayan bir URL, canlıda 404.
+  // Bunun yerine GERÇEKTEN var olan bir hedefe düşülüyor: NL'nin genel içerik
+  // fallback'i EN olduğu için önce EN slug'ı, o da yoksa bare TR sayfası (her
+  // zaman var). Açık nokta #62'deki "var olmayan locale URL'i üretme"
+  // düzeltmesiyle AYNI ilke.
+  const enSlug = getProductSlug(trSlug, 'en');
+  if (enSlug) return getRelativeLocaleUrl('en', enSlug);
+  return getRelativeLocaleUrl('tr', trSlug);
 };
 
 const year = new Date().getFullYear();

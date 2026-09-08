@@ -4,7 +4,7 @@ title: Zaman Yönetimi İnsan Kaynaklarında Nasıl Uygulanmalıdır?
 date: '2021-06-09T09:11:24'
 excerpt: Hangi sektör veya meslek grubundan olursanız olun zaman yönetimi herkes için bir sorun. Evden çalışma, sürekli çevrimiçi olmak ve mesai saatlerinin tüm güne…
 featuredImage:
-  image: /img/blog-featured/zaman-yonetimi/featured.jpg
+  image: /img/blog-featured/zaman-yonetimi/featured.webp
   alt: Zaman Yönetimi İnsan Kaynaklarında Nasıl Uygulanmalıdır?
   width: 1514
   height: 999

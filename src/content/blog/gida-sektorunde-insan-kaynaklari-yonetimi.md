@@ -4,7 +4,7 @@ title: Gıda Sektöründe İnsan Kaynakları Yönetimi
 date: '2020-11-23T10:24:54'
 excerpt: Gıda sektöründe insan kaynakları yönetimi , ana iş kolunun yanında tedarikçilerin de dahil olduğu büyük bir endüstriyi yönetmek anlamına gelir. Gıda…
 featuredImage:
-  image: /img/blog-featured/gida-sektorunde-insan-kaynaklari-yonetimi/featured.png
+  image: /img/blog-featured/gida-sektorunde-insan-kaynaklari-yonetimi/featured.webp
   alt: Gıda Sektöründe İnsan Kaynakları Yönetimi
   width: 2271
   height: 1497

@@ -4,7 +4,7 @@ title: Geleceği Belirleyen İnsan Kaynakları Becerileri
 date: '2021-08-06T09:01:51'
 excerpt: Günümüzün İK profesyonelleri büyüyen bir insan kaynakları becerileri açığıyla karşı karşıya kalıyor. Yakın zamanda yapılan anket çalışmaları, çalışanların…
 featuredImage:
-  image: /img/blog-featured/insan-kaynaklari-becerileri/featured.png
+  image: /img/blog-featured/insan-kaynaklari-becerileri/featured.webp
   alt: Geleceği Belirleyen İnsan Kaynakları Becerileri
   width: 758
   height: 500

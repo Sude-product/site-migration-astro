@@ -4,7 +4,7 @@ title: Yanlış İşe Alım Ne Gibi Sorunlara Neden Olur?
 date: '2022-06-02T08:40:46'
 excerpt: Yanlış işe alım şirketiniz için düşündüğünüzden daha maliyetli ve yıpratıcı olabilir. İşgücü devir oranı son yıllarda birçok sektörün en önemli sorunları…
 featuredImage:
-  image: /img/blog-featured/yanlis-ise-alim/featured.jpg
+  image: /img/blog-featured/yanlis-ise-alim/featured.webp
   alt: Yanlış İşe Alım Ne Gibi Sorunlara Neden Olur?
   width: 2560
   height: 1687

@@ -4,7 +4,7 @@ title: Örgütsel Bağlılık
 date: '2022-10-18T14:34:50'
 excerpt: Tarih boyunca çalışma hayatı önemli değişimlere sahne olmuştur. Günümüzde ise çalışma hayatını olumlu ya da olumsuz etkileyen makro ve mikro ölçekte pek çok…
 featuredImage:
-  image: /img/blog-featured/orgutsel-baglilik/featured.jpg
+  image: /img/blog-featured/orgutsel-baglilik/featured.webp
   alt: Örgütsel Bağlılık
   width: 1515
   height: 999

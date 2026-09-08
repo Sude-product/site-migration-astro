@@ -10,7 +10,8 @@ import productsExport from '../../reference/wordpress-export/products.json';
 import { deepRelativizeWpUrls } from './relativizeWpUrls';
 import { PRODUCT_OVERRIDES } from './productTranslationOverrides';
 import { PRODUCT_OVERRIDES_AZ } from './productTranslationOverridesAz';
-import type { Locale } from './nav';
+import { LOCALES, type Locale } from './nav';
+import { withMeaningfulAlt } from './imageAlt';
 
 export interface ProductImage {
   url: string;
@@ -252,6 +253,18 @@ export function getProductLocaleUrls(trSlug: string): Partial<Record<Locale, str
   for (const [locale, slug] of Object.entries(perLocale) as [Locale, string][]) {
     result[locale] = getRelativeLocaleUrl(locale, slug);
   }
+  // Bu üründe gerçek sayfası OLMAYAN diller (ör. Demirbaş/Seyahat modülleri
+  // NL'de hiç yayınlanmamış) burada AÇIKÇA dolduruluyor. Aksi halde
+  // `Header.astro` eksik anahtarlar için generic hesaplamaya düşüyor ve
+  // slug'ı körü körüne locale önekiyle birleştirip var olmayan bir URL
+  // (`/nl/demirbas-yonetimi-modulu/`, canlıda 404) üretiyor — Açık nokta
+  // #62'de KVKK/SSS/Destek ailesi için düzeltilen AYNI hata sınıfı.
+  // Hedef seçimi: NL'nin genel içerik fallback'i EN olduğu için önce EN,
+  // o da yoksa bare TR (her zaman var).
+  const fallback = result.en ?? result.tr;
+  if (fallback) {
+    for (const locale of LOCALES) if (!result[locale]) result[locale] = fallback;
+  }
   return result;
 }
 
@@ -277,7 +290,7 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
       text: cleanRichText(b.text),
       ctaText: b.ctaText,
       ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-      image: b.image,
+      image: withMeaningfulAlt(b.image, b.title),
       id: b.id,
       images: b.images,
       reverse: b.reverse,
@@ -299,7 +312,7 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
     text: cleanRichText(b.text),
     ctaText: b.ctaText,
     ctaUrl: b.ctaUrl ? localizeCtaUrl(b.ctaUrl, locale) : '',
-    image: b.image,
+    image: withMeaningfulAlt(b.image, b.title),
     id: b.id,
     images: b.images,
     reverse: b.reverse,

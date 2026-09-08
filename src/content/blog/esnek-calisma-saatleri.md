@@ -4,7 +4,7 @@ title: Esnek Çalışma Saatleri
 date: '2022-03-24T17:41:38'
 excerpt: Uzun yıllardır uygulanan hatalı yaklaşımlar nedeni ile çalışanların geneli esnek çalışma saatleri kalıbını duyduğunda irkiliyor farkındayız. Korkmayın…
 featuredImage:
-  image: /img/blog-featured/esnek-calisma-saatleri/featured.jpg
+  image: /img/blog-featured/esnek-calisma-saatleri/featured.webp
   alt: Esnek Çalışma Saatleri
   width: 2560
   height: 1688

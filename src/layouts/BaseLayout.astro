@@ -1,11 +1,12 @@
 ---
 import '../styles/global.css';
+import Analytics from '../components/Analytics.astro';
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
-import { FOOTER_SOCIAL } from '../data/footer';
+import { FOOTER_SOCIAL, FOOTER_CONTACT } from '../data/footer';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
@@ -130,20 +131,27 @@ const breadcrumbTrail: BreadcrumbItem[] =
     : [];
 const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
 
+// `Organization` şemasının logosu — `blog/[slug].astro`'nun publisher.logo'su
+// ile AYNI gerçek dosya (ikinci bir varlık üretilmedi). Google Organization
+// için `logo`/`address`/`contactPoint` öneriyor; üçü de aşağıda
+// `FOOTER_CONTACT`'tan besleniyor — footer'da görünen veriyle aynı tek kaynak.
+const IDENFIT_ORG_LOGO = '/wp-content/uploads/2025/07/idenfit-logo.svg';
+
 // OG/Twitter görseli — sayfaya özgü verilmemişse ana sayfanın dashboard
 // mockup'ına (locale'e göre — NL kendi farklı görselini kullanıyor, bkz.
 // `HOME_PANEL_IMAGE`'in kendi yorumu) düşülür.
-const ogImage = image ?? HOME_PANEL_IMAGE[lang as Locale].url;
+// `og:image`/`twitter:image` MUTLAK URL zorunlu (ogp.me spec) — göreli bir
+// yol verildiğinde LinkedIn/Facebook/WhatsApp/X/Slack önizleme görselini
+// HİÇ göstermez. 2026-09-07 denetiminde 938 sayfanın tamamında göreli
+// olduğu ölçüldü: `site` alanı 2026-09-02'de doldurulup canonical/hreflang
+// mutlağa geçerken bu iki etiket atlanmıştı. `toAbsoluteUrl` zaten mutlak
+// olan bir değeri (ör. dış CDN görseli) olduğu gibi bırakır.
+const ogImage = toAbsoluteUrl(image ?? HOME_PANEL_IMAGE[lang as Locale].url);
 
-// `og:url` mutlak URL gerektiriyor (ogp.me spec) ama `astro.config.mjs`'in
-// `site` alanı henüz boş (prod domain yok — canonical etiketiyle AYNI
-// kısıt/karar, bkz. CLAUDE.md Açık nokta #31). `https://idenfit.com` gibi
-// bir alan adını ELLE UYDURMADIK — o alan adı ŞU AN canlı, BAŞKA (eski
-// WordPress) bir siteye ait; paylaşım linki o siteye çıkarsa yanlış/kırık
-// bir döngü olurdu. `[slug].astro`'nun JSON-LD `mainEntityOfPage`'iyle AYNI
-// ilke: `Astro.site` tanımlıysa (Faz 2, domain bağlanınca) otomatik mutlak
-// URL üretir, tanımlı DEĞİLSE göreli yola düşer — `site` alanı Faz 2'de
-// doldurulduğu an bu kod DEĞİŞMEDEN doğru (mutlak) davranışa geçer.
+// `og:url` mutlak URL gerektiriyor (ogp.me spec). `site` alanı 2026-09-02'de
+// dolduruldu, bu yüzden burası artık her zaman mutlak URL üretiyor;
+// `Astro.site` tanımsız kalırsa (yalnızca yapılandırma kazası) göreli yola
+// düşer ve canonical/hreflang de hiç üretilmez.
 const pageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
 
 // Canonical + hreflang (2026-08-17, "No hreflang tags" SEO turu — bkz.
@@ -160,6 +168,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 <html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
+		<Analytics />
 		<!-- Cookie-Script çerez onay banner'ı — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="text/javascript"
@@ -206,6 +215,18 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 				'@type': 'Organization',
 				name: 'idenfit',
 				...(Astro.site ? { url: Astro.site.href } : {}),
+				logo: toAbsoluteUrl(IDENFIT_ORG_LOGO),
+				address: {
+					'@type': 'PostalAddress',
+					streetAddress: FOOTER_CONTACT.address,
+					addressCountry: 'TR',
+				},
+				contactPoint: {
+					'@type': 'ContactPoint',
+					contactType: 'customer support',
+					telephone: FOOTER_CONTACT.phoneLabel,
+					email: FOOTER_CONTACT.emailLabel,
+				},
 				sameAs: FOOTER_SOCIAL.map((s) => s.href),
 			})}
 			is:inline

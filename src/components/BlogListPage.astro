@@ -43,15 +43,35 @@ const {
   allPosts,
 } = Astro.props;
 
+// Blog TR-only — dil değiştirici için TÜM diller bare TR URL'ine işaret
+// etmeli. Aksi halde generic hesaplama /nl/blog/<slug>/ gibi var olmayan
+// (canlıda 404) adresler üretiyor. Bkz. Açık nokta #62, aynı sınıf.
+const trOnlyLocaleUrls = (path: string) => ({ tr: path, en: path, nl: path, it: path, az: path });
+// Sayfalama başlığı/açıklaması (2026-09-07, denetim bulgusu SEO-05) —
+// önceden 53 sayfanın TAMAMI birebir aynı <title> ve aynı meta description'ı
+// kullanıyordu; Search Console'da "yinelenen başlık etiketi" olarak çıkar ve
+// 2+ sayfalar için hiçbir ayırt edici sinyal kalmaz. 1. sayfa değişmedi
+// (mevcut başlığı 60 karakter, sınırın tam üstünde); 2+ için sayfa numarasına
+// yer açacak şekilde kısaltılmış bir varyant kullanılıyor — en uzun hâli
+// (53. sayfa) 53 karakter, 50-60 aralığında.
+const pageTitle =
+  currentPage === 1
+    ? 'idenfit Blog — İK, İnsan Kaynakları ve Dijitalleşme Yazıları'
+    : `idenfit Blog — Sayfa ${currentPage} | İK ve Dijitalleşme Yazıları`;
+const pageDescription =
+  currentPage === 1
+    ? "İnsan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine idenfit'in blog yazıları."
+    : `idenfit blogunun ${currentPage}. sayfası — insan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine güncel yazılar.`;
 const pageHref = (page: number) => (page <= 1 ? '/blog/' : `/blog/page/${page}/`);
 const pageItems = getPaginationItems(currentPage, totalPages);
 ---
 
 <!-- Blog TR-only — bkz. `blog/[slug].astro`'daki AYNI yorum. -->
 <BaseLayout
-  title="idenfit Blog — İK, İnsan Kaynakları ve Dijitalleşme Yazıları"
-  description="İnsan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine idenfit'in blog yazıları."
+  title={pageTitle}
+  description={pageDescription}
   hreflangLocales={['tr']}
+  localeUrls={trOnlyLocaleUrls(pageHref(currentPage))}
   breadcrumb={[{ label: 'Blog' }]}
 >
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">

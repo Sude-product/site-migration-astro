@@ -26,7 +26,7 @@ Bu değişim özellikle İK ekipleri için yeni bir gerçeklik yaratıyor. Çün
 
 2026 işe alım trendleri, yalnızca yeni araçların konuşulduğu bir gündem değil. Asıl değişim; aday beklentilerinde, iş gücü yapısında ve şirketlerin işe alımdan beklediği sonuçlarda yaşanıyor. İşe alım artık sadece uygun özgeçmişi bulma süreci değil, iş hedefleriyle doğrudan bağlantılı stratejik bir alan haline geliyor.
 
-Bu nedenle işe alım ekipleri, pozisyon bazlı düşünmenin ötesine geçmek zorunda. Hangi yetkinliklerin kritik olduğunu, hangi süreç adımlarının kayıp yarattığını ve hangi noktalarda adayların süreçten koptuğunu daha görünür hale getirmeleri gerekiyor. Konuya daha geniş bir çerçeveden bakmak isteyen ekipler için [**işe alım**](/blog/ise-alim/) yaklaşımını ele alan içerikler iyi bir başlangıç noktası olabilir.
+Bu nedenle işe alım ekipleri, pozisyon bazlı düşünmenin ötesine geçmek zorunda. Hangi yetkinliklerin kritik olduğunu, hangi süreç adımlarının kayıp yarattığını ve hangi noktalarda adayların süreçten koptuğunu daha görünür hale getirmeleri gerekiyor. Konuya daha geniş bir çerçeveden bakmak isteyen ekipler için [**işe alım**](/blog/ise-alim-sureclerinde-iyilestirme/) yaklaşımını ele alan içerikler iyi bir başlangıç noktası olabilir.
 
 Bu tabloda adayların artık yalnızca ücret ve unvana değil, süreç boyunca yaşadıkları deneyime de baktığı görülüyor. Aynı zamanda şirketler daha kısa sürede daha isabetli işe alım yapmak isterken, yetkinlik bazlı değerlendirme CV odaklı elemenin önüne geçiyor ve işe alım verileri de yalnızca raporlama için değil, karar kalitesini artırmak için daha fazla önem kazanıyor.
 

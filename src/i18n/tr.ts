@@ -115,6 +115,8 @@ export const tr: Translations = {
         leaveManagement: 'İzin Yönetimi',
         hardware: 'Donanımlar',
         timeAttendance: 'PDKS',
+        assetManagement: 'Demirbaş Yönetimi',
+        travelManagement: 'Seyahat Yönetimi',
       },
       general: {
         pricing: 'Fiyatlar ve Modüller',

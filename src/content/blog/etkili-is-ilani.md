@@ -4,7 +4,7 @@ title: Etkili İş İlanı Oluşturma Rehberi
 date: '2023-03-05T23:38:12'
 excerpt: Etkili iş ilanı hazırlama konusunda yeterince bilgi sahibi misiniz? Cevabınız çok güçlü bir “Evet.” değilse önerilerimizi incelemeye başlayabilirsiniz. Çünkü…
 featuredImage:
-  image: /img/blog-featured/etkili-is-ilani/featured.jpg
+  image: /img/blog-featured/etkili-is-ilani/featured.webp
   alt: Etkili İş İlanı Oluşturma Rehberi
   width: 1515
   height: 998

@@ -111,6 +111,8 @@ export const nl: Translations = {
         leaveManagement: 'Verlofbeheer',
         hardware: 'Hardware',
         timeAttendance: 'Tijdregistratie',
+        assetManagement: 'Activabeheer',
+        travelManagement: 'Reisbeheer',
       },
       general: {
         pricing: 'Prijzen & Modules',

@@ -2,7 +2,7 @@
 slug: insan-kaynaklarinin-dijital-donusumu-zirvesi-bursa
 title: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
 date: '2024-03-15T16:49:11'
-excerpt: Günümüzde insan kaynakları profesyonellerinin, iş gücünü oluşturan insan sermayesini şekillendiren rekabet, aidiyet ve adaletli yönetim beklentisi gibi…
+excerpt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi Bursa’da gerçekleşti — rekabet, aidiyet ve adaletli yönetim beklentilerini İK profesyonelleriyle konuştuk.
 featuredImage:
   image: /img/blog-featured/insan-kaynaklarinin-dijital-donusumu-zirvesi-bursa/featured.jpg
   alt: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi | Bursa
@@ -16,7 +16,7 @@ tags:
   - dijital-ik-tr
   - idenfit-ik-tr
   - insan-kaynaklari-tr
-metaTitle: İnsan Kaynaklarının Dijital Dönüşümü Zirvesi
+metaTitle: 'İK’nın Dijital Dönüşümü Zirvesi | Bursa'
 modifiedDate: '2025-09-05T12:21:15'
 ---
 

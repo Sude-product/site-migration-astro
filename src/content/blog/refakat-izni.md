@@ -4,7 +4,7 @@ title: Refakat İzni Hakkı
 date: '2024-09-12T23:27:49'
 excerpt: Refakat izni, yakını hastalanan bir çalışanın yakınının bakımı ile ilgilenmek için kullandığı izin türü olarak tanımlanıyor. Çalışan her bireyin dönem dönem…
 featuredImage:
-  image: /img/blog-featured/refakat-izni/featured.jpg
+  image: /img/blog-featured/refakat-izni/featured.webp
   alt: Refakat İzni Hakkı
   width: 1515
   height: 998

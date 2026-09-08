@@ -64,7 +64,7 @@ Evlilik dolayısıyla istifa eden kadınlar [**kıdem tazminatı**](/blog/kidem-
 
 ## **Evlilik Sebebiyle İstifa Durumunda İhbar Süresi**
 
-Evlilik sebebiyle istifa eden kadın çalışanlar için **[ihbar](/blog/2025-ihbar-tazminati/)** süresi aranmaz. Yani, işverene belirli bir süre önceden bildirim yapma zorunluluğu bulunmaz. Ancak evlilik tazminatı alabilmek için istifanın evlilikten sonra bir yıl içinde gerçekleşmesi gerekir. İhbar süresi uygulanmasa da sebep ve tarih istifa dilekçesinde gerekçe açıkça belirtilmelidir. İşverenin kıdem tazminatını ödemesi için istifanın evlilik kaynaklı olduğu anlaşılmalıdır. Ayrıca evlilik cüzdanı örneği de başvuruya eklenmelidir. Özetle, evlilik sebebiyle istifada ihbar süresi geçerli değildir; fakat süreç dikkatle yürütülmelidir.
+Evlilik sebebiyle istifa eden kadın çalışanlar için **[ihbar](/blog/2026-ihbar-tazminati/)** süresi aranmaz. Yani, işverene belirli bir süre önceden bildirim yapma zorunluluğu bulunmaz. Ancak evlilik tazminatı alabilmek için istifanın evlilikten sonra bir yıl içinde gerçekleşmesi gerekir. İhbar süresi uygulanmasa da sebep ve tarih istifa dilekçesinde gerekçe açıkça belirtilmelidir. İşverenin kıdem tazminatını ödemesi için istifanın evlilik kaynaklı olduğu anlaşılmalıdır. Ayrıca evlilik cüzdanı örneği de başvuruya eklenmelidir. Özetle, evlilik sebebiyle istifada ihbar süresi geçerli değildir; fakat süreç dikkatle yürütülmelidir.
 
 ## **Evlilik Sebebiyle İstifa Durumunda İhbar Tazminatı**
 

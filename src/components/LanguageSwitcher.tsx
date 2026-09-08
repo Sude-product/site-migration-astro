@@ -87,19 +87,34 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
   useEffect(() => {
     if (currentLocale !== 'tr') return;
     const saved = readLangCookie();
-    if (saved && saved !== 'tr' && urls[saved]) {
-      window.location.href = urls[saved];
-    }
+    if (!saved || saved === 'tr') return;
+    const target = urls[saved];
+    if (!target) return;
+    // ⚠️ SONSUZ DÖNGÜ KORUMASI (2026-09-07): hedef URL zaten AÇIK OLAN sayfaysa
+    // gezinme YAPILMAMALI. `window.location.href = <aynı adres>` tam bir sayfa
+    // yeniden yüklemesi tetikler, ada hydrate olur, bu efekt yine çalışır ve
+    // döngü kapanmaz. Bu durum TR-only içerikte gerçek: blog (629 yazı + 53
+    // sayfalama) ve az kapsamı dışındaki hukuki/SSS sayfaları TÜM dilleri
+    // bilerek bare TR URL'ine yönlendiriyor (bkz. Açık nokta #62 ve blog
+    // sayfalarının `localeUrls` prop'u), yani `urls[saved] === mevcut yol`.
+    // Bu sayfalarda doğru davranış hiçbir şey yapmamak: kullanıcı zaten
+    // o içeriğin var olan tek sürümünde.
+    const here = window.location.pathname;
+    const same = (a: string, b: string) => a.replace(/\/+$/, '') === b.replace(/\/+$/, '');
+    if (same(target, here)) return;
+    window.location.href = target;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const go = (locale: string) => {
+  // Artık gerçek bir <a href> tıklaması — gezinmeyi TARAYICI yapıyor, biz
+  // yalnızca tercih çerezini yazıyoruz. Aktif dile tıklamak gezinme değil,
+  // yalnızca menüyü kapatma anlamına geliyor (eski davranış korundu).
+  const onPick = (e: React.MouseEvent<HTMLAnchorElement>, locale: string) => {
     writeLangCookie(locale);
     if (locale === currentLocale) {
+      e.preventDefault();
       setOpen(false);
-      return;
     }
-    window.location.href = urls[locale];
   };
 
   return (
@@ -107,7 +122,7 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        aria-haspopup="listbox"
+        aria-haspopup="true"
         aria-expanded={open}
         aria-label={`Dil seçici, aktif dil: ${current.long}`}
         className="flex items-center gap-1.5 rounded-md border border-gray-200 px-3 py-2 text-sm font-medium text-heading transition-colors hover:border-brand hover:text-brand"
@@ -126,20 +141,25 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
         </svg>
       </button>
 
-      {open && (
-        <ul
-          role="listbox"
-          aria-label="Diller"
-          className="absolute right-0 z-50 mt-1 w-40 overflow-hidden rounded-md border border-gray-100 bg-surface py-1 shadow-lg"
-        >
+      {/* ⚠️ Liste KOŞULSUZ render ediliyor (2026-09-07, denetim bulgusu SEO-19).
+          Önceki sürüm `{open && ...}` ile yalnızca menü açıkken basıyordu ve
+          öğeler <button>'dı — sonuç: sunucu HTML'inde locale'lere giden TEK bir
+          <a href> yoktu ve EN/NL/IT/AZ'ın 197 sayfasının tamamı ana sayfadan
+          link grafiğiyle ulaşılamıyordu (ölçüldü: 938 sayfanın 204'ü). Artık
+          linkler her zaman HTML'de; yalnızca GÖRÜNÜRLÜKLERİ sınıfla yönetiliyor. */}
+      <ul
+        aria-label="Diller"
+        className={`absolute right-0 z-50 mt-1 w-40 overflow-hidden rounded-md border border-gray-100 bg-surface py-1 shadow-lg ${open ? '' : 'hidden'}`}
+      >
           {locales.map((locale) => {
             const isActive = locale === currentLocale;
             return (
-              <li key={locale} role="option" aria-selected={isActive}>
-                <button
-                  type="button"
-                  onClick={() => go(locale)}
+              <li key={locale}>
+                <a
+                  href={urls[locale]}
+                  onClick={(e) => onPick(e, locale)}
                   lang={locale}
+                  aria-current={isActive ? 'true' : undefined}
                   className={`flex w-full items-center justify-between px-3 py-2 text-left text-sm transition-colors hover:bg-brand-light ${
                     isActive ? 'font-semibold text-brand' : 'text-body'
                   }`}
@@ -149,12 +169,11 @@ export default function LanguageSwitcher({ currentLocale, urls }: LanguageSwitch
                     <span>{LABELS[locale].long}</span>
                   </span>
                   <span className="text-muted">{LABELS[locale].short}</span>
-                </button>
+                </a>
               </li>
             );
           })}
-        </ul>
-      )}
+      </ul>
     </div>
   );
 }

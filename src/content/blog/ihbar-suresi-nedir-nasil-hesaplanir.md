@@ -4,7 +4,7 @@ title: İhbar Süresi Nedir? Nasıl Hesaplanır?
 date: '2026-06-29T10:11:32'
 excerpt: İş sözleşmesinin sona ermesi çoğu şirkette yalnızca çıkış tarihi ve teslim süreçleri üzerinden ele alınıyor. Oysa ihbar süresi, hem çalışan hem işveren…
 featuredImage:
-  image: /img/blog-featured/ihbar-suresi-nedir-nasil-hesaplanir/featured.png
+  image: /img/blog-featured/ihbar-suresi-nedir-nasil-hesaplanir/featured.webp
   alt: İhbar Süresi Nedir? Nasıl Hesaplanır?
   width: 1672
   height: 941

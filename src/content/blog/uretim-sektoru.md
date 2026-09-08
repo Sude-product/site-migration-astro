@@ -4,7 +4,7 @@ title: Üretim Sektörü ve İnsan Kaynakları
 date: '2022-06-07T11:00:15'
 excerpt: Üretim sektörü, insan kaynakları süreçlerinin titizlikle yürütülmesini gerektiren sektörler arasında ilk sıralarda yer alır. Büyümek ve rekabet avantajı elde…
 featuredImage:
-  image: /img/blog-featured/uretim-sektoru/featured.jpg
+  image: /img/blog-featured/uretim-sektoru/featured.webp
   alt: Üretim Sektörü ve İnsan Kaynakları
   width: 1515
   height: 999
