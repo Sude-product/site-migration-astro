@@ -1,0 +1,69 @@
+# PR'larda bloklayıcı doğrulama. `master`'a giden deploy akışı
+# (`deploy.yml`) SEO denetimlerini yalnızca raporluyor; gerçek gate
+# burada, insan gözünün önünde.
+#
+# Böylece bir sorun iki noktadan da kaçamıyor: PR'da yakalanıyor,
+# yakalanmazsa da canlıya çıkan sürümün log'unda uyarı olarak duruyor.
+name: PR doğrulama
+
+on:
+  pull_request:
+    branches: [master]
+
+concurrency:
+  group: pr-checks-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      # `deploy.yml`'deki AYNI gerekçe (Açık nokta #43) — PR build'i ile
+      # deploy build'i aynı çıktıyı üretsin diye burada da sabit.
+      TZ: Europe/Istanbul
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Bağımlılıkları kur
+        run: npm ci
+
+      - name: Tip denetimi
+        run: npx astro check
+
+      - name: Build
+        run: npm run build
+
+      - name: Regresyon script'leri (bloklayıcı)
+        run: |
+          set -o pipefail
+          failed=0
+          for s in check-json-ld check-link-accessibility check-image-alt-text \
+                   check-meta-description-length check-title-length \
+                   check-html-lang-attribute check-hreflang check-prerender; do
+            echo "::group::$s"
+            if ! DIST_DIR=dist/client node "scripts/$s.mjs"; then
+              echo "::error::$s başarısız"
+              failed=1
+            fi
+            echo "::endgroup::"
+          done
+          exit $failed
+
+      - name: check-heading-hierarchy (bilgi amaçlı)
+        continue-on-error: true
+        # Bu script BİLİNEN bir taban çizgisi yüzünden her zaman exit 1
+        # veriyor: ana sayfanın 5 dilinde hero H1'inden sonra widget'ın
+        # H3'üne atlanıyor, arada H2 yok (CLAUDE.md Açık nokta #36 —
+        # kapatılması ayrı bir tasarım kararı). Bloklayıcı listeye
+        # alınsaydı HER PR'ı kırardı. #36 kapandığında bu adım silinip
+        # script yukarıdaki bloklayıcı döngüye taşınmalı.
+        run: DIST_DIR=dist/client node scripts/check-heading-hierarchy.mjs
