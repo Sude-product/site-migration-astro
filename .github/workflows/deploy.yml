@@ -57,6 +57,13 @@ jobs:
       # getiriyor (Açık nokta #42).
       TZ: Europe/Istanbul
     steps:
+      # NOT (ilk koşuda görüldü, 2026-09-10): GitHub runner'ları
+      # `actions/checkout@v4` ve `actions/setup-node@v4`'ün hedeflediği
+      # Node 20'yi kullanımdan kaldırıyor ve şimdilik bunları zorla Node
+      # 24'te çalıştırıyor — akış BAŞARILI, yalnızca uyarı veriyor. Kalıcı
+      # çözüm bu iki action'ı bir üst majör sürüme almak; bu oturumda
+      # `actions/*` reposuna erişim olmadığı için sürüm numarası
+      # DOĞRULANAMADI, tahminle yazılmadı (yanlış tag her koşuyu kırardı).
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
