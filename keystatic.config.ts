@@ -112,7 +112,18 @@ export default config({
               directory: 'public/img/blog-featured',
               publicPath: '/img/blog-featured/',
             }),
-            alt: fields.text({ label: 'Alt Metin (görme engelliler ve SEO için)' }),
+            // `isRequired` (2026-09-09) — bu alan boş bırakıldığında
+            // `content.config.ts`'in zod şeması `featuredImage.alt`'ı ZORUNLU
+            // tuttuğu için `astro build` TAMAMEN çöküyor (yalnızca o yazı
+            // değil, TÜM site derlenemiyor). Canlı olarak yaşandı: panelden
+            // yayınlanan `ai-etigi-ik-ise-alim-onyargisi-onleme` alt metinsiz
+            // kaydedilmişti ve deploy öncesi build'i kırdı. Panelin kendisi
+            // artık boş kaydettirmiyor — hata, editörün düzeltebileceği yerde
+            // ve anında çıkıyor.
+            alt: fields.text({
+              label: 'Alt Metin (görme engelliler ve SEO için)',
+              validation: { isRequired: true },
+            }),
             width: fields.integer({ label: 'Genişlik (px, opsiyonel — genelde boş bırakılır)' }),
             height: fields.integer({ label: 'Yükseklik (px, opsiyonel — genelde boş bırakılır)' }),
           },

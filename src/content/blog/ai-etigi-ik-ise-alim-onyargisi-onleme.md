@@ -1,13 +1,14 @@
 ---
 slug: ai-etigi-ik-ise-alim-onyargisi-onleme
 title: 'İK''da Yapay Zekâ Etiği: İşe Alım Algoritmalarında Önyargıları Nasıl Önleriz?'
-metaTitle: 'İK''da Yapay Zekâ Etiği: İşe Alım Algoritmalarında Önyargıları Nasıl Önleriz?'
+metaTitle: 'İşe Alım Algoritmalarında Yapay Zekâ Etiği'
 date: 2026-09-08T23:50:00.000Z
 modifiedDate: 2026-09-08T23:51:00.000Z
-excerpt: İK'da Yapay Zekâ Etiği
+excerpt: İşe alım algoritmalarında önyargı geçmiş veriden, vekil değişkenlerden ve etiketleme tercihlerinden doğar. Bu üç kaynağı ve alınabilecek önlemleri inceliyoruz.
 featuredImage:
   image: >-
     /img/blog-featured/ai-etigi-ik-ise-alim-onyargisi-onleme/featuredImage/image.png
+  alt: Aday kartlarının listelendiği ekranın başındaki iki İK uzmanı, büyüteçle seçilen adaya bağlanmış yapay zekâ ve adalet terazisi simgeleri
 categories:
   - dijital-ik
 tags: []
