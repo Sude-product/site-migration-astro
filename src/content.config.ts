@@ -136,10 +136,18 @@ const blogSchema = z.object({
       // onleme`, 2026-09-08) — yani bir editörün boş bıraktığı alan tüm sitenin
       // deploy edilmesini engelliyor. Artık eksikse render tarafı yazının kendi
       // BAŞLIĞINA düşüyor (uydurma metin DEĞİL, sayfada zaten görünen içerik —
-      // `src/data/imageAlt.ts`'teki aynı ilke). Panelde alanın doldurulmasını
-      // `keystatic.config.ts` ayrıca `validation` ile zorluyor; bu satır o
-      // zorlamanın atlandığı durumlar için güvenlik ağı.
-      alt: z.string().optional(),
+      // `src/data/imageAlt.ts`'teki aynı ilke).
+      //
+      // `.nullish()` — yalnızca `.optional()` DEĞİL: açık `null` de kabul
+      // edilmeli, aksi halde elle/başka bir araçla yazılmış `alt: null` yine
+      // tüm build'i çökertirdi (tam da bu maddenin kapatmak istediği sınıf).
+      //
+      // Panelde alanı ZORUNLU yapma girişimi geri alındı: Keystatic'in
+      // doğrulaması kardeş alandan habersiz olduğu için görselsiz yazıların
+      // kaydedilmesini de engelliyordu (bkz. keystatic.config.ts). Zorlama
+      // yerine `scripts/check-blog-alt-text.mjs` kaynak seviyesinde
+      // raporluyor — görseli OLUP alt metni olmayan yazıları listeliyor.
+      alt: z.string().nullish(),
       width: z.number().optional(),
       height: z.number().optional(),
     })

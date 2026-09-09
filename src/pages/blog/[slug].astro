@@ -172,7 +172,7 @@ const jsonLd = {
           featuredImage?.image && (
             <img
               src={featuredImage.image}
-              alt={featuredImage.alt ?? title}
+              alt={featuredImage.alt?.trim() || title}
               width={featuredImage.width}
               height={featuredImage.height}
               loading="eager"
@@ -204,7 +204,7 @@ const jsonLd = {
                   <span class="block aspect-[4/3] w-full overflow-hidden rounded-md">
                     <img
                       src={related.data.featuredImage.image}
-                      alt={related.data.featuredImage.alt ?? related.data.title}
+                      alt={related.data.featuredImage.alt?.trim() || related.data.title}
                       width={related.data.featuredImage.width}
                       height={related.data.featuredImage.height}
                       loading="lazy"

@@ -40,10 +40,23 @@
 //   3) hemen altında Cookie-Script (parser'ı bloklayan, senkron bir
 //      `<script src>`) yüklenir ve ziyaretçinin seçimine göre `update`
 //      gönderir
-// (2) ile (3) arasındaki yarışı `wait_for_update: 500` kapatır: Google
-// etiketi, ateşlemeden önce consent güncellemesi için 500 ms bekler —
-// asenkron konteyner ağdan bu süreden önce dönse bile onaysız ölçüm
-// göndermez.
+// (2) ile (3) arasındaki yarışı `wait_for_update: 500` DARALTIR: Google
+// etiketi, ateşlemeden önce consent güncellemesi için 500 ms bekler.
+//
+// DÜRÜST SINIR (2026-09-10, bağımsız inceleme bulgusu — önceki yorum
+// burada "onaysız ölçüm göndermez" diyordu, bu ABARTILIYDI):
+//   - `wait_for_update` BEKLEMEYİ sınırlar, ATEŞLEMEYİ engellemez.
+//     Cookie-Script 500 ms'den geç gelirse (yavaş mobil ağ) veya hiç
+//     gelmezse (reklam engelleyici), GA4 "denied" durumunda ateşlenir:
+//     çerez YAZMAZ ama çerezsiz ping (`/g/collect`, `gcs=G100`) yine de
+//     Google'a gider. Bu, Google'ın "advanced consent mode" davranışı —
+//     kod tarafında kapatılamaz, ancak "basic" moda geçilerek (etiketi
+//     onay gelene kadar HİÇ yüklememek) kapatılırdı; o da Consent Mode'un
+//     modelleme faydasını tamamen kaybettirir. Bilinçli tercih.
+//   - Consent Mode YALNIZCA Google etiketlerini bağlar. Konteynere Meta/
+//     LinkedIn gibi Google dışı bir etiket eklenirse, GTM'de o etiket için
+//     "Require additional consent for tag to fire" ELLE ayarlanmazsa
+//     banner'dan BAĞIMSIZ ateşlenir. Kodda bunu zorlayan hiçbir şey yok.
 //
 // `<noscript>` IFRAME'İ BİLEREK EKLENMEDİ: GTM'in standart kurulum
 // metnindeki `<body>` iframe'i JavaScript kapalı tarayıcılar içindir ve
@@ -53,15 +66,25 @@
 // Yine de istenirse `public/_headers`'daki CSP'ye
 // `frame-src https://www.googletagmanager.com` eklenmeli.
 //
-// ⚠️ İKİ ELLE ADIM (kod tarafında karşılığı YOK, atlanırsa ölçüm
+// ⚠️ ELLE ADIMLAR (kod tarafında karşılığı YOK, atlanırsa ölçüm
 // sessizce çalışmaz — hata vermez):
 //   1) Cookie-Script panelinde Settings > Google Consent Mode >
 //      "Enable Google Consent Mode v2" AÇIK olmalı. Kapalıysa banner hiç
 //      `consent update` göndermez, konteyner kalıcı olarak "denied"da
 //      kalır.
 //   2) GTM panelinde konteynerin içinde yapılandırılmış bir GA4 etiketi
-//      olmalı ve etiketin "Consent Settings" bölümünde `analytics_storage`
-//      işaretli olmalı. Konteyner boşsa yüklenir ama hiçbir şey ölçmez.
+//      olmalı. Konteyner boşsa yüklenir ama hiçbir şey ölçmez.
+//   3) GTM'de HER etiketin "Consent Settings > Additional consent checks"
+//      bölümünde "Require additional consent for tag to fire" işaretli
+//      olmalı (GA4 → `analytics_storage`; Ads/Meta/LinkedIn →
+//      `ad_storage` + `ad_user_data` + `ad_personalization`).
+//      ⚠️ AYNI EKRANDAKİ salt-okunur "Built-in consent checks" listesi
+//      GA4 için zaten `analytics_storage` gösterir — bu ETİKETİN
+//      ATEŞLENMESİNİ ENGELLEMEZ, yalnızca çerez davranışını değiştirir.
+//      Yanlışlıkla "tamam" sanılan adım tam olarak budur.
+//   4) Deploy sonrası doğrula: Tag Assistant + tarayıcı Network sekmesi
+//      ile banner'da "Kabul"e basmadan ÖNCE hiç `/g/collect` isteği
+//      gitmediği görülmeli.
 const GTM_CONTAINER_ID = 'GTM-W5VTWD2';
 const enabled = import.meta.env.PROD;
 ---

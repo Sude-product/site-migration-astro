@@ -94,6 +94,13 @@ jobs:
             echo "::endgroup::"
           done
 
+      # `dist/` DEĞİL, doğrudan frontmatter taranıyor: alt metni eksik bir
+      # yazıda render yazının başlığına düştüğü için çıktıda `alt` her zaman
+      # dolu — `check-image-alt-text` bu sınıfı yakalayamıyor.
+      - name: Blog alt metni denetimi (raporlar, deploy'u durdurmaz)
+        continue-on-error: true
+        run: node scripts/check-blog-alt-text.mjs
+
       - name: Cloudflare'a deploy
         # `wrangler` package.json'da DOĞRUDAN bağımlılık değil —
         # `@astrojs/cloudflare` üzerinden geliyor ve package-lock'ta

@@ -65,6 +65,10 @@ jobs:
           done
           exit $failed
 
+      # `dist/` DEĞİL, doğrudan frontmatter taranıyor (bkz. script başı).
+      - name: Blog alt metni denetimi (bloklayıcı)
+        run: node scripts/check-blog-alt-text.mjs
+
       - name: check-heading-hierarchy (bilgi amaçlı)
         continue-on-error: true
         # Bu script BİLİNEN bir taban çizgisi yüzünden her zaman exit 1

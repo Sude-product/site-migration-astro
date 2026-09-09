@@ -96,7 +96,7 @@ const pageItems = getPaginationItems(currentPage, totalPages);
                   {post.data.featuredImage?.image && (
                     <img
                       src={post.data.featuredImage.image}
-                      alt={post.data.featuredImage.alt ?? post.data.title}
+                      alt={post.data.featuredImage.alt?.trim() || post.data.title}
                       loading="lazy"
                       class="aspect-[16/9] w-full shrink-0 object-cover transition-transform duration-700 ease-out group-hover:scale-110 sm:aspect-[4/3] sm:w-56"
                     />
