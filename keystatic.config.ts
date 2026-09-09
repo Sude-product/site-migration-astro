@@ -112,7 +112,15 @@ export default config({
               directory: 'public/img/blog-featured',
               publicPath: '/img/blog-featured/',
             }),
-            alt: fields.text({ label: 'Alt Metin (görme engelliler ve SEO için)' }),
+            // `validation` ZORUNLU: boş bırakılırsa Keystatic anahtarı
+            // frontmatter'a hiç yazmıyor ve içerik şeması eksik alt metinli
+            // yazıyı reddediyordu — tek bir yazı tüm `astro build`'i çökertti
+            // (2026-09-08). Artık panel kaydetmeden önce uyarıyor; şema tarafında
+            // da ayrıca güvenlik ağı var (bkz. src/content.config.ts).
+            alt: fields.text({
+              label: 'Alt Metin (görme engelliler ve SEO için)',
+              validation: { length: { min: 1 } },
+            }),
             width: fields.integer({ label: 'Genişlik (px, opsiyonel — genelde boş bırakılır)' }),
             height: fields.integer({ label: 'Yükseklik (px, opsiyonel — genelde boş bırakılır)' }),
           },

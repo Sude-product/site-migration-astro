@@ -1,13 +1,20 @@
 ---
 slug: ai-etigi-ik-ise-alim-onyargisi-onleme
 title: 'İK''da Yapay Zekâ Etiği: İşe Alım Algoritmalarında Önyargıları Nasıl Önleriz?'
-metaTitle: 'İK''da Yapay Zekâ Etiği: İşe Alım Algoritmalarında Önyargıları Nasıl Önleriz?'
+metaTitle: İşe Alım Algoritmalarında Yapay Zekâ Etiği
 date: 2026-09-08T23:50:00.000Z
 modifiedDate: 2026-09-08T23:51:00.000Z
-excerpt: İK'da Yapay Zekâ Etiği
+excerpt: >-
+  Yapay zekâ binlerce özgeçmişi saniyeler içinde tarıyor. Peki işe alım
+  algoritmaları geçmişin önyargılarını nasıl devralıyor ve bu risk nasıl
+  azaltılabilir?
 featuredImage:
   image: >-
     /img/blog-featured/ai-etigi-ik-ise-alim-onyargisi-onleme/featuredImage/image.png
+  alt: >-
+    Aday kartlarından oluşan bir işe alım ekranının iki yanında duran İK
+    çalışanları; büyüteç bir adayı öne çıkarıyor, adaya bağlı beyin ve terazi
+    simgeleri yapay zekâ ile etik değerlendirmeyi simgeliyor
 categories:
   - dijital-ik
 tags: []

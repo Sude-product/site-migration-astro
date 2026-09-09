@@ -129,7 +129,17 @@ const blogSchema = z.object({
   featuredImage: z
     .object({
       image: z.string().nullish(),
-      alt: z.string(),
+      // `alt` ZORUNLU DEĞİL (2026-09-09): Keystatic'in `fields.text()`'i boş
+      // bırakılırsa anahtarı frontmatter'a HİÇ yazmıyor. Zorunlu bırakıldığında
+      // panelden alt metni doldurulmadan yayınlanan TEK bir yazı `astro build`'i
+      // komple çökertiyor (canlı olarak yaşandı: `ai-etigi-ik-ise-alim-onyargisi-
+      // onleme`, 2026-09-08) — yani bir editörün boş bıraktığı alan tüm sitenin
+      // deploy edilmesini engelliyor. Artık eksikse render tarafı yazının kendi
+      // BAŞLIĞINA düşüyor (uydurma metin DEĞİL, sayfada zaten görünen içerik —
+      // `src/data/imageAlt.ts`'teki aynı ilke). Panelde alanın doldurulmasını
+      // `keystatic.config.ts` ayrıca `validation` ile zorluyor; bu satır o
+      // zorlamanın atlandığı durumlar için güvenlik ağı.
+      alt: z.string().optional(),
       width: z.number().optional(),
       height: z.number().optional(),
     })
