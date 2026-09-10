@@ -3805,15 +3805,29 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   canlıdaki worker'ın master'dan ayrışması bu turda gerçek bir risk olarak
   yaşandı (master 11 commit geriden geliyordu, o hâliyle build alınsa
   formlar/e-postalar sessizce kaybolurdu).
-- **Deploy YALNIZCA merge sonrası, `master`'dan yapılır (kullanıcı kararı,
-  2026-09-06).** Doğrulanmış bir dal build'inden deploy etmek — bu turda
-  birkaç kez yapıldığı gibi — canlıdaki worker'ı master'dan ayrıştırıyor.
-  Sıra: dalda geliştir → `astro check` + `astro build` + 9 regresyon
-  script'i → PR aç → **ekip merge eder** → `master`'a geç, oradan build alıp
-  `npx wrangler deploy`. Deploy sonrası `git rev-parse origin/master` ile
-  canlıya çıkan commit'in master'la aynı olduğu doğrulanır. Yalnızca
-  dokümantasyon değişen PR'lar (CLAUDE.md/docs) build'e girmediği için
-  deploy GEREKTİRMEZ.
+- **Deploy OTOMATİK, `master`'a her push'ta (2026-09-10'da kuruldu; önceki
+  elle `npx wrangler deploy` kuralının yerine geçti).**
+  `.github/workflows/deploy.yml`: `npm ci` → `astro check` → `astro build` →
+  `npx wrangler deploy`. Bir PR merge edildiğinde `master`'a düşen push
+  olayı bunu tetikliyor; Keystatic panelinden yayınlanan yazılar da
+  (`keystatic-cloud[bot]` doğrudan `master`'a commit atıyor) aynı yoldan
+  canlıya çıkıyor. **Elle deploy artık gerekmiyor** — gerekirse
+  GitHub Actions'tan `workflow_dispatch` ile elle tetiklenebilir.
+  - Deploy'u **yalnızca** `astro check` ve `astro build` durdurur. SEO/
+    erişilebilirlik script'leri `deploy.yml`'de rapor üretir ama
+    BLOKLAMAZ (panelden yayınlanan bir yazının başlığı 3 karakter uzun
+    diye tüm sitenin güncellenmemesi istenmiyor); bloklayıcı gate
+    PR'larda, `.github/workflows/pr-checks.yml`'de.
+  - Her iki akış da `TZ: Europe/Istanbul` ile çalışıyor — runner'lar UTC,
+    Açık nokta #43'teki naive tarihler build makinesinin saat dilimine
+    duyarlı, sabitlenmeseydi ~161 sayfanın "Son Güncelleme" damgası
+    sessizce 3 saat kayardı.
+  - **Dal build'inden deploy edilmez.** Doğrulanmış bir dal build'inden
+    elle deploy etmek canlıdaki worker'ı master'dan ayrıştırıyor (2026-09-06'da
+    gerçek bir risk olarak yaşandı, master 11 commit geriden geliyordu).
+  - Yalnızca dokümantasyon değişen PR'lar (CLAUDE.md/docs) çıktıyı
+    etkilemez ama yine de bir deploy tetikler — zararsız, no-op bir
+    yeniden yayınlama.
 
 ## Development
 Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:

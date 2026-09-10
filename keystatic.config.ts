@@ -112,6 +112,29 @@ export default config({
               directory: 'public/img/blog-featured',
               publicPath: '/img/blog-featured/',
             }),
+            // ALANI ZORUNLU YAPMA GİRİŞİMİ GERİ ALINDI (2026-09-10).
+            // İlk denemede `validation: { length: { min: 1 } }` eklenmişti —
+            // amaç, boş bırakılan alt metnin `astro build`'i çökertmesini
+            // (2026-09-08'de yaşandı) önlemekti. Ama Keystatic'in doğrulaması
+            // KARDEŞ ALANDAN HABERSİZ: `validateText` boş string'i koşulsuz
+            // reddediyor (`min === 1` dalı), yani GÖRSELİ HİÇ OLMAYAN bir
+            // yazıda da alt metin talep ediyor. `featuredImage: null` olan
+            // mevcut 2 yazı (`saatlik-calisanlarda-...`,
+            // `zirve-katilim-ix-...`) panelde AÇILIYOR ama artık
+            // KAYDEDİLEMİYOR — bir yazım hatasını düzeltmek için bile var
+            // olmayan bir görsele alt metin uydurmak gerekirdi; görselsiz her
+            // yeni yazı (duyuru/etkinlik) aynı duvara çarpardı.
+            //
+            // `fields.object` içinde koşullu zorunluluk yok; `fields.conditional`
+            // ise frontmatter'a `{discriminant,value}` sarmalayıcısı yazdığı için
+            // 2026-08-28'de zaten elenmişti. Bu yüzden zorlama panelde DEĞİL,
+            // iki başka katmanda:
+            //   1) `src/content.config.ts` — `alt` opsiyonel/nullable, eksikse
+            //      render yazının kendi BAŞLIĞINA düşüyor (build kırılmıyor,
+            //      boş `alt` da yayınlanmıyor).
+            //   2) `scripts/check-blog-alt-text.mjs` — görseli OLUP alt metni
+            //      olmayan yazıları kaynak seviyesinde listeliyor, CI'da
+            //      raporlanıyor.
             alt: fields.text({ label: 'Alt Metin (görme engelliler ve SEO için)' }),
             width: fields.integer({ label: 'Genişlik (px, opsiyonel — genelde boş bırakılır)' }),
             height: fields.integer({ label: 'Yükseklik (px, opsiyonel — genelde boş bırakılır)' }),
