@@ -15,6 +15,8 @@ featuredImage:
     Aday kartlarından oluşan bir işe alım ekranının iki yanında duran İK
     çalışanları; büyüteç bir adayı öne çıkarıyor, adaya bağlı beyin ve terazi
     simgeleri yapay zekâ ile etik değerlendirmeyi simgeliyor
+  width: 1621
+  height: 811
 categories:
   - dijital-ik
 tags: []
