@@ -424,7 +424,7 @@ export const tr: Translations = {
       imageAlt: 'idenfit kullanıcı dostu panel ekran görüntüsü',
     },
     suprema: {
-      title: 'Tüm Donanımlar ile Entegre PDKS Platformu',
+      title: 'Tüm donanımlar ile entegre PDKS platformu',
       text:
         'İdenfit, yüz tanıma ve parmak okuma cihazlarına entegre sistem sayesinde çalışanların kimlik doğrulaması gerçek zamanlı yapılabilir. Aynı zamanda giriş-çıkış ve mola süreleri takibi kolaylıkla yönetilebilir.',
     },
