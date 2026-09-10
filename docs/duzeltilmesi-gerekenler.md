@@ -109,19 +109,44 @@ uçtan uca test edilmeden canlıya çıkılmamalı; aksi halde lead e-postaları
 
 ---
 
-### 2.3 CI yok — Keystatic yayını canlıya yansımaz
+### 2.3 CI — GitHub Actions ile kuruldu (2026-09-10)
 
-Keystatic Cloud `master`'a commit atıyor, ama otomatik build/deploy zinciri **yok**. Bu
-kurulmadan pazarlama ekibi panelden yayın yapsa bile site güncellenmez — panel fiilen "kör".
+Keystatic Cloud `master`'a commit atıyor. Otomatik build/deploy zinciri olmadan pazarlama
+ekibi panelden yayın yapsa bile site güncellenmiyordu — panel fiilen "kör" çalışıyordu.
 
-- [ ] **Workers Builds** (Cloudflare'ın git-bağlantılı build'i) kur: repo `idenfit/idenfit.com`,
-      dal `master`, `npm ci && npm run build` → `npx wrangler deploy`, Node 22 pin
-- [ ] Preview/dal build'leri kapalı veya erişim korumalı olmalı — aksi halde her PR halka açık
-      bir kopya üretir
-- [ ] İlk CI deploy'undan sonra doğrula: `wrangler deploy` dashboard'daki route'ları silmiyor
+**Workers Builds YERİNE GitHub Actions seçildi.** İkisi de aynı işi yapar; Actions üç
+nedenle tercih edildi: (a) yapılandırma repoda görünür ve PR'da incelenebilir — bu projede
+yalnızca panelde yaşayan kuralların yarattığı sorun zaten belgeli (bkz.
+`docs/cloudflare-dashboard-rules.md`), ikinci bir görünmez katman eklemek istenmedi;
+(b) PR'larda ayrı ve daha sıkı bir doğrulama koşulabiliyor; (c) her dal için otomatik
+preview build'i üretmiyor, yani halka açık kopya riski baştan yok.
 
-> Build ortamı UTC. Açık nokta #42/#43'teki naive tarih riski burada görünür hale gelir —
-> cutover öncesi `TZ=UTC` ile ikinci bir build alıp `dist/client` diff'i alınmalı.
+**`.github/workflows/deploy.yml`** — `master`'a her push'ta (PR merge'leri ve Keystatic bot
+commit'leri dahil) `npm ci` → `astro check` → `astro build` → `npx wrangler deploy`.
+Deploy'u yalnızca tip hatası veya build hatası durduruyor; SEO/erişilebilirlik script'leri
+burada rapor üretiyor ama bloklamıyor — panelden yayınlanan bir yazının başlığı 3 karakter
+uzun diye tüm sitenin güncellenmesini durdurmak, kimsenin izlemediği bir log'da sessizce
+takılı kalmak olurdu.
+
+**`.github/workflows/pr-checks.yml`** — PR'larda aynı build + 8 regresyon script'i,
+bu kez **bloklayıcı**. `check-heading-hierarchy` bilinen taban çizgisi (Açık nokta #36)
+yüzünden her zaman exit 1 verdiği için bilgi amaçlı ayrı bir adımda; #36 kapandığında
+bloklayıcı listeye taşınmalı.
+
+**Saat dilimi bilinçli sabitlendi (`TZ: Europe/Istanbul`).** Runner'lar UTC; site bugüne
+kadar Türkiye'deki bir makineden elle deploy edildi. Sabitlenmeseydi ilk CI deploy'unda
+Açık nokta #43'teki naive tarihlerden beslenen ~161 sayfanın "Son Güncelleme" damgası
+sessizce 3 saat kayardı. Blog tarihleri bu riskin dışında (Açık nokta #42, şema `+03:00`
+ekliyor). #43 çözülürse bu satır kaldırılabilir.
+
+- [ ] Repo Settings > Secrets and variables > Actions altına `CLOUDFLARE_API_TOKEN` ve
+      `CLOUDFLARE_ACCOUNT_ID` gir. Token izinleri: Workers Scripts:Edit,
+      Workers KV Storage:Edit, Account Settings:Read.
+- [ ] İlk CI deploy'undan sonra doğrula: `wrangler deploy` dashboard'daki route'ları
+      silmiyor (`/tr/*`, `/sitemap_index.xml`, `/wp-*` — bkz.
+      `docs/cloudflare-dashboard-rules.md`).
+- [ ] İlk CI deploy'undan sonra doğrula: `git rev-parse origin/master` ile canlıya çıkan
+      commit aynı mı.
 
 ---
 

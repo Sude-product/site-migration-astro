@@ -28,7 +28,7 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
                   <span class="block h-10 w-10 shrink-0 overflow-hidden rounded">
                     <img
                       src={post.data.featuredImage.image}
-                      alt={post.data.featuredImage.alt}
+                      alt={post.data.featuredImage.alt?.trim() || post.data.title}
                       loading="lazy"
                       class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                     />
@@ -62,7 +62,7 @@ const upcomingEventPosts = getUpcomingEventPosts(allPosts);
                   <span class="block h-10 w-10 shrink-0 overflow-hidden rounded">
                     <img
                       src={post.data.featuredImage.image}
-                      alt={post.data.featuredImage.alt}
+                      alt={post.data.featuredImage.alt?.trim() || post.data.title}
                       loading="lazy"
                       class="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
                     />

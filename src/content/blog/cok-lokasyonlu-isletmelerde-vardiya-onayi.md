@@ -1,9 +1,12 @@
 ---
 slug: cok-lokasyonlu-isletmelerde-vardiya-onayi
 title: Çok Lokasyonlu İşletmelerde Vardiya Onayı ve Delege İş Akışları Nasıl Kurulur?
-metaTitle: Çok Lokasyonlu Vardiya Onayı Rehberi
+metaTitle: Çok Lokasyonlu İşletmelerde Vardiya Onayı
 date: 2026-09-08T17:00:00.000Z
-excerpt: Çok lokasyonlu işletmelerde vardiya onayı ve yetki yönetimi nasıl kurgulanmalı? Delege iş akışları, fazla mesai kontrolü ve merkezi vardiya yönetimi.
+excerpt: >-
+  Çok lokasyonlu işletmelerde vardiya onayı, rol ve yetki yönetimi nasıl
+  kurgulanmalı? Delege iş akışları, fazla mesai kontrolü ve merkezi vardiya
+  yönetimi.
 featuredImage:
   image: >-
     /img/blog-featured/cok-lokasyonlu-isletmelerde-vardiya-onayi/featuredImage/image.webp
