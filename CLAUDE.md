@@ -3584,7 +3584,13 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   göre beklenen locale'le eşleşiyor, redirect stub'larını ayrı/bilgi-amaçlı
   raporlar), `check-hreflang.mjs` (KALICI SEO aracı — kendi kendine
   referans + karşılıklılık + redirect/noindex hedef yok; `site` alanı
-  boşken 0 sayfa bulup bilgi amaçlı çıkar). **Not:** bu SEKİZ
+  boşken 0 sayfa bulup bilgi amaçlı çıkar).
+  **`check-blog-alt-text.mjs` (KALICI, 2026-09-10 — TEK İSTİSNA: `dist/`
+  DEĞİL doğrudan `src/content/blog/*.md` frontmatter'ını tarar).** Öne çıkan
+  görseli OLUP alt metni olmayan/boş yazıları listeler. Ayrı bir script
+  olmasının nedeni: alt metni eksikse render yazının BAŞLIĞINA düşüyor,
+  yani çıktıda `alt` her zaman dolu — `check-image-alt-text.mjs` bu sınıfı
+  ASLA yakalayamaz. **Not:** bu SEKİZ
   `check-*.mjs` script'i `readdir(dir, {recursive:true})` yerine ELLE
   recursive tarama kullanıyor — bu proje OneDrive-senkronize bir
   klasörde, `recursive:true` bazen (görünürde rastgele) çok daha az
@@ -3805,29 +3811,33 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   canlıdaki worker'ın master'dan ayrışması bu turda gerçek bir risk olarak
   yaşandı (master 11 commit geriden geliyordu, o hâliyle build alınsa
   formlar/e-postalar sessizce kaybolurdu).
-- **Deploy OTOMATİK, `master`'a her push'ta (2026-09-10'da kuruldu; önceki
-  elle `npx wrangler deploy` kuralının yerine geçti).**
-  `.github/workflows/deploy.yml`: `npm ci` → `astro check` → `astro build` →
-  `npx wrangler deploy`. Bir PR merge edildiğinde `master`'a düşen push
-  olayı bunu tetikliyor; Keystatic panelinden yayınlanan yazılar da
-  (`keystatic-cloud[bot]` doğrudan `master`'a commit atıyor) aynı yoldan
-  canlıya çıkıyor. **Elle deploy artık gerekmiyor** — gerekirse
-  GitHub Actions'tan `workflow_dispatch` ile elle tetiklenebilir.
-  - Deploy'u **yalnızca** `astro check` ve `astro build` durdurur. SEO/
-    erişilebilirlik script'leri `deploy.yml`'de rapor üretir ama
-    BLOKLAMAZ (panelden yayınlanan bir yazının başlığı 3 karakter uzun
-    diye tüm sitenin güncellenmemesi istenmiyor); bloklayıcı gate
-    PR'larda, `.github/workflows/pr-checks.yml`'de.
-  - Her iki akış da `TZ: Europe/Istanbul` ile çalışıyor — runner'lar UTC,
-    Açık nokta #43'teki naive tarihler build makinesinin saat dilimine
-    duyarlı, sabitlenmeseydi ~161 sayfanın "Son Güncelleme" damgası
-    sessizce 3 saat kayardı.
-  - **Dal build'inden deploy edilmez.** Doğrulanmış bir dal build'inden
-    elle deploy etmek canlıdaki worker'ı master'dan ayrıştırıyor (2026-09-06'da
+- **Deploy OTOMATİK, `master`'a her push'ta — Cloudflare Workers Builds
+  (kullanıcı kararı, 2026-09-10; önceki elle `npx wrangler deploy` kuralının
+  yerine geçti).** Build komutu `npm run build:ci` (= `astro check && astro
+  build`), deploy komutu `npx wrangler deploy`. Bir PR merge edildiğinde
+  `master`'a düşen push bunu tetikliyor; Keystatic panelinden yayınlanan
+  yazılar da (`keystatic-cloud[bot]` doğrudan `master`'a commit atıyor) aynı
+  yoldan canlıya çıkıyor. **Elle deploy artık gerekmiyor.**
+  - **Bağlantının kendisi Cloudflare panelinden elle kurulur** — API ile
+    yapılamıyor (`/accounts/{id}/builds/*` 401 veriyor, ayrıca repo bağlamak
+    Cloudflare GitHub uygulamasının tarayıcıdan onaylanmasını gerektiriyor).
+    Girilecek TÜM ayarlar + ilk build sonrası doğrulama listesi:
+    **`docs/cloudflare-workers-builds.md`**.
+  - **GitHub Actions DEĞİL.** 2026-09-10'da önce Actions ile kurulmuş ve
+    çalıştığı doğrulanmıştı; kullanıcı kararıyla tamamen kaldırıldı
+    (`.github/` silindi). Yeniden Actions eklenmemeli.
+  - **PR gate YOK.** Workers Builds yalnızca deploy eder. 9 `check-*.mjs`
+    regresyon script'i + `check-blog-alt-text.mjs` artık yalnızca ELLE
+    çalıştırılıyor — bir PR gate istenirse ayrı bir karar gerekir.
+  - **Saat dilimi ayarı GEREKMİYOR.** Açık nokta #43'ün "build makinesinin
+    saat dilimine göre kayma" riski ÖLÇÜLEREK ÇÜRÜTÜLDÜ: prerender host
+    Node'unda değil, adapter'ın prerender worker'ında (workerd, her zaman
+    UTC) çalışıyor — host TZ çıktıyı hiç etkilemiyor. Kanıt tablosu
+    `docs/cloudflare-workers-builds.md`'de.
+  - **Dal build'inden deploy edilmez.** Doğrulanmış bir dal build'inden elle
+    deploy etmek canlıdaki worker'ı master'dan ayrıştırıyor (2026-09-06'da
     gerçek bir risk olarak yaşandı, master 11 commit geriden geliyordu).
-  - Yalnızca dokümantasyon değişen PR'lar (CLAUDE.md/docs) çıktıyı
-    etkilemez ama yine de bir deploy tetikler — zararsız, no-op bir
-    yeniden yayınlama.
+    Panelde non-production (preview) branch build'leri de KAPALI olmalı.
 
 ## Development
 Dev server'ı arka planda başlat: `astro dev --background`. Yönetim:
