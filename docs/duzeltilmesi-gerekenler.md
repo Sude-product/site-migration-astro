@@ -109,45 +109,33 @@ uçtan uca test edilmeden canlıya çıkılmamalı; aksi halde lead e-postaları
 
 ---
 
-### 2.3 CI — GitHub Actions ile kuruldu (2026-09-10)
+### 2.3 CI — Cloudflare Workers Builds (2026-09-10)
 
 Keystatic Cloud `master`'a commit atıyor. Otomatik build/deploy zinciri olmadan pazarlama
 ekibi panelden yayın yapsa bile site güncellenmiyordu — panel fiilen "kör" çalışıyordu.
 
-**Workers Builds YERİNE GitHub Actions seçildi.** İkisi de aynı işi yapar; Actions üç
-nedenle tercih edildi: (a) yapılandırma repoda görünür ve PR'da incelenebilir — bu projede
-yalnızca panelde yaşayan kuralların yarattığı sorun zaten belgeli (bkz.
-`docs/cloudflare-dashboard-rules.md`), ikinci bir görünmez katman eklemek istenmedi;
-(b) PR'larda ayrı ve daha sıkı bir doğrulama koşulabiliyor; (c) her dal için otomatik
-preview build'i üretmiyor, yani halka açık kopya riski baştan yok.
+**Kullanıcı kararı: Workers Builds.** Aynı gün önce GitHub Actions ile kurulmuş, iki
+workflow yazılıp PR üzerinde gerçekten çalıştığı doğrulanmıştı; kullanıcı Workers Builds
+istediği için `.github/` tamamen kaldırıldı.
 
-**`.github/workflows/deploy.yml`** — `master`'a her push'ta (PR merge'leri ve Keystatic bot
-commit'leri dahil) `npm ci` → `astro check` → `astro build` → `npx wrangler deploy`.
-Deploy'u yalnızca tip hatası veya build hatası durduruyor; SEO/erişilebilirlik script'leri
-burada rapor üretiyor ama bloklamıyor — panelden yayınlanan bir yazının başlığı 3 karakter
-uzun diye tüm sitenin güncellenmesini durdurmak, kimsenin izlemediği bir log'da sessizce
-takılı kalmak olurdu.
+**Repo tarafı hazır:** `npm run build:ci` (= `astro check && astro build`) + `.nvmrc`.
+**Bağlantı panelden elle kurulur** — API ile yapılamıyor. Girilecek tüm ayarlar, saat
+dilimi ölçümü ve ilk build sonrası doğrulama listesi: **`docs/cloudflare-workers-builds.md`**.
 
-**`.github/workflows/pr-checks.yml`** — PR'larda aynı build + 8 regresyon script'i,
-bu kez **bloklayıcı**. `check-heading-hierarchy` bilinen taban çizgisi (Açık nokta #36)
-yüzünden her zaman exit 1 verdiği için bilgi amaçlı ayrı bir adımda; #36 kapandığında
-bloklayıcı listeye taşınmalı.
-
-**Saat dilimi bilinçli sabitlendi (`TZ: Europe/Istanbul`).** Runner'lar UTC; site bugüne
-kadar Türkiye'deki bir makineden elle deploy edildi. Sabitlenmeseydi ilk CI deploy'unda
-Açık nokta #43'teki naive tarihlerden beslenen ~161 sayfanın "Son Güncelleme" damgası
-sessizce 3 saat kayardı. Blog tarihleri bu riskin dışında (Açık nokta #42, şema `+03:00`
-ekliyor). #43 çözülürse bu satır kaldırılabilir.
-
-- [ ] Repo Settings > Secrets and variables > Actions altına `CLOUDFLARE_API_TOKEN` ve
-      `CLOUDFLARE_ACCOUNT_ID` gir. Token izinleri: Workers Scripts:Edit,
-      Workers KV Storage:Edit, Account Settings:Read.
+- [ ] Panelde repo bağlantısını kur (ayarlar yukarıdaki belgede).
+- [ ] Non-production (preview) branch build'lerini KAPAT — açık kalırsa her dal için
+      halka açık, taranabilir bir ikiz site üretir (§2.4 ile aynı gerekçe).
 - [ ] İlk CI deploy'undan sonra doğrula: `wrangler deploy` dashboard'daki route'ları
       silmiyor (`/tr/*`, `/sitemap_index.xml`, `/wp-*` — bkz.
       `docs/cloudflare-dashboard-rules.md`).
 - [ ] İlk CI deploy'undan sonra doğrula: `git rev-parse origin/master` ile canlıya çıkan
       commit aynı mı.
 
+> **Saat dilimi notu düzeltildi.** Buradaki eski not "build ortamı UTC, Açık nokta
+> #42/#43'teki naive tarih riski görünür hale gelir" diyordu. Ölçüm bunu çürüttü:
+> prerender host Node'unda değil, adapter'ın prerender worker'ında (workerd, her zaman
+> UTC) çalışıyor — host saat dilimi çıktıyı hiç etkilemiyor, build ortamında `TZ`
+> ayarlamanın da bir etkisi olmaz. Kanıt tablosu `docs/cloudflare-workers-builds.md`'de.
 ---
 
 ### 2.4 Test ortamının indekslenme koruması
