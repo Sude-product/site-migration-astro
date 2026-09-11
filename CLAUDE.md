@@ -3811,6 +3811,43 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   canlıdaki worker'ın master'dan ayrışması bu turda gerçek bir risk olarak
   yaşandı (master 11 commit geriden geliyordu, o hâliyle build alınsa
   formlar/e-postalar sessizce kaybolurdu).
+- **Analitik: GTM + doğrudan GA4, İKİSİ BİRDEN + Google Consent Mode v2
+  (kullanıcı kararı, 2026-09-11).** `src/components/Analytics.astro` hem
+  GTM konteynerini (`GTM-W5VTWD2`) hem GA4'ü (`G-ED2NJPGPD3`) yüklüyor.
+  İki kimlik de KODA GÖMÜLÜ (gizli değer değil, kaynak kodda zaten görünür;
+  gömülü olması build ortamında elle değişken tanımlama adımını ve o adım
+  unutulursa analitiğin sessizce çalışmaması riskini ortadan kaldırıyor).
+  Yalnızca `import.meta.env.PROD`'da yükleniyor, `astro dev` trafiği ölçüme
+  karışmıyor.
+  - **⚠️ ÇİFT SAYIM KOŞULU — kodla önlenemez, panelde korunmalı.** İkisinin
+    yan yana durması tek başına sorun DEĞİL. Sorun yalnızca GTM
+    konteynerinin İÇİNE de AYNI kimlikle (`G-ED2NJPGPD3`) bir "GA4
+    Configuration" etiketi konursa çıkar — o zaman her sayfa görüntüleme
+    iki kez sayılır. **GA4 yapılandırması kodda duruyor; GTM panelinde
+    aynı kimlikle ikinci bir GA4 config etiketi OLUŞTURULMAMALI.** GTM,
+    GA4 dışındaki etiketler (Ads dönüşüm, Meta, LinkedIn, özel event)
+    için kullanılmalı.
+  - **Kapsam:** bileşen `BaseLayout` VE `LandingLayout`'ın `<head>`'inde,
+    yani 941 gerçek sayfanın TAMAMI kapsanıyor — tek tek sayfalara ekleme
+    gerekmiyor (canlıda ana sayfa/fiyatlar/ürün/blog/EN/iletişim üzerinde
+    doğrulandı).
+  - **Yükleme sırası kritik:** `<meta charset>` → consent default (hepsi
+    `denied`) → `gtag.js` → GTM → Cookie-Script. Tek `consent default`
+    bloğu ikisini birden bağlıyor (aynı `dataLayer`/`gtag` kuyruğu).
+  - **Dürüst sınır:** `wait_for_update: 500` yarışı DARALTIR, kapatmaz.
+    Banner geç gelir veya bir reklam engelleyici durdurursa etiketler
+    "denied"da ateşlenir: çerez yazmaz ama çerezsiz ping gider (Google'ın
+    "advanced consent mode" davranışı). Ayrıca Consent Mode yalnızca
+    Google etiketlerini bağlar — GTM'e Meta/LinkedIn eklenirse o etikette
+    "Require additional consent for tag to fire" ELLE işaretlenmeli.
+  - **⚠️ Elle adım:** Cookie-Script panelinde Consent Mode v2 AÇIK olmalı.
+    Kapalıysa banner hiç `consent update` göndermez, ölçüm kalıcı olarak
+    "denied"da kalır ve sessizce hiç veri toplamaz.
+  - CSP (`public/_headers` + `src/middleware.ts`, İKİSİ BİREBİR AYNI
+    tutulmalı) `googletagmanager` (script) ve `google-analytics`/
+    `analytics.google.com` (img/connect) izinlerini zaten taşıyor. GTM'in
+    `<body>` noscript iframe'i bilerek eklenmedi (Consent Mode'a uyamaz);
+    istenirse CSP'ye `frame-src googletagmanager` gerekir.
 - **Deploy OTOMATİK, `master`'a her push'ta — Cloudflare Workers Builds
   (kullanıcı kararı, 2026-09-10; önceki elle `npx wrangler deploy` kuralının
   yerine geçti).** Build komutu `npm run build:ci` (= `astro check && astro

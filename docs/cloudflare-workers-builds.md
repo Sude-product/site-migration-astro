@@ -58,7 +58,7 @@ canonical/hreflang/sitemap üretir — taranabilir bir ikiz site riski
 
 ### Build variables neden gerekmiyor
 
-Sitede artık hiç `PUBLIC_*` build-time değişkeni yok — GTM konteyner kimliği
+Sitede artık hiç `PUBLIC_*` build-time değişkeni yok — GA4 ölçüm kimliği
 `src/components/Analytics.astro`'ya gömülü. Çalışma zamanı secret'ları
 (`SENDGRID_API_KEY` vb.) `wrangler secret`/panel tarafında ayrı yaşıyor,
 build ortamıyla ilgisi yok.

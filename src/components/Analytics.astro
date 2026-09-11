@@ -1,92 +1,99 @@
 ---
-// Google Tag Manager + Google Consent Mode v2 — 2026-09-07/09, Açık
-// nokta SEO-18 ("sitede hiç analitik yok" bulgusu).
+// Google Tag Manager + doğrudan Google Analytics 4 + Consent Mode v2.
+// 2026-09-11 — kullanıcı kararı: İKİSİ BİRDEN kurulacak.
 //
-// GTM, DOĞRUDAN GA4 DEĞİL (kullanıcı kararı, 2026-09-09): hangi
-// etiketlerin (GA4, Ads, Meta, LinkedIn…) çalışacağını pazarlama ekibi
-// GTM panelinden yönetir, bu kod bir daha DEĞİŞMEDEN. GA4 ölçüm kimliği
-// de artık buraya değil, GTM panelindeki "Google Analytics: GA4
-// Configuration" etiketine girilir. Doğrudan `gtag.js` yükleyen eski
-// yol kaldırıldı — aynı mülk hem GTM etiketinden hem buradan ölçülürse
-// her sayfa görüntüleme iki kez sayılırdı.
+// ⚠️ ÇİFT SAYIM KOŞULU — TEK GERÇEK RİSK, KODLA ÖNLENEMEZ:
+// Bu sayfa hem GTM konteynerini (`GTM-W5VTWD2`) hem doğrudan GA4'ü
+// (`G-ED2NJPGPD3`) yüklüyor. İkisinin yan yana durması TEK BAŞINA sorun
+// DEĞİL. Sorun yalnızca şu durumda çıkar: **GTM konteynerinin İÇİNE de
+// AYNI ölçüm kimliğiyle (`G-ED2NJPGPD3`) bir "GA4 Configuration"
+// etiketi konursa** — o zaman her sayfa görüntüleme İKİ KEZ sayılır
+// (biri buradaki `gtag('config')`'ten, biri GTM etiketinden).
+// KURAL: GA4 yapılandırması BURADA duruyor, GTM panelinde AYNI kimlikle
+// ikinci bir GA4 config etiketi OLUŞTURULMAMALI. GTM, GA4 dışındaki
+// etiketler (Google Ads dönüşüm, Meta pixel, LinkedIn, özel event'ler)
+// için kullanılmalı.
 //
-// KONTEYNER KİMLİĞİ KODA GÖMÜLÜ (kullanıcı kararı, 2026-09-09) — bir
-// ortam değişkeninden okunmuyor. Gizli bir değer değil: her ziyaretçinin
-// kaynak kodunda zaten görünüyor ve GTM'in güvenlik modeli de buna
-// dayanmıyor. Gömülü olması Cloudflare'ın build ortamında elle değişken
-// tanımlama adımını tamamen ortadan kaldırıyor — unutulursa analitiğin
-// sessizce hiç çalışmaması riski de ortadan kalkıyor.
+// KİMLİKLER KODA GÖMÜLÜ — ortam değişkeni kullanılmıyor. İkisi de gizli
+// değer değil: her ziyaretçinin kaynak kodunda zaten görünüyorlar ve
+// GTM/GA4'ün güvenlik modeli de buna dayanmıyor. Gömülü olmaları
+// Cloudflare'ın build ortamında elle değişken tanımlama adımını ve o
+// adım unutulursa analitiğin sessizce hiç çalışmaması riskini ortadan
+// kaldırıyor.
 //
-// `import.meta.env.PROD` KOŞULU: `astro dev` sırasında konteyner hiç
+// `import.meta.env.PROD` KOŞULU: `astro dev` sırasında hiçbiri
 // yüklenmez, yani yerel geliştirme trafiği gerçek ölçüme karışmaz.
-// `astro build`/`astro preview` çıktısında yüklenir — kurulumu canlıya
-// çıkmadan önce `astro preview` ile test etmek mümkün.
+// `astro build`/`astro preview` çıktısında yüklenir — kurulum canlıya
+// çıkmadan önce `astro preview` ile test edilebilir.
+//
+// KAPSAM: bu bileşen `BaseLayout.astro` VE `LandingLayout.astro`'nun
+// `<head>`'inde duruyor, yani sitedeki TÜM sayfalar (941 gerçek sayfa:
+// ana sayfa, ürün/sektör/hub, blog, hukuki, `/demo`, 404) kapsanıyor —
+// tek tek sayfalara ekleme YAPILMIYOR/GEREKMİYOR.
 //
 // NEDEN CONSENT MODE: site KVKK kapsamında çalışıyor ve zaten bir çerez
-// onay banner'ı (Cookie-Script) taşıyor. Consent Mode v2 olmadan eklenen
-// bir GTM, ziyaretçi onay vermeden ÖNCE ölçüm yapardı — hem hukuken
-// sorunlu hem de banner'ı anlamsız kılardı. Bu bileşen, ölçümü
-// varsayılan olarak KAPALI başlatır ve yalnızca Cookie-Script "granted"
-// güncellemesini gönderdiğinde açılmasına izin verir. **Pazarlama
-// ekibinin gönderdiği standart GTM snippet'i bu bloğu İÇERMEZ** — düz
-// haliyle yapıştırılsaydı onay banner'ını atlardı.
+// onay banner'ı (Cookie-Script) taşıyor. Consent Mode v2 olmadan
+// eklenen etiketler ziyaretçi onay vermeden ÖNCE çerez yazardı — hem
+// hukuken sorunlu hem de banner'ı anlamsız kılardı. Bu bileşen ölçümü
+// varsayılan olarak KAPALI başlatır; yalnızca Cookie-Script "granted"
+// güncellemesini gönderdiğinde açılır. Tek bir `consent default` bloğu
+// HEM GA4'ü HEM GTM'i bağlar (ikisi aynı `dataLayer`/`gtag` kuyruğunu
+// paylaşıyor — Google'ın kendi önerdiği birlikte-kullanım deseni).
 //
 // YÜKLEME SIRASI KRİTİK — bu bileşen `<meta charset>` ile Cookie-Script
-// etiketi ARASINA konur (bkz. BaseLayout/LandingLayout). Google'ın kendi
-// kuralı: `consent default` komutu HER Google tag'inden ve her `consent
-// update`'ten ÖNCE çalışmalı. Gerçek çalışma sırası şu:
+// etiketi ARASINA konur. Google'ın kendi kuralı: `consent default`
+// komutu HER Google tag'inden ve her `consent update`'ten ÖNCE
+// çalışmalı. Gerçek çalışma sırası:
 //   1) burada, senkron: consent = denied (güvenli taban)
-//   2) burada: GTM konteyneri ASENKRON olarak istenir
+//   2) burada: `gtag.js` ve GTM konteyneri ASENKRON istenir
 //   3) hemen altında Cookie-Script (parser'ı bloklayan, senkron bir
-//      `<script src>`) yüklenir ve ziyaretçinin seçimine göre `update`
-//      gönderir
-// (2) ile (3) arasındaki yarışı `wait_for_update: 500` DARALTIR: Google
-// etiketi, ateşlemeden önce consent güncellemesi için 500 ms bekler.
+//      `<script src>`) yüklenir ve seçime göre `update` gönderir
 //
-// DÜRÜST SINIR (2026-09-10, bağımsız inceleme bulgusu — önceki yorum
-// burada "onaysız ölçüm göndermez" diyordu, bu ABARTILIYDI):
-//   - `wait_for_update` BEKLEMEYİ sınırlar, ATEŞLEMEYİ engellemez.
-//     Cookie-Script 500 ms'den geç gelirse (yavaş mobil ağ) veya hiç
-//     gelmezse (reklam engelleyici), GA4 "denied" durumunda ateşlenir:
-//     çerez YAZMAZ ama çerezsiz ping (`/g/collect`, `gcs=G100`) yine de
-//     Google'a gider. Bu, Google'ın "advanced consent mode" davranışı —
-//     kod tarafında kapatılamaz, ancak "basic" moda geçilerek (etiketi
-//     onay gelene kadar HİÇ yüklememek) kapatılırdı; o da Consent Mode'un
-//     modelleme faydasını tamamen kaybettirir. Bilinçli tercih.
-//   - Consent Mode YALNIZCA Google etiketlerini bağlar. Konteynere Meta/
-//     LinkedIn gibi Google dışı bir etiket eklenirse, GTM'de o etiket için
-//     "Require additional consent for tag to fire" ELLE ayarlanmazsa
-//     banner'dan BAĞIMSIZ ateşlenir. Kodda bunu zorlayan hiçbir şey yok.
+// DÜRÜST SINIR: `wait_for_update: 500` (2) ile (3) arasındaki yarışı
+// DARALTIR, kapatmaz. Cookie-Script 500 ms'den geç gelirse (yavaş mobil
+// ağ) veya hiç gelmezse (reklam engelleyici), etiketler "denied"
+// durumunda ateşlenir: ÇEREZ YAZMAZ ama çerezsiz ping (`/g/collect`,
+// `gcs=G100`) yine de Google'a gider. Bu, Google'ın "advanced consent
+// mode" davranışı — kodla kapatılamaz. "Basic" moda geçmek (etiketi
+// onay gelene kadar HİÇ yüklememek) kapatırdı ama Consent Mode'un
+// modelleme faydasını tamamen kaybettirirdi. Bilinçli tercih.
 //
-// `<noscript>` IFRAME'İ BİLEREK EKLENMEDİ: GTM'in standart kurulum
-// metnindeki `<body>` iframe'i JavaScript kapalı tarayıcılar içindir ve
-// JavaScript çalışmadığı için Consent Mode'a UYAMAZ — onay verilmemiş
-// olsa bile ateşlenir, yani tam da yukarıdaki KVKK gerekçesini deler.
-// Karşılığında kazandırdığı ölçüm ~sıfır (GA4'ün kendisi JS gerektirir).
-// Yine de istenirse `public/_headers`'daki CSP'ye
+// Consent Mode YALNIZCA Google etiketlerini bağlar. GTM konteynerine
+// Meta/LinkedIn gibi Google DIŞI bir etiket eklenirse, o etiketin
+// "Consent Settings > Additional consent checks" bölümünde "Require
+// additional consent for tag to fire" ELLE ayarlanmazsa banner'dan
+// BAĞIMSIZ ateşlenir. Kodda bunu zorlayan hiçbir şey yok.
+// ⚠️ AYNI EKRANDAKİ salt-okunur "Built-in consent checks" listesi GA4
+// için zaten `analytics_storage` gösterir — bu, etiketin ATEŞLENMESİNİ
+// ENGELLEMEZ, yalnızca çerez davranışını değiştirir. Yanlışlıkla
+// "tamam" sanılan adım tam olarak budur.
+//
+// `anonymize_ip` BİLEREK YAZILMADI: Universal Analytics'in parametresi,
+// GA4'te YOK SAYILIYOR — GA4 IP adreslerini zaten varsayılan olarak
+// anonimleştiriyor. Yazmak, olmayan bir koruma varmış izlenimi verirdi.
+//
+// GTM'in `<body>` `<noscript>` IFRAME'İ BİLEREK EKLENMEDİ: JavaScript
+// kapalı tarayıcılar içindir ve JavaScript çalışmadığı için Consent
+// Mode'a UYAMAZ — onay verilmemiş olsa bile ateşlenir. Karşılığında
+// kazandırdığı ölçüm ~sıfır (GA4 zaten JS gerektiriyor). İstenirse
+// `public/_headers` + `src/middleware.ts` CSP'lerine
 // `frame-src https://www.googletagmanager.com` eklenmeli.
 //
-// ⚠️ ELLE ADIMLAR (kod tarafında karşılığı YOK, atlanırsa ölçüm
-// sessizce çalışmaz — hata vermez):
-//   1) Cookie-Script panelinde Settings > Google Consent Mode >
-//      "Enable Google Consent Mode v2" AÇIK olmalı. Kapalıysa banner hiç
-//      `consent update` göndermez, konteyner kalıcı olarak "denied"da
-//      kalır.
-//   2) GTM panelinde konteynerin içinde yapılandırılmış bir GA4 etiketi
-//      olmalı. Konteyner boşsa yüklenir ama hiçbir şey ölçmez.
-//   3) GTM'de HER etiketin "Consent Settings > Additional consent checks"
-//      bölümünde "Require additional consent for tag to fire" işaretli
-//      olmalı (GA4 → `analytics_storage`; Ads/Meta/LinkedIn →
-//      `ad_storage` + `ad_user_data` + `ad_personalization`).
-//      ⚠️ AYNI EKRANDAKİ salt-okunur "Built-in consent checks" listesi
-//      GA4 için zaten `analytics_storage` gösterir — bu ETİKETİN
-//      ATEŞLENMESİNİ ENGELLEMEZ, yalnızca çerez davranışını değiştirir.
-//      Yanlışlıkla "tamam" sanılan adım tam olarak budur.
-//   4) Deploy sonrası doğrula: Tag Assistant + tarayıcı Network sekmesi
-//      ile banner'da "Kabul"e basmadan ÖNCE hiç `/g/collect` isteği
-//      gitmediği görülmeli.
+// ⚠️ ELLE ADIM (kod tarafında karşılığı YOK, atlanırsa ölçüm sessizce
+// çalışmaz — hata vermez): Cookie-Script panelinde Settings > Google
+// Consent Mode > "Enable Google Consent Mode v2" AÇIK olmalı.
+//
+// DOĞRULAMA (deploy sonrası): tarayıcı Network sekmesinde banner'da
+// "Kabul"e basmadan ÖNCE `/g/collect` isteği ya hiç gitmemeli ya da
+// `gcs=G100` (denied) taşımalı; kabul ettikten SONRA `gcs=G111` olmalı.
+// GA4'ün "Realtime" raporunda tek bir ziyaretin İKİ kullanıcı/iki
+// sayfa görüntüleme olarak görünmesi, yukarıdaki ÇİFT SAYIM KOŞULUNUN
+// gerçekleştiğinin (GTM içinde de aynı kimlikle GA4 etiketi olduğunun)
+// işaretidir.
+const GA4_MEASUREMENT_ID = 'G-ED2NJPGPD3';
 const GTM_CONTAINER_ID = 'GTM-W5VTWD2';
 const enabled = import.meta.env.PROD;
+const gtagSrc = `https://www.googletagmanager.com/gtag/js?id=${GA4_MEASUREMENT_ID}`;
 ---
 
 {
@@ -108,6 +115,10 @@ const enabled = import.meta.env.PROD;
           wait_for_update: 500,
         });
         gtag('js', new Date());
+      </script>
+      <script async src={gtagSrc} is:inline />
+      <script is:inline define:vars={{ measurementId: GA4_MEASUREMENT_ID }}>
+        gtag('config', measurementId);
       </script>
       <script is:inline define:vars={{ gtmId: GTM_CONTAINER_ID }}>
         (function (w, d, s, i) {
