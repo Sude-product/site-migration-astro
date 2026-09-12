@@ -6,7 +6,7 @@ date: '2026-09-04T14:00:00'
 excerpt: Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe başlaması çoğu zaman hızlı gerçekleşir. Bir çalışanın işe kabulü ile ilk vardiyası…
 featuredImage: null
 categories:
-  - guncel-bilgiler-tr
+  - guncel-bilgiler
 tags: []
 modifiedDate: '2026-08-31T08:13:45'
 authorName: Neslihan Gültekin
