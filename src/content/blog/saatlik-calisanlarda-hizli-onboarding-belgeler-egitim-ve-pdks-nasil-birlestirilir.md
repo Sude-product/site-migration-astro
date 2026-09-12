@@ -5,7 +5,7 @@ title: >-
   Saatlik Çalışanlarda Hızlı Onboarding: Belgeler, Eğitim ve PDKS Nasıl
   Birleştirilir?
 metaTitle: Saatlik Çalışanlarda Onboarding ve PDKS
-date: 2026-09-04T14:01:00.000Z
+date: 2026-09-04T14:00:00.000Z
 modifiedDate: 2026-09-12T18:14:00.000Z
 excerpt: >-
   Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe
