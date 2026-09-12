@@ -1,17 +1,26 @@
 ---
-slug: saatlik-calisanlarda-hizli-onboarding-belgeler-egitim-ve-pdks-nasil-birlestirilir
-title: 'Saatlik Çalışanlarda Hızlı Onboarding: Belgeler, Eğitim ve PDKS Nasıl Birleştirilir?'
-metaTitle: 'Saatlik Çalışanlarda Onboarding ve PDKS'
-date: '2026-09-04T14:00:00'
-excerpt: Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe başlaması çoğu zaman hızlı gerçekleşir. Bir çalışanın işe kabulü ile ilk vardiyası…
-featuredImage: null
+slug: >-
+  saatlik-calisanlarda-hizli-onboarding-belgeler-egitim-ve-pdks-nasil-birlestirilir
+title: >-
+  Saatlik Çalışanlarda Hızlı Onboarding: Belgeler, Eğitim ve PDKS Nasıl
+  Birleştirilir?
+metaTitle: Saatlik Çalışanlarda Onboarding ve PDKS
+date: 2026-09-04T14:01:00.000Z
+modifiedDate: 2026-09-12T18:14:00.000Z
+excerpt: >-
+  Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe
+  başlaması çoğu zaman hızlı gerçekleşir. Bir çalışanın işe kabulü ile ilk
+  vardiyası…
+featuredImage:
+  image: >-
+    /img/blog-featured/saatlik-calisanlarda-hizli-onboarding-belgeler-egitim-ve-pdks-nasil-birlestirilir/featuredImage/image.png
+  alt: >-
+    saatlik-calisanlarda-hizli-onboarding-belgeler-egitim-ve-pdks-nasil-birlestirilir
 categories:
   - guncel-bilgiler
 tags: []
-modifiedDate: '2026-08-31T08:13:45'
 authorName: Neslihan Gültekin
 ---
-
 Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe başlaması çoğu zaman hızlı gerçekleşir. Bir çalışanın işe kabulü ile ilk vardiyası arasında birkaç gün, bazen yalnızca birkaç saat olabilir. Bu nedenle çalışan onboarding süreci masa başı roller için tasarlanan uzun programlardan farklı kurgulanmalıdır.
 
 Hızlı onboarding, kontrol adımlarını atlamak anlamına gelmez. Amaç belge, eğitim, görev bilgisi ve PDKS erişimini önceden standartlaştırarak yeni çalışanın ilk vardiyada ne yapacağını bilmesini sağlamaktır. Süreç ne kadar tekrarlanabilir olursa yüksek çalışan devir hızında İK yükü o kadar azalır.
