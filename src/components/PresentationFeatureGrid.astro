@@ -25,8 +25,18 @@ const ICONS: LucideIcon[] = [UserCog, CalendarClock, Workflow, FileLock2, Target
 const WIDE = [true, false, false, true, true, false];
 ---
 
-<section class="relative bg-[#FAFAFA] py-16 lg:py-24">
-  {/* `PresentationTimeline.astro`'daki AYNI dağınık/karışık yıldız dokusu
+<section class="relative overflow-x-clip bg-[#FAFAFA] py-16 lg:py-24">
+  {/* `overflow-x-clip` (2026-09-13, kullanıcı bulgusu — sayfada yana
+      kaydırma/zoom'da görsel bozulma) — aşağıdaki `-right-10` yıldız section
+      genişliğinin 40px DIŞINA taşıyordu, sayfa genelinde yatay taşmayı
+      engelleyen bir mekanizma olmadığı için TÜM SAYFA yatayda kaydırılabilir
+      hale geliyordu (bu yıldızda `lg:` koşulu da YOK, mobil dahil HER
+      genişlikte etkiliydi — kullanıcının paylaştığı mobil ekran görüntüsünün
+      kök nedeni buydu). `PresentationTimeline.astro`'ya AYNI bulgu için
+      az önce eklenen `overflow-x-clip`'le TUTARLI aynı çözüm kullanıldı —
+      yalnızca X ekseni kısıtlandı, dikey taşma/kesilme davranışı (üstteki
+      yorumdaki "üstten kesilme" düzeltmesi) korunuyor, dokunulmadı.
+      `PresentationTimeline.astro`'daki AYNI dağınık/karışık yıldız dokusu
       ilkesi (2026-08-29) — bu bölümde zaten kartların köşelerinde dönen
       küçük yıldızlar var, o yüzden burada yalnızca 2 tane, daha soluk. */}
   <IdenfitStar className="pointer-events-none absolute -right-10 top-10 h-40 w-40 rotate-[15deg] text-brand opacity-[0.05] lg:h-56 lg:w-56" />
