@@ -1986,22 +1986,77 @@ hâlâ geçerli.)*
       azalan sayı her adımda kanıtlandı: 293/307 (başlangıç) → 285/304
       (pilot) → 235/133 (yol A tamamlandı) → 1/5 (yol B tamamlandı,
       yalnızca 404 kaldı) → **0/0 (404 de düzeltilince, TAMAMEN TEMİZ)**.
-46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
-    ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
-    `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi
-    ENGELLEMİYOR, yalnızca ihlalleri tarayıcı konsoluna logluyor.
-    Enforcing moda (`Content-Security-Policy`, `-Report-Only` olmadan)
-    geçmeden önce **3 koşul sağlanmalı:**
-    1. Site gerçekten canlıya alınmış olmalı — gerçek ziyaretçi trafiği
-       olmadan Report-Only'nin gözlem amacı yerine gelmiyor.
-    2. Otomatik CSP ihlal raporu toplama (`report-uri`, küçük bir
-       Cloudflare Pages Function) kurulmalı — şu an ihlaller yalnızca
-       elle, tarayıcı konsolundan görülebiliyor, otomatik/uzaktan izleme
-       yok.
-    3. En az 1-2 haftalık sessiz gözlem süresi geçmeli (hiç beklenmedik
-       ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
-       sıfırdan başlar.
-    Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
+46. **GÜNCELLENDİ (2026-09-14) — CSP altyapısı yeniden kuruldu, mod HÂLÂ
+    Report-Only; enforcing için go/no-go listesi `docs/csp-rollout.md`'de.**
+    Kullanıcının "enforcing yapmalı mıyız" sorusu üzerine yapılan inceleme,
+    #46'nın 2. koşulunun (otomatik rapor toplama) hiç kurulmamış olduğunu
+    ve bu yüzden 3. koşulun (1-2 hafta gözlem) takvimde geçmiş ama
+    KANITTA hiç başlamamış olduğunu ortaya çıkardı — politikada
+    `report-uri`/`report-to` HİÇ YOKTU, ihlaller yalnızca tek tek
+    ziyaretçilerin DevTools Console'unda görünüyordu. (Canlıdaki
+    `report-to` başlığı Cloudflare'ın NEL'i, CSP'nin değil.)
+    **Bu turda yapılanlar:**
+    1. **Tek kaynak:** politika artık yalnızca `src/data/csp.ts`'te.
+       `public/_headers` bundan ÜRETİLİYOR
+       (`node scripts/check-csp-sync.mjs --fix`), `src/middleware.ts`
+       doğrudan import ediyor. Sapmayı YENİ kalıcı
+       `scripts/check-csp-sync.mjs` yakalıyor (exit 1) — önceki "iki
+       kopyayı elle birebir tut" disiplini bir kez gerçekten ayrışmıştı.
+       **Bu script `dist/` DEĞİL kaynak dosyaları okur, `astro build`
+       gerektirmez.**
+    2. **Rapor toplama:** `src/pages/api/csp-report.ts` (SSR, kimliksiz —
+       tarayıcı raporları doğrulanamaz, bu yüzden veri yalnızca insan
+       incelemesi için bir sinyal, otomatik karar buna dayanmıyor) +
+       politikada `report-uri` ve `report-to` + `Reporting-Endpoints`
+       başlığı + `wrangler.json`'da `observability`. Üç katmanlı gürültü
+       kontrolü (gövde boyutu / ihlal sınıfı tekilleştirme / isolate başına
+       log tavanı), `document-uri`'nin query string'i loglanmıyor (form
+       sayfaları e-posta taşıyabiliyor).
+    3. **Enforcing'e bugün geçilse kırılacak 4 boşluk** tarama+canlı
+       doğrulamayla bulunup kapatıldı: `frame-src`←`docs.google.com`
+       (bir blog yazısındaki çalışan Google Forms embed'i),
+       `img-src`←`lh3.googleusercontent.com` (bkz. TODO-1),
+       `connect-src`←`google.com/recaptcha/` (reCAPTCHA v3 canlı;
+       izinsizse token üretimi düşer ve `api/lead.ts` gönderimi reddeder
+       → 6 form birden çalışmaz), `frame-src`←`googletagmanager.com`
+       (GTM Preview / Tag Assistant).
+    4. **`script-src`'te `'unsafe-inline'` kaldırıldı**, yerine build
+       sonrası üretilen SHA256 hash listesi geldi
+       (`scripts/generate-csp-headers.mjs`, `npm run build` zincirinde;
+       12 benzersiz inline script). `application/ld+json` bilinçli
+       atlanıyor (JS olmayan tip → tarayıcı çalıştırmıyor → CSP inline
+       kontrolüne varmıyor) — **bu varsayım canlıda doğrulanmadı**, yanlışsa
+       Report-Only raporları anında gösterecek ve geri alınacak.
+       Generator `'unsafe-inline'`ı tam 1 kez bulamazsa dosyaya
+       DOKUNMUYOR (fail-safe); `public/_headers` kaynakta
+       `'unsafe-inline'` ile duruyor, yani generator hiç çalışmazsa site
+       bugünkü çalışan politikayla yayına gider.
+    **`style-src 'unsafe-inline'` KALICI** — React island'ları değeri
+    çalışma zamanında hesaplanan `style="..."` ÖZNİTELİKLERİ yazıyor;
+    hash'ler yalnızca `<style>` bloklarını kapsar, öznitelikler için
+    `'unsafe-hashes'` + her tekil değerin hash'i gerekir ki dinamik
+    değerlerde imkânsız. Bu yüzden enforcing klasik XSS korumasının
+    TAMAMINI vermeyecek — kazanç daha dar ama gerçek (dış `<script src>`
+    enjeksiyonu, `connect-src` ile sızdırma, `object-src`/`base-uri`/
+    `form-action`/`frame-ancestors`).
+    **YENİ 4. koşul — GTM.** #46 yazıldığında GTM canlı değildi. Artık
+    pazarlama koda dokunmadan herhangi bir host'tan etiket ekleyebiliyor;
+    enforcing altında hepsi SESSİZCE engellenir. Enforcing'den önce GTM
+    etiket envanteri alınmalı (bkz. `docs/csp-rollout.md` ADIM 4). Reklam
+    host'ları (`stats.g.doubleclick.net`, `google.com/ads/ga-audiences`,
+    Meta/LinkedIn) TAHMİNLE allowlist'e YAZILMADI — gerçekten
+    kullanılıyorlarsa raporlarda görünecekler.
+    **Gözlem penceresi bu değişiklik canlıya çıktığı gün BAŞLAR.** Geçiş
+    tek satır (`CSP_MODE = 'enforce'` + `--fix`), ama go/no-go listesi
+    geçilmeden yapılmamalı. **Geri dönüş anlık DEĞİL** — `_headers`
+    deploy'a bağlı ve yanıtlar Cloudflare'da cache'leniyor; geçiş düşük
+    trafikli bir saatte yapılmalı.
+    **TODO-1 (açık):** `surdurulebilir-kalkinma-kapsaminda-yesil-yonetim`
+    yazısındaki `lh3.googleusercontent.com` görseli yerelleştirilmeli —
+    bu turda İNDİRİLEMEDİ (geliştirme ortamının ağ politikası o host'a
+    çıkışı 403 ile reddediyor, dosyanın hâlâ 200 döndüğü bile
+    doğrulanamadı). Yerelleşince `img-src` izni KALDIRILMALI.
+
 47. **KAPANDI (2026-09-02) — 5 form dosyasının `console.log`'u kaldırıldı,
     gerçek `/api/lead` backend'ine bağlandı.** Ad/e-posta/telefon artık
     tarayıcı konsoluna yazılmıyor — SendGrid anahtarı gelene kadar hâlâ
@@ -3590,7 +3645,17 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   görseli OLUP alt metni olmayan/boş yazıları listeler. Ayrı bir script
   olmasının nedeni: alt metni eksikse render yazının BAŞLIĞINA düşüyor,
   yani çıktıda `alt` her zaman dolu — `check-image-alt-text.mjs` bu sınıfı
-  ASLA yakalayamaz. **Not:** bu SEKİZ
+  ASLA yakalayamaz.
+  **`check-csp-sync.mjs` (KALICI, 2026-09-14 — `dist/` DEĞİL kaynak okur).**
+  `public/_headers`'ın `src/data/csp.ts` ile ayrışmadığını doğrular; `--fix`
+  ile `_headers`'ı yeniden üretir. CSP iki yerden servis edilmek zorunda
+  (statik varlık katmanı + Worker middleware) ve bu iki kopya bir kez
+  gerçekten ayrışmıştı.
+  **`generate-csp-headers.mjs` (KALICI, 2026-09-14 — build SONRASI adım,
+  `npm run build` zincirinde).** `dist/client/_headers`'taki script-src
+  `'unsafe-inline'` iznini, sitede gerçekten bulunan inline script'lerin
+  SHA256 hash'leriyle değiştirir. Bir check script'i DEĞİL, üretici.
+  **Not:** bu SEKİZ
   `check-*.mjs` script'i `readdir(dir, {recursive:true})` yerine ELLE
   recursive tarama kullanıyor — bu proje OneDrive-senkronize bir
   klasörde, `recursive:true` bazen (görünürde rastgele) çok daha az
@@ -3850,8 +3915,9 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
     istenirse CSP'ye `frame-src googletagmanager` gerekir.
 - **Deploy OTOMATİK, `master`'a her push'ta — Cloudflare Workers Builds
   (kullanıcı kararı, 2026-09-10; önceki elle `npx wrangler deploy` kuralının
-  yerine geçti).** Build komutu `npm run build:ci` (= `astro check && astro
-  build`), deploy komutu `npx wrangler deploy`. Bir PR merge edildiğinde
+  yerine geçti).** Build komutu `npm run build:ci` (= `astro check && npm run build`, ve
+  `build` = `astro build && node scripts/generate-csp-headers.mjs` — CSP
+  inline-script hash'leri bu son adımda üretiliyor, bkz. Açık nokta #46), deploy komutu `npx wrangler deploy`. Bir PR merge edildiğinde
   `master`'a düşen push bunu tetikliyor; Keystatic panelinden yayınlanan
   yazılar da (`keystatic-cloud[bot]` doğrudan `master`'a commit atıyor) aynı
   yoldan canlıya çıkıyor. **Elle deploy artık gerekmiyor.**

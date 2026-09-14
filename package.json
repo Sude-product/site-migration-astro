@@ -8,12 +8,13 @@
   "scripts": {
     "dev": "astro dev",
     "predev": "node scripts/dev-clean-restart.mjs --cache-only",
-    "build": "astro build",
-    "build:ci": "astro check && astro build",
+    "build": "astro build && node scripts/generate-csp-headers.mjs",
+    "build:ci": "astro check && npm run build",
     "preview": "astro preview",
     "astro": "astro",
     "dev:clean": "node scripts/dev-clean-restart.mjs",
-    "audit": "node scripts/run-audit.mjs"
+    "audit": "node scripts/run-audit.mjs",
+    "check:csp": "node scripts/check-csp-sync.mjs"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^14.2.5",

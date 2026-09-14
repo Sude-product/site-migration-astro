@@ -1,39 +1,33 @@
 // Güvenlik başlıkları — `public/_headers`'ın SSR/dinamik karşılığı.
 //
 // `output:'server'` + Cloudflare Workers+Assets modelinde, `prerender=true`
-// taşıyan (sitenin neredeyse tamamı, 927+ sayfa) rotalar STATİK varlık
+// taşıyan (sitenin neredeyse tamamı, ~940 sayfa) rotalar STATİK varlık
 // katmanından servis ediliyor — bu istekler Worker'ın fetch handler'ına
 // (dolayısıyla bu middleware'e) HİÇ uğramıyor, yalnızca `public/_headers`
-// uygulanıyor. Ama Keystatic'in admin paneli (`/keystatic/*`) gerçekten
-// dinamik/SSR (bkz. CLAUDE.md "KEYSTATIC GEÇİŞİ" ADIM 1 — `output:'server'`
-// geçişinin asıl nedeni buydu) — `dist/client/`'da hiç HTML dosyası taşımıyor,
-// yalnızca `dist/server/`'da Worker kodu olarak var. Cloudflare'ın statik
-// `_headers` dosyası dinamik Worker yanıtlarına UYGULANMIYOR (canlı testle
-// doğrulandı: /keystatic/* `_headers`'taki kendi bloğuna rağmen hiç başlık
-// almıyordu) — bu yüzden aynı başlıklar burada, response nesnesine
-// programatik olarak ekleniyor.
+// uygulanıyor. Ama Keystatic'in admin paneli (`/keystatic/*`) ve `/api/*`
+// rotaları gerçekten dinamik/SSR — Cloudflare'ın statik `_headers` dosyası
+// dinamik Worker yanıtlarına UYGULANMIYOR (canlı testle doğrulandı:
+// /keystatic/* `_headers`'taki kendi bloğuna rağmen hiç başlık almıyordu) —
+// bu yüzden aynı başlıklar burada programatik olarak ekleniyor.
 //
-// **Kalıcı disiplin:** buradaki iki CSP string'i `public/_headers`'taki
-// karşılıklarıyla BİREBİR aynı tutulmalı — biri değişirse diğeri de
-// güncellenmeli (iki ayrı kaynak, otomatik senkron değil).
+// Politika metni artık burada DEĞİL, `src/data/csp.ts`'te (tek kaynak).
+// `public/_headers`'taki kopyayla eşitliği `scripts/check-csp-sync.mjs`
+// doğruluyor.
+//
+// **Inline script hash'leri bilerek burada YOK.** Build sonrası hash üreten
+// `scripts/generate-csp-headers.mjs` yalnızca `dist/client/_headers`'ı
+// (prerender edilmiş HTML'in politikası) işliyor; middleware'in kapsadığı
+// rotalar ya JSON döndürüyor (`/api/*`) ya da kendi ayrı politikasına sahip
+// (`/keystatic/*`), yani hash'lenecek bir inline script taşımıyorlar.
 import type { MiddlewareHandler } from 'astro';
+import {
+  KEYSTATIC_CSP,
+  PUBLIC_CSP,
+  REPORTING_ENDPOINTS_HEADER,
+  cspHeaderName,
+} from './data/csp';
 
-// Quicksand 2026-08-31'de self-host edildi (bkz. global.css'in @font-face
-// yorumu) — style-src/font-src'te fonts.googleapis.com/fonts.gstatic.com'a
-// artık gerek yok, font-src 'self' yeterli (Keystatic'in KENDİ font
-// yüklemesi ayrı, KEYSTATIC_CSP'ye dokunulmadı).
-//
-// img-src'ten https://idenfit.com KALDIRILDI (2026-09-02, Açık nokta #45
-// kapandıktan SONRA) — o izin yalnızca ~307 sayfanın eski WP sunucusundan
-// hotlink taşıdığı GEÇİCİ bir açık nokta istisnasıydı; şimdi TÜM görseller
-// `public/wp-content/...`e yerelleştirildiği için (bkz. CLAUDE.md Açık
-// nokta #45, `audit-remote-hotlinks.mjs` ile 0 kalan referans doğrulandı)
-// bu izin gereksiz — kaldırılması saldırı yüzeyini daraltıyor.
-const PUBLIC_CSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.youtube.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://*.google-analytics.com https://*.googletagmanager.com; frame-src https://www.youtube.com https://www.google.com/recaptcha/; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'";
-
-const KEYSTATIC_CSP =
-  "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com";
+const CSP_HEADER_NAME = cspHeaderName();
 
 export const onRequest: MiddlewareHandler = async (context, next) => {
   const response = await next();
@@ -43,7 +37,8 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
   response.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
-  response.headers.set('Content-Security-Policy-Report-Only', isKeystatic ? KEYSTATIC_CSP : PUBLIC_CSP);
+  response.headers.set('Reporting-Endpoints', REPORTING_ENDPOINTS_HEADER);
+  response.headers.set(CSP_HEADER_NAME, isKeystatic ? KEYSTATIC_CSP : PUBLIC_CSP);
 
   return response;
 };
