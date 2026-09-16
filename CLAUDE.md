@@ -3365,6 +3365,47 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
       kuruluysa etkisiz); (5) gövde boyutu sınırsız; (6) `pageUrl` ekip
       e-postasında HERHANGİ bir host'a tıklanabilir link oluyor. Bunların
       hiçbiri bu turda DÜZELTİLMEDİ.
+    - **SANITIZER (K4) — script çalıştırma yolu YOK, 4 sertleştirme UYGULANDI.**
+      Adversaryal tur 50+ payload'ı GERÇEK eklenti dizisinden geçirdi:
+      `<script>`, her yazım/kodlamada `on*`, `<svg onload>`, `xlink:href`,
+      `<math>`, `<template>`, `<noscript>`, `srcdoc`, `<base>`,
+      `<meta refresh>`, `formaction`, `<object>`/`<embed>`, raw-text mXSS,
+      `javascript:`'in 12 varyantı, `rehypeRestrictIframeSrc`'ye 40 host
+      varyantı (userinfo `@`, backslash, fullwidth IDNA, `%2F`, trailing dot)
+      — **hepsi elendi.** `safeJsonLd` 11 düşmanca girdide temiz.
+      **Ama 4 gerçek bulgu vardı, dördü de düzeltildi:**
+      1. **`style`/`class` tam-ekran kaplama primitifi.** Script yok ama bir
+         yazar `position:fixed;inset:0;z-index:...` ile header'ı (ve "Giriş
+         Yap" linkini) sahte içerikle örtebiliyor, görünmez tam-ekran `<a>`
+         ile her tıklamayı kaçırabiliyordu. Yalnızca `style`'ı kısıtlamak
+         işe yaramazdı: Tailwind sınıfları derlenmiş CSS'te var, yani
+         `class="fixed inset-0 z-50 bg-white"` aynı etkiyi veriyordu.
+         İkisine de DEĞER allowlist'i eklendi (`SAFE_STYLE`/`SAFE_CLASS`).
+      2. **`clobberPrefix: ''` — benim yanlış varsayımım.** "Mevcut `#...`
+         çapalarını kırar" diye DOM-clobbering korumasını kapatmıştım;
+         ÖLÇÜLDÜ: 633 yazıda ham `id=` **0**, ham `name=` **0**. Çapalar
+         markdown `](#...)` ve hedefleri `rehypeHeadingIds`'in ürettiği
+         id'ler — o eklenti sanitizer'dan SONRA çalışıyor. Koruma bedavaymış,
+         override kaldırıldı.
+      3. **`rel="opener"` + `target="_blank"`** ters tabnabbing'e izin
+         veriyordu (`rel` benim eklediğim bir öznitelikti) — değer
+         allowlist'ine alındı. Korpustaki tek değer `noreferrer noopener`.
+      4. **Sanitizer'ın iframe host listesi CSP `frame-src` ile AYNI
+         DEĞİLDİ** — koddaki yorumum "kasıtlı olarak aynı" diyordu ama
+         `www.youtube-nocookie.com` yalnızca sanitizer'da vardı; CSP
+         enforcing'e geçtiği gün o embed'ler sessizce kırılacaktı. Korpusta
+         hiç kullanılmadığı doğrulanıp (0/633) listeden çıkarıldı.
+      **Maliyet ölçüldü, sıfır:** sertleştirme öncesi/sonrası tam build
+      alınıp 686 blog sayfası diff'lendi — **686/686 byte-birebir aynı**.
+      `astro check` 0 hata, 10 regresyon script'i aynı bilinen 3 taban
+      çizgisi (#36 + #70), sıfır yeni sorun.
+      **Düzeltilmedi, bilinçli:** `accessKey`/`tabIndex`/`itemProp`/`name`/
+      `id` `defaultSchema`'dan (GitHub'ın kendi allowlist'i) geliyor —
+      ondan sapmak ayrı bir karar. `docs.google.com/viewer?url=` ile
+      saldırgan-kontrollü PDF gömme mümkün (CSP zaten o host'a izin
+      veriyor). Bir yazar `__ASTRO_IMAGE_="null"` metniyle BUILD'İ
+      kırabiliyor (Astro'nun kendi render-sonrası regex'i; sanitizer'ın
+      işi değil, deploy'u durdurur ama canlıyı bozmaz).
     - **Hero e-posta aktarımında (Y2) açık kalan:** handoff script'i modül
       script'i olarak belgenin SONUNDA çalışıyor; yavaş bağlantıda kullanıcı
       formu daha erken gönderirse eski `?email=` GET'ine düşüyor. Ayrıca

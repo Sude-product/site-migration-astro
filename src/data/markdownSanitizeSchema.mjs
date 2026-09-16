@@ -35,15 +35,56 @@
 // kırılabilir bir varsayım yapardı.
 import { defaultSchema } from 'rehype-sanitize';
 
+/**
+ * `style` DEĞER allowlist'i. Önceden `style` sınırsız serbestti; bu,
+ * script çalıştırmasa da gerçek bir yetenek veriyordu: bir yazar
+ * `position:fixed;inset:0;z-index:...` ile TÜM sayfayı kaplayıp header'ı
+ * (ve "Giriş Yap" linkini) sahte içerikle örtebilir, ya da görünmez bir
+ * tam-ekran `<a>` ile her tıklamayı kaçırabilirdi (clickjacking/kimlik avı).
+ *
+ * İzin verilen 4 özellik ölçülerek seçildi, tahminle değil:
+ *  • `width`/`height` — 633 yazının TAMAMINDA geçen TEK style kullanımı
+ *    (6 benzersiz değer, hepsi `width:NNNpx;height:NNNpx`);
+ *  • `background-color`/`color` — shiki'nin kod bloklarına yazdığı
+ *    `<pre style="background-color:#...;color:#...">` içindir. Bugün hiçbir
+ *    yazıda kod bloğu YOK (0/633) ama shiki bu hattan ÖNCE çalışıyor, yani
+ *    ileride eklenecek bir kod bloğu aksi halde stilsiz kalırdı.
+ * Konumlandırma/katman/dönüşüm (`position`/`inset`/`z-index`/`transform`/
+ * `opacity`/`pointer-events`) ve `url(...)` (`:` ve `/` karakter sınıfında
+ * YOK) bilinçli olarak dışarıda.
+ */
+const SAFE_STYLE = /^(?:\s*(?:width|height|background-color|color)\s*:\s*[#\w.,%\s-]+;?\s*)+$/i;
+
+/**
+ * `class` DEĞER allowlist'i. Gerekçe `style` ile AYNI — Tailwind sınıfları
+ * derlenmiş CSS'te mevcut olduğu için `class="fixed inset-0 z-50 bg-white"`
+ * da `style` ile birebir aynı kaplama etkisini veriyordu; yalnızca `style`'ı
+ * kısıtlamak hiçbir şey çözmezdi.
+ * Korpusta geçen TEK desen `wp-image-NNNN` / `alignnone wp-image-NNNN`
+ * (28 kullanım); geri kalanı shiki (`astro-code`/`github-*`/`line`) ve
+ * GFM görev listeleri için.
+ */
+const SAFE_CLASS = /^(?:wp-[\w-]+|align(?:none|left|right|center)|astro-code|github-(?:dark|light)|line|contains-task-list|task-list-item)$/;
+
+/** `rel` DEĞER allowlist'i — `rel="opener"` + `target="_blank"` saldırgan
+ * sayfaya `window.opener` verip sekmemizi başka bir adrese yönlendirmesine
+ * izin veriyordu (ters tabnabbing). Korpusta geçen tek değer
+ * `noreferrer noopener`. */
+const SAFE_REL = ['noopener', 'noreferrer', 'nofollow', 'sponsored', 'ugc', 'me'];
+
 /** Ortak sunum öznitelikleri — hiçbiri kod çalıştırmıyor. */
-const PRESENTATION_ATTRS = ['className', 'id', 'style', 'title', 'dir', 'lang'];
+const PRESENTATION_ATTRS = [['className', SAFE_CLASS], 'id', ['style', SAFE_STYLE], 'title', 'dir', 'lang'];
 
 export const blogSanitizeSchema = {
   ...defaultSchema,
-  // `defaultSchema` varsayılan olarak `id`/`name` değerlerinin başına
-  // `user-content-` ekler (DOM clobbering koruması). Bu, mevcut yazılardaki
-  // iç bağlantı çapalarını (`#...`) SESSİZCE kırardı — kapatıldı.
-  clobberPrefix: '',
+  // NOT: `clobberPrefix` BİLİNÇLİ olarak override EDİLMİYOR —
+  // `defaultSchema`'nın `user-content-` öneki (DOM clobbering koruması)
+  // AYNEN geçerli. Bir önceki turda "mevcut yazılardaki `#...` çapalarını
+  // kırar" gerekçesiyle kapatılmıştı; bu VARSAYIM ÖLÇÜLDÜ ve YANLIŞ çıktı:
+  // 633 yazının tamamında ham `id=` sayısı 0, ham `name=` sayısı 0. Sayfa
+  // içi çapalar markdown `](#...)` linkleri ve hedefleri Astro'nun
+  // `rehypeHeadingIds`'inin ürettiği id'ler — o eklenti bu sanitizer'dan
+  // SONRA çalışıyor, yani önek onlara hiç dokunmuyor. Koruma bedava.
   tagNames: [
     ...(defaultSchema.tagNames ?? []),
     'iframe',
@@ -66,7 +107,7 @@ export const blogSanitizeSchema = {
     a: [
       ...(defaultSchema.attributes?.a ?? []),
       'target',
-      'rel',
+      ['rel', ...SAFE_REL],
       'ariaLabel',
       // `contentLinkAccessibility.ts` render sırasında `aria-label` ekliyor;
       // hast özniteliği `ariaLabel` olarak adlandırılıyor, ham HTML'de
@@ -118,11 +159,13 @@ export const blogSanitizeSchema = {
  * Liste `PUBLIC_CSP`'nin `frame-src`'iyle KASITLI olarak aynı — biri
  * genişletilirse diğeri de gözden geçirilmeli.
  */
-const ALLOWED_IFRAME_HOSTS = new Set([
-  'www.youtube.com',
-  'www.youtube-nocookie.com',
-  'docs.google.com',
-]);
+// NOT: `www.youtube-nocookie.com` bir önceki turda buraya eklenmişti ama
+// `csp.ts`'in `frame-src`'inde YOK — yani "liste CSP ile birebir aynı"
+// yorumu gerçeği yansıtmıyordu ve CSP enforcing'e geçtiği gün bu host'tan
+// gelen embed'ler SESSİZCE kırılacaktı. Korpusta hiç kullanılmadığı
+// doğrulandı (0/633), bu yüzden listeden çıkarıldı — iki liste artık
+// gerçekten aynı. Nocookie embed'i istenirse İKİSİNE BİRDEN eklenmeli.
+const ALLOWED_IFRAME_HOSTS = new Set(['www.youtube.com', 'docs.google.com']);
 
 /** @returns {boolean} */
 function isAllowedIframeSrc(value) {
