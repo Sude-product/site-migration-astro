@@ -10,6 +10,7 @@
 // dili), yeni bir görsel dil İCAT EDİLMEDİ.
 import { getTranslations } from '../i18n';
 import { buildFaqJsonLd } from '../data/faqJsonLd';
+import { safeJsonLd } from '../data/jsonLd';
 import { getHomeFaqItems, getFaqLocaleUrls } from '../data/faqContent';
 import type { Locale } from '../data/nav';
 
@@ -30,7 +31,7 @@ const jsonLd = buildFaqJsonLd(items);
 {
   items.length > 0 && (
     <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
-      <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+      <script type="application/ld+json" set:html={safeJsonLd(jsonLd)} is:inline />
       <h2 class="reveal h2-section text-center text-heading">{t.footer.links.general.faq}</h2>
       <div class="reveal mt-8 flex flex-col gap-3">
         {items.map((item) => (

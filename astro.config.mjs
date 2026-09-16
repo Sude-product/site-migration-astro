@@ -11,6 +11,12 @@ import sitemap from '@astrojs/sitemap';
 
 import { readFileSync } from 'node:fs';
 
+// GÜVENLİK (K4) — blog gövdesindeki HAM HTML temizleniyor. Tam gerekçe
+// ve allowlist kararları `src/data/markdownSanitizeSchema.mjs`'te.
+import rehypeRaw from 'rehype-raw';
+import rehypeSanitize from 'rehype-sanitize';
+import { blogSanitizeSchema, rehypeRestrictIframeSrc } from './src/data/markdownSanitizeSchema.mjs';
+
 // Bir route'un build çıktısı Astro'nun i18n `fallback` redirect stub'ı mı?
 // (2026-09-04) `@astrojs/sitemap`'in `filter`'ı yalnızca URL string'i alıyor,
 // sayfanın `noindex` durumunu BİLMİYOR — bu yüzden ground truth olarak
@@ -191,7 +197,31 @@ export default defineConfig({
     }),
   ],
   markdown: {
-    processor: unified({ rehypePlugins: [rehypeDemoteBodyH1s, rehypeNormalizeHeadingLevels] }),
+    // SIRA KRİTİK (K4):
+    //  1-2. Mevcut başlık düzelticileri ÖNCE — bugünkü davranışları birebir
+    //       korunuyor (ham HTML henüz ayrıştırılmadığı için ham HTML'deki
+    //       başlıkları BUGÜN de görmüyorlar; sıra değişseydi çıktı değişirdi).
+    //  3.   `rehypeRaw` — Astro'nun KENDİ `rehypeRaw`'ı bu listeden SONRA
+    //       çalışıyor (bkz. @astrojs/markdown-remark/dist/index.js:77 vs :83),
+    //       yani burada ham HTML hâlâ ayrıştırılmamış `raw` düğümü. Kendi
+    //       `rehypeRaw`'ımızı çağırmazsak sanitizer ham HTML'i ELEMENT olarak
+    //       hiç GÖRMEZ — `raw` düğümlerini sessizce atıp meşru `<iframe>`/
+    //       `<cite>` işaretlemesini de silerdi.
+    //  4.   `rehypeSanitize` — artık gerçek element ağacı üzerinde çalışıyor.
+    // Astro'nun sonraki `rehypeRaw` geçişi, geriye `raw` düğümü kalmadığı
+    // için etkisiz bir tur (build çıktısı diff'iyle doğrulandı).
+    processor: unified({
+      rehypePlugins: [
+        rehypeDemoteBodyH1s,
+        rehypeNormalizeHeadingLevels,
+        rehypeRaw,
+        [rehypeSanitize, blogSanitizeSchema],
+        //  5. Sanitizer'ın protokol kontrolünün kapatamadığı protokole-göreli
+        //     (`//host/x`) iframe boşluğunu kapatan host allowlist'i —
+        //     gerekçe `markdownSanitizeSchema.mjs`'te.
+        rehypeRestrictIframeSrc,
+      ],
+    }),
   },
   vite: {
     plugins: [tailwindcss()],

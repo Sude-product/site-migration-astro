@@ -10,6 +10,7 @@ import {
 import type { Locale } from '../data/nav';
 import type { KvkkNoticeLabels } from '../i18n/types';
 import { submitLead } from '../data/formLead';
+import { takeHandoffEmail } from '../data/emailHandoff';
 
 interface FormData {
   email: string;
@@ -73,14 +74,13 @@ export default function PresentationRequestForm({
   const [submitError, setSubmitError] = useState(false);
 
   // Ana sayfanın tek-alanlı hero formu (`HeroEmailCaptureForm.astro`) e-postayı
-  // GET ile `?email=...` query string'inde bu sayfaya taşıyor — kullanıcı
-  // aynı e-postayı burada TEKRAR yazmasın diye otomatik dolduruluyor
-  // (`HeroForm.tsx`'in eski `prefillEmailFromQuery` prop'uyla AYNI ilke,
-  // 2026-08-29 yeniden tasarımda bu form eskisinin yerini alınca gözden
-  // kaçmıştı). `useEffect` ile yalnızca CLIENT'ta okunuyor (SSR'da `window`
-  // yok) — ilk boyama her zaman EMPTY, e-posta bir sonraki an dolduruluyor.
+  // bu sayfaya taşıyor — kullanıcı aynı e-postayı burada TEKRAR yazmasın diye
+  // otomatik dolduruluyor. GÜVENLİK (Y2): aktarım artık `?email=...` query
+  // string'iyle DEĞİL, `sessionStorage` üzerinden (bkz. `takeHandoffEmail()`).
+  // `useEffect` ile yalnızca CLIENT'ta okunuyor (SSR'da `window` yok) — ilk
+  // boyama her zaman EMPTY, e-posta bir sonraki an dolduruluyor.
   useEffect(() => {
-    const email = new URLSearchParams(window.location.search).get('email');
+    const email = takeHandoffEmail();
     if (email) setData((d) => ({ ...d, email }));
   }, []);
 

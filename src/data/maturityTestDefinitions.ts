@@ -200,7 +200,14 @@ export interface MaturityResult {
   groupScores: Record<string, number>;
 }
 
-function getLevel(score: number): MaturityLevel {
+/**
+ * Skordan seviyeyi çözer. **`export` — GÜVENLİK (K2):** `/api/lead`,
+ * istemcinin gönderdiği `levelTitle`/`levelSubtitle` METNİNE artık
+ * GÜVENMİYOR (o metin doğrudan PDF şablonuna ve iki e-postaya giriyordu);
+ * bunun yerine doğrulanmış `totalScore`'dan burayı çağırıp seviyeyi KENDİ
+ * hesaplıyor. Tek kaynak bu dosya — ikinci bir seviye tablosu tutulmuyor.
+ */
+export function getLevel(score: number): MaturityLevel {
   return MATURITY_LEVELS.find((l) => score >= l.min && score <= l.max) ?? MATURITY_LEVELS[0];
 }
 

@@ -3149,6 +3149,100 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     `BlogSidebar.astro`, `blog/[slug].astro`) ~13 okuma noktasını
     gerektirecek.
 
+69. **KAPANDI (2026-09-16) — yetkili pentest turunun 4 KOD bulgusu; kalan 3
+    madde YALNIZCA panelden yapılabiliyor, adımları `docs/guvenlik-duzeltmeleri-2026-09.md`'de.**
+    - **K3 — JSON-LD script kaçışı.** 8 `<script type="application/ld+json">`
+      sink'i ham `JSON.stringify()` basıyordu. `<script>` HTML'de ham metin
+      bağlamı: içerikteki ilk `</script` dizisi elementi KAPATIR, JSON söz
+      dizimine bakılmaz — yani bir blog başlığı/SSS sorusu/breadcrumb etiketi
+      script elementinden ÇIKIP çalışan script enjekte edebilirdi (`set:html`
+      bu bağlamda kaçışlama yapmaz). Yeni paylaşılan `src/data/jsonLd.ts`'in
+      `safeJsonLd()`'si `<`/`>`/`&`/U+2028/U+2029'u `\uXXXX`'e çeviriyor —
+      JSON DEĞERİ birebir aynı kalıyor (`JSON.parse` eşitliği testle
+      doğrulandı), yalnızca HTML ayrıştırıcısı tetiklenmiyor.
+    - **K4 — blog gövdesindeki ham HTML temizlenmiyordu.** Astro'nun markdown
+      hattı `remarkRehype({allowDangerousHtml:true})` → `rehypeRaw` →
+      `rehypeStringify({allowDangerousHtml:true})`; hiçbir katmanda sanitizer
+      YOKTU. Keystatic panelinden yazı yazan herkes siteye kalıcı XSS
+      koyabiliyordu — ve o script bizim origin'imizde çalıştığı için aynı
+      origin'in `localStorage`'ındaki Keystatic editör token'ını okuyup
+      `master`'a commit atabilir, Workers Builds da otomatik deploy ederdi
+      (blog yazısı → tam deploy erişimi). `astro.config.mjs`'in
+      `markdown.processor`'ına `rehypeRaw` + `rehypeSanitize` (allowlist:
+      `src/data/markdownSanitizeSchema.mjs`) + `rehypeRestrictIframeSrc`
+      eklendi. **SIRA KRİTİK:** Astro'nun KENDİ `rehypeRaw`'ı kullanıcı
+      eklentilerinden SONRA çalışıyor (`@astrojs/markdown-remark/dist/index.js`
+      :77 vs :83) — kendi `rehypeRaw`'ımızı çağırmasaydık sanitizer ham HTML'i
+      element olarak GÖRMEZ, `raw` düğümlerini atıp meşru `<iframe>`/`<cite>`
+      işaretlemesini de silerdi. Mevcut 2 başlık eklentisi listede ÖNDE
+      bırakıldı ki bugünkü çıktıları birebir korunsun.
+      **Ampirik doğrulama (tahmin DEĞİL):** sanitize ÖNCESİ/SONRASI tam build
+      alınıp 686 blog HTML'i `diff`lendi — **685'i byte-birebir aynı**, tek
+      fark bir Google Forms iframe'inin `marginheight`/`marginwidth`
+      öznitelikleri (HTML Living Standard'da olmayan, tarayıcıların yıllardır
+      yok saydığı HTML4 kalıntısı). `<script>`/`onerror`/`onload`/`javascript:`
+      payload'ları gerçek hatta test edilip elendiği, YouTube iframe'i/
+      `<cite>`/`<sup>`/yerel `<img>`/`aria-label` korunduğu doğrulandı.
+      **Bu turda ÇIKAN ve kapatılan ikinci bulgu:** `hast-util-sanitize`'ın
+      `protocols` kontrolü, ilk `:` bir `/`'tan sonraysa değeri "göreli"
+      sayıp geçiriyor — yani `protocols:{src:['https']}` ayarına RAĞMEN
+      protokole-göreli `//evil.example/x` elenmiyordu. `rehypeRestrictIframeSrc`
+      host allowlist'i (CSP `frame-src` ile KASITLI olarak aynı liste)
+      bunu kapatıyor. CSP hâlâ Report-Only olduğu için bu ikinci katman şart.
+    - **K2 — `/api/lead` istemci payload'ına fazla güveniyordu.**
+      `maturityResult.levelTitle`/`levelSubtitle` yalnızca "string mi" diye
+      kontrol edilip doğrudan PDF şablonuna (gerçek headless Chromium'da
+      render ediliyor) ve İKİ e-postaya geçiyordu. Artık istemcinin gönderdiği
+      değer HİÇ okunmuyor: doğrulanmış `totalScore`'dan `getLevel()`
+      (`maturityTestDefinitions.ts`, bu tur `export` edildi) ile sunucuda
+      hesaplanıp EZİLİYOR. Ayrıca: alan başına uzunluk tavanı
+      (`MAX_FIELD_LENGTH`), gerçek e-posta biçim doğrulaması
+      (`isValidEmail()` — SendGrid `to`/`replyTo`'suna CR/LF başlık
+      enjeksiyonunu da kesiyor), ve `formType in REQUIRED_STRING_FIELDS` →
+      `Object.hasOwn()` (`in` prototip zincirini de tarıyordu: `formType:
+      'toString'` kontrolü GEÇİP zorunlu alanların hiçbiri olmadan kabul
+      edilirdi).
+    - **Y2 — hero e-postası URL'de taşınıyordu.** Ana sayfanın tek-alanlı
+      formu `method="get"` olduğu için e-posta `?email=...` olarak adres
+      çubuğuna giriyordu; oradan `Referer` başlığıyla hedef sayfadaki HER
+      dış isteğe (GTM/GA4/YouTube/Cookie-Script), GA4'ün `page_location`
+      kaydına, tarayıcı geçmişine, paylaşılan linklere ve sunucu/CDN
+      loglarına sızıyordu — hiçbiri KVKK aydınlatma metninin kapsadığı bir
+      işleme değil. Yeni `src/data/emailHandoff.ts` + `src/scripts/
+      hero-email-handoff.js`: e-posta `sessionStorage`'a yazılıp query
+      string OLMADAN gezinme yapılıyor. **Dürüst sınır:** JS'siz veya
+      depolaması engelli tarayıcıda `preventDefault()` hiç çağrılmıyor, form
+      eski GET davranışına düşüyor ve `takeHandoffEmail()` query
+      parametresini fallback olarak okuyor — o dar senaryoda eski URL
+      davranışı geçerli (alternatif, özelliğin o tarayıcılarda tamamen
+      çalışmaması olurdu).
+    **Doğrulama (tümü):** `astro check` 0 hata (429 dosya), `astro build`
+    temiz, `generate-csp-headers.mjs` 400 şablon sayfası/12 hash + 2744 CMS
+    sayfası doğrulandı, `check-csp-sync` senkron, 10 regresyon script'inden
+    7'si sıfır sorun. Sıfır olmayan 3'ü de BU TURDAN BAĞIMSIZ:
+    `check-heading-hierarchy` bilinen 5 sayfalık taban çizgisi (Açık nokta
+    #36); `check-title-length`/`check-meta-description-length`'in TEK
+    ortak bulgusu `blog/vardiya-degisikligi-riskleri` (66 karakterlik
+    `<title>` — sonda çift boşluk var — + 226 karakterlik excerpt), bu
+    yazı `keystatic-cloud[bot]`'un `2bfcf6b` commit'iyle 2026-09-13'te
+    panelden yayınlandı ve sanitize ÖNCESİ referans build'de de BİREBİR
+    aynı — bkz. Açık nokta #70.
+70. **YENİ (2026-09-16), DÜŞÜK ÖNCELİK — panelden yayınlanan yazılar SEO
+    uzunluk kurallarını atlıyor.** `blog/vardiya-degisikligi-riskleri`
+    (`keystatic-cloud[bot]`, `2bfcf6b`) hem `<title>` (66 karakter, üstelik
+    sonda çift boşluk) hem meta description (226 karakter) sınırını aşıyor —
+    Açık nokta #28'in 2026-08-25'te sıfırladığı taban çizgisi böylece yeniden
+    kirlendi. **Yapısal nokta:** Keystatic panelinin `metaTitle`/`excerpt`
+    alanlarında uzunluk uyarısı YOK ve PR gate de olmadığı için (bkz.
+    §Deployment) hiçbir otomatik kontrol devreye girmiyor. İki olası çözüm,
+    ikisi de ayrı bir tur: (a) `keystatic.config.ts`'in ilgili alanlarına
+    `validation:{length:{max:...}}` eklemek (panelde anında görünür,
+    editörü kaynağında durdurur); (b) 10 `check-*.mjs` script'ini bir PR/
+    deploy gate'ine bağlamak — ama bu önce Açık nokta #50'deki
+    `check-heading-hierarchy` istisnasının çözülmesini gerektirir. Bu turda
+    içeriğe DOKUNULMADI (CMS bot'uyla çakışma riski + bu tur güvenlik
+    kapsamındaydı).
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

@@ -42,6 +42,9 @@ import { generateMaturityReportPdf, isValidScoreRecord } from './maturity-pdf';
 // E-posta SUNUMU (HTML + düz metin şablonu) ayrı bir dosyada — bu route
 // istek doğrulama/hız sınırı/SendGrid çağrısından sorumlu, biçimlendirmeden
 // değil. Bkz. `src/data/leadEmailTemplate.ts` dosya başı yorumu.
+// K2 — `levelTitle`/`levelSubtitle` ARTIK istemciden alınmıyor, doğrulanmış
+// `totalScore`'dan sunucuda hesaplanıyor. Bkz. `parseLeadPayload()`.
+import { getLevel } from '../../data/maturityTestDefinitions';
 import {
   renderLeadNotificationEmail,
   renderMaturityApplicantEmail,
@@ -100,15 +103,56 @@ function isNonEmptyString(value: unknown): value is string {
   return typeof value === 'string' && value.trim().length > 0;
 }
 
+// GÜVENLİK (K2) — alan başına uzunluk tavanı. Bu değerler e-posta
+// şablonuna (`leadEmailTemplate.ts`) ve `hrMaturityReport` akışında PDF
+// şablonuna giriyor; tavan olmadan tek bir istek megabaytlarca metin
+// gönderip hem SendGrid çağrısını hem headless Chromium render'ını
+// şişirebilirdi. Değerler gerçek form alanlarının makul üst sınırı —
+// meşru hiçbir gönderim bunlara yaklaşmıyor.
+const MAX_FIELD_LENGTH: Partial<Record<keyof LeadPayload, number>> = {
+  fullName: 120,
+  phone: 40,
+  company: 200,
+  email: 254, // RFC 5321 pratik üst sınırı
+  message: 5000,
+  locale: 8,
+  pageUrl: 2048,
+};
+
+/** Tek satırlık, tek `@` içeren, boşluksuz bir adres. Tam RFC 5322
+ * ayrıştırıcısı DEĞİL (o pratikte gereksiz) — amaç, SendGrid'e giden
+ * `to`/`replyTo` alanına başlık enjeksiyonu (CR/LF) veya çok uzun/biçimsiz
+ * bir değerin geçmesini engellemek. */
+function isValidEmail(value: string): boolean {
+  const v = value.trim();
+  if (v.length > 254) return false;
+  return /^[^\s@<>,;:"\\]+@[^\s@<>,;:"\\]+\.[^\s@<>,;:"\\]{2,}$/.test(v);
+}
+
 function parseLeadPayload(body: unknown): LeadPayload | null {
   if (!isRecord(body)) return null;
   const formType = body.formType;
-  if (typeof formType !== 'string' || !(formType in REQUIRED_STRING_FIELDS)) return null;
+  // `Object.hasOwn` — `in` DEĞİL: `in` prototip zincirini de tarar, yani
+  // `formType: 'toString'` gibi bir değer bu kontrolü GEÇERDİ (ardından
+  // `REQUIRED_STRING_FIELDS[formType]` bir fonksiyon döner, `for...of`
+  // hiç dönmez ve payload zorunlu alanların HİÇBİRİ olmadan kabul edilirdi).
+  if (typeof formType !== 'string' || !Object.hasOwn(REQUIRED_STRING_FIELDS, formType)) return null;
 
   const required = REQUIRED_STRING_FIELDS[formType as FormType];
   for (const field of required) {
     if (!isNonEmptyString(body[field as string])) return null;
   }
+
+  // GÜVENLİK (K2) — uzunluk tavanı GÖNDERİLEN her string alana uygulanır
+  // (yalnızca zorunlu olanlara değil: `message` çoğu formda opsiyonel ama
+  // e-posta gövdesine giriyor).
+  for (const [field, max] of Object.entries(MAX_FIELD_LENGTH)) {
+    const value = body[field];
+    if (value === undefined || value === null) continue;
+    if (typeof value !== 'string' || value.length > max) return null;
+  }
+
+  if (!isValidEmail(String(body.email ?? ''))) return null;
 
   if (formType === 'hrMaturityReport') {
     const result = body.maturityResult;
@@ -118,13 +162,22 @@ function parseLeadPayload(body: unknown): LeadPayload | null {
       !Number.isFinite(result.totalScore) ||
       result.totalScore < 0 ||
       result.totalScore > 100 ||
-      typeof result.levelTitle !== 'string' ||
-      typeof result.levelSubtitle !== 'string' ||
       !isValidScoreRecord(result.categoryScores) ||
       !isValidScoreRecord(result.groupScores)
     ) {
       return null;
     }
+
+    // GÜVENLİK (K2) — seviye METNİ artık istemciden ALINMIYOR. Önceden
+    // `levelTitle`/`levelSubtitle` yalnızca "string mi" diye kontrol edilip
+    // doğrudan PDF şablonuna (gerçek headless Chromium'da render ediliyor)
+    // ve iki e-postaya geçiriliyordu; saldırgan buraya istediği metni
+    // yazabiliyordu. Artık doğrulanmış `totalScore`'dan sunucuda
+    // hesaplanıyor — istemcinin ne gönderdiği HİÇ okunmuyor (aşağıdaki
+    // atama, gelen değeri ne olursa olsun EZER).
+    const level = getLevel(result.totalScore);
+    result.levelTitle = level.title;
+    result.levelSubtitle = level.subtitle;
   }
 
   return body as unknown as LeadPayload;

@@ -8,6 +8,7 @@ export const prerender = true;
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSidebar from '../../components/BlogSidebar.astro';
+import { safeJsonLd } from '../../data/jsonLd';
 import { estimateReadingMinutes, getAllBlogPosts, getRelatedPosts, formatBlogDate } from '../../data/blogContent';
 
 // "No visible content dates" GEO bulgusu (2026-08-17) — bkz. CLAUDE.md.
@@ -142,7 +143,7 @@ const jsonLd = {
   localeUrls={trOnlyLocaleUrls(`/blog/${post.data.slug}/`)}
   breadcrumb={[{ label: 'Blog', href: '/blog/' }, { label: title }]}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+  <script type="application/ld+json" set:html={safeJsonLd(jsonLd)} is:inline />
   <div class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="flex flex-col gap-12 lg:flex-row lg:items-start">
       <article class="min-w-0 max-w-3xl flex-1">

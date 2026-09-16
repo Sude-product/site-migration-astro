@@ -18,6 +18,7 @@
 // burada Tailwind utility'leriyle eşdeğeri kuruldu).
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildFaqJsonLd } from '../data/faqJsonLd';
+import { safeJsonLd } from '../data/jsonLd';
 import { getTranslations } from '../i18n';
 import { getFaqCategories, getFaqLocaleUrls, getFaqPdfUrl } from '../data/faqContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
@@ -71,7 +72,7 @@ const CATEGORY_ICONS = [
   hreflangLocales={['tr', 'en', 'it']}
   breadcrumb={[{ label: title }]}
 >
-  <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} is:inline />
+  <script type="application/ld+json" set:html={safeJsonLd(faqJsonLd)} is:inline />
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <div class="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
       <h1 class="text-3xl font-bold text-heading sm:text-4xl">{title}</h1>

@@ -7,6 +7,7 @@
 // ProductPage'e zorlanmadı, ayrı bir basit component.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildFaqJsonLd } from '../data/faqJsonLd';
+import { safeJsonLd } from '../data/jsonLd';
 import HubTileCard from './HubTileCard.astro';
 import { getTranslations } from '../i18n';
 import { buildIdenfitTitle, buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
@@ -131,7 +132,7 @@ const tileHeadingLevel = intro && intro.title ? 'h3' : 'h2';
   {
     faq.length > 0 && (
       <section class="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-20">
-        <script type="application/ld+json" set:html={JSON.stringify(faqJsonLd)} is:inline />
+        <script type="application/ld+json" set:html={safeJsonLd(faqJsonLd)} is:inline />
         <h2 class="h2-section text-heading">{t.mega.urunler.intro.faqLink}</h2>
         <div class="mt-6 divide-y divide-gray-100">
           {faq.map((item) => (
