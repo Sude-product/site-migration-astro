@@ -3243,6 +3243,57 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     içeriğe DOKUNULMADI (CMS bot'uyla çakışma riski + bu tur güvenlik
     kapsamındaydı).
 
+71. **YENİ (2026-09-16) — K1 (origin fallthrough) CANLI Cloudflare API'siyle
+    araştırıldı; ilk tarif YANLIŞTI, gerçek sorun DAHA CİDDİ ve HÂLÂ AÇIK.
+    Y1 (hız sınırı) API'den UYGULANDI.** Kullanıcı "bunları neden sen
+    yapamıyorsun" diye sorunca env'deki `CLOUDFLARE_API_TOKEN` denendi —
+    ilk `Invalid API Token` yanıtı değişkendeki bir boşluk/newline
+    yüzündenmiş, `tr -d '[:space:]'` ile trim edilince token ÇALIŞTI.
+    **Kalıcı not:** bu env değişkeni ham kullanılmamalı, her zaman trim'lenmeli.
+    - **K1 — ilk tarif yanlıştı.** "Route'u `idenfit.com/*` yap" demiştim;
+      o route ZATEN VAR (`782f68fb...` → `idenfit-com`). Gerçek sorun:
+      zone'da `script: null` taşıyan **5 route** (`/wp-includes/*`,
+      `/wp-login.php*`, `/wp-admin*`, `/wp-json/*`,
+      `/wp-content/plugins/*`) — Cloudflare'da daha SPESİFİK route
+      kazandığı için bu yollar Worker'a HİÇ uğramayıp doğrudan eski
+      origin'e (`92.204.25.71`, DNS'te hâlâ apex'in A kaydı) gidiyor.
+      **`curl` ile canlı doğrulandı: eski WordPress AYAKTA** —
+      `/wp-admin/` 302, `/wp-login.php` 404 ama 27.705 baytlık gerçek WP
+      HTML'i + `Link: <.../wp-json/>` başlığı, `/wp-json/wp/v2/users`
+      **401** (gerçek WP REST API), hepsinde `X-Powered-By: PHP/8.4.23`
+      ve **CSP başlığı YOK**. Yani production alan adının altında
+      denetlenmemiş bir WP yönetim yüzeyi duruyor.
+      **Silmek güvenli — ölçülerek gösterildi:** (a) `www.idenfit.com`'da
+      bu null-route'ların hiçbiri yok ve aynı yollar orada 301 dönüyor
+      (istenen son durum zaten bir hostname'de canlı), (b) `dist/client`'ta
+      `wp-json`/`wp-admin`/`wp-content/plugins` referansı 0, kaynakta tek
+      eşleşme `HrMaturityTest.tsx:683`'te bir YORUM, (c)
+      `/wp-content/uploads/*` listede DEĞİL (site görselleri etkilenmiyor).
+      **UYGULANAMADI:** `DELETE .../workers/routes/<id>` çağrısını bu
+      ortamın güvenlik sınıflandırıcısı "DNS / Domain / Cert Changes"
+      kategorisinde engelledi. 5 route ID'si + hazır curl komutu + panel
+      adımları `docs/guvenlik-duzeltmeleri-2026-09.md`'de.
+    - **Y1 — UYGULANDI.** `http_ratelimit` entrypoint ruleset'ine
+      (`88d72fe1...`) yeni kural `aac50a461a56472cb86b8f82c91b556f`
+      eklendi: `POST /api/lead`, IP başına 10 istek/60sn, block 60sn.
+      Mevcut `assign.idenfit.com` kuralına DOKUNULMADI (PUT değil, rules
+      endpoint'ine POST). **Doğrulanamadı, dürüst sınır:** 18 ardışık POST
+      429 vermedi — ama kural bozuk olduğu için değil: bu ortamın çıkış
+      IP'si her istekte havuzdan değişiyor (`160.79.106.128–137` ölçüldü),
+      kural IP başına saydığı için eşiğe ulaşılamıyor. İzole kontrol
+      deneyi (geçici `/robots.txt` 2/10sn kuralı) aynı nedenle tetiklenmedi,
+      hemen geri alındı ve canlı durum yeniden doğrulandı. Tek IP'li normal
+      bir makineden 12 POST ile doğrulanabilir. **İkinci sınır:** Free/Pro
+      planda `cf.colo.id` karakteristiği zorunlu → sayım colo başına,
+      global değil.
+    - **YAN BULGU (yeni, ayrı karar bekliyor):** `test.idenfit.com` DNS
+      kaydı proxy'siz (gri bulut) ve apex ile AYNI origin'e gidiyor —
+      `curl -I` `Server: Apache` + `PHP/8.4.23` döndürüyor ve `cf-ray`
+      başlığı YOK, yani istek Cloudflare'a hiç uğramıyor. Sonuç: apex'e
+      uygulanan CSP/WAF/hız sınırı bu hostname (veya doğrudan IP) üzerinden
+      TAMAMEN atlanabilir ve origin IP'si açığa çıkmış oluyor. Şu an `/`
+      500 dönüyor ama sunucu ayakta.
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

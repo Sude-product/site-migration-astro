@@ -6,11 +6,11 @@ kullanıcı tarafından tek tek onaylandı.
 
 | Bulgu | Seçilen çözüm | Nerede yapılır | Durum |
 |---|---|---|---|
-| **K1** — Worker route kapsamı | (b) Route `idenfit.com/*`, origin fallthrough kapalı | Cloudflare paneli | ⬜ ELLE |
+| **K1** — Worker route kapsamı | (b) Origin fallthrough kapatılsın | Cloudflare paneli | ⬜ ELLE — *tarif DÜZELTİLDİ, aşağı bkz.* |
 | **K2** — `/api/lead` payload güveni | (a) Seviye metni sunucuda hesaplansın + e-posta/uzunluk doğrulaması | Kod | ✅ |
 | **K3** — JSON-LD script kaçışı | (a) Paylaşılan `safeJsonLd()` | Kod | ✅ |
 | **K4** — Blog gövdesinde ham HTML | (a) `rehype-raw` + `rehype-sanitize` allowlist | Kod | ✅ |
-| **Y1** — `/api/lead` hız sınırı | (a) Cloudflare Rate Limiting Rule | Cloudflare paneli | ⬜ ELLE |
+| **Y1** — `/api/lead` hız sınırı | (a) Cloudflare Rate Limiting Rule | Cloudflare API | ✅ UYGULANDI |
 | **Y2** — E-posta URL'de taşınıyor | (a) `sessionStorage` ile aktarım | Kod | ✅ |
 | **Zincir** — Blog XSS → deploy | (A) GitHub ruleset + Keystatic yol kısıtı | GitHub paneli | ⬜ ELLE |
 
@@ -19,44 +19,110 @@ Kod tarafındaki 4 madde bu depoda; kalan 3'ü YALNIZCA panelden yapılabiliyor
 
 ---
 
-## K1-b — Worker route'unu `idenfit.com/*` yap, origin fallthrough'u kapat
+## K1-b — Origin fallthrough'u kapat  ⬜ HÂLÂ AÇIK
 
-**Sorun:** Worker yalnızca bir alt küme yolda çalışıyorsa, eşleşmeyen istekler
-eski origin'e düşer — CSP/`_headers`/middleware'in HİÇ uygulanmadığı,
-denetlenmemiş bir ikinci yüzey kalır.
+> **⚠️ İLK TARİF YANLIŞTI.** "Route'u `idenfit.com/*` yap" demiştim — o route
+> **ZATEN VAR** (`782f68fb...` → `idenfit-com`). Canlı Cloudflare API'si
+> okununca gerçek sorun çıktı ve DAHA CİDDİ: zone'da `script: null` taşıyan
+> **5 route** var. Cloudflare'da daha SPESİFİK route kazandığı için bu yollar
+> Worker'a HİÇ uğramıyor, doğrudan eski origin'e (`92.204.25.71`) gidiyor.
 
-1. Cloudflare Dashboard → **Workers & Pages** → ilgili Worker → **Settings** →
-   **Domains & Routes**.
-2. Route'un **tam olarak** `idenfit.com/*` (ve gerekiyorsa `www.idenfit.com/*`)
-   olduğunu doğrula. Daha dar bir desen (`idenfit.com/api/*` gibi) varsa
-   genişlet.
-3. Aynı ekranda route'un **"Fail open / Fail closed"** ayarını **Fail closed**
-   yap — Worker hata verirse istek origin'e DÜŞMESİN.
-4. **Doğrulama:** `curl -sI https://idenfit.com/ | grep -i content-security-policy`
-   — `Content-Security-Policy-Report-Only` başlığı DÖNMELİ. Aynısını bir blog
-   yazısı ve `/fiyatlar/` için tekrarla.
+**Canlı kanıt (2026-09-16, `curl`):** eski WordPress bu yollarda AYAKTA —
+
+| Yol | Yanıt | Kanıt |
+|---|---|---|
+| `/wp-admin/` | 302 | `X-Powered-By: PHP/8.4.23` |
+| `/wp-login.php` | 404 ama **27.705 bayt WP HTML** | `Link: <https://idenfit.com/wp-json/>` |
+| `/wp-json/wp/v2/users` | **401** | gerçek WP REST API |
+| `/wp-content/plugins/` | 200 | PHP |
+| `/wp-includes/` | 403 | — |
+
+Bu sayfaların HİÇBİRİNDE CSP başlığı yok (Astro sayfalarında var). Yani
+migrasyonu tamamlanmış production alan adının altında, denetlenmemiş,
+eski bir WordPress yönetim yüzeyi duruyor: wp-login brute-force, eklenti
+açıkları, `wp-json` üzerinden kullanıcı/içerik numaralandırması.
+
+**Silinecek 5 route (ID'ler canlıdan alındı):**
+
+```
+cbeb932cf5d34a0aa097c06f1fab5601   idenfit.com/wp-includes/*
+31cd33f6aecb4ccd9dbabaeb51fdf9d1   idenfit.com/wp-login.php*
+e55af70a584649ff8238d847ae67907e   idenfit.com/wp-admin*
+563d96d71638436dbaeb66816787c329   idenfit.com/wp-json/*
+bd68d513390c48a3b0c656c368aa25b5   idenfit.com/wp-content/plugins/*
+```
+
+**Neden silmek güvenli — varsayım değil, ölçüldü:**
+1. `www.idenfit.com` tarafında bu null-route'ların HİÇBİRİ yok ve aynı
+   yollar orada **301** dönüyor (Worker işliyor) — yani istenen son durum
+   zaten bir hostname'de canlı ve bir şeyi bozmuyor.
+2. Kendi kod tabanımız bu yollara bağımlı değil: `dist/client` içinde
+   `wp-json`/`wp-admin`/`wp-content/plugins` referansı **0**; kaynakta tek
+   eşleşme `HrMaturityTest.tsx:683`'te bir **yorum satırı**.
+3. `/wp-content/uploads/*` bu listede DEĞİL — site görselleri etkilenmiyor.
+4. Silme geri alınabilir: aynı pattern + `script: null` ile yeniden yaratılır.
+   Yedek: bu turda `routes-backup.json` alındı (geçici dizinde).
+
+**Panelden:** Workers & Pages → `idenfit-com` → Settings → Domains & Routes →
+yukarıdaki 5 route'u sil. (Ya da zone: Workers Routes listesinden.)
+
+**API ile (eşdeğeri):**
+```bash
+Z=f8a19f6da3e055f00bc3510a4b15f3e0
+for id in cbeb932cf5d34a0aa097c06f1fab5601 31cd33f6aecb4ccd9dbabaeb51fdf9d1 \
+          e55af70a584649ff8238d847ae67907e 563d96d71638436dbaeb66816787c329 \
+          bd68d513390c48a3b0c656c368aa25b5; do
+  curl -s -X DELETE "https://api.cloudflare.com/client/v4/zones/$Z/workers/routes/$id" \
+    -H "Authorization: Bearer $CLOUDFLARE_API_TOKEN"
+done
+```
+
+**Doğrulama:** `curl -sI https://idenfit.com/wp-json/wp/v2/users` →
+`X-Powered-By: PHP` KAYBOLMALI, yanıt bizim Worker'ımızın 404'ü olmalı.
+
+**Neden bu turda BEN yapamadım:** yetenek eksikliği değil — API token'ı
+çalışıyor ve route'ları okuyabildim. `DELETE .../workers/routes/...`
+çağrısını bu ortamın kendi güvenlik sınıflandırıcısı **"DNS / Domain /
+Cert Changes"** kategorisinde engelledi. İzin verilirse tek komutla
+uygulanabilir.
 
 ---
 
-## Y1-a — `POST /api/lead` için Cloudflare Rate Limiting Rule
+## Y1-a — `POST /api/lead` hız sınırı  ✅ UYGULANDI (2026-09-16)
 
-**Sorun:** Mevcut hız sınırı Worker **isolate'ının İÇİNDE** tutulan bir sayaç
-(bkz. `src/pages/api/lead.ts`) — aynı istemci farklı isolate'lara denk
-gelebildiği için dağıtık/garantili DEĞİL. Gerçek sınır edge'de olmalı.
+Cloudflare API ile oluşturuldu, panelden bir şey yapmaya gerek YOK.
 
-1. Cloudflare Dashboard → `idenfit.com` → **Security** → **WAF** →
-   **Rate limiting rules** → **Create rule**.
-2. **If incoming requests match:**
-   - Field `URI Path` — Operator `equals` — Value `/api/lead`
-   - `And` → Field `Request Method` — Operator `equals` — Value `POST`
-3. **Characteristics:** `IP` (ücretsiz planda tek seçenek).
-4. **Rate:** `10` istek / `1 minute` (Worker içindeki mevcut sınırla aynı —
-   meşru bir kullanıcı tek formu bir kez gönderir, 10 fazlasıyla yeterli).
-5. **Then take action:** `Block`, **Duration:** `1 minute`.
-6. **Doğrulama:** aynı IP'den art arda 12 POST at, 11.'den itibaren `429`
-   (veya kuralın döndürdüğü blok yanıtı) gelmeli.
+| Alan | Değer |
+|---|---|
+| Zone | `f8a19f6da3e055f00bc3510a4b15f3e0` (idenfit.com, **Pro** plan) |
+| Ruleset | `88d72fe1a02a43f9a752a548092de40e` (`http_ratelimit` entrypoint) |
+| Kural ID | `aac50a461a56472cb86b8f82c91b556f` |
+| İfade | `(http.request.method eq "POST" and http.request.uri.path eq "/api/lead")` |
+| Limit | 10 istek / 60 sn, karakteristik `ip.src` + `cf.colo.id` |
+| Aksiyon | `block`, 60 sn |
 
-> Worker içindeki sayaç KALDIRILMADI — ucuz bir ikinci katman olarak duruyor.
+Zone'da önceden var olan `assign.idenfit.com` kuralına DOKUNULMADI —
+yeni kural `POST` ile ruleset'e EKLENDİ (PUT ile tüm kural listesi
+değiştirilmedi).
+
+**İki dürüst sınır:**
+1. **Doğrulanamadı.** 18 ardışık POST atıldı, 429 GÖRÜLMEDİ — ama bu
+   kuralın bozuk olduğunu göstermiyor: bu geliştirme ortamının çıkış IP'si
+   her istekte bir havuzdan değişiyor (`160.79.106.128–137` ölçüldü), kural
+   ise IP başına saydığı için eşiğe hiç ulaşılamıyor. İzole bir kontrol
+   deneyi de (geçici `/robots.txt` 2/10sn kuralı) aynı nedenle tetiklenmedi
+   ve hemen geri alındı. **Tek IP'li normal bir makineden `for i in $(seq 1 12);
+   do curl -s -o /dev/null -w "%{http_code}\n" -X POST https://idenfit.com/api/lead \
+   -H 'Content-Type: application/json' --data '{}'; done` ile 1 dakika içinde
+   doğrulanabilir** — 11. istekten itibaren 429 beklenir.
+2. **Sayım colo başına.** Free/Pro planlarda `cf.colo.id` karakteristiği
+   zorunlu (mevcut `assign` kuralı da öyle) — yani sınır global değil, her
+   Cloudflare veri merkezi kendi sayacını tutar. Dağıtık bir saldırgan için
+   gerçek tavan 10 × (kullandığı colo sayısı). Yine de tek kaynaklı
+   kötüye kullanıma karşı gerçek bir katman.
+
+Worker içindeki mevcut sayaç (`src/pages/api/lead.ts`) KALDIRILMADI — ucuz
+bir ikinci katman olarak duruyor.
 
 ---
 
@@ -112,6 +178,28 @@ gibi ÇALIŞAN koda commit atamaması.
 4. **Doğrulama:** Keystatic panelinden bir yazı kaydet — başarılı olmalı.
    Ardından bot kimliğiyle `astro.config.mjs`'e bir değişiklik denenirse
    reddedilmeli.
+
+---
+
+## YENİ BULGU (2026-09-16) — origin IP korumasız ve doğrudan erişilebilir
+
+K1 araştırmasının yan ürünü. `test.idenfit.com` DNS kaydı **proxy'siz**
+(gri bulut) ve apex ile AYNI origin'e (`92.204.25.71`) gidiyor.
+`curl -I https://test.idenfit.com/` → `Server: Apache`, `X-Powered-By:
+PHP/8.4.23`, **`cf-ray` başlığı YOK** — yani istek Cloudflare'a hiç
+uğramıyor.
+
+**Sonuç:** apex'e uyguladığımız her Cloudflare katmanı (CSP, WAF, yukarıdaki
+hız sınırı, bot koruması) bu hostname üzerinden veya doğrudan IP'ye giderek
+TAMAMEN atlanabilir. Ayrıca origin IP'si böylece herkese açık — apex'e
+yapılacak bir DDoS/WAF korumasının anlamı kalmaz.
+
+Şu an `/` için 500 dönüyor (site orada tam çalışmıyor) ama PHP çalışıyor,
+sunucu ayakta. **Öneri (ayrı bir karar):** eski WP tamamen kapatılana kadar
+`test.idenfit.com` ya proxy'ye alınmalı (turuncu bulut) ya da kaldırılmalı;
+origin sunucusu yalnızca Cloudflare IP aralıklarından gelen isteği kabul
+edecek şekilde kısıtlanmalı. Aynı origin'e işaret eden başka kayıt olup
+olmadığı da taranmalı.
 
 ---
 
