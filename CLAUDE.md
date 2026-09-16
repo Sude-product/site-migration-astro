@@ -3246,10 +3246,14 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
 71. **YENİ (2026-09-16) — K1 (origin fallthrough) CANLI Cloudflare API'siyle
     araştırıldı; ilk tarif YANLIŞTI, gerçek sorun DAHA CİDDİ ve HÂLÂ AÇIK.
     Y1 (hız sınırı) API'den UYGULANDI.** Kullanıcı "bunları neden sen
-    yapamıyorsun" diye sorunca env'deki `CLOUDFLARE_API_TOKEN` denendi —
-    ilk `Invalid API Token` yanıtı değişkendeki bir boşluk/newline
-    yüzündenmiş, `tr -d '[:space:]'` ile trim edilince token ÇALIŞTI.
-    **Kalıcı not:** bu env değişkeni ham kullanılmamalı, her zaman trim'lenmeli.
+    yapamıyorsun" diye sorunca env'deki `CLOUDFLARE_API_TOKEN` denendi.
+    **DÜZELTME (Fable doğrulama turu, aynı gün) — ilk teşhisim YANLIŞTI.**
+    "Değişkende boşluk/newline var, trim edilince çalıştı" demiştim; ölçüldü:
+    token ham haliyle de trim sonrası da **53 bayt**, boşluk YOK. Gerçek neden
+    YANLIŞ ENDPOINT: bu bir HESAP-sahipli (`cfat_` önekli) token, `/user/tokens/verify`
+    ona her zaman `Invalid API Token` döner; doğru uç `/accounts/{id}/tokens/verify`
+    (denendi: ham token + doğru uç → `status: active`). `tr -d` bir şey düzeltmedi,
+    aynı anda endpoint de değiştiği için öyle sanılmış.
     - **K1 — ilk tarif yanlıştı.** "Route'u `idenfit.com/*` yap" demiştim;
       o route ZATEN VAR (`782f68fb...` → `idenfit-com`). Gerçek sorun:
       zone'da `script: null` taşıyan **5 route** (`/wp-includes/*`,
@@ -3293,6 +3297,81 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
       uygulanan CSP/WAF/hız sınırı bu hostname (veya doğrudan IP) üzerinden
       TAMAMEN atlanabilir ve origin IP'si açığa çıkmış oluyor. Şu an `/`
       500 dönüyor ama sunucu ayakta.
+
+72. **YENİ (2026-09-16) — #69/#71'in Fable ile bağımsız doğrulaması: 1 GÜVENLİK
+    OLAYI, 2 düzeltilmiş hatam, 1 kaçırdığım HIGH bulgu, + açık kalan liste.**
+    - **⚠️ GÜVENLİK OLAYI — Cloudflare API token'ı bir alt-ajanın transkriptinde
+      kısmen açığa çıktı.** Ajana "token DEĞERİNİ hiçbir yere yazdırma" talimatı
+      verilmişti; ajan token'ın bayt yapısını incelerken yetersiz maskeyle
+      `od -c` çalıştırıp ~50 karakterini transkripte düşürdü. Token ID
+      `f9deb06d62e5624b6f3ebd7b94da6875` (`cfat_` önekli, hesap-sahipli).
+      **ROTASYON GEREKİYOR.** Ders: bir secret'ı "yazdırma" talimatı yeterli
+      değil — alt-ajanlara secret'a erişim vermek yerine, gereken çağrıları
+      ana oturumda yapıp SONUÇLARI vermek gerekiyor.
+    - **DÜZELTİLDİ — kurduğum hız sınırı kuralı sondaki slash ile atlatılabiliyordu.**
+      `http.request.uri.path eq "/api/lead"` ifadesi `/api/lead/`'i KAÇIRIYOR;
+      `astro.config.mjs`'te `trailingSlash` tanımlı olmadığı için (varsayılan
+      `ignore`) Astro her iki yolu da işliyor — bağımsız olarak doğrulandı
+      (`POST /api/lead/` → 400, yani gerçekten işleniyor). İfade
+      `http.request.uri.path in {"/api/lead" "/api/lead/"}` yapıldı. **Method
+      koşulu da KALDIRILDI:** Cloudflare'ın kendi doküman tablosu `Method`
+      alanını Business ve üstü olarak listeliyor (zone Pro) — API kabul etmişti
+      ama kural sessizce etkisiz olabilirdi; `GET /api/lead` zaten 404 olduğu
+      için method koşulu gereksizdi. **Ayrıca:** Pro planda hız sınırı kotası
+      **2 kural** ve ikisi de artık dolu (`assign.idenfit.com` + bu) — üçüncü
+      bir kurala yer YOK.
+    - **DÜZELTİLDİ — #71'deki "www kanıtı" YANLIŞTI.** "www'de aynı yollar 301
+      dönüyor, demek ki Worker işliyor" demiştim; gerçekte o 301'ler
+      `http_request_dynamic_redirect` ruleset'indeki bir Redirect Rule'dan
+      geliyor ve Worker'dan ÖNCE çalışıyor — üstelik hedefleri AÇIK olan apex
+      yollarına götürüyor (`www/wp-json/wp/v2/users` → sonunda apex'te 401
+      origin). Yani o argüman geçersiz. **Silme kararının kendisi hâlâ geçerli**
+      ama gerekçesi (b) ve (c): `dist/client`'ta 0 referans, sitemap'te 0
+      wp-* URL, `/wp-content/uploads/*` listede değil, silme sonrası Worker'ın
+      404'üne düşüyor (`/xmlrpc.php` bugün zaten öyle).
+    - **KAÇIRDIĞIM HIGH — `ftp.idenfit.com`.** #71'de yalnızca
+      `test.idenfit.com`'u yazmıştım; `ftp.idenfit.com` de proxy'siz CNAME ve
+      AYNI origin'e çözülüyor (DNS ile doğrulandı: `92.204.25.71`). Ajanın
+      raporuna göre `test`'ten FARKLI olarak WordPress'i fiilen SERVİS EDİYOR
+      (`/wp-login.php` → 27.754 baytlık WP HTML, `/wp-json/wp/v2/users` → 401,
+      `cf-ray` yok). **Bu ikinci kısmı BEN doğrulayamadım** — bu ortamdan
+      istek CONNECT tünelinden sonra düştü (muhtemelen origin sertifikası
+      `ftp.` adını kapsamıyor). DNS/IP gerçeği kesin, servis ettiği kısım
+      TEK KAYNAKLI. Önemi: 5 route silinse bile bu kapı açık kalır.
+      Zone ayarları bunu ağırlaştırıyor: SSL modu `full` (strict DEĞİL),
+      Authenticated Origin Pulls KAPALI — origin, önünde Cloudflare olmasını
+      şart koşmuyor.
+    - **Apex'teki WP yüzeyi rapor ettiğimden GENİŞ:** `/wp-json/` indeksi 21
+      namespace/385 route açığa çıkarıyor (aralarında `code-snippets/v1` — PHP
+      çalıştıran eklenti, `redirection/v1`, `wordfence/v1`, ve
+      `hr-maturity/generate` — `HrMaturityTest.tsx:683`'teki yorumun bahsettiği
+      ESKİ backend, kimliksiz POST); Application Passwords açık (yani
+      `wp-login.php` gizlenmiş olsa da REST üzerinden credential stuffing
+      mümkün); `admin-ajax.php` canlı; 630 yazı/170 sayfa/2243 medya + eklenti
+      sürümleri sayılabiliyor. Hafifletici: `wp-login.php` WPS Hide Login ile
+      gizlenmiş, Wordfence kurulu, zone WAF managed ruleset bu yollarda aktif.
+    - **Kayda değer ek:** 5 route silindikten SONRA edge cache temizlenmeli
+      (`/wp-includes/*` altındaki origin varlıkları HIT dönüyor); ve silmeden
+      önce origin erişim loglarında `/wp-json/hr-maturity/generate` gibi
+      yollara MEŞRU trafik olup olmadığına bakılmalı.
+    - **`/api/lead` incelemesinin açık bıraktıkları (ayrı bir tur):** (1) PDF
+      üretimi çökerse ekip bildirimi de sessizce düşüyor — lead kayboluyor ama
+      kullanıcı "başarılı" görüyor (`processMaturityReportAsync` tek `try`);
+      (2) `categoryScores` ANAHTARLARI sınırsız ve ekip e-postasına giriyor —
+      209 KB istek → 1,56 MB e-posta ölçüldü (kaçışlanıyor, XSS yok, ama
+      amplifikasyon); (3) `fullName` CR/LF içerebiliyor ve SendGrid
+      `reply_to.name`'e HAM gidiyor; (4) `Content-Type` kontrolü yok →
+      `text/plain` cross-site form gövdesi kabul ediliyor (reCAPTCHA secret'ı
+      kuruluysa etkisiz); (5) gövde boyutu sınırsız; (6) `pageUrl` ekip
+      e-postasında HERHANGİ bir host'a tıklanabilir link oluyor. Bunların
+      hiçbiri bu turda DÜZELTİLMEDİ.
+    - **Hero e-posta aktarımında (Y2) açık kalan:** handoff script'i modül
+      script'i olarak belgenin SONUNDA çalışıyor; yavaş bağlantıda kullanıcı
+      formu daha erken gönderirse eski `?email=` GET'ine düşüyor. Ayrıca
+      fallback yolunda `?email` hâlâ GA4 `page_location`'a giriyor. **Not:**
+      `Referrer-Policy: strict-origin-when-cross-origin` canlıda zaten aktif,
+      yani Y2'nin gerekçesindeki "Referer" kanalı aslında zaten kapalıymış —
+      gerçek kanallar GA4/geçmiş/paylaşılan link/loglar.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik

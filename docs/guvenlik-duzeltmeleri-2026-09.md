@@ -97,13 +97,23 @@ Cloudflare API ile oluşturuldu, panelden bir şey yapmaya gerek YOK.
 | Zone | `f8a19f6da3e055f00bc3510a4b15f3e0` (idenfit.com, **Pro** plan) |
 | Ruleset | `88d72fe1a02a43f9a752a548092de40e` (`http_ratelimit` entrypoint) |
 | Kural ID | `aac50a461a56472cb86b8f82c91b556f` |
-| İfade | `(http.request.method eq "POST" and http.request.uri.path eq "/api/lead")` |
+| İfade | `(http.request.uri.path in {"/api/lead" "/api/lead/"})` |
 | Limit | 10 istek / 60 sn, karakteristik `ip.src` + `cf.colo.id` |
 | Aksiyon | `block`, 60 sn |
 
 Zone'da önceden var olan `assign.idenfit.com` kuralına DOKUNULMADI —
 yeni kural `POST` ile ruleset'e EKLENDİ (PUT ile tüm kural listesi
 değiştirilmedi).
+
+**DÜZELTME (aynı gün, bağımsız doğrulama turu):** ilk ifade
+`http.request.method eq "POST" and http.request.uri.path eq "/api/lead"` idi ve
+**sondaki slash ile atlatılabiliyordu** — `astro.config.mjs`'te `trailingSlash`
+tanımlı olmadığı için Astro `/api/lead/`'i de işliyor (`POST /api/lead/` → 400
+ile doğrulandı) ama `eq` onu eşleştirmiyordu. Ayrıca Cloudflare dokümanı
+`Method` alanını Business ve üstü olarak listeliyor (bu zone **Pro**) — API
+kabul etmişti ama kural sessizce etkisiz olabilirdi. İfade yukarıdaki haliyle
+değiştirildi: her iki yol kapsanıyor, method koşulu kaldırıldı (`GET /api/lead`
+zaten 404). **Kota notu:** Pro planda hız sınırı kotası 2 kural, ikisi de dolu.
 
 **İki dürüst sınır:**
 1. **Doğrulanamadı.** 18 ardışık POST atıldı, 429 GÖRÜLMEDİ — ama bu
