@@ -24,7 +24,7 @@
 // exit 1 ile çıkar — yarım/bozuk bir politika yayına gitmez.
 import { createHash } from 'node:crypto';
 import { readFile, writeFile, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
+import { join, relative, sep } from 'node:path';
 import { loadCspModule } from './lib/load-csp.mjs';
 
 const DIST_DIR = process.env.DIST_DIR ?? 'dist/client';
@@ -86,13 +86,58 @@ try {
   process.exit(1);
 }
 
+// ---------------------------------------------------------------------------
+// GÜVENLİK AYRIMI — hash'ler YALNIZCA şablon kaynaklı sayfalardan toplanır.
+//
+// Blog sayfalarının GÖVDESİ Keystatic editöründen geliyor ve Astro'nun
+// markdown hattı ham HTML'e izin veriyor (sanitizer YOK). Yani editörün
+// yazdığı bir `<script>` de tarama için sıradan bir "inline script" gibi
+// görünür.
+//
+// Hash listesi TÜM sayfalardan toplansaydı, enjekte edilmiş bir script
+// build sırasında KENDİ HASH'İNİ allowlist'e yazdırır ve hash tabanlı CSP
+// tam da işe yarayacağı yerde devre dışı kalırdı. Bu yüzden:
+//   1. Hash'ler yalnızca CMS-DIŞI sayfalardan toplanıyor.
+//   2. CMS sayfaları yalnızca DOĞRULANIYOR — şablon kümesinde olmayan bir
+//      inline script bulunursa build BAŞARISIZ oluyor (sessizce
+//      allowlist'lenmek yerine insan gözüne geliyor).
+// ---------------------------------------------------------------------------
+const CMS_AUTHORED_SEGMENT = 'blog';
+
+function isCmsAuthored(file) {
+  // `blog/<slug>/index.html` VE i18n fallback'lerinin `en/blog/...` hâli.
+  return relative(DIST_DIR, file).split(sep).includes(CMS_AUTHORED_SEGMENT);
+}
+
 const files = await collectHtmlFiles(DIST_DIR);
+const templateFiles = files.filter((f) => !isCmsAuthored(f));
+const cmsFiles = files.filter(isCmsAuthored);
+
 const hashes = new Set();
 const skippedTypes = new Set();
-for (const file of files) collectHashes(await readFile(file, 'utf8'), hashes, skippedTypes);
+for (const file of templateFiles) collectHashes(await readFile(file, 'utf8'), hashes, skippedTypes);
 
 if (hashes.size === 0) {
   console.error('❌ Hiç inline script bulunamadı — tarama büyük olasılıkla hatalı, dosyaya dokunulmadı.');
+  process.exit(1);
+}
+
+const offenders = [];
+for (const file of cmsFiles) {
+  const found = new Set();
+  collectHashes(await readFile(file, 'utf8'), found, skippedTypes);
+  const unknown = [...found].filter((h) => !hashes.has(h));
+  if (unknown.length > 0) offenders.push({ file, unknown });
+}
+
+if (offenders.length > 0) {
+  console.error('❌ CMS içerikli sayfalarda, şablon kümesinde OLMAYAN inline script bulundu.');
+  console.error('   Bu ya bir içerik enjeksiyonu ya da yeni bir şablon script\'i — ELLE incelenmeli.');
+  console.error('   Hash BİLEREK allowlist\'e eklenmedi ve dosyaya DOKUNULMADI.');
+  for (const o of offenders.slice(0, 10)) {
+    console.error(`   - ${relative(DIST_DIR, o.file)} (${o.unknown.length} bilinmeyen script)`);
+  }
+  if (offenders.length > 10) console.error(`   … ve ${offenders.length - 10} dosya daha`);
   process.exit(1);
 }
 
@@ -124,7 +169,8 @@ if (replaced !== 1) {
 await writeFile(HEADERS_FILE, out, 'utf8');
 
 console.log(`✅ ${HEADERS_FILE} güncellendi (mod: ${csp.CSP_MODE}).`);
-console.log(`   ${files.length} HTML tarandı, ${hashes.size} benzersiz inline script hash'lendi.`);
+console.log(`   ${templateFiles.length} şablon sayfası tarandı, ${hashes.size} benzersiz inline script hash'lendi.`);
+console.log(`   ${cmsFiles.length} CMS içerikli sayfa doğrulandı — beklenmedik inline script yok.`);
 if (skippedTypes.size > 0) {
   console.log(`   Atlanan (çalıştırılabilir olmayan) script tipleri: ${[...skippedTypes].join(', ')}`);
 }
