@@ -1,59 +1,33 @@
-# Güvenlik başlıkları (Cloudflare Pages/Workers `_headers` formatı).
-# CSP şu an Content-Security-Policy-Report-Only olarak devrede — hiçbir
-# şeyi ENGELLEMİYOR, yalnızca ihlalleri tarayıcı DevTools Console'unda
-# raporluyor. Bir report-collection endpoint'i (Cloudflare Pages Function)
-# henüz yok, bu yüzden ihlaller yalnızca elle DevTools'tan izlenebilir.
-# Allowlist kaynağı: src/ genelinde gerçek kod taraması (youtube.com/
-# img.youtube.com [video kartları], Keystatic Cloud [keystatic.cloud/
-# api.keystatic.cloud/github]) — tahmine dayalı DEĞİL. Quicksand fontu
-# 2026-08-31'de self-host edildi (bkz. global.css'in @font-face yorumu,
-# GDPR/IP-sızıntı riski nedeniyle) — genel site politikasında artık
-# fonts.googleapis.com/fonts.gstatic.com'a hiç gerek yok, font-src 'self'
-# yeterli. Keystatic admin panelinin KENDİ font yüklemesi ayrı/dokunulmadı
-# (aşağıdaki /keystatic/* bloğu).
+# ⚠️ BU DOSYA ÜRETİLİYOR — ELLE DÜZENLEMEYİN.
+# Kaynak: src/data/csp.ts  ·  Yeniden üret: node scripts/check-csp-sync.mjs --fix
+# Doğrula:  node scripts/check-csp-sync.mjs   (sapma varsa exit 1)
 #
-# Site genelinde nonce/hash mekanizması YOK (Astro 7.2.4'te yerleşik CSP
-# desteği yok), bu yüzden script-src/style-src 'unsafe-inline' içeriyor:
-# - style-src: React island'ların (ProductPreviewWidget, PricingPage
-#   karşılaştırma tablosu, MarqueeBar) doğrudan style="..." ile yazdığı
-#   dinamik gradyan/grid değerleri.
-# - script-src: Header.astro'nun marquee scroll-hide script'i (bundler
-#   tarafından inline edilmiş) + StickyDemoBar.astro'nun is:inline IIFE'si.
-# Bu ikisi statik içerik taşıdığı için ileride SHA256 hash'e çevrilip
-# 'unsafe-inline' kaldırılabilir — Report-Only testi sonrası ayrı bir
-# sıkılaştırma turu olarak ele alınmalı.
+# Cloudflare Workers+Assets `_headers` formatı. Bu dosya YALNIZCA statik
+# varlık katmanından servis edilen (prerender=true) sayfalara uygulanır;
+# dinamik/SSR rotaların (`/keystatic/*`, `/api/*`) aynı başlıkları
+# `src/middleware.ts` üzerinden alır.
 #
-# img-src'ten https://idenfit.com KALDIRILDI (2026-09-02, Açık nokta #45
-# kapandıktan SONRA) — o izin yalnızca ~307 sayfanın eski WP sunucusundan
-# hotlink taşıdığı GEÇİCİ bir açık nokta istisnasıydı; şimdi TÜM görseller
-# `public/wp-content/...`e yerelleştirildiği için (bkz. CLAUDE.md Açık
-# nokta #45, `audit-remote-hotlinks.mjs` ile 0 kalan referans doğrulandı)
-# bu izin gereksiz — kaldırılması saldırı yüzeyini daraltıyor.
+# Politikanın gerekçeleri (hangi izin neden var, neyin bilerek DIŞARIDA
+# bırakıldığı, style-src 'unsafe-inline'ın neden kaldırılamadığı) tek tek
+# src/data/csp.ts'te yorum olarak yazılı — burada TEKRARLANMIYOR.
 #
-# public/admin/ (eski Decap CMS kabuğu, unpkg.com'dan script yüklüyor)
-# Keystatic Cloud'a geçişten SONRA (2026-08-28) kullanılmıyor ama hâlâ
-# dist/'e build ediliyor — bilerek ayrı bir CSP istisnası YAZILMADI, bu
-# yüzden /admin/ ziyaret edilirse global politika altında unpkg.com için
-# Report-Only ihlali görülecek (bu KASITLI bir sinyal — kalıcı çözüm bu
-# klasörü silmek, bkz. konuşma).
+# script-src'teki 'unsafe-inline' bir FAIL-SAFE varsayılan:
+# `scripts/generate-csp-headers.mjs` build sonrası bunu dist/client/_headers'ta
+# gerçek SHA256 hash listesiyle değiştiriyor. Generator çalışmazsa site
+# bugünkü çalışan politikayla yayına gider, bozuk bir direktifle değil.
 
 /*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.youtube.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://*.google-analytics.com https://*.googletagmanager.com; frame-src https://www.youtube.com https://www.google.com/recaptcha/; frame-ancestors 'self'; connect-src 'self' https://*.cookie-script.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'
+  Reporting-Endpoints: csp-endpoint="/api/csp-report"
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.youtube.com https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/ https://*.cookie-script.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://img.youtube.com https://lh3.googleusercontent.com https://*.google-analytics.com https://*.googletagmanager.com; frame-src https://www.youtube.com https://www.google.com/recaptcha/ https://docs.google.com https://www.googletagmanager.com; frame-ancestors 'self'; connect-src 'self' https://www.google.com/recaptcha/ https://*.cookie-script.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; object-src 'none'; base-uri 'self'; form-action 'self'; report-to csp-endpoint; report-uri /api/csp-report
 
-# Keystatic Cloud admin paneli — genel siteden TAMAMEN farklı ihtiyaçları
-# var (OAuth/GitHub/keystatic.cloud API + canlı işbirliği websocket'i).
-# Kaynak: node_modules/@keystatic/core'un UI bundle'ında hardcoded origin'ler.
-# 'unsafe-eval' temkinli eklendi (zengin metin editörü/markdoc alanı
-# muhtemelen ihtiyaç duyar) — canlı DevTools testiyle doğrulanmadı, bu
-# blok gerçek kullanımla (bir editör /keystatic'i ziyaret edip Console'u
-# kontrol ederek) ayrıca doğrulanmalı.
 /keystatic/*
   X-Frame-Options: SAMEORIGIN
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   Strict-Transport-Security: max-age=31536000; includeSubDomains
-  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com
+  Reporting-Endpoints: csp-endpoint="/api/csp-report"
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com; report-to csp-endpoint; report-uri /api/csp-report

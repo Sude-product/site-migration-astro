@@ -6,14 +6,15 @@
 // PanelFeatureSection/ContactPage/PresentationRequestPage'de aynen duruyor,
 // yalnızca ana sayfanın EN ÜST hero'su bu sade forma geçti.
 //
-// React GEREKMİYOR: form GET metoduyla doğrudan Online Sunum Talebi
-// sayfasına gönderiliyor (`action={demoHref} method="get"`) — tarayıcı
-// input'un `name="email"` değerini otomatik olarak `?email=...` query
-// string'ine ekliyor, hiçbir JS/state gerekmiyor
-// (`FloatingContactButtons.astro`/`StickyDemoBar.astro` ile aynı "gerçek
-// etkileşim yoksa React kullanma" ilkesi). Hedef sayfadaki `HeroForm.tsx`
-// bu `email` parametresini `prefillEmailFromQuery` prop'uyla okuyup kendi
-// e-posta alanını otomatik dolduruyor (bkz. o dosyadaki yorum).
+// React GEREKMİYOR (`FloatingContactButtons.astro`/`StickyDemoBar.astro`
+// ile aynı "gerçek etkileşim yoksa React kullanma" ilkesi).
+//
+// GÜVENLİK (Y2) — e-posta ARTIK URL'ye YAZILMIYOR. Form hâlâ bir
+// `method="get"` formu (JS'siz tarayıcılarda çalışmaya devam etsin diye)
+// ama `hero-email-handoff.js` submit'i yakalayıp e-postayı
+// `sessionStorage`'a koyuyor ve query string OLMADAN gezindiriyor —
+// gerekçenin tamamı o dosyanın başındaki yorumda (Referer/analitik/geçmiş
+// sızıntısı). Hedef sayfadaki form `takeHandoffEmail()` ile okuyor.
 import { getRelativeLocaleUrl } from 'astro:i18n';
 import { isGenericCtaText, buildCtaAnchorText } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
@@ -35,7 +36,7 @@ const demoHref = getRelativeLocaleUrl(locale, 'online-sunum-talep-et');
 const resolvedSubmitLabel = isGenericCtaText(submitLabel) ? buildCtaAnchorText(ctaKeyword, locale) : submitLabel;
 ---
 
-<form action={demoHref} method="get" class="flex flex-col gap-3 sm:flex-row sm:items-stretch">
+<form id="hero-email-capture-form" action={demoHref} method="get" class="flex flex-col gap-3 sm:flex-row sm:items-stretch">
   <label for="hero-email-capture" class="sr-only">{placeholder}</label>
   <input
     id="hero-email-capture"
@@ -49,3 +50,5 @@ const resolvedSubmitLabel = isGenericCtaText(submitLabel) ? buildCtaAnchorText(c
     {resolvedSubmitLabel}
   </button>
 </form>
+
+<script src="../scripts/hero-email-handoff.js"></script>

@@ -10,6 +10,7 @@ import {
 import { buildCtaAnchorText, isGenericCtaText } from '../data/pageTitle';
 import type { Locale } from '../data/nav';
 import { submitLead } from '../data/formLead';
+import { takeHandoffEmail } from '../data/emailHandoff';
 
 interface FormData {
   fullName: string;
@@ -192,7 +193,11 @@ export default function HeroForm({
   // an dolduruluyor.
   useEffect(() => {
     if (!prefillEmailFromQuery) return;
-    const email = new URLSearchParams(window.location.search).get('email');
+    // GÜVENLİK (Y2) — e-posta `sessionStorage`'tan okunuyor, URL'den
+    // DEĞİL (bkz. `takeHandoffEmail()` yorumu). Prop adı (`prefillEmailFromQuery`)
+    // geriye dönük uyumluluk için korundu; artık "aktarılan e-postayı doldur"
+    // anlamına geliyor.
+    const email = takeHandoffEmail();
     if (email) setData((d) => ({ ...d, email }));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

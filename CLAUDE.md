@@ -1986,22 +1986,77 @@ hâlâ geçerli.)*
       azalan sayı her adımda kanıtlandı: 293/307 (başlangıç) → 285/304
       (pilot) → 235/133 (yol A tamamlandı) → 1/5 (yol B tamamlandı,
       yalnızca 404 kaldı) → **0/0 (404 de düzeltilince, TAMAMEN TEMİZ)**.
-46. **YENİ (2026-08-31) — CSP Enforcing Mod Geçişi, canlıya çıkış sonrası
-    ele alınacak.** Şu an CSP Report-Only modda (`public/_headers` +
-    `src/middleware.ts`, bkz. commit `db38013`) — hiçbir şeyi
-    ENGELLEMİYOR, yalnızca ihlalleri tarayıcı konsoluna logluyor.
-    Enforcing moda (`Content-Security-Policy`, `-Report-Only` olmadan)
-    geçmeden önce **3 koşul sağlanmalı:**
-    1. Site gerçekten canlıya alınmış olmalı — gerçek ziyaretçi trafiği
-       olmadan Report-Only'nin gözlem amacı yerine gelmiyor.
-    2. Otomatik CSP ihlal raporu toplama (`report-uri`, küçük bir
-       Cloudflare Pages Function) kurulmalı — şu an ihlaller yalnızca
-       elle, tarayıcı konsolundan görülebiliyor, otomatik/uzaktan izleme
-       yok.
-    3. En az 1-2 haftalık sessiz gözlem süresi geçmeli (hiç beklenmedik
-       ihlal raporu gelmemeli) — gelirse allowlist güncellenip süre
-       sıfırdan başlar.
-    Bu 3 koşul sağlanmadan enforcing moda GEÇİLMEYECEK.
+46. **GÜNCELLENDİ (2026-09-14) — CSP altyapısı yeniden kuruldu, mod HÂLÂ
+    Report-Only; enforcing için go/no-go listesi `docs/csp-rollout.md`'de.**
+    Kullanıcının "enforcing yapmalı mıyız" sorusu üzerine yapılan inceleme,
+    #46'nın 2. koşulunun (otomatik rapor toplama) hiç kurulmamış olduğunu
+    ve bu yüzden 3. koşulun (1-2 hafta gözlem) takvimde geçmiş ama
+    KANITTA hiç başlamamış olduğunu ortaya çıkardı — politikada
+    `report-uri`/`report-to` HİÇ YOKTU, ihlaller yalnızca tek tek
+    ziyaretçilerin DevTools Console'unda görünüyordu. (Canlıdaki
+    `report-to` başlığı Cloudflare'ın NEL'i, CSP'nin değil.)
+    **Bu turda yapılanlar:**
+    1. **Tek kaynak:** politika artık yalnızca `src/data/csp.ts`'te.
+       `public/_headers` bundan ÜRETİLİYOR
+       (`node scripts/check-csp-sync.mjs --fix`), `src/middleware.ts`
+       doğrudan import ediyor. Sapmayı YENİ kalıcı
+       `scripts/check-csp-sync.mjs` yakalıyor (exit 1) — önceki "iki
+       kopyayı elle birebir tut" disiplini bir kez gerçekten ayrışmıştı.
+       **Bu script `dist/` DEĞİL kaynak dosyaları okur, `astro build`
+       gerektirmez.**
+    2. **Rapor toplama:** `src/pages/api/csp-report.ts` (SSR, kimliksiz —
+       tarayıcı raporları doğrulanamaz, bu yüzden veri yalnızca insan
+       incelemesi için bir sinyal, otomatik karar buna dayanmıyor) +
+       politikada `report-uri` ve `report-to` + `Reporting-Endpoints`
+       başlığı + `wrangler.json`'da `observability`. Üç katmanlı gürültü
+       kontrolü (gövde boyutu / ihlal sınıfı tekilleştirme / isolate başına
+       log tavanı), `document-uri`'nin query string'i loglanmıyor (form
+       sayfaları e-posta taşıyabiliyor).
+    3. **Enforcing'e bugün geçilse kırılacak 4 boşluk** tarama+canlı
+       doğrulamayla bulunup kapatıldı: `frame-src`←`docs.google.com`
+       (bir blog yazısındaki çalışan Google Forms embed'i),
+       `img-src`←`lh3.googleusercontent.com` (bkz. TODO-1),
+       `connect-src`←`google.com/recaptcha/` (reCAPTCHA v3 canlı;
+       izinsizse token üretimi düşer ve `api/lead.ts` gönderimi reddeder
+       → 6 form birden çalışmaz), `frame-src`←`googletagmanager.com`
+       (GTM Preview / Tag Assistant).
+    4. **`script-src`'te `'unsafe-inline'` kaldırıldı**, yerine build
+       sonrası üretilen SHA256 hash listesi geldi
+       (`scripts/generate-csp-headers.mjs`, `npm run build` zincirinde;
+       12 benzersiz inline script). `application/ld+json` bilinçli
+       atlanıyor (JS olmayan tip → tarayıcı çalıştırmıyor → CSP inline
+       kontrolüne varmıyor) — **bu varsayım canlıda doğrulanmadı**, yanlışsa
+       Report-Only raporları anında gösterecek ve geri alınacak.
+       Generator `'unsafe-inline'`ı tam 1 kez bulamazsa dosyaya
+       DOKUNMUYOR (fail-safe); `public/_headers` kaynakta
+       `'unsafe-inline'` ile duruyor, yani generator hiç çalışmazsa site
+       bugünkü çalışan politikayla yayına gider.
+    **`style-src 'unsafe-inline'` KALICI** — React island'ları değeri
+    çalışma zamanında hesaplanan `style="..."` ÖZNİTELİKLERİ yazıyor;
+    hash'ler yalnızca `<style>` bloklarını kapsar, öznitelikler için
+    `'unsafe-hashes'` + her tekil değerin hash'i gerekir ki dinamik
+    değerlerde imkânsız. Bu yüzden enforcing klasik XSS korumasının
+    TAMAMINI vermeyecek — kazanç daha dar ama gerçek (dış `<script src>`
+    enjeksiyonu, `connect-src` ile sızdırma, `object-src`/`base-uri`/
+    `form-action`/`frame-ancestors`).
+    **YENİ 4. koşul — GTM.** #46 yazıldığında GTM canlı değildi. Artık
+    pazarlama koda dokunmadan herhangi bir host'tan etiket ekleyebiliyor;
+    enforcing altında hepsi SESSİZCE engellenir. Enforcing'den önce GTM
+    etiket envanteri alınmalı (bkz. `docs/csp-rollout.md` ADIM 4). Reklam
+    host'ları (`stats.g.doubleclick.net`, `google.com/ads/ga-audiences`,
+    Meta/LinkedIn) TAHMİNLE allowlist'e YAZILMADI — gerçekten
+    kullanılıyorlarsa raporlarda görünecekler.
+    **Gözlem penceresi bu değişiklik canlıya çıktığı gün BAŞLAR.** Geçiş
+    tek satır (`CSP_MODE = 'enforce'` + `--fix`), ama go/no-go listesi
+    geçilmeden yapılmamalı. **Geri dönüş anlık DEĞİL** — `_headers`
+    deploy'a bağlı ve yanıtlar Cloudflare'da cache'leniyor; geçiş düşük
+    trafikli bir saatte yapılmalı.
+    **TODO-1 (açık):** `surdurulebilir-kalkinma-kapsaminda-yesil-yonetim`
+    yazısındaki `lh3.googleusercontent.com` görseli yerelleştirilmeli —
+    bu turda İNDİRİLEMEDİ (geliştirme ortamının ağ politikası o host'a
+    çıkışı 403 ile reddediyor, dosyanın hâlâ 200 döndüğü bile
+    doğrulanamadı). Yerelleşince `img-src` izni KALDIRILMALI.
+
 47. **KAPANDI (2026-09-02) — 5 form dosyasının `console.log`'u kaldırıldı,
     gerçek `/api/lead` backend'ine bağlandı.** Ad/e-posta/telefon artık
     tarayıcı konsoluna yazılmıyor — SendGrid anahtarı gelene kadar hâlâ
@@ -3094,6 +3149,271 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     `BlogSidebar.astro`, `blog/[slug].astro`) ~13 okuma noktasını
     gerektirecek.
 
+69. **KAPANDI (2026-09-16) — yetkili pentest turunun 4 KOD bulgusu; kalan 3
+    madde YALNIZCA panelden yapılabiliyor, adımları `docs/guvenlik-duzeltmeleri-2026-09.md`'de.**
+    - **K3 — JSON-LD script kaçışı.** 8 `<script type="application/ld+json">`
+      sink'i ham `JSON.stringify()` basıyordu. `<script>` HTML'de ham metin
+      bağlamı: içerikteki ilk `</script` dizisi elementi KAPATIR, JSON söz
+      dizimine bakılmaz — yani bir blog başlığı/SSS sorusu/breadcrumb etiketi
+      script elementinden ÇIKIP çalışan script enjekte edebilirdi (`set:html`
+      bu bağlamda kaçışlama yapmaz). Yeni paylaşılan `src/data/jsonLd.ts`'in
+      `safeJsonLd()`'si `<`/`>`/`&`/U+2028/U+2029'u `\uXXXX`'e çeviriyor —
+      JSON DEĞERİ birebir aynı kalıyor (`JSON.parse` eşitliği testle
+      doğrulandı), yalnızca HTML ayrıştırıcısı tetiklenmiyor.
+    - **K4 — blog gövdesindeki ham HTML temizlenmiyordu.** Astro'nun markdown
+      hattı `remarkRehype({allowDangerousHtml:true})` → `rehypeRaw` →
+      `rehypeStringify({allowDangerousHtml:true})`; hiçbir katmanda sanitizer
+      YOKTU. Keystatic panelinden yazı yazan herkes siteye kalıcı XSS
+      koyabiliyordu — ve o script bizim origin'imizde çalıştığı için aynı
+      origin'in `localStorage`'ındaki Keystatic editör token'ını okuyup
+      `master`'a commit atabilir, Workers Builds da otomatik deploy ederdi
+      (blog yazısı → tam deploy erişimi). `astro.config.mjs`'in
+      `markdown.processor`'ına `rehypeRaw` + `rehypeSanitize` (allowlist:
+      `src/data/markdownSanitizeSchema.mjs`) + `rehypeRestrictIframeSrc`
+      eklendi. **SIRA KRİTİK:** Astro'nun KENDİ `rehypeRaw`'ı kullanıcı
+      eklentilerinden SONRA çalışıyor (`@astrojs/markdown-remark/dist/index.js`
+      :77 vs :83) — kendi `rehypeRaw`'ımızı çağırmasaydık sanitizer ham HTML'i
+      element olarak GÖRMEZ, `raw` düğümlerini atıp meşru `<iframe>`/`<cite>`
+      işaretlemesini de silerdi. Mevcut 2 başlık eklentisi listede ÖNDE
+      bırakıldı ki bugünkü çıktıları birebir korunsun.
+      **Ampirik doğrulama (tahmin DEĞİL):** sanitize ÖNCESİ/SONRASI tam build
+      alınıp 686 blog HTML'i `diff`lendi — **685'i byte-birebir aynı**, tek
+      fark bir Google Forms iframe'inin `marginheight`/`marginwidth`
+      öznitelikleri (HTML Living Standard'da olmayan, tarayıcıların yıllardır
+      yok saydığı HTML4 kalıntısı). `<script>`/`onerror`/`onload`/`javascript:`
+      payload'ları gerçek hatta test edilip elendiği, YouTube iframe'i/
+      `<cite>`/`<sup>`/yerel `<img>`/`aria-label` korunduğu doğrulandı.
+      **Bu turda ÇIKAN ve kapatılan ikinci bulgu:** `hast-util-sanitize`'ın
+      `protocols` kontrolü, ilk `:` bir `/`'tan sonraysa değeri "göreli"
+      sayıp geçiriyor — yani `protocols:{src:['https']}` ayarına RAĞMEN
+      protokole-göreli `//evil.example/x` elenmiyordu. `rehypeRestrictIframeSrc`
+      host allowlist'i (CSP `frame-src` ile KASITLI olarak aynı liste)
+      bunu kapatıyor. CSP hâlâ Report-Only olduğu için bu ikinci katman şart.
+    - **K2 — `/api/lead` istemci payload'ına fazla güveniyordu.**
+      `maturityResult.levelTitle`/`levelSubtitle` yalnızca "string mi" diye
+      kontrol edilip doğrudan PDF şablonuna (gerçek headless Chromium'da
+      render ediliyor) ve İKİ e-postaya geçiyordu. Artık istemcinin gönderdiği
+      değer HİÇ okunmuyor: doğrulanmış `totalScore`'dan `getLevel()`
+      (`maturityTestDefinitions.ts`, bu tur `export` edildi) ile sunucuda
+      hesaplanıp EZİLİYOR. Ayrıca: alan başına uzunluk tavanı
+      (`MAX_FIELD_LENGTH`), gerçek e-posta biçim doğrulaması
+      (`isValidEmail()` — SendGrid `to`/`replyTo`'suna CR/LF başlık
+      enjeksiyonunu da kesiyor), ve `formType in REQUIRED_STRING_FIELDS` →
+      `Object.hasOwn()` (`in` prototip zincirini de tarıyordu: `formType:
+      'toString'` kontrolü GEÇİP zorunlu alanların hiçbiri olmadan kabul
+      edilirdi).
+    - **Y2 — hero e-postası URL'de taşınıyordu.** Ana sayfanın tek-alanlı
+      formu `method="get"` olduğu için e-posta `?email=...` olarak adres
+      çubuğuna giriyordu; oradan `Referer` başlığıyla hedef sayfadaki HER
+      dış isteğe (GTM/GA4/YouTube/Cookie-Script), GA4'ün `page_location`
+      kaydına, tarayıcı geçmişine, paylaşılan linklere ve sunucu/CDN
+      loglarına sızıyordu — hiçbiri KVKK aydınlatma metninin kapsadığı bir
+      işleme değil. Yeni `src/data/emailHandoff.ts` + `src/scripts/
+      hero-email-handoff.js`: e-posta `sessionStorage`'a yazılıp query
+      string OLMADAN gezinme yapılıyor. **Dürüst sınır:** JS'siz veya
+      depolaması engelli tarayıcıda `preventDefault()` hiç çağrılmıyor, form
+      eski GET davranışına düşüyor ve `takeHandoffEmail()` query
+      parametresini fallback olarak okuyor — o dar senaryoda eski URL
+      davranışı geçerli (alternatif, özelliğin o tarayıcılarda tamamen
+      çalışmaması olurdu).
+    **Doğrulama (tümü):** `astro check` 0 hata (429 dosya), `astro build`
+    temiz, `generate-csp-headers.mjs` 400 şablon sayfası/12 hash + 2744 CMS
+    sayfası doğrulandı, `check-csp-sync` senkron, 10 regresyon script'inden
+    7'si sıfır sorun. Sıfır olmayan 3'ü de BU TURDAN BAĞIMSIZ:
+    `check-heading-hierarchy` bilinen 5 sayfalık taban çizgisi (Açık nokta
+    #36); `check-title-length`/`check-meta-description-length`'in TEK
+    ortak bulgusu `blog/vardiya-degisikligi-riskleri` (66 karakterlik
+    `<title>` — sonda çift boşluk var — + 226 karakterlik excerpt), bu
+    yazı `keystatic-cloud[bot]`'un `2bfcf6b` commit'iyle 2026-09-13'te
+    panelden yayınlandı ve sanitize ÖNCESİ referans build'de de BİREBİR
+    aynı — bkz. Açık nokta #70.
+70. **YENİ (2026-09-16), DÜŞÜK ÖNCELİK — panelden yayınlanan yazılar SEO
+    uzunluk kurallarını atlıyor.** `blog/vardiya-degisikligi-riskleri`
+    (`keystatic-cloud[bot]`, `2bfcf6b`) hem `<title>` (66 karakter, üstelik
+    sonda çift boşluk) hem meta description (226 karakter) sınırını aşıyor —
+    Açık nokta #28'in 2026-08-25'te sıfırladığı taban çizgisi böylece yeniden
+    kirlendi. **Yapısal nokta:** Keystatic panelinin `metaTitle`/`excerpt`
+    alanlarında uzunluk uyarısı YOK ve PR gate de olmadığı için (bkz.
+    §Deployment) hiçbir otomatik kontrol devreye girmiyor. İki olası çözüm,
+    ikisi de ayrı bir tur: (a) `keystatic.config.ts`'in ilgili alanlarına
+    `validation:{length:{max:...}}` eklemek (panelde anında görünür,
+    editörü kaynağında durdurur); (b) 10 `check-*.mjs` script'ini bir PR/
+    deploy gate'ine bağlamak — ama bu önce Açık nokta #50'deki
+    `check-heading-hierarchy` istisnasının çözülmesini gerektirir. Bu turda
+    içeriğe DOKUNULMADI (CMS bot'uyla çakışma riski + bu tur güvenlik
+    kapsamındaydı).
+
+71. **YENİ (2026-09-16) — K1 (origin fallthrough) CANLI Cloudflare API'siyle
+    araştırıldı; ilk tarif YANLIŞTI, gerçek sorun DAHA CİDDİ ve HÂLÂ AÇIK.
+    Y1 (hız sınırı) API'den UYGULANDI.** Kullanıcı "bunları neden sen
+    yapamıyorsun" diye sorunca env'deki `CLOUDFLARE_API_TOKEN` denendi.
+    **DÜZELTME (Fable doğrulama turu, aynı gün) — ilk teşhisim YANLIŞTI.**
+    "Değişkende boşluk/newline var, trim edilince çalıştı" demiştim; ölçüldü:
+    token ham haliyle de trim sonrası da **53 bayt**, boşluk YOK. Gerçek neden
+    YANLIŞ ENDPOINT: bu bir HESAP-sahipli (`cfat_` önekli) token, `/user/tokens/verify`
+    ona her zaman `Invalid API Token` döner; doğru uç `/accounts/{id}/tokens/verify`
+    (denendi: ham token + doğru uç → `status: active`). `tr -d` bir şey düzeltmedi,
+    aynı anda endpoint de değiştiği için öyle sanılmış.
+    - **K1 — ilk tarif yanlıştı.** "Route'u `idenfit.com/*` yap" demiştim;
+      o route ZATEN VAR (`782f68fb...` → `idenfit-com`). Gerçek sorun:
+      zone'da `script: null` taşıyan **5 route** (`/wp-includes/*`,
+      `/wp-login.php*`, `/wp-admin*`, `/wp-json/*`,
+      `/wp-content/plugins/*`) — Cloudflare'da daha SPESİFİK route
+      kazandığı için bu yollar Worker'a HİÇ uğramayıp doğrudan eski
+      origin'e (`92.204.25.71`, DNS'te hâlâ apex'in A kaydı) gidiyor.
+      **`curl` ile canlı doğrulandı: eski WordPress AYAKTA** —
+      `/wp-admin/` 302, `/wp-login.php` 404 ama 27.705 baytlık gerçek WP
+      HTML'i + `Link: <.../wp-json/>` başlığı, `/wp-json/wp/v2/users`
+      **401** (gerçek WP REST API), hepsinde `X-Powered-By: PHP/8.4.23`
+      ve **CSP başlığı YOK**. Yani production alan adının altında
+      denetlenmemiş bir WP yönetim yüzeyi duruyor.
+      **Silmek güvenli — ölçülerek gösterildi:** (a) `www.idenfit.com`'da
+      bu null-route'ların hiçbiri yok ve aynı yollar orada 301 dönüyor
+      (istenen son durum zaten bir hostname'de canlı), (b) `dist/client`'ta
+      `wp-json`/`wp-admin`/`wp-content/plugins` referansı 0, kaynakta tek
+      eşleşme `HrMaturityTest.tsx:683`'te bir YORUM, (c)
+      `/wp-content/uploads/*` listede DEĞİL (site görselleri etkilenmiyor).
+      **UYGULANAMADI:** `DELETE .../workers/routes/<id>` çağrısını bu
+      ortamın güvenlik sınıflandırıcısı "DNS / Domain / Cert Changes"
+      kategorisinde engelledi. 5 route ID'si + hazır curl komutu + panel
+      adımları `docs/guvenlik-duzeltmeleri-2026-09.md`'de.
+    - **Y1 — UYGULANDI.** `http_ratelimit` entrypoint ruleset'ine
+      (`88d72fe1...`) yeni kural `aac50a461a56472cb86b8f82c91b556f`
+      eklendi: `POST /api/lead`, IP başına 10 istek/60sn, block 60sn.
+      Mevcut `assign.idenfit.com` kuralına DOKUNULMADI (PUT değil, rules
+      endpoint'ine POST). **Doğrulanamadı, dürüst sınır:** 18 ardışık POST
+      429 vermedi — ama kural bozuk olduğu için değil: bu ortamın çıkış
+      IP'si her istekte havuzdan değişiyor (`160.79.106.128–137` ölçüldü),
+      kural IP başına saydığı için eşiğe ulaşılamıyor. İzole kontrol
+      deneyi (geçici `/robots.txt` 2/10sn kuralı) aynı nedenle tetiklenmedi,
+      hemen geri alındı ve canlı durum yeniden doğrulandı. Tek IP'li normal
+      bir makineden 12 POST ile doğrulanabilir. **İkinci sınır:** Free/Pro
+      planda `cf.colo.id` karakteristiği zorunlu → sayım colo başına,
+      global değil.
+    - **YAN BULGU (yeni, ayrı karar bekliyor):** `test.idenfit.com` DNS
+      kaydı proxy'siz (gri bulut) ve apex ile AYNI origin'e gidiyor —
+      `curl -I` `Server: Apache` + `PHP/8.4.23` döndürüyor ve `cf-ray`
+      başlığı YOK, yani istek Cloudflare'a hiç uğramıyor. Sonuç: apex'e
+      uygulanan CSP/WAF/hız sınırı bu hostname (veya doğrudan IP) üzerinden
+      TAMAMEN atlanabilir ve origin IP'si açığa çıkmış oluyor. Şu an `/`
+      500 dönüyor ama sunucu ayakta.
+
+72. **YENİ (2026-09-16) — #69/#71'in Fable ile bağımsız doğrulaması: 1 GÜVENLİK
+    OLAYI, 2 düzeltilmiş hatam, 1 kaçırdığım HIGH bulgu, + açık kalan liste.**
+    - **⚠️ GÜVENLİK OLAYI — Cloudflare API token'ı bir alt-ajanın transkriptinde
+      kısmen açığa çıktı.** Ajana "token DEĞERİNİ hiçbir yere yazdırma" talimatı
+      verilmişti; ajan token'ın bayt yapısını incelerken yetersiz maskeyle
+      `od -c` çalıştırıp ~50 karakterini transkripte düşürdü. Token ID
+      `f9deb06d62e5624b6f3ebd7b94da6875` (`cfat_` önekli, hesap-sahipli).
+      **ROTASYON GEREKİYOR.** Ders: bir secret'ı "yazdırma" talimatı yeterli
+      değil — alt-ajanlara secret'a erişim vermek yerine, gereken çağrıları
+      ana oturumda yapıp SONUÇLARI vermek gerekiyor.
+    - **DÜZELTİLDİ — kurduğum hız sınırı kuralı sondaki slash ile atlatılabiliyordu.**
+      `http.request.uri.path eq "/api/lead"` ifadesi `/api/lead/`'i KAÇIRIYOR;
+      `astro.config.mjs`'te `trailingSlash` tanımlı olmadığı için (varsayılan
+      `ignore`) Astro her iki yolu da işliyor — bağımsız olarak doğrulandı
+      (`POST /api/lead/` → 400, yani gerçekten işleniyor). İfade
+      `http.request.uri.path in {"/api/lead" "/api/lead/"}` yapıldı. **Method
+      koşulu da KALDIRILDI:** Cloudflare'ın kendi doküman tablosu `Method`
+      alanını Business ve üstü olarak listeliyor (zone Pro) — API kabul etmişti
+      ama kural sessizce etkisiz olabilirdi; `GET /api/lead` zaten 404 olduğu
+      için method koşulu gereksizdi. **Ayrıca:** Pro planda hız sınırı kotası
+      **2 kural** ve ikisi de artık dolu (`assign.idenfit.com` + bu) — üçüncü
+      bir kurala yer YOK.
+    - **DÜZELTİLDİ — #71'deki "www kanıtı" YANLIŞTI.** "www'de aynı yollar 301
+      dönüyor, demek ki Worker işliyor" demiştim; gerçekte o 301'ler
+      `http_request_dynamic_redirect` ruleset'indeki bir Redirect Rule'dan
+      geliyor ve Worker'dan ÖNCE çalışıyor — üstelik hedefleri AÇIK olan apex
+      yollarına götürüyor (`www/wp-json/wp/v2/users` → sonunda apex'te 401
+      origin). Yani o argüman geçersiz. **Silme kararının kendisi hâlâ geçerli**
+      ama gerekçesi (b) ve (c): `dist/client`'ta 0 referans, sitemap'te 0
+      wp-* URL, `/wp-content/uploads/*` listede değil, silme sonrası Worker'ın
+      404'üne düşüyor (`/xmlrpc.php` bugün zaten öyle).
+    - **KAÇIRDIĞIM HIGH — `ftp.idenfit.com`.** #71'de yalnızca
+      `test.idenfit.com`'u yazmıştım; `ftp.idenfit.com` de proxy'siz CNAME ve
+      AYNI origin'e çözülüyor (DNS ile doğrulandı: `92.204.25.71`). Ajanın
+      raporuna göre `test`'ten FARKLI olarak WordPress'i fiilen SERVİS EDİYOR
+      (`/wp-login.php` → 27.754 baytlık WP HTML, `/wp-json/wp/v2/users` → 401,
+      `cf-ray` yok). **Bu ikinci kısmı BEN doğrulayamadım** — bu ortamdan
+      istek CONNECT tünelinden sonra düştü (muhtemelen origin sertifikası
+      `ftp.` adını kapsamıyor). DNS/IP gerçeği kesin, servis ettiği kısım
+      TEK KAYNAKLI. Önemi: 5 route silinse bile bu kapı açık kalır.
+      Zone ayarları bunu ağırlaştırıyor: SSL modu `full` (strict DEĞİL),
+      Authenticated Origin Pulls KAPALI — origin, önünde Cloudflare olmasını
+      şart koşmuyor.
+    - **Apex'teki WP yüzeyi rapor ettiğimden GENİŞ:** `/wp-json/` indeksi 21
+      namespace/385 route açığa çıkarıyor (aralarında `code-snippets/v1` — PHP
+      çalıştıran eklenti, `redirection/v1`, `wordfence/v1`, ve
+      `hr-maturity/generate` — `HrMaturityTest.tsx:683`'teki yorumun bahsettiği
+      ESKİ backend, kimliksiz POST); Application Passwords açık (yani
+      `wp-login.php` gizlenmiş olsa da REST üzerinden credential stuffing
+      mümkün); `admin-ajax.php` canlı; 630 yazı/170 sayfa/2243 medya + eklenti
+      sürümleri sayılabiliyor. Hafifletici: `wp-login.php` WPS Hide Login ile
+      gizlenmiş, Wordfence kurulu, zone WAF managed ruleset bu yollarda aktif.
+    - **Kayda değer ek:** 5 route silindikten SONRA edge cache temizlenmeli
+      (`/wp-includes/*` altındaki origin varlıkları HIT dönüyor); ve silmeden
+      önce origin erişim loglarında `/wp-json/hr-maturity/generate` gibi
+      yollara MEŞRU trafik olup olmadığına bakılmalı.
+    - **`/api/lead` incelemesinin açık bıraktıkları (ayrı bir tur):** (1) PDF
+      üretimi çökerse ekip bildirimi de sessizce düşüyor — lead kayboluyor ama
+      kullanıcı "başarılı" görüyor (`processMaturityReportAsync` tek `try`);
+      (2) `categoryScores` ANAHTARLARI sınırsız ve ekip e-postasına giriyor —
+      209 KB istek → 1,56 MB e-posta ölçüldü (kaçışlanıyor, XSS yok, ama
+      amplifikasyon); (3) `fullName` CR/LF içerebiliyor ve SendGrid
+      `reply_to.name`'e HAM gidiyor; (4) `Content-Type` kontrolü yok →
+      `text/plain` cross-site form gövdesi kabul ediliyor (reCAPTCHA secret'ı
+      kuruluysa etkisiz); (5) gövde boyutu sınırsız; (6) `pageUrl` ekip
+      e-postasında HERHANGİ bir host'a tıklanabilir link oluyor. Bunların
+      hiçbiri bu turda DÜZELTİLMEDİ.
+    - **SANITIZER (K4) — script çalıştırma yolu YOK, 4 sertleştirme UYGULANDI.**
+      Adversaryal tur 50+ payload'ı GERÇEK eklenti dizisinden geçirdi:
+      `<script>`, her yazım/kodlamada `on*`, `<svg onload>`, `xlink:href`,
+      `<math>`, `<template>`, `<noscript>`, `srcdoc`, `<base>`,
+      `<meta refresh>`, `formaction`, `<object>`/`<embed>`, raw-text mXSS,
+      `javascript:`'in 12 varyantı, `rehypeRestrictIframeSrc`'ye 40 host
+      varyantı (userinfo `@`, backslash, fullwidth IDNA, `%2F`, trailing dot)
+      — **hepsi elendi.** `safeJsonLd` 11 düşmanca girdide temiz.
+      **Ama 4 gerçek bulgu vardı, dördü de düzeltildi:**
+      1. **`style`/`class` tam-ekran kaplama primitifi.** Script yok ama bir
+         yazar `position:fixed;inset:0;z-index:...` ile header'ı (ve "Giriş
+         Yap" linkini) sahte içerikle örtebiliyor, görünmez tam-ekran `<a>`
+         ile her tıklamayı kaçırabiliyordu. Yalnızca `style`'ı kısıtlamak
+         işe yaramazdı: Tailwind sınıfları derlenmiş CSS'te var, yani
+         `class="fixed inset-0 z-50 bg-white"` aynı etkiyi veriyordu.
+         İkisine de DEĞER allowlist'i eklendi (`SAFE_STYLE`/`SAFE_CLASS`).
+      2. **`clobberPrefix: ''` — benim yanlış varsayımım.** "Mevcut `#...`
+         çapalarını kırar" diye DOM-clobbering korumasını kapatmıştım;
+         ÖLÇÜLDÜ: 633 yazıda ham `id=` **0**, ham `name=` **0**. Çapalar
+         markdown `](#...)` ve hedefleri `rehypeHeadingIds`'in ürettiği
+         id'ler — o eklenti sanitizer'dan SONRA çalışıyor. Koruma bedavaymış,
+         override kaldırıldı.
+      3. **`rel="opener"` + `target="_blank"`** ters tabnabbing'e izin
+         veriyordu (`rel` benim eklediğim bir öznitelikti) — değer
+         allowlist'ine alındı. Korpustaki tek değer `noreferrer noopener`.
+      4. **Sanitizer'ın iframe host listesi CSP `frame-src` ile AYNI
+         DEĞİLDİ** — koddaki yorumum "kasıtlı olarak aynı" diyordu ama
+         `www.youtube-nocookie.com` yalnızca sanitizer'da vardı; CSP
+         enforcing'e geçtiği gün o embed'ler sessizce kırılacaktı. Korpusta
+         hiç kullanılmadığı doğrulanıp (0/633) listeden çıkarıldı.
+      **Maliyet ölçüldü, sıfır:** sertleştirme öncesi/sonrası tam build
+      alınıp 686 blog sayfası diff'lendi — **686/686 byte-birebir aynı**.
+      `astro check` 0 hata, 10 regresyon script'i aynı bilinen 3 taban
+      çizgisi (#36 + #70), sıfır yeni sorun.
+      **Düzeltilmedi, bilinçli:** `accessKey`/`tabIndex`/`itemProp`/`name`/
+      `id` `defaultSchema`'dan (GitHub'ın kendi allowlist'i) geliyor —
+      ondan sapmak ayrı bir karar. `docs.google.com/viewer?url=` ile
+      saldırgan-kontrollü PDF gömme mümkün (CSP zaten o host'a izin
+      veriyor). Bir yazar `__ASTRO_IMAGE_="null"` metniyle BUILD'İ
+      kırabiliyor (Astro'nun kendi render-sonrası regex'i; sanitizer'ın
+      işi değil, deploy'u durdurur ama canlıyı bozmaz).
+    - **Hero e-posta aktarımında (Y2) açık kalan:** handoff script'i modül
+      script'i olarak belgenin SONUNDA çalışıyor; yavaş bağlantıda kullanıcı
+      formu daha erken gönderirse eski `?email=` GET'ine düşüyor. Ayrıca
+      fallback yolunda `?email` hâlâ GA4 `page_location`'a giriyor. **Not:**
+      `Referrer-Policy: strict-origin-when-cross-origin` canlıda zaten aktif,
+      yani Y2'nin gerekçesindeki "Referer" kanalı aslında zaten kapalıymış —
+      gerçek kanallar GA4/geçmiş/paylaşılan link/loglar.
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
@@ -3590,7 +3910,17 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   görseli OLUP alt metni olmayan/boş yazıları listeler. Ayrı bir script
   olmasının nedeni: alt metni eksikse render yazının BAŞLIĞINA düşüyor,
   yani çıktıda `alt` her zaman dolu — `check-image-alt-text.mjs` bu sınıfı
-  ASLA yakalayamaz. **Not:** bu SEKİZ
+  ASLA yakalayamaz.
+  **`check-csp-sync.mjs` (KALICI, 2026-09-14 — `dist/` DEĞİL kaynak okur).**
+  `public/_headers`'ın `src/data/csp.ts` ile ayrışmadığını doğrular; `--fix`
+  ile `_headers`'ı yeniden üretir. CSP iki yerden servis edilmek zorunda
+  (statik varlık katmanı + Worker middleware) ve bu iki kopya bir kez
+  gerçekten ayrışmıştı.
+  **`generate-csp-headers.mjs` (KALICI, 2026-09-14 — build SONRASI adım,
+  `npm run build` zincirinde).** `dist/client/_headers`'taki script-src
+  `'unsafe-inline'` iznini, sitede gerçekten bulunan inline script'lerin
+  SHA256 hash'leriyle değiştirir. Bir check script'i DEĞİL, üretici.
+  **Not:** bu SEKİZ
   `check-*.mjs` script'i `readdir(dir, {recursive:true})` yerine ELLE
   recursive tarama kullanıyor — bu proje OneDrive-senkronize bir
   klasörde, `recursive:true` bazen (görünürde rastgele) çok daha az
@@ -3850,8 +4180,9 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
     istenirse CSP'ye `frame-src googletagmanager` gerekir.
 - **Deploy OTOMATİK, `master`'a her push'ta — Cloudflare Workers Builds
   (kullanıcı kararı, 2026-09-10; önceki elle `npx wrangler deploy` kuralının
-  yerine geçti).** Build komutu `npm run build:ci` (= `astro check && astro
-  build`), deploy komutu `npx wrangler deploy`. Bir PR merge edildiğinde
+  yerine geçti).** Build komutu `npm run build:ci` (= `astro check && npm run build`, ve
+  `build` = `astro build && node scripts/generate-csp-headers.mjs` — CSP
+  inline-script hash'leri bu son adımda üretiliyor, bkz. Açık nokta #46), deploy komutu `npx wrangler deploy`. Bir PR merge edildiğinde
   `master`'a düşen push bunu tetikliyor; Keystatic panelinden yayınlanan
   yazılar da (`keystatic-cloud[bot]` doğrudan `master`'a commit atıyor) aynı
   yoldan canlıya çıkıyor. **Elle deploy artık gerekmiyor.**

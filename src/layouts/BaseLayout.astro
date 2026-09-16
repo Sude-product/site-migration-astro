@@ -7,6 +7,7 @@ import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 import { FOOTER_SOCIAL, FOOTER_CONTACT } from '../data/footer';
+import { safeJsonLd } from '../data/jsonLd';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
@@ -210,7 +211,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		<!-- Organization JSON-LD sameAs notu — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="application/ld+json"
-			set:html={JSON.stringify({
+			set:html={safeJsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'Organization',
 				name: 'idenfit',
@@ -236,7 +237,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		{ogType !== 'article' && dateModified && (
 			<script
 				type="application/ld+json"
-				set:html={JSON.stringify({
+				set:html={safeJsonLd({
 					'@context': 'https://schema.org',
 					'@type': 'WebPage',
 					name: title,
@@ -252,7 +253,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		{breadcrumbTrail.length > 0 && (
 			<script
 				type="application/ld+json"
-				set:html={JSON.stringify({
+				set:html={safeJsonLd({
 					'@context': 'https://schema.org',
 					'@type': 'BreadcrumbList',
 					itemListElement: breadcrumbTrail.map((item, i) => ({
