@@ -561,6 +561,14 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
           prevAriaLabel: mega.ui.prevReports,
           cards: [
             {
+              category: mega.kesfet.leaveAndReturn2026.category,
+              title: mega.kesfet.leaveAndReturn2026.title,
+              image: '/wp-content/uploads/2026/09/Izin-ve-Ise-Donus-2026-kapak.png',
+              imageAlt: mega.kesfet.leaveAndReturn2026.imageAlt,
+              href: '/wp-content/uploads/2026/09/Izin-ve-Ise-Donus-2026.pdf',
+              external: true,
+            },
+            {
               category: mega.kesfet.generationsWorkforce.category,
               title: mega.kesfet.generationsWorkforce.title,
               image: '/wp-content/uploads/2026/04/Group-1365421434.png',
