@@ -238,6 +238,11 @@ export const it: Translations = {
       mealAllowance: 'Calcolo Buoni Pasto',
       noticePeriod: 'Calcolo Periodo di Preavviso e Indennità',
       reportsTitle: 'Report',
+      leaveAndReturn2026: {
+        category: 'Trend HR',
+        title: 'Ferie e Rientro al Lavoro 2026',
+        imageAlt: 'Copertina del report Ferie e Rientro al Lavoro 2026',
+      },
       generationsWorkforce: {
         category: 'Trend HR',
         title: "L'Impatto delle Generazioni sulla Forza Lavoro",

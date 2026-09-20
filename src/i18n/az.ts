@@ -228,6 +228,11 @@ export const az: Translations = {
       mealAllowance: 'Yemək Haqqı Hesablama',
       noticePeriod: 'Xəbərdarlıq Müddəti və Kompensasiyası Hesablama',
       reportsTitle: 'Hesabatlar',
+      leaveAndReturn2026: {
+        category: 'İK Trendləri',
+        title: 'Məzuniyyət və İşə Qayıdış 2026',
+        imageAlt: 'Məzuniyyət və İşə Qayıdış 2026 hesabatının üz qabığı',
+      },
       generationsWorkforce: {
         category: 'İK Trendləri',
         title: 'Nəsillərin İşçi Qüvvəsinə Təsiri',

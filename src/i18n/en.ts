@@ -232,6 +232,11 @@ export const en: Translations = {
       mealAllowance: 'Meal Allowance Calculator',
       noticePeriod: 'Notice Period & Compensation Calculator',
       reportsTitle: 'Reports',
+      leaveAndReturn2026: {
+        category: 'HR Trends',
+        title: 'Leave and Return to Work 2026',
+        imageAlt: 'Leave and Return to Work 2026 report cover',
+      },
       generationsWorkforce: {
         category: 'HR Trends',
         title: 'The Impact of Generations on the Workforce',

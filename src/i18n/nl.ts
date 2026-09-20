@@ -232,6 +232,11 @@ export const nl: Translations = {
       mealAllowance: 'Maaltijdvergoeding Berekenen',
       noticePeriod: 'Opzegtermijn en Vergoeding Berekenen',
       reportsTitle: 'Rapporten',
+      leaveAndReturn2026: {
+        category: 'HR-trends',
+        title: 'Verlof en Terugkeer naar Werk 2026',
+        imageAlt: 'Omslag van het rapport Verlof en Terugkeer naar Werk 2026',
+      },
       generationsWorkforce: {
         category: 'HR-trends',
         title: 'De Invloed van Generaties op de Werkvloer',

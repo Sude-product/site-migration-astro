@@ -236,6 +236,11 @@ export const tr: Translations = {
       mealAllowance: 'Yemek Ücreti Hesaplama',
       noticePeriod: 'İhbar Süresi ve Tazminatı Hesaplama',
       reportsTitle: 'Raporlar',
+      leaveAndReturn2026: {
+        category: 'İK Trendleri',
+        title: 'İzin ve İşe Dönüş 2026',
+        imageAlt: 'İzin ve İşe Dönüş 2026 raporu kapağı',
+      },
       generationsWorkforce: {
         category: 'İK Trendleri',
         title: 'Kuşakların İş Gücüne Etkisi',
