@@ -73,10 +73,12 @@ import type { Locale } from '../data/nav';
 //
 // PİLOT (2026-08-13) — "Zaman Yönetimi" + "İzin" + "İnsan Kaynakları" +
 // "Performans Yönetimi" + "Veri Analizi" dolu. Kalan sekmeler (Bordro/
-// İşe Alım gerçekten "Yakında" — referans ekran görüntüsünde de aynı
-// rozetle işaretli; Çalışan Deneyimi/Modüller/Raporlar/Eğitim Akademisi
-// sade pasif dolgu — gerçekte var oldukları için "Yakında" YAZILMIYOR,
-// yanlış bilgi olurdu) `enabled:false` ile bekliyor, bkz. CLAUDE.md.
+// İşe Alım/Çalışan Deneyimi/Modüller/Raporlar/Eğitim Akademisi) sade pasif
+// dolgu olarak `enabled:false` ile bekliyor, bkz. CLAUDE.md. Bordro/İşe
+// Alım'da önceden gösterilen "Yakında" rozeti 2026-09-21'de kullanıcı
+// isteğiyle KALDIRILDI — artık hiçbir sekme rozet taşımıyor (rozet
+// altyapısı `hasComingSoonBadge`/`comingSoonBadge` ile yerinde duruyor,
+// istenirse tek satırla geri açılabilir).
 //
 // Karanlık/aydınlık mod (2026-08-13, kullanıcı talebi — üst çubuktaki ay/güneş
 // ikonuna tıklanınca gerçek üründeki gibi tema değişsin): `ThemeContext` ile
@@ -131,10 +133,9 @@ interface TabDef {
   label: string;
   icon: ComponentType<{ className?: string; strokeWidth?: number }>;
   enabled: boolean;
-  /** Yalnızca gerçek üründe de "YAKINDA" rozetiyle gösterilen modüller için
-   * (Bordro/İşe Alım, bkz. kullanıcının gönderdiği referans ekran görüntüsü)
-   * — diğer pasif/dolgu sekmeler rozetsiz kalır (gerçekte var oldukları
-   * için "Yakında" yanlış bilgi olurdu). */
+  /** "Yakında" rozeti. 2026-09-21'den beri HİÇBİR sekme bu rozeti
+   * taşımıyor (kullanıcı isteğiyle Bordro/İşe Alım'dan kaldırıldı) —
+   * altyapı, ileride bir sekme için yeniden istenirse diye korunuyor. */
   badge?: string;
 }
 
@@ -160,8 +161,8 @@ const TAB_DEFS: TabStructureDef[] = [
   { key: 'izin', icon: CalendarClock, enabled: true },
   { key: 'zaman', icon: Clock, enabled: true },
   { key: 'performans', icon: Target, enabled: true },
-  { key: 'bordro', icon: Wallet, enabled: false, hasComingSoonBadge: true },
-  { key: 'ise-alim', icon: UserPlus, enabled: false, hasComingSoonBadge: true },
+  { key: 'bordro', icon: Wallet, enabled: false },
+  { key: 'ise-alim', icon: UserPlus, enabled: false },
   { key: 'calisan-deneyimi', icon: Heart, enabled: false },
   { key: 'moduller', icon: LayoutGrid, enabled: false },
   { key: 'raporlar', icon: FileText, enabled: false },
