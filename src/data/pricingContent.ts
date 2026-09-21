@@ -159,6 +159,19 @@ const SME_PRICE_OVERRIDE: Record<Locale, string> = {
   az: '149',
 };
 
+// Mikro paketinin "Telefon/Çevrimiçi Destek" satırı (2026-09-21, kullanıcı
+// talebi) — ham `pricing.json` bu satırda "Ücretsiz"/"Free"/"Gratis"
+// gösteriyordu, ama Mikro planda telefon/çevrimiçi destek fiilen YOK.
+// Tablodaki diğer "bu pakette yok" hücreleriyle AYNI sentinel (`'x'`,
+// `PricingPage.astro` bunu çarpı olarak render ediyor) kullanıldı —
+// `SME_PRICE_OVERRIDE`/`SUPREMA_BADGE_TEXT` ile AYNI override ilkesi,
+// ham JSON'a elle DOKUNULMADI (extraction script'i yeniden çalıştırılsa
+// bile bu düzeltme hayatta kalır). KOBİ/Pro'nun "Opsiyonel" değeri
+// DEĞİŞMEDİ. `PRICING_AZ_OVERRIDE.micro.features.destek` literal'i de
+// aşağıda aynı değere güncellendi (o override zaten kazanıyor ama iki
+// kaynağın birbirinden SAPMASINI önlemek için).
+const MICRO_SUPPORT_VALUE = 'x';
+
 // Pro paketi artık sabit bir fiyat GÖSTERMİYOR, "Teklif Al" metnine
 // çevrildi (kaynakta zaten var olan ama `PricingPage.astro`'nun hiçbir
 // yerinde render edilmeyen `getQuoteText` alanı — o alan aslında
@@ -211,7 +224,7 @@ const PRICING_AZ_OVERRIDE: PricingContent = {
       chatbot: 'x',
       ozelGelistirme: 'x',
       raporlama: '5',
-      destek: 'Pulsuz',
+      destek: MICRO_SUPPORT_VALUE,
       odeme: 'Self-Onboarding',
       egitim: 'Xeyr',
       topluAktarim: 'x',
@@ -312,13 +325,14 @@ function resolvePlan(plan: PricingPlan, locale: Locale): PricingPlan {
 export function getPricingContent(locale: Locale): PricingContent | undefined {
   const c = locale === 'az' ? PRICING_AZ_OVERRIDE : DATA.locales[locale]?.content;
   if (!c) return undefined;
+  const micro = resolvePlan(c.micro, locale);
   const sme = resolvePlan(c.sme, locale);
   const pro = resolvePlan(c.pro, locale);
   return {
     ...c,
     pageTitle: PAGE_TITLE_FIX[locale] ?? c.pageTitle,
     featuresTitle: FEATURES_TITLE_FIX[locale] ?? c.featuresTitle,
-    micro: resolvePlan(c.micro, locale),
+    micro: { ...micro, features: { ...micro.features, destek: MICRO_SUPPORT_VALUE } },
     sme: { ...sme, price: SME_PRICE_OVERRIDE[locale] ?? sme.price },
     pro: { ...pro, price: PRO_QUOTE_TEXT[locale] ?? pro.price, priceSuffix: '' },
     supremaBadgeText: SUPREMA_BADGE_TEXT[locale],
