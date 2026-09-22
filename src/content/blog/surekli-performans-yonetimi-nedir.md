@@ -34,7 +34,7 @@ Aynı sorun hedefler için de geçerli. Yıl başında konulan bir hedef, yıl o
 
 "Sürekli performans yönetimi" kulağa büyük bir dönüşüm gibi gelse de, temelde tek bir şeyi değiştiriyor: geri bildirimin, olayla arasındaki mesafeyi kısaltmak. Hedefler yıl başında tek seferde belirlenip unutulmak yerine, ilerleme kaydedildikçe güncellenebiliyor. Bir proje bittiğinde o proje özelinde kısa bir değerlendirme yapılabiliyor. Yönetici, yılda bir kez büyük bir formla uğraşmak yerine, küçük ve düzenli notlar bırakabiliyor.
 
-Bunun ölçeklenebilir olması için tek tek e-postalarla ya da dağınık notlarla değil, hedeflerin ve geri bildirimlerin aynı yerde toplandığı bir sistemle yürütülmesi gerekiyor. İdenfit'in [performans yönetimi modülü](https://idenfit.com/performance-management), hedef ve yetkinlik takibini günlük iş akışıyla ilişkilendirerek, yöneticinin yıl sonunu beklemeden, süreç içinde geri bildirim verebilmesine imkân tanıyor.
+Bunun ölçeklenebilir olması için tek tek e-postalarla ya da dağınık notlarla değil, hedeflerin ve geri bildirimlerin aynı yerde toplandığı bir sistemle yürütülmesi gerekiyor. İdenfit'in [performans yönetimi modülü](https://idenfit.com/calisan-performans-degerlendirme-sistemi-modulu/), hedef ve yetkinlik takibini günlük iş akışıyla ilişkilendirerek, yöneticinin yıl sonunu beklemeden, süreç içinde geri bildirim verebilmesine imkân tanıyor.
 
 ## Veri, Hafızanın Yerini Alıyor
 
@@ -46,6 +46,4 @@ Bu da görüşmenin tonunu değiştiriyor. Çalışan, kendini savunmak zorunda 
 
 Serkan Bey'in önündeki form hâlâ dolduruluyor olabilir, ama artık dokuz ay öncesine dair bir hafıza testi olmak zorunda değil. 2026'da performans yönetiminin yönü net: yılda bir büyük anı değil, yıl boyunca biriken küçük, güncel geri bildirimler.
 
----
-
-**Hedef ve performans takibinizi yıl sonunu beklemeden, sürekli ve güncel yönetmek ister misiniz?** [İdenfit Performans Yönetimi Modülü](https://idenfit.com/performance-management) ile hedefleri, geri bildirimi ve gelişimi tek panelden takip edin.
+**Hedef ve performans takibinizi yıl sonunu beklemeden, sürekli ve güncel yönetmek ister misiniz?** [İdenfit Performans Yönetimi Modülü](https://idenfit.com/calisan-performans-degerlendirme-sistemi-modulu/) ile hedefleri, geri bildirimi ve gelişimi tek panelden takip edin.
