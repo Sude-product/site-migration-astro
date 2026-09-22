@@ -61,5 +61,21 @@ declare module 'cloudflare:workers' {
      * `.dev.vars`/Cloudflare Pages env'e yazacak, aynı değeri
      * `X-Pilot-Secret` header'ında göndermeli. */
     MATURITY_PDF_PILOT_SECRET?: string;
+    /** Form lead'lerinin kalıcı kaydı için Cloudflare D1 binding'i
+     * (`wrangler.json`'daki `d1_databases`, şema
+     * `migrations/0001_create_leads.sql`, kullanım `src/data/leadStore.ts`).
+     *
+     * Tip `@cloudflare/workers-types`'tan GELMİYOR — bu dosyanın stated
+     * ilkesi gereği (tek bir binding için yeni bağımlılık kurulmuyor)
+     * yalnızca gerçekten kullanılan `prepare().bind().run()` zinciri
+     * bildiriliyor. Opsiyonel: binding yoksa `leadStore` sessizce
+     * devre dışı kalır, form akışı BOZULMAZ. */
+    LEADS_DB?: {
+      prepare(query: string): {
+        bind(...values: (string | number | null)[]): {
+          run(): Promise<{ meta?: { last_row_id?: number } }>;
+        };
+      };
+    };
   };
 }

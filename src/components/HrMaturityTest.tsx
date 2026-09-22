@@ -695,7 +695,15 @@ function ScoreRing({ score }: { score: number }) {
 // (`CompanyForm`) toplandığı için burada TEKRAR SORULMUYOR — `company` prop
 // olarak geçiriliyor, kullanıcı yalnızca gönderimi ONAYLIYOR (tek buton,
 // metin girişi yok).
-function EmailReportForm({ result, company }: { result: MaturityResult; company: CompanyInfo }) {
+function EmailReportForm({
+  result,
+  company,
+  answers,
+}: {
+  result: MaturityResult;
+  company: CompanyInfo;
+  answers: Record<number, MaturityAnswerValue>;
+}) {
   const [error, setError] = useState('');
   const [submitting, setSubmitting] = useState(false);
 
@@ -708,12 +716,21 @@ function EmailReportForm({ result, company }: { result: MaturityResult; company:
       email: company.email,
       fullName: company.fullName,
       company: company.name,
+      // 2026-09-22 — bu üç alan formun BAŞINDA zaten toplanıyordu ama
+      // gönderime hiç konmamıştı: telefon/firma büyüklüğü/sektör ne ekip
+      // bildirimine ne de bir kayda ulaşıyordu. Yeni bir soru EKLENMEDİ,
+      // yalnızca zaten elimizde olan veri artık atılmıyor.
+      phone: company.phone,
+      employeeCount: company.employeeCount,
+      sector: company.sector,
       maturityResult: {
         totalScore: result.totalScore,
         levelTitle: result.level.title,
         levelSubtitle: result.level.subtitle,
         categoryScores: result.categoryScores,
         groupScores: result.groupScores,
+        // Soru bazlı analiz için — yalnızca D1'e yazılıyor.
+        answers: Object.fromEntries(Object.entries(answers).map(([id, v]) => [id, v as string])),
       },
     });
     setSubmitting(false);
@@ -745,7 +762,15 @@ function EmailReportForm({ result, company }: { result: MaturityResult; company:
   );
 }
 
-function ResultStep({ result, company }: { result: MaturityResult; company: CompanyInfo }) {
+function ResultStep({
+  result,
+  company,
+  answers,
+}: {
+  result: MaturityResult;
+  company: CompanyInfo;
+  answers: Record<number, MaturityAnswerValue>;
+}) {
   // ADIM 3 (2026-09-03) — Dinamik Öneri Motoru: en düşük puanlı 2 kategori
   // (teknik spesifikasyon dokümanı, 4.2) + firma büyüklüğüne göre tavsiye
   // (bölüm 6, ADIM 1'de toplanan `employeeCount`'u YENİDEN kullanıyor —
@@ -800,7 +825,7 @@ function ResultStep({ result, company }: { result: MaturityResult; company: Comp
         )}
       </div>
 
-      <EmailReportForm result={result} company={company} />
+      <EmailReportForm result={result} company={company} answers={answers} />
 
       {/* "Ana Sayfa" / "Hemen Başvur" — kaynakta e-posta kutusunun ALTINDA
           bir ayırıcı çizgiyle ayrılmış 2 ek buton daha var (`post-24317.css`,
@@ -898,7 +923,7 @@ export default function HrMaturityTest() {
       )}
       {step === 'result' && result && (
         <div className="py-12 lg:py-16">
-          <ResultStep result={result} company={company} />
+          <ResultStep result={result} company={company} answers={answers} />
         </div>
       )}
     </div>
