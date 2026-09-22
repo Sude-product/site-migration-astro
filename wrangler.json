@@ -6,6 +6,13 @@
   "browser": {
     "binding": "BROWSER"
   },
+  "d1_databases": [
+    {
+      "binding": "LEADS_DB",
+      "database_name": "idenfit-leads",
+      "database_id": "86e77b2d-0d00-47e6-be44-5663da85c3ea"
+    }
+  ],
   "kv_namespaces": [
     {
       "binding": "SESSION",

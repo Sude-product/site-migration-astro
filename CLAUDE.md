@@ -3414,6 +3414,106 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
       yani Y2'nin gerekçesindeki "Referer" kanalı aslında zaten kapalıymış —
       gerçek kanallar GA4/geçmiş/paylaşılan link/loglar.
 
+73. **KAPANDI (2026-09-22) — form lead'leri artık Cloudflare D1'e KALICI
+    olarak yazılıyor; ayrıca istemcinin sessizce ATTIĞI 3 alan + 20 cevap
+    kurtarıldı.** Kullanıcı bulgusu: İK Olgunluk Testi'ni dolduranların
+    verisi hiçbir yerde saklanmıyor, eski WordPress'teki Google Sheet
+    bağlantısı göçte koptu. İnceleme sorunu tarif edilenden GENİŞ buldu:
+    1. `/api/lead` HİÇBİR yere yazmıyordu (`wrangler.json`'da veritabanı
+       binding'i yoktu — yalnızca Astro session KV'si + BROWSER).
+    2. `HrMaturityTest.tsx`'in `EmailReportForm`'u, testin BAŞINDAKİ
+       formun topladığı 6 alanın yalnızca 3'ünü gönderiyordu —
+       **`phone`/`employeeCount`/`sector` tarayıcıdan hiç ÇIKMIYORDU**,
+       ekip bildirimi e-postasında bile yoklardı.
+    3. 20 sorunun tek tek cevapları hiç gönderilmiyordu (yalnızca
+       toplulaştırılmış skorlar) — soru bazlı analiz imkânsızdı.
+    **Uygulanan (kullanıcı kararı: "Cloudflare D1 ile başla"):** D1
+    veritabanı `idenfit-leads` (WEUR) + `migrations/0001_create_leads.sql`
+    + yeni `src/data/leadStore.ts` + `scripts/export-leads.mjs` (CSV,
+    UTF-8 BOM'lu, formül-enjeksiyonu korumalı). Operatör dokümanı:
+    **`docs/lead-storage-d1.md`**.
+    **Kritik tasarım kararı — kayıt e-postadan ÖNCE.** SendGrid
+    yapılandırma kontrolünden önce yazılıyor, yani anahtar HÂLÂ YOKKEN
+    bile (bugünkü durum) lead kaybolmuyor; kullanıcı yine dürüst bir 503
+    görüyor ama satır D1'de `email_status='failed'` olarak duruyor.
+    `leadStore` ASLA throw etmez — veritabanı erişilemezse form akışı
+    aynen devam eder. Kapsam TEK form değil, `/api/lead`'in TAMAMI
+    (6 form türü, `form_type` kolonuyla ayrışıyor).
+    **Yan kazanç:** `processMaturityReportAsync`'in tek `try` bloğu
+    (Açık nokta #72'nin ilk maddesi) artık sessiz değil — PDF üretimi
+    çökerse satır `'failed'` işaretleniyor, lead elle takip edilebiliyor.
+    **Aynı turda kapatılan ikinci #72 maddesi:** `isValidScoreRecord()`
+    (`maturity-pdf.ts`, `lead.ts` ile paylaşımlı) önceden yalnızca
+    DEĞERLERİ doğruluyordu, anahtar sayısı/uzunluğu serbestti — 64 anahtar
+    / 100 karakter tavanı eklendi (bu bloblar artık D1'e de yazıldığı için
+    amplifikasyon yalnızca e-postayı değil veritabanı satırını da
+    şişirirdi).
+    **Doğrulama — gerçek worker build'iyle, mock DEĞİL:** `wrangler dev`
+    (yerel D1) üzerinde `/api/lead`'e gerçek POST atıldı → HTTP 503
+    (SendGrid yok, beklenen) AMA satır yazıldı; `phone`/`employee_count`/
+    `sector`/`maturity_answers` dolu, Türkçe karakterler bozulmamış,
+    `email_status='failed'`/`email_error='email_service_unavailable'`.
+    **K2 sertleştirmesi yeni alanlarla birlikte HÂLÂ çalışıyor:** istemci
+    `levelTitle` olarak "İSTEMCİDEN GELEN SAHTE BAŞLIK" gönderdi, kayıtta
+    sunucunun `getLevel(62)`'den hesapladığı "Dijital İK" var. Reddetme
+    senaryoları tek tek test edildi (geçersiz cevap değeri/anahtarı, 21+
+    cevap, 120+ karakter sektör, 65 skor anahtarı, 101 karakterlik anahtar
+    → hepsi 400; `answers` GÖNDERİLMEYEN eski istemci payload'ı → hâlâ
+    kabul, geriye dönük uyumlu). CSV export script'i yerel veriye karşı
+    çalıştırılıp çıktısı gözden geçirildi. **Canlı D1'de 0 satır** —
+    tüm testler yerel kopyaya gitti, üretim verisi kirletilmedi.
+    Adapter'ın ürettiği `dist/server/wrangler.json`'ın D1 binding'ini
+    taşıdığı doğrulandı (deploy'da düşmüyor).
+    **BİLİNÇLİ OLARAK YAPILMAYAN — testi bitirip "raporu gönder"e
+    BASMAYANLAR hâlâ kaydedilmiyor.** Kişi iletişim bilgisini testin
+    BAŞINDA veriyor ama `/api/lead` isteği yalnızca sondaki butona
+    basılırsa atılıyor. Daha erken kayıt açmak, o noktada gösterilen bir
+    onay metni OLMADIĞI için yapılmadı — bkz. bir sonraki madde.
+    **KVKK açığı (yeni bulgu, ürün/hukuk kararı bekliyor):** İK Olgunluk
+    Testi formunda HİÇ KVKK metni yok (`grep -ci kvkk HrMaturityTest.tsx`
+    → 0), diğer 5 formun hepsinde var (`kvkkNotice`). Veri artık kalıcı
+    saklandığı için bu boşluk daha kritik. Ayrıca saklama süresi/silme
+    politikası tanımlı DEĞİL — tablo süresiz büyür. IP/user-agent
+    bilinçli olarak saklanmıyor (yeni kişisel veri kategorisi eklememek
+    için).
+    **Google Sheets aynası KURULMADI** — kararlaştırılan sıra önce D1
+    (kayıt defteri) sonra istenirse Sheet (görünüm), böylece Sheet'in
+    çalışması lead'in kaybolmamasının ŞARTI olmuyor. Eski kurulumun zaafı
+    tam da buydu.
+
+74. **KAPANDI (2026-09-22) — Fiyatlar sayfasında KOBİ paketi artık sabit
+    fiyat göstermiyor, Pro gibi "Teklif Al" + "Başvur" formuna
+    yönlendiriyor.** Kullanıcı talimatı ("kobi seçeneğindeki 7999 tl
+    yerine **pro seçeneği gibi** teklif al yazacak ve forma
+    yönlendirecek, butonda da satın al yerine başvur yazacak") — "Pro gibi"
+    ifadesi gereği Pro'nun 2026-08-19'daki AYNI muamelesi uygulandı, yani
+    **5 locale'in HEPSİ** (yalnızca TR değil; aksi halde EN/NL/IT'de
+    "149 € + Satın Al" kalıp site kendi içinde tutarsız olurdu).
+    **Uygulama:** `PRO_QUOTE_TEXT` → `QUOTE_TEXT` olarak yeniden
+    adlandırılıp iki paket TEK kaynaktan besleniyor; `SME_PRICE_OVERRIDE`
+    kaldırılıp yerine `SME_CTA_OVERRIDE` geldi. CTA metni/hedefi
+    UYDURULMADI (KARAR 1) — her locale'in KENDİ Pro planının ham
+    `pricing.json`'daki gerçek `ctaText`/`ctaUrl` değerleri birebir
+    kullanıldı (tr "Başvur", en "Apply Now", nl "Aanvragen", it "Richiedi
+    Ora", az "Müraciət Et"). Override `resolvePlan()`'den ÖNCE
+    uygulanıyor ki URL `resolveCtaUrl()`'ün per-locale slug çözümlemesinden
+    geçsin. `PRICING_AZ_OVERRIDE.sme` literali de (override zaten kazanıyor
+    ama iki kaynak sapmasın diye) senkronlandı.
+    **Kayıt — en son yayınlanmış fiyatlar:** TR 7.999 ₺/aylık, EN/NL/IT/AZ
+    149 €. Geri alınmak istenirse `SME_PRICE_OVERRIDE` geri getirilir.
+    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 5 locale'in
+    derlenmiş HTML'inde fiyat metni + CTA metni + `href` tek tek
+    doğrulandı (`/online-sunum-talep-et/` ve locale önekli karşılıkları);
+    5 dilin HİÇBİRİNDE "Satın Al"/"Buy Now"/"Koop Nu"/"Acquista Ora"
+    KALMADI. 11 regresyon script'i çalıştırıldı — `check-title-length`
+    taban çizgisi 1'den 3'e çıktı ama **üçü de blog yazısı ve bu turla
+    İLGİSİZ**: 2'si aynı gün master'dan merge edilen Keystatic yazıları
+    (`surekli-performans-yonetimi-nedir` 49 karakter,
+    `sessiz-tukenmislik-vardiya-puantaj-verileri` 66 karakter), 3'ü
+    zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
+    yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
+    atlıyor, PR gate yok) bir kez daha doğruluyor.
+
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
 ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online

@@ -72,9 +72,21 @@ function isFiniteScore(value: unknown): value is number {
 // ÇALIŞIRDI (sunucu tarafı kod çalıştırma riski). Bu fonksiyon, `lead.ts`
 // (ADIM 5) ile PAYLAŞILAN TEK doğrulama noktası — ikinci bir kopya
 // YAZILMADI.
+// ANAHTAR TAVANI (2026-09-22) — önceden yalnızca DEĞERLER doğrulanıyordu,
+// anahtar sayısı ve uzunluğu SERBESTTİ. Gerçek testte 6 kategori + 10 grup
+// anahtarı var; tek bir istek binlerce uydurma anahtar gönderip (a) ekip
+// e-postasını şişirebiliyor (ölçüldü: 209 KB istek → 1,56 MB e-posta),
+// (b) 2026-09-22'den beri bu bloblar D1'e JSON olarak da yazıldığı için
+// veritabanı satırını şişirebiliyordu. Değerler zaten kaçışlandığı için
+// XSS riski YOKTU — bu bir amplifikasyon/kaynak tüketimi sınırı.
+const MAX_SCORE_KEYS = 64;
+const MAX_SCORE_KEY_LENGTH = 100;
+
 export function isValidScoreRecord(value: unknown): value is Record<string, number> {
   if (!isRecord(value)) return false;
-  return Object.values(value).every(isFiniteScore);
+  const entries = Object.entries(value);
+  if (entries.length > MAX_SCORE_KEYS) return false;
+  return entries.every(([key, v]) => key.length <= MAX_SCORE_KEY_LENGTH && isFiniteScore(v));
 }
 
 function parseMaturityPdfData(body: unknown): MaturityPdfData | null {

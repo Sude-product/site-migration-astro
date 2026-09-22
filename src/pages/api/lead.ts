@@ -52,6 +52,10 @@ import {
   IDENFIT_LOGO_PNG_BASE64,
   type LeadFormType,
 } from '../../data/leadEmailTemplate';
+// KALICI KAYIT (2026-09-22) — lead artık e-postadan ÖNCE D1'e yazılıyor.
+// E-posta bir kayıt defteri değil: gönderim başarısız olursa lead
+// kaybolmasın diye. Bu modül ASLA throw etmez, bkz. dosya başı yorumu.
+import { insertLead, markLeadEmailStatus } from '../../data/leadStore';
 
 // Tek kaynak `leadEmailTemplate.ts` — ikinci bir birlik (union) tanımı
 // tutulmuyor, biri değişirse diğeri sessizce eskimesin diye.
@@ -63,6 +67,11 @@ interface MaturityResultPayload {
   levelSubtitle: string;
   categoryScores: Record<string, number>;
   groupScores: Record<string, number>;
+  /** 20 sorunun TEK TEK cevabı (2026-09-22). Opsiyonel — yalnızca kalıcı
+   * kayda (D1) gidiyor, e-postaya/PDF'e girmiyor. Önceden bu veri hiç
+   * sunucuya ULAŞMIYORDU (yalnızca toplulaştırılmış skorlar geliyordu),
+   * yani "hangi soruda kim takılıyor" analizi imkânsızdı. */
+  answers?: Record<string, string>;
 }
 
 interface LeadPayload {
@@ -72,6 +81,10 @@ interface LeadPayload {
   fullName?: string;
   phone?: string;
   company?: string;
+  /** İK Olgunluk Testi'nin kendi formu topluyor (diğer 5 formda yok).
+   * 2026-09-22'ye kadar istemci bu iki alanı TOPLAYIP GÖNDERMİYORDU. */
+  employeeCount?: string;
+  sector?: string;
   email?: string;
   message?: string;
   maturityResult?: MaturityResultPayload;
@@ -113,6 +126,8 @@ const MAX_FIELD_LENGTH: Partial<Record<keyof LeadPayload, number>> = {
   fullName: 120,
   phone: 40,
   company: 200,
+  employeeCount: 40,
+  sector: 120,
   email: 254, // RFC 5321 pratik üst sınırı
   message: 5000,
   locale: 8,
@@ -127,6 +142,23 @@ function isValidEmail(value: string): boolean {
   const v = value.trim();
   if (v.length > 254) return false;
   return /^[^\s@<>,;:"\\]+@[^\s@<>,;:"\\]+\.[^\s@<>,;:"\\]{2,}$/.test(v);
+}
+
+// İK Olgunluk Testi'nin 20 sorusunun tek tek cevapları. Anahtar 1-20
+// arası bir soru numarası, değer `MaturityAnswerValue`'nun üç sabitinden
+// biri olmalı — bu blob D1'e JSON olarak yazıldığı için hem anahtar sayısı
+// hem değer kümesi SIKI tutuluyor (serbest bırakılsa tek istek veritabanına
+// megabaytlarca çöp yazdırabilirdi).
+const MATURITY_ANSWER_VALUES = new Set(['evet', 'kısmen', 'hayır']);
+const MATURITY_QUESTION_KEY = /^([1-9]|1[0-9]|20)$/;
+
+function isValidAnswerRecord(value: unknown): value is Record<string, string> {
+  if (!isRecord(value)) return false;
+  const entries = Object.entries(value);
+  if (entries.length > 20) return false;
+  return entries.every(
+    ([key, v]) => MATURITY_QUESTION_KEY.test(key) && typeof v === 'string' && MATURITY_ANSWER_VALUES.has(v),
+  );
 }
 
 function parseLeadPayload(body: unknown): LeadPayload | null {
@@ -163,7 +195,8 @@ function parseLeadPayload(body: unknown): LeadPayload | null {
       result.totalScore < 0 ||
       result.totalScore > 100 ||
       !isValidScoreRecord(result.categoryScores) ||
-      !isValidScoreRecord(result.groupScores)
+      !isValidScoreRecord(result.groupScores) ||
+      (result.answers !== undefined && !isValidAnswerRecord(result.answers))
     ) {
       return null;
     }
@@ -388,7 +421,7 @@ async function sendSendGridEmail(params: SendGridMailParams): Promise<void> {
 // AWAIT ETMEDEN hemen yanıt döner — kullanıcı bu süreyi asla beklemez
 // (ADIM 4'ün asenkronluk şartı). Hata olursa yalnızca konsola düşer, zaten
 // kullanıcıya dönecek bir yanıt YOK (istek çoktan yanıtlandı).
-async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
+async function processMaturityReportAsync(payload: LeadPayload, leadId: number | null): Promise<void> {
   const result = payload.maturityResult;
   if (!result) return;
 
@@ -426,8 +459,14 @@ async function processMaturityReportAsync(payload: LeadPayload): Promise<void> {
         attachment: { filename: 'ik-dijital-olgunluk-raporu.pdf', contentBase64: pdfBase64 },
       }),
     ]);
+    await markLeadEmailStatus(leadId, 'sent');
   } catch (err) {
     console.error('[api/lead] hrMaturityReport asenkron işlem (PDF/e-posta) başarısız:', err);
+    // Bu blok ÖNCEDEN sessizdi: PDF üretimi çökerse ekip bildirimi de
+    // düşüyor, kullanıcı yine de "başarılı" görüyordu ve lead'den geriye
+    // HİÇBİR iz kalmıyordu. Artık satır D1'de duruyor ve 'failed' olarak
+    // işaretleniyor — elle takip edilebilir.
+    await markLeadEmailStatus(leadId, 'failed', err instanceof Error ? err.message : String(err));
   }
 }
 
@@ -454,6 +493,12 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return jsonResponse({ ok: false, error: 'recaptcha_failed' }, 400);
   }
 
+  // KALICI KAYIT (2026-09-22) — SendGrid yapılandırma kontrolünden ÖNCE.
+  // Sıra KASITLI: e-posta gönderilemese bile (anahtar eksik, SendGrid
+  // arızalı) lead'in KENDİSİ kaybolmamalı. `insertLead()` throw etmez;
+  // başarısız olursa `null` döner ve akış aynen devam eder.
+  const leadId = await insertLead(payload);
+
   // Alıcı, forma özel değişkenden ya da genel `LEAD_NOTIFICATION_EMAIL`'den
   // çözülür (bkz. `resolveRecipients()`); ikisi de yoksa bu form için
   // gidecek adres YOK demektir — sahte bir "başarılı" döndürmek yerine 503.
@@ -463,6 +508,9 @@ export const POST: APIRoute = async ({ request, locals }) => {
       '[api/lead] SendGrid yapılandırması eksik — e-posta gönderilmedi.',
       { formType: payload.formType, hasKey: !!env.SENDGRID_API_KEY, hasFrom: !!env.SENDGRID_FROM_EMAIL, recipientCount: recipients.length },
     );
+    // Lead YUKARIDA kaydedildi — kullanıcıya hâlâ dürüst bir hata dönüyor
+    // (e-posta gerçekten gitmedi) ama veri artık kaybolmuyor.
+    await markLeadEmailStatus(leadId, 'failed', 'email_service_unavailable');
     return jsonResponse({ ok: false, error: 'email_service_unavailable' }, 503);
   }
 
@@ -476,7 +524,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // yalnızca yerel ortamda erken kapanma riski taşır, üretimde sorun yok.
   if (payload.formType === 'hrMaturityReport') {
     const cfContext = (locals as { cfContext?: { waitUntil: (promise: Promise<unknown>) => void } }).cfContext;
-    const work = processMaturityReportAsync(payload);
+    const work = processMaturityReportAsync(payload, leadId);
     if (cfContext?.waitUntil) {
       cfContext.waitUntil(work);
     } else {
@@ -508,12 +556,15 @@ export const POST: APIRoute = async ({ request, locals }) => {
     if (!sgRes.ok) {
       const errText = await sgRes.text().catch(() => '');
       console.error('[api/lead] SendGrid isteği başarısız:', sgRes.status, errText);
+      await markLeadEmailStatus(leadId, 'failed', `SendGrid ${sgRes.status}: ${errText}`);
       return jsonResponse({ ok: false, error: 'email_send_failed' }, 502);
     }
 
+    await markLeadEmailStatus(leadId, 'sent');
     return jsonResponse({ ok: true }, 200);
   } catch (err) {
     console.error('[api/lead] Beklenmedik hata:', err);
+    await markLeadEmailStatus(leadId, 'failed', err instanceof Error ? err.message : String(err));
     return jsonResponse({ ok: false, error: 'unexpected_error' }, 500);
   }
 };

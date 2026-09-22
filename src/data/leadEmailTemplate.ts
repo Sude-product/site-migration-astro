@@ -44,6 +44,10 @@ export interface LeadEmailPayload {
   fullName?: string;
   phone?: string;
   company?: string;
+  /** İK Olgunluk Testi'nin kendi formunun topladığı iki ek alan
+   * (2026-09-22) — diğer formlarda tanımsız. */
+  employeeCount?: string;
+  sector?: string;
   email?: string;
   message?: string;
   maturityResult?: LeadEmailMaturityResult;
@@ -304,6 +308,12 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
     const result = payload.maturityResult;
     if (payload.company) lines.push(`Firma: ${payload.company}`);
     if (payload.fullName) lines.push(`Ad Soyad: ${payload.fullName}`);
+    // 2026-09-22 — telefon/çalışan sayısı/sektör testin BAŞINDAKİ formda
+    // zaten toplanıyordu ama istemci bunları hiç göndermediği için bu
+    // bildirimde de yer almıyordu. Satış için en işlevsel üç alan bunlar.
+    if (payload.phone) lines.push(`Telefon: ${payload.phone}`);
+    if (payload.employeeCount) lines.push(`Çalışan sayısı: ${payload.employeeCount}`);
+    if (payload.sector) lines.push(`Sektör: ${payload.sector}`);
     lines.push(`E-posta: ${payload.email}`, '');
     lines.push(`Toplam skor: ${result.totalScore}/100 — ${result.levelTitle}`, '', 'Kategori bazlı skorlar:');
     for (const [category, score] of Object.entries(result.categoryScores)) {
@@ -327,6 +337,11 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
     const result = payload.maturityResult;
     if (payload.company) fields += fieldBlock('Firma', payload.company);
     if (payload.fullName) fields += fieldBlock('Ad Soyad', payload.fullName);
+    // Telefon, diğer formların dalındaki (aşağıda) AYNI `tel:` bağlantı
+    // desenini kullanıyor — ayrı bir sunum İCAT EDİLMEDİ.
+    if (payload.phone) fields += fieldBlock('Telefon', payload.phone, tel ? `tel:${tel}` : null);
+    if (payload.employeeCount) fields += fieldBlock('Çalışan Sayısı', payload.employeeCount);
+    if (payload.sector) fields += fieldBlock('Sektör', payload.sector);
     if (payload.email) fields += fieldBlock('E-posta', payload.email, mailto ? `mailto:${mailto}` : null);
 
     const bars = Object.entries(result.categoryScores)

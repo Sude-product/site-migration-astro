@@ -15,6 +15,10 @@ export interface MaturityResultPayload {
   categoryScores: Record<string, number>;
   /** ADIM 5 — PDF'in "Yetkinlik Karnesi" sayfası için 10 alt-grup skoru. */
   groupScores: Record<string, number>;
+  /** 20 sorunun TEK TEK cevabı (2026-09-22). Yalnızca kalıcı kayda (D1)
+   * gidiyor — e-postaya ve PDF'e girmiyor. Önceden hiç gönderilmiyordu,
+   * yani soru bazlı analiz imkânsızdı. */
+  answers?: Record<string, string>;
 }
 
 export interface LeadSubmission {
@@ -23,6 +27,11 @@ export interface LeadSubmission {
   fullName?: string;
   phone?: string;
   company?: string;
+  /** İK Olgunluk Testi'nin kendi formunun topladığı iki ek alan
+   * (2026-09-22). Bu iki alan formda HEP vardı ama gönderime hiç
+   * konmuyordu — ne ekip e-postasına ne de bir kayda ulaşıyordu. */
+  employeeCount?: string;
+  sector?: string;
   email?: string;
   message?: string;
   maturityResult?: MaturityResultPayload;

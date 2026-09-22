@@ -151,12 +151,26 @@ const MOBILE_DETAILS_TOGGLE: Record<Locale, { more: string; less: string }> = {
 // `PRICING_AZ_OVERRIDE.sme.price` literal'i de AŞAĞIDA aynı değere
 // güncellendi — bu override zaten kazanıyor ama iki kaynağın
 // birbirinden SAPMASINI önlemek için).
-const SME_PRICE_OVERRIDE: Record<Locale, string> = {
-  tr: '7.999',
-  en: '149',
-  nl: '149',
-  it: '149',
-  az: '149',
+// DÖRDÜNCÜ GÜNCELLEME (2026-09-22, kullanıcı talebi) — KOBİ paketi artık
+// sabit bir fiyat GÖSTERMİYOR: Pro ile AYNI "Teklif Al" metnine çevrildi ve
+// CTA'sı `app.idenfit.com`'un self-servis kayıt akışı yerine Online Sunum
+// Talebi formuna yönlendiriliyor. Bu yüzden `SME_PRICE_OVERRIDE` KALDIRILDI.
+// En son yayınlanmış fiyatlar kayıt olarak: TR 7.999 ₺/aylık, EN/NL/IT/AZ
+// 149 €. Fiyat tekrar yayınlanmak istenirse o sabit geri getirilip
+// `getPricingContent()`'teki sme satırının `price`/`priceSuffix` kısmı eski
+// haline döndürülür.
+//
+// CTA metni/hedefi UYDURULMADI (KARAR 1) — her locale'in KENDİ Pro planının
+// ham `pricing.json`'daki gerçek `ctaText`/`ctaUrl` değerleri birebir
+// kullanıldı (az için `PRICING_AZ_OVERRIDE.pro`). URL'ler `resolvePlan()`
+// içinde `resolveCtaUrl()`'den geçtiği için per-locale canonical slug'a
+// (`online-sunum-talep-et` vb.) otomatik çözülüyor — Pro'nunkiyle aynı yol.
+const SME_CTA_OVERRIDE: Record<Locale, { ctaText: string; ctaUrl: string }> = {
+  tr: { ctaText: 'Başvur', ctaUrl: 'https://idenfit.com/tr/online-sunum-talep-et/' },
+  en: { ctaText: 'Apply Now', ctaUrl: 'https://idenfit.com/request-online-presentation/' },
+  nl: { ctaText: 'Aanvragen', ctaUrl: 'https://idenfit.com/request-online-presentation/' },
+  it: { ctaText: 'Richiedi Ora', ctaUrl: 'https://idenfit.com/it/richiedi-presentazione-online/' },
+  az: { ctaText: 'Müraciət Et', ctaUrl: 'https://idenfit.com/tr/online-sunum-talep-et/' },
 };
 
 // Mikro paketinin "Telefon/Çevrimiçi Destek" satırı (2026-09-21, kullanıcı
@@ -164,7 +178,7 @@ const SME_PRICE_OVERRIDE: Record<Locale, string> = {
 // gösteriyordu, ama Mikro planda telefon/çevrimiçi destek fiilen YOK.
 // Tablodaki diğer "bu pakette yok" hücreleriyle AYNI sentinel (`'x'`,
 // `PricingPage.astro` bunu çarpı olarak render ediyor) kullanıldı —
-// `SME_PRICE_OVERRIDE`/`SUPREMA_BADGE_TEXT` ile AYNI override ilkesi,
+// `SME_CTA_OVERRIDE`/`SUPREMA_BADGE_TEXT` ile AYNI override ilkesi,
 // ham JSON'a elle DOKUNULMADI (extraction script'i yeniden çalıştırılsa
 // bile bu düzeltme hayatta kalır). KOBİ/Pro'nun "Opsiyonel" değeri
 // DEĞİŞMEDİ. `PRICING_AZ_OVERRIDE.micro.features.destek` literal'i de
@@ -182,7 +196,10 @@ const MICRO_SUPPORT_VALUE = 'x';
 // bir bileşen değişikliği gerekmedi). `priceSuffix` de temizlendi —
 // aksi halde "Teklif Al ₺/aylık'dan başlayan fiyatlar" gibi anlamsız
 // bir birleşim oluşurdu.
-const PRO_QUOTE_TEXT: Record<Locale, string> = {
+// 2026-09-22'den beri KOBİ paketi de bu metni kullanıyor (yukarıdaki
+// `SME_CTA_OVERRIDE` notu) — sabit bu yüzden `PRO_QUOTE_TEXT` değil
+// `QUOTE_TEXT` adını taşıyor, iki paket TEK kaynaktan besleniyor.
+const QUOTE_TEXT: Record<Locale, string> = {
   tr: 'Teklif Al',
   en: 'Get a Quote',
   nl: 'Offerte Aanvragen',
@@ -235,10 +252,13 @@ const PRICING_AZ_OVERRIDE: PricingContent = {
     planTitle: 'KOB',
     employeeRange: '<b>1-100</b> İşçi',
     modules: ['Rəqəmsal Qeydiyyat (Əsas)', 'İcazə', 'Avans', 'Əmlak', 'Sənəd', 'Əmək Haqqına Baxış', 'Xərc'],
-    price: '149',
-    priceSuffix: '€/ayda',
-    ctaText: 'Satın Alın',
-    ctaUrl: 'https://app.idenfit.com/register/sme/?lang=en',
+    // 2026-09-22 — bu 4 alanın DÖRDÜ de artık `getPricingContent()`'te
+    // `QUOTE_TEXT` + `SME_CTA_OVERRIDE` ile EZİLİYOR; literal yalnızca iki
+    // kaynağın birbirinden SAPMAMASI için aynı değerlere güncellendi.
+    price: 'Təklif Alın',
+    priceSuffix: '',
+    ctaText: 'Müraciət Et',
+    ctaUrl: 'https://idenfit.com/tr/online-sunum-talep-et/',
     features: {
       akademi: 'Video, Pdf',
       chatbot: 'Limitli',
@@ -326,15 +346,17 @@ export function getPricingContent(locale: Locale): PricingContent | undefined {
   const c = locale === 'az' ? PRICING_AZ_OVERRIDE : DATA.locales[locale]?.content;
   if (!c) return undefined;
   const micro = resolvePlan(c.micro, locale);
-  const sme = resolvePlan(c.sme, locale);
+  // CTA override'ı `resolvePlan()`'den ÖNCE uygulanıyor ki yeni `ctaUrl`
+  // de `resolveCtaUrl()`'ün per-locale slug çözümlemesinden geçsin.
+  const sme = resolvePlan({ ...c.sme, ...SME_CTA_OVERRIDE[locale] }, locale);
   const pro = resolvePlan(c.pro, locale);
   return {
     ...c,
     pageTitle: PAGE_TITLE_FIX[locale] ?? c.pageTitle,
     featuresTitle: FEATURES_TITLE_FIX[locale] ?? c.featuresTitle,
     micro: { ...micro, features: { ...micro.features, destek: MICRO_SUPPORT_VALUE } },
-    sme: { ...sme, price: SME_PRICE_OVERRIDE[locale] ?? sme.price },
-    pro: { ...pro, price: PRO_QUOTE_TEXT[locale] ?? pro.price, priceSuffix: '' },
+    sme: { ...sme, price: QUOTE_TEXT[locale] ?? sme.price, priceSuffix: '' },
+    pro: { ...pro, price: QUOTE_TEXT[locale] ?? pro.price, priceSuffix: '' },
     supremaBadgeText: SUPREMA_BADGE_TEXT[locale],
     mobileDetailsMoreText: MOBILE_DETAILS_TOGGLE[locale].more,
     mobileDetailsLessText: MOBILE_DETAILS_TOGGLE[locale].less,
