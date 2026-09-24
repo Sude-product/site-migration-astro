@@ -21,7 +21,7 @@ authorName: sude özdemir
 ---
 # Eylülde İşe Dönüş Neden Herkes İçin Aynı Değil?
 
-Bir İK ekibi, eylülün ilk haftasında toplantı takvimini düzenlemeye çalışıyor. Yazılım ekibi zaten ağustos ortasında tam kadro döndü, ama eğitim departmanındaki birkaç çalışan hâlâ izinde - bazıları üç haftadır. Aynı şirket, aynı ay, ama iki farklı ekip iki farklı ritimle işe dönüyor. Standart bir dönüş takvimi bu farkı hiç hesaba katmıyor.
+Bir İK ekibi, eylülün ilk haftasında toplantı takvimini düzenlemeye çalışıyor. Yazılım ekibi zaten ağustos ortasında tam kadro döndü, ama eğitim departmanındaki birkaç çalışan hâlâ izinde. Aynı şirket, aynı ay, ama iki farklı ekip iki farklı ritimle işe dönüyor. Standart bir dönüş takvimi bu farkı hiç hesaba katmıyor.
 
 İdenfit'in 16 sektörü kapsayan 2026 izin ve işe dönüş verilerine göre bu durum aslında istisna değil, kural. Yaz izni tek bir takvim izlemiyor; sektörün operasyonel yapısı, iznin ne zaman ve ne kadar kullanılacağını büyük ölçüde belirliyor.
 
@@ -33,7 +33,7 @@ Bu fark, tek tip bir "işe dönüş planı" hazırlamanın neden işe yaramadı�
 
 ## Üç Farklı İzin Modeli Ortaya Çıkıyor
 
-Sektörel veriler incelendiğinde, birbirinden belirgin şekilde ayrışan üç farklı izin kullanım modeli göze çarpıyor. Eğitim gibi takvime bağlı sektörlerde izin, yılın belirli bir döneminde yoğunlaşan ve uzun süren bir blok halinde kullanılıyor. Tekstil ve hazır giyim gibi sektörlerde ise tam tersi bir örüntü var: çalışanların büyük bölümü yaz döneminde izin kullanıyor, ama her seferinde kısa süreli. Güvenlik ve tesis hizmetleri gibi kesintisiz operasyon gerektiren alanlarda ise tablo daha da farklı: izin kullanım oranı düşük ve parçalı kalıyor.
+Sektörel veriler incelendiğinde, birbirinden belirgin şekilde ayrışan üç farklı izin kullanım modeli göze çarpıyor. Eğitim gibi takvime bağlı sektörlerde izin, yılın belirli bir döneminde yoğunlaşan ve uzun süren bir blok halinde kullanılıyor. Tekstil ve hazır giyim gibi sektörlerde ise tam tersi bir örüntü var: çalışanların büyük bölümü yaz döneminde izin kullanıyor, ama her seferinde kısa süreli. Güvenlik ve tesis hizmetleri gibi kesintisiz operasyon gerektiren alanlarda ise tablo daha da farklı — izin kullanım oranı düşük ve parçalı kalıyor.
 
 Bu üç model, aynı "yaz izni" başlığı altında aslında birbirinden çok farklı planlama ihtiyaçları doğuruyor. İzin kullanımının düşük olması tek başına çalışanların daha az dinlendiği anlamına gelmiyor; vardiya yapısı ve kayıt alışkanlığı da bu tabloyu şekillendiriyor. Ama sonuç aynı: tek bir işe dönüş uygulaması, her iş kolunda aynı etkiyi yaratmıyor.
 
@@ -47,7 +47,7 @@ Bu ayrım sadece istatistiksel bir detay değil; bordro ve SGK süreçleriyle do
 
 Rapordaki bir diğer dikkat çekici bulgu, izin taleplerinin ne kadar geç girildiğiyle ilgili. Bazı sektörlerde talepler izin başlangıcına çok az bir süre kala sisteme giriliyor; bu da onay zincirinin ve ekip planlamasının son anda sıkışmasına yol açıyor. Bu tablo, izin süreçlerinin manuel takip edildiği kurumlarda özellikle yoğun bir eylül ayı anlamına geliyor.
 
-Onay ve bildirim akışlarının [izin ve devamsızlık yönetimi](https://idenfit.com/izin-ve-devamsizlik-yonetimi-modulu/) üzerinden tek merkezden yürütülmesi, son dakika taleplerin ve geriye dönük kayıtların en azından görünür hale gelmesini sağlıyor , bu da planlamayı tamamen ortadan kaldırmasa da, sürprizi azaltıyor.
+Onay ve bildirim akışlarının [izin ve devamsızlık yönetimi](https://idenfit.com/yillik-izin-takip-programi/) üzerinden tek merkezden yürütülmesi, son dakika taleplerin ve geriye dönük kayıtların en azından görünür hale gelmesini sağlıyor, bu da planlamayı tamamen ortadan kaldırmasa da, sürprizi azaltıyor.
 
 ## Dönüş Dönemi Neden Sadece Operasyonel Bir Mesele Değil
 
@@ -63,4 +63,4 @@ Bu adımların ortak paydası, hepsinin güncel ve doğru izin verisine dayanmas
 
 İhtiyaç duyulan şey, tüm şirket için tek bir dönüş planı değil, sektörün ve departmanın gerçek izin ritmine uyan bir yaklaşım. Bu da ancak izin verisinin dağınık tablolarda değil, tek ve güncel bir sistemde tutulmasıyla mümkün oluyor.
 
-**İzin ve devamsızlık süreçlerinizi tek merkezden, gerçek zamanlı görünür hale getirmek ister misiniz?** [İdenfit İzin ve Devamsızlık Yönetimi](https://idenfit.com/izin-ve-devamsizlik-yonetimi-modulu/) ile talep, onay ve bakiye takibini tek panelden yönetin.
+**İzin ve devamsızlık süreçlerinizi tek merkezden, gerçek zamanlı görünür hale getirmek ister misiniz?** [İdenfit Yıllık İzin Takip Programı](https://idenfit.com/yillik-izin-takip-programi/) ile talep, onay ve bakiye takibini tek panelden yönetin.
