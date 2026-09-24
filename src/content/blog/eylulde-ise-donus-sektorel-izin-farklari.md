@@ -21,7 +21,7 @@ authorName: sude özdemir
 ---
 # Eylülde İşe Dönüş Neden Herkes İçin Aynı Değil?
 
-Bir İK ekibi, eylülün ilk haftasında toplantı takvimini düzenlemeye çalışıyor. Yazılım ekibi zaten ağustos ortasında tam kadro döndü, ama eğitim departmanındaki birkaç çalışan hâlâ izinde. Aynı şirket, aynı ay, ama iki farklı ekip iki farklı ritimle işe dönüyor. Standart bir dönüş takvimi bu farkı hiç hesaba katmıyor.
+Bir İK ekibi, eylülün ilk haftasında toplantı takvimini düzenlemeye çalışıyor. Yazılım ekibi zaten ağustos ortasında tam kadro döndü, ama eğitim departmanındaki birkaç çalışan hâlâ izinde - bazıları üç haftadır. Aynı şirket, aynı ay, ama iki farklı ekip iki farklı ritimle işe dönüyor. Standart bir dönüş takvimi bu farkı hiç hesaba katmıyor.
 
 İdenfit'in 16 sektörü kapsayan 2026 izin ve işe dönüş verilerine göre bu durum aslında istisna değil, kural. Yaz izni tek bir takvim izlemiyor; sektörün operasyonel yapısı, iznin ne zaman ve ne kadar kullanılacağını büyük ölçüde belirliyor.
 
@@ -39,7 +39,7 @@ Bu üç model, aynı "yaz izni" başlığı altında aslında birbirinden çok f
 
 ## Yaz İzninin Ne Kadarı Yıllık Ücretli İzin?
 
-Verilerin ortaya koyduğu bir başka önemli fark, yaz döneminde kullanılan izinlerin ne kadarının yıllık ücretli izin olduğu. Kamu ve STK ile güvenlik ve tesis hizmetleri gibi sektörlerde bu pay oldukça yüksekken, eğitim sektöründe — çalışan başına en uzun izin süresine sahip olmasına rağmen — yıllık ücretli iznin payı görece düşük kalıyor. Bu da eğitim sektöründeki uzun yaz molasının büyük ölçüde farklı izin türlerinden (örneğin idari izin döngüsünden) beslendiğini gösteriyor.
+Verilerin ortaya koyduğu bir başka önemli fark, yaz döneminde kullanılan izinlerin ne kadarının yıllık ücretli izin olduğu. Kamu ve STK ile güvenlik ve tesis hizmetleri gibi sektörlerde bu pay oldukça yüksekken, eğitim sektöründe -çalışan başına en uzun izin süresine sahip olmasına rağmen- yıllık ücretli iznin payı görece düşük kalıyor. Bu da eğitim sektöründeki uzun yaz molasının büyük ölçüde farklı izin türlerinden (örneğin idari izin döngüsünden) beslendiğini gösteriyor.
 
 Bu ayrım sadece istatistiksel bir detay değil; bordro ve SGK süreçleriyle doğrudan bağlantılı. İzin türünün doğru sınıflandırılmaması, hem raporlamada hem de hak ediş hesaplamalarında tutarsızlığa yol açabiliyor. Dolayısıyla izin verisinin yalnızca "kaç gün" değil, "hangi tür" sorusuna da net cevap verebilmesi gerekiyor.
 
@@ -47,11 +47,11 @@ Bu ayrım sadece istatistiksel bir detay değil; bordro ve SGK süreçleriyle do
 
 Rapordaki bir diğer dikkat çekici bulgu, izin taleplerinin ne kadar geç girildiğiyle ilgili. Bazı sektörlerde talepler izin başlangıcına çok az bir süre kala sisteme giriliyor; bu da onay zincirinin ve ekip planlamasının son anda sıkışmasına yol açıyor. Bu tablo, izin süreçlerinin manuel takip edildiği kurumlarda özellikle yoğun bir eylül ayı anlamına geliyor.
 
-Onay ve bildirim akışlarının [izin ve devamsızlık yönetimi](https://idenfit.com/izin-ve-devamsizlik-yonetimi-modulu/) üzerinden tek merkezden yürütülmesi, son dakika taleplerin ve geriye dönük kayıtların en azından görünür hale gelmesini sağlıyor — bu da planlamayı tamamen ortadan kaldırmasa da, sürprizi azaltıyor.
+Onay ve bildirim akışlarının [izin ve devamsızlık yönetimi](https://idenfit.com/izin-ve-devamsizlik-yonetimi-modulu/) üzerinden tek merkezden yürütülmesi, son dakika taleplerin ve geriye dönük kayıtların en azından görünür hale gelmesini sağlıyor , bu da planlamayı tamamen ortadan kaldırmasa da, sürprizi azaltıyor.
 
 ## Dönüş Dönemi Neden Sadece Operasyonel Bir Mesele Değil
 
-Rapor, ilginç bir paralelliğe de dikkat çekiyor: eylül ayı, aynı zamanda genç kuşak çalışanların işten ayrılmalarının da göreli olarak arttığı bir dönem. Burada dikkatli olmak gerekiyor — veriler, izin dönüşünün ayrılma kararına yol açtığını kanıtlamıyor; sadece iki eğilimin aynı takvime denk geldiğini gösteriyor. Ama bu örtüşme, eylül ilk haftasının sadece "birikmiş işlerin kapatıldığı" bir dönem değil, hedeflerin ve beklentilerin yeniden konuşulduğu bir dönem olarak ele alınmasını anlamlı kılıyor.
+Rapor, ilginç bir paralelliğe de dikkat çekiyor: eylül ayı, aynı zamanda genç kuşak çalışanların işten ayrılmalarının da göreli olarak arttığı bir dönem. Burada dikkatli olmak gerekiyor: veriler, izin dönüşünün ayrılma kararına yol açtığını kanıtlamıyor; sadece iki eğilimin aynı takvime denk geldiğini gösteriyor. Ama bu örtüşme, eylül ilk haftasının sadece "birikmiş işlerin kapatıldığı" bir dönem değil, hedeflerin ve beklentilerin yeniden konuşulduğu bir dönem olarak ele alınmasını anlamlı kılıyor.
 
 ## İşverenler İçin Somut Adımlar
 
