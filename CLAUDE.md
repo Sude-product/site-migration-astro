@@ -3676,6 +3676,49 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
     yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
     atlıyor, PR gate yok) bir kez daha doğruluyor.
+75. **YENİ (2026-10-01) — `astro check` bu makinede heap OOM ile çöküyor
+    (exit 134); deploy komutunun bir parçası olduğu için gerçek bir risk,
+    ayrı bir turda ele alınacak.**
+    - **Belirti:** `npx astro check` "Getting diagnostics for Astro
+      files…" satırından sonra V8'in `FATAL ERROR: Reached heap limit` /
+      `Ineffective mark-compacts near heap limit` hatasıyla düşüyor,
+      **exit 134** (SIGABRT). Node'un varsayılan ~4 GB sınırında ve
+      `NODE_OPTIONS=--max-old-space-size=8192` ile (8 GB) **ikisinde de**
+      çöküyor — 8 GB'da "ineffective mark-compact" mesajı veriyor, yani
+      sınırı yükseltmek sorunu çözmüyor, yalnızca erteliyor. Makinede
+      31,5 GB RAM var, yani fiziksel bellek darboğazı DEĞİL.
+      **Dürüst sınır:** 14 GB denemesi başlatıldı ama kullanıcı
+      tarafından durduruldu — **14 GB'da da çöktüğü DOĞRULANMADI**,
+      yalnızca 4 GB ve 8 GB ölçüldü. "Sızıntı mı yoksa saf ölçek mi"
+      sorusu bu yüzden hâlâ AÇIK.
+    - **Yapılan/düşünülen değişiklikten BAĞIMSIZ.** JSON-LD `inLanguage`
+      turunda (PR 1) keşfedildi; değişiklik `git stash` ile geri alınıp
+      **tamamen temiz baseline'da** aynı komut tekrar çalıştırıldı —
+      BİREBİR aynı şekilde çöktü. Yani PR 1 ile ilgisi yok, önceden var
+      olan bir durum.
+    - **Neden önemli:** Cloudflare Workers Builds'in build komutu
+      `npm run build:ci` = **`astro check && npm run build`** (bkz.
+      §Deployment). Yani `astro check` deploy hattının İLK adımı — deploy
+      konteynerinde de çökerse build başarısız olur ve canlıya hiçbir şey
+      çıkmaz. Şu an deploy'lar geçiyor (konteynerin bellek limiti/Node
+      sürümü bu makineden farklı olabilir) ama proje büyüdükçe (638+ blog
+      yazısı, 400+ şablon sayfası, 3172 HTML) bu kırılgan bir denge.
+      **`npm run build` TEK BAŞINA sorunsuz** (exit 0, ~5-6 dk) — çöken
+      yalnızca tip kontrolü adımı.
+    - **Pratik etkisi (şimdilik):** PR doğrulama listesinin "1. `astro
+      check` → 0 hata" adımı bu makinede ÇALIŞTIRILAMIYOR. Kalan gate'ler
+      (build + byte seviyesinde HTML diff + 11 regresyon script'i) hâlâ
+      geçerli ve PR 1'de fiilen kullanıldı.
+    - **Araştırılacak (ayrı tur):** (a) 14 GB+ ile gerçekten geçiyor mu —
+      geçiyorsa saf ölçek, `NODE_OPTIONS` ile kalıcı çözüm; geçmiyorsa
+      tip katmanında bir sızıntı/sonsuz genişleme var demektir;
+      (b) hangi dosya/tip tetikliyor (`content.config.ts`'in composite
+      loader'ı + 638 `.md` entry'si ilk şüpheli, bkz. Açık nokta #44);
+      (c) Cloudflare build konteynerinin gerçek bellek limiti ve oradaki
+      `astro check` süresi/sonucu log'dan doğrulanmalı; (d) çözülene
+      kadar `build:ci`'ın `astro check` adımının `NODE_OPTIONS` ile
+      güçlendirilmesi mi yoksa deploy hattından geçici olarak çıkarılması
+      mı (tip güvenliğini kaybetme pahasına) tercih edilmeli.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
