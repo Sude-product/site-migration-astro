@@ -138,6 +138,49 @@ const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).
 // `FOOTER_CONTACT`'tan besleniyor — footer'da görünen veriyle aynı tek kaynak.
 const IDENFIT_ORG_LOGO = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 
+// `Organization` şemasının KANONİK KİMLİĞİ (2026-10-02, PR 2). Bu blok
+// 3176 sayfanın HER BİRİNDE basılıyor ama `@id` olmadığı için tüketiciler
+// (Google, LLM'ler) bunların AYNI kuruluş mu yoksa 3176 ayrı kuruluş mu
+// olduğunu bilemiyordu. Sabit bir `@id` hepsini tek bir varlıkta
+// birleştiriyor ve ileride diğer şemaların (`BlogPosting.publisher`,
+// `WebPage.publisher`) kuruluşu YENİDEN TANIMLAMAK yerine `{'@id': …}`
+// ile REFERANS vermesini mümkün kılıyor — o bağlama işi bu PR'ın
+// KAPSAMINDA DEĞİL, ayrı bir tur (bkz. CLAUDE.md).
+// `url` ile AYNI koşula bağlı: `Astro.site` tanımsızken mutlak bir `@id`
+// üretilemez ve göreli bir `@id` kimlik olarak işe yaramaz — o durumda
+// hiç basılmıyor.
+const IDENFIT_ORG_ID = Astro.site ? `${Astro.site.href}#organization` : undefined;
+
+// `areaServed` (2026-10-02, PR 2) — DÖRT ülke. İki farklı kanıt türünden
+// besleniyor, ikisi de gerçek:
+//
+//  1) FİZİKSEL OFİS — `/iletisim/` sayfasında herkese açık şekilde
+//     doğrulanabilir (kaynak: `reference/wordpress-export/misc-pages.json`,
+//     `iletisim`):
+//       TR — "İstanbul Merkez Ofisi" (Ümraniye) + "İstanbul Ar-Ge Ofisi"
+//            (Teknopark/Pendik — `FOOTER_CONTACT.address` ile AYNI adres)
+//       NL — "Lahey Global Satış Ofisi" (Den Haag)
+//
+//  2) GERÇEK SATIŞ FAALİYETİ, ofis YOK — IT ve AZ.
+//     **Bu bilgi kod tabanından/kaynak siteden TÜRETİLEMEZ**; kullanıcının
+//     (sude@idenfit.com) 2026-10-02'de verdiği ticari bilgiye dayanıyor:
+//     "o ülkelerde gerçek müşterilerimiz var, ofis yok ama satış faaliyeti
+//     var." Sitedeki dolaylı izler bununla TUTARLI (tam yerelleştirilmiş
+//     IT/AZ sayfaları + € fiyat) ama tek başlarına kanıt sayılmamıştı —
+//     kararın dayanağı bu iç bilgi, site içeriği değil.
+//     **Değiştirilmeden önce iş tarafına sorulmalı** (kodda doğrulanabilecek
+//     bir kaynağı yok).
+//
+// BİLİNÇLİ OLARAK DIŞARIDA BIRAKILANLAR (kullanıcı onaylı, 2026-10-02):
+//  - **"MENA":** kaynakta yalnızca bir OFİS ADI olarak geçiyor ("MENA Sales
+//    Office", EN/NL/IT iletişim sayfası) — schema.org'un beklediği
+//    Place/AdministrativeArea karşılığı olmayan serbest metin bir bölge adı.
+//  - **"Worldwide" / 3 kıta:** `hedef-global-marka` sayfası bunu AÇIKÇA
+//    2027 HEDEFİ olarak anlatıyor ("Vizyonumuz, 2027 yılında … en az 3
+//    kıtada aktif olarak kullanılması") — bugünkü bir gerçek değil, şemaya
+//    yazmak yanlış beyan olurdu.
+const IDENFIT_AREA_SERVED = ['TR', 'NL', 'IT', 'AZ'];
+
 // OG/Twitter görseli — sayfaya özgü verilmemişse ana sayfanın dashboard
 // mockup'ına (locale'e göre — NL kendi farklı görselini kullanıyor, bkz.
 // `HOME_PANEL_IMAGE`'in kendi yorumu) düşülür.
@@ -208,20 +251,34 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			<meta property="article:modified_time" content={articleModifiedTime} />
 		)}
 
-		<!-- Organization JSON-LD sameAs notu — detaylı teknik notlar CLAUDE.md'de -->
+		<!-- Organization JSON-LD notu — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="application/ld+json"
 			set:html={safeJsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'Organization',
+				...(IDENFIT_ORG_ID ? { '@id': IDENFIT_ORG_ID } : {}),
 				name: 'idenfit',
 				...(Astro.site ? { url: Astro.site.href } : {}),
+				// Sayfanın kendi diliyle gelir — yeni metin YAZILMADI,
+				// `t.hero.description` ana sayfanın ZATEN canlı olan
+				// `<meta name="description">` metni (5 dilin hepsinde gerçek
+				// çeviri, bkz. `src/i18n/*.ts`). İkinci bir "kurumsal açıklama"
+				// kaynağı uydurmak, iki metnin zamanla ayrışması demekti.
+				description: t.hero.description,
 				logo: toAbsoluteUrl(IDENFIT_ORG_LOGO),
 				address: {
 					'@type': 'PostalAddress',
 					streetAddress: FOOTER_CONTACT.address,
+					addressLocality: FOOTER_CONTACT.addressLocality,
 					addressCountry: 'TR',
 				},
+				// `contactPoint` içindeki değerlerle AYNI tek kaynaktan
+				// (`FOOTER_CONTACT`) besleniyor — Google `Organization`
+				// dokümantasyonu bu ikisini üst seviyede de bekliyor.
+				telephone: FOOTER_CONTACT.phoneLabel,
+				email: FOOTER_CONTACT.emailLabel,
+				areaServed: IDENFIT_AREA_SERVED,
 				contactPoint: {
 					'@type': 'ContactPoint',
 					contactType: 'customer support',
