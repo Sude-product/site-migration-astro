@@ -11,6 +11,7 @@ import { fixLinkAccessibility } from './contentLinkAccessibility';
 import {
   CONTACT_IT_OVERRIDE,
   CONTACT_AZ_OVERRIDE,
+  SECURITY_TR_OVERRIDE,
   SECURITY_IT_OVERRIDE,
   GLOBAL_BRAND_IT_HERO,
   GLOBAL_BRAND_IT_SECTIONS,
@@ -374,56 +375,24 @@ function bareSlugFromAbsoluteUrl(url: string): string {
   }
 }
 
-// 2026-10-02 — Güvenlik sayfasının 2. maddesi ("Bilgi Güvenliği Politikası")
-// ham veride `..._İs_Ortagi_Aydinlatma_Metni_v3.pdf` adlı dosyaya bağlıydı.
-// Dosyanın ADI yanıltıcıydı, İÇERİĞİ doğruydu: PDF'in kendi Info
-// sözlüğündeki kaynak .docx adı "PO-YN-01 Bilgi_Guvenligi_Politikası00_web
-// (1) (1).docx", yani gerçekten Bilgi Güvenliği Politikası'ydı (1 sayfa —
-// gerçek İş Ortağı Aydınlatma Metni 5 sayfa, bkz. aynı belgenin `-EN`
-// sürümü). Belgenin yeni sürümü (2 sayfa) doğru adlı bir dosyaya eklendi
-// ve bu madde ona yönlendirildi; böylece bir Bilgi Güvenliği belgesi artık
-// "İş Ortağı Aydınlatma Metni" adlı bir dosyanın içinde durmuyor.
-//
-// Eski dosya SİLİNMEDİ ve 6. maddeye DOKUNULMADI — ham veride 3/5/6.
-// maddeler AYRI, önceden var olan bir eşleşme hatası taşıyor (3↔5 yer
-// değiştirmiş; 6, eski "PL.01 Kalite ve Bilgi Güvenliği YS Politikası"
-// belgesini gösteriyor ve TR İş Ortağı Aydınlatma Metni repoda hiç yok).
-// Hukuki belgeler olduğu için ayrı bir onay turuna bırakıldı.
-//
-// Anahtar NFC'ye normalize edilerek karşılaştırılıyor: ham JSON, diskteki
-// dosya adı ve canlı HTML'in ÜÇÜ de Türkçe "İ"nin PARÇALANMIŞ (NFD:
-// `I` + U+0307) biçimini taşıyor (CLAUDE.md Açık nokta #45'teki AYNI
-// tuzak) — normalize etmezsek biçim sapmasında override sessizce devre
-// dışı kalır ve madde eski belgeyi göstermeye devam eder.
-//
-// TR'ye kasıtlı olarak kapsamlandı: EN/IT'nin 2. maddesi kendi ayrı
-// `information_security.pdf` dosyasını kullanıyor (kullanıcı kararı,
-// 2026-10-02 — bu turda yalnızca TR güncellendi).
-const SECURITY_ITEM_URL_REPLACEMENTS: Partial<Record<Locale, Record<string, string>>> = {
-  tr: {
-    '/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_İs_Ortagi_Aydinlatma_Metni_v3.pdf':
-      '/wp-content/uploads/2026/10/bilgi-guvenligi-politikasi.pdf',
-  },
-};
-
 function resolveSecurityItemUrl(rawUrl: string, locale: Locale): string {
-  const replacements = SECURITY_ITEM_URL_REPLACEMENTS[locale];
-  if (replacements) {
-    const needle = rawUrl.normalize('NFC');
-    for (const [from, to] of Object.entries(replacements)) {
-      if (from.normalize('NFC') === needle) return to;
-    }
-  }
   const bare = bareSlugFromAbsoluteUrl(rawUrl);
   if (KVKK_SOURCE_BARE_SLUGS.has(bare)) return getKvkkSlug(locale) ?? KVKK_TR_SLUG;
   return rawUrl;
 }
 
 export function getSecurityItems(locale: Locale): SecurityItem[] {
+  // TR ve IT listeleri ELLE/AÇIK tanımlı (bkz. `miscPagesTranslationOverrides.ts`
+  // — TR'nin gerekçesi: ham WP verisinde madde başlıkları ile bağlı PDF
+  // dosyaları birbirine karışmıştı, 2026-10-02). EN hâlâ ham
+  // `misc-pages.json`'dan okunuyor. NL/AZ'de kaynak sayfa HİÇ YOK — boş dizi
+  // döner, route zaten EN/TR'ye fallback ediyor (bkz. CLAUDE.md Açık nokta #37).
   const items =
-    locale === 'it'
-      ? SECURITY_IT_OVERRIDE
-      : ((findGroup(SECURITY_TR_SLUG)?.locales[locale]?.content as { items: SecurityItem[] } | undefined)?.items ?? []);
+    locale === 'tr'
+      ? SECURITY_TR_OVERRIDE
+      : locale === 'it'
+        ? SECURITY_IT_OVERRIDE
+        : ((findGroup(SECURITY_TR_SLUG)?.locales[locale]?.content as { items: SecurityItem[] } | undefined)?.items ?? []);
   return items.map((item) => ({ ...item, url: resolveSecurityItemUrl(item.url, locale) }));
 }
 export function getSecuritySlug(locale: Locale): string | undefined {
