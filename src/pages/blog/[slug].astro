@@ -8,7 +8,7 @@ export const prerender = true;
 import { render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import BlogSidebar from '../../components/BlogSidebar.astro';
-import { safeJsonLd } from '../../data/jsonLd';
+import { organizationId, safeJsonLd } from '../../data/jsonLd';
 import { estimateReadingMinutes, getAllBlogPosts, getRelatedPosts, formatBlogDate } from '../../data/blogContent';
 
 // "No visible content dates" GEO bulgusu (2026-08-17) — bkz. CLAUDE.md.
@@ -109,6 +109,18 @@ const trOnlyLocaleUrls = (path: string) => ({ tr: path, en: path, nl: path, it: 
 
 const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).href : path);
 
+// Kuruluş referansı (2026-10-02, PR 3). `BaseLayout.astro` kuruluşu BU
+// SAYFADA da tam olarak tanımlıyor (Organization bloğu her sayfada
+// basılıyor) — `publisher`/`author` artık onu YENİDEN TANIMLAMAK yerine
+// `@id` ile gösteriyor. Dize `organizationId()` ile BaseLayout'la AYNI
+// paylaşılan kaynaktan; iki dosya ayrı ayrı kurarsa bir gün sessizce
+// ayrışıp referans boşa düşerdi.
+// `ORG_REF` undefined ise (yalnızca `site` yapılandırılmamışsa) AŞAĞIDAKİ
+// çağrı yerleri eski satır-içi tanıma geri düşüyor — tanımsız bir düğüme
+// atıf yapmak, biraz tekrardan daha kötü olurdu.
+const orgId = organizationId(Astro.site);
+const ORG_REF = orgId ? { '@id': orgId } : undefined;
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -117,8 +129,15 @@ const jsonLd = {
   image: toAbsoluteUrl(featuredImage?.image ?? IDENFIT_LOGO_URL),
   datePublished: date.toISOString(),
   dateModified: (effectiveModifiedDate ?? date).toISOString(),
-  author: authorName ? { '@type': 'Person', name: authorName } : { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' },
-  publisher: {
+  // `author`ın Organization dalı da AYNI kuruluş — referansa çevrildi.
+  // Yan fayda: satır içi hâli `url: 'https://idenfit.com'` (sondaki eğik
+  // çizgi YOK) yazıyordu, Organization bloğunun kendi `url`'i ise
+  // `Astro.site.href` (`https://idenfit.com/`) — aynı varlık için iki
+  // farklı URL biçimi. Referansa geçmek bu tutarsızlığı da kaldırıyor.
+  author: authorName
+    ? { '@type': 'Person', name: authorName }
+    : (ORG_REF ?? { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' }),
+  publisher: ORG_REF ?? {
     '@type': 'Organization',
     name: 'idenfit',
     logo: { '@type': 'ImageObject', url: toAbsoluteUrl(IDENFIT_LOGO_URL) },
