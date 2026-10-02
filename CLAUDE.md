@@ -349,32 +349,50 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
-### ⚠️ JSON-LD şema turu — AÇIK PR'LAR VE MERGE SIRASI (2026-10-02)
+### ✅ JSON-LD şema turu — 4 PR, SIRAYLA CANLIYA ALINDI (2026-10-02)
 
-Dört PR'ın tamamı yerelde, **hiçbiri push/merge EDİLMEDİ**. Üçü birbirinin
-üzerine kurulu — **sıra bozulursa kırık referans veya çakışma çıkar.**
+Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
+doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 
-| # | Dal | Taban | Commit | İçerik |
-|---|---|---|---|---|
-| 2 | `feat/jsonld-organization` | `idenfit/master` `92973b3` | `ab889d1` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
-| 3 | `feat/jsonld-publisher-id` | **PR 2** | `daf02e3` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
-| 4 | `feat/jsonld-webpage-unconditional` | **PR 3** | (bu tur) | `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel alan — 146 sayfa kimlik kazanıyor |
+| Sıra | PR | Dal | Commit | Merge | İçerik |
+|---|---|---|---|---|---|
+| 1 | #15 | `feat/jsonld-organization` | `ab889d1` | `ea3c596` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
+| 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
+| 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
+| 4 | — | `feat/jsonld-inlanguage` | (bu tur) | — | `WebPage` + `BlogPosting`'e `inLanguage` |
 
-**Zorunlu sıra: PR 2 → PR 3 → PR 4.**
-- PR 3, PR 2'nin tanımladığı `@id`'ye REFERANS veriyor. Önce merge
-  edilirse 803 sayfada **tanımsız bir düğüme atıf** oluşur — ve bu JSON-LD'de
-  HATA VERMEZ, sessizce yanlış olur.
-- PR 4, PR 3'ün eklediği `WebPage.publisher` satırını içeren bloğu
-  değiştiriyor; önce merge edilirse çakışır.
-- Üçü de `src/layouts/BaseLayout.astro`'nun AYNI bölgesine dokunuyor.
+Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
+PR'ın diff'i yalnızca kendi commit'ini gösterdi.
 
-**PR 1 (`feat/jsonld-inlanguage`, `41fbed7`+`9d777e0`+`e264dc5`) AYRI ve
-BAĞIMSIZ** — daha eski bir master'dan (`e844680`) dallandı, `idenfit/master`
-ilerlediği için önce rebase gerekiyor. `WebPage` bloğuna `inLanguage: lang`
-ekliyor, yani **PR 2-4'le AYNI bloğa dokunuyor → çakışma kesin.** Çözüm
-basit (satırı `url`'den sonra yeniden yerleştir) ama elle yapılmalı.
-**Öneri: PR 1 EN SONA bırakılsın** — o zaman çakışma tek bir blokta ve tek
-bir satırda kalır.
+**Sıra neden zorunluydu:** PR #16, PR #15'in tanımladığı `@id`'ye REFERANS
+veriyor — önce merge edilse 803 sayfada **tanımsız bir düğüme atıf** oluşurdu
+ve bu JSON-LD'de **hata vermez**, sessizce yanlış olurdu. PR #17 de #16'nın
+eklediği satırı içeren bloğu değiştiriyor. Üçü `BaseLayout.astro`'nun AYNI
+bölgesine dokunuyor.
+
+**PR 4 (`inLanguage`) daha eski bir master'dan (`e844680`) dallanmıştı** ve
+AYNI `WebPage` bloğuna dokunduğu için çakışması kesindi. GitHub editöründe
+değil, YERELDE rebase edilip çözüldü (kullanıcı kararı: "üç tuzaktan biri
+gözden kaçarsa 146 sayfa sessizce şemasız kalır, hata vermeden"), sonra
+build + byte diff ile doğrulandı. **Çözümün nihai alan sırası:**
+
+```js
+url: pageUrl,
+inLanguage: lang,                                                     // PR 4
+...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),  // PR #16
+...(dateModified ? { dateModified } : {}),                            // PR #17
+```
+
+**Benzer bir çakışmada tekrar düşülecek ÜÇ TUZAK** (üçü de sessiz
+regresyon üretir, hiçbiri hata vermez):
+1. Koşul `{ogType !== 'article' && (` KALMALI — eski dalın
+   `&& dateModified &&` hâli alınırsa PR #17 sessizce geri alınır ve
+   146 sayfa yine şemasız kalır.
+2. `dateModified` SPREAD kalmalı — eski dalın düz `dateModified,` satırı
+   alınırsa tarihi olmayan sayfalarda `"dateModified": undefined` riski
+   doğar.
+3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
+   anlamsız, yalnızca okunurluk).
 
 **🟢 2026-10-02 — JSON-LD şema turu PR 4: `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel ALAN oldu — 146 sayfa şema kimliği kazandı.**
 `dateModified` prop'u ESKİDEN bloğun TAMAMININ ön koşuluydu: gerçek bir WP
