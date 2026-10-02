@@ -3817,6 +3817,95 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
       (11,8 MB) programa GİRMİYOR — hiç import edilmiyorlar ve TypeScript
       wildcard `include` ile `.json` toplamıyor. Bu ikisi için bir şey
       yapmaya gerek yok.
+77. **KISMEN KAPANDI (2026-10-02) — `/guvenlik/` madde 2 (Bilgi Güvenliği
+    Politikası) güncellendi; AYNI sayfanın 3/5/6. maddelerinde bulunan
+    belge-eşleşme hatası kullanıcı kararıyla AÇIK bırakıldı.**
+    Kullanıcı yeni bir "PO-YN-01 Bilgi Güvenliği Politikası" PDF'i verip
+    madde 2'nin güncellenmesini istedi. **Keşifte beklenmedik bir durum
+    çıktı: ham veride madde başlıkları ile bağlı PDF dosya adları
+    uyuşmuyor.** Dosya ADLARINA değil, her PDF'in kendi Info sözlüğündeki
+    kaynak `.docx` adına + sayfa sayısına bakılarak gerçek içerik
+    belirlendi — **yöntem kalıcı olarak kayda değer:** bu PDF'lerin metin
+    katmanı CID-kodlu font kullanıyor, bu yüzden ham metin çıkarımı
+    güvenilir DEĞİL, ama Info sözlüğündeki kaynak `.docx` adı belgeyi
+    kesin olarak tanımlıyor.
+
+    | # | Görünen başlık | Bağlı dosya | Dosyanın GERÇEK içeriği | Durum |
+    |---|---|---|---|---|
+    | 2 | Bilgi Güvenliği Politikası | `..._İs_Ortagi_Aydinlatma_Metni_v3.pdf` | PO-YN-01 Bilgi_Guvenligi_Politikası (1 sf) | içerik ✓, ad yanıltıcı |
+    | 3 | Çerez Politikası ve Çerez Aydınlatma Metni | `..._Calisan_ve_Calisan_Adayi_..._v3.pdf` | Çalışan/Çalışan Adayı Aydınlatma Metni | ❌ yanlış belge |
+    | 5 | Çalışan ve Çalışan Adayı Aydınlatma Metni | `cerez_politikasi_ve_aydinlatma.pdf` | Çerez Aydınlatma Metni v4 | ❌ yanlış belge |
+    | 6 | İş Ortağı Aydınlatma Metni | `bilgi_guvenligi.pdf` | PL.01 Kalite ve Bilgi Güvenliği YS Politikası (ESKİ) | ❌ yanlış belge |
+
+    Yani **3↔5 yer değiştirmiş**, **6 eski bir Bilgi Güvenliği belgesi
+    gösteriyor** ve **TR "İş Ortağı Aydınlatma Metni" PDF'i repoda HİÇ YOK**
+    (yalnızca `-EN` sürümü var, 5 sayfa). Hatalar canlıda da aynen var
+    (`curl` ile doğrulandı) — bu turda ORTAYA ÇIKARILDI, bir regresyon
+    DEĞİL. Hukuki belgeler olduğu için kullanıcı kararıyla DOKUNULMADI;
+    düzeltmek için madde 6'nın gerçek TR PDF'inin sağlanması + ekip/hukuk
+    onayı gerekiyor.
+    **Uygulanan (yalnızca madde 2, yalnızca TR — kullanıcı kararı):** yeni
+    PDF (2 sayfa, önceki 1 sayfalık sürümün güncellemesi) temiz/ASCII adlı
+    `public/wp-content/uploads/2026/10/bilgi-guvenligi-politikasi.pdf`'e
+    eklendi (Görsel bağımlılık kuralı — hotlink YOK, göreli URL) ve
+    `miscPagesContent.ts`'in `resolveSecurityItemUrl()`'üne TR'ye
+    kapsamlanmış bir URL override haritası
+    (`SECURITY_ITEM_URL_REPLACEMENTS`) eklendi. Ham `misc-pages.json`
+    DEĞİŞTİRİLMEDİ (proje ilkesi: ham export kaynak veri, düzeltme kodda).
+    Eski dosya SİLİNMEDİ — artık öksüz (0 referans) ama 3/5/6 turunda
+    gerekebilir. **Override anahtarı NFC'ye normalize edilerek
+    karşılaştırılıyor:** ham JSON, diskteki dosya adı ve canlı HTML'in
+    ÜÇÜ de Türkçe "İ"nin PARÇALANMIŞ (NFD: `I` + U+0307) biçimini taşıyor
+    (Açık nokta #45'teki AYNI tuzak) — normalize edilmezse override
+    sessizce devre dışı kalırdı. EN/IT'nin 2. maddesi
+    (`information_security.pdf`, `bilgi_guvenligi.pdf` ile byte-birebir
+    aynı ESKİ PL.01 belgesi) kullanıcı kararıyla DOKUNULMADI; İngilizce
+    sürüm geldiğinde ayrı bir turda ele alınacak.
+    **Doğrulama:** `astro check` 0 hata (431 dosya), `astro build` temiz
+    (3164 HTML, ayrı `dist-check` çıktısına — çalışan önizlemeye
+    dokunulmadı), 11 regresyon script'inden 8'i sıfır sorun. Sıfır olmayan
+    3'ü de BU TURDAN BAĞIMSIZ bilinen taban çizgileri:
+    `check-heading-hierarchy` 5 (Açık nokta #36), `check-title-length` 3 +
+    `check-meta-description-length` 1 (Açık nokta #70/#74'ün Keystatic
+    yazıları). Build çıktısında TR'nin 6 maddesi + EN/IT'nin 6'şar maddesi
+    tek tek listelenip yalnızca madde 2'nin değiştiği, diğer 17
+    bağlantının BİREBİR aynı kaldığı doğrulandı; yeni PDF'in `dist`'teki
+    kopyası kaynakla aynı (113.228 bayt, 2 sayfa, m156). Cache notu: yeni
+    URL sıfırdan oluştuğu için bayat kopya riski YOK, Cloudflare cache
+    temizlemeye gerek kalmadı (`/guvenlik/` yanıtı zaten
+    `max-age=0, must-revalidate`).
+    **PR öncesi `idenfit/master` merge'i sonrası TAM doğrulama TEKRARLANDI**
+    (master 14 commit öndeydi — JSON-LD `inLanguage`/Organization `@id`
+    turu + 3 Keystatic blog yazısı; merge ÇATIŞMASIZ, bu turun
+    dosyalarına hiç dokunulmamıştı): `astro check` 0 hata, `astro build`
+    temiz (3176 HTML — artış merge'in getirdiği 3 yazıdan),
+    `check-json-ld` **0 geçersiz blok** (merge'in JSON-LD değişiklikleri
+    bu turla uyumlu), 3 Güvenlik sayfasının 18 bağlantısı yeniden tek tek
+    listelendi — yalnızca TR madde 2 değişik. `check-title-length` taban
+    çizgisi 3→5'e çıktı ama **ikisi de merge'in getirdiği blog yazısı**
+    (`dogum-izni-24-hafta-teklifi-ik-hazirlik` 45 karakter,
+    `biyometrik-kart-mobil-giris-yontemi-secimi` 70 karakter) — Güvenlik
+    sayfalarından hiçbiri listede YOK, Açık nokta #70'in yapısal
+    noktasının bir kez daha tekrarı.
+78. **YENİ (2026-10-02), ORTAM KAYNAKLI YANLIŞ ALARM — `check-csp-sync.mjs`
+    bu Windows checkout'unda HER ZAMAN exit 1 veriyor, gerçek bir CSP
+    sapması YOK.** Script `public/_headers`'ı `src/data/csp.ts`'ten üretilen
+    metinle HAM string olarak karşılaştırıyor, satır sonlarını normalize
+    ETMİYOR. `git config core.autocrlf` = **true** olduğu için checkout
+    dosyayı CRLF'e çeviriyor (diskte 33 CRLF satır), üretilen beklenen
+    metin ise LF — sonuç: **33 satırın TAMAMI "ayrışmış" raporlanıyor**,
+    ama satır sonu normalize edilince içerik BİREBİR AYNI (doğrulandı:
+    HEAD blob'u 33 yalnız-LF satır, `git diff -- public/_headers` BOŞ).
+    **Canlı ETKİLENMİYOR** — deploy edilen, commit'teki LF sürümü.
+    **`--fix` ÇALIŞTIRILMAMALI:** dosyayı yeniden yazsa bile autocrlf
+    sonraki checkout'ta tekrar CRLF'e çevirir, yani sorun geri gelir ve
+    arada gereksiz bir diff oluşur. **Kalıcı çözüm için öneri (ayrı tur):**
+    ya `check-csp-sync.mjs`'in karşılaştırmasını `.replace(/\r\n/g,'\n')`
+    ile normalize etmek, ya da `.gitattributes`'a `public/_headers text
+    eol=lf` eklemek (ikincisi `generate-csp-headers.mjs` ile de tutarlı
+    olur). **Pratik sonuç:** bu script bir CI/PR gate'ine bağlanırsa
+    Windows'ta gate'i KIRAR — Açık nokta #50'deki `check-heading-hierarchy`
+    istisnasıyla AYNI sınıf.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
