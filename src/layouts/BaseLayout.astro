@@ -315,6 +315,14 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					name: title,
 					description,
 					url: pageUrl,
+					// `inLanguage` (2026-10-01, JSON-LD şema denetimi PR 1) — 5 dilli bir
+					// sitede sayfanın dili şema seviyesinde hiç belirtilmiyordu. Değer
+					// `<html lang={lang}>` ile BİREBİR AYNI değişkenden geliyor; ikinci
+					// bir locale-kodu haritası İCAT EDİLMEDİ. `dates.ts`'in bölge
+					// nitelikli `BCP47_LOCALE`'i (`tr-TR` vb.) KASITLI kullanılmadı —
+					// bare `tr`/`en`/`nl`/`it`/`az` zaten geçerli BCP 47 ve `<html lang>`
+					// ile aynı kalması iki kaynağın ayrışma riskini ortadan kaldırıyor.
+					inLanguage: lang,
 					// Kuruluş AYNI sayfada zaten tam olarak tanımlı (yukarıdaki
 					// Organization bloğu) — burada yeniden tanımlanmıyor, yalnızca
 					// referans veriliyor. `@id` üretilemiyorsa (bkz.
@@ -322,11 +330,9 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					// atıf yapmaktansa `publisher`'ı hiç yazmamak doğru.
 					...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
 					// `dateModified` artık OPSİYONEL bir ALAN (2026-10-02, PR 4) —
-					// eskiden bloğun TAMAMININ ön koşuluydu. Konumu ve koşullu
-					// yazım biçimi, `publisher` ile AYNI nedenle değiştirilmedi:
-					// `JSON.stringify` anahtar sırasını ekleme sırasına göre
-					// koruyor, bu yüzden tarihi OLAN 163 sayfanın çıktısı
-					// BAYT BAYT aynı kalıyor (byte diff ile doğrulandı).
+					// eskiden bloğun TAMAMININ ön koşuluydu. Koşullu yazım biçimi
+					// `publisher` ile AYNI nedenle spread: `JSON.stringify` anahtar
+					// sırasını ekleme sırasına göre koruyor.
 					...(dateModified ? { dateModified } : {}),
 				})}
 				is:inline

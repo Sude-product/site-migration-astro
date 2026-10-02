@@ -126,6 +126,16 @@ const jsonLd = {
   '@type': 'BlogPosting',
   headline: title,
   description: excerpt,
+  // `inLanguage` (2026-10-01, JSON-LD şema denetimi PR 1). **Sabit `'tr'`,
+  // `Astro.currentLocale` DEĞİL** — blog mimari olarak TR-only (bkz. yukarıdaki
+  // `trOnlyLocaleUrls` + `hreflangLocales={['tr']}`); 638 yazının tamamı yalnızca
+  // bare `/blog/<slug>/` yolunda GERÇEK sayfa olarak üretiliyor, `/en/blog/...`
+  // vb. karşılıkları Astro i18n fallback'inin redirect stub'ları (bu bileşen
+  // orada hiç çalışmıyor). İleride bir yazı locale önekli bir yolda render
+  // edilirse `currentLocale` o dili döndürürdü ama GÖVDE METNİ yine Türkçe
+  // olurdu — yani dinamik değer YANLIŞ bir dil sinyali üretirdi. `inLanguage`
+  // içeriğin dilini bildirir, route'un dilini değil.
+  inLanguage: 'tr',
   image: toAbsoluteUrl(featuredImage?.image ?? IDENFIT_LOGO_URL),
   datePublished: date.toISOString(),
   dateModified: (effectiveModifiedDate ?? date).toISOString(),

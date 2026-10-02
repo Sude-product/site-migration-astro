@@ -349,32 +349,50 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
-### ⚠️ JSON-LD şema turu — AÇIK PR'LAR VE MERGE SIRASI (2026-10-02)
+### ✅ JSON-LD şema turu — 4 PR, SIRAYLA CANLIYA ALINDI (2026-10-02)
 
-Dört PR'ın tamamı yerelde, **hiçbiri push/merge EDİLMEDİ**. Üçü birbirinin
-üzerine kurulu — **sıra bozulursa kırık referans veya çakışma çıkar.**
+Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
+doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 
-| # | Dal | Taban | Commit | İçerik |
-|---|---|---|---|---|
-| 2 | `feat/jsonld-organization` | `idenfit/master` `92973b3` | `ab889d1` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
-| 3 | `feat/jsonld-publisher-id` | **PR 2** | `daf02e3` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
-| 4 | `feat/jsonld-webpage-unconditional` | **PR 3** | (bu tur) | `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel alan — 146 sayfa kimlik kazanıyor |
+| Sıra | PR | Dal | Commit | Merge | İçerik |
+|---|---|---|---|---|---|
+| 1 | #15 | `feat/jsonld-organization` | `ab889d1` | `ea3c596` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
+| 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
+| 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
+| 4 | — | `feat/jsonld-inlanguage` | (bu tur) | — | `WebPage` + `BlogPosting`'e `inLanguage` |
 
-**Zorunlu sıra: PR 2 → PR 3 → PR 4.**
-- PR 3, PR 2'nin tanımladığı `@id`'ye REFERANS veriyor. Önce merge
-  edilirse 803 sayfada **tanımsız bir düğüme atıf** oluşur — ve bu JSON-LD'de
-  HATA VERMEZ, sessizce yanlış olur.
-- PR 4, PR 3'ün eklediği `WebPage.publisher` satırını içeren bloğu
-  değiştiriyor; önce merge edilirse çakışır.
-- Üçü de `src/layouts/BaseLayout.astro`'nun AYNI bölgesine dokunuyor.
+Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
+PR'ın diff'i yalnızca kendi commit'ini gösterdi.
 
-**PR 1 (`feat/jsonld-inlanguage`, `41fbed7`+`9d777e0`+`e264dc5`) AYRI ve
-BAĞIMSIZ** — daha eski bir master'dan (`e844680`) dallandı, `idenfit/master`
-ilerlediği için önce rebase gerekiyor. `WebPage` bloğuna `inLanguage: lang`
-ekliyor, yani **PR 2-4'le AYNI bloğa dokunuyor → çakışma kesin.** Çözüm
-basit (satırı `url`'den sonra yeniden yerleştir) ama elle yapılmalı.
-**Öneri: PR 1 EN SONA bırakılsın** — o zaman çakışma tek bir blokta ve tek
-bir satırda kalır.
+**Sıra neden zorunluydu:** PR #16, PR #15'in tanımladığı `@id`'ye REFERANS
+veriyor — önce merge edilse 803 sayfada **tanımsız bir düğüme atıf** oluşurdu
+ve bu JSON-LD'de **hata vermez**, sessizce yanlış olurdu. PR #17 de #16'nın
+eklediği satırı içeren bloğu değiştiriyor. Üçü `BaseLayout.astro`'nun AYNI
+bölgesine dokunuyor.
+
+**PR 4 (`inLanguage`) daha eski bir master'dan (`e844680`) dallanmıştı** ve
+AYNI `WebPage` bloğuna dokunduğu için çakışması kesindi. GitHub editöründe
+değil, YERELDE rebase edilip çözüldü (kullanıcı kararı: "üç tuzaktan biri
+gözden kaçarsa 146 sayfa sessizce şemasız kalır, hata vermeden"), sonra
+build + byte diff ile doğrulandı. **Çözümün nihai alan sırası:**
+
+```js
+url: pageUrl,
+inLanguage: lang,                                                     // PR 4
+...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),  // PR #16
+...(dateModified ? { dateModified } : {}),                            // PR #17
+```
+
+**Benzer bir çakışmada tekrar düşülecek ÜÇ TUZAK** (üçü de sessiz
+regresyon üretir, hiçbiri hata vermez):
+1. Koşul `{ogType !== 'article' && (` KALMALI — eski dalın
+   `&& dateModified &&` hâli alınırsa PR #17 sessizce geri alınır ve
+   146 sayfa yine şemasız kalır.
+2. `dateModified` SPREAD kalmalı — eski dalın düz `dateModified,` satırı
+   alınırsa tarihi olmayan sayfalarda `"dateModified": undefined` riski
+   doğar.
+3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
+   anlamsız, yalnızca okunurluk).
 
 **🟢 2026-10-02 — JSON-LD şema turu PR 4: `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel ALAN oldu — 146 sayfa şema kimliği kazandı.**
 `dateModified` prop'u ESKİDEN bloğun TAMAMININ ön koşuluydu: gerçek bir WP
@@ -3676,6 +3694,129 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
     yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
     atlıyor, PR gate yok) bir kez daha doğruluyor.
+75. **ARALIKLI / YENİDEN ÜRETİLEMİYOR (2026-10-01'de açıldı, 2026-10-02'de
+    ölçülerek yeniden yazıldı) — `astro check` bir kez heap OOM ile çöktü;
+    deploy'u tehdit eden bir sorun DEĞİL, ama marj dar (%35).**
+    - **2026-10-01 gözlemi (olduğu gibi duruyor):** `npx astro check`
+      "Getting diagnostics for Astro files…" satırından sonra V8'in
+      `FATAL ERROR: Reached heap limit` / `Ineffective mark-compacts near
+      heap limit` hatasıyla düştü, **exit 134** (SIGABRT) — hem varsayılan
+      heap'te hem `NODE_OPTIONS=--max-old-space-size=8192` ile. JSON-LD
+      `inLanguage` turunda (PR 1) keşfedildi; değişiklik `git stash` ile
+      geri alınıp temiz baseline'da tekrarlandı, aynı şekilde çöktü — yani
+      PR 1 ile İLGİSİ YOK.
+    - **2026-10-02 ölçümleri — ÇÖKME YENİDEN ÜRETİLEMEDİ.** Aynı makine,
+      aynı dal, üç ayrı çalıştırma, üçü de **431 dosya / 0 hata / 0 uyarı
+      / 27 hint** ile geçti:
+
+      | Heap limiti | Süre | Tepe node bellek |
+      |---|---|---|
+      | varsayılan (4288 MB) | 80,6 s | **2790 MB** |
+      | 12288 MB | 106,2 s | 2757 MB |
+      | 16384 MB | 101,9 s | — |
+
+      Yani 2026-10-01'de 8 GB'ı dolduran iş, 2026-10-02'de 2,8 GB'ta
+      bitiyor. **Aradaki farkın nedeni BULUNAMADI** — tekrarlarsa o anki
+      `FreePhysicalMemory`, eşzamanlı `astro dev`/`astro build` olup
+      olmadığı ve `.astro/` sync durumu not edilmeli; bugün çökmemesinin
+      sebebi büyük ihtimalle bunlardan biri ama **kanıtlanamadı**.
+    - **Asıl risk marj, çökme değil:** 2790 MB tepe / 4288 MB varsayılan
+      limit = yalnızca **%35 boşluk**. 639 `.md` yazı var ve Keystatic'ten
+      eklenmeye devam ediyor.
+    - **Deploy hattı SAĞLAM — kanıtlandı.** Cloudflare Workers Builds
+      `npm run build:ci` (= `astro check && npm run build`) çalıştırıyor ve
+      geçiyor: `a3b2896` (KOBİ → "Teklif Al"/"Başvur") ve master'ın son
+      commit'i `fbe82c6` (2026-09-24 tarihli Keystatic yazısı) ikisi de
+      canlıda doğrulandı. Konteyner limitleri (resmî dok): **8 GB RAM**,
+      2 vCPU (free) / 4 vCPU (paid), 20 GB disk, **20 dk build timeout**,
+      Ubuntu 24.04, Node varsayılan 24.18.0.
+      **Doğrulanmamış, panelden bakılmalı:** (a) `.nvmrc`'nin (`22`)
+      okunup okunmadığı — bkz. `docs/cloudflare-workers-builds.md:68-71`;
+      (b) `astro check` adımının CI'daki SÜRESİ — yerelde `astro build`
+      ~5-6 dk + `astro check` ~1,5 dk, 20 dk tavanı bellekten daha yakın
+      bir risk olabilir. Build logundaki bellek doğrudan okunamıyor
+      (Workers Builds bellek telemetrisi yayınlamıyor) ve bu oturumda
+      Cloudflare kimlik bilgisi YOK (`wrangler whoami` → not authenticated).
+    - **Mekanizma (kaynak koddan doğrulandı), neden `tsc`'den pahalı:**
+      `@astrojs/language-server/dist/check.js:66-116` — `lint()`,
+      `getRootFileNames()`'teki **her dosya için sırayla** `linter.check(file)`
+      çağırıyor. Bu bir tek-seferlik `ts.Program` değil, **Volar + TS
+      LanguageService**: hesaplanan her şey (semantik tanılar, tip
+      instantiation'ları, her `.astro` için üretilen sanal TSX + source
+      map) iterasyonlar arasında cache'te CANLI kalıyor. "Ineffective
+      mark-compacts" imzası tam olarak bu — heap çöp değil, erişilebilir
+      nesnelerle doluyor. Karşılaştırma: `tsc --noEmit` AYNI tsconfig ile
+      (`.astro` hariç, 1467 program / 168 kök dosya) **997 MB / 28 s**;
+      `astro check` (431 dosya) **2790 MB / 81 s**. Volar katmanı tek
+      başına **+1,8 GB**.
+      431 = 168 TS kök dosyası + 263 `.astro` (CLAUDE.md'nin "429 dosya"
+      kaydıyla tutarlı).
+    - **Üst akışta bilinen, HÂLÂ AÇIK bir sorun:** withastro/astro#16718
+      (Astro 6.3.1 + Node 24 + `@astrojs/cloudflare` — bizim kurulumumuza
+      çok yakın, "fix pending"), #14663 ("closed as not planned", "P2: has
+      workaround"), language-tools#699, language-tools#721.
+      **`@astrojs/language-server` 2.16.13→2.17.1 changelog'unda bellek
+      düzeltmesi YOK** (kurulu: 2.16.12, son: 2.17.1). Dahası 2.16.13 ve
+      2.16.16 "atlanan dosyalar" düzeltmeleri DAHA ÇOK dosya kontrol
+      ettirir → bellek artabilir; 2.17.0 ise `.astro`→TSX motorunu Biome
+      tabanlı yeni `astro2tsx` ile baştan yazıyor ("daha doğru tipler")
+      → 263 `.astro` dosyasında YENİ tip hataları çıkarabilir. **Yükseltme
+      şimdilik önerilmiyor**, faydası kanıtsız/riski gerçek.
+    - **⚠️ `typescript` 7'ye YÜKSELTİLMEMELİ.** `check.js:161-168` açıkça
+      reddediyor: TS 7+ native derleyici `astro check`'in dayandığı
+      programatik API'yi (`ts.sys`, `ts.findConfigFile`, `LanguageServiceHost`)
+      sunmuyor, paket "6.x kullanın" diye hata fırlatıyor. Takip:
+      withastro/roadmap#1321. (Kurulu: `typescript@6.0.3`.)
+    - **Kapanış kararı (kullanıcı, 2026-10-02):** bellek konusu şimdilik
+      KAPALI, aksiyon alınmıyor. Tekrarlarsa bu madde yeniden açılır.
+      Azaltma seçenekleri Açık nokta #76'da.
+76. **ERTELENDİ (2026-10-02, kullanıcı kararı: "ayrı bir tur olarak not et,
+    şimdi yapma") — `astro check` bellek marjını genişletecek iki düşük
+    riskli temizlik.** Açık nokta #75'in araştırmasında ölçüldü; ikisi
+    birlikte tepe kullanımı ~2,8 GB'tan muhtemelen ~2 GB'ın altına indirir,
+    görünür davranışı değiştirmez.
+    - **(C) tsconfig kapsamını daralt.** `tsconfig.json` şu an
+      `include: [".astro/types.d.ts", "**/*"]` + `exclude: ["dist"]` ve
+      `astro/tsconfigs/base` `allowJs: true` veriyor — sonuç: **63
+      `scripts/*.mjs`** (168 kök dosyanın %38'i, kontrol edilen 431
+      dosyanın %15'i) programa giriyor. Bunlar tek seferlik migrasyon/
+      denetim script'leri, siteye hiç girmiyorlar ve JSDoc taşımadıkları
+      için bugün de gerçek bir tip kontrolü almıyorlar. `exclude`'a
+      `scripts`, `.wrangler`, `dist-check` eklenebilir.
+      **`astro.config.mjs` ve `keystatic.config.ts` DIŞARIDA
+      BIRAKILMAMALI** — ikisi de gerçek değer sağlıyor.
+      **Risk/doğrulama şartı:** `exclude` yanlış yazılırsa `astro check`
+      sessizce daha az dosya kontrol edip "0 hata" der (Açık nokta #25'teki
+      MegaMenu olayının AYNI tuzağı) — değişiklikten sonra
+      `Result (N files)` sayısı 431'den **tam beklenen kadar** düşmeli.
+    - **(D) İki büyük JSON import'unu tipten kurtar (~0,5 GB).** İzole
+      ölçüm: boş baseline **61 MB** → `src/data/pagesJsonModified.ts`
+      (→ `pages.json` 9,7 MB) **266 MB / 38.432 tip** →
+      `src/data/contentLinkAccessibility.ts` (→ `pages.json` + `posts.json`
+      15 MB) **592 MB / 142.630 tip / 5,3 s**. İroni: iki tüketici de
+      import'u anında dar bir arayüze cast ediyor
+      (`as Array<{link; title}>`, `as unknown as RawPage[]`) — TypeScript
+      24,7 MB'lık yapıyı **hesaplayıp sonra atıyor**.
+      Çözüm: bu İKİ dosyada `import … from '*.json'` yerine
+      `readFileSync` + `JSON.parse` + mevcut dar arayüz.
+      **Riskler:** (a) build-time okuma yolu `@astrojs/cloudflare`
+      prerender worker'ında dosya yolu/`import.meta.url` çözümlemesi
+      gerektirir, GERÇEK build ile doğrulanmalı; (b) **diğer 8 küçük JSON
+      için AYNI ŞEY YAPILMAMALI** (`products.json` 501 KB, `sectors.json`,
+      `misc-pages.json`, `hubs.json`, `faq.json`, `hardware.json`,
+      `pricing.json`, `calculators.json`) — onların çıkarsanan tipleri
+      gerçekten kullanılıyor; (c) 3172 HTML'in byte seviyesinde aynı
+      kaldığı diff ile kanıtlanmalı.
+    - **Kapsam dışı/yapılmayacak olarak kaydedildi:** `astro check`'i
+      `build:ci`'dan çıkarmak (tip hataları sessizce canlıya çıkar, PR
+      gate zaten yok — bkz. #70; i18n'in `Record<Locale,X>` derleme-zamanı
+      güvenlik ağı kaybolur) ve `NODE_OPTIONS` ile tavanı yükseltmek
+      (yerelde varsayılan zaten geçiyor, CF konteyneri toplam 8 GB —
+      yüksek değerler OOM-killer'a davetiye).
+    - **Not:** `media.json` (10,9 MB) ve `.astro/data-store.json`
+      (11,8 MB) programa GİRMİYOR — hiç import edilmiyorlar ve TypeScript
+      wildcard `include` ile `.json` toplamıyor. Bu ikisi için bir şey
+      yapmaya gerek yok.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
