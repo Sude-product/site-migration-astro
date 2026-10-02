@@ -3676,49 +3676,129 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
     yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
     atlıyor, PR gate yok) bir kez daha doğruluyor.
-75. **YENİ (2026-10-01) — `astro check` bu makinede heap OOM ile çöküyor
-    (exit 134); deploy komutunun bir parçası olduğu için gerçek bir risk,
-    ayrı bir turda ele alınacak.**
-    - **Belirti:** `npx astro check` "Getting diagnostics for Astro
-      files…" satırından sonra V8'in `FATAL ERROR: Reached heap limit` /
-      `Ineffective mark-compacts near heap limit` hatasıyla düşüyor,
-      **exit 134** (SIGABRT). Node'un varsayılan ~4 GB sınırında ve
-      `NODE_OPTIONS=--max-old-space-size=8192` ile (8 GB) **ikisinde de**
-      çöküyor — 8 GB'da "ineffective mark-compact" mesajı veriyor, yani
-      sınırı yükseltmek sorunu çözmüyor, yalnızca erteliyor. Makinede
-      31,5 GB RAM var, yani fiziksel bellek darboğazı DEĞİL.
-      **Dürüst sınır:** 14 GB denemesi başlatıldı ama kullanıcı
-      tarafından durduruldu — **14 GB'da da çöktüğü DOĞRULANMADI**,
-      yalnızca 4 GB ve 8 GB ölçüldü. "Sızıntı mı yoksa saf ölçek mi"
-      sorusu bu yüzden hâlâ AÇIK.
-    - **Yapılan/düşünülen değişiklikten BAĞIMSIZ.** JSON-LD `inLanguage`
-      turunda (PR 1) keşfedildi; değişiklik `git stash` ile geri alınıp
-      **tamamen temiz baseline'da** aynı komut tekrar çalıştırıldı —
-      BİREBİR aynı şekilde çöktü. Yani PR 1 ile ilgisi yok, önceden var
-      olan bir durum.
-    - **Neden önemli:** Cloudflare Workers Builds'in build komutu
-      `npm run build:ci` = **`astro check && npm run build`** (bkz.
-      §Deployment). Yani `astro check` deploy hattının İLK adımı — deploy
-      konteynerinde de çökerse build başarısız olur ve canlıya hiçbir şey
-      çıkmaz. Şu an deploy'lar geçiyor (konteynerin bellek limiti/Node
-      sürümü bu makineden farklı olabilir) ama proje büyüdükçe (638+ blog
-      yazısı, 400+ şablon sayfası, 3172 HTML) bu kırılgan bir denge.
-      **`npm run build` TEK BAŞINA sorunsuz** (exit 0, ~5-6 dk) — çöken
-      yalnızca tip kontrolü adımı.
-    - **Pratik etkisi (şimdilik):** PR doğrulama listesinin "1. `astro
-      check` → 0 hata" adımı bu makinede ÇALIŞTIRILAMIYOR. Kalan gate'ler
-      (build + byte seviyesinde HTML diff + 11 regresyon script'i) hâlâ
-      geçerli ve PR 1'de fiilen kullanıldı.
-    - **Araştırılacak (ayrı tur):** (a) 14 GB+ ile gerçekten geçiyor mu —
-      geçiyorsa saf ölçek, `NODE_OPTIONS` ile kalıcı çözüm; geçmiyorsa
-      tip katmanında bir sızıntı/sonsuz genişleme var demektir;
-      (b) hangi dosya/tip tetikliyor (`content.config.ts`'in composite
-      loader'ı + 638 `.md` entry'si ilk şüpheli, bkz. Açık nokta #44);
-      (c) Cloudflare build konteynerinin gerçek bellek limiti ve oradaki
-      `astro check` süresi/sonucu log'dan doğrulanmalı; (d) çözülene
-      kadar `build:ci`'ın `astro check` adımının `NODE_OPTIONS` ile
-      güçlendirilmesi mi yoksa deploy hattından geçici olarak çıkarılması
-      mı (tip güvenliğini kaybetme pahasına) tercih edilmeli.
+75. **ARALIKLI / YENİDEN ÜRETİLEMİYOR (2026-10-01'de açıldı, 2026-10-02'de
+    ölçülerek yeniden yazıldı) — `astro check` bir kez heap OOM ile çöktü;
+    deploy'u tehdit eden bir sorun DEĞİL, ama marj dar (%35).**
+    - **2026-10-01 gözlemi (olduğu gibi duruyor):** `npx astro check`
+      "Getting diagnostics for Astro files…" satırından sonra V8'in
+      `FATAL ERROR: Reached heap limit` / `Ineffective mark-compacts near
+      heap limit` hatasıyla düştü, **exit 134** (SIGABRT) — hem varsayılan
+      heap'te hem `NODE_OPTIONS=--max-old-space-size=8192` ile. JSON-LD
+      `inLanguage` turunda (PR 1) keşfedildi; değişiklik `git stash` ile
+      geri alınıp temiz baseline'da tekrarlandı, aynı şekilde çöktü — yani
+      PR 1 ile İLGİSİ YOK.
+    - **2026-10-02 ölçümleri — ÇÖKME YENİDEN ÜRETİLEMEDİ.** Aynı makine,
+      aynı dal, üç ayrı çalıştırma, üçü de **431 dosya / 0 hata / 0 uyarı
+      / 27 hint** ile geçti:
+
+      | Heap limiti | Süre | Tepe node bellek |
+      |---|---|---|
+      | varsayılan (4288 MB) | 80,6 s | **2790 MB** |
+      | 12288 MB | 106,2 s | 2757 MB |
+      | 16384 MB | 101,9 s | — |
+
+      Yani 2026-10-01'de 8 GB'ı dolduran iş, 2026-10-02'de 2,8 GB'ta
+      bitiyor. **Aradaki farkın nedeni BULUNAMADI** — tekrarlarsa o anki
+      `FreePhysicalMemory`, eşzamanlı `astro dev`/`astro build` olup
+      olmadığı ve `.astro/` sync durumu not edilmeli; bugün çökmemesinin
+      sebebi büyük ihtimalle bunlardan biri ama **kanıtlanamadı**.
+    - **Asıl risk marj, çökme değil:** 2790 MB tepe / 4288 MB varsayılan
+      limit = yalnızca **%35 boşluk**. 639 `.md` yazı var ve Keystatic'ten
+      eklenmeye devam ediyor.
+    - **Deploy hattı SAĞLAM — kanıtlandı.** Cloudflare Workers Builds
+      `npm run build:ci` (= `astro check && npm run build`) çalıştırıyor ve
+      geçiyor: `a3b2896` (KOBİ → "Teklif Al"/"Başvur") ve master'ın son
+      commit'i `fbe82c6` (2026-09-24 tarihli Keystatic yazısı) ikisi de
+      canlıda doğrulandı. Konteyner limitleri (resmî dok): **8 GB RAM**,
+      2 vCPU (free) / 4 vCPU (paid), 20 GB disk, **20 dk build timeout**,
+      Ubuntu 24.04, Node varsayılan 24.18.0.
+      **Doğrulanmamış, panelden bakılmalı:** (a) `.nvmrc`'nin (`22`)
+      okunup okunmadığı — bkz. `docs/cloudflare-workers-builds.md:68-71`;
+      (b) `astro check` adımının CI'daki SÜRESİ — yerelde `astro build`
+      ~5-6 dk + `astro check` ~1,5 dk, 20 dk tavanı bellekten daha yakın
+      bir risk olabilir. Build logundaki bellek doğrudan okunamıyor
+      (Workers Builds bellek telemetrisi yayınlamıyor) ve bu oturumda
+      Cloudflare kimlik bilgisi YOK (`wrangler whoami` → not authenticated).
+    - **Mekanizma (kaynak koddan doğrulandı), neden `tsc`'den pahalı:**
+      `@astrojs/language-server/dist/check.js:66-116` — `lint()`,
+      `getRootFileNames()`'teki **her dosya için sırayla** `linter.check(file)`
+      çağırıyor. Bu bir tek-seferlik `ts.Program` değil, **Volar + TS
+      LanguageService**: hesaplanan her şey (semantik tanılar, tip
+      instantiation'ları, her `.astro` için üretilen sanal TSX + source
+      map) iterasyonlar arasında cache'te CANLI kalıyor. "Ineffective
+      mark-compacts" imzası tam olarak bu — heap çöp değil, erişilebilir
+      nesnelerle doluyor. Karşılaştırma: `tsc --noEmit` AYNI tsconfig ile
+      (`.astro` hariç, 1467 program / 168 kök dosya) **997 MB / 28 s**;
+      `astro check` (431 dosya) **2790 MB / 81 s**. Volar katmanı tek
+      başına **+1,8 GB**.
+      431 = 168 TS kök dosyası + 263 `.astro` (CLAUDE.md'nin "429 dosya"
+      kaydıyla tutarlı).
+    - **Üst akışta bilinen, HÂLÂ AÇIK bir sorun:** withastro/astro#16718
+      (Astro 6.3.1 + Node 24 + `@astrojs/cloudflare` — bizim kurulumumuza
+      çok yakın, "fix pending"), #14663 ("closed as not planned", "P2: has
+      workaround"), language-tools#699, language-tools#721.
+      **`@astrojs/language-server` 2.16.13→2.17.1 changelog'unda bellek
+      düzeltmesi YOK** (kurulu: 2.16.12, son: 2.17.1). Dahası 2.16.13 ve
+      2.16.16 "atlanan dosyalar" düzeltmeleri DAHA ÇOK dosya kontrol
+      ettirir → bellek artabilir; 2.17.0 ise `.astro`→TSX motorunu Biome
+      tabanlı yeni `astro2tsx` ile baştan yazıyor ("daha doğru tipler")
+      → 263 `.astro` dosyasında YENİ tip hataları çıkarabilir. **Yükseltme
+      şimdilik önerilmiyor**, faydası kanıtsız/riski gerçek.
+    - **⚠️ `typescript` 7'ye YÜKSELTİLMEMELİ.** `check.js:161-168` açıkça
+      reddediyor: TS 7+ native derleyici `astro check`'in dayandığı
+      programatik API'yi (`ts.sys`, `ts.findConfigFile`, `LanguageServiceHost`)
+      sunmuyor, paket "6.x kullanın" diye hata fırlatıyor. Takip:
+      withastro/roadmap#1321. (Kurulu: `typescript@6.0.3`.)
+    - **Kapanış kararı (kullanıcı, 2026-10-02):** bellek konusu şimdilik
+      KAPALI, aksiyon alınmıyor. Tekrarlarsa bu madde yeniden açılır.
+      Azaltma seçenekleri Açık nokta #76'da.
+76. **ERTELENDİ (2026-10-02, kullanıcı kararı: "ayrı bir tur olarak not et,
+    şimdi yapma") — `astro check` bellek marjını genişletecek iki düşük
+    riskli temizlik.** Açık nokta #75'in araştırmasında ölçüldü; ikisi
+    birlikte tepe kullanımı ~2,8 GB'tan muhtemelen ~2 GB'ın altına indirir,
+    görünür davranışı değiştirmez.
+    - **(C) tsconfig kapsamını daralt.** `tsconfig.json` şu an
+      `include: [".astro/types.d.ts", "**/*"]` + `exclude: ["dist"]` ve
+      `astro/tsconfigs/base` `allowJs: true` veriyor — sonuç: **63
+      `scripts/*.mjs`** (168 kök dosyanın %38'i, kontrol edilen 431
+      dosyanın %15'i) programa giriyor. Bunlar tek seferlik migrasyon/
+      denetim script'leri, siteye hiç girmiyorlar ve JSDoc taşımadıkları
+      için bugün de gerçek bir tip kontrolü almıyorlar. `exclude`'a
+      `scripts`, `.wrangler`, `dist-check` eklenebilir.
+      **`astro.config.mjs` ve `keystatic.config.ts` DIŞARIDA
+      BIRAKILMAMALI** — ikisi de gerçek değer sağlıyor.
+      **Risk/doğrulama şartı:** `exclude` yanlış yazılırsa `astro check`
+      sessizce daha az dosya kontrol edip "0 hata" der (Açık nokta #25'teki
+      MegaMenu olayının AYNI tuzağı) — değişiklikten sonra
+      `Result (N files)` sayısı 431'den **tam beklenen kadar** düşmeli.
+    - **(D) İki büyük JSON import'unu tipten kurtar (~0,5 GB).** İzole
+      ölçüm: boş baseline **61 MB** → `src/data/pagesJsonModified.ts`
+      (→ `pages.json` 9,7 MB) **266 MB / 38.432 tip** →
+      `src/data/contentLinkAccessibility.ts` (→ `pages.json` + `posts.json`
+      15 MB) **592 MB / 142.630 tip / 5,3 s**. İroni: iki tüketici de
+      import'u anında dar bir arayüze cast ediyor
+      (`as Array<{link; title}>`, `as unknown as RawPage[]`) — TypeScript
+      24,7 MB'lık yapıyı **hesaplayıp sonra atıyor**.
+      Çözüm: bu İKİ dosyada `import … from '*.json'` yerine
+      `readFileSync` + `JSON.parse` + mevcut dar arayüz.
+      **Riskler:** (a) build-time okuma yolu `@astrojs/cloudflare`
+      prerender worker'ında dosya yolu/`import.meta.url` çözümlemesi
+      gerektirir, GERÇEK build ile doğrulanmalı; (b) **diğer 8 küçük JSON
+      için AYNI ŞEY YAPILMAMALI** (`products.json` 501 KB, `sectors.json`,
+      `misc-pages.json`, `hubs.json`, `faq.json`, `hardware.json`,
+      `pricing.json`, `calculators.json`) — onların çıkarsanan tipleri
+      gerçekten kullanılıyor; (c) 3172 HTML'in byte seviyesinde aynı
+      kaldığı diff ile kanıtlanmalı.
+    - **Kapsam dışı/yapılmayacak olarak kaydedildi:** `astro check`'i
+      `build:ci`'dan çıkarmak (tip hataları sessizce canlıya çıkar, PR
+      gate zaten yok — bkz. #70; i18n'in `Record<Locale,X>` derleme-zamanı
+      güvenlik ağı kaybolur) ve `NODE_OPTIONS` ile tavanı yükseltmek
+      (yerelde varsayılan zaten geçiyor, CF konteyneri toplam 8 GB —
+      yüksek değerler OOM-killer'a davetiye).
+    - **Not:** `media.json` (10,9 MB) ve `.astro/data-store.json`
+      (11,8 MB) programa GİRMİYOR — hiç import edilmiyorlar ve TypeScript
+      wildcard `include` ile `.json` toplamıyor. Bu ikisi için bir şey
+      yapmaya gerek yok.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
