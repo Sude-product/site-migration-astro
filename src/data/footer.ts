@@ -58,6 +58,21 @@ export const FOOTER_GENERAL_LINKS: FooterLinkItem<keyof Translations['footer']['
 /** İletişim bilgileri — adres/telefon/email dil-nötr (adres çevrilmez). */
 export const FOOTER_CONTACT = {
   address: 'Teknopark Bulvarı 1/1A Blok No:109, Teknopark, İstanbul',
+  // Yalnızca `BaseLayout.astro`'nun Organization JSON-LD'si kullanıyor
+  // (2026-10-02, PR 2) — footer'da GÖRÜNEN tek alan hâlâ `address`, bu
+  // yüzden eklenmesi hiçbir sayfanın çıktısını değiştirmiyor.
+  // `address` içindeki şehir bileşeninin yapılandırılmış hâli: schema.org
+  // `PostalAddress.addressLocality` serbest metin bir adres satırından
+  // güvenilir şekilde AYRIŞTIRILAMAZ, bu yüzden ayrı/açık bir alan.
+  // Doğrulama: `/iletisim/` sayfasındaki "İstanbul Ar-Ge Ofisi" kaydı
+  // ("Teknopark İstanbul … Pendik/İstanbul") YUKARIDAKİ `address` ile
+  // AYNI ofis (`reference/wordpress-export/misc-pages.json`, `iletisim`).
+  // **`streetAddress` KASITLI olarak bölünmedi** — footer'ın metni
+  // "… , Teknopark, İstanbul" derken iletişim sayfası aynı ofis için
+  // "Pendik" diyor; ilçe adında kaynak kendi içinde tutarsız olduğu için
+  // bir ayrıştırma UYDURULMADI, `streetAddress` tam adres olarak kalıyor
+  // (şehrin iki alanda birden geçmesi schema.org açısından zararsız).
+  addressLocality: 'İstanbul',
   phoneHref: 'tel:+902162950927',
   phoneLabel: '+90 216 295 09 27',
   emailHref: 'mailto:hello@idenfit.com',

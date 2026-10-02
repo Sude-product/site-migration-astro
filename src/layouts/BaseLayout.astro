@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 import { FOOTER_SOCIAL, FOOTER_CONTACT } from '../data/footer';
-import { safeJsonLd } from '../data/jsonLd';
+import { organizationId, safeJsonLd } from '../data/jsonLd';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
@@ -69,16 +69,30 @@ interface Props {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   /** "No dateModified in structured data" GEO bulgusu (2026-08-19) —
-   * blog DIŞINDAKİ sayfalar (ürün/sektör/hukuki/fiyatlar vb.) için sade
-   * bir `WebPage` JSON-LD bloğu üretir. Blog kendi `BlogPosting`
-   * JSON-LD'sini ZATEN kendi sayfasında (`blog/[slug].astro`) üretiyor —
-   * bu yüzden `ogType==='article'` iken burada HİÇ basılmıyor (çift
-   * JSON-LD bloğu olmasın diye). Yalnızca GERÇEK bir WP `modified`
-   * tarihi varsa render edilir (`get*ModifiedDate()` fonksiyonları, "No
-   * visible content dates" turu, 2026-08-17) — uydurma tarih YOK, bu
-   * yüzden bu prop verilmeyen sayfalarda (Hub/SSS/Ana sayfa/Landing —
-   * gerçek `modified` verisi olmayan sayfa türleri) hiçbir JSON-LD
-   * ÜRETİLMEZ. ISO 8601 string bekleniyor. */
+   * `WebPage` JSON-LD bloğunun `dateModified` alanı. Yalnızca GERÇEK bir
+   * WP `modified` tarihi geçirilmeli (`get*ModifiedDate()` fonksiyonları,
+   * "No visible content dates" turu, 2026-08-17) — uydurma tarih YOK.
+   * ISO 8601 string bekleniyor.
+   *
+   * **2026-10-02 (PR 4) — DAVRANIŞ DEĞİŞİKLİĞİ:** bu prop ESKİDEN
+   * `WebPage` bloğunun TAMAMININ ön koşuluydu; verilmeyen sayfalar
+   * (ana sayfa, hub'lar, SSS, 404 — gerçek `modified` verisi olmayan
+   * türler) HİÇBİR `WebPage` şeması almıyordu, yani şema seviyesinde
+   * kimlikleri yoktu. Artık blok KOŞULSUZ basılıyor ve `dateModified`
+   * yalnızca OPSİYONEL bir ALAN — 146 sayfa `name`/`description`/`url`/
+   * `publisher` kazandı. Tarihi OLAN 163 sayfanın çıktısı BAYT BAYT
+   * aynı kaldı (alanın nesne içindeki KONUMU korundu, `JSON.stringify`
+   * anahtar sırasını ekleme sırasına göre üretiyor).
+   *
+   * Blok hâlâ YALNIZCA `ogType !== 'article'` iken basılıyor: blog kendi
+   * `BlogPosting` JSON-LD'sini `blog/[slug].astro`'da üretiyor, çift blok
+   * olmasın diye.
+   *
+   * **Not:** yukarıdaki HTML yorumu hâlâ "dateModified JSON-LD notu"
+   * diyor — metni düzeltmek 949 sayfanın HTML'inde bayt değiştirirdi
+   * (Astro şablon yorumlarını çıktıya basıyor, bkz. CLAUDE.md'deki
+   * kalıcı ders) ve PR 4'ün "mevcut çıktı değişmeyecek" şartını
+   * bozardı. Bilinçli olarak eski metinle bırakıldı. */
   dateModified?: string;
   /** "No BreadcrumbList schema" GEO bulgusu (2026-08-24) — bkz.
    * `BreadcrumbItem` yorumu. "Ana Sayfa" SONRASI iz; verilmezse (ana
@@ -137,6 +151,50 @@ const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).
 // için `logo`/`address`/`contactPoint` öneriyor; üçü de aşağıda
 // `FOOTER_CONTACT`'tan besleniyor — footer'da görünen veriyle aynı tek kaynak.
 const IDENFIT_ORG_LOGO = '/wp-content/uploads/2025/07/idenfit-logo.svg';
+
+// `Organization` şemasının KANONİK KİMLİĞİ (2026-10-02, PR 2). Bu blok
+// 3176 sayfanın HER BİRİNDE basılıyor ama `@id` olmadığı için tüketiciler
+// (Google, LLM'ler) bunların AYNI kuruluş mu yoksa 3176 ayrı kuruluş mu
+// olduğunu bilemiyordu. Sabit bir `@id` hepsini tek bir varlıkta
+// birleştiriyor; `BlogPosting.publisher`/`author` ve aşağıdaki
+// `WebPage.publisher` kuruluşu YENİDEN TANIMLAMAK yerine `{'@id': …}`
+// ile buna REFERANS veriyor (2026-10-02, PR 3). Dize `organizationId()`
+// ile PAYLAŞILAN tek kaynaktan geliyor — `blog/[slug].astro` da aynı
+// fonksiyonu çağırıyor, iki yerde ayrı ayrı kurulmuyor.
+// `url` ile AYNI koşula bağlı: `Astro.site` tanımsızken mutlak bir `@id`
+// üretilemez ve göreli bir `@id` kimlik olarak işe yaramaz — o durumda
+// hiç basılmıyor.
+const IDENFIT_ORG_ID = organizationId(Astro.site);
+
+// `areaServed` (2026-10-02, PR 2) — DÖRT ülke. İki farklı kanıt türünden
+// besleniyor, ikisi de gerçek:
+//
+//  1) FİZİKSEL OFİS — `/iletisim/` sayfasında herkese açık şekilde
+//     doğrulanabilir (kaynak: `reference/wordpress-export/misc-pages.json`,
+//     `iletisim`):
+//       TR — "İstanbul Merkez Ofisi" (Ümraniye) + "İstanbul Ar-Ge Ofisi"
+//            (Teknopark/Pendik — `FOOTER_CONTACT.address` ile AYNI adres)
+//       NL — "Lahey Global Satış Ofisi" (Den Haag)
+//
+//  2) GERÇEK SATIŞ FAALİYETİ, ofis YOK — IT ve AZ.
+//     **Bu bilgi kod tabanından/kaynak siteden TÜRETİLEMEZ**; kullanıcının
+//     (sude@idenfit.com) 2026-10-02'de verdiği ticari bilgiye dayanıyor:
+//     "o ülkelerde gerçek müşterilerimiz var, ofis yok ama satış faaliyeti
+//     var." Sitedeki dolaylı izler bununla TUTARLI (tam yerelleştirilmiş
+//     IT/AZ sayfaları + € fiyat) ama tek başlarına kanıt sayılmamıştı —
+//     kararın dayanağı bu iç bilgi, site içeriği değil.
+//     **Değiştirilmeden önce iş tarafına sorulmalı** (kodda doğrulanabilecek
+//     bir kaynağı yok).
+//
+// BİLİNÇLİ OLARAK DIŞARIDA BIRAKILANLAR (kullanıcı onaylı, 2026-10-02):
+//  - **"MENA":** kaynakta yalnızca bir OFİS ADI olarak geçiyor ("MENA Sales
+//    Office", EN/NL/IT iletişim sayfası) — schema.org'un beklediği
+//    Place/AdministrativeArea karşılığı olmayan serbest metin bir bölge adı.
+//  - **"Worldwide" / 3 kıta:** `hedef-global-marka` sayfası bunu AÇIKÇA
+//    2027 HEDEFİ olarak anlatıyor ("Vizyonumuz, 2027 yılında … en az 3
+//    kıtada aktif olarak kullanılması") — bugünkü bir gerçek değil, şemaya
+//    yazmak yanlış beyan olurdu.
+const IDENFIT_AREA_SERVED = ['TR', 'NL', 'IT', 'AZ'];
 
 // OG/Twitter görseli — sayfaya özgü verilmemişse ana sayfanın dashboard
 // mockup'ına (locale'e göre — NL kendi farklı görselini kullanıyor, bkz.
@@ -208,20 +266,34 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 			<meta property="article:modified_time" content={articleModifiedTime} />
 		)}
 
-		<!-- Organization JSON-LD sameAs notu — detaylı teknik notlar CLAUDE.md'de -->
+		<!-- Organization JSON-LD notu — detaylı teknik notlar CLAUDE.md'de -->
 		<script
 			type="application/ld+json"
 			set:html={safeJsonLd({
 				'@context': 'https://schema.org',
 				'@type': 'Organization',
+				...(IDENFIT_ORG_ID ? { '@id': IDENFIT_ORG_ID } : {}),
 				name: 'idenfit',
 				...(Astro.site ? { url: Astro.site.href } : {}),
+				// Sayfanın kendi diliyle gelir — yeni metin YAZILMADI,
+				// `t.hero.description` ana sayfanın ZATEN canlı olan
+				// `<meta name="description">` metni (5 dilin hepsinde gerçek
+				// çeviri, bkz. `src/i18n/*.ts`). İkinci bir "kurumsal açıklama"
+				// kaynağı uydurmak, iki metnin zamanla ayrışması demekti.
+				description: t.hero.description,
 				logo: toAbsoluteUrl(IDENFIT_ORG_LOGO),
 				address: {
 					'@type': 'PostalAddress',
 					streetAddress: FOOTER_CONTACT.address,
+					addressLocality: FOOTER_CONTACT.addressLocality,
 					addressCountry: 'TR',
 				},
+				// `contactPoint` içindeki değerlerle AYNI tek kaynaktan
+				// (`FOOTER_CONTACT`) besleniyor — Google `Organization`
+				// dokümantasyonu bu ikisini üst seviyede de bekliyor.
+				telephone: FOOTER_CONTACT.phoneLabel,
+				email: FOOTER_CONTACT.emailLabel,
+				areaServed: IDENFIT_AREA_SERVED,
 				contactPoint: {
 					'@type': 'ContactPoint',
 					contactType: 'customer support',
@@ -234,7 +306,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		/>
 
 		<!-- dateModified JSON-LD notu — detaylı teknik notlar CLAUDE.md'de -->
-		{ogType !== 'article' && dateModified && (
+		{ogType !== 'article' && (
 			<script
 				type="application/ld+json"
 				set:html={safeJsonLd({
@@ -243,7 +315,25 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					name: title,
 					description,
 					url: pageUrl,
-					dateModified,
+					// `inLanguage` (2026-10-01, JSON-LD şema denetimi PR 1) — 5 dilli bir
+					// sitede sayfanın dili şema seviyesinde hiç belirtilmiyordu. Değer
+					// `<html lang={lang}>` ile BİREBİR AYNI değişkenden geliyor; ikinci
+					// bir locale-kodu haritası İCAT EDİLMEDİ. `dates.ts`'in bölge
+					// nitelikli `BCP47_LOCALE`'i (`tr-TR` vb.) KASITLI kullanılmadı —
+					// bare `tr`/`en`/`nl`/`it`/`az` zaten geçerli BCP 47 ve `<html lang>`
+					// ile aynı kalması iki kaynağın ayrışma riskini ortadan kaldırıyor.
+					inLanguage: lang,
+					// Kuruluş AYNI sayfada zaten tam olarak tanımlı (yukarıdaki
+					// Organization bloğu) — burada yeniden tanımlanmıyor, yalnızca
+					// referans veriliyor. `@id` üretilemiyorsa (bkz.
+					// `organizationId()`) alan hiç basılmaz: tanımsız bir düğüme
+					// atıf yapmaktansa `publisher`'ı hiç yazmamak doğru.
+					...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
+					// `dateModified` artık OPSİYONEL bir ALAN (2026-10-02, PR 4) —
+					// eskiden bloğun TAMAMININ ön koşuluydu. Koşullu yazım biçimi
+					// `publisher` ile AYNI nedenle spread: `JSON.stringify` anahtar
+					// sırasını ekleme sırasına göre koruyor.
+					...(dateModified ? { dateModified } : {}),
 				})}
 				is:inline
 			/>

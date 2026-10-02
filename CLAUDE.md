@@ -347,9 +347,190 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-29/30)
+## Güncel durum (son güncelleme: 2026-10-02)
 
-**🟡 2026-08-29/30, en son — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
+### ✅ JSON-LD şema turu — 4 PR, SIRAYLA CANLIYA ALINDI (2026-10-02)
+
+Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
+doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
+
+| Sıra | PR | Dal | Commit | Merge | İçerik |
+|---|---|---|---|---|---|
+| 1 | #15 | `feat/jsonld-organization` | `ab889d1` | `ea3c596` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
+| 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
+| 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
+| 4 | — | `feat/jsonld-inlanguage` | (bu tur) | — | `WebPage` + `BlogPosting`'e `inLanguage` |
+
+Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
+PR'ın diff'i yalnızca kendi commit'ini gösterdi.
+
+**Sıra neden zorunluydu:** PR #16, PR #15'in tanımladığı `@id`'ye REFERANS
+veriyor — önce merge edilse 803 sayfada **tanımsız bir düğüme atıf** oluşurdu
+ve bu JSON-LD'de **hata vermez**, sessizce yanlış olurdu. PR #17 de #16'nın
+eklediği satırı içeren bloğu değiştiriyor. Üçü `BaseLayout.astro`'nun AYNI
+bölgesine dokunuyor.
+
+**PR 4 (`inLanguage`) daha eski bir master'dan (`e844680`) dallanmıştı** ve
+AYNI `WebPage` bloğuna dokunduğu için çakışması kesindi. GitHub editöründe
+değil, YERELDE rebase edilip çözüldü (kullanıcı kararı: "üç tuzaktan biri
+gözden kaçarsa 146 sayfa sessizce şemasız kalır, hata vermeden"), sonra
+build + byte diff ile doğrulandı. **Çözümün nihai alan sırası:**
+
+```js
+url: pageUrl,
+inLanguage: lang,                                                     // PR 4
+...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),  // PR #16
+...(dateModified ? { dateModified } : {}),                            // PR #17
+```
+
+**Benzer bir çakışmada tekrar düşülecek ÜÇ TUZAK** (üçü de sessiz
+regresyon üretir, hiçbiri hata vermez):
+1. Koşul `{ogType !== 'article' && (` KALMALI — eski dalın
+   `&& dateModified &&` hâli alınırsa PR #17 sessizce geri alınır ve
+   146 sayfa yine şemasız kalır.
+2. `dateModified` SPREAD kalmalı — eski dalın düz `dateModified,` satırı
+   alınırsa tarihi olmayan sayfalarda `"dateModified": undefined` riski
+   doğar.
+3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
+   anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-02 — JSON-LD şema turu PR 4: `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel ALAN oldu — 146 sayfa şema kimliği kazandı.**
+`dateModified` prop'u ESKİDEN bloğun TAMAMININ ön koşuluydu: gerçek bir WP
+`modified` tarihi olmayan sayfa türleri (ana sayfa ×5 locale, hub'lar, SSS,
+404'ler, az/it sayfalarının büyük kısmı) HİÇBİR `WebPage` şeması almıyordu.
+Sayım: 949 BaseLayout sayfası − 640 blog (`ogType='article'`) − 163 zaten
+`WebPage` taşıyan = **146**.
+- Blok hâlâ YALNIZCA `ogType !== 'article'` iken basılıyor (blog kendi
+  `BlogPosting`'ini üretiyor, çift blok olmasın diye).
+- **146'nın 5'i `noindex`** (`404.html` + 4 locale `not-found`).
+  `Organization` bloğu bu sayfalarda ZATEN basılıyordu, `WebPage` de aynı
+  muameleyi görüyor. İstenirse koşula `!noindex` eklemek TEK SATIR —
+  `canonical`/`hreflang` için zaten uygulanan desen.
+**Doğrulama — "mevcut 163 sayfa değişmeyecek" şartı:** `astro check` 0
+hata/0 uyarı/27 hint, `astro build` temiz, 11 regresyon script'i PR 2/PR 3
+ile BİREBİR aynı, `_headers` değişmedi, `check-json-ld.mjs` 0 geçersiz
+blok. Byte diff (baseline = PR 3'ün çıktısı, proje ağacının dışında):
+**3176 HTML'in yalnızca 146'sının tam dosya sha256'sı değişti ve bu küme
+blok kazanan 146 dosyayla BİREBİR AYNI**; önceden `WebPage` taşıyan
+**163 sayfanın 0'ı değişti**; her kazanan dosya TAM +1 blok aldı, türü
+`WebPage`, konumu her seferinde indeks 1 (Organization'dan hemen sonra);
+146 dosyanın tamamında boyut farkı eklenen bloğun kendisi + `<script>`
+sarmalayıcısıyla (≤80 bayt) tam olarak açıklanıyor.
+**⚠️ ÖLÇÜM ARACI DERSİ (bu turda yakalandı):** önceki turların
+`restSha` ölçütü blokları `LD0`/`LD1`/… diye NUMARALANDIRIYOR — araya
+yeni bir blok girince sonraki indeksler kayıyor ve gerçek baytlar hiç
+değişmese bile hash değişiyor. PR 4'te bu 146 YANLIŞ POZİTİF üretti.
+Blok EKLENEN turlarda doğru ölçüt indeks bazlı hash DEĞİL, yukarıdaki
+"tam dosya sha + küme eşitliği + blok başına +1 + boyut muhasebesi"
+dörtlüsü. **İkinci ders:** baseline build'i alınırken dalın commit
+EDİLMİŞ olduğu doğrulanmalı — `git checkout` commit edilmemiş
+değişiklikleri karşı dala TAŞIYOR; bu turda ilk baseline denemesi tam
+olarak bu yüzden PR 4 kodunu build etti ve "0 fark" diye yanıltıcı bir
+sonuç verdi (sayılar kontrol edilince yakalandı).
+
+**🟢 2026-10-02 — JSON-LD şema turu PR 3: `publisher`/`author` artık kuruluşu YENİDEN TANIMLAMIYOR, `@id` ile REFERANS veriyor.**
+PR 2'nin eklediği `@id`'nin asıl getirisi bu adımda alınıyor: aynı sayfada
+kuruluş İKİ-ÜÇ kez tanımlanıyordu (Organization bloğu + `BlogPosting.publisher`
++ `BlogPosting.author`'ın Organization dalı), tüketici bunların aynı varlık
+olduğunu bilemiyordu.
+- **Paylaşılan tek kaynak:** `src/data/jsonLd.ts`'e `organizationId(site)`
+  eklendi; `BaseLayout.astro` ve `blog/[slug].astro` AYNI fonksiyonu
+  çağırıyor. İki dosya dizeyi ayrı ayrı kurarsa bir gün sessizce ayrışır
+  ve referans boşa düşer — JSON-LD'de kırık bir `@id` HATA VERMEZ, tüketici
+  onu tanımsız apayrı bir düğüm sanar.
+- **`BlogPosting.publisher`** (640 yazı) → `{'@id': …}`.
+- **`BlogPosting.author`'ın Organization dalı** → `{'@id': …}`. **Yan
+  fayda:** satır içi hâli `url: 'https://idenfit.com'` (sondaki eğik çizgi
+  YOK) yazıyordu, Organization bloğunun kendi `url`'i ise `Astro.site.href`
+  (`https://idenfit.com/`) — aynı varlık için iki farklı URL biçimi; bu
+  tutarsızlık da kalktı. `Person` dalı (gerçek ad-soyadı olan 25 yazı)
+  DOKUNULMADI.
+- **`WebPage.publisher`** (163 sayfa) — ESKİDEN HİÇ YOKTU, bu turda
+  eklendi (`{'@id': …}`). Yeni veri değil, var olan kuruluşa referans.
+- **Güvenli geri düşme:** `organizationId()` `site` yoksa `undefined`
+  döner; o durumda `publisher`/`author` eski satır-içi tanıma düşüyor,
+  `WebPage.publisher` ise hiç basılmıyor — tanımsız bir düğüme atıf
+  yapmaktansa alanı hiç yazmamak doğru. (`site` 2026-09-02'de dolduruldu,
+  pratikte bu dal yalnızca yapılandırma kazasında devreye girer.)
+**Doğrulama:** `astro check` 0 hata/0 uyarı/27 hint, `astro build` temiz.
+Byte diff (baseline = PR 2'nin çıktısı, proje ağacının dışında):
+**JSON-LD dışında SIFIR bayt değişti**; 803 sayfa değişti = `BlogPosting`
+640 + `WebPage` 163; `Organization` (949), `BreadcrumbList` (939),
+`FAQPage` (116) birebir aynı; blok sayısı değişmedi; `_headers`
+değişmedi. `check-json-ld.mjs` **0 geçersiz blok** — `publisher`
+"önerilen alan" kontrolünü referans biçiminde de geçiyor. 11 regresyon
+script'i PR 2 ile BİREBİR aynı sonucu verdi.
+**⚠️ MERGE SIRASI: PR 2 → PR 3.** PR 3 dalı `feat/jsonld-organization`
+ÜZERİNE kuruldu (master'dan değil): referans verdiği `@id` PR 2'de
+tanımlanıyor, master'dan dallanmış bir PR 3 ya kırık bir referans ya da
+PR 2'nin kopyası olurdu.
+
+**🟢 2026-10-02 — JSON-LD şema turu PR 2: `Organization` bloğuna `@id` + 5 eksik alan eklendi (site geneli, 3176 sayfa).**
+Blok 2026-08-22'de kurulmuştu ama sabit bir kimliği yoktu ve Google'ın
+`Organization` dokümantasyonunun beklediği birkaç alanı taşımıyordu.
+Eklenenler, hepsi SİTEDE ZATEN VAR OLAN gerçek veriden (KARAR 1 — yeni
+metin yazılmadı):
+- **`@id`** = `https://idenfit.com/#organization` (`IDENFIT_ORG_ID`,
+  `url` ile AYNI `Astro.site` koşuluna bağlı). 3176 sayfadaki blok artık
+  tüketiciler için TEK bir varlık; ileride `BlogPosting.publisher` /
+  `WebPage.publisher`'ın kuruluşu yeniden tanımlamak yerine
+  `{'@id': …}` ile referans vermesini mümkün kılıyor — **o bağlama işi
+  bu PR'ın KAPSAMINDA DEĞİL, ayrı bir tur.**
+- **`description`** = `t.hero.description` — ana sayfanın ZATEN canlı olan
+  `<meta name="description">` metni, sayfanın kendi dilinde (5 dilin
+  hepsinde gerçek çeviri). İkinci bir "kurumsal açıklama" kaynağı
+  uydurulmadı; o iki metnin zamanla ayrışmasını engelliyor.
+- **`telephone` / `email`** üst seviyede — `contactPoint` içindekiyle
+  AYNI `FOOTER_CONTACT` kaynağından, ikinci bir yerde tutulmuyor.
+- **`address.addressLocality`** = `İstanbul` — `FOOTER_CONTACT`'a eklenen
+  yeni alan (footer'da GÖRÜNEN tek alan hâlâ `address`, render
+  değişmedi). **`streetAddress` KASITLI olarak bölünmedi:** footer
+  "…, Teknopark, İstanbul" derken `/iletisim/` aynı ofis için "Pendik"
+  diyor — ilçe adında kaynak kendi içinde tutarsız, bir ayrıştırma
+  uydurulmadı.
+- **`areaServed`** = `['TR','NL','IT','AZ']` — İKİ farklı kanıt türünden:
+  (1) **fiziksel ofis**, `/iletisim/` sayfasında doğrulanabilir (TR:
+  Ümraniye + Teknopark/Pendik; NL: Den Haag "Lahey Global Satış Ofisi");
+  (2) **gerçek satış faaliyeti, ofis yok** — IT ve AZ. **⚠️ (2) kod
+  tabanından TÜRETİLEMEZ** — kullanıcının 2026-10-02'de verdiği ticari
+  bilgiye dayanıyor ("o ülkelerde gerçek müşterilerimiz var, ofis yok
+  ama satış faaliyeti var"). Sitedeki dolaylı izler (tam yerelleştirilmiş
+  IT/AZ sayfaları + € fiyat) bununla TUTARLI ama tek başlarına kanıt
+  değil. Değiştirilmeden önce iş tarafına sorulmalı.
+  **Dışarıda bırakılanlar (kullanıcı onaylı):** "MENA" (kaynakta yalnızca
+  bir ofis ADI, schema.org karşılığı olmayan serbest metin) ve
+  "Worldwide"/3 kıta (`hedef-global-marka` bunu açıkça **2027 HEDEFİ**
+  olarak anlatıyor, bugünkü gerçek değil). Tam gerekçeler
+  `BaseLayout.astro`'daki `IDENFIT_AREA_SERVED` yorumunda.
+
+**Doğrulama:** `astro check` 0 hata / 0 uyarı / 27 hint (taban çizgisiyle
+birebir aynı), `astro build` temiz. **Byte seviyesinde before/after HTML
+diff** — baseline, değiştirilmemiş `idenfit/master`'dan (`92973b3`) alınıp
+PROJE AĞACININ DIŞINA yazıldı; 3176 HTML'in her biri için tam dosya
+sha256'sı, TÜM `ld+json` blokları yer tutucuyla değiştirildikten sonraki
+sha256 ve blokların ham metni kaydedildi. Sonuç: 3176/3176 dosyada
+**JSON-LD ve tek satırlık HTML yorumu dışında SIFIR bayt değişti**; 949
+sayfa değişti, hepsinde değişen tek blok `Organization`;
+`BreadcrumbList` (939), `BlogPosting` (640), `WebPage` (163), `FAQPage`
+(116) bloklarının TAMAMI birebir aynı kaldı; blok SAYISI hiçbir sayfada
+değişmedi; `Organization`'ın 5 benzersiz varyantı var (locale başına bir
+`description`: tr 752, en 56, it 52, az 47, nl 42 sayfa). `_headers`
+değişmedi (CSP üreticisi `application/ld+json`'u zaten atlıyor).
+Serileştirme `safeJsonLd()` üzerinden — ham `JSON.stringify` YOK;
+çıktıda çıplak `<`/`>`/`&` olmadığı ve yine de geçerli JSON olduğu
+ayrıca doğrulandı.
+
+**⚠️ KALICI DERS (bu turda ölçülerek öğrenildi) — Astro, `.astro`
+ŞABLONUNDAKİ `<!-- -->` yorumlarını ÇIKTIYA BASIYOR** (frontmatter'daki
+`//` yorumlarının aksine). İlk denemede Organization bloğunun üstüne
+yazılan 3 satırlık açıklayıcı yorum, 949 sayfanın HER BİRİNE **+119 bayt**
+ekledi (~113 KB) ve diff gate'inde "JSON-LD dışında değişiklik" olarak
+yakalandı. Yorum tek satıra indirildi (`sameAs notu` → `notu`, −10 bayt);
+detaylı gerekçeler frontmatter'daki `//` yorumlarına ve bu dosyaya
+taşındı. **Kural: şablon içine uzun açıklama yazılmaz** — projenin mevcut
+"tek satır + detay CLAUDE.md'de" konvansiyonunun sebebi tam olarak budur.
+
+**🟡 2026-08-29/30 — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
 Kaynağın (idenfit.com/online-sunum-talep-et/) BİREBİR DOM yapısına
 (şeffaf sol kolon + kırmızı arka plan + sağ form kartı) sadık kalan eski
 tasarım kullanıcı isteğiyle TAMAMEN terk edildi. Yeni tasarım kullanıcının
@@ -3513,6 +3694,129 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
     yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
     atlıyor, PR gate yok) bir kez daha doğruluyor.
+75. **ARALIKLI / YENİDEN ÜRETİLEMİYOR (2026-10-01'de açıldı, 2026-10-02'de
+    ölçülerek yeniden yazıldı) — `astro check` bir kez heap OOM ile çöktü;
+    deploy'u tehdit eden bir sorun DEĞİL, ama marj dar (%35).**
+    - **2026-10-01 gözlemi (olduğu gibi duruyor):** `npx astro check`
+      "Getting diagnostics for Astro files…" satırından sonra V8'in
+      `FATAL ERROR: Reached heap limit` / `Ineffective mark-compacts near
+      heap limit` hatasıyla düştü, **exit 134** (SIGABRT) — hem varsayılan
+      heap'te hem `NODE_OPTIONS=--max-old-space-size=8192` ile. JSON-LD
+      `inLanguage` turunda (PR 1) keşfedildi; değişiklik `git stash` ile
+      geri alınıp temiz baseline'da tekrarlandı, aynı şekilde çöktü — yani
+      PR 1 ile İLGİSİ YOK.
+    - **2026-10-02 ölçümleri — ÇÖKME YENİDEN ÜRETİLEMEDİ.** Aynı makine,
+      aynı dal, üç ayrı çalıştırma, üçü de **431 dosya / 0 hata / 0 uyarı
+      / 27 hint** ile geçti:
+
+      | Heap limiti | Süre | Tepe node bellek |
+      |---|---|---|
+      | varsayılan (4288 MB) | 80,6 s | **2790 MB** |
+      | 12288 MB | 106,2 s | 2757 MB |
+      | 16384 MB | 101,9 s | — |
+
+      Yani 2026-10-01'de 8 GB'ı dolduran iş, 2026-10-02'de 2,8 GB'ta
+      bitiyor. **Aradaki farkın nedeni BULUNAMADI** — tekrarlarsa o anki
+      `FreePhysicalMemory`, eşzamanlı `astro dev`/`astro build` olup
+      olmadığı ve `.astro/` sync durumu not edilmeli; bugün çökmemesinin
+      sebebi büyük ihtimalle bunlardan biri ama **kanıtlanamadı**.
+    - **Asıl risk marj, çökme değil:** 2790 MB tepe / 4288 MB varsayılan
+      limit = yalnızca **%35 boşluk**. 639 `.md` yazı var ve Keystatic'ten
+      eklenmeye devam ediyor.
+    - **Deploy hattı SAĞLAM — kanıtlandı.** Cloudflare Workers Builds
+      `npm run build:ci` (= `astro check && npm run build`) çalıştırıyor ve
+      geçiyor: `a3b2896` (KOBİ → "Teklif Al"/"Başvur") ve master'ın son
+      commit'i `fbe82c6` (2026-09-24 tarihli Keystatic yazısı) ikisi de
+      canlıda doğrulandı. Konteyner limitleri (resmî dok): **8 GB RAM**,
+      2 vCPU (free) / 4 vCPU (paid), 20 GB disk, **20 dk build timeout**,
+      Ubuntu 24.04, Node varsayılan 24.18.0.
+      **Doğrulanmamış, panelden bakılmalı:** (a) `.nvmrc`'nin (`22`)
+      okunup okunmadığı — bkz. `docs/cloudflare-workers-builds.md:68-71`;
+      (b) `astro check` adımının CI'daki SÜRESİ — yerelde `astro build`
+      ~5-6 dk + `astro check` ~1,5 dk, 20 dk tavanı bellekten daha yakın
+      bir risk olabilir. Build logundaki bellek doğrudan okunamıyor
+      (Workers Builds bellek telemetrisi yayınlamıyor) ve bu oturumda
+      Cloudflare kimlik bilgisi YOK (`wrangler whoami` → not authenticated).
+    - **Mekanizma (kaynak koddan doğrulandı), neden `tsc`'den pahalı:**
+      `@astrojs/language-server/dist/check.js:66-116` — `lint()`,
+      `getRootFileNames()`'teki **her dosya için sırayla** `linter.check(file)`
+      çağırıyor. Bu bir tek-seferlik `ts.Program` değil, **Volar + TS
+      LanguageService**: hesaplanan her şey (semantik tanılar, tip
+      instantiation'ları, her `.astro` için üretilen sanal TSX + source
+      map) iterasyonlar arasında cache'te CANLI kalıyor. "Ineffective
+      mark-compacts" imzası tam olarak bu — heap çöp değil, erişilebilir
+      nesnelerle doluyor. Karşılaştırma: `tsc --noEmit` AYNI tsconfig ile
+      (`.astro` hariç, 1467 program / 168 kök dosya) **997 MB / 28 s**;
+      `astro check` (431 dosya) **2790 MB / 81 s**. Volar katmanı tek
+      başına **+1,8 GB**.
+      431 = 168 TS kök dosyası + 263 `.astro` (CLAUDE.md'nin "429 dosya"
+      kaydıyla tutarlı).
+    - **Üst akışta bilinen, HÂLÂ AÇIK bir sorun:** withastro/astro#16718
+      (Astro 6.3.1 + Node 24 + `@astrojs/cloudflare` — bizim kurulumumuza
+      çok yakın, "fix pending"), #14663 ("closed as not planned", "P2: has
+      workaround"), language-tools#699, language-tools#721.
+      **`@astrojs/language-server` 2.16.13→2.17.1 changelog'unda bellek
+      düzeltmesi YOK** (kurulu: 2.16.12, son: 2.17.1). Dahası 2.16.13 ve
+      2.16.16 "atlanan dosyalar" düzeltmeleri DAHA ÇOK dosya kontrol
+      ettirir → bellek artabilir; 2.17.0 ise `.astro`→TSX motorunu Biome
+      tabanlı yeni `astro2tsx` ile baştan yazıyor ("daha doğru tipler")
+      → 263 `.astro` dosyasında YENİ tip hataları çıkarabilir. **Yükseltme
+      şimdilik önerilmiyor**, faydası kanıtsız/riski gerçek.
+    - **⚠️ `typescript` 7'ye YÜKSELTİLMEMELİ.** `check.js:161-168` açıkça
+      reddediyor: TS 7+ native derleyici `astro check`'in dayandığı
+      programatik API'yi (`ts.sys`, `ts.findConfigFile`, `LanguageServiceHost`)
+      sunmuyor, paket "6.x kullanın" diye hata fırlatıyor. Takip:
+      withastro/roadmap#1321. (Kurulu: `typescript@6.0.3`.)
+    - **Kapanış kararı (kullanıcı, 2026-10-02):** bellek konusu şimdilik
+      KAPALI, aksiyon alınmıyor. Tekrarlarsa bu madde yeniden açılır.
+      Azaltma seçenekleri Açık nokta #76'da.
+76. **ERTELENDİ (2026-10-02, kullanıcı kararı: "ayrı bir tur olarak not et,
+    şimdi yapma") — `astro check` bellek marjını genişletecek iki düşük
+    riskli temizlik.** Açık nokta #75'in araştırmasında ölçüldü; ikisi
+    birlikte tepe kullanımı ~2,8 GB'tan muhtemelen ~2 GB'ın altına indirir,
+    görünür davranışı değiştirmez.
+    - **(C) tsconfig kapsamını daralt.** `tsconfig.json` şu an
+      `include: [".astro/types.d.ts", "**/*"]` + `exclude: ["dist"]` ve
+      `astro/tsconfigs/base` `allowJs: true` veriyor — sonuç: **63
+      `scripts/*.mjs`** (168 kök dosyanın %38'i, kontrol edilen 431
+      dosyanın %15'i) programa giriyor. Bunlar tek seferlik migrasyon/
+      denetim script'leri, siteye hiç girmiyorlar ve JSDoc taşımadıkları
+      için bugün de gerçek bir tip kontrolü almıyorlar. `exclude`'a
+      `scripts`, `.wrangler`, `dist-check` eklenebilir.
+      **`astro.config.mjs` ve `keystatic.config.ts` DIŞARIDA
+      BIRAKILMAMALI** — ikisi de gerçek değer sağlıyor.
+      **Risk/doğrulama şartı:** `exclude` yanlış yazılırsa `astro check`
+      sessizce daha az dosya kontrol edip "0 hata" der (Açık nokta #25'teki
+      MegaMenu olayının AYNI tuzağı) — değişiklikten sonra
+      `Result (N files)` sayısı 431'den **tam beklenen kadar** düşmeli.
+    - **(D) İki büyük JSON import'unu tipten kurtar (~0,5 GB).** İzole
+      ölçüm: boş baseline **61 MB** → `src/data/pagesJsonModified.ts`
+      (→ `pages.json` 9,7 MB) **266 MB / 38.432 tip** →
+      `src/data/contentLinkAccessibility.ts` (→ `pages.json` + `posts.json`
+      15 MB) **592 MB / 142.630 tip / 5,3 s**. İroni: iki tüketici de
+      import'u anında dar bir arayüze cast ediyor
+      (`as Array<{link; title}>`, `as unknown as RawPage[]`) — TypeScript
+      24,7 MB'lık yapıyı **hesaplayıp sonra atıyor**.
+      Çözüm: bu İKİ dosyada `import … from '*.json'` yerine
+      `readFileSync` + `JSON.parse` + mevcut dar arayüz.
+      **Riskler:** (a) build-time okuma yolu `@astrojs/cloudflare`
+      prerender worker'ında dosya yolu/`import.meta.url` çözümlemesi
+      gerektirir, GERÇEK build ile doğrulanmalı; (b) **diğer 8 küçük JSON
+      için AYNI ŞEY YAPILMAMALI** (`products.json` 501 KB, `sectors.json`,
+      `misc-pages.json`, `hubs.json`, `faq.json`, `hardware.json`,
+      `pricing.json`, `calculators.json`) — onların çıkarsanan tipleri
+      gerçekten kullanılıyor; (c) 3172 HTML'in byte seviyesinde aynı
+      kaldığı diff ile kanıtlanmalı.
+    - **Kapsam dışı/yapılmayacak olarak kaydedildi:** `astro check`'i
+      `build:ci`'dan çıkarmak (tip hataları sessizce canlıya çıkar, PR
+      gate zaten yok — bkz. #70; i18n'in `Record<Locale,X>` derleme-zamanı
+      güvenlik ağı kaybolur) ve `NODE_OPTIONS` ile tavanı yükseltmek
+      (yerelde varsayılan zaten geçiyor, CF konteyneri toplam 8 GB —
+      yüksek değerler OOM-killer'a davetiye).
+    - **Not:** `media.json` (10,9 MB) ve `.astro/data-store.json`
+      (11,8 MB) programa GİRMİYOR — hiç import edilmiyorlar ve TypeScript
+      wildcard `include` ile `.json` toplamıyor. Bu ikisi için bir şey
+      yapmaya gerek yok.
 
 **Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
 görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
