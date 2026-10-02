@@ -7,7 +7,7 @@ import Footer from '../components/Footer.astro';
 import FloatingContactButtons from '../components/FloatingContactButtons.astro';
 import { HOME_PANEL_IMAGE } from '../data/homeContent';
 import { FOOTER_SOCIAL, FOOTER_CONTACT } from '../data/footer';
-import { safeJsonLd } from '../data/jsonLd';
+import { organizationId, safeJsonLd } from '../data/jsonLd';
 import { buildHreflangAlternates, type HreflangAlternate } from '../i18n/hreflang';
 import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
@@ -142,14 +142,15 @@ const IDENFIT_ORG_LOGO = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 // 3176 sayfanın HER BİRİNDE basılıyor ama `@id` olmadığı için tüketiciler
 // (Google, LLM'ler) bunların AYNI kuruluş mu yoksa 3176 ayrı kuruluş mu
 // olduğunu bilemiyordu. Sabit bir `@id` hepsini tek bir varlıkta
-// birleştiriyor ve ileride diğer şemaların (`BlogPosting.publisher`,
-// `WebPage.publisher`) kuruluşu YENİDEN TANIMLAMAK yerine `{'@id': …}`
-// ile REFERANS vermesini mümkün kılıyor — o bağlama işi bu PR'ın
-// KAPSAMINDA DEĞİL, ayrı bir tur (bkz. CLAUDE.md).
+// birleştiriyor; `BlogPosting.publisher`/`author` ve aşağıdaki
+// `WebPage.publisher` kuruluşu YENİDEN TANIMLAMAK yerine `{'@id': …}`
+// ile buna REFERANS veriyor (2026-10-02, PR 3). Dize `organizationId()`
+// ile PAYLAŞILAN tek kaynaktan geliyor — `blog/[slug].astro` da aynı
+// fonksiyonu çağırıyor, iki yerde ayrı ayrı kurulmuyor.
 // `url` ile AYNI koşula bağlı: `Astro.site` tanımsızken mutlak bir `@id`
 // üretilemez ve göreli bir `@id` kimlik olarak işe yaramaz — o durumda
 // hiç basılmıyor.
-const IDENFIT_ORG_ID = Astro.site ? `${Astro.site.href}#organization` : undefined;
+const IDENFIT_ORG_ID = organizationId(Astro.site);
 
 // `areaServed` (2026-10-02, PR 2) — DÖRT ülke. İki farklı kanıt türünden
 // besleniyor, ikisi de gerçek:
@@ -300,6 +301,12 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					name: title,
 					description,
 					url: pageUrl,
+					// Kuruluş AYNI sayfada zaten tam olarak tanımlı (yukarıdaki
+					// Organization bloğu) — burada yeniden tanımlanmıyor, yalnızca
+					// referans veriliyor. `@id` üretilemiyorsa (bkz.
+					// `organizationId()`) alan hiç basılmaz: tanımsız bir düğüme
+					// atıf yapmaktansa `publisher`'ı hiç yazmamak doğru.
+					...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
 					dateModified,
 				})}
 				is:inline

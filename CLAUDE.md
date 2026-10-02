@@ -349,6 +349,43 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
+**🟢 2026-10-02 — JSON-LD şema turu PR 3: `publisher`/`author` artık kuruluşu YENİDEN TANIMLAMIYOR, `@id` ile REFERANS veriyor.**
+PR 2'nin eklediği `@id`'nin asıl getirisi bu adımda alınıyor: aynı sayfada
+kuruluş İKİ-ÜÇ kez tanımlanıyordu (Organization bloğu + `BlogPosting.publisher`
++ `BlogPosting.author`'ın Organization dalı), tüketici bunların aynı varlık
+olduğunu bilemiyordu.
+- **Paylaşılan tek kaynak:** `src/data/jsonLd.ts`'e `organizationId(site)`
+  eklendi; `BaseLayout.astro` ve `blog/[slug].astro` AYNI fonksiyonu
+  çağırıyor. İki dosya dizeyi ayrı ayrı kurarsa bir gün sessizce ayrışır
+  ve referans boşa düşer — JSON-LD'de kırık bir `@id` HATA VERMEZ, tüketici
+  onu tanımsız apayrı bir düğüm sanar.
+- **`BlogPosting.publisher`** (640 yazı) → `{'@id': …}`.
+- **`BlogPosting.author`'ın Organization dalı** → `{'@id': …}`. **Yan
+  fayda:** satır içi hâli `url: 'https://idenfit.com'` (sondaki eğik çizgi
+  YOK) yazıyordu, Organization bloğunun kendi `url`'i ise `Astro.site.href`
+  (`https://idenfit.com/`) — aynı varlık için iki farklı URL biçimi; bu
+  tutarsızlık da kalktı. `Person` dalı (gerçek ad-soyadı olan 25 yazı)
+  DOKUNULMADI.
+- **`WebPage.publisher`** (163 sayfa) — ESKİDEN HİÇ YOKTU, bu turda
+  eklendi (`{'@id': …}`). Yeni veri değil, var olan kuruluşa referans.
+- **Güvenli geri düşme:** `organizationId()` `site` yoksa `undefined`
+  döner; o durumda `publisher`/`author` eski satır-içi tanıma düşüyor,
+  `WebPage.publisher` ise hiç basılmıyor — tanımsız bir düğüme atıf
+  yapmaktansa alanı hiç yazmamak doğru. (`site` 2026-09-02'de dolduruldu,
+  pratikte bu dal yalnızca yapılandırma kazasında devreye girer.)
+**Doğrulama:** `astro check` 0 hata/0 uyarı/27 hint, `astro build` temiz.
+Byte diff (baseline = PR 2'nin çıktısı, proje ağacının dışında):
+**JSON-LD dışında SIFIR bayt değişti**; 803 sayfa değişti = `BlogPosting`
+640 + `WebPage` 163; `Organization` (949), `BreadcrumbList` (939),
+`FAQPage` (116) birebir aynı; blok sayısı değişmedi; `_headers`
+değişmedi. `check-json-ld.mjs` **0 geçersiz blok** — `publisher`
+"önerilen alan" kontrolünü referans biçiminde de geçiyor. 11 regresyon
+script'i PR 2 ile BİREBİR aynı sonucu verdi.
+**⚠️ MERGE SIRASI: PR 2 → PR 3.** PR 3 dalı `feat/jsonld-organization`
+ÜZERİNE kuruldu (master'dan değil): referans verdiği `@id` PR 2'de
+tanımlanıyor, master'dan dallanmış bir PR 3 ya kırık bir referans ya da
+PR 2'nin kopyası olurdu.
+
 **🟢 2026-10-02 — JSON-LD şema turu PR 2: `Organization` bloğuna `@id` + 5 eksik alan eklendi (site geneli, 3176 sayfa).**
 Blok 2026-08-22'de kurulmuştu ama sabit bir kimliği yoktu ve Google'ın
 `Organization` dokümantasyonunun beklediği birkaç alanı taşımıyordu.
