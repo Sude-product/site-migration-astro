@@ -347,9 +347,74 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-08-29/30)
+## Güncel durum (son güncelleme: 2026-10-02)
 
-**🟡 2026-08-29/30, en son — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
+**🟢 2026-10-02 — JSON-LD şema turu PR 2: `Organization` bloğuna `@id` + 5 eksik alan eklendi (site geneli, 3176 sayfa).**
+Blok 2026-08-22'de kurulmuştu ama sabit bir kimliği yoktu ve Google'ın
+`Organization` dokümantasyonunun beklediği birkaç alanı taşımıyordu.
+Eklenenler, hepsi SİTEDE ZATEN VAR OLAN gerçek veriden (KARAR 1 — yeni
+metin yazılmadı):
+- **`@id`** = `https://idenfit.com/#organization` (`IDENFIT_ORG_ID`,
+  `url` ile AYNI `Astro.site` koşuluna bağlı). 3176 sayfadaki blok artık
+  tüketiciler için TEK bir varlık; ileride `BlogPosting.publisher` /
+  `WebPage.publisher`'ın kuruluşu yeniden tanımlamak yerine
+  `{'@id': …}` ile referans vermesini mümkün kılıyor — **o bağlama işi
+  bu PR'ın KAPSAMINDA DEĞİL, ayrı bir tur.**
+- **`description`** = `t.hero.description` — ana sayfanın ZATEN canlı olan
+  `<meta name="description">` metni, sayfanın kendi dilinde (5 dilin
+  hepsinde gerçek çeviri). İkinci bir "kurumsal açıklama" kaynağı
+  uydurulmadı; o iki metnin zamanla ayrışmasını engelliyor.
+- **`telephone` / `email`** üst seviyede — `contactPoint` içindekiyle
+  AYNI `FOOTER_CONTACT` kaynağından, ikinci bir yerde tutulmuyor.
+- **`address.addressLocality`** = `İstanbul` — `FOOTER_CONTACT`'a eklenen
+  yeni alan (footer'da GÖRÜNEN tek alan hâlâ `address`, render
+  değişmedi). **`streetAddress` KASITLI olarak bölünmedi:** footer
+  "…, Teknopark, İstanbul" derken `/iletisim/` aynı ofis için "Pendik"
+  diyor — ilçe adında kaynak kendi içinde tutarsız, bir ayrıştırma
+  uydurulmadı.
+- **`areaServed`** = `['TR','NL','IT','AZ']` — İKİ farklı kanıt türünden:
+  (1) **fiziksel ofis**, `/iletisim/` sayfasında doğrulanabilir (TR:
+  Ümraniye + Teknopark/Pendik; NL: Den Haag "Lahey Global Satış Ofisi");
+  (2) **gerçek satış faaliyeti, ofis yok** — IT ve AZ. **⚠️ (2) kod
+  tabanından TÜRETİLEMEZ** — kullanıcının 2026-10-02'de verdiği ticari
+  bilgiye dayanıyor ("o ülkelerde gerçek müşterilerimiz var, ofis yok
+  ama satış faaliyeti var"). Sitedeki dolaylı izler (tam yerelleştirilmiş
+  IT/AZ sayfaları + € fiyat) bununla TUTARLI ama tek başlarına kanıt
+  değil. Değiştirilmeden önce iş tarafına sorulmalı.
+  **Dışarıda bırakılanlar (kullanıcı onaylı):** "MENA" (kaynakta yalnızca
+  bir ofis ADI, schema.org karşılığı olmayan serbest metin) ve
+  "Worldwide"/3 kıta (`hedef-global-marka` bunu açıkça **2027 HEDEFİ**
+  olarak anlatıyor, bugünkü gerçek değil). Tam gerekçeler
+  `BaseLayout.astro`'daki `IDENFIT_AREA_SERVED` yorumunda.
+
+**Doğrulama:** `astro check` 0 hata / 0 uyarı / 27 hint (taban çizgisiyle
+birebir aynı), `astro build` temiz. **Byte seviyesinde before/after HTML
+diff** — baseline, değiştirilmemiş `idenfit/master`'dan (`92973b3`) alınıp
+PROJE AĞACININ DIŞINA yazıldı; 3176 HTML'in her biri için tam dosya
+sha256'sı, TÜM `ld+json` blokları yer tutucuyla değiştirildikten sonraki
+sha256 ve blokların ham metni kaydedildi. Sonuç: 3176/3176 dosyada
+**JSON-LD ve tek satırlık HTML yorumu dışında SIFIR bayt değişti**; 949
+sayfa değişti, hepsinde değişen tek blok `Organization`;
+`BreadcrumbList` (939), `BlogPosting` (640), `WebPage` (163), `FAQPage`
+(116) bloklarının TAMAMI birebir aynı kaldı; blok SAYISI hiçbir sayfada
+değişmedi; `Organization`'ın 5 benzersiz varyantı var (locale başına bir
+`description`: tr 752, en 56, it 52, az 47, nl 42 sayfa). `_headers`
+değişmedi (CSP üreticisi `application/ld+json`'u zaten atlıyor).
+Serileştirme `safeJsonLd()` üzerinden — ham `JSON.stringify` YOK;
+çıktıda çıplak `<`/`>`/`&` olmadığı ve yine de geçerli JSON olduğu
+ayrıca doğrulandı.
+
+**⚠️ KALICI DERS (bu turda ölçülerek öğrenildi) — Astro, `.astro`
+ŞABLONUNDAKİ `<!-- -->` yorumlarını ÇIKTIYA BASIYOR** (frontmatter'daki
+`//` yorumlarının aksine). İlk denemede Organization bloğunun üstüne
+yazılan 3 satırlık açıklayıcı yorum, 949 sayfanın HER BİRİNE **+119 bayt**
+ekledi (~113 KB) ve diff gate'inde "JSON-LD dışında değişiklik" olarak
+yakalandı. Yorum tek satıra indirildi (`sameAs notu` → `notu`, −10 bayt);
+detaylı gerekçeler frontmatter'daki `//` yorumlarına ve bu dosyaya
+taşındı. **Kural: şablon içine uzun açıklama yazılmaz** — projenin mevcut
+"tek satır + detay CLAUDE.md'de" konvansiyonunun sebebi tam olarak budur.
+
+**🟡 2026-08-29/30 — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
 Kaynağın (idenfit.com/online-sunum-talep-et/) BİREBİR DOM yapısına
 (şeffaf sol kolon + kırmızı arka plan + sağ form kartı) sadık kalan eski
 tasarım kullanıcı isteğiyle TAMAMEN terk edildi. Yeni tasarım kullanıcının
