@@ -349,6 +349,67 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
+### ⚠️ JSON-LD şema turu — AÇIK PR'LAR VE MERGE SIRASI (2026-10-02)
+
+Dört PR'ın tamamı yerelde, **hiçbiri push/merge EDİLMEDİ**. Üçü birbirinin
+üzerine kurulu — **sıra bozulursa kırık referans veya çakışma çıkar.**
+
+| # | Dal | Taban | Commit | İçerik |
+|---|---|---|---|---|
+| 2 | `feat/jsonld-organization` | `idenfit/master` `92973b3` | `ab889d1` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
+| 3 | `feat/jsonld-publisher-id` | **PR 2** | `daf02e3` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
+| 4 | `feat/jsonld-webpage-unconditional` | **PR 3** | (bu tur) | `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel alan — 146 sayfa kimlik kazanıyor |
+
+**Zorunlu sıra: PR 2 → PR 3 → PR 4.**
+- PR 3, PR 2'nin tanımladığı `@id`'ye REFERANS veriyor. Önce merge
+  edilirse 803 sayfada **tanımsız bir düğüme atıf** oluşur — ve bu JSON-LD'de
+  HATA VERMEZ, sessizce yanlış olur.
+- PR 4, PR 3'ün eklediği `WebPage.publisher` satırını içeren bloğu
+  değiştiriyor; önce merge edilirse çakışır.
+- Üçü de `src/layouts/BaseLayout.astro`'nun AYNI bölgesine dokunuyor.
+
+**PR 1 (`feat/jsonld-inlanguage`, `41fbed7`+`9d777e0`+`e264dc5`) AYRI ve
+BAĞIMSIZ** — daha eski bir master'dan (`e844680`) dallandı, `idenfit/master`
+ilerlediği için önce rebase gerekiyor. `WebPage` bloğuna `inLanguage: lang`
+ekliyor, yani **PR 2-4'le AYNI bloğa dokunuyor → çakışma kesin.** Çözüm
+basit (satırı `url`'den sonra yeniden yerleştir) ama elle yapılmalı.
+**Öneri: PR 1 EN SONA bırakılsın** — o zaman çakışma tek bir blokta ve tek
+bir satırda kalır.
+
+**🟢 2026-10-02 — JSON-LD şema turu PR 4: `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel ALAN oldu — 146 sayfa şema kimliği kazandı.**
+`dateModified` prop'u ESKİDEN bloğun TAMAMININ ön koşuluydu: gerçek bir WP
+`modified` tarihi olmayan sayfa türleri (ana sayfa ×5 locale, hub'lar, SSS,
+404'ler, az/it sayfalarının büyük kısmı) HİÇBİR `WebPage` şeması almıyordu.
+Sayım: 949 BaseLayout sayfası − 640 blog (`ogType='article'`) − 163 zaten
+`WebPage` taşıyan = **146**.
+- Blok hâlâ YALNIZCA `ogType !== 'article'` iken basılıyor (blog kendi
+  `BlogPosting`'ini üretiyor, çift blok olmasın diye).
+- **146'nın 5'i `noindex`** (`404.html` + 4 locale `not-found`).
+  `Organization` bloğu bu sayfalarda ZATEN basılıyordu, `WebPage` de aynı
+  muameleyi görüyor. İstenirse koşula `!noindex` eklemek TEK SATIR —
+  `canonical`/`hreflang` için zaten uygulanan desen.
+**Doğrulama — "mevcut 163 sayfa değişmeyecek" şartı:** `astro check` 0
+hata/0 uyarı/27 hint, `astro build` temiz, 11 regresyon script'i PR 2/PR 3
+ile BİREBİR aynı, `_headers` değişmedi, `check-json-ld.mjs` 0 geçersiz
+blok. Byte diff (baseline = PR 3'ün çıktısı, proje ağacının dışında):
+**3176 HTML'in yalnızca 146'sının tam dosya sha256'sı değişti ve bu küme
+blok kazanan 146 dosyayla BİREBİR AYNI**; önceden `WebPage` taşıyan
+**163 sayfanın 0'ı değişti**; her kazanan dosya TAM +1 blok aldı, türü
+`WebPage`, konumu her seferinde indeks 1 (Organization'dan hemen sonra);
+146 dosyanın tamamında boyut farkı eklenen bloğun kendisi + `<script>`
+sarmalayıcısıyla (≤80 bayt) tam olarak açıklanıyor.
+**⚠️ ÖLÇÜM ARACI DERSİ (bu turda yakalandı):** önceki turların
+`restSha` ölçütü blokları `LD0`/`LD1`/… diye NUMARALANDIRIYOR — araya
+yeni bir blok girince sonraki indeksler kayıyor ve gerçek baytlar hiç
+değişmese bile hash değişiyor. PR 4'te bu 146 YANLIŞ POZİTİF üretti.
+Blok EKLENEN turlarda doğru ölçüt indeks bazlı hash DEĞİL, yukarıdaki
+"tam dosya sha + küme eşitliği + blok başına +1 + boyut muhasebesi"
+dörtlüsü. **İkinci ders:** baseline build'i alınırken dalın commit
+EDİLMİŞ olduğu doğrulanmalı — `git checkout` commit edilmemiş
+değişiklikleri karşı dala TAŞIYOR; bu turda ilk baseline denemesi tam
+olarak bu yüzden PR 4 kodunu build etti ve "0 fark" diye yanıltıcı bir
+sonuç verdi (sayılar kontrol edilince yakalandı).
+
 **🟢 2026-10-02 — JSON-LD şema turu PR 3: `publisher`/`author` artık kuruluşu YENİDEN TANIMLAMIYOR, `@id` ile REFERANS veriyor.**
 PR 2'nin eklediği `@id`'nin asıl getirisi bu adımda alınıyor: aynı sayfada
 kuruluş İKİ-ÜÇ kez tanımlanıyordu (Organization bloğu + `BlogPosting.publisher`
