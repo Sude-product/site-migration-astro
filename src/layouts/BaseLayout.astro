@@ -69,16 +69,30 @@ interface Props {
   articlePublishedTime?: string;
   articleModifiedTime?: string;
   /** "No dateModified in structured data" GEO bulgusu (2026-08-19) —
-   * blog DIŞINDAKİ sayfalar (ürün/sektör/hukuki/fiyatlar vb.) için sade
-   * bir `WebPage` JSON-LD bloğu üretir. Blog kendi `BlogPosting`
-   * JSON-LD'sini ZATEN kendi sayfasında (`blog/[slug].astro`) üretiyor —
-   * bu yüzden `ogType==='article'` iken burada HİÇ basılmıyor (çift
-   * JSON-LD bloğu olmasın diye). Yalnızca GERÇEK bir WP `modified`
-   * tarihi varsa render edilir (`get*ModifiedDate()` fonksiyonları, "No
-   * visible content dates" turu, 2026-08-17) — uydurma tarih YOK, bu
-   * yüzden bu prop verilmeyen sayfalarda (Hub/SSS/Ana sayfa/Landing —
-   * gerçek `modified` verisi olmayan sayfa türleri) hiçbir JSON-LD
-   * ÜRETİLMEZ. ISO 8601 string bekleniyor. */
+   * `WebPage` JSON-LD bloğunun `dateModified` alanı. Yalnızca GERÇEK bir
+   * WP `modified` tarihi geçirilmeli (`get*ModifiedDate()` fonksiyonları,
+   * "No visible content dates" turu, 2026-08-17) — uydurma tarih YOK.
+   * ISO 8601 string bekleniyor.
+   *
+   * **2026-10-02 (PR 4) — DAVRANIŞ DEĞİŞİKLİĞİ:** bu prop ESKİDEN
+   * `WebPage` bloğunun TAMAMININ ön koşuluydu; verilmeyen sayfalar
+   * (ana sayfa, hub'lar, SSS, 404 — gerçek `modified` verisi olmayan
+   * türler) HİÇBİR `WebPage` şeması almıyordu, yani şema seviyesinde
+   * kimlikleri yoktu. Artık blok KOŞULSUZ basılıyor ve `dateModified`
+   * yalnızca OPSİYONEL bir ALAN — 146 sayfa `name`/`description`/`url`/
+   * `publisher` kazandı. Tarihi OLAN 163 sayfanın çıktısı BAYT BAYT
+   * aynı kaldı (alanın nesne içindeki KONUMU korundu, `JSON.stringify`
+   * anahtar sırasını ekleme sırasına göre üretiyor).
+   *
+   * Blok hâlâ YALNIZCA `ogType !== 'article'` iken basılıyor: blog kendi
+   * `BlogPosting` JSON-LD'sini `blog/[slug].astro`'da üretiyor, çift blok
+   * olmasın diye.
+   *
+   * **Not:** yukarıdaki HTML yorumu hâlâ "dateModified JSON-LD notu"
+   * diyor — metni düzeltmek 949 sayfanın HTML'inde bayt değiştirirdi
+   * (Astro şablon yorumlarını çıktıya basıyor, bkz. CLAUDE.md'deki
+   * kalıcı ders) ve PR 4'ün "mevcut çıktı değişmeyecek" şartını
+   * bozardı. Bilinçli olarak eski metinle bırakıldı. */
   dateModified?: string;
   /** "No BreadcrumbList schema" GEO bulgusu (2026-08-24) — bkz.
    * `BreadcrumbItem` yorumu. "Ana Sayfa" SONRASI iz; verilmezse (ana
@@ -292,7 +306,7 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 		/>
 
 		<!-- dateModified JSON-LD notu — detaylı teknik notlar CLAUDE.md'de -->
-		{ogType !== 'article' && dateModified && (
+		{ogType !== 'article' && (
 			<script
 				type="application/ld+json"
 				set:html={safeJsonLd({
@@ -307,7 +321,13 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					// `organizationId()`) alan hiç basılmaz: tanımsız bir düğüme
 					// atıf yapmaktansa `publisher`'ı hiç yazmamak doğru.
 					...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
-					dateModified,
+					// `dateModified` artık OPSİYONEL bir ALAN (2026-10-02, PR 4) —
+					// eskiden bloğun TAMAMININ ön koşuluydu. Konumu ve koşullu
+					// yazım biçimi, `publisher` ile AYNI nedenle değiştirilmedi:
+					// `JSON.stringify` anahtar sırasını ekleme sırasına göre
+					// koruyor, bu yüzden tarihi OLAN 163 sayfanın çıktısı
+					// BAYT BAYT aynı kalıyor (byte diff ile doğrulandı).
+					...(dateModified ? { dateModified } : {}),
 				})}
 				is:inline
 			/>
