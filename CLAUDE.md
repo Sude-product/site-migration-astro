@@ -3817,9 +3817,11 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
       (11,8 MB) programa GİRMİYOR — hiç import edilmiyorlar ve TypeScript
       wildcard `include` ile `.json` toplamıyor. Bu ikisi için bir şey
       yapmaya gerek yok.
-77. **KISMEN KAPANDI (2026-10-02) — `/guvenlik/` madde 2 (Bilgi Güvenliği
-    Politikası) güncellendi; AYNI sayfanın 3/5/6. maddelerinde bulunan
-    belge-eşleşme hatası kullanıcı kararıyla AÇIK bırakıldı.**
+77. **BÜYÜK ÖLÇÜDE KAPANDI (2026-10-02, iki tur) — `/guvenlik/` TR
+    sayfasının 2/3/4/5. maddeleri düzeltildi (5/6 madde artık
+    başlık↔belge olarak TAM eşleşiyor); YALNIZCA 6. madde AÇIK kaldı —
+    gerçek TR "İş Ortağı Aydınlatma Metni" PDF'i repoda hiç yok,
+    sağlanması + hukuk onayı gerekiyor.**
     Kullanıcı yeni bir "PO-YN-01 Bilgi Güvenliği Politikası" PDF'i verip
     madde 2'nin güncellenmesini istedi. **Keşifte beklenmedik bir durum
     çıktı: ham veride madde başlıkları ile bağlı PDF dosya adları
@@ -3837,30 +3839,55 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     | 5 | Çalışan ve Çalışan Adayı Aydınlatma Metni | `cerez_politikasi_ve_aydinlatma.pdf` | Çerez Aydınlatma Metni v4 | ❌ yanlış belge |
     | 6 | İş Ortağı Aydınlatma Metni | `bilgi_guvenligi.pdf` | PL.01 Kalite ve Bilgi Güvenliği YS Politikası (ESKİ) | ❌ yanlış belge |
 
-    Yani **3↔5 yer değiştirmiş**, **6 eski bir Bilgi Güvenliği belgesi
+    *(Yukarıdaki tablo keşif anındaki ÖNCE durumunu gösteriyor.)* Yani
+    **3↔5 yer değiştirmiş**, **6 eski bir Bilgi Güvenliği belgesi
     gösteriyor** ve **TR "İş Ortağı Aydınlatma Metni" PDF'i repoda HİÇ YOK**
-    (yalnızca `-EN` sürümü var, 5 sayfa). Hatalar canlıda da aynen var
+    (yalnızca `-EN` sürümü var, 5 sayfa). Hatalar canlıda da aynen vardı
     (`curl` ile doğrulandı) — bu turda ORTAYA ÇIKARILDI, bir regresyon
-    DEĞİL. Hukuki belgeler olduğu için kullanıcı kararıyla DOKUNULMADI;
-    düzeltmek için madde 6'nın gerçek TR PDF'inin sağlanması + ekip/hukuk
-    onayı gerekiyor.
-    **Uygulanan (yalnızca madde 2, yalnızca TR — kullanıcı kararı):** yeni
-    PDF (2 sayfa, önceki 1 sayfalık sürümün güncellemesi) temiz/ASCII adlı
-    `public/wp-content/uploads/2026/10/bilgi-guvenligi-politikasi.pdf`'e
-    eklendi (Görsel bağımlılık kuralı — hotlink YOK, göreli URL) ve
-    `miscPagesContent.ts`'in `resolveSecurityItemUrl()`'üne TR'ye
-    kapsamlanmış bir URL override haritası
-    (`SECURITY_ITEM_URL_REPLACEMENTS`) eklendi. Ham `misc-pages.json`
-    DEĞİŞTİRİLMEDİ (proje ilkesi: ham export kaynak veri, düzeltme kodda).
-    Eski dosya SİLİNMEDİ — artık öksüz (0 referans) ama 3/5/6 turunda
-    gerekebilir. **Override anahtarı NFC'ye normalize edilerek
-    karşılaştırılıyor:** ham JSON, diskteki dosya adı ve canlı HTML'in
-    ÜÇÜ de Türkçe "İ"nin PARÇALANMIŞ (NFD: `I` + U+0307) biçimini taşıyor
-    (Açık nokta #45'teki AYNI tuzak) — normalize edilmezse override
-    sessizce devre dışı kalırdı. EN/IT'nin 2. maddesi
-    (`information_security.pdf`, `bilgi_guvenligi.pdf` ile byte-birebir
-    aynı ESKİ PL.01 belgesi) kullanıcı kararıyla DOKUNULMADI; İngilizce
-    sürüm geldiğinde ayrı bir turda ele alınacak.
+    DEĞİL. İlk turda hukuki belge oldukları için kullanıcı kararıyla
+    DOKUNULMAMIŞTI; **3/4/5 aynı gün ikinci turda düzeltildi (aşağıda),
+    6 hâlâ açık.**
+    **İKİNCİ TUR (aynı gün, kullanıcı talimatı) — 3/4/5. maddeler de
+    düzeltildi; artık YALNIZCA 6. madde hatalı.** Kullanıcı 3 ve 5'in
+    BAŞLIKLARININ takas edilmesini istedi — bu, bağlı dosyalara
+    DOKUNMADAN eşleşmeyi DOĞRU kuran çözümdür (madde 3'ün dosyası gerçekten
+    "Çalışan ve Çalışan Adayı Aydınlatma Metni v3", madde 5'inki gerçekten
+    "İdenfit Çerez Aydınlatma Metni v4" — Info sözlüğüyle teyit edildi).
+    Ayrıca madde 4'ün "Basvuru" → "Başvuru" yazım hatası düzeltildi ve
+    PDF'i v1'den v2'ye güncellendi (**EN/IT zaten v2 kullanıyordu, TR
+    böylece hizalandı** — TR'nin v1'de kalmış olması ayrı bir sessiz
+    tutarsızlıktı). **Yan etki, bilinçli:** 3↔5 başlık takası sayfadaki
+    KONU SIRASINI değiştiriyor (artık Çalışan 3., Çerez 5.), bu yüzden TR
+    ile EN/IT'nin madde sırası farklılaştı — her başlık kendi doğru
+    belgesiyle eşleştiği için kabul edildi.
+    **Uygulanan (yalnızca TR — kullanıcı kararı):**
+    - 2 yeni PDF temiz/ASCII adlarla eklendi (Görsel bağımlılık kuralı —
+      hotlink YOK, göreli URL):
+      `public/wp-content/uploads/2026/10/bilgi-guvenligi-politikasi.pdf`
+      (2 sf) ve `.../2026/10/veri-sahibi-basvuru-formu.pdf` (5 sf).
+    - **TR listesi ARTIK ham `misc-pages.json`'dan DEĞİL, açık bir
+      `SECURITY_TR_OVERRIDE` dizisinden geliyor** (`miscPagesTranslationOverrides.ts`,
+      `SECURITY_IT_OVERRIDE`'ın AYNI kanıtlanmış deseni). Gerekçe: 6
+      maddenin 4'ü düzeltme gerektiriyordu — nokta nokta yama yerine
+      listeyi tamamen açık yazmak hem daha güvenli hem gözden geçirilebilir.
+      Ham `misc-pages.json` DEĞİŞTİRİLMEDİ (proje ilkesi: ham export kaynak
+      veri, düzeltme kodda).
+    - **İlk turun `SECURITY_ITEM_URL_REPLACEMENTS` haritası KALDIRILDI** ve
+      `resolveSecurityItemUrl()` eski sade hâline döndü. Açık listeye
+      geçince gerek kalmadı — **ve NFD tuzağı da tamamen ortadan kalktı:**
+      nihai 6 URL'in HİÇBİRİ Türkçe "İ" içermiyor (hepsi ASCII), oysa ham
+      veride bu harf PARÇALANMIŞ (NFD: `I` + U+0307) biçimdeydi ve
+      Açık nokta #45'teki kırılganlığı taşıyordu.
+    - Eski dosyalar SİLİNMEDİ (`..._İs_Ortagi_..._v3.pdf` ve
+      `veri_sahibi_basvuru_formu.pdf` artık öksüz, 0 referans) — 6. madde
+      turunda gerekebilir.
+    EN/IT'nin 2. maddesi (`information_security.pdf`, `bilgi_guvenligi.pdf`
+    ile byte-birebir aynı ESKİ PL.01 belgesi) kullanıcı kararıyla
+    DOKUNULMADI; İngilizce sürüm geldiğinde ayrı bir turda ele alınacak.
+    **Nihai TR durumu — 5/6 madde başlık↔belge olarak TAM eşleşiyor,
+    tek kalan 6. madde** (başlık "İş Ortağı Aydınlatma Metni", belge
+    "PL.01 Kalite ve Bilgi Güvenliği YS Politikası"); gerçek TR İş Ortağı
+    PDF'i repoda hâlâ YOK, sağlanması + hukuk onayı gerekiyor.
     **Doğrulama:** `astro check` 0 hata (431 dosya), `astro build` temiz
     (3164 HTML, ayrı `dist-check` çıktısına — çalışan önizlemeye
     dokunulmadı), 11 regresyon script'inden 8'i sıfır sorun. Sıfır olmayan
@@ -3887,6 +3914,27 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     `biyometrik-kart-mobil-giris-yontemi-secimi` 70 karakter) — Güvenlik
     sayfalarından hiçbiri listede YOK, Açık nokta #70'in yapısal
     noktasının bir kez daha tekrarı.
+    **İkinci tur doğrulaması (3/4/5 + açık liste refactor'ü sonrası):**
+    `astro check` 0 hata (431 dosya), `astro build` temiz (3176 HTML —
+    sayfa sayısı DEĞİŞMEDİ), 11 regresyon script'i taban çizgisiyle
+    BİREBİR aynı (aynı 4 bilinen bulgu: csp-sync CRLF/#78,
+    heading-hierarchy 5/#36, title-length 5 + meta-description 1/#70) —
+    **sıfır yeni regresyon**; 8 script'in bulgu listeleri tek tek tarandı,
+    3 Güvenlik sayfasının HİÇBİRİ hiçbir listede YOK. Asıl doğrulama:
+    her maddenin BAŞLIĞI ile bağlı PDF'in Info sözlüğündeki GERÇEK belge
+    adı yan yana basıldı — TR'de 5/6 tam eşleşme, EN/IT'nin 12 maddesi
+    birebir değişmemiş. "Basvuru" (şapkasız) TR sayfasının TAMAMINDA 0 kez
+    geçiyor. **`audit-remote-hotlinks.mjs` 950 sayfa/64 URL raporluyor ama
+    bu bir REGRESYON DEĞİL** (#45'in "0/0" ölçümü `site` alanı BOŞKEN
+    alınmıştı): ölçüldü — sitede `<img src>` hotlinki olan **0 sayfa** var,
+    64 URL'in tamamı JSON-LD `logo` ve OG/Twitter `image` meta
+    etiketlerinde, yani mutlak URL'in schema.org/OG tarafından ZORUNLU
+    kılındığı bağlamlarda; referans edilen dosyaların hepsi
+    `public/wp-content/uploads/` altında AYNI yolda mevcut, dolayısıyla DNS
+    geçişinden sonra kendi sitemize çözülecekler. **Gelecek oturumlar için
+    not:** bu script literal çalışıyor (`idenfit.com/wp-content` geçen her
+    dizeyi işaretliyor), bulgu çıktığında önce `<img src>` mi yoksa
+    JSON-LD/OG mu olduğuna bakılmalı.
 78. **YENİ (2026-10-02), ORTAM KAYNAKLI YANLIŞ ALARM — `check-csp-sync.mjs`
     bu Windows checkout'unda HER ZAMAN exit 1 veriyor, gerçek bir CSP
     sapması YOK.** Script `public/_headers`'ı `src/data/csp.ts`'ten üretilen

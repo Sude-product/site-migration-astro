@@ -56,6 +56,53 @@ export const CONTACT_IT_OVERRIDE: ContactContent = {
   videoUrl: 'https://youtu.be/iEQ_lep-ZY8',
 };
 
+// 2026-10-02 — Güvenlik sayfasının TR listesi ARTIK ham `misc-pages.json`'dan
+// DEĞİL buradan geliyor (IT'nin AYNI deseni, aşağıda). Gerekçe: ham WP
+// verisinde madde BAŞLIKLARI ile bağlı PDF DOSYALARI birbirine karışmıştı ve
+// 6 maddenin 4'ü düzeltme gerektiriyordu — nokta nokta yama yerine listenin
+// tamamını açık/denetlenebilir yazmak hem daha güvenli hem gözden geçirilebilir.
+//
+// Her maddenin hedefi, dosya ADINA değil PDF'in kendi Info sözlüğündeki
+// kaynak `.docx` adına (+ sayfa sayısına) bakılarak doğrulandı — bu
+// belgelerin metin katmanı CID-kodlu font kullandığı için ham metin
+// çıkarımı güvenilir DEĞİL, Info sözlüğü ise belgeyi kesin tanımlıyor.
+// Yapılan düzeltmeler (kullanıcı talimatı, 2026-10-02):
+//   2. Yeni "PO-YN-01 Bilgi Güvenliği Politikası" (2 sf) dosyasına geçildi;
+//      eskiden yanıltıcı adlı `..._İs_Ortagi_Aydinlatma_Metni_v3.pdf`'ti.
+//   3. Başlık düzeltildi: bağlı dosyanın GERÇEK içeriği "Çalışan ve Çalışan
+//      Adayı Aydınlatma Metni v3" — eski "Çerez Politikası..." başlığı
+//      yanlıştı.
+//   4. "Basvuru" → "Başvuru" yazım düzeltmesi + PDF v1'den v2'ye güncellendi
+//      (EN/IT zaten v2 kullanıyordu, TR böylece hizalandı).
+//   5. Başlık düzeltildi: bağlı dosyanın GERÇEK içeriği "İdenfit Çerez
+//      Aydınlatma Metni v4" — 3. maddeyle takas edilerek doğru eşleşti.
+//
+// Nihai URL'lerin HİÇBİRİ Türkçe "İ" içermiyor — bu bilinçli: ham veride
+// bu harf PARÇALANMIŞ (NFD: `I` + U+0307) biçimdeydi ve CLAUDE.md Açık
+// nokta #45'teki tuzağı taşıyordu. Açık listeye geçince o kırılganlık
+// tamamen ortadan kalktı.
+//
+// ⚠️ 6. MADDE HÂLÂ YANLIŞ BELGEYE BAĞLI — BİLİNÇLİ, kapsam dışı:
+// `bilgi_guvenligi.pdf`'in içeriği "PL.01 Kalite ve Bilgi Güvenliği Yönetim
+// Sistemi Politikası" (ESKİ), yani İş Ortağı Aydınlatma Metni DEĞİL. Gerçek
+// TR "İş Ortağı Aydınlatma Metni" PDF'i repoda HİÇ YOK (yalnızca `-EN`
+// sürümü var, 5 sf) — düzeltmek için belgenin sağlanması + hukuk onayı
+// gerekiyor. Bkz. CLAUDE.md Açık nokta #77.
+export const SECURITY_TR_OVERRIDE: SecurityItem[] = [
+  { title: 'Kişisel Verilerin Korunması', linkText: 'KVKK', url: KVKK_BARE_SLUG },
+  { title: 'Bilgi Güvenliği Politikası', linkText: '', url: '/wp-content/uploads/2026/10/bilgi-guvenligi-politikasi.pdf' },
+  {
+    title: 'Kişisel Veriler Kapsamında Çalışan ve Çalışan Adayı Aydınlatma Metni',
+    linkText: '',
+    url: '/wp-content/uploads/2025/08/Kisisel_Veriler_Kapsaminda_Calisan_ve_Calisan_Adayi_Aydinlatma_Metni_v3.pdf',
+  },
+  { title: 'Veri Sahibi Başvuru Formu', linkText: '', url: '/wp-content/uploads/2026/10/veri-sahibi-basvuru-formu.pdf' },
+  { title: 'Çerez Politikası ve Çerez Aydınlatma Metni', linkText: '', url: '/wp-content/uploads/2025/08/cerez_politikasi_ve_aydinlatma.pdf' },
+  // ⚠️ Bkz. yukarıdaki uyarı — hedef dosya yanlış belge, kasıtlı olarak
+  // ham verideki hâliyle korundu.
+  { title: 'Kişisel Veriler Kapsamında İş Ortağı Aydınlatma Metni', linkText: '', url: '/wp-content/uploads/2025/08/bilgi_guvenligi.pdf' },
+];
+
 export const SECURITY_IT_OVERRIDE: SecurityItem[] = [
   { title: 'Protezione dei Dati Personali', linkText: 'GDPR', url: KVKK_BARE_SLUG },
   { title: 'Politica di Sicurezza delle Informazioni', linkText: '', url: '/wp-content/uploads/2025/08/information_security.pdf' },
