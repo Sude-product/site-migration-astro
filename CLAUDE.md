@@ -1861,6 +1861,30 @@ hâlâ geçerli.)*
     olur). **Pratik sonuç:** bu script bir CI/PR gate'ine bağlanırsa
     Windows'ta gate'i KIRAR — Açık nokta #50'deki `check-heading-hierarchy`
     istisnasıyla AYNI sınıf.
+79. **YENİ (2026-10-03), İÇERİK/VERİ SORUSU — müşteri sayısı rakamı
+    netleşmedi; şimdilik "1.000+" KALIYOR, rakama DOKUNULMAYACAK.**
+    Sitede onaylı rakam **"1.000+"**. 2026-08-29/30 turunda bir ara
+    **"5.000+"** denmişti ama kaynağı/doğruluğu netleşmedi; o turda
+    KARAR 1 gereği uydurma rakam yazılmayıp "1.000+" ile devam edilmişti.
+    **Karar (kullanıcı, 2026-10-03): "1.000+" kalsın, güncelleme TALEP
+    GELİRSE yapılacak.** Bir hata kaydı DEĞİL, bilinçli bekleme durumu.
+    **Rakam gerçekten güncellenecekse MERKEZİ BİR SABİT YOK — 4 ayrı
+    yerde, toplam 12 noktada geçiyor** (bu tur ölçüldü):
+    - `hero.presentationTrustCaption` — `src/i18n/{tr,en,nl,it,az}.ts`
+      (5 dil, Online Sunum Talebi'nin güven cümlesi).
+    - `home.logoStrip.caption` — `src/i18n/{tr,en,nl,it,az}.ts` (5 dil,
+      ana sayfa logo şeridi).
+    - `LandingPage.astro:57` — hardcoded TÜRKÇE dize (`/demo`, i18n'e
+      hiç bağlı değil, sayfa `noindex`).
+    - `LandingStatStrip.astro:17` — hardcoded `target: 1000` (animasyonlu
+      sayaç; metin değil SAYI, bul-değiştir ile yakalanmaz).
+    **⚠️ Rakamın YAZIMI şu an kendi içinde tutarsız** (ayrı/küçük bir
+    bulgu, bu turda düzeltilmedi): `logoStrip.caption` tr/it/az'da
+    ayırıcısız **"1000"**, nl'de **"1.000"**, en'de **"1,000"**;
+    `presentationTrustCaption` ise tr/nl/az/it'te **"1.000"**, en'de
+    **"1,000"**. Yani aynı rakam aynı dilde iki farklı biçimde
+    görünebiliyor — rakam turu yapılırsa biçim de birlikte
+    standartlaştırılmalı.
 
 ### Kapanmış maddeler — tek satır özet (tam anlatım arşivde)
 
