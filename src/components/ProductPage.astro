@@ -201,7 +201,18 @@ const productPageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href
 // override'lar UYGULANDIKTAN sonraki gerçek render içeriği). Başlıklar
 // `set:html` ile basıldığı için işaretleme/`&nbsp;` taşıyabiliyor; etiketler
 // temizlenip boşluk daraltılıyor. Boş kalan başlık hiç eklenmiyor.
+//
+// ÖZELLİK OLMAYAN bölümler indeksle dışlanıyor (2026-10-03) — tanıtım
+// ("Neden idenfit") ve kapanış CTA'sı ("Şimdi Başlayın") bölümleri ürün
+// ÖZELLİĞİ değil. Dışlama listesi `productContent.ts`'in
+// `NON_FEATURE_SECTION_INDEXES`'inde, `trSlug` ile anahtarlı ve locale'den
+// bağımsız — metin/regex eşleştirme KULLANILMADI, nedeni o sabitin
+// yorumunda (5 dilde 5 farklı metin + Türkçe "İ"nin `/i` bayrağıyla
+// eşleşmemesi). **Yalnızca şemayı etkiler, GÖRÜNÜR render DEĞİŞMEZ** —
+// bölümler sayfada aynen render edilmeye devam ediyor.
+const nonFeatureIndexes = content.nonFeatureSectionIndexes ?? [];
 const featureList = sections
+  .filter((_, i) => !nonFeatureIndexes.includes(i))
   .map((s) =>
     s.title
       .replace(/<[^>]+>/g, ' ')

@@ -353,7 +353,7 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
-### ✅ JSON-LD şema turu — 5 PR (2026-10-02/03)
+### ✅ JSON-LD şema turu — 6 PR (2026-10-02/03)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -364,7 +364,8 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
 | 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
 | 4 | — | `feat/jsonld-inlanguage` | — | — | `WebPage` + `BlogPosting`'e `inLanguage` |
-| 5 | — | `feat/jsonld-softwareapplication` | (bu tur) | — | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
+| 5 | — | `feat/jsonld-softwareapplication` | `f448164` | — | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
+| 6 | — | `feat/jsonld-featurelist-temizligi` | (bu tur) | — | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -398,6 +399,74 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-03 — JSON-LD şema turu PR 6: `featureList`'ten özellik olmayan 10 girdi çıkarıldı + 5 uzun `name` kısaltıldı.**
+PR 5'in iki açık ucu kapatıldı. **Dal `master`'dan DEĞİL, PR 5'in dalından
+çıktı** (düzeltilen kod yalnızca orada var — PR 2→PR 3 emsalinin aynısı);
+**merge sırası PR 5 → PR 6.**
+**(a) `featureList` temizliği — gerçek sayı 2 değil 10.** PR 5'in raporunda
+"2 girdi" yazmıştım; geniş bir ağla yeniden tarayınca 5 dilde **10 girdi**
+çıktı: `pdks-modulu` ailesinin [0] bölümü (Neden idenfit / Niyə idenfit /
+Why Idenfit Time and Attendance System? / Perché idenfit / Waarom idenfit)
+ve `ise-alim-modulu` ailesinin [4] kapanış CTA'sı (Şimdi Başlayın / İndi
+Başlayın / Start Now / Inizia Ora / Begin nu).
+**Mekanizma: İNDEKS, metin eşleştirme DEĞİL** (`NON_FEATURE_SECTION_INDEXES`,
+`productContent.ts`, `trSlug` ile anahtarlı, locale'den bağımsız — tek
+bildirim 5 dili kapsıyor). Gerekçe ölçüldü: başlıklar 5 dilde 5 farklı metin,
+bir dize/regex listesi her dil için ayrı girdi isteyip ilk eklenen yeni dilde
+sessizce boşa düşerdi. Bölüm SIRASININ tüm locale'lerde birebir aynı olduğu
+tek tek doğrulandı (pdks her dilde 9 bölüm/[0], ise-alim her dilde 5
+bölüm/[4]). `getProductContent()`'in **İKİ** dönüş noktasına da eklendi
+(az yolu + ana yol) — birini atlamak #64'te yakalanan sessiz-düşme hatası
+olurdu. **Yalnızca şemayı etkiler, GÖRÜNÜR render değişmez** (bölümler
+sayfada aynen duruyor).
+**(b) Kalıcı kontrol — CLAUDE.md notu DEĞİL, script.** Not kaçırılabilir
+(projenin kendi #50/#52 dersleri), script her doğrulama turunda koşuyor:
+`check-json-ld.mjs` artık `featureList` girdilerini sezgisel bir ağdan
+geçirip **UYARI** veriyor (hata DEĞİL — gate'i kırmaz, ve sezgisel olduğu
+için yanlış pozitif verebilir). Bu aynı zamanda indeks kaymasının güvenlik
+ağı: bir bölüm eklenir/çıkarılırsa indeks kayar ama uyarı görünür.
+**⚠️ İKİ YÖNLÜ "i" TUZAĞI — ikisi de bu turda ölçülerek yakalandı, KALICI
+DERS:** (1) varsayılan `toLowerCase()`/`/i` bayrağı Türkçe büyük **"İ"**
+(U+0130) ile `i`'yi eşleştirmez → ilk geniş ağ `"İndi Başlayın"`ı kaçırdı
+ve bulguyu 10 yerine **2** girdi sandım; (2) düzeltmek için
+`toLocaleLowerCase('tr')` kullanınca bu kez ASCII büyük **"I"** NOKTASIZ
+**"ı"**ya (U+0131) döndü → `"Inizia Ora"` ve `"Why Idenfit …"` kaçtı,
+gerçek veriyle test edince 10 girdinin yalnızca **8**'i yakalandı. Çözüm:
+karşılaştırmadan önce HER İKİ Türkçe "i" varyantını düz ASCII `i`'ye katla,
+sonra locale'den bağımsız `toLowerCase()` (kalıp listesi de aynı katlamadan
+geçiyor). **Doğrulama sentetik değil GERÇEK veriyle:** PR 6 ÖNCESİ build'e
+karşı 10/10 uyarı, PR 6 SONRASI 0.
+**(c) 5 uzun `name` kısaltıldı** — `az/donanim`, `en/hardware`,
+`it/hardware`, `nl/hardware`, `az/demirbas-yonetimi-modulu`'na
+`breadcrumbLabel={ctaKeyword}` geçirildi. Yeni metin UYDURULMADI: o
+sayfalar zaten kısa gerçek adı `ctaKeyword` sabitinde taşıyordu, aynı
+sabit yeniden kullanıldı.
+**⚠️ `breadcrumbLabel` ÜÇ şeyi birden değiştiriyor** (bu turda ölçülerek
+netleşti, ileride şaşırtmaması için): görünür breadcrumb + `BreadcrumbList`
+JSON-LD'sinin son kırıntısının `name`'i + `SoftwareApplication.name`. Yani
+bu PR'ın diff'i "yalnızca JSON-LD" DEĞİL — 5 sayfada görünür breadcrumb da
+kısaldı (kullanıcı onaylı). `Organization`/`WebPage` blokları dokunulmadı.
+**Doğrulama — bu tur blok EKLEMİYOR, mevcut bloğu DEĞİŞTİRİYOR**, bu yüzden
+PR 5'in "blok kazandı + boyut muhasebesi" dörtlüsü BURAYA UYGULANAMAZ;
+ölçüt bu turun şekline göre yazıldı: (1) 15 dosya değişti = 10 featureList
++ 5 breadcrumbLabel (örtüşme yok); (2) blok SAYISI hiçbir sayfada
+değişmedi; (3) 10 sayfada SADECE `featureList` kısaldı, her birinde TAM 1
+girdi ve çıkan girdi beklenen metin, bloğun diğer TÜM alanları birebir;
+(4) 5 sayfada yalnızca `name` + `BreadcrumbList`'in SON kırıntısının `name`'i
+değişti (alan alan doğrulandı — başka hiçbir alan/kırıntı değil);
+(5) `SoftwareApplication` dışındaki bloklardan yalnızca `BreadcrumbList`
+değişti, o da yalnızca bu 5 sayfada ve yalnızca beklenen alanda.
+`astro check` 0 hata/0 uyarı/27 hint, `astro build` temiz (3176 HTML),
+9 regresyon script'i baseline'a karşı BİREBİR aynı (heading 5/#36,
+meta-description 1 + title-length 5/#70 — `breadcrumbLabel` `<title>`'ı
+ETKİLEMİYOR, `title` override'ı zaten ayrı), `check-json-ld` 0 geçersiz/
+0 uyarı.
+**Not:** TR `donanim` sayfası kapsam DIŞINDA bırakıldı — `name`'i 47
+karakter, 60 sınırının altında. Ama bu, TR'nin breadcrumb'ının diğer 4
+dilden farklı bir üslupta (uzun tanıtım cümlesi) kalması anlamına geliyor;
+tutarlılık istenirse ona da `breadcrumbLabel` geçirilebilir (sayfa zaten
+`ctaKeyword = 'Donanım Entegrasyonu'` taşıyor).
 
 **🟢 2026-10-03 — JSON-LD şema turu PR 5: ürün/modül sayfalarına `SoftwareApplication` eklendi (111 sayfa) — Açık nokta #29'un asıl boşluğu kapandı.**
 Bu sayfalar ÖNCEDEN yalnızca jenerik `WebPage` (+ site geneli
@@ -845,19 +914,21 @@ hâlâ geçerli.)*
     Maddenin asıl boşluğu ("ürün sayfaları için ZENGİN/tip-özel bir şema
     hâlâ YOK") bu turda kapandı — tam anlatım, alan seçimi, üç bilinçli
     eksik (`offers`/`softwareVersion`/`aggregateRating`) ve dörtlü byte
-    ölçümü için bkz. §Güncel durum, "PR 5". Daha eski kısmi kapanış
-    (2026-08-19, `BaseLayout`'un sade `WebPage` şeması, ~161 sayfa)
-    yerinde duruyor.
+    ölçümü için bkz. §Güncel durum, "PR 5". `featureList`'in iki açık ucu
+    (özellik olmayan girdiler + uzun `name`'ler) PR 6'da kapandı. Daha eski
+    kısmi kapanış (2026-08-19, `BaseLayout`'un sade `WebPage` şeması,
+    ~161 sayfa) yerinde duruyor.
     **KALAN 2 AÇIK UÇ:**
     - **Fiyatlar sayfasında HİÇ JSON-LD yok** ve kullanıcının plan
-      seviyesi kararı (Mikro `offers: {price:"0", priceCurrency:"TRY"}`,
-      KOBİ/Pro offers YOK) oraya ait — modül sayfalarına fiyat basılmadı
-      çünkü modül bir satın alma birimi değil. **Ayrı bir tur.**
-      ⚠️ O turda `priceCurrency` dikkat gerektirir: Mikro 5 locale'de de
-      ücretsiz ama EN/NL/IT fiyatları € üzerinden veriliyor; `TRY`
-      kararı TR için doğru, diğer locale'lerde locale-duyarlı bir para
-      birimi mi yazılacağı NETLEŞMEDİ (0 değeri bunu büyük ölçüde
-      önemsizleştiriyor ama şema tutarlılığı açısından karar gerekli).
+      seviyesi kararı oraya ait — modül sayfalarına fiyat basılmadı çünkü
+      modül bir satın alma birimi değil. **Ayrı bir tur.**
+      **Karar NET (kullanıcı, 2026-10-03): Mikro `offers:
+      {price:"0", priceCurrency:"TRY"}`, KOBİ ve Pro offers ALMAYACAK.**
+      Para birimi sorusu YOK: **Mikro TÜM dillerde ücretsiz**, EN/NL/IT'de
+      görünen € fiyatlar KOBİ ve Pro'ya ait — o ikisi de "Teklif Al"
+      olduğu için zaten offers almıyor. Yani tek `offers` locale'den
+      bağımsız yazılabilir. (Önceki turda bunu "netleşmedi" diye
+      kaydetmiştim — yanlıştı, kullanıcı düzeltti.)
     - `Product`/`Service` tipleri BİLİNÇLİ olarak seçilmedi:
       idenfit bir SaaS, `SoftwareApplication` doğru/daha özel tip.
       Fiyat/teklif bilgisi gerekirse `Offer`, `SoftwareApplication`'a

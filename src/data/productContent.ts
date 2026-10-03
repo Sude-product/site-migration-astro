@@ -62,7 +62,42 @@ export interface ProductContent {
   hero: ProductBlock;
   sections: ProductBlock[];
   faq: ProductFaqItem[];
+  /** `SoftwareApplication` JSON-LD'sinin `featureList`'inden DIŞLANACAK
+   * bölüm indeksleri (2026-10-03 — bkz. `NON_FEATURE_SECTION_INDEXES`).
+   * Yalnızca şema için; GÖRÜNÜR render bundan ETKİLENMEZ. */
+  nonFeatureSectionIndexes?: readonly number[];
 }
+
+/**
+ * `featureList`'e GİRMEMESİ gereken bölüm indeksleri, `trSlug` ile
+ * anahtarlanmış (2026-10-03).
+ *
+ * NEDEN İNDEKS, metin eşleştirme DEĞİL: bu bölümlerin başlıkları 5 dilde
+ * 5 farklı metin ("Neden idenfit" / "Niyə idenfit" / "Why Idenfit Time and
+ * Attendance System?" / "Perché idenfit" / "Waarom idenfit"), yani bir dize/
+ * regex dışlama listesi her dil için ayrı girdi isteyip ilk eklenen yeni
+ * dilde SESSİZCE boşa düşerdi. Üstelik ölçülerek görüldü: Türkçe büyük "İ"
+ * (U+0130) JS'in `/i` bayrağıyla `i`'ye EŞLEŞMİYOR — ilk tarama bu yüzden
+ * `"İndi Başlayın"`ı kaçırdı ve bulguyu 10 girdi yerine 2 girdi sandım.
+ *
+ * İndeks güvenli çünkü bölüm SIRASI tüm locale'lerde BİREBİR AYNI (bu turda
+ * 5 locale × 2 aile tek tek doğrulandı: `pdks-modulu` her dilde 9 bölüm ve
+ * [0] "neden idenfit" tanıtımı; `ise-alim-modulu` her dilde 5 bölüm ve [4]
+ * kapanış CTA'sı). Tek bildirim 5 dili birden kapsıyor.
+ *
+ * ⚠️ Bir bölüm EKLENİR/ÇIKARILIRSA buradaki indeks kayar. `check-json-ld.mjs`
+ * bu kaymayı yakalamak için `featureList` girdilerini sezgisel bir ağdan
+ * geçirip UYARI veriyor (hata değil — gate'i kırmaz) — yani kayma sessiz
+ * kalmaz, bir sonraki doğrulama turunda görünür.
+ */
+export const NON_FEATURE_SECTION_INDEXES: Record<string, readonly number[]> = {
+  // [0] = "Neden idenfit" tanıtım bölümü — ürün özelliği değil, bir
+  // değer-önerisi girişi.
+  'pdks-modulu': [0],
+  // [4] = "Şimdi Başlayın" kapanış CTA bölümü (kaynakta da yalnızca
+  // metin + buton, görseli yok) — bir özellik değil, çağrı.
+  'ise-alim-modulu': [4],
+};
 
 interface ProductLocaleEntryRaw {
   id: number;
@@ -300,6 +335,8 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
       hero: resolveBlock(azOverride.hero),
       sections: azOverride.sections.map(resolveBlock),
       faq: azOverride.faq.map((f) => ({ question: f.question, answer: cleanRichText(f.answer) })),
+      // locale'den BAĞIMSIZ (bölüm sırası tüm dillerde aynı) — bkz. sabitin yorumu
+      nonFeatureSectionIndexes: NON_FEATURE_SECTION_INDEXES[trSlug],
     };
   }
 
@@ -330,6 +367,7 @@ export function getProductContent(trSlug: string, locale: Locale): ProductConten
     hero: resolveBlock(heroRaw),
     sections: sectionsRaw.map(resolveBlock),
     faq: faqRaw.map((f) => ({ question: f.question, answer: cleanRichText(f.answer) })),
+    nonFeatureSectionIndexes: NON_FEATURE_SECTION_INDEXES[trSlug],
   };
 }
 
