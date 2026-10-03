@@ -96,6 +96,60 @@ function validateBlock(block) {
     }
   }
 
+  // `SoftwareApplication.featureList` — ÖZELLİK OLMAYAN girdi sezgisi
+  // (2026-10-03). `featureList` sayfanın bölüm başlıklarından TÜRETİLİYOR
+  // (bkz. `ProductPage.astro`), ama her bölüm bir ürün özelliği değil:
+  // tanıtım ("Neden idenfit") ve kapanış CTA'sı ("Şimdi Başlayın")
+  // bölümleri de başlık taşıyor. Bunlar `NON_FEATURE_SECTION_INDEXES`
+  // (`productContent.ts`) ile İNDEKSLE dışlanıyor — ama bir bölüm
+  // eklenir/çıkarılırsa o indeksler KAYAR ve dışlama sessizce yanlış
+  // bölüme kayar.
+  //
+  // Bu kontrol o kaymayı (ve yeni eklenen benzer başlıkları) yakalar.
+  // HATA DEĞİL, UYARI: (a) sezgisel olduğu için yanlış pozitif verebilir,
+  // (b) hata yapmak gate'i kırardı ve bilinen taban çizgileri yüzünden
+  // zaten kırılgan olan exit-kod durumunu (bkz. CLAUDE.md #36/#70/#78)
+  // daha da bozardı.
+  //
+  // ⚠️ KÜÇÜK HARFE ÇEVİRME İKİ YÖNLÜ BİR TUZAK — ikisi de ölçülerek
+  // yakalandı (2026-10-03):
+  //  1. Varsayılan `/i` bayrağı / `toLowerCase()`: Türkçe büyük "İ"
+  //     (U+0130) `i`'ye EŞLEŞMİYOR → `"İndi Başlayın"` kaçırılır.
+  //  2. `toLocaleLowerCase('tr')`: bu kez ASCII büyük "I" NOKTASIZ "ı"ya
+  //     (U+0131) dönüyor → `"Inizia Ora"` ve `"Why Idenfit …"` kaçırılır
+  //     (gerçek veriyle test edildi: 10 girdinin yalnızca 8'i yakalandı).
+  // Çözüm: karşılaştırmadan ÖNCE her iki Türkçe "i" varyantını da düz
+  // ASCII "i"ye katla, SONRA locale'den bağımsız `toLowerCase()` uygula.
+  // Kalıp listesi de AYNI katlamadan geçiyor ki `"başlayın"` (noktasız ı)
+  // ile `"başlayin"` aynı şeye indirgensin.
+  const foldI = (s) =>
+    String(s)
+      .replace(/İ/g, 'i') // İ
+      .replace(/ı/g, 'i') // ı
+      .toLowerCase()
+      .trim();
+  if (type === 'SoftwareApplication' && Array.isArray(block.featureList)) {
+    const NON_FEATURE_HINTS = [
+      'neden idenfit', 'niyə idenfit', 'niye idenfit', 'why idenfit',
+      'perché idenfit', 'perche idenfit', 'waarom idenfit',
+      'idenfit nedir', 'what is idenfit',
+      'şimdi başlayın', 'simdi baslayin', 'indi başlayın', 'hemen başla',
+      'start now', 'get started', 'inizia ora', 'inizia subito',
+      'begin nu', 'start nu', 'başlayın', 'baslayin',
+    ];
+    const foldedHints = NON_FEATURE_HINTS.map(foldI);
+    for (const item of block.featureList) {
+      const norm = foldI(item);
+      const hit = foldedHints.find((h) => norm === h || norm.startsWith(h));
+      if (hit) {
+        warnings.push(
+          `\`featureList\` ÖZELLİK OLMAYAN girdi içeriyor olabilir: "${item}" ` +
+            `(eşleşen kalıp: "${hit}") — \`NON_FEATURE_SECTION_INDEXES\` indeksleri kaymış olabilir`,
+        );
+      }
+    }
+  }
+
   // `FAQPage`'in Google Rich Results gereksinimleri `mainEntity`'nin
   // İÇİNDE — her `Question`'ın gerçek `name` (boş olmayan) + `acceptedAnswer`
   // taşıması, `acceptedAnswer`'ın da `@type:"Answer"` + gerçek `text`
