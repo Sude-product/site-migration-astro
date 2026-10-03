@@ -353,7 +353,7 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
-### ✅ JSON-LD şema turu — 6 PR (2026-10-02/03)
+### ✅ JSON-LD şema turu — 7 PR (2026-10-02/03)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -364,8 +364,9 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
 | 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
 | 4 | — | `feat/jsonld-inlanguage` | — | — | `WebPage` + `BlogPosting`'e `inLanguage` |
-| 5 | — | `feat/jsonld-softwareapplication` | `f448164` | — | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
-| 6 | — | `feat/jsonld-featurelist-temizligi` | (bu tur) | — | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
+| 5 | #22 | `feat/jsonld-softwareapplication` | `f448164` | `8e4d096` | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
+| 6 | #24 | `feat/jsonld-featurelist-temizligi` | `903d2c0` | `6dcb013` | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
+| 7 | — | `feat/jsonld-webapplication` | (bu tur) | — | Hesaplama Araçları'na `WebApplication` + `offers` 0 TRY (1 sayfa) |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -399,6 +400,70 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-03 — JSON-LD şema turu PR 7: Hesaplama Araçları sayfasına `WebApplication` eklendi (1 sayfa) — ve PR 5'ten BİLİNÇLİ olarak ayrışan bir `offers` kararı.**
+Bu sayfa (`/hesaplama-araclari/`) ÖNCEDEN hiç JSON-LD taşımıyordu
+(yalnızca `BaseLayout`'un site geneli `Organization`/`WebPage`/
+`BreadcrumbList` blokları). **Kapsam beklenenden küçük: TEK sayfa** —
+`CalculatorsPage.astro`'yu yalnızca `src/pages/hesaplama-araclari.astro`
+kullanıyor ve sayfa TR-only (diğer diller KARAR 2 gereği TR'ye düşüyor,
+`hreflangLocales={['tr']}`).
+**Alanlar (hepsi sayfanın KENDİ içeriğinden, KARAR 1):** `name` =
+`hero.title`, `description` = `hero.text` (meta description ile AYNI tek
+kaynak), `url`/`inLanguage`, `featureList` = 8 aracın GERÇEK adları
+(`CALCULATOR_DEFINITIONS`, sayfada da bu adlarla render ediliyorlar),
+`publisher` = PR 3'ün paylaşılan `organizationId()` referansı.
+**⚠️ `offers` + `isAccessibleForFree` BURADA VAR, ürün/modül sayfalarında
+(PR 5) YOK — çelişki DEĞİL, ölçülmüş bir FARK.** PR 5'te `offers`
+eklenmedi çünkü modüller Fiyatlar sayfasının paketlerine ait ve KOBİ/Pro
+2026-09-22'den beri ikisi de "Teklif Al", yani herkese açık fiyatı yok.
+Buradaki 8 araç ise GERÇEKTEN bedelsiz ve kayıt istemiyor — doğrulandı:
+`CalculatorAccordion` saf istemci tarafı bir React island'ı
+(`client:visible`), `fetch`/`api/`/giriş yolu YOK. Yani "ücretsiz"
+iddiası burada olgusal olarak DOĞRU. Kullanıcı kararı (2026-10-03):
+`offers: {price:"0", priceCurrency:"TRY"}` + `isAccessibleForFree: true`.
+**Bunun somut getirisi:** Google'ın "Software App" rich result'ı `name`
+YANINDA `offers` VEYA `aggregateRating`/`review` şart koşuyor — PR 5'te üç
+eksik yüzünden rich result imkânsızdı, **burada `name` + `offers` şartı
+karşılandığı için GERÇEK bir rich result mümkün hale geldi.** (Üretilip
+üretilmeyeceği Google'ın kararı, bizim tarafta şart tamam.)
+`applicationCategory: 'FinanceApplication'` (kullanıcı kararı) — 8 aracın
+tamamı vergi/maaş/tazminat hesabı, bu `BusinessApplication`'dan daha
+özgül. Ürün/modül sayfaları `BusinessApplication` kullanmaya devam ediyor;
+ikisi de geçerli schema.org enumerasyon değeri.
+`softwareVersion` yine YOK (kalıcı karar), `aggregateRating`/`review` de
+yok (gerçek derecelendirme verimiz hiç yok).
+**Sayfa metninden birebir ALINMAYAN tek alan: `browserRequirements:
+'JavaScript gerekir'`** — doğrulanabilir teknik bir olgu (araçlar
+`client:visible` island, JS olmadan çalışmıyorlar) ve Google'ın
+`WebApplication` için önerdiği alanlardan biri. "Uydurma yok" normuna
+harfiyen uymak istenirse tek satırla çıkarılabilir; kullanıcıya açıkça
+bildirildi.
+**`check-json-ld.mjs`'e `WebApplication` kuralı eklendi** — ve İÇİNDE
+BİLİNÇLİ BİR ASİMETRİ var: `offers` `WebApplication`'ın ÖNERİLEN
+listesinde VAR, `SoftwareApplication`'ınkinde YOK. Gerekçe yukarıdaki
+farkın aynısı ve script'in içinde de yazılı: ürün/modül sayfalarında
+`offers` önermek yanlış bir fiyat iddiasına teşvik olurdu. `featureList`
+sezgisel uyarısı (PR 6) da `WebApplication`'ı kapsayacak şekilde
+genişletildi. Kuralın çalıştığı negatif testle kanıtlandı: `name`'siz blok
+→ 1 GEÇERSİZ, `offers`'sız blok → 1 UYARI (gate'i kırmıyor).
+**Doğrulama — blok EKLEYEN tur, dörtlü ölçüm** (indeks bazlı hash
+KULLANILMADI, PR 4'ün dersi): (1) tam dosya sha256 → **1 dosya**;
+(2) değişen küme == blok kazanan küme; (3) TAM +1 blok, tipi
+`WebApplication`; (4) boyut farkı eklenen bloğun tam baytına eşit.
+Diğer tipler birebir aynı: `Organization` 949, `BreadcrumbList` 939,
+`BlogPosting` 640, `WebPage` 309, `SoftwareApplication` 111, `FAQPage`
+116. `astro check` 0 hata/0 uyarı/27 hint, `astro build` temiz (3176
+HTML), 10 regresyon script'i baseline'a karşı BİREBİR aynı,
+`check-json-ld` 0 geçersiz **ve 0 uyarı** (yani blok TÜM önerilen
+alanları taşıyor). `safeJsonLd()` kaçışı render'da ayrıca doğrulandı:
+blokta çıplak `<`/`>`/`&` YOK (0/0/0) ve metin yine de geçerli JSON.
+**Baseline tasarrufu (yöntem notu):** PR 7'nin baseline'ı yeniden build
+EDİLMEDİ — PR 6'nın çıktısı yeniden kullanıldı. Geçerliliği varsayılmadı,
+ÖLÇÜLDÜ: `git diff 903d2c0 idenfit/master --name-only` tek fark olarak
+`CLAUDE.md` gösterdi, o da build çıktısına girmiyor. ~6 dakikalık bir
+build'den tasarruf edildi; aynı numara yalnızca bu koşul doğrulanınca
+güvenli.
 
 **🟢 2026-10-03 — JSON-LD şema turu PR 6: `featureList`'ten özellik olmayan 10 girdi çıkarıldı + 5 uzun `name` kısaltıldı.**
 PR 5'in iki açık ucu kapatıldı. **Dal `master`'dan DEĞİL, PR 5'in dalından

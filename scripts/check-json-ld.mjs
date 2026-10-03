@@ -53,11 +53,22 @@ const REQUIRED_BY_TYPE = {
   Article: ['headline', 'image', 'datePublished'],
   FAQPage: ['mainEntity'],
   SoftwareApplication: ['name'],
+  // `WebApplication` (2026-10-03, Hesaplama Araçları — şema turu PR 7).
+  // `SoftwareApplication`'ın alt tipi; AYNI `name` zorunluluğu geçerli.
+  // ⚠️ FARK: burada `offers` ÖNERİLEN listede VAR, `SoftwareApplication`'da
+  // YOK. Çelişki değil, ölçülmüş bir ayrım: hesaplama araçları gerçekten
+  // bedelsiz ve kayıtsız (saf istemci tarafı, giriş yolu yok), yani bir
+  // `Offer` yazmak OLGUSAL OLARAK DOĞRU ve Google'ın rich result şartını
+  // (`name` + `offers`) karşılıyor. Ürün/modül sayfalarında ise herkese
+  // açık fiyat YOK (KOBİ/Pro "Teklif Al") — orada `offers`'ı önermek
+  // yanlış bir iddiaya teşvik olurdu.
+  WebApplication: ['name'],
 };
 const RECOMMENDED_BY_TYPE = {
   BlogPosting: ['dateModified', 'author', 'publisher'],
   Article: ['dateModified', 'author', 'publisher'],
   SoftwareApplication: ['applicationCategory', 'description', 'url'],
+  WebApplication: ['applicationCategory', 'description', 'url', 'offers'],
 };
 
 function validateBlock(block) {
@@ -128,7 +139,7 @@ function validateBlock(block) {
       .replace(/ı/g, 'i') // ı
       .toLowerCase()
       .trim();
-  if (type === 'SoftwareApplication' && Array.isArray(block.featureList)) {
+  if ((type === 'SoftwareApplication' || type === 'WebApplication') && Array.isArray(block.featureList)) {
     const NON_FEATURE_HINTS = [
       'neden idenfit', 'niyə idenfit', 'niye idenfit', 'why idenfit',
       'perché idenfit', 'perche idenfit', 'waarom idenfit',
