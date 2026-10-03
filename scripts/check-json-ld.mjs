@@ -36,14 +36,28 @@ async function findHtmlFiles(dir) {
 // `acceptedAnswer.text` taşıması) daha derin kontrolü `validateBlock()`'ta
 // AYRI bir FAQPage-özel bloğa yazıldı (aşağıda) — flat alan listesi bunu
 // ifade edemiyor.
+// `SoftwareApplication` (2026-10-03, ürün/modül sayfaları — bkz. CLAUDE.md
+// Açık nokta #29): `name` ZORUNLU tutuluyor.
+//
+// ⚠️ `offers` BİLİNÇLİ OLARAK ne zorunlu ne önerilen listede. Google'ın
+// "Software App" rich result'ı `name` yanında `offers` VEYA `aggregateRating`/
+// `review` şart koşuyor, AMA bu projede üçü de kasıtlı olarak YOK: modül
+// sayfası bir satın alma birimi değil (fiyat Fiyatlar sayfasının paketlerine
+// ait, KOBİ/Pro ikisi de "Teklif Al") ve gerçek bir derecelendirme verimiz
+// hiç yok — uydurulamaz. `offers`'ı buraya "önerilen" diye yazmak, kasıtlı
+// ve doğru bir kararı her build'de 121 sayfalık bir uyarı gürültüsüne
+// çevirirdi. Rich result ÜRETİLMEMESİ bu turda kabul edilmiş bir sonuç
+// (gerekçe `ProductPage.astro`'nun ilgili yorum bloğunda).
 const REQUIRED_BY_TYPE = {
   BlogPosting: ['headline', 'image', 'datePublished'],
   Article: ['headline', 'image', 'datePublished'],
   FAQPage: ['mainEntity'],
+  SoftwareApplication: ['name'],
 };
 const RECOMMENDED_BY_TYPE = {
   BlogPosting: ['dateModified', 'author', 'publisher'],
   Article: ['dateModified', 'author', 'publisher'],
+  SoftwareApplication: ['applicationCategory', 'description', 'url'],
 };
 
 function validateBlock(block) {

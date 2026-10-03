@@ -353,7 +353,7 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-02)
 
-### ✅ JSON-LD şema turu — 4 PR, SIRAYLA CANLIYA ALINDI (2026-10-02)
+### ✅ JSON-LD şema turu — 5 PR (2026-10-02/03)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -363,7 +363,8 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 1 | #15 | `feat/jsonld-organization` | `ab889d1` | `ea3c596` | `Organization`'a `@id` + `description`/`telephone`/`email`/`areaServed`/`addressLocality` |
 | 2 | #16 | `feat/jsonld-publisher-id` | `daf02e3` | `7c9b31c` | `BlogPosting.publisher`/`author` + yeni `WebPage.publisher` → `@id` referansı |
 | 3 | #17 | `feat/jsonld-webpage-unconditional` | `8d46c75` | `d4be4ad` | `WebPage` koşulsuz, `dateModified` opsiyonel alan — 146 sayfa kimlik kazandı |
-| 4 | — | `feat/jsonld-inlanguage` | (bu tur) | — | `WebPage` + `BlogPosting`'e `inLanguage` |
+| 4 | — | `feat/jsonld-inlanguage` | — | — | `WebPage` + `BlogPosting`'e `inLanguage` |
+| 5 | — | `feat/jsonld-softwareapplication` | (bu tur) | — | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -397,6 +398,92 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-03 — JSON-LD şema turu PR 5: ürün/modül sayfalarına `SoftwareApplication` eklendi (111 sayfa) — Açık nokta #29'un asıl boşluğu kapandı.**
+Bu sayfalar ÖNCEDEN yalnızca jenerik `WebPage` (+ site geneli
+`Organization`/`BreadcrumbList`, varsa `FAQPage`) taşıyordu; şema
+seviyesinde bir "İK yazılım modülü" oldukları hiç söylenmiyordu. Tek
+component değişikliği (`ProductPage.astro`) tüm aileyi kapsıyor.
+**Alanların hepsi sayfanın KENDİ içeriğinden türetiliyor, yeni metin
+YAZILMADI (KARAR 1):** `name` = breadcrumb'ın kullandığı AYNI kaynak
+(`breadcrumbLabel ?? pageTitle`, ikinci bir isim kaynağı kurulmadı),
+`description` = meta description ile AYNI tek kaynak, `url` =
+`BaseLayout.astro:214`'teki aynı ifade, `inLanguage` = sayfa locale'i,
+`applicationCategory` = `'BusinessApplication'` (schema.org enumerasyonu,
+uydurma içerik değil), `featureList` = sayfanın kendi bölüm başlıkları
+(`content.sections`, yani override'lar UYGULANDIKTAN sonraki gerçek render
+içeriği; etiketler/`&nbsp;` temizlenip boşluk daraltılıyor, boş başlık hiç
+eklenmiyor), `publisher` = `organizationId()` ile `@id` REFERANSI (PR 3'te
+kurulan paylaşılan tek kaynak, `site` yoksa alan hiç basılmıyor).
+**ÜÇ BİLİNÇLİ EKSİK (kullanıcı kararı, 2026-10-03):**
+- **`offers` HİÇ EKLENMEDİ.** Bir modül sayfası satın alma birimi DEĞİL;
+  fiyat Fiyatlar sayfasının paketlerine ait. Mikro gerçekten ücretsiz
+  (5 locale'de doğrulandı: ÜCRETSİZ/FREE/GRATIS/Gratis/PULSUZ) ama KOBİ ve
+  Pro 2026-09-22'den beri İKİSİ DE "Teklif Al" (eski Açık nokta #74), yani
+  herkese açık fiyatı yok. 111 modül sayfasına `price: "0"` basmak,
+  22 modülün 19'u için **olgusal olarak yanlış** bir fiyat iddiası olurdu.
+  Mikro=0 TRY / KOBİ-Pro offers-yok kararı **Fiyatlar sayfası turuna**
+  bırakıldı (orada şu an HİÇ JSON-LD yok — ayrı bir fırsat).
+- **`softwareVersion` ASLA eklenmeyecek** — SaaS sürekli dağıtılıyor,
+  sabit bir sürüm numarası yok.
+- **`aggregateRating`/`review` yok** — gerçek, doğrulanabilir bir
+  derecelendirme verimiz hiç yok (uydurulsa Google'ın yapılandırılmış veri
+  politikalarını da ihlal ederdi).
+**⚠️ DÜRÜST BEKLENTİ:** Google'ın "Software App" rich result'ı `name`
+YANINDA `offers` VEYA `aggregateRating`/`review` ZORUNLU kılıyor — yukarıdaki
+üç eksik yüzünden bu blok arama sonucunda uygulama kartı ÜRETMEYECEK. Kazanç
+daha dar ama gerçek: sayfanın bir yazılım uygulaması olduğu ve hangi kuruluşa
+ait olduğu makine-okunur, `featureList` LLM tabanlı araçlar için okunabilir.
+(`FAQPage` bloğundaki AYNI dürüstlük notu deseni.)
+**⚠️ BU TURDA YAKALANAN GERÇEK KAPSAM HATASI — `ProductPage.astro`'yu
+yalnızca ürün/modül sayfaları KULLANMIYOR.** "Hedef Global Marka" (5 dil) ve
+"Neden idenfit" (5 dil) aileleri aynı DÜZENİ paylaştıkları için bu
+component'i kullanıyor, ama yazılım uygulaması değil — şirketin 2027
+hedefini/değer önerisini anlatan kurumsal sayfalar. İlk build'de bu 10 sayfa
+da blok aldı; **ipucu `featureList`'in 3 sayfada BOŞ çıkmasıydı**
+(`hedef-global-marka`/`global-brand`/`marchio-globale` — hiç bölümleri yok).
+Düzeltme: yeni `softwareApplication?: boolean` prop'u (varsayılan `true`),
+o 10 sayfaya `={false}`. Kapsam 121 → **111**. **`Donanım` ailesi bilinçli
+olarak DIŞARIDA BIRAKILMADI** — o sayfa PDKS yazılımının donanım entegrasyon
+YETENEĞİNİ anlatıyor ve `featureList`'i 7 gerçek ürün yeteneği taşıyor; bu
+bir yargı kararı, tek satırla geri alınabilir.
+**`check-json-ld.mjs`'e `SoftwareApplication` kuralı eklendi** (`name`
+zorunlu; `applicationCategory`/`description`/`url` önerilen). Bu olmadan
+script bilinmeyen tipe `required=[]` verip bloğu **hiç doğrulamadan**
+"0 geçersiz" raporluyordu — boş bir güvence. `offers` BİLİNÇLİ olarak
+"önerilen" listesine YAZILMADI: doğru ve kasıtlı bir kararı her build'de
+111 sayfalık uyarı gürültüsüne çevirirdi. Kuralın gerçekten çalıştığı
+negatif testle kanıtlandı (`name`'siz blok → 1 geçersiz, 
+`applicationCategory`'siz → 1 uyarı).
+**Doğrulama — blok EKLEYEN tur olduğu için indeks bazlı hash ölçütü
+KULLANILMADI** (PR 4'ün dersi: araya blok girince `LD0`/`LD1`/… indeksleri
+kayar ve ham baytlar hiç değişmese bile hash değişir — 146 yanlış pozitif
+üretmişti). Dörtlü ölçüm, baseline proje ağacının DIŞINA alındı
+(kod değişikliğinden ÖNCE, çalışma ağacı temizken):
+(1) tam dosya sha256 → **111 dosya değişti**; (2) küme eşitliği → değişen
+küme **==** blok kazanan küme; (3) her dosya TAM +1 blok, tipi
+`SoftwareApplication`; (4) boyut farkı her dosyada eklenen bloğun
+`<script>` sarmalayıcısıyla tam baytına eşit. Ayrıca `SoftwareApplication`
+DIŞINDAKİ blokların ham metni birebir aynı: `Organization` 949,
+`BreadcrumbList` 939, `BlogPosting` 640, `WebPage` 309, `FAQPage` 116 —
+hiçbiri değişmedi. `astro check` 0 hata/0 uyarı/27 hint, `astro build`
+temiz (3176 HTML, baseline ile aynı sayı), 10 regresyon script'i
+baseline'a karşı BİREBİR aynı (heading 5/#36, meta-description 1 +
+title-length 5/#70 — üçü de baseline'da da aynı sayıda), `check-csp-sync`
+#78'in Windows CRLF yanlış alarmı (diff `_headers`/`csp.ts`'e dokunmuyor).
+Render doğrulaması: 111/111 blokta `publisher @id` + `inLanguage` +
+`applicationCategory`, **`offers` 0, `softwareVersion` 0**, `featureList`
+boş olan 0 sayfa (min 1, max 9, ortalama 3,3).
+**Şablona HTML yorumu EKLENMEDİ** — Astro `.astro` şablonundaki `<!-- -->`
+yorumlarını çıktıya basıyor (PR 2'nin dersi), gerekçeler frontmatter'ın
+`//` yorumlarında ve burada.
+**İki küçük açık uç, bilinçli olarak DÜZELTİLMEDİ (karar bekliyor):**
+(a) `featureList`'te özellik OLMAYAN 2 girdi — `"Neden idenfit"`
+(`pdks-modulu`) ve `"Şimdi Başlayın"` (`ise-alim-modulu`'nün kapanış CTA
+bölümü); ~370 girdinin 2'si, saf türetmeyi bozmamak için filtrelenmedi.
+(b) 60 karakteri aşan 5 `name` (`donanim` ailesi + `az/demirbas-yonetimi-modulu`)
+— sayfanın kendi uzun tanıtım cümlesi; o sayfalar `title` override'ı
+kullanıyor ama `breadcrumbLabel` geçirmiyor, geçirilirse `name` de kısalır.
 
 **🟢 2026-10-02 — JSON-LD şema turu PR 4: `WebPage` koşulsuz basılıyor, `dateModified` opsiyonel ALAN oldu — 146 sayfa şema kimliği kazandı.**
 `dateModified` prop'u ESKİDEN bloğun TAMAMININ ön koşuluydu: gerçek bir WP
@@ -753,12 +840,28 @@ hâlâ geçerli.)*
     framework-içi redirect şablonu, bizim kodumuzda düzeltilecek bir şey
     yok). SEO araçlarında "çok fazla noindex/lang-eksik sayfa" uyarısı
     tetikleyebilir ama gerçek sorun değil.
-29. **KISMEN KAPANDI (2026-08-19) — JSON-LD artık blog DIŞINDA da var**
-    (`BaseLayout.astro`'nun genel `dateModified` prop'u, 7 shared
-    component/~161 sayfa, sade `WebPage` şeması). **Kalan gerçek
-    boşluk:** ürün sayfaları için `Product`/`Service` gibi ZENGİN/
-    tip-özel bir şema (fiyat, modül listesi, rich result potansiyeli)
-    hâlâ YOK — ayrı, daha büyük bir karar.
+29. **BÜYÜK ÖLÇÜDE KAPANDI (2026-10-03) — ürün/modül sayfaları artık
+    tip-özel `SoftwareApplication` şeması taşıyor (111 sayfa).**
+    Maddenin asıl boşluğu ("ürün sayfaları için ZENGİN/tip-özel bir şema
+    hâlâ YOK") bu turda kapandı — tam anlatım, alan seçimi, üç bilinçli
+    eksik (`offers`/`softwareVersion`/`aggregateRating`) ve dörtlü byte
+    ölçümü için bkz. §Güncel durum, "PR 5". Daha eski kısmi kapanış
+    (2026-08-19, `BaseLayout`'un sade `WebPage` şeması, ~161 sayfa)
+    yerinde duruyor.
+    **KALAN 2 AÇIK UÇ:**
+    - **Fiyatlar sayfasında HİÇ JSON-LD yok** ve kullanıcının plan
+      seviyesi kararı (Mikro `offers: {price:"0", priceCurrency:"TRY"}`,
+      KOBİ/Pro offers YOK) oraya ait — modül sayfalarına fiyat basılmadı
+      çünkü modül bir satın alma birimi değil. **Ayrı bir tur.**
+      ⚠️ O turda `priceCurrency` dikkat gerektirir: Mikro 5 locale'de de
+      ücretsiz ama EN/NL/IT fiyatları € üzerinden veriliyor; `TRY`
+      kararı TR için doğru, diğer locale'lerde locale-duyarlı bir para
+      birimi mi yazılacağı NETLEŞMEDİ (0 değeri bunu büyük ölçüde
+      önemsizleştiriyor ama şema tutarlılığı açısından karar gerekli).
+    - `Product`/`Service` tipleri BİLİNÇLİ olarak seçilmedi:
+      idenfit bir SaaS, `SoftwareApplication` doğru/daha özel tip.
+      Fiyat/teklif bilgisi gerekirse `Offer`, `SoftwareApplication`'a
+      da eklenebilir (tip değiştirmek gerekmez).
 30. **TODO — `public/_redirects`'in (404 sayfası) gerçek Cloudflare
     Pages davranışı henüz DOĞRULANMADI.** Faz 1 deploy'unda ilk kontrol
     edilmesi gerekenlerden biri.
