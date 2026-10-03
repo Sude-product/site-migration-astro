@@ -11,7 +11,6 @@ featuredImage:
 categories:
   - ik-akademi
   - ik-trendleri
-  - uncategorized-tr
 tags: []
 metaTitle: PDKS Nedir? Nasıl Çalışır ve Kurulur?
 modifiedDate: '2025-09-29T15:01:56'
