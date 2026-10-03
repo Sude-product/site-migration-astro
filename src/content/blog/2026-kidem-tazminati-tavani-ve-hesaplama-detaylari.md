@@ -10,7 +10,6 @@ featuredImage:
   height: 720
 categories:
   - guncel-bilgiler
-  - uncategorized-tr
 tags: []
 metaTitle: 2026 Kıdem Tazminatı Tavanı ve Hesaplaması
 modifiedDate: '2026-04-22T09:03:37'

@@ -10,7 +10,6 @@ featuredImage:
   height: 941
 categories:
   - guncel-bilgiler-tr
-  - uncategorized-tr
 tags: []
 metaTitle: Vardiya Değişiklikleri Mobil Nasıl Yönetilir?
 modifiedDate: '2026-08-14T08:54:04'

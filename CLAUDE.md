@@ -401,6 +401,56 @@ regresyon üretir, hiçbiri hata vermez):
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
 
+**🟢 2026-10-04 — "Uncategorized" kategorisi 8 blog yazısından KAYNAĞINDA silindi (şema turu öncesi veri temizliği).**
+Blog şema turu (`articleSection`) için yapılan taksonomi ölçümünde çıktı;
+kullanıcı "kaynağında düzelt" dedi, yani kodda dışlama listesi YOK — veri
+temizlendi.
+**Ölçüm (640 `.md`, kaynaktan):** `categories` 640/640 DOLU (0 eksik, 0
+boş), 11 benzersiz slug → `CATEGORY_LABELS` ile **9 görünen ad** (çünkü
+`guncel-bilgiler` + `guncel-bilgiler-tr` ikisi de "Güncel Bilgiler"e
+eşleniyor — Polylang `-tr` kopyası etiket düzeyinde zaten birleşmiş).
+Bölüm dağılımı: İK Akademi 337, İK Trendleri 163, Güncel Bilgiler 140,
+Dijital İK 45, Geçmiş Etkinlikler 14, İK Röportajları 4, Öğretici
+Bilgiler 3, Yaklaşan Etkinlikler 3, Yenilikler 2.
+**`uncategorized-tr` 8 yazıdaydı ve `CATEGORY_LABELS` onu `'Uncategorized'`
+diye etiketliyordu — bu etiket CANLIDA GÖRÜNÜYORDU** (`[slug].astro:182`,
+H1'in üstündeki kırmızı/büyük harf şerit; ör. `pdks-nedir` "İK AKADEMİ,
+İK TRENDLERİ, UNCATEGORIZED" gösteriyordu). Liste kartları
+`categories[0].name` kullandığı için etkilenmemişti (8 yazının hepsinde
+`uncategorized-tr` SON sıradaydı).
+**Silme öncesi kullanıcının istediği kontrol yapıldı: 8 yazının
+HİÇBİRİNDE tek kategori DEĞİLDİ** — her birinin en az 1 gerçek
+kategorisi var (en az 1: `avans-yonetimi` → İK Akademi; en çok 3:
+`2026-ik-yazilimlari-fiyatlari`). Ayrı karar gerektiren yazı çıkmadı,
+silme sonrası kategorisiz kalan yazı 0.
+**Panel bunu geri ALAMAZ:** `uncategorized-tr`, `keystatic.config.ts`'in
+`CATEGORY_OPTIONS` listesinde ZATEN yok (dosya başındaki yorumda gerekçesi
+yazılı). **Yan fayda (test EDİLMEDİ ama mantıken geçerli):** o 8 yazı
+panelde açıldığında `fields.multiselect` listede olmayan bir değerle
+karşılaşıyordu — #68'de datetime alanında birebir aynı durum Save'i
+ENGELLEMİŞTİ; bu temizlik o riski de kaldırıyor.
+**Doğrulama:** `astro check` 0 hata/0 uyarı/27 hint, `astro build` temiz.
+Diff **0 eklenen / 8 silinen satır** (dosya başına TAM 1 satır, başka
+hiçbir şey). Build karşılaştırması: 3176 HTML'in **8'i** değişti, **blog
+DIŞI 0 dosya**; 8 sayfanın görünür etiketinden yalnızca "Uncategorized"
+gitti, diğer kategoriler birebir korundu (metin metin doğrulandı); **JSON-LD
+bloklarının ham metni BİREBİR aynı** (bu tur şemaya hiç dokunmuyor —
+`articleSection` henüz eklenmedi); sitede "Uncategorized" geçen sayfa
+**8 → 0**. 10 regresyon script'i baseline ile birebir aynı.
+**`keywords` kararı (aynı ölçümden):** `tags` alanı 640/640 yazıda VAR ama
+**602'sinde BOŞ** — yalnızca 38 yazıda (%5,9) dolu. `reference/wordpress-export/blog-tags.json`
+(129 kayıt) gerçek görünen adları taşıyor ve kullanılan 64 tag'in 63'ü
+temiz eşleşiyor (anahtar-kelime yığını 0, slug kalıntısı 0), ama
+`content.config.ts` `tags`'i DÖNÜŞTÜRMÜYOR (`categories`'i dönüştürüyor),
+yani kodda ham slug. **Kullanıcı kararı: `keywords` ŞİMDİLİK EKLENMEYECEK**
+— %5,9 kapsam için `TAG_LABELS` haritası kurmaya değmez. **Yapısal bulgu:**
+eşleşmeyen tek tag `"Puantaj Takibi"` ZATEN bir görünen ad, slug değil —
+kaynağı `sessiz-tukenmislik-vardiya-puantaj-verileri.md`, commit sahibi
+`keystatic-cloud[bot]`. Yani panelden yazılan yazılar `tags`'e görünen ad,
+WP'den göçenler slug yazıyor; **aynı alanda iki uyumsuz konvansiyon**
+(#70'in sınıfı — panel konvansiyonları atlıyor). `keywords` ileride
+istenirse ÖNCE bu ayrışma çözülmeli.
+
 **🟢 2026-10-03 — JSON-LD şema turu PR 7: Hesaplama Araçları sayfasına `WebApplication` eklendi (1 sayfa) — ve PR 5'ten BİLİNÇLİ olarak ayrışan bir `offers` kararı.**
 Bu sayfa (`/hesaplama-araclari/`) ÖNCEDEN hiç JSON-LD taşımıyordu
 (yalnızca `BaseLayout`'un site geneli `Organization`/`WebPage`/
@@ -2021,6 +2071,44 @@ hâlâ geçerli.)*
     **"1,000"**. Yani aynı rakam aynı dilde iki farklı biçimde
     görünebiliyor — rakam turu yapılırsa biçim de birlikte
     standartlaştırılmalı.
+80. **YENİ (2026-10-04), ÖLÇÜLDÜ AMA KÖK NEDEN KANITLANMADI — blog
+    `.md` dosyalarının ÇALIŞMA KOPYASINDA satır sonları karışık
+    (465/640 dosya), #78'in aynı sınıfı.** `uncategorized-tr`
+    temizliği turunda tesadüfen fark edildi (o düzeltmenin SEBEP
+    OLMADIĞI izole edilerek kanıtlandı — dokunulmayan dosyalarda da
+    aynı durum var).
+    **Ölçüm (çalışma kopyası, 640 blog `.md`):** karışık (CRLF+LF)
+    **465**, saf CRLF **175**, saf LF 0. Karışık dosyaların HER
+    BİRİNDE tam **1** yalnız LF var ve konumu HER ZAMAN aynı:
+    `featuredImage:` bloğundaki `image:` satırının sonu. Bu, Açık
+    nokta #68'in (Keystatic self-hosted `fields.image()` göçü,
+    2026-09-06) `scripts/migrate-featured-image-to-keystatic-field.mjs`
+    script'inin `url:` → `image:` satırını yazarken `\r\n` yerine `\n`
+    kullandığına işaret ediyor.
+    **⚠️ AMA MEKANİZMA TAM OLARAK KANITLANMADI, çelişkili ölçüm var:**
+    `git show HEAD:<dosya>` ile bakıldığında 640/640 blob TEK TİP
+    görünüyor (karışık yok) — `core.autocrlf=true` commit'te normalize
+    ettiği için beklenen de bu. Ama blob tek tip LF ise checkout'un
+    TAMAMINI CRLF'e çevirmesi gerekirdi; 465 dosyanın kısmen çevrilmiş
+    olması bu açıklamayla UYUŞMUYOR. Yani ya blob ölçümüm (toplu
+    `execSync` döngüsü, hata yakalama yoktu) yanıltıcı ya da git'in
+    checkout dönüşümünde hesaba katmadığım bir koşul var. **Sonraki
+    tur önce bunu netleştirmeli**, düzeltmeye geçmeden.
+    **Bugünkü ETKİ — canlıyı etkilemiyor, ama bir tuzak:** commit
+    edilen hal temiz (`git diff --numstat` satır-sonu gürültüsü
+    göstermiyor, repo LF saklıyor), site çıktısı etkilenmiyor. Risk
+    ARAÇLARDA: `check-csp-sync.mjs` gibi HAM STRING karşılaştıran bir
+    araç blog dosyalarına bakacak şekilde genişletilirse #78'in
+    birebir aynısı sahte "sapma" raporu üretir. Ayrıca bir script
+    blog `.md`'lerini yeniden yazarken satır sonlarını normalize
+    EDERSE, 465 dosyada gerçek değişiklik olmadan devasa bir diff
+    oluşur.
+    **Muhtemel kalıcı çözüm (ayrı tur):** `.gitattributes`'a
+    `src/content/blog/*.md text eol=lf` (veya proje genelinde `* text=auto
+    eol=lf`) eklemek — hem checkout'u deterministik yapar hem #78'in
+    `public/_headers` sorununu da aynı mekanizmayla çözer. Kapsam
+    geniş olduğu için (465+ dosya tek seferde yeniden checkout edilir)
+    bilinçli olarak ayrı bir tura bırakıldı.
 
 ### Kapanmış maddeler — tek satır özet (tam anlatım arşivde)
 

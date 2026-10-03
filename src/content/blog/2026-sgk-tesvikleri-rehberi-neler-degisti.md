@@ -10,7 +10,6 @@ featuredImage:
   height: 720
 categories:
   - guncel-bilgiler
-  - uncategorized-tr
 tags: []
 modifiedDate: '2026-04-28T11:52:17'
 authorName: Neslihan Gültekin

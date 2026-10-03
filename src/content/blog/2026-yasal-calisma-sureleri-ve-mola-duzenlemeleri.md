@@ -10,7 +10,6 @@ featuredImage:
   height: 720
 categories:
   - guncel-bilgiler
-  - uncategorized-tr
 tags: []
 metaTitle: 2026 Yasal Çalışma Süreleri ve Mola
 modifiedDate: '2026-04-24T14:05:44'

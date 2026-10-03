@@ -12,7 +12,6 @@ categories:
   - dijital-ik
   - ik-akademi
   - ik-trendleri
-  - uncategorized-tr
 tags:
   - idenfit-ik-tr
   - insan-kaynaklari-tr

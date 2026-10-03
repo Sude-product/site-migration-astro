@@ -10,7 +10,6 @@ featuredImage:
   height: 721
 categories:
   - guncel-bilgiler
-  - uncategorized-tr
 tags:
   - idenfit-ik-tr
   - sgk

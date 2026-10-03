@@ -10,7 +10,6 @@ featuredImage:
   height: 720
 categories:
   - ik-akademi
-  - uncategorized-tr
 tags: []
 modifiedDate: '2025-09-29T14:03:07'
 ---
