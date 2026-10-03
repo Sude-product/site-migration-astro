@@ -7,7 +7,7 @@
 // şemamıza göre yeniden çözülmesi.
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { buildFaqJsonLd } from '../data/faqJsonLd';
-import { safeJsonLd } from '../data/jsonLd';
+import { organizationId, safeJsonLd } from '../data/jsonLd';
 import ProductSectionBlock from './ProductSectionBlock.astro';
 import LastUpdated from './LastUpdated.astro';
 import { getTranslations } from '../i18n';
@@ -98,6 +98,22 @@ interface Props {
    * `ctaKeyword` gibi kısa, gerçek bir isim geçirilebilir (2026-09-02,
    * kullanıcı isteği). `title`/`ctaKeyword` override'larıyla AYNI ilke. */
   breadcrumbLabel?: string;
+  /** `SoftwareApplication` JSON-LD'si basılsın mı (2026-10-03, Açık nokta
+   * #29). VARSAYILAN `true` — bu component'i kullanan sayfaların büyük
+   * çoğunluğu gerçek bir ürün/modül.
+   *
+   * ⚠️ `false` GEÇİRİLMESİ GEREKEN durum: bu component yalnızca ürün/modül
+   * sayfaları tarafından DEĞİL, aynı DÜZENİ paylaştıkları için birkaç
+   * KURUMSAL/pazarlama sayfası tarafından da kullanılıyor — "Hedef Global
+   * Marka" ve "Neden idenfit" aileleri (5+5 sayfa). Bunlar bir yazılım
+   * uygulamasını DEĞİL, şirketin 2027 hedefini/değer önerisini anlatıyor;
+   * onlara `SoftwareApplication` basmak şema seviyesinde OLGUSAL OLARAK
+   * YANLIŞ bir iddia olurdu (ve "Hedef Global Marka"nın hiç bölümü
+   * olmadığı için `featureList` de boş çıkıyordu — ilk ölçümde bu şekilde
+   * yakalandı). `Donanım` ailesi BİLİNÇLİ OLARAK dışarıda bırakılmadı:
+   * o sayfa idenfit PDKS yazılımının donanım entegrasyon YETENEĞİNİ
+   * anlatıyor ve `featureList`'i 7 gerçek ürün yeteneği taşıyor. */
+  softwareApplication?: boolean;
 }
 
 const {
@@ -114,6 +130,7 @@ const {
   heroLayout = 'side',
   heroPartnerLogo,
   breadcrumbLabel,
+  softwareApplication = true,
 } = Astro.props;
 // SSS her zaman gösterilir — kaynak sitedeki içerik olduğu gibi taşınır,
 // biz içerik müdahalesi yapmıyoruz (bkz. CLAUDE.md "SSS kararı geri alındı").
@@ -145,6 +162,75 @@ const title = titleOverride ?? buildIdenfitTitle(pageTitle, locale);
 // metin taşıyorsa (jenerik listede yoksa) hiç DOKUNULMAZ.
 const heroCtaText =
   ctaTextOverride ?? (hero.ctaText && isGenericCtaText(hero.ctaText) ? buildCtaAnchorText(ctaKeyword ?? pageTitle, locale) : hero.ctaText);
+
+// SoftwareApplication JSON-LD (2026-10-03, Açık nokta #29) — ürün/modül
+// sayfalarının tip-özel şeması. ÖNCEDEN bu sayfalar yalnızca jenerik
+// `WebPage` (+ site geneli `Organization`/`BreadcrumbList`, varsa `FAQPage`)
+// taşıyordu; yani şema seviyesinde bir "İK yazılım modülü" oldukları hiç
+// söylenmiyordu. Tek component değişikliği TÜM ürün/modül sayfalarını
+// kapsıyor (`ProductPage.astro` 121 sayfa dosyası tarafından kullanılıyor).
+//
+// TÜM alanlar sayfanın KENDİ var olan içeriğinden türetiliyor — yeni metin
+// YAZILMADI (KARAR 1). Alan seçimi ve BİLİNÇLİ eksikler:
+//
+// - `offers` HİÇ EKLENMEDİ (kullanıcı kararı, 2026-10-03). Bir modül sayfası
+//   satın alma birimi DEĞİL; fiyat Fiyatlar sayfasının paketlerine (Mikro/
+//   KOBİ/Pro) ait. Mikro gerçekten ücretsiz ama KOBİ ve Pro 2026-09-22'den
+//   beri İKİSİ DE "Teklif Al" (bkz. eski Açık nokta #74), yani herkese açık
+//   bir fiyatı yok. 121 modül sayfasına `price: "0"` basmak, 22 modülün
+//   19'u için OLGUSAL OLARAK YANLIŞ bir fiyat iddiası olurdu.
+// - `softwareVersion` ASLA eklenmeyecek (kullanıcı kararı) — SaaS sürekli
+//   dağıtılıyor, sabit bir sürüm numarası yok; uydurmak yanlış olur.
+// - `aggregateRating`/`review` YOK — gerçek, doğrulanabilir bir
+//   derecelendirme verimiz hiç yok, uydurulamaz (ve uydurulsa Google'ın
+//   yapılandırılmış veri politikalarını ihlal ederdi).
+//
+// ⚠️ DÜRÜST BEKLENTİ: Google'ın "Software App" rich result'ı `name` YANINDA
+// `offers` VEYA `aggregateRating`/`review` ZORUNLU kılıyor — yukarıdaki üç
+// bilinçli eksik yüzünden bu blok arama sonucunda bir uygulama kartı
+// ÜRETMEYECEK. Yine de değerli: (a) sayfanın bir yazılım uygulaması olduğunu
+// ve hangi kuruluşa ait olduğunu makine-okunur biçimde söylüyor, (b) LLM
+// tabanlı arama araçları `featureList`'i okuyor, (c) maliyeti tek bir
+// component değişikliği — içerik zaten sayfada. (`FAQPage` bloğundaki AYNI
+// dürüstlük notu deseniyle, bkz. yukarısı.)
+const IDENFIT_ORG_ID = organizationId(Astro.site);
+// `BaseLayout.astro:214`'teki AYNI ifade — `Astro.site` tanımsızken (yalnızca
+// yapılandırma kazası) göreli yola düşer.
+const productPageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+// `featureList` — sayfanın KENDİ bölüm başlıkları (`content.sections`, yani
+// override'lar UYGULANDIKTAN sonraki gerçek render içeriği). Başlıklar
+// `set:html` ile basıldığı için işaretleme/`&nbsp;` taşıyabiliyor; etiketler
+// temizlenip boşluk daraltılıyor. Boş kalan başlık hiç eklenmiyor.
+const featureList = sections
+  .map((s) =>
+    s.title
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  )
+  .filter((title) => title.length > 0);
+// `name`: breadcrumb'ın kullandığı AYNI kaynak — `pageTitle` bazı sayfalarda
+// uzun bir tanıtım cümlesi (İşe Alım/Donanım), o sayfalar zaten kısa gerçek
+// adı `breadcrumbLabel` ile geçiriyor. İkinci bir isim kaynağı kurulmadı.
+// `description`: meta description ile AYNI tek kaynak (yukarıdaki `description`).
+const softwareJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: breadcrumbLabel ?? pageTitle,
+  description,
+  url: productPageUrl,
+  inLanguage: locale,
+  // schema.org enumerasyon değeri (uydurma içerik değil) — idenfit bir
+  // kurumsal İK/HR uygulaması.
+  applicationCategory: 'BusinessApplication',
+  ...(featureList.length > 0 ? { featureList } : {}),
+  // Kuruluşu YENİDEN TANIMLAMAK yerine `@id` ile REFERANS (2026-10-02 PR 3
+  // ile kurulan desen). `organizationId()` paylaşılan tek kaynak; `site`
+  // yoksa alan hiç basılmıyor — tanımsız bir düğüme atıf yapmaktansa
+  // alanı hiç yazmamak doğru.
+  ...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
+};
 ---
 
 <BaseLayout
@@ -156,6 +242,8 @@ const heroCtaText =
   dateModified={modified?.toISOString()}
   breadcrumb={[{ label: breadcrumbLabel ?? pageTitle }]}
 >
+  {softwareApplication && <script type="application/ld+json" set:html={safeJsonLd(softwareJsonLd)} is:inline />}
+
   <!-- Hero -->
   {
     heroLayout === 'stacked' ? (
