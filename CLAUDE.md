@@ -19,21 +19,25 @@ tamamlandı (2026-08-11, f21f863). Ana sayfa interaktif Ürün Önizleme
 widget'ı (11/11 sekme + üst header'ın 9/9 ikon paneli) tamamlanıp commit
 edildi, sonrasında birden fazla iyileştirme turu (renk/boyut/dashboard
 içeriği) geçirip **commit edildi (0c1e67a, 2026-08-18/19)**. Blog CMS
-göçü (Decap→Keystatic, 2026-08-27'de başladı) ADIM 1/2 tamamlandı, 622/622
-yazı Markdown'a taşındı (2026-08-29) — ADIM 3 (son doğrulama/commit onayı)
-kullanıcıyı bekliyor, bkz. aşağıdaki "KEYSTATIC GEÇİŞİ" bölümü. **Şu anki
-odak (2026-08-29/30): Online Sunum Talebi sayfasının baştan tasarımı**
-(bkz. aşağıdaki "Güncel durum" — çok turlu bir yeniden tasarım süreci,
-kullanıcı geri bildirimiyle ilerledi, hâlâ devam edebilir); ardından SEO/
-erişilebilirlik/GEO takip turlarına (bkz. §Açık noktalar #28) geri
-dönülecek.
+göçü (Decap→Keystatic) tamamlandı — 629 yazı Markdown'da, Keystatic Cloud
+paneli CANLI ve pazarlama ekibi oradan yazı yayınlıyor (`keystatic-cloud[bot]`
+doğrudan `master`'a commit atıyor, Workers Builds otomatik deploy ediyor).
+**Site CANLIDA** (`site: 'https://idenfit.com'` dolu, canonical + hreflang
+aktif). **Şu anki odak (2026-10-02/03): JSON-LD şema turu** — 4 PR sırayla
+canlıya alındı, sıradaki adım ürün sayfaları için `Product`/`Service` gibi
+zengin/tip-özel şema (bkz. §Güncel durum ve §Açık noktalar #29).
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
-`docs/claude-md-archive-2026-08-18.md` (2026-08-13→2026-08-19 tam
-günlük — 13 turluk widget iterasyon serisi, header ikon panelleri
-pixel-compare turu, DOM boyutu/heading-hierarchy/hreflang/GEO denetim
-turlarının TAM anlatımı, bu dosyanın bir önceki sadeleştirilmeden önceki
-hali), `docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
+**`docs/claude-md-archive-2026-10-03.md` (2026-08-19→2026-10-02 tam
+günlük + kapanmış 32 açık noktanın TAM anlatımı — bu dosyanın bir önceki
+sadeleştirilmeden önceki hali; widget i18n turları, az locale
+genişletmesi, BreadcrumbList/Organization JSON-LD kurulumu, hotlink
+temizliği, Keystatic image-field göçü, pentest turu, D1 lead
+kalıcılığı)**, `docs/claude-md-archive-2026-08-18.md`
+(2026-08-13→2026-08-19 tam günlük — 13 turluk widget iterasyon serisi,
+header ikon panelleri pixel-compare turu, DOM boyutu/heading-hierarchy/
+hreflang/GEO denetim turlarının TAM anlatımı),
+`docs/claude-md-archive-2026-08-13.md` (2026-08-06→2026-08-13),
 `docs/claude-md-archive-2026-08-06.md` (2026-07-21→2026-08-06),
 `docs/claude-md-archive-2026-07-31.md`, `docs/claude-md-archive-2026-07-28.md`,
 `docs/claude-md-archive-2026-07-23.md`.
@@ -530,941 +534,15 @@ detaylı gerekçeler frontmatter'daki `//` yorumlarına ve bu dosyaya
 taşındı. **Kural: şablon içine uzun açıklama yazılmaz** — projenin mevcut
 "tek satır + detay CLAUDE.md'de" konvansiyonunun sebebi tam olarak budur.
 
-**🟡 2026-08-29/30 — Online Sunum Talebi sayfası baştan tasarlandı, çok turlu bir süreç, TAMAMLANMADI/devam edebilir.**
-Kaynağın (idenfit.com/online-sunum-talep-et/) BİREBİR DOM yapısına
-(şeffaf sol kolon + kırmızı arka plan + sağ form kartı) sadık kalan eski
-tasarım kullanıcı isteğiyle TAMAMEN terk edildi. Yeni tasarım kullanıcının
-paylaştığı bir mockup + `/demo` (Landing Page) sayfasının birkaç
-parçasının harmanı — **içerik hiçbir yerde uydurulmadı**, tüm metin/görsel
-zaten onaylı gerçek veri (`misc-pages.json`, Müşteriler sayfasının logo
-şeridi, `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" metinleri),
-yalnızca YENİDEN DÜZENLENDİ. Kronolojik özet (aynı gün 6 geri bildirim
-turu):
-1. **Baştan kurulum:** Ortalanmış hero (radyal gradyan, ana sayfanın
-   `#FFDCDC→#FFF3F3→#FFFFFF` tonlarıyla AYNI) + form kartı (`/demo`'nun
-   nabız/halka dekorasyonu `LandingPulseDecoration.tsx` arkasında) + form
-   2 ADIMA bölündü (Adım 1: e-posta+firma, Adım 2: telefon+ad soyad —
-   kullanıcı talimatıyla bu sıra, `/demo`'nun `LandingRequestForm.tsx`
-   iskeleti temel alınıp yeni `PresentationRequestForm.tsx` yazıldı,
-   `t.hero.presentationForm.next`/`back` 5 dilde eklendi).
-2. Başlık-form arası "chip" şeridi + sayfa altındaki 2 logo şeridi
-   (referanslar/entegrasyonlar) kaldırıldı (sadeleştirme).
-3. `/demo`'nun "3 Adımda idenfit"/"Öne Çıkan Özellikler" bölümleri, bu
-   sayfaya özel daha zarif bir tasarımla eklendi (`PresentationTimeline.astro`/
-   `PresentationFeatureGrid.astro`) — kart yüzeyleri + idenfit'in gerçek
-   logo yıldızı her kartın köşesinde dönüyor (`IdenfitStar` +
-   `idenfit-star-spin`, Müşteri Hikayeleri carousel'indeki AYNI, zaten
-   onaylı animasyon deseni yeniden kullanıldı). **Yan bulgu, aynı turda
-   düzeltildi:** `BaseLayout.astro` `.reveal` scroll-fade script'ini
-   (`scroll-reveal.js`) OTOMATİK yüklemiyor — yalnızca `/demo`/ana sayfa
-   gibi onu elle ekleyen sayfalarda çalışıyor, bu yeni sayfaya da eklendi
-   (aksi halde yeni bölümler kalıcı görünmez kalırdı).
-4. Yıldız dokusu çoğaltılıp KARIŞIK/asimetrik yerleştirildi + üstten
-   kesilme sorunu (`overflow-hidden`) düzeltildi; "Hemen Ara" satırı
-   kaldırıldı; H1 kırmızıya çevrildi; Müşteriler sayfasının GERÇEK 14
-   logoluk şeridi (`CustomerLogoMarquee.astro`) + yeni bir güven cümlesi
-   form kartının altına eklendi. **Rakam notu:** kullanıcı "5.000+" dedi,
-   ama sitenin HER YERİNDE (ana sayfa `logoStrip.caption`, `/demo`
-   BENEFITS) onaylı rakam "1.000+" — çelişki bildirildi, netleşene kadar
-   "1.000+" ile yazıldı (`t.hero.presentationTrustCaption`, 5 dilde,
-   rakam UYDURULMADI).
-5. Form kartı içindeki "Online Sunum Talebi" başlığı kırmızı yapıldı,
-   hero'ya 2 yıldız daha eklendi, sayfa altındaki LastUpdated şeridine
-   `#FAFAFA` arka planı verilip footer'a kesintisiz akması sağlandı
-   (önceden şeffaf/beyazdı, gri footer'dan önce kopuk bir şerit gibi
-   duruyordu).
-6. **Site geneli bir mimari düzeltme:** breadcrumb ("Ana Sayfa / ...")
-   HER sayfada düz beyaz zeminde render ediliyor, hemen altındaki renkli/
-   gradyanlı bir hero varsa aralarında görünür bir "dikiş" bırakıyordu —
-   kullanıcı bunun sitedeki GENEL bir sorun olduğunu belirtti.
-   `BaseLayout.astro`'ya YENİ, opsiyonel bir `heroBackground` prop'u
-   eklendi (breadcrumb'ı saran kutuya düz renk uygular — hero'nun
-   gradyanının TAMAMINI değil, yalnızca 0% rengini, iki ayrı kutuda aynı
-   gradyanı hizalamaya çalışmak kırılgan olurdu). Verilmezse (varsayılan)
-   TÜM diğer sayfalarda DAVRANIŞ DEĞİŞMEZ — spot-check + tam regresyon
-   suite'iyle doğrulandı. Bu sayfa `heroBackground="#FFDCDC"` kullanıyor.
-   Güven cümlesi/logo şeridi de bu turda bir kez daha aşağı kaydırıldı.
-
-**Doğrulama (her turda tekrarlandı):** `astro check` 0 hata, `astro
-build` 3097 dosya, 8 regresyon script'i (json-ld/link-accessibility/
-heading-hierarchy/image-alt-text/meta-description/title-length/html-lang/
-hreflang) HER SEFERİNDE bilinen taban çizgisiyle birebir aynı — sıfır yeni
-regresyon. Chrome'da her turda görsel doğrulama yapıldı. Yeni dosyalar:
-`PresentationRequestForm.tsx`, `PresentationTimeline.astro`,
-`PresentationFeatureGrid.astro`. Commit'ler (kronolojik):
-`ba25806`→`81b2edc`→`f570d9b`→`75e9803`→`34c3f14`, her biri hem `origin`
-hem `idenfit` remote'una push edildi — **çalışma ağacı şu an TEMİZ,
-bekleyen commit yok.** Kullanıcı "yarın devam ederiz" dedi — sayfa muhtemelen
-daha fazla ince ayar geçirecek, bu KAPANMIŞ bir iş değil, bir sonraki
-oturumda bu günlüğün devamı beklenmeli.
-
-Aynı gün, ayrıca ana sayfanın hero headline'ı (`t.hero.headline`, TÜM
-locale'lerin PAYLAŞTIĞI `HeroSection.astro`) `text-heading`'den
-`text-brand`'a (kırmızı) çevrildi — kullanıcı talimatı, içerik değişmedi.
-
-**🟡 2026-08-24, ayrıca — "Low readiness for Microsoft Bing Copilot" bulgusu KISMEN kapalı, doğrulama-only tur, kod değişikliği YOK.**
-`curl` ile `dist/index.html`'de tekrar doğrulandı: LinkedIn `sameAs`'te
-(`linkedin.com/company/idenfithr/`, kanonik adres, bkz. 2026-08-22 notu).
-`check-meta-description-length.mjs`: 927/928 sayfa tamam, tek istisna
-bilinen `admin/index.html` (Decap CMS kabuğu, kasıtlı kapsam dışı, bkz.
-2026-08-23 notu). `check-title-length.mjs`: `<title>` etiketi HİÇBİR
-sayfada eksik DEĞİL (0/928) ama **UZUNLUK optimizasyonu hâlâ tamamlanmadı
-— 409 sayfa (220 kısa, 189 uzun) bekliyor**, bu YENİ bir bulgu değil,
-zaten takip edilen Açık nokta #28'in aynısı (kademeli iş, 31/622 blog
-yazısı tamamlanmıştı). **Sonuç: sameAs + meta description tamamen kapalı,
-title UZUNLUĞU kapalı DEĞİL** — bulgunun tamamı "kapandı" diye
-raporlanmadı, yalnızca doğrulanan 2 alt-parça kapalı işaretlendi, title
-uzunluğu Açık nokta #28'in kapsamında kalmaya devam ediyor.
-
-**🟢 2026-08-24, ayrıca — "Low readiness for Google AI Overviews/Perplexity/Gemini" bulgu ailesi 3 ayrı turda ele alındı.**
-1. **Author attribution** — `BlogPosting.author` artık kaynakta gerçek
-   ad-soyadı olan 2 yazar için (`Neslihan Gültekin` 24 yazı, `Ayşegül
-   Topçu` 1 yazı) `Person`, geri kalanı (jenerik "idenfit editör" + WP
-   kullanıcı-adı-formatlı 3 yazar, kullanıcı kararıyla isim
-   UYDURULMADI) `Organization` fallback'inde. Görünür byline YOK
-   (bilinçli karar). `content.config.ts`'e yeni `authorName?: string`
-   alanı, `extract-blog-posts.mjs`'e kalıcı `AUTHOR_DISPLAY_NAMES`
-   çözünürleştirmesi eklendi. (4369088)
-2. **4 blog H2 başlığı soru formatına çevrildi** (anlamı zorlamadan,
-   yalnızca doğal soru-cevap yapısına uygun olanlar seçildi):
-   `bulut-tabanli-insan-kaynaklari-yazilimi`, `ik-ekibiniz`,
-   `is-sagligi-ve-guvenligi`, `gida-sektorunde-insan-kaynaklari-yonetimi`.
-   (4369088)
-3. **35 dış kaynak atfı `<cite>` ile işaretlendi** (19 blog yazısı,
-   Deloitte/Gartner/PwC/IDC/McKinsey/EY/Michael Page/KPMG/Statista/World
-   Economic Forum/Harvard Business Review/Randstad/LinkedIn/Forbes) —
-   `<blockquote>` KULLANILMADI (kaynaklar paraphrase edilmiş, birebir
-   alıntı değil — `<blockquote>` yanlış semantik + telif açısından
-   yanıltıcı olurdu). Yalnızca kurum adı etiketlendi, iyelik eki/rapor
-   adı/kısaltma dışarıda kaldı. Özel durumlar: KPMG'nin bitişik
-   `<sup>` dipnotu, Statista/LinkedIn'in zaten `<a>` içinde olması (cite
-   linkin İÇİNE sarmalandı), aynı paragrafta 2 kez geçen Deloitte/Forbes
-   (ikisi de işaretlendi). `blog/[slug].astro`'nun içerik sarmalayıcısına
-   `[&_cite]:not-italic` eklendi (tarayıcının varsayılan italic
-   stilini nötrler — "görsel stil değişmeyecek" kullanıcı şartı).
-   (6d5a6bf)
-4. **"Low readiness for Google Gemini" — doğrulama, kod değişikliği
-   YOK.** `Organization.sameAs`'teki YouTube linki (`FOOTER_SOCIAL`'dan,
-   2026-08-22 LinkedIn turunda kurulan 7 platformluk listeden) `curl`
-   ile `dist/index.html`'de doğrulandı — zaten mevcut. Wikipedia/Wikidata
-   linkleri hâlâ yok — bkz. Açık nokta #38 (dış bağımlılık, idenfit'in
-   bir Wikipedia sayfası yok, biz tek taraflı oluşturamayız).
-5. Her turda `astro check` 0 hata, `astro build` 927 sayfa,
-   `check-heading-hierarchy`/`check-json-ld`/`check-link-accessibility`
-   sıfır yeni regresyon (yalnızca bilinen 5 H1→H3 temel çizgisi),
-   `dist/**/*.html`'de `curl`/`grep` ile tek tek doğrulandı.
-
-**🟢 2026-08-24, ayrıca — İki küçük son-dokunuş değişikliği.**
-1. **Hero başlığı (`t.hero.headline`, sadece TR):** "Önce insan. Gerisi
-   kolaylaşsın." → "Önce İnsan gerisi bizde." Kullanıcının açık isteği
-   üzerine YALNIZCA `src/i18n/tr.ts` değişti — EN/NL/IT/AZ dosyaları
-   bilinçli olarak DOKUNULMADI (curl ile 5 dilin de anasayfa H1'i
-   karşılaştırılıp doğrulandı).
-2. **Carousel altı boşluk daraltıldı** (`CustomerStoryCarouselSection.astro`):
-   kullanıcının paylaştığı ekran görüntüsünde ok butonları ile altındaki
-   logo şeridi arasında fazla boşluk vardı — üst boşluk (widget'tan ayrım
-   için) korunup yalnızca `pb-*` azaltıldı (`py-12/py-16` → `pt-12 pb-4
-   lg:pt-16 lg:pb-6`).
-
-`astro check` 0 hata, `astro build` 927 sayfa, link/heading regresyon
-sıfır yeni sorun (bilinen 5 H1→H3 taban çizgisi hariç), Chrome'da görsel
-doğrulama yapıldı.
-
-**🟢 2026-08-24, ayrıca — "İdenfit ile Fark Yaratanlar" carousel'i çok
-turlu bir revizyon serisinden geçti (Personio referansı derinleşti +
-eski `TestimonialSection` widget'ı tamamen bu carousel'e taşındı).**
-Sıralı özet:
-1. **Video kartları arka planda sessiz/otomatik döngüye çevrildi.**
-   Kullanıcı Civil/Beyaz Fırın/Femaş videoları için gerçek YouTube
-   linkleri + döngü saniye aralıkları verdi (Femaş 18-32sn, Beyaz Fırın
-   5-10sn, Civil 20-24sn). `VideoCarouselCard.loopStart/loopEnd`
-   (opsiyonel) verilmiş kartlar artık tıkla-oynat DEĞİL — sayfa
-   yüklenir yüklenmez `autoplay=1&mute=1&loop=1&playlist=<id>&start=
-   <s>&end=<e>` embed parametreleriyle o aralıkta sessiz döngüde
-   oynuyor, kart TAMAMEN görünmez bir `<a target="_blank">` ile
-   kaplanıp tıklanınca gerçek `youtube.com/watch?v=<id>` sayfasına
-   gidiyor (`BackgroundLoopVideo`, `CustomerStoryCarousel.tsx`) — DOM
-   inceleme + gerçek tıklama testiyle (yeni sekme açıldığı) doğrulandı.
-2. **Femaş yeni bir kart olarak eklendi** — kullanıcının sağladığı
-   gerçek logo (`logo-white.png` → `public/images/customer-femas-logo.png`).
-3. **HAVAİST (Emre Özcan) ve Zsa Zsa Zsu (İsmail Ünal) carousel'e
-   eklendi** — eski (ayrı) ana sayfa `TestimonialSection` widget'ından
-   TAŞINDI (aynı gerçek alıntı metni `home.testimonials`'dan, ikinci
-   kez YAZILMADI). Bu ikisinin `/musteriler/` sayfasında gerçek bir
-   hedefi olmadığı için "Devamını Oku" bu 2 kartta hiç render edilmiyor
-   (`readMoreLabel`/`readMoreHref` artık opsiyonel).
-4. **`TestimonialSection` ("Geliştirilebilir Çalışan Deneyimi") ana
-   sayfanın 5 dilinin (TR/EN/NL/IT/AZ) hepsinden KALDIRILDI** — içeriği
-   madde 3'e taşındığı için tekrar gerekmiyordu. Component dosyaları
-   (`TestimonialSection.astro`/`TestimonialCarousel.tsx`) bilinçli
-   olarak SİLİNMEDİ (yalnızca kullanım kaldırıldı, kullanıcı dosya
-   silmeyi istemedi).
-5. **Doğ-Ser Makina (Cem Çolak alıntısı) hem carousel'e HEM
-   `/musteriler/` sayfasına eklendi.** Logosu kaynağın kendi CANLI
-   sitesinden (dog-ser.com/assets/img/dog-ser-logo.png) çekilip
-   yerelleştirildi. HAVAİST/Zsa Zsa Zsu de AYNI turda `/musteriler/`
-   sayfasına gerçek birer blok olarak eklendi — alıntı metni ikinci kez
-   yazılmadı, `customerStories` i18n şemasına (5 dil) `home.testimonials`
-   ile BİREBİR aynı metin kopyalandı (yalnızca `role` alanı şirket adı
-   önekinden ayrıldı, "Devamını Oku" için gereken).
-6. **Kart-içi düzeltme:** HAVAİST/Zsa Zsa Zsu'nun `/musteriler/`
-   bloklarında BÜYÜK dairesel görsel önce kişi portresiydi (tutarsız,
-   diğer bloklar şirket fotoğrafı kullanıyor) — kullanıcının paylaştığı
-   gerçek şirket fotoğrafları (otobüs/mağaza) ana medya oldu, portreler
-   diğer bloklarla AYNI desende küçük alıntı-yazarı rozetine taşındı.
-7. **Sıralama** iki kez güncellendi: önce "1 video 1 yazı" sonra
-   kullanıcı iki yeni yazı kartı eklenince "1 video 2 yazı" istedi —
-   şu an: Civil(video)→Yatsan→HAVAİST→Beyaz Fırın(video)→Tuğba→
-   Zsa Zsa Zsu→Femaş(video)→Beyaz Fırın(yazı)→Doğ-Ser.
-8. **Renk rotasyonu** da iki kez güncellendi: kırmızı/beyaz/gri →
-   GRİ/BEYAZ/KIRMIZI (kullanıcı isteği), "kırmızı" gerçek marka
-   kırmızısı (`bg-brand`).
-9. **İdenfit yıldızı** (`IdenfitStar.tsx`, `IdenfitLogo.tsx`'in son
-   path'inden izole edilmiş kırpılmış viewBox) her kartın sağ üst
-   köşesinde yavaşça dönüyor (`idenfit-star-spin`, `prefers-reduced-motion`'da
-   duruyor).
-
-Her adımda `astro check` 0 hata, `astro build` 927 sayfa,
-`check-link-accessibility`/`check-heading-hierarchy`/`check-image-alt-text`
-sıfır yeni regresyon, Chrome'da görsel doğrulama tekrarlandı (Personio.com
-canlı referansıyla da karşılaştırıldı). Commit: `a3dc41b`.
-
-**🟢 2026-08-24, ayrıca — Hero bölümüne (`HeroSection.astro`, 5 dilin
-paylaştığı TEK component) Personio referanslı yumuşak kırmızı alt-ton
-eklendi.** Kullanıcı ekran görüntüsünde üst bölümü (başlık/form/CTA)
-işaretleyip "Personio web sayfası tasarımına benzer" bir alt-ton istedi
-— Personio.com canlı incelendi (dashboard mockup'ının ALTINDAN yükselip
-metne doğru sızan yumuşak mor parıltı deseni). Düz `bg-[#F8F8F8]`
-yerine, HEMEN ALTINDAKİ widget çerçevesinin ZATEN kullandığı AYNI
-kırmızı ton ailesinden (`#FFDCDC→#FFF3F3→#FFFFFF`) radyal bir gradyan
-(`radial-gradient(120% 90% at 50% 100%, ...)`) — yeni bir renk İCAT
-EDİLMEDİ, widget'ın gradyanıyla kesintisiz birleşiyor. `astro check` 0
-hata, `astro build` 927 sayfa, `check-link-accessibility`/
-`check-heading-hierarchy` sıfır yeni regresyon, Chrome'da görsel
-doğrulandı.
-
-**🟢 2026-08-24, ayrıca — Ürün/modül sayfalarındaki bölüm-seviyesi
-("Başlayın" vb.) CTA linkleri düz metin linkinden gerçek butona
-çevrildi.** Kullanıcı "sadece link görünümünden yuvarlak kenarlı kırmızı
-çerçeveli butona çevir" dedi. `ProductSectionBlock.astro`'daki CTA'lar
-(`text-brand hover:underline` — düz metin) hero'nun ZATEN kullandığı
-`.btn-cta` sınıfına (yuvarlak, 2px kırmızı çerçeve, beyaz zemin, hover'da
-dolgulu kırmızıya döner — `global.css`) geçirildi, yalnızca
-`px-6 py-2.5` ile hero'dan (`px-8 py-3`) biraz daha küçük/ikincil boyut
-verildi. Bu component yalnızca `ProductPage.astro` tarafından kullanıldığı
-için (21 ürün/modül grubu × dil) değişiklik SİTE GENELİNDE tüm ürün
-sayfalarının bölüm CTA'larını kapsıyor — tek component değişikliği.
-`astro check` 0 hata, `astro build` 927 sayfa, `check-link-accessibility`/
-`check-heading-hierarchy` sıfır yeni regresyon, Chrome'da (`pdks-modulu`,
-"Satış Ekibi İle Görüşün" butonu) görsel doğrulandı. **Çalışma ağacı
-temiz DEĞİL** — commit kullanıcı onayı bekliyor.
-
-**🟢 2026-08-24, ayrıca — "No BreadcrumbList schema" GEO/SEO bulgusu
-KAPANDI: hem görünür breadcrumb şeridi hem BreadcrumbList JSON-LD, tüm
-sitede (19 şablon) canlı.** Keşif: hiçbir sayfa türünde hiyerarşik bir
-breadcrumb YOKTU (blog'daki `← Blog` yalnızca geri-linkiydi, hiyerarşi
-değil). Kaynak WP sitesindeki blog sidebar breadcrumb widget'ı
-(`docs/remaining-work-report.md` madde 2) `/category/...` arşiv sayfaları
-olmadığı için bilinçli olarak migrate edilmemişti — kullanıcıya iki
-kapsam sorusu soruldu, ikisinde de önerilen seçenek onaylandı: (1)
-**2 seviyeli hiyerarşi** — Ana Sayfa > [Sayfa Başlığı]; **blog istisna**
-Ana Sayfa > Blog > [Yazı Başlığı] (yalnızca `/blog/` gerçek/tıklanabilir
-bir sayfa olduğu için) — "Ürünler"/"Sektörler" gibi gerçek bir landing
-sayfası olmayan ara segmentler EKLENMEDİ (kırık/işlevsiz link
-üretmemek için, kaynaktaki AYNI gerekçe); (2) **görünür + JSON-LD
-birlikte** — yalnızca görünmez veri Google'ın "yapılandırılmış veri
-görüneni yansıtmalı" kuralına aykırı olurdu. **Mimari:** `BaseLayout.astro`'ya
-tek bir `breadcrumb?: BreadcrumbItem[]` prop'u eklendi ("Ana Sayfa"
-SONRASI iz) — "Ana Sayfa" (`common.home`, 5 dilde yeni çeviri: Ana
-Sayfa/Home/Startpagina/Home/Əsas səhifə) + `getRelativeLocaleUrl()`
-BaseLayout içinde OTOMATİK ekleniyor, çağıran sayfa yalnızca kendi
-izini geçiriyor — tek kaynaktan besleme (`dateModified`/OG tarihleriyle
-AYNI ilke). Görünür `<nav aria-label="Breadcrumb">` H1'in hemen üstünde,
-JSON-LD AYNI `breadcrumbTrail`'den üretiliyor (ikinci bir veri kaynağı
-YOK). **19 şablon** güncellendi: `ProductPage`/`SectorPage`/
-`blog/[slug].astro`/`BlogListPage` (pilot, kullanıcı onayı sonrası) +
-`AboutPage`/`ContactPage`/`FaqPage`/`HubPage`/`LegalPage`/`PricingPage`/
-`CustomerStoriesPage`/`SecurityPage`/`SupportRequestPage`/`ThankYouPage`/
-`PresentationRequestPage`/`CalculatorsPage`/`HrMaturityTestPage` — her
-birinde breadcrumb leaf etiketi YENİ bir metin İCAT EDİLMEDEN, sayfanın
-ZATEN sahip olduğu gerçek başlıktan (`content.title`/`pageTitle`/
-component'in kendi `title` prop'undan, bazılarında footer/mega-menü
-etiketinden — ör. Fiyatlar için `footer.links.general.pricing`="Fiyatlar
-ve Modüller", SSS için `footer.links.general.faq`="Sıkça Sorulan
-Sorular") türetildi. `ProductPage`/`blog/[slug].astro` PAYLAŞIMLI
-component/template olduğu için (89 ürün sayfası × dil / 622 blog yazısı)
-"pilot" fiilen TÜM o şablon türüne yayıldı — kullanıcıya bu mimari
-gerçek AÇIKÇA bildirildi, onay sonrası kalan 15 şablona geçildi. NotFoundPage/
-LandingPage (`/demo`, `noindex`) bilinçli olarak breadcrumb'sız bırakıldı.
-**Doğrulama:** `astro check` 0 hata (378 dosya), `astro build` 927 sayfa,
-`check-link-accessibility` 0 bulgu, `check-json-ld` **916 BreadcrumbList
-bloğu, 0 geçersiz** (622 blog + ~294 diğer sayfa), `check-heading-hierarchy`
-yalnızca bilinen 5 ana sayfa H1→H3 atlaması (Açık nokta #36, ilgisiz) —
-sıfır regresyon. `dist/**/*.html`'de TR/EN karışık örneklem (ürün/sektör/
-hub/hukuki/blog listesi/Fiyatlar/SSS/Hakkımızda/Güvenlik/Hesaplama
-Araçları/İK Olgunluk Testi) tek tek `grep` ile hem görsel `<nav>` hem
-JSON-LD doğrulandı — EN'de "Home"+`/en/` doğru locale-aware çalışıyor.
-`npm run dev:clean` ile temiz restart + Chrome'da canlı görsel doğrulama
-yapıldı.
-
-**Aynı gün, ayrı bir bulgu — `puantaj-takip-programi-modulu` TR sayfasının
-H1'i canlı idenfit.com ile UYUŞMUYORDU, düzeltildi.** Kullanıcı iki
-sayfayı (localhost + idenfit.com) yan yana görüp tutarsızlık bildirdi.
-Kök neden: WP'nin `product_tit` ACF alanı ("Zaman ve Devamsızlık
-Yönetimi") `extract-products.mjs` tarafından `hero.title`'a DOĞRU
-eşlenmişti, ama canlı sayfanın Elementor başlık widget'ı bu alana değil
-elle girilmiş sabit bir metne bağlı — gerçek `<h1>` (`curl` ile
-doğrulandı) "Puantaj Takip Modülü". (WP'nin post `title` alanı da
-"Puantaj Takibi Modülü" — üçüncü, yine farklı bir varyant; kaynağın
-kendi iç tutarsızlığı.) EN locale'de (`time-attendance-module`) bu üç
-alan BİRBİRİYLE TUTARLI çıktı (`wp-json` ile doğrulandı) — bulgu
-yalnızca TR'ye özgü, düzeltme yalnızca TR'ye uygulandı. **Uygulama:**
-`productTranslationOverrides.ts`'e `puantaj-takip-programi-modulu.tr.hero`
-override'ı eklendi — yalnızca `title` düzeltildi, `text`/`ctaText`/
-`ctaUrl`/`image` ham `products.json`'daki `hero` alanıyla BİREBİR AYNI
-(override mekanizması tam blok değişimi gerektiriyor). Sayfanın 4 CTA
-metnini kişiselleştiren önceki karar (2026-08-12, `ctaTextOverride`/
-`sectionCtaOverrides`, "Puantaj Takibine Başlayın" vb.) BİLİNÇLİ VE
-AYRI bir karardı — bu turda dokunulmadı, yalnızca H1/`<title>`/breadcrumb
-etkileyen `hero.title` düzeltildi. `astro check` 0 hata, `astro build`
-927 sayfa, `check-link-accessibility`/`check-json-ld`/`check-heading-hierarchy`
-sıfır yeni regresyon, `dist/puantaj-takip-programi-modulu/index.html`'de
-H1/`<title>`/breadcrumb'ın hepsi "Puantaj Takip Modülü" gösterdiği
-doğrulandı, Chrome'da görsel olarak da canlı sayfayla eşleştiği
-onaylandı. **Çalışma ağacı temiz DEĞİL** — bu turun tüm değişiklikleri
-(BaseLayout/i18n/15+ component + Puantaj override) commit edilmeyi
-bekliyor.
-
-**🟢 2026-08-24, ayrıca — "Few data points/statistics" GEO bulgusu için
-3 blog yazısındaki rakamsız iddiaya, AYNI yazı içinde zaten var olan
-gerçek istatistik eklendi (`pdks-nedir`, `dijital-ik`,
-`ise-alim-surecinde-yapay-zeka-kullanimi`).** Kullanıcı isteğiyle önce
-keşif yapıldı (kod yazılmadan): 4 Markdown blog yazısının tamamı +
-`posts.json`'daki 618 legacy yazının geneli rakamsız genel-geçer iddia
-kalıpları için tarandı ("önemli ölçüde", "çoğu şirket", "zamandan
-tasarruf sağlar" vb.), + `reference/wordpress-export/products.json`'daki
-**21 ürün/modül sayfası grubunun TAMAMI** aynı kalıplarla tarandı.
-**Kalıcı disiplin (KARAR 1'in bir uzantısı — paragraf alıntılanabilirliği
-turunda uygulanan aynı kural):** hiçbir uydurma rakam eklenmedi, yalnızca
-AYNI yazı içinde zaten geçen gerçek kaynaklı istatistikler (Deloitte/IDC/
-Gartner) ilgili rakamsız cümleye taşındı. **Genel bulgu — kalıcı not:**
-ürün/modül sayfalarında bu sorun neredeyse YOK (21 sayfa grubunun
-tamamı tarandı, yalnızca 2 eşleşme çıktı — `notlar-modulu`/
-`demirbas-yonetimi-modulu`, ikisinde de sayfa+SSS'i tek tek kontrol
-edilip hiç destekleyici rakam bulunamadığı için DOKUNULMADI); ürün
-kopyası özellik-açıklaması ağırlıklı, istatistik iddiası taşımıyor.
-Sorun büyük ölçüde blog içeriğinde yoğunlaşıyor. Kullanıcıya ayrıca 6
-aday daha raporlandı (`hr-yazilimi-isletmenize-nasil-fayda-saglar`,
-`2025-ik-teknolojisi-trendleri`, `hibrit-calisma-modeli-nedir`,
-`turnover-rate-nedir-nasil-hesaplanir`, `calisma-hayatinin-yeni-aktorleri-z-kusagi`
-+ yukarıdaki 2 ürün sayfası) — hepsinde ya hiç rakam yoktu ya da var
-olan rakam konuyla eşleşmiyordu (ör. Z kuşağı demografi rakamları
-"verimlilik artışı" iddiasını değil, tamamen farklı bir konuyu
-destekliyordu — zorlama eşleştirme yapılmadı), kullanıcı onayıyla
-DOKUNULMADI. `astro check` 0 hata (378 dosya), `astro build` 927 sayfa,
-`check-link-accessibility` 0 bulgu, `check-json-ld` 0 geçersiz blok (622
-`BlogPosting` dahil), `check-heading-hierarchy` yalnızca bilinen 5 ana
-sayfa H1→H3 atlaması (Açık nokta #36, bu turla tamamen ilgisiz) — sıfır
-yeni regresyon. `dist/blog/*/index.html` üzerinde `grep` ile 3 yazının
-da render edilmiş metninde yeni cümleler tek tek doğrulandı. **Çalışma
-ağacı temiz DEĞİL** — yalnızca `src/content/blog/posts.json` değişti,
-commit kullanıcı onayı bekliyor.
-
-**🟡 2026-08-23, ayrıca — Bu bilgisayarda (ikinci cihaz) push edilmemiş
-commit'ler var, remote hâlâ bağlı değil.** Kullanıcı "bugünlük burada
-duruyoruz, push'u yarın çözeceğiz" dedi. `git log e374cfd..HEAD`
-(`e374cfd` — bu cihazdaki son bilinen ortak nokta) şu an **5 commit**
-gösteriyor: `058db79` (blog paragraf düzeltmeleri), `8ad3673`
-(Organization JSON-LD + LinkedIn), `3528dcb` (Fiyatlar sayfası mobil
-düzeltmeleri), `70941c6` (Online Sunum Talebi mobil sıra+renk
-düzeltmesi), `a84f216` (Speakable markup) — kullanıcının kendi
-saydığı "3 commit" muhtemelen yalnızca ilk/son üçünü hatırlıyordu, tam
-liste burada. `git remote -v` BOŞ (bu oturumda da hiç remote
-eklenmedi, bkz. 2026-08-21 notu — aynı durum hâlâ devam ediyor).
-**Yarın kalıcı bir senkronizasyon çözümü belirlenecek** (muhtemel
-seçenekler: bu cihaza remote eklenip push edilir; ya da "birinci
-cihaz"daki repo referans alınıp oradan senkronize edilir — hangisinin
-kaynak-doğru kabul edileceği kullanıcıyla netleşmeli). **Çalışma ağacı
-TEMİZ**, bekleyen değişiklik yok — yalnızca push bekliyor. Güncel
-`git log` her zaman otoriter kaynak, bu not listeyi tekrar
-ETMİYOR.
-
-**🟢 2026-08-23, ayrıca — "No Speakable markup" GEO bulgusu için blog
-yazılarına `SpeakableSpecification` eklendi (622 yazı, tek şablon).**
-Kullanıcı kapsam/fayda tartışmasını ("Google'ın Speakable desteği
-pratikte ABD'deki onaylı haber yayıncılarıyla sınırlı — fayda düşük ama
-risk sıfır") onayladıktan sonra `blog/[slug].astro`'daki mevcut
-`BlogPosting` JSON-LD'sine `speakable: {'@type':'SpeakableSpecification',
-cssSelector:['#post-title','.post-content > p:first-of-type']}` eklendi.
-İki küçük, salt işaretleme amaçlı hook eklendi (görsel etki YOK): `<h1>`'e
-`id="post-title"`, içerik sarmalayıcı `<div>`'e (zaten var olan Tailwind
-utility class'larına ek) `post-content` class'ı. Yalnızca blog'a eklendi
-— Speakable semantik olarak Article/BlogPosting içindir, ürün/sektör
-sayfalarının `WebPage` şemasına eklenmedi. `astro check` 0 hata, `astro
-build` 927 sayfa, `check-json-ld.mjs`: 622 `BlogPosting` bloğunun hepsi
-hâlâ geçerli (0 geçersiz — doğrulayıcı bilinmeyen ek alanları
-reddetmiyor), `check-link-accessibility`/`check-heading-hierarchy`
-mevcut temel çizgiyle birebir aynı. Kullanıcıya 3 farklı yazıda (1 göç
-etmiş Markdown + 2 legacy JSON) `curl` ile gerçek JSON-LD çıktısı +
-`.post-content > p:first-of-type`'ın gerçekten ilk paragrafa denk
-geldiği gösterilip onaylandı.
-
-**🟢 2026-08-23, ayrıca — Online Sunum Talebi sayfası mobil görünümde
-2 turda düzeltildi (kullanıcının paylaştığı canlı site ekran
-görüntülerine göre).** (1) **Sıra değişikliği:** `PresentationRequestPage.astro`'da
-iki sütunlu grid (`sol: başlık+telefon+entegrasyonlar`, `sağ: form
-kartı`) mobilde her zaman DOM sırasıyla (sol önce) render ediliyordu —
-kaynağın mobil görünümünde form kartı ÖNCE, başlık/telefon/entegrasyonlar
-SONRA geliyor. DOM sırası değişmedi, yalnızca `order-2 lg:order-1` (sol
-sütun) / `order-1 lg:order-2` (form kartı) ile `lg` altında görsel sıra
-tersine çevrildi; eski mobil `min-h-[528px]` kaldırıldı (artık kırmızı
-şeridin üstünde değil, gereksiz boşluk yaratıyordu). (2) **Renk kontrastı
-bug'ı:** sıra değişikliği sonrası sol sütun artık kırmızı şerit yerine
-DÜZ BEYAZ zemine düşüyordu ama metin hâlâ `text-white` idi — beyaz
-zeminde beyaz yazı tamamen görünmezdi (kullanıcının ikinci ekran
-görüntüsüyle yakalandı). Başlık/madde işaretleri/"Hemen Ara"/telefon
-numarası `lg` altında koyu/marka kırmızısına çevrildi, `lg:` üzerinde
-(kolon hâlâ kırmızı şeridin üstünde) eski beyaz renkler AYNEN korundu;
-telefon ikonu artık `lg` altında kırmızı çemberli. Her iki turda da
-`astro check` 0 hata, `astro build` 927 sayfa, `check-link-accessibility`/
-`check-heading-hierarchy` sıfır yeni regresyon, mobil+masaüstü
-(iframe-viewport tekniğiyle) görsel doğrulama kullanıcının ekran
-görüntüleriyle birebir eşleşti.
-
-**🟢 2026-08-22/23, ayrıca — Fiyatlar sayfası mobil görünümünde 3 ayrı
-bulgu düzeltildi.** (1) **Boşluk bug'ı:** "1-25Çalışan" gibi bitişik
-görünen çalışan-sayısı metni — kök neden `<b>1-25</b> Çalışan` içeriğinin
-doğrudan bir `flex` konteynerin çocuğu olması (flexbox flex item'lar
-arasındaki boşluğu yutuyordu), içerik tek bir `<span>`'e sarmalanarak
-düzeltildi (veri zaten doğruydu, hiç değişmedi). (2) **Suprema rozeti
-çakışması:** Pro kartının üstüne mutlak konumla (`-top-[50px]`) taşan
-rozet, kartlar mobilde tek sütuna indiğinde bir üstteki KOBİ kartıyla
-çakışıyordu — `lg` altında normal akışa (`relative`+`mb-4`) alındı,
-kaynağın gerçek mobil görünümüyle eşleşti. (3) **Satır taşması:**
-Özellikler/Eklentiler karşılaştırma tablosunda sabit `h-[42px]` satır
-yüksekliği, mobildeki dar sütunda (110px) 3 satıra sarmaya ihtiyaç duyan
-uzun etiketleri ("Telefon/Çevrimiçi Destek") sığdıramıyor, metin
-komşu satırlarla görsel olarak çakışıyordu — mobilde `h-16`'ya
-çıkarılıp `sm:h-[42px]`'e geri dönecek şekilde düzeltildi (DOM'da
-programatik olarak 0/56 satırın taştığı doğrulandı). **Ayrıca (kullanıcının
-ayrı ekran görüntüleriyle istediği büyük değişiklik):** mobil/tablette
-paylaşımlı yatay-kaydırmalı karşılaştırma tablosu YERİNE, kaynağın
-`.mobile-only` akordeon deseni (önceki bir turda BİLİNÇLİ kapsam dışı
-bırakılmıştı) uygulandı — her kartın kendi "Daha Fazla/Daha Az"
-`<details>` accordion'u (native HTML), kendi Özellikler+Eklentiler
-listesini tek sütun gösteriyor; paylaşımlı tablo artık yalnızca `lg:`.
-Toggle metni (`mobileDetailsMoreText`/`LessText`) `pricingContent.ts`'e
-`SUPREMA_BADGE_TEXT` ile AYNI desende eklendi — kaynakta hiç yoktu
-(mobil-only blok extraction'a hiç yakalanmamıştı), 4+1 dilin (tr/en/nl/it/az)
-hepsi için gerçek çeviri yazıldı (KARAR 1). Her turda `astro check` 0
-hata, `astro build` 927 sayfa, `check-link-accessibility`/
-`check-heading-hierarchy` sıfır yeni regresyon, mobil+masaüstü görsel
-doğrulama (iframe-viewport tekniği + DOM ölçümü) kullanıcının ekran
-görüntüleriyle eşleşti.
-
-**🟢 2026-08-23, ayrıca — "Missing viewport meta tag" SEO bulgusu
-incelendi, ZATEN KAPALI bulundu, kod değişikliği YAPILMADI.**
-`<meta name="viewport" content="width=device-width, initial-scale=1">`
-`BaseLayout.astro` (satır 116) VE `LandingLayout.astro`'da (satır 46)
-ZATEN vardı. `curl` ile 6 farklı sayfa türünde (ana sayfa/ürün/blog/EN
-locale/fiyatlar/Landing Page `/demo/`) gerçek HTML çıktısında tek tek
-doğrulandı. `dist/**/*.html` üzerinde tam site taraması (928 gerçek
-sayfa, redirect stub'ları hariç — ilk taramada stub'lar dahil edilince
-2186 "eksik" çıkmıştı, hepsi Astro'nun kendi framework-içi i18n-fallback
-`<meta refresh>` şablonu, Açık nokta #27'nin AYNI bilinen sınıfı, gerçek
-bir eksiklik DEĞİL): **0/928 sayfada eksik** — `/admin/` (Decap CMS
-kabuğu) dahil hepsinde mevcut. Bulgu muhtemelen `og:description`
-bulgusuyla AYNI kökenden (eski/güncel olmayan bir tarama). Kullanıcı
-onayıyla kapatıldı, kod değişikliği YOK.
-
-**🟢 2026-08-23, ayrıca — "Missing og:description" SEO bulgusu incelendi,
-ZATEN KAPALI bulundu, kod değişikliği YAPILMADI.** Kullanıcının bir SEO
-tarama aracından gelen bulgusu araştırıldı: `BaseLayout.astro` (satır
-134-138) ve `LandingLayout.astro` (satır 59-63) ikisi de `og:description`'ı
-2026-08-13'teki "og:image eksik" turunda EKLEMİŞTİ — hem `<meta
-name="description">` hem `og:description` AYNI `{description}` prop'unu
-kullanıyor (ayrı bir metin YAZILMADI, tek kaynaktan geliyor — kullanıcının
-önerdiği yaklaşım zaten uygulanmıştı). `dist/**/*.html` üzerinde script ile
-tam tarama (928 sayfa, redirect stub'ları hariç, diğer `check-*.mjs`'lerle
-AYNI desen): 927/928 sayfada `og:description` mevcut ve dolu, sıfır boş
-içerik. **Tek istisna: `admin/index.html`** (Decap CMS'in kendi bundle'ladığı
-statik admin panel kabuğu, `BaseLayout` kullanmıyor, zaten `noindex,
-nofollow`) — bir içerik sayfası değil, sosyal paylaşım/SEO ihtiyacı yok,
-bilinçli olarak dokunulmadı. Bulgu muhtemelen 2026-08-13 düzeltmesinden
-ÖNCEKİ eski bir tarama sonucu. Kullanıcı onayıyla kapatıldı, kod
-değişikliği YOK.
-
-**🟢 2026-08-22, ayrıca — Organization JSON-LD eklendi + `sameAs`'e
-LinkedIn dahil 7 gerçek sosyal profil bağlandı, site genelinde 926
-sayfada aktif.** Kullanıcı "LinkedIn'i sameAs'a ekle" dedi; keşifte
-projede hiç Organization/`sameAs` şeması OLMADIĞI görüldü (yalnızca
-sade `WebPage`/`BlogPosting` blokları vardı) — sıfırdan `BaseLayout.astro`'ya
-eklendi (`{name:'idenfit', sameAs:[...]}`, `Astro.site` tanımlıysa `url`
-de eklenir). **Beklenmedik bulgu:** `data/footer.ts`'teki (2026-07-24'te
-canlı siteden çıkarılmış, 7 platformluk gerçek) `FOOTER_SOCIAL`
-listesindeki LinkedIn href'i (`/company/idenfit/`) LinkedIn tarafında
-301 ile kanonik `/company/idenfithr/`'e yönleniyordu (WebFetch ile
-doğrulandı — hedef sayfa gerçek/aktif, 8.712 takipçi, idenfit.com'a
-bağlı). Kullanıcı onayıyla: (1) `footer.ts`'teki href kanonik adrese
-düzeltildi (footer'da GÖRÜNEN link de artık doğru), (2) yeni Organization
-bloğunun `sameAs`'i uydurma/yeni bir liste OLUŞTURMADAN `FOOTER_SOCIAL`'ı
-aynen yeniden kullanıyor — sosyal linkler tek kaynaktan geliyor, iki
-ayrı listeye bölünmedi. `astro check` 0 hata, `astro build` 927 sayfa,
-`check-json-ld.mjs`: 926/928 sayfada (önceden 788) `Organization` bloğu
-+ mevcut `WebPage`(161)/`BlogPosting`(622)/`FAQPage`(5) YANINDA, 0
-geçersiz blok. **Kalan 2 sayfa netleştirildi (kasıtlı, eksik DEĞİL):**
-`admin/index.html` (Decap CMS'in kendi bundle'ladığı statik admin
-kabuğu — `BaseLayout` hiç kullanmıyor, zaten `noindex,nofollow`) ve
-`demo/index.html` (Landing Page — ayrı/minimal `LandingLayout.astro`,
-`noindex:true` varsayılanı, bu değişiklikten ÖNCE de hiç JSON-LD
-taşımıyordu — regresyon değil, önceden var olan kapsam dışı bırakma).
-İkisi de zaten noindex olduğu için SEO etkisi yok. `check-link-accessibility`/
-`check-heading-hierarchy` mevcut temel çizgiyle birebir aynı, sıfır yeni
-regresyon. `curl` ile ana sayfa/ürün sayfası/blog yazısında `sameAs`
-içinde temiz LinkedIn URL'i (`/posts/?feedView=all` gibi bir alt-görünüm
-YOK) + footer'daki güncellenmiş `<a href>` tek tek doğrulandı. Commit
-edildi — **push HÂLÂ BEKLİYOR** (repo'nun remote'u yok, bkz. aşağıdaki
-2026-08-21 notu — kullanıcıdan remote URL isteniyor).
-
-**🟢 2026-08-22, ayrıca — Blog "zamirle başlayan bağımlı ilk paragraf"
-denetimi TAMAMLANDI, 14/14 madde kapandı.** Kullanıcı isteğiyle blog +
-ürün/modül sayfalarında her H2/H3 başlığı altındaki İLK paragrafın
-"Bu/Bunlar/O" gibi bir zamirle başlayıp önceki cümleye/başlığa bağımlı
-olup olmadığı denetlendi. **Kapsam (script ile TAM tarama, örneklem
-DEĞİL):** 23/23 ürün/modül sayfası (`reference/wordpress-export/products.json`
-TR, 55 bölüm başlığı + 97 SSS sorusu) — **sıfır bulgu**, bu sayfaların
-metni zaten konuyu ilk cümlede netleştiriyor; 618/618 legacy blog yazısı
-(`src/content/blog/posts.json`) — 42 aday paragraf/35 yazı bulundu, 10
-farklı yazıdan 14 tanesi seçilip kullanıcıya raporlandı, kullanıcı
-2 turda TEK TEK onayladı (11 madde ilk turda, kalan 3 madde — 7/12/14 —
-raporun ilk halinde markdown `**` kalın işaretleri karışıklık
-yarattığı için düz metin olarak yeniden sunulup ikinci turda onaylandı).
-4 pilot Markdown blog yazısı da elle okunup temiz bulundu. **Uygulama:**
-tüm 14 düzeltme yalnızca ilgili yazının `content` alanındaki mevcut
-`<p>` metni içinde yapıldı — hiçbir HTML etiketi eklenmedi/kaldırılmadı,
-yapı değişmedi. Script tabanlı uygulandı (`old→new` string eşleşmesi
-önce `--dry-run` ile her düzenlemenin ilgili yazıda TAM 1 kez geçtiği
-doğrulanıp, sonra gerçek dosyaya yazıldı) — 10 yazı etkilendi: 
-`2026-vergi-affi-hakkinda-bilmeniz-gerekenler` (1), 
-`2026-gunluk-yemek-ve-yol-ucreti-istisna-tutarlari` (3),
-`performans-degerlendirme-hatalari` (2), `performans-degerlendirme-sorulari` (1),
-`olum-izni` (1), `stratejik-yonetimde-benchmarking` (2),
-`insan-kaynaklari-gorevleri-nelerdir` (1), `2025-stajyer-maaslari` (1),
-`avans-yonetimi` (1), `is-arama-izni` (1). Mümkün olan yerlerde
-(6/14 madde) sitede zaten var olan gerçek rakamlar ilk cümleye
-eklendi — uydurma DEĞİL, aynı yazıda zaten geçen değerler: 300 TL/240 TL
-günlük yemek istisnası + bundan hesaplanan ~%25 artış, 3 gün/7 gün ölüm
-izni, %5 stajyer istihdam oranı, günde 2 saat + 28-112 saat iş arama
-izni. **Doğrulama (2 turda, her ikisinde de tekrarlandı):** `astro build`
-927 sayfa hatasız, `check-heading-hierarchy`/`check-link-accessibility`/
-`check-json-ld` mevcut bilinen temel çizgiyle birebir aynı (sıfır yeni
-regresyon — tek kalıcı bulgu ana sayfanın 4+1 dilindeki bilinen H1→H3
-atlaması, Açık nokta #36, bu turla ilgisiz), `curl` ile toplam 7 yazının
-10 paragrafında (14 madde, bazıları aynı yazıda) gerçek render edilmiş
-metin tek tek doğrulandı. **Çalışma ağacı temiz DEĞİL** — yalnızca
-`src/content/blog/posts.json` değişti, commit kullanıcı onayı
-bekliyor (bu oturumda commit YAPILMADI, yalnızca istenirse).
-
-**🟡 2026-08-21, en son — git commit'leri yerelde hazır, push BEKLİYOR
-(remote yok).** Bu oturumda yapılan tüm işler (az locale genişletmeleri,
-az görsel URL Unicode NFD/NFC bug düzeltmesi, site-geneli link/görsel
-denetimi ile bulunan `/az/faq/`+`/nl/blog/` kırık route'ları, ana sayfa
-SSS bölümü tasarımı + az çevirisi, "Manuel Süreçlerden Kurtulun"
-şeridinin yuvarlatılması, `/donanim/`'daki "çekirdek platform"
-görselinin kırmızı zemin düzeltmesi, canlı dashboard'un üst şeridinin
-beyazlatılması + çizgi grafik taşma düzeltmesi) commit edildi, çalışma
-ağacı TEMİZ (`git status` doğrulandı). **Ama repo'nun hiç remote'u YOK**
-— `git init` bu oturumda SIFIRDAN yapılmıştı (proje daha önce hiç git
-altında değildi), bir GitHub/GitLab adresi hiç eklenmedi. Kullanıcı
-"pushla" dediğinde bu netleşti — kullanıcı remote URL'i vermek yerine
-"sonra yaparız" dedi, push ERTELENDİ. **Sıradaki adım (kullanıcı devam
-ettiğinde):** kullanıcıdan remote URL iste (veya kendisi ekleyeceğini
-söylerse bekle), `git remote add origin <url>` + `git push -u origin
-master`. En son commit: `e428869` ("Whiten dashboard browser-chrome
-bar, fix chart line overflow"). Tam commit geçmişi için `git log
---oneline` çalıştırılabilir — bu not listeyi TEKRARLAMIYOR, güncel
-`git log` her zaman otoriter kaynak.
-
-**🟢 2026-08-21, en son — Azerbaycan dili (az) 5. locale olarak eklendi,
-Faz 0+1 (altyapı + ana sayfa) tamamlandı.** Kullanıcı isteğiyle mevcut
-tr(varsayılan)/en/nl/it'nin yanına gerçek/profesyonel Azerice çeviriyle
-(fallback değil) 5. bir dil eklenmeye başlandı — kapsam çok büyük olduğu
-için (~45 yeni sayfa dosyası + ~24 ürün/modül + 12 sektör + 2 hub + ~16
-tekil sayfa) kullanıcı onayıyla fazlara bölündü, bu turda yalnızca
-altyapı + ana sayfa tamamlandı. **Yapılanlar:** (1) `astro.config.mjs`
-`i18n.locales`'e `az` eklendi, `fallback: {..., az: 'tr'}` — henüz gerçek
-az sayfası oluşturulmamış HER route (blog, hesaplama araçları, İK
-Olgunluk Testi, ve sonraki fazlara kadar ürün/sektör/tekil sayfalar)
-otomatik TR'ye redirect stub'ı üretiyor, aynı NL/EN/IT fallback
-mekanizması; (2) `src/data/nav.ts`'in `LOCALES` dizisine `az` eklendi
-(app genelinde asıl kullanılan `Locale` tipi); (3) `src/i18n/az.ts`
-sıfırdan oluşturuldu — `tr.ts` (423 satır) kaynak alınıp `Translations`
-şemasının TAMAMI gerçek Azerice çeviriyle dolduruldu (KARAR 1), `astro
-check` şema uyumunu derleme zamanında doğruladı; (4) `FlagIcon.tsx`'e
-elle çizilmiş Azerbaycan bayrağı SVG'si (mavi/kırmızı/yeşil bant +
-hilal/yıldız) + `LanguageSwitcher.tsx`'in `LABELS`'ine `az` eklendi —
-dil seçici artık 5 dili listeliyor; (5) `src/pages/az/not-found.astro` +
-`public/_redirects`'e `/az/*` kuralı (mevcut `en/nl/it` 404 deseninin
-birebir tekrarı); (6) `scripts/check-html-lang-attribute.mjs`'in
-`VALID_LOCALES`'i + `miscPagesContent.ts`'in `bareSlugFromAbsoluteUrl()`'ü
-güncellendi; (7) `astro check`'in ortaya çıkardığı **plan dışı** 8 ek
-`Record<Locale,X>` haritası da (`homeContent.ts` 5 görsel/video URL'i,
-`dates.ts` BCP47 kodu, `miscPagesContent.ts` Neden idenfit meta
-description'ı, `pageTitle.ts` CTA şablonu + title niteleyicileri,
-`phoneCountries.ts` 45 ülke adı + varsayılan ülke haritası,
-`pricingContent.ts` 3 fiyatlandırma metni) az girdisiyle dolduruldu —
-TypeScript'in `Record<Locale,X>` (Partial DEĞİL) güvenlik ağı sayesinde
-`astro check` bunları derleme zamanında tek tek yakaladı; (8)
-`src/pages/az/index.astro` (ana sayfa, `en/index.astro`'nun birebir
-aynısı, yalnızca `getTranslations(Astro.currentLocale ?? 'az')`).
-**Doğrulama:** `astro check` 0 hata (342 dosya), `astro build` 883
-sayfa (881 + `az/index.html` + `az/not-found/index.html`),
-`check-html-lang-attribute`/`check-link-accessibility`/
-`check-image-alt-text`/`check-json-ld` sıfır yeni ihlal,
-`check-meta-description-length` ilk turda az hero description'ı
-160 karakteri aştığı için 1 ihlal verdi → 183→159 karaktere kısaltılıp
-düzeltildi, `check-title-length`/`check-heading-hierarchy`'nin
-(409 kısa/uzun title + H1→H3 seviye atlaması) mevcut BİLİNEN
-temel çizgiyle birebir aynı olduğu doğrulandı (az/index.html ikisinde de
-YOK — sıfır yeni regresyon, diğer 4 locale homepage'in zaten paylaştığı
-H1→H3 durumu az'da da aynen var, Açık nokta #36'nın kapsamı). Chrome'da
-görsel doğrulama: `/az` hatasız açılıyor (ilk yüklemede bir kez geçici
-Vite modül-runner hatası çıktı, `npm run dev:clean` ile düzeldi — bilinen
-sınıf, kodla ilgisiz), hero+canlı dashboard widget'ı+Müşteri Hikayeleri
-carousel'i doğru render oluyor, dil seçici 5 dili (TR/EN/NL/IT/AZ)
-listeliyor ve TR→AZ geçişi çalışıyor, `/az/sss/` gibi henüz gerçek
-az sayfası olmayan bir route TR'nin bare sayfasına doğru redirect
-ediyor (beklenen davranış). **Çalışma ağacı temiz DEĞİL** — bu turun
-tüm değişiklikleri commit edilmeyi bekliyor. **Sonraki fazlar** (ayrı
-onaylarla): tekil sayfalar (Hakkımızda/İletişim/Fiyatlar/SSS/Hukuki
-aile) → sektör sayfaları (önce `sectorTranslationOverrides.ts`
-oluşturulmalı, henüz yok) → ürün/modül sayfaları → hub sayfaları —
-bkz. Açık nokta #37. Plan dosyası: `az` altyapı planı bu oturumda
-onaylanıp uygulandı (plan mode → ExitPlanMode akışı).
-
-**🟢 2026-08-21, ayrıca — Ürün Önizleme widget'ına (hero'daki canlı dashboard)
-otomatik sekme gezinmesi eklendi, bir önceki oturumdan yarım kalan iş
-tamamlandı.** `ProductPreviewWidget.tsx`'e, Personio.com'un ana
-sayfasındaki gibi widget'ın kendi kendine sekmeler arası gezinmesi
-eklendi — yalnızca FONKSİYONEL 5 sekme arasında (Zaman Yönetimi/İzin/
-İnsan Kaynakları/Performans Yönetimi/Veri Analizi) 6 saniyede bir döngü
-yapıyor, "Yakında" rozetli pasif sekmeler atlanıyor. Desen projede zaten
-kanıtlanmış `TestimonialCarousel.tsx`'in otomatik geçiş mantığıyla
-BİREBİR aynı: hover/focus'ta duraklıyor (`onMouseEnter`/`onMouseLeave`/
-`onFocus`/`onBlur`), `prefers-reduced-motion` tercih edilmişse hiç
-başlamıyor, aynı 6000ms aralığı kullanıyor. Kullanıcının elle bir
-sekmeye tıklaması döngüyü DURDURMUYOR — yalnızca kaldığı yerden devam
-ediyor (bilinçli: "kendi kendine gezinen" bir demo bir tıklamada kalıcı
-duracaksa amacına aykırı olur). `astro check` 0 hata (339 dosya),
-`astro build` 881 sayfa, `check-image-alt-text`/`check-link-accessibility`
-0 eksik. **Çalışma ağacı temiz DEĞİL** — bu turun + bir önceki oturumun
-Müşteri Hikayeleri carousel'inin (aşağıdaki madde) hepsi hâlâ commit
-edilmeyi bekliyor.
-
-**🟢 2026-08-21, ayrıca — kullanıcı "müşteri deneyimleri kartları yok"
-dedi, kök neden bulunup düzeltildi.** İlk `dev:clean` bu turda `astro
-build` İLE ARAYA GİRİNCE (dev server açıkken build çalıştırılıp dist/
-üretildi) yeniden bozulmuş — Chrome konsolunda tam CLAUDE.md'nin zaten
-belgelediği bilinen hata: `TypeError: _jsxDEV is not a function`
-(`CustomerStoryCarousel.tsx`+`YoutubeClickToPlay.tsx`'te). Sonuç: SSR
-HTML'i (`curl` ile doğrulandı) kartların TAM içeriğini taşıyordu ama
-React hydration'da island'ın içi TAMAMEN boşalıyordu (`innerHTML.length
-0`) — `.reveal` sarmalayıcı görünür/opaklığı doğruydu, sorun scroll-reveal
-DEĞİLDİ, saf hydration çökmesiydi. İKİNCİ bir `npm run dev:clean`
-(bu kez `astro build` araya girmeden) sorunu kalıcı çözdü, `astro dev
-logs`'ta `_jsxDEV` hatası bir daha çıkmadı, Chrome'da 5 kartın hepsi
-(Civil video, Yatsan/Beyaz Fırın alıntı, Tuğba/Beyaz Fırın video-2)
-doğru render olduğu doğrulandı, konsol hatasız. **Yeni ders (mevcut
-Vite önbellek kuralına ek):** `astro build` dev server AÇIKKEN
-çalıştırılırsa da aynı `_jsxDEV` bozulmasını tetikleyebiliyor — build
-sonrası dev server'a dönülüyorsa MUTLAKA `npm run dev:clean` ile
-yeniden başlatılmalı (bu zaten CLAUDE.md'nin §Development bölümünde
-yazılıydı, ama bu turda pratikte doğrulandı/pekiştirildi).
-
-**🟢 2026-08-20, ayrıca — Ana sayfaya, hero'daki dashboard widget'ının
-HEMEN ALTINA, Personio tarzı bir "Müşteri Hikayeleri" carousel'i eklendi
-(4 dil).** Önce keşif yapıldı: `/musteriler/`'in `CUSTOMER_STORIES`'inde
-5 gerçek hikaye (+ Civil'in ayrı ikinci bloğu) olduğu, ama istenen video/
-istatistik kart başlığı formatındaki ("Firma X'in Y sorununu Z%
-azalttığını izleyin") somut sonuç cümlesinin hiçbir veride bulunmadığı
-tespit edildi — kullanıcı onayıyla **nötr başlık** kullanıldı (uydurma
-yüzde yok, KARAR 1). Ayrıca yalnızca `CUSTOMER_LOGO_MARQUEE`'de GERÇEK
-logosu olan firmalar dahil edildi — Femaş/Doğ-Ser'in logosu yok,
-kullanıcı onayıyla bu turda **hariç tutuldu**. Sonuç: 3 kart, 3 farklı
-tip — Civil (video, ikincil blok/Mustafa Yıldıran), Yatsan (alıntı/
-Müzeyyen Kıran Mergen), Tuğba Kuruyemiş (istatistik). Kart metni
-YENİDEN YAZILMADI — mevcut `customerStories.ts`/i18n'in
-`customerStories` şemasından aynen yeniden kullanıldı, yalnızca 2 yeni
-nötr başlık cümlesi + carousel UI metni (`home.customerCarousel`, 4 dil)
-eklendi. "Devamını Oku" `/musteriler/#<anchor>`'a gidiyor —
-`CustomerStoryRow.astro`'ya yeni `id` prop'u eklenip
-`CustomerStoriesPage.astro`'da her bloğa (`story.key`/`${story.key}
--secondary`) atandı. Video kartı mevcut `YoutubeClickToPlay.tsx`'i
-DEĞİŞİKLİKSİZ yeniden kullanıyor. Yeni dosyalar: `customerStoryCarousel.ts`
-(locale-bağımsız kart tanımı), `CustomerStoryCarousel.tsx` (React,
-`client:visible`, native `scroll-snap` + ok butonları — kartlar TÜRE
-göre farklı yükseklik taşıdığı için `TestimonialCarousel.tsx`'in sabit
-panel yükseklikli grid-stack tekniği DEĞİL), `CustomerStoryCarouselSection.astro`
-(sarmalayıcı). `astro check` 0 hata (341 dosya), `astro build` 881
-sayfa, `check-image-alt-text`/`check-link-accessibility` 0 eksik,
-Chrome'da 4 dilin hepsinde (TR/EN/NL/IT) görsel doğrulandı — video
-tıkla-oynat çalışıyor, "Devamını Oku" doğru bloğa scroll ediyor, konsol
-hatasız. **Bilinçli açık nokta:** yalnızca 3 kart var (carousel'in
-"sonsuz döngü" hissi için ince — istenirse Femaş/Doğ-Ser'e logo
-bulunup eklenebilir, ayrı bir karar).
-
-**Aynı gün, dördüncü tur — Beyaz Fırın'a AYRICA bir video kartı eklendi
-(5. carousel kartı).** Kullanıcının paylaştığı YouTube linki (`ru4gVy9-sOQ`)
-Civil'in video kartıyla AYNI desende (`YoutubeClickToPlay`, gerçek
-`maxresdefault.jpg` thumbnail + tıkla-oynat) yeni bir karta çevrildi —
-Beyaz Fırın artık carousel'de 2 kez var (video + alıntı), ikisi de
-`/musteriler/#beyazFirin`'e gidiyor (o blok yalnızca alıntıyı gösteriyor,
-video ayrıca embed edilmedi). **2 teknik düzeltme gerekti:** (1)
-`CustomerStoryCarouselSection.astro`'nun `base.key`'i önceden yalnızca
-`storyKey`'di — aynı firmanın 2. kartı eklenince React key çakışması
-oluşurdu, `${storyKey}-${type}`'a çevrildi; (2) video başlığı önceden
-TÜM video kartları için sabit `cc.civilVideo.headline` kullanıyordu
-(yalnızca 1 video kartı olduğu için fark edilmemişti) — `storyKey`'e
-göre başlık seçen bir `VIDEO_HEADLINES` haritasına çevrildi. Yeni i18n
-anahtarı `home.customerCarousel.beyazFirinVideo.headline` (4 dil, nötr
-başlık — Civil'inkiyle aynı kalıp). `astro check` 0 hata, `astro build`
-881 sayfa, erişilebilirlik script'leri 0 eksik, Chrome'da DOM üzerinden
-(`querySelector`) 5 kartın da doğru sırada/içerikte render olduğu +
-video kartının gerçekten oynatıldığı doğrulandı.
-
-**Aynı gün, üçüncü tur — Beyaz Fırın 4. carousel/Müşteriler kartı olarak
-eklendi + kartlar tekrar büyütüldü.** Kullanıcı gerçek bir alıntı (Nuri
-Sütlüoğlu, İnsan Kaynakları Müdürü) + 2 gerçek fotoğraf (kendi portresi +
-Beyaz Fırın'ın Moi şubesi vitrin fotoğrafı, ikisi de `public/images/`'e
-yerelleştirildi) paylaştı. Kapsam: (1) `CustomerStoryLabels.employeeCount`
-opsiyonel yapıldı (Beyaz Fırın'da çalışan sayısı YOK, uydurulmadı — KARAR
-1) + `CustomerStoriesPage.astro`'nun stats-oluşturma mantığı buna göre
-korundu; (2) `/musteriler/` sayfasına Doğ-Ser/Tuğba'yla aynı desende
-(yalnızca alıntı) YENİ bir blok eklendi (`customerStories.ts` + 4 dil
-i18n); (3) carousel'e 4. kart (alıntı tipi) eklendi. **Yan bulgu:**
-Tuğba Kuruyemiş kartının "Devamını Oku" anchor'ı yanlışlıkla kebab-case
-(`tugba-kuruyemis`) yazılmıştı, sayfadaki gerçek id camelCase
-(`tugbaKuruyemis`) — bu turda fark edilip düzeltildi. Kullanıcı AYRICA
-"kartların boyutları ve puntoları biraz daha büyüsün" dedi — 420px→480px,
-tüm iç yazı boyutları bir kademe daha büyütüldü (üçüncü size-up turu).
-`astro check` 0 hata, `astro build` 881 sayfa, `check-image-alt-text`/
-`check-link-accessibility` 0 eksik (2 kez doğrulandı), Chrome'da TR'de
-4. kart + "Devamını Oku"nun doğru anchor'a (`#beyazFirin`) gittiği + yeni
-Müşteriler bloğu görsel doğrulandı.
-
-**Aynı gün, ikinci tur — kartlar büyütüldü + tonu hero widget'ıyla
-eşleştirildi.** Kullanıcı "daha büyük canlı ve arka planının tonu bizim
-isteğimize uyacak şekilde" dedi: kart genişliği 340px→420px, iç boşluk/
-yazı boyutları büyütüldü (istatistik sayısı `text-3xl`→`text-5xl`), ve
-ÜÇ kart tipinin de arka planı — önceki turda video/alıntı beyaz, yalnızca
-istatistik pembeydi (tutarsız) — hero'daki dashboard widget'ının
-ÇERÇEVESİYLE (`HeroSection.astro`, `#FFDCDC→#FFF3F3→#FFFFFF→#FFF3F3→#FFDCDC`
-gradyanı) AYNI kırmızı tonlu gradyan ailesine (`CustomerStoryCarousel.tsx`'in
-`CARD_BG_GRADIENT` sabiti) çevrildi + hover'da hafif kalkma efekti eklendi.
-`astro check` 0 hata, `astro build` 881 sayfa, `check-image-alt-text`/
-`check-link-accessibility` 0 eksik, Chrome'da TR'de görsel doğrulandı.
-
-**🟢 2026-08-20, ayrıca — "Kullanıcı Dostu Panel" bölümündeki 2.
-lead-capture form kaldırıldı (4 dil).** Kullanıcı ekran görüntüsü
-paylaşıp "başvuru butonunu kaldır, dashboard ve açıklama kalsın" dedi:
-`PanelFeatureSection.astro`'daki `HeroForm.tsx` reuse'u (İsim/Telefon/
-Firma/Email + "Hemen Başvur" formu, hero'daki ile aynı alanlara sahipti)
-tamamen kaldırıldı — dashboard görseli (sol) + başlık/açıklama/checklist
-(sağ, "Anlık Bilgiler/Hatırlatmalar/Gerçek Zamanlı Monitör") aynen kaldı.
-Artık kullanılmayan `HomePanelLabels.formHeading`/`formSubmit` i18n
-alanları da 4 dilde temizlendi (4f3b880). `astro check` 0 hata, `astro
-build` 881 sayfa, `check-image-alt-text`/`check-link-accessibility` 0
-eksik, Chrome'da TR ana sayfasında görsel doğrulandı (form yok, geri
-kalan içerik sağlam). **Not:** bu turda da dev server aynı bilinen Vite
-modül-runner hatasını verdi (`npm run dev:clean` ile düzeldi, kodla
-ilgisiz — bkz. bir önceki maddedeki aynı not).
-
-**🟢 2026-08-20, ayrıca — "Neden idenfit?" videosu + 4'lü özellik kartı
-yazıları canlı idenfit.com'a göre büyütüldü.** Kullanıcı iki ekran
-görüntüsü paylaşıp "puntoyu büyüt" + "videoyu ana sitedekine benzer
-şekilde büyüt" dedi; canlı sitede `getComputedStyle`/`getBoundingClientRect`
-ile ölçüldü: video 788.8px (1536px viewport, bizimki `max-w-2xl`=672px'e
-sıkışmıştı), kart başlığı 24px/600/leading 29px (bizimki `text-lg`=18px),
-kart açıklaması 16px/400/leading 20px (bizimki `text-sm`=14px).
-`VideoSection.astro`'da `max-w-2xl` kaldırılıp video dış `max-w-3xl`
-konteynerini (768px, canlıya %2.6 farkla yakın) dolduruyor;
-`FeatureGrid.astro`'nun 4 kartında ölçülen kesin px değerleri birebir
-uygulandı (6cd430c). `astro check` 0 hata, `astro build` 881 sayfa,
-`check-image-alt-text` 0 eksik, Chrome'da TR ana sayfasında görsel
-doğrulandı (video belirgin şekilde büyüdü, kart yazıları okunaklı
-büyüklükte). **Not:** dev server bu turda bir Vite modül-runner hatası
-verdi (`node/module-runner.js`, "undefined is not a function") —
-kodla ilgisizdi, `npm run dev:clean` ile düzeldi (kalıcı çözüm zaten
-CLAUDE.md'de belgeli).
-
-**🟢 2026-08-20, ayrıca — HRTech Alliance partner bölümü ana sayfadan
-kaldırıldı (4 dil).** Kullanıcı isteğiyle `HrtechSection.astro`
-("Tüm İK İhtiyaçları İçin Tek Noktadan Çözüm") ve 4 locale
-`index.astro`'daki kullanımı kaldırıldı; artık kullanılmayan i18n
-`hrtech` çeviri blokları (`HomeHrtechLabels` tipi dahil) +
-`homeContent.ts`'teki `HRTECH_ALLIANCE_URL`/`HRTECH_LOGO_URL`/
-`HOME_HRTECH_IMAGE` export'ları da temizlendi (a5dab4b). `astro check`
-0 hata (336 dosya), `astro build` 881 sayfa, `check-image-alt-text` 0
-eksik, Chrome'da TR ana sayfasında SSS'ten (Sıkça Sorulan Sorular)
-doğrudan footer'a geçtiği doğrulandı. **Yan bulgu (aksiyon alınmadı,
-kapsam dışı bırakıldı):** `check-heading-hierarchy.mjs` ana sayfanın
-4 dilinde de `H1→H3` seviye atlaması raporluyor (hero H1'inden hemen
-sonra Ürün Önizleme widget'ının `SectionMiniHeader`'ı H3 kullanıyor,
-aralarında H2 yok) — bu turdan ÖNCE de aynı şekilde vardı (`git stash`
-ile doğrulandı, Hrtech kaldırmayla İLGİSİZ, önceden fark edilmemiş bir
-bulgu). Bkz. Açık nokta #36.
-
-**🟢 2026-08-20 — Ürün Önizleme widget'ının dış boyutu Personio
-referansına göre kısaltıldı + TR ana sayfasındaki tekrarlı ikinci widget
-kaldırıldı, Açık nokta #35 KAPANDI.** Kullanıcı Personio.com'un ana
-sayfasındaki dashboard mockup'ıyla karşılaştırıp "dış boyut benzer olsun,
-daha kısa ve anasayfada gezinirken rahat okunsun" dedi: sekme içeriği
-stratejisi paylaşımlı `min-h`'ten (6 turluk ayar geçmişi, dış yükseklik
-~1453px) **sabit `max-h-[620px]` + `overflow-y-auto`'ya** çevrildi —
-header/sidebar her zaman tam görünür kalıyor, yalnızca kart listesi
-gerektiğinde kendi içinde kayıyor (`ProductPreviewWidget.tsx`); hiçbir
-kart/veri kaldırılmadı. Ardından, hero'daki canlı widget artık tek başına
-yeterli görüldüğü için sayfanın aşağısındaki tekrarlı "Panelinizde Sizi
-Neler Bekliyor?" bölümü (`HomeProductPreview.astro`) ve `index.astro`'daki
-kullanımı tamamen kaldırıldı — Açık nokta #35'in bekleyen kararı bu turda
-verildi (aşağı bölüm kaldırıldı, hero'daki kaldı). Sayfa akışı
-FeatureGrid'den doğrudan EfficiencySection'a geçiyor, aradaki divider
-metni korunduğu için geçiş sorunsuz. `astro check` 0 hata (337 dosya),
-`astro build` 881 sayfa, `check-image-alt-text` 0 eksik, Chrome'da
-TR ana sayfasında görsel doğrulandı (widget'ın iç kaydırması header/
-sidebar'ı etkilemiyor, widget'tan sonra tekrar YOK). Commit edildi
-(a85929d resize, bfa6c15 kaldırma). **Çalışma ağacı temiz, bekleyen
-commit YOK.**
-
-**🟢 Aynı gün (2026-08-19), ayrıca — bağımlılık sağlığı denetimi +
-temizliği.** Kullanıcı "güvenlik açığı/kullanılamaz paket var mı"
-denetimi istedi: `npm run audit` 0 açık döndü, ama `npm ls --all`
-gerçek bir `node_modules`/lockfile drift'i ortaya çıkardı
-(`yargs-parser@21.1.1 invalid` — lockfile 22.0.0 istiyordu — + 5 öksüz
-`extraneous` paket, `playwright`/`playwright-core` dahil). Kullanıcı
-onayıyla: dev server durduruldu → `npm ci` (lockfile'la birebir temiz
-kurulum, drift tamamen giderildi) → `npm run dev:clean`. Ardından 4
-güvenli minor/patch paket güncellendi (`@astrojs/markdown-remark`
-7.2.2→7.2.4, `@astrojs/react` 6.0.2→6.0.4, `astro` 7.2.2→7.2.4,
-`lucide-react` 1.32.0→1.33.0 — `typescript` yine BİLİNÇLİ atlandı, major
-sıçrama). Her adımda `astro check`/`astro build`(881 sayfa)/`npm audit`
-tekrarlanıp 0 hata/0 açık doğrulandı, dev server temiz restart sonrası
-hydration hatasız (11 `astro-island`, log'da `TypeError`/`_jsxDEV` yok).
-Commit edilip push edildi (669e401). **Çalışma ağacı temiz, dev server
-şu an ayakta (`localhost:4321`) — bir sonraki oturum doğrudan devam
-edebilir, bekleyen bir adım yok.**
-
-**🟢 Aynı gün (2026-08-19), ayrıca — Hakkımızda sayfasının ekip fotoğrafı
-(`ABOUT_TEAM_PHOTO_IMAGE`) `wp-content/uploads` hotlink'inden yerel
-`public/images/about-team-photo.jpg`'ye taşındı (kullanıcının sağladığı
-aynı kolaj görseli, 4096×2235 — Açık nokta #14'ün genel kapsamı dışında,
-tek seferlik bir istekle kapatıldı). TR/EN/IT'nin üçü de aynı sabiti
-paylaştığı için tek değişiklik yeterliydi. `astro check` 0 hata, `astro
-build` 881 sayfa, `check-image-alt-text` 0 eksik, Chrome'da TR+EN görsel
-doğrulandı (9087db0).**
-
-**🟢 Ana sayfa Ürün Önizleme widget'ı — 2026-08-19'da 6 turluk İKİNCİ bir
-genişletme serisi geçirdi (0c1e67a'dan SONRA, bu turda commit edildi).**
-2026-08-13→14'te 11/11 sekme + 9/9 header ikon paneli tamamlanıp ilk kez
-commit edildi (808412a+b9f713d), 2026-08-18/19'da "Zaman Yönetimi"
-sekmesine dashboard kartları eklenip 0c1e67a'da commit edildi. Aynı gün
-(2026-08-19), AYNI ilkeyle (gerçek app.idenfit.com ekran görüntüleriyle
-karşılaştırıp eksik kartları ekleme, kurgusal-ama-tutarlı veri) **4 sekme
-daha genişletildi:** İzin (Aylık İzin Trendi/Birim Bazlı İzin Kullanımı/
-İzin Çakışma Uyarısı/En Çok İzin Kullanan Birimler), İnsan Kaynakları
-(Çalışan Devir Hızı/Onay Bekleyen İşlemler/Takvim/Deneme Süresi Takibi/
-Sözleşme Takibi), Performans Yönetimi (Görevlerim 5'li durum rozeti +
-görev listesi), Veri Analizi (Aktif Çalışan Sayısı Trendi/Günlük Personel
-Hareketleri + 2 tam-boy grafik). Paylaşılan sekme `min-h`'i 6 turda
-1040px'ten 1215px'e ayarlandı (İK'nin Takvim kartı en büyük itici güçtü,
-sonra kullanıcı isteğiyle küçültülüp dengelendi). Işık/karanlık modda
-Chrome'da tüm 4 yeni sekme görsel doğrulandı, `astro check` 0 hata,
-`astro build` 881 sayfa, `check-image-alt-text` 0 eksik — **çalışma
-ağacı temiz, bekleyen commit YOK.** Detaylı iterasyon geçmişi (gradyan
-yönü denemeleri, "ağ" deseninin terk edilmesi, z-index dersleri, boyut
-küçültme/büyütme turları) arşivde.
-
-**🟢 Aynı gün (2026-08-19) footer'a güven rozetleri şeridi eklendi.**
-SSL/ISO 27001/Peryön/GDPR — kullanıcının sağladığı 4 görsel
-(`public/images/trust-badge-*`, `wp-content/uploads` hotlink DEĞİL),
-`TRUST_BADGE_LOGOS` (`src/data/footer.ts`) + `Footer.astro`'nun alt
-bar'ında beyaz kartlar içinde, kullanıcının verdiği sırayla. `iso27001.webp`
-uzantısı düzeltildi (ham baytlar WebP ama kaynak dosya `.jpg` adıyla
-paylaşılmıştı). 4 dilde gerçek çeviri `alt` metni (`FooterLabels.trustBadges`).
-Chrome'da görsel doğrulandı, `check-image-alt-text` 0 eksik.
-
-**🟢 Aynı gün (2026-08-19) hero (`HeroSection.astro`) SEKİZİNCİ tur —
-2-kolonlu düzen (sol metin/sağ kırmızı görsel paneli) tamamen kaldırıldı.**
-Kullanıcı isteğiyle: metin/form artık TEK KOLON, ortalanmış; "dashboard"
-bölümü aralarında `mt-12 lg:mt-16` boşluk bırakılarak ALTINA taşındı.
-Önceki `grid-cols-2`/full-bleed sağ panel mimarisi (7 turun konusu
-olmuştu, arşivde) bilinçli olarak terk edildi.
-
-**🟢 Aynı gün (2026-08-19) DOKUZUNCU tur — hero'daki statik dashboard
-görseli TR'de GERÇEK/canlı `ProductPreviewWidget`'a çevrildi.** Kullanıcı
-"statik resim değil, yaptığımız canlı dashboard'u koy" dedi. TR hero'sunda
-artık `HomeProductPreview.astro` ile BİREBİR aynı çerçeve/gradyan/sahte
-tarayıcı bar'ı içinde gerçek/etkileşimli widget render ediliyor (o an
-`locale === 'tr'` koşuluyla YALNIZCA TR'de — ON BİRİNCİ turda, aşağıda,
-bu koşul kaldırılıp 4 dile genişletildi). **BİLİNÇLİ AÇIK NOKTA:** sayfanın aşağısındaki
-mevcut "Panelinizde Sizi Neler Bekliyor?" bölümü (`HomeProductPreview`)
-AYNI widget'ı bir kez daha gösteriyor — kullanıcıya soruldu, "sonra
-karar verelim" dedi, bilerek DOKUNULMADI (iki widget aynı anda TR
-ana sayfasında var). `astro check` 0 hata, `astro build` 881 sayfa,
-Chrome'da hem hero widget'ının etkileşimi (sekme tıklama) hem EN
-fallback görseli doğrulandı.
-
-**🟢 Aynı gün (2026-08-19) ONUNCU tur — hero'daki canlı widget yana
-doğru genişletildi, boyu bir miktar kısaltıldı.** Kullanıcı "yana doğru
-biraz daha genişlet, boyundan azıcık eksilt, çok aşağı doğru duruyor"
-dedi: dış sarmalayıcı `max-w-6xl`(1152px)'ten `HomeProductPreview.astro`
-ile AYNI, zaten kanıtlanmış `max-w-[88rem]`(1408px) değerine genişletildi
-(genişlik 1088px→1344px, +%23.5) — widget'ın kendi grid'i fluid olduğu
-için içerik de orantılı genişledi. Üst boşluk (`mt-16`→`mt-10`) ve
-çerçeve dolgusu (`p-8`→`p-6`) küçültülerek yükseklik 1514.6px→1453px'e
-indi (-%4). Widget'ın PAYLAŞILAN iç `min-h`'ine (`HomeProductPreview`
-ile ORTAK, birden fazla turda özenle ayarlanmış) bilinçli olarak
-DOKUNULMADI — o değeri değiştirmek diğer kullanım yerini de etkilerdi.
-Chrome'da yatay taşma YOK (`scrollWidth` 1521 < viewport 1536)
-doğrulandı, `astro check` 0 hata, `astro build` 881 sayfa.
-
-**🟢 Aynı gün (2026-08-19) ON BİRİNCİ tur — canlı widget artık 4 dilin
-HEPSİNDE gösteriliyor, TR-only kısıtı KALDIRILDI.** Kullanıcı "diğer
-dillerde canlı dashboard görünmüyor, düzelt" dedi: DOKUZUNCU turdaki
-`locale === 'tr'` koşulu (widget/statik-görsel dallanması) tamamen
-kaldırıldı, widget artık koşulsuz render ediliyor. Statik
-`HOME_HERO_IMAGE`/`heroImage`/`sideTitle`/`sideSubtitle` dalı `HeroSection.astro`'dan
-KALDIRILDI (kullanılmayan import da temizlendi) — i18n şemasındaki
-`sideTitle`/`sideSubtitle` alanlarına dokunulmadı (başka yerde
-kullanılmıyorlar ama şema değişikliği bu turun kapsamı dışında).
-**Widget'ın içeriği hâlâ Türkçe** (kurgusal veri/etiketler) — bu artık
-BİLİNÇLİ bir kullanıcı kararı (i18n kapsamı sorusu fiilen kapandı, TR
-harici sayfalarda da Türkçe dashboard gösterme kararı verildi), Açık
-nokta olarak işaretlenmiyor. Chrome'da 4 dilin hepsinde widget'ın
-render edildiği + hydrate olduğu doğrulandı, `astro check` 0 hata,
-`astro build` 881 sayfa, `check-image-alt-text` 0 eksik (regresyon yok).
-
-**🟢 Aynı gün (2026-08-19) iki büyük ana sayfa değişikliği de commit
-edildi:**
-- **Sabit "Demo Talep Et" alt bar'ı** (`StickyDemoBar.astro`, kaynakta
-  yok — kullanıcının referans görüntüsüne dayanan yeni özellik),
-  kaydırma-tetiklemeli görünürlük + hover efekti + gerçek fotoğraf ile
-  (cd9300c).
-- **Hero köklü revize edildi** — çok-alanlı form yerine tek-alanlı
-  (yalnızca e-posta) form + yeni marka sloganı ("People first.
-  Everything else, simplified." / TR-NL-IT gerçek çeviri), 4 dilin
-  hepsinde. E-posta query param ile Online Sunum Talebi sayfasına
-  taşınıp ön-dolduruluyor. `<title>`/meta description SEO nedeniyle
-  DEĞİŞTİRİLMEDİ, yeni `headline`/`subheadline` alanları eklendi
-  (3b0fc1f).
-
-**🟢 Bağımlılık güncellemesi:** 10 güvenli paket minor/patch güncellendi
-(typescript hariç, kasıtlı — major sürüm atlaması riskli), regresyon
-yok (8698627).
-
-**Kalan:** Blog `metaTitle` kademeli üretimi (Açık nokta #28, 220 yazı
-kaldı) + görsel yerelleştirme (Açık nokta #14, ~1260 görsel) — ikisi de
-kademeli/kullanıcı onayına bağlı arka plan işleri.
+**Daha eski günlük (2026-08-19 → 2026-09-02) arşive taşındı** —
+widget i18n turları, az locale genişletmesi, Müşteri Hikayeleri
+carousel'i, BreadcrumbList kurulumu, Organization JSON-LD + `sameAs`,
+Speakable, mobil düzeltmeler (Fiyatlar/Online Sunum Talebi), Online
+Sunum Talebi'nin yeniden tasarımı — TAM anlatım:
+`docs/claude-md-archive-2026-10-03.md`. Kısa kronolojik özet
+için bkz. §Tamamlanan işler. Bu turlardan çıkan KALICI mimari kurallar
+(`breadcrumb`/`heroBackground` prop'ları, `scroll-reveal.js`'in elle
+yüklenmesi, widget'ın container-query mimarisi) §Mimari'ye taşındı.
 
 ---
 
@@ -1580,79 +658,11 @@ hâlâ geçerli.)*
     gerçek submit işlevine kavuştuğunda (Faz 2) bağlantı eklenecek — bkz.
     `ThankYouPage.astro`'daki (Online Sunum Talebi'nin teşekkür sayfası)
     AYNI bekleyen-durum, madde 2/12 ile aynı kategori.
-12. **TODO — HR Maturity Test sonuç sayfasının PDF rapor gönderimi
-    backend'siz** (madde 2 ile aynı Faz 2 kategorisi).
 13. **BULGU — site geneli sabit WhatsApp/Ara widget'ı yok, kaynakta
     var.** Kapsam dışı, istenirse eklenebilir.
-14. **TAMAMEN KAPANDI (2026-08-30) — 622 blog yazısının TÜM görselleri
-    yerelleştirildi VE `.md`'lerdeki URL'ler göreliye çevrildi, blog
-    artık `idenfit.com` domainine hiç bağımlı değil.** Kullanıcının
-    paylaştığı bir denetim raporu "973 blog görseli eski WordPress'e
-    mutlak URL'yle bağlı, DNS geçişinde hepsi 404 verir" bulgusunu
-    getirdi, 2 turda kapatıldı:
-    1. **Yerelleştirme:** 976 benzersiz görsel dosyası doğrulandı (622
-       `.md`'de, `public/wp-content/uploads/`'da 0'ı mevcuttu).
-       `reference/wordpress-export/uploads.zip` bu makinede YOK
-       (gitignore'da, hiç commit edilmemiş) — `scripts/localize-images.mjs`
-       bu yüzden kullanılamadı. Bunun yerine eski WP sitesinin
-       (`idenfit.com`) hâlâ canlı olduğu doğrulanıp yeni
-       `scripts/download-blog-images.mjs` yazıldı — 622 `.md`'yi tarayıp
-       benzersiz görselleri doğrudan HTTP ile indirip AYNI göreli yola
-       yazıyor, her dosya için 0-byte + magic-byte (PNG/JPEG/GIF/WEBP/SVG
-       imzası) doğrulaması yapıyor. **976/976 indirildi, 0 hata** (25'lik
-       pilot + 951'lik toplu tur).
-    2. **URL göreliye çevirme:** yeni `scripts/relativize-blog-image-urls.mjs`
-       ile 620 `.md` dosyasındaki `https://idenfit.com/wp-content/uploads/`
-       önekleri `/wp-content/uploads/`'a çevrildi (25'lik pilot + 595'lik
-       toplu tur, **toplam 1039 URL, 0 kalan mutlak referans**).
-    **Doğrulama (her iki turda da tekrarlandı):** `astro build` (3097
-    sayfa) + `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
-    sıfır regresyon. `dist/`'teki TÜM `/wp-content/uploads/` referansları
-    (URL-decode edilerek) dosya varlığına karşı tek tek doğrulandı:
-    981/991 gerçek blog-görseli referansı sağlam, kalan 10'u blog
-    içeriğiyle İLGİSİZ (`src/data/navigation.ts`'teki KEŞFET mega-menü
-    "Raporlar" kartlarının PDF/PNG'leri — muhtemelen bu maddenin eski
-    "10 veri dosyası" notuna karşılık geliyor, AYRI/dokunulmamış bir
-    kapsam, bilinçli olarak bu turun dışında bırakıldı). Chrome'da
-    `astro preview` ile 4 yazı (mojibake dosya adı içeren
-    `is-gorusmesinde-ne-giyilmeli` dahil) `read_network_requests` ile
-    tek tek doğrulandı — TÜM görsel istekleri artık `localhost:4321`'e
-    gidiyor, `idenfit.com`'a HİÇ istek atılmıyor (URL göreli
-    olduğu için domain'e bağımlılık tamamen kalktı). Script'ler:
-    `scripts/download-blog-images.mjs` + `scripts/relativize-blog-image-urls.mjs`
-    (ikisi de yeni, kalıcı/yeniden kullanılabilir). `scripts/localize-images.mjs`
-    (eski, zip tabanlı) hâlâ duruyor ama artık kullanılmıyor.
-    **Ek tur (2026-08-30, aynı gün) — `src/data/navigation.ts`'teki
-    KEŞFET mega-menü "Raporlar" kartları (9 URL) + `src/pages/blog/
-    [slug].astro`'daki site logosu (OG/JSON-LD publisher fallback'i, 1
-    URL) da AYNI yöntemle (yeni `scripts/download-report-assets.mjs`,
-    PNG/SVG/PDF magic-byte doğrulamalı) yerelleştirildi ve göreliye
-    çevrildi — 10/10 dosya, 0 hata.** Artık **blog + mega-menü, eski
-    idenfit.com'a SIFIR bağımlı** — `astro build` +
-    `check-image-alt-text`/`check-json-ld`/`check-link-accessibility`
-    sıfır regresyon, Chrome'da KEŞFET menüsü açılıp 4 rapor kartının
-    `localhost:4321`'den yüklendiği `read_network_requests` ile
-    doğrulandı. **YENİ bulgu (bu turda keşfedildi, KAPSAM DIŞI
-    bırakıldı) — bkz. Açık nokta #45:** `dist/` genelinde
-    TARANDIĞINDA, blog+navigation dışında **~300 sayfada yüzlerce**
-    başka `idenfit.com/wp-content/uploads/...` hotlink'i daha var
-    (ürün/sektör sayfası bölüm görselleri, Müşteri Hikayeleri
-    carousel'inin bazı portreleri, hesaplama araçları ikonları, KVKK/
-    güvenlik PDF'leri, 404 sayfası arka planı vb.) — bu maddenin
-    kapsamına hiç girmemiş, çok daha büyük ve AYRI bir iş.
 15. **YARIM KALAN — İK Olgunluk Testi'nde 2 açık uç:** Section 2 rozet
     boyutu (yalnızca ilk kart pilot), Section 3 checklist ikon rengi
     (kullanıcıdan DevTools hex kodu bekleniyor).
-16. **KAPANDI (2026-09-02) — blog "yeni yazı senkronizasyonu" artık
-    periyodik/otomatik DEĞİL.** Kullanıcı kararı: cutover öncesi yapılan
-    tur (bkz. §Tamamlanan işler, "Son blog senkronizasyonu") bu sürecin
-    SON otomatik toplu senkronizasyonuydu. **Bundan sonra yeni yazılar
-    Keystatic panelinden ekleniyor, otomatik senkronizasyon
-    kullanılmıyor** — `post-sitemap.xml` vs yerel `.md` karşılaştırma
-    yöntemi (kanıtlanmış, bkz. `extract-blog-posts.mjs`/
-    `migrate-blog-to-markdown.mjs`/`download-blog-images.mjs`/
-    `relativize-blog-image-urls.mjs` zinciri) artık kullanılmayacak.
-19. **KARAR — Faz 2 CMS: Decap CMS.** Kurulum devam ediyor, bkz. madde 21.
 20. **SÜREÇ — `npm audit` periyodik hale getirildi** (`npm run audit`,
     her önemli değişiklik/deploy öncesi). **GÜNCELLEME (2026-09-04):**
     `@cloudflare/puppeteer` kurulumundan beri (ADIM 4, İK Olgunluk Testi PDF
@@ -1683,11 +693,6 @@ hâlâ geçerli.)*
     ilgisiz, ayrı bir turda değerlendirilmeli).
 22. **YENİ — Kategori arşiv sayfaları (`/category/<slug>/`, 12 taksonomi
     sayfası) migrate edilmedi**, ayrı bir yapısal karar bekliyor.
-24. **KAPANDI — DOM boyutu (Chrome "1587/1501 element" uyarısı):**
-    MobileMenu masaüstünde 2026-08-10'da, MOBİLDE 2026-08-17'de
-    düzeltildi (`hasOpened` state, ilk tıklamaya kadar hiç mount
-    edilmiyor). Son ölçüm: 1587→1327 element (-%16.4). MegaMenu hâlâ
-    BİLİNÇLİ olarak ertelenmiş durumda, bkz. madde 25.
 25. **YENİDEN ARAŞTIRILDI (2026-08-31), AYNI SONUÇ — MegaMenu'nün 4
     panelinin DOM'da her zaman var olması (gerçek ölçüm: 364 element,
     sayfanın %21.8'i) performans maliyeti yaratıyor** ama kaldırılırsa
@@ -1748,35 +753,6 @@ hâlâ geçerli.)*
     framework-içi redirect şablonu, bizim kodumuzda düzeltilecek bir şey
     yok). SEO araçlarında "çok fazla noindex/lang-eksik sayfa" uyarısı
     tetikleyebilir ama gerçek sorun değil.
-28. **KAPANDI (2026-08-25) — Blog yazılarının `<title>` uzunluğu.**
-    Kalan 404 blog yazısı (219 kısa + 185 uzun, + 31 zaten tamamlanmıştı)
-    ve 4 site sayfası (1 TR + 1 EN + 2 IT, `buildIdenfitTitle()`'ın
-    otomatik niteleyicisi 61-63 karaktere taşmıştı) düzeltildi.
-    `check-title-length.mjs`: 409 → **1 sorunlu sayfa** (yalnızca kasıtlı
-    kapsam dışı `admin/index.html`, Decap CMS kabuğu).
-    **Yöntem:** 25 örneklik pilot kullanıcıya sunulup onaylandı (2 düzeltme
-    talebiyle: gerçek içeriği aynı olan 2 "gelir vergisi" yazısının
-    başlıkları birbirinden uzaklaştırıldı; "X Rehberi Nedir?" gibi doğal
-    olmayan Türkçe kalıplardan kaçınıldı), ardından kalan ~379 kayıt
-    script-destekli (içerik başlıklarından/excerpt'ten beslenen kural
-    tabanlı üretim + uzunluk doğrulama) toplu üretildi. **Üretim sonrası
-    kalite taraması** (tüm 435 metaTitle — 404 yeni + 31 eski — arasında
-    kelime-örtüşme benzerliği) 2 gerçek hata yakaladı: `truncateAtWord`
-    iki yazıda ayırt edici yılı (`ihbar-tazminati-hesaplama-2020`,
-    `...-2023`) kesip atmıştı, elle düzeltildi. Ayrıca kaynak WP
-    verisinde birebir aynı başlığı taşıyan 2 gerçek çift bulundu
-    (`bordro-ve-yan-hak-yonetimi` / `...-sirketler-icin-kapsamli-rehber`
-    — aynı içeriğin ~5 ay arayla güncellenmiş hali; `reskilling-upskilling`
-    / `upskilling-ve-reskilling` — aynı konunun 2022'de 4 ay arayla
-    yayımlanmış 2 versiyonu), her ikisinde de içerik/heading'lere bakılıp
-    gerçek bir farka (FAQ bölümü var/yok, "dijital dönüşüm" çerçevesi)
-    dayanan ayrı başlıklar verildi — uydurma bir fark İCAT edilmedi.
-    Site-sayfası 4 kenar durumu için `HubPage.astro`'ya `ProductPage`'teki
-    AYNI `title` override prop'u eklendi (`moduli-gestione-risorse-umane`
-    hub'ı için gerekiyordu, önceden yoktu). Uygulama: `posts.json`'a 400
-    kayıt, 4 markdown pilot yazıya frontmatter, 4 site sayfasına
-    `titleOverride`. `git diff --stat` ile `posts.json` değişikliğinin
-    yalnızca +2 satır/yazı (mevcut içeriğe dokunmadan) olduğu doğrulandı.
 29. **KISMEN KAPANDI (2026-08-19) — JSON-LD artık blog DIŞINDA da var**
     (`BaseLayout.astro`'nun genel `dateModified` prop'u, 7 shared
     component/~161 sayfa, sade `WebPage` şeması). **Kalan gerçek
@@ -1786,31 +762,6 @@ hâlâ geçerli.)*
 30. **TODO — `public/_redirects`'in (404 sayfası) gerçek Cloudflare
     Pages davranışı henüz DOĞRULANMADI.** Faz 1 deploy'unda ilk kontrol
     edilmesi gerekenlerden biri.
-31. **KISMEN KAPANDI (2026-08-17) — Canonical URL etiketi KODLANDI,
-    yalnızca AKTİVASYONU Faz 2'yi (domain bağlanması) bekliyor.**
-    `astro.config.mjs`'e `site: 'https://idenfit.com'` girilince hreflang
-    ile birlikte otomatik aktifleşecek, ek kod değişikliği gerekmeyecek.
-32. **TAMAMEN KAPANDI (2026-08-19)** — 3 küçük H2 bulgusu (hukuki
-    sözleşme 2026-08-13, SSS 2026-08-17, `nl/wereldwijd-merk`
-    2026-08-19) hepsi kapandı.
-33. **TAMAMEN KAPANDI — Başlık SEVİYE ATLAMASI, 44 sayfa.** 3 alt
-    kategorinin hepsi kapandı: 38 blog yazısı (2026-08-17,
-    `normalizeHeadingLevels()`, commit cb35dac), 2 hub sayfası + 1
-    hukuki sayfa (2026-08-13).
-34. **KAPANDI — "No H3 subheadings" SEO bulgusu, ~250 canlı-site URL'i
-    (2026-08-14).** ~%49'u (blog tag/category/author arşivleri) bizim
-    projede hiç yok — eski canlı WP sitesinden taranmış, aksiyon
-    gerekmiyor. Gerçek düzeltmeler: `ProductPage.astro` SSS accordion'u
-    (`<span>`→`<h3>`, ~96 sayfa), `BlogListPage.astro`/`BlogSidebar.astro`
-    (popüler yazı listesi), `ContactPage.astro` (ofis kayıtları).
-    `AboutPage`/`SecurityPage`'de bilinçli olarak H3 EKLENMEDİ (zorlama
-    başlık olurdu, gerekçe kaydedildi).
-35. **KAPANDI (2026-08-20) — TR ana sayfasında `ProductPreviewWidget`
-    İKİ kez render ediliyordu** (2026-08-19, DOKUZUNCU tur: hero'da VE
-    sayfanın aşağısındaki "Panelinizde Sizi Neler Bekliyor?" bölümünde).
-    Karar verildi: hero'daki widget tek başına yeterli, alt bölüm
-    (`HomeProductPreview.astro`) ve kullanımı tamamen kaldırıldı
-    (bfa6c15).
 36. **YENİ (2026-08-20) — Ana sayfanın 4 dilinde de `H1→H3` başlık
     seviye atlaması var** (`check-heading-hierarchy.mjs` bulgusu, HRTech
     bölümü kaldırılırken tesadüfen fark edildi, o kaldırmayla İLGİSİZ,
@@ -2066,107 +1017,6 @@ hâlâ geçerli.)*
     temizlik turu:** `content.config.ts` saf `glob()` koleksiyonuna
     indirgenebilir, `posts.json` + `legacyJsonLoader` kaldırılabilir.
     Dokunulmadı — kullanıcı isteğiyle bilinçli olarak ertelendi.
-45. **KAPSAMI NETLEŞTİRİLDİ (2026-08-30) — Blog+navigation DIŞINDA,
-    sitenin geri kalanında hâlâ 307 sayfada 293 benzersiz
-    `idenfit.com/wp-content/...` hotlink'i var, henüz DOKUNULMADI.**
-    Yeni kalıcı denetim script'i (`scripts/audit-remote-hotlinks.mjs`,
-    `dist/`'i tarar, indirme/değiştirme YAPMAZ) ile tam site taraması
-    yapıldı. **Sonuç:** 3097 HTML dosyasının 307'sinde (%9.9) toplam 293
-    benzersiz uzak dosya referansı — 119 PNG, 93 WEBP, 59 SVG, 14 PDF,
-    7 JPG, 1 JPEG. En sık geçen tekil dosya `pnl-img-1024x644.webp`
-    (`homeContent.ts`, 111 sayfada — ürün/modül sayfalarının paylaştığı
-    "Verimlilik" CTA paneli + blog liste/sayfalama sayfaları); 6 sektör
-    ikonu (`sektor-*-icon.svg`) 8-25 sayfa arasında tekrarlanıyor.
-    **İki farklı kaynak/düzeltme yolu var:**
-    (A) **19 TypeScript dosyasında LİTERAL mutlak URL** (~392 tekil
-    occurrence, çoğu tekrarlayan ikon): `productTranslationOverrides.ts`
-    (107) + `...OverridesAz.ts` (70), `sectorTranslationOverrides.ts`
-    (56), `homeContent.ts` (37), `miscPagesTranslationOverrides.ts` (24),
-    `hubTranslationOverrides.ts` (24) + `...OverridesAz.ts` (23),
-    `hardwareTranslationOverrides.ts` (16), `customerStories.ts` (10),
-    `calculatorDefinitions.ts` (8), `thankYouContent.ts` (4),
-    `miscPagesContent.ts` (3), `faqContent.ts` (3),
-    `customerStoryCarousel.ts` (2), `supportThankYouContent.ts` (1),
-    `PricingPage.astro` (1), `NotFoundPage.astro` (1),
-    `IdenfitLogo.tsx` (1), `CalculatorsPage.astro` (1) — bunlar Açık
-    nokta #14'teki blog/navigation'la BİREBİR AYNI yöntemle (indir +
-    göreliye çevir) düzeltilebilir.
-    (B) **Ham WordPress export JSON'larından RUNTIME'da okunan `image`
-    alanları** (literal string DEĞİL, `b.image` gibi pass-through) —
-    `productContent.ts`←`products.json`, `sectorContent.ts`←`sectors.json`,
-    `hardwareContent.ts`←`hardware.json`, `hubContent.ts`←`hubs.json`,
-    `miscPagesContent.ts`←`misc-pages.json`. Bunlar bul-değiştir ile
-    düzeltilemez — ya (i) her `*Content.ts`'te alanı okurken tek satırlık
-    bir `.replace(/^https:\/\/idenfit\.com\/wp-content\//, '/wp-content/')`
-    dönüşümü eklenir (blog `date`'in `+03:00` normalizasyonuyla AYNI
-    desen, düşük risk) ya da (ii) ham JSON dosyalarının kendisi
-    güncellenir (5 dosya, çok daha büyük/riskli bir diff). **(i) önerilir.**
-    Ayrıca `404.html`'in arka plan görseli `wp-content/themes/vault/...`
-    yoluna gidiyor — bu `uploads/` bile değil, farklı bir WP tema
-    varlığı, ayrı ele alınmalı (muhtemelen tek dosya, `NotFoundPage.astro`).
-    **Tahmini efor:** (A) yolu blog/navigation turlarıyla aynı ölçekte
-    (~1-2 saat, script zaten hazır — yalnızca kaynak dosya listesi
-    genişletilip yeniden çalıştırılır). (B) yolu kod olarak küçük (5
-    dosyada birer satır) ama önce 293 benzersiz dosyanın TAMAMININ
-    indirilip doğrulanması gerekir (aynı `download-*.mjs` deseniyle,
-    tahmini 30-60 dk) + build/regresyon/Chrome doğrulaması (~1 saat).
-    **Toplam kaba tahmin: 3-5 saat, tek turda yapılabilir.** Kod
-    değişikliği HENÜZ YAPILMADI — yalnızca kapsam netleştirildi,
-    kullanıcı onayı bekliyor. **Sıradaki oturum için plan (kullanıcı
-    kararı, 2026-08-30):** ÖNCE (A) yolu (19 sabit-kodlu dosya, ~1-2
-    saat, daha hızlı/düşük riskli) tamamlanıp SONUÇ GÖSTERİLECEK —
-    kullanıcı onayı alınmadan (B) yoluna (5 JSON-kaynaklı dosya, ~1-2
-    saat) GEÇİLMEYECEK. İki yol birbirinden bağımsız çalışıyor, aynı
-    turda art arda yapılabilir ama onay noktası (A) ile (B) arasında.
-    **TAMAMEN KAPANDI (2026-09-02) — 293/293 hotlink temizlendi, sitede
-    idenfit.com'a giden SIFIR hotlink kaldı.**
-    - **Yol (A):** Yeni `scripts/localize-remaining-hotlinks.mjs`
-      (`download-report-assets.mjs` + `relativize-blog-image-urls.mjs`
-      ile AYNI indirme/doğrulama mantığı, tek script'te birleşik + CLI'dan
-      pilot/tam liste seçimi). Önce 6 küçük dosyayla PİLOT yapılıp
-      kullanıcıya diff gösterildi, onay alındı; sonra kalan 12 dosya
-      (`NotFoundPage.astro` hariç, o ayrı ele alındı — aşağıda) aynı
-      script'le tamamlandı. **232 benzersiz görsel** indirildi (çoğu
-      blog/navigation turundan zaten mevcuttu), **379 URL** göreliye
-      çevrildi, 0 başarısız indirme.
-    - **Yol (B):** 5 dosyada (`productContent.ts`, `sectorContent.ts`,
-      `hardwareContent.ts`, `hubContent.ts`, `miscPagesContent.ts`) her
-      birinin onlarca farklı okuma noktasını (`image`/`images[]`/
-      `backgroundImage`/`heroImage`/`officesImage`/`mapImage` vb.) tek tek
-      avlamak yerine (yüksek kaçırma riski), yeni PAYLAŞILAN
-      `src/data/relativizeWpUrls.ts`'in `deepRelativizeWpUrls()`'ü —
-      ham JSON `DATA` sabiti import edilir edilmez TÜM ağacı derinlemesine
-      gezip (zengin metin/HTML'e gömülü `<img src>` dahil) mutlak
-      `idenfit.com/wp-content/` önekini göreliye çeviriyor. Blog'un `date`
-      `+03:00` normalizasyonuyla AYNI ilke: kaynakta değil, ithal edildiği
-      TEK merkezi noktada dönüştürülüyor — mevcut VE ileride eklenecek
-      TÜM getter'lar otomatik olarak zaten-göreli veri okuyor.
-      `hubContent.ts`'te 2026-09-01'den kalma yerel `relativizeWpUrl()`
-      (yalnızca hero görseline uygulanıyordu) artık gereksiz, kaldırıldı.
-      Yeni `scripts/download-json-source-images.mjs` (JSON ağacını
-      gezip TÜM görsel/dosya referanslarını toplar) **262 benzersiz
-      dosya** indirdi (183'ü zaten mevcuttu).
-    - **Bulunan ve düzeltilen gerçek bir indirme hatası:** bir dosya adı
-      Türkçe büyük "İ" taşıyordu, kaynak JSON'da PARÇALANMIŞ Unicode
-      biçiminde (`I` + U+0307 birleştirme noktası) ama canlı sunucudaki
-      GERÇEK dosya BİRLEŞİK biçimde (`İ`, U+0130) — ham (encode edilmemiş,
-      normalize edilmemiş) `fetch()` isteği 404 veriyordu. Düzeltme: uzak
-      istek URL'i `encodeURI(relPath.normalize('NFC'))` ile kuruluyor;
-      YEREL dosya adı/göreli URL KASITLI OLARAK normalize EDİLMEDİ (kaynak
-      JSON'un/`deepRelativizeWpUrls()`'ün üreteceği GERÇEK metinle birebir
-      eşleşmesi gerekiyor, aksi halde kendi sitemizde 404 oluşurdu).
-    - **404 arka plan görseli** (`NotFoundPage.astro`, `wp-content/themes/vault/...`
-      — `uploads/` bile değil, farklı bir WP tema yolu, script'lerin
-      kapsamı DIŞINDA bırakılmıştı) elle indirilip
-      `public/wp-content/themes/vault/assets/img/bg-404.png`'e yerleştirildi,
-      referans göreliye çevrildi.
-    - **Doğrulama (her adımdan sonra ayrı `--outDir dist-check` ile,
-      çalışan `localhost:4321` önizlemesine HİÇ dokunulmadan):** `astro
-      build` temiz, 8/9 regresyon script'i sıfır sorun (aynı ilgisiz
-      heading-hierarchy taban çizgisi), `audit-remote-hotlinks.mjs` ile
-      azalan sayı her adımda kanıtlandı: 293/307 (başlangıç) → 285/304
-      (pilot) → 235/133 (yol A tamamlandı) → 1/5 (yol B tamamlandı,
-      yalnızca 404 kaldı) → **0/0 (404 de düzeltilince, TAMAMEN TEMİZ)**.
 46. **GÜNCELLENDİ (2026-09-14) — CSP altyapısı yeniden kuruldu, mod HÂLÂ
     Report-Only; enforcing için go/no-go listesi `docs/csp-rollout.md`'de.**
     Kullanıcının "enforcing yapmalı mıyız" sorusu üzerine yapılan inceleme,
@@ -2238,12 +1088,6 @@ hâlâ geçerli.)*
     çıkışı 403 ile reddediyor, dosyanın hâlâ 200 döndüğü bile
     doğrulanamadı). Yerelleşince `img-src` izni KALDIRILMALI.
 
-47. **KAPANDI (2026-09-02) — 5 form dosyasının `console.log`'u kaldırıldı,
-    gerçek `/api/lead` backend'ine bağlandı.** Ad/e-posta/telefon artık
-    tarayıcı konsoluna yazılmıyor — SendGrid anahtarı gelene kadar hâlâ
-    hiçbir yere GÖNDERİLMİYOR ama en azından artık DENENİYOR ve
-    başarısızlık kullanıcıya dürüstçe gösteriliyor (bkz. yukarıdaki
-    "🔶 AÇIK NOKTA" bloğunun güncel hali).
 48. **YENİ (2026-08-31) — Görsel optimizasyonu (`astro:assets`/`<Image>`),
     kesin SIRALAMA kararı verildi, henüz başlanmadı.** Bir denetim
     bulgusu "60 raw `<img>`, format/srcset/CLS optimizasyonu yok" dedi —
@@ -2301,1035 +1145,27 @@ hâlâ geçerli.)*
     teknik olarak zaten mümkün kılıyor, yeni bir adapter kurulumu
     gerekmeyecek. Kod değişikliği YOK, yalnızca ileriye dönük bir eşik/
     hatırlatma notu.
-50. **TAMAMLANDI (2026-08-31) — "pipefail eksikliği" denetimi, kod
-    değişikliği GEREKMEDİ; ileriye dönük Cloudflare Pages notu eklendi.**
-    Kapsamlı tarama: `package.json`'ın 8 script'i (build/dev/dev:clean/
-    audit/vb.) VE bunların çağırdığı `scripts/dev-clean-restart.mjs`/
-    `scripts/run-audit.mjs` dosyaları — hiçbirinde shell pipe (`|`)
-    kullanımı YOK, hepsi tekil komut. Repo'da `.sh` dosyası veya CI YAML
-    config'i de yok. **Yani düzeltilecek bozuk bir script mevcut değildi**
-    — `set -o pipefail` eklemek için gerçek bir hedef yoktu.
-    **Gerçek risk, projenin kendi kod tabanında DEĞİL, build'i elle
-    doğrularken kullanılan `komut 2>&1 | tail -N` deseninde** (bu
-    projenin çalışma tarihi boyunca doğrulama turlarında sıkça kullanıldı)
-    — canlı olarak kanıtlandı: kasıtlı bozuk bir sayfa eklenip `astro
-    build 2>&1 | tail -5` çalıştırıldığında build GERÇEKTEN çöktü (stack
-    trace görünür) ama `$?` **0** (başarılı!) döndü — `pipefail`
-    açıkken AYNI komut doğru şekilde **127** (başarısız) döndü. Test
-    dosyası hemen kaldırıldı, temiz build + regresyon script'leriyle
-    doğrulandı. **Kalıcı disiplin:** bundan sonra build/test çıktısı
-    `tail`/`grep` gibi bir komuta yönlendirilecekse önce `set -o
-    pipefail` (veya exit code'u pipe'tan ÖNCE ayrıca `; echo $?` ile
-    kontrol etmek) kullanılmalı — yalnızca son komutun durumuna
-    güvenilmemeli.
-    **İleriye dönük not:** Cloudflare Pages'e henüz bir build komutu
-    YAPILANDIRILMADI (site henüz deploy edilmedi). Deploy ayarlarında
-    build komutu girilirken, komut bir pipe içeriyorsa exit code'un
-    gerçek build sonucunu yansıttığından emin olunmalı (`pipefail` ile) —
-    aksi halde başarısız bir build Cloudflare tarafından "başarılı"
-    sanılıp eski/bozuk bir sürüm sessizce yayında kalabilir.
-    **Ek bulgu (aynı gün, `pipefail` disiplinini gerçekten uygulayınca
-    ortaya çıktı):** projenin 8 kalıcı `check-*.mjs` script'i hepsi AYNI
-    kalıbı izliyor — `process.exit(0)` sıfır sorunda, `process.exit(1)`
-    HERHANGİ bir sorun bulunursa (bilinen/kabul edilmiş bir açık nokta
-    olsa BİLE). Şu an yalnızca `check-heading-hierarchy.mjs` **exit 1**
-    veriyor — Açık nokta #36'daki 5 bilinen "ana sayfa H1→H3" sorunu
-    yüzünden (YENİ bir regresyon DEĞİL, sayı değişmedi). Bu script'i bu
-    konuşma boyunca hep `| tail -N` ile çalıştırıp yalnızca İÇERİĞE
-    bakıldığı için exit code'un aslında sürekli 1 olduğu hiç fark
-    edilmemişti — tam da yukarıdaki pipefail dersinin somut kanıtı.
-    **Sonuç/hatırlatma:** bu script'ler ileride bir CI gate'i olarak
-    kullanılacaksa, `check-heading-hierarchy.mjs` Açık nokta #36
-    kapanana kadar gate'i KIRACAK — ya #36 önce kapatılmalı ya da gate
-    mantığı bu bilinen istisnayı hesaba katmalı.
-51. **TAMAMLANDI (2026-08-31) — "Canlı dashboard" widget'ı (`ProductPreviewWidget.tsx`)
-    site locale'ine göre dil değiştiriyor artık (Tier 1: yapısal arayüz
-    metni), + aynı dosyadaki mobil "tek parça" düzeltmesiyle birlikte
-    commit edildi.** Kullanıcı isteği: "anasayfada dil değişimi yapınca
-    dashboardın da dilinin değişmesi lazım". Widget 2753 satır, 30+
-    kurgusal veri sabiti taşıyor (her biri içine gömülü Türkçe etiketli,
-    ör. `{ label: 'İşe Giren', value: '42' }`) — TAMAMININ çevrilmesi
-    çok büyük bir iş olduğundan kullanıcı onayıyla İKİ AŞAMAYA bölündü:
-    **Tier 1 (bu turda YAPILDI)** — sekme adları, header panel
-    başlıkları/aria-label'ları, arama placeholder'ı, görünürlük/avatar/
-    bildirim/görev menü öğeleri gibi yapısal arayüz metni; **Tier 2
-    (BİLİNÇLİ ERTELENDİ)** — her sekmenin kart içeriğindeki kurgusal
-    veri etiketleri, şimdilik TÜM locale'lerde Türkçe kalıyor. **Dil
-    kapsamı:** önce TR+EN (kullanıcı seçimi "Önce TR+EN, sonra
-    kademeli"), NL/IT/AZ ayrı bir turda eklenecek. **Mimari:**
-    `src/data/productPreviewWidgetLabels.ts` (YENİ dosya) —
-    `ProductPreviewWidgetLabels` arayüzü + `tr`/`en` implementasyonları,
-    `getProductPreviewWidgetLabels(locale)` eksik locale için `tr`'ye
-    düşüyor. `Partial<Record<Locale,X>>` KULLANILDI (KARAR 1'in "uydurma
-    çeviri yok" kuralı yüzünden `Record<Locale,X>` DEĞİL — TypeScript
-    nl/it/az'ı da doldurmaya ZORLARDI). `ProductPreviewWidget.tsx`'e
-    `locale: Locale` prop'u eklendi, mevcut `ThemeContext`/`useTheme()`
-    kalıbı mirror edilerek yeni `LabelsContext`/`useLabels()` eklendi
-    (59 alt bileşen boyunca prop-drilling'den kaçınmak için), modül
-    seviyesi `TABS` sabiti `buildTabs(labels)` fonksiyonuna çevrildi.
-    `HeroSection.astro`'da `<ProductPreviewWidget client:visible
-    locale={locale} />` (zaten scope'ta olan `locale` değişkeni
-    yeniden kullanıldı). Kişi adları ("Deniz Aydın"), marka adı
-    ("HRTECHTOOLS"), kasıtlı İngilizce slogan ("LATER IS NEVER") ve
-    dil seçicinin 11 dilinin isimleri (dekoratif, Tier 1 kapsamı
-    dışı) ÇEVRİLMEDİ. **Doğrulama:** `astro check` 0 hata, `astro
-    build` 3096 sayfa temiz, 8 regresyon script'inden 6'sı temiz;
-    `check-heading-hierarchy` (5, bilinen #36) ve
-    `check-html-lang-attribute` (196, bkz. Açık nokta #52) hataları bu
-    turdan ÖNCE de aynen vardı — `git stash` ile doğrulandı, bu turun
-    değişikliğiyle İLGİSİZ. Chrome'da görsel doğrulama: TR anasayfa
-    değişmedi, `/en/` sayfasında sekme adları/placeholder/avatar
-    menüsü/bildirimler/görünürlük ayarları İngilizce, Tier 2 veri
-    içeriği (grafik başlıkları, kişi adları) plana uygun şekilde
-    Türkçe kaldı; iframe-viewport tekniğiyle 387px mobil görünümde
-    yatay sekme çubuğu + İngilizce etiketler birlikte doğru çalıştı.
-    **GÜNCELLEME (2026-08-31, 2. tur) — Tier 1 NL/IT/AZ'a genişletildi,
-    TAMAMLANDI.** Kullanıcı isteği: "diğer diller içinde yap". Terminoloji
-    UYDURULMADI — `src/i18n/{nl,it,az}.ts`'in kendi nav/hero içeriğinde
-    ZATEN kullandığı gerçek modül adları birebir yeniden kullanıldı (ör.
-    NL "Verlofbeheer"/"Salarisadministratie", IT "Gestione Ferie e
-    Permessi"/"Buste Paga"/"Controllo Accessi" [site'ın kendi seçtiği
-    "Zaman Yönetimi" karşılığı], AZ "İcazə İdarəçiliyi"/"Əmək Haqqı");
-    `jobTitle` alanı IT/AZ'da o dildeki gerçek "İK Müdürü" ifadesiyle
-    (`it.ts`'in "Responsabile Risorse Umane", `az.ts`'in "İnsan
-    Resursları Müdiri" — ikisi de customer-story rolü olarak zaten
-    vardı) BİREBİR eşleşti. Karşılığı olmayan birkaç alan ("Veri
-    Analizi"/"Eğitim Akademisi") için KARAR 1'e uygun profesyonel çeviri
-    üretildi. **Doğrulama:** `astro check` 0 hata, `astro build` temiz,
-    8 regresyon script'i (yalnızca bilinen 5 H1→H3 taban çizgisi hariç)
-    sıfır yeni sorun, Chrome'da `/nl/`/`/it/`/`/az/` üzerinde sekme
-    adları + arama placeholder'ı + jobTitle doğrulandı.
-    **Kapsam netleştirmesi (Tier 2 için) — kullanıcı aynı turda "canlı
-    dashboard içindeki modüller de çevrilmeli" dedi, kapsam ölçüldü:**
-    Tier 2 önceden düşünülenden ÇOK daha büyük — ~30 modül-seviyesi
-    kurgusal veri sabiti (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/`HR_EVENTS`/
-    `PERFORMANCE_GOALS`/vb.) + render ağacına gömülü ~40 `WidgetCard`
-    title/subtitle gibi JSX metni — toplam tahmini 250-300 ayrı çevrilebilir
-    alan × 4 eksik dil (EN dahil, Tier 2 EN de ERTELENMİŞTİ) = ~1000-1200
-    string. Ayrıca ay/gün kısaltmaları (`Oca`/`Şub`/`Pzt`/`Sal` vb., 6
-    farklı sabitte tekrarlanıyor) için elle çeviri yerine `dates.ts`'teki
-    `BCP47_LOCALE` ile `Intl.DateTimeFormat(...,{month:'short'})` kullanımı
-    planlanıyor (uydurma riski yok, tarayıcının kendi ICU verisi).
-    Henüz KOD DEĞİŞİKLİĞİ yapılmadı — mimari + kapsam kullanıcıya
-    sunulup onay bekleniyor (bkz. bir sonraki tur).
-    **TUR 1 TAMAMLANDI (2026-08-31, 3. tur) — mimari kuruldu + "Zaman
-    Yönetimi" sekmesi 4 dilde (EN/NL/IT/AZ) çevrildi.** Kullanıcı "sekme
-    sekme, EN önce" seçeneğini onayladı. **Mimari:** `src/data/
-    productPreviewWidgetData.ts` (YENİ dosya) — her sekme için ayrı
-    `getXLabels(locale)` fonksiyonu (Tier 1'in TEK `ProductPreviewWidgetLabels`
-    şeklinden FARKLI olarak, her sekmenin kendi tipi var). Widget'taki
-    modül-seviyesi sabitler (`SHIFTS`/`BRANCHES`/`TIME_KPIS`/vb.) metin
-    alanlarından ARINDIRILIP yalnızca yapısal veriye (renk/sayı/ikon)
-    indirgendi, render'da İNDEKS SIRASIYLA çeviriyle birleştiriliyor.
-    Yeni `LocaleContext`/`useWidgetLocale()` eklendi (`LabelsContext`'in
-    YANINDA, onu DEĞİŞTİRMEDEN — Tier 1'in ~8 tüketicisinin şeklini
-    bozmamak için) — ham `locale`'i taşıyor, her sekme kendi `getXLabels
-    (locale)`'ini bu context'ten türetiyor. Ay/hafta günü kısaltmaları
-    (`MONTH_ABBREV`/`WEEKDAY_ABBREV`) `Intl.DateTimeFormat`'tan ÜRETİLDİ
-    (elle çeviri DEĞİL) — doğrulandı: tr çıktısı widget'ın ÖNCEDEN
-    hardcoded değerleriyle (Oca/Şub/.../Ara, Pzt/Sal/.../Paz) BİREBİR
-    aynı. `dates.ts`'in `BCP47_LOCALE`'i `export` edildi (ikinci bir
-    locale-kodu haritası İCAT EDİLMEDİ). "Detaya Git →" (TÜM sekmelerde
-    paylaşılan, `SectionMiniHeader`) Tier 2'ye DEĞİL, Tier 1'e
-    (`productPreviewWidgetLabels.ts`'in `detailsLinkText` alanı, 5 dilin
-    hepsi dolduruldu) eklendi. **Çevrilen içerik:** sekme başlığı ("Zaman"),
-    4 kart (Vardiya Devam Oranı/Fazla Mesai Özeti/Devam Takibi/Ortalama
-    Çalışma Saati) başlık+alt başlık, 5 vardiya adı, 4 şube adı (İzin
-    Yönetimi sekmesi de AYNI diziyi bir sonraki turda yeniden kullanacak),
-    3 KPI alt metni, 4+4 mini istatistik/lejant etiketi, saat kısaltması
-    (`hourAbbrev`: EN "h"/NL "u"/IT "h"/AZ "saat" — AZ'de tek harfli
-    yaygın kısaltma OLMADIĞI için tam kelime kullanıldı, belirsizliğe
-    yol açmasın diye). **Doğrulama:** `astro check` 0 hata (395 dosya),
-    `astro build` temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
-    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
-    TAMAMINDA Zaman Yönetimi sekmesi tek tek açılıp KPI kartları/mini
-    istatistikler/Devam Takibi/Ortalama Çalışma Saati/Vardiya Devam
-    Oranı/Fazla Mesai Özeti görsel olarak doğrulandı (ay/gün
-    kısaltmaları, saat birimleri, şube/vardiya adları dahil). **Kalan
-    sekmeler (henüz BAŞLANMADI, sıradaki turlar):** İzin Yönetimi →
-    İnsan Kaynakları → Performans Yönetimi → Veri Analizi + paylaşılan
-    panel metinleri (kullanıcı onaylı sıra).
-52. **KAPANDI (2026-08-31) — `check-html-lang-attribute.mjs`'in 196
-    "sorunlu sayfa" raporu GERÇEK bir site regresyonu DEĞİLDİ, script'in
-    kendi bug'ıydı; kök neden bulunup düzeltildi.** (İlk kayıtta "yalnızca
-    nl, 196 sayfa, henüz araştırılmadı" yazılmıştı — bu YANLIŞTI, örnekler
-    `tail`'in son 20 satırına rastladığı için yalnızca nl görünüyordu;
-    gerçekte 4 locale'in TAMAMI etkileniyordu: 46 az + 56 en + 52 it + 42
-    nl.) **Kök neden:** `expectedLocaleFor()` beklenen locale'i, `DIST_DIR`
-    (varsayılan `'dist'`) köküne göre relatif yolun İLK segmentinden
-    (`parts[0]`) çıkarıyordu. `output:'static'` döneminde bu doğruydu
-    (`dist/<locale>/...`). Ama commit `b73428a`'nın (2026-08-28, "Migrate
-    to output:server + Cloudflare adapter") `output:'server'`'a geçişiyle
-    `@astrojs/cloudflare` adapter'ı TÜM statik çıktıyı `dist/client/`
-    altına sarmaya başladı — artık her sayfanın yolu `client/<locale>/...`
-    ile başlıyor, `parts[0]` HER ZAMAN `"client"` (asla `VALID_LOCALES`
-    içinde değil), fonksiyon her sayfa için `'tr'`'ye düşüyordu. Bulunan
-    değerler (`"az"`/`"en"`/`"it"`/`"nl"`) her zaman DOĞRUYDU — canlı
-    dosyalardan doğrudan doğrulandı (`grep '<html lang' dist/client/
-    {nl,en,az,it}/.../index.html`) — yalnızca yanlış bir "beklenen" ile
-    karşılaştırılıyordu. **Ne zaman başladı:** commit `b73428a`
-    (2026-08-28 17:30:34 +0300). **Neden günlerce fark edilmedi:** Açık
-    nokta #50'deki aynı alışkanlık — script'in ÖZET satırı hep doğru
-    sayıyı veriyordu ama doğrulama turlarında `tail`/göz atma ile
-    okunduğu için kaçırıldı; ilk yanlış "sıfır yeni regresyon" iddiası
-    2026-08-29 tarihli (Destek/Teşekkürler sayfası) turda görülüyor.
-    İlginç not: proje bu `dist/client/` değişikliğini BİR KEZ zaten
-    keşfetmişti — `scripts/audit-remote-hotlinks.mjs` (2026-08-30, hotlink
-    denetimi) kendi başında `DIST_DIR=dist/client` çağrı kalıbını
-    belgeliyordu, ama bu düzeltme `check-html-lang-attribute.mjs`'e geri
-    uygulanmamıştı. **Düzeltme (uygulandı):** `check-html-lang-attribute.mjs`'te
-    `DIST_DIR` varsayılanı `'dist'` yerine `'dist/client'` yapıldı (tek
-    satır, `audit-remote-hotlinks.mjs`'teki emsalin birebir aynısı) — bu
-    otomatik olarak `dist/server/`'ı (SSR worker kodu, HTML sayfası değil)
-    taramadan da hariç bırakıyor. **Kapsam kontrolü:** diğer 7
-    `check-*.mjs` script'i relatif yolu YALNIZCA raporlamada (hangi
-    dosyada sorun var) kullanıyor, locale'e bağlı bir "beklenen değer"
-    hesaplamıyor — bu yüzden mantıkları etkilenmedi, DOKUNULMADI (bkz.
-    Açık nokta #53'teki TEK istisna). **Doğrulama:** düzeltme sonrası
-    script 0 sorunlu sayfa raporladı (exit 0); script'in gerçek bir
-    sorunu hâlâ yakaladığını kanıtlamak için `dist/client/en/about/
-    index.html`'e kasıtlı bozuk `lang="xx-BROKEN"` enjekte edilip script
-    tekrar çalıştırıldı — 1 sorun + exit 1 doğru şekilde raporlandı,
-    test değişikliği hemen geri alındı (Açık nokta #50'deki disiplinin
-    aynısı). Diğer 7 regresyon script'i + `astro check`/`astro build`
-    yeniden çalıştırılıp bu değişiklikten etkilenmedikleri doğrulandı.
-53. **YENİ, DORMANT/ETKİSİZ (2026-08-31) — `check-hreflang.mjs`'de
-    AYNI KÖKENLİ bir bug pusuda bekliyor, Faz 2'de hreflang aktifleşince
-    patlayacak.** Açık nokta #52'nin araştırması sırasında bulundu.
-    `check-hreflang.mjs`'in `hrefToDistRelPath()`'i hreflang `<link>`
-    etiketlerinin `href` URL'sini (`new URL(href).pathname`, ör.
-    `nl/over/index.html`) sayfanın KENDİ disk-relatif yoluyla (`rel`,
-    `DIST_DIR='dist'` köküne göre — düzeltilmezse `client/nl/over/
-    index.html`) karşılaştırıyor/`Map`'te arıyor (`pages.get(targetRel)`,
-    satır 87). Bu ikisi `client/` önekiyle ASLA eşleşmeyecek — Faz 2'de
-    `astro.config.mjs`'in `site` alanı doldurulup hreflang üretilmeye
-    başlandığı AN, bu script'in "kendi kendine referans eksik" +
-    "geçersiz hedefe işaret ediyor (dosya bulunamadı)" bulguları HER
-    hreflang'lı sayfa için sahte şekilde patlayacak (`check-html-
-    attribute.mjs`'in düzeltilmeden önceki haliyle birebir aynı hata
-    sınıfı). **Şu an ETKİSİZ** çünkü `pagesWithHreflang === 0` erken
-    çıkışı (satır 121-129) bu mantığa hiç girmiyor — `check-hreflang`
-    hâlâ 0 ile çıkıyor, kod değişikliği bu turda YAPILMADI (kullanıcı
-    onayı yalnızca `check-html-lang-attribute.mjs`'i kapsıyordu).
-    **Aksiyon:** Faz 2'de `site` alanı doldurulmadan HEMEN ÖNCE (veya
-    o turun bir parçası olarak) `check-hreflang.mjs`'e de aynı
-    `DIST_DIR ?? 'dist/client'` düzeltmesi uygulanmalı — aksi halde
-    Faz 2 doğrulama turu, gerçekte doğru olan hreflang çıktısını
-    yüzlerce sahte hatayla raporlayacak.
-54. **KRİTİK BULGU + DÜZELTİLDİ (2026-08-31, 4. tur) — `Intl.DateTimeFormat`/
-    `Intl.NumberFormat`'a runtime'da güvenmek GÜVENSİZ çıktı, `az-AZ`
-    locale'i için hem SUNUCU/TARAYICI ARASI hem de TARAYICI İÇİ tutarsız
-    sonuç veriyordu; tüm locale'ler için sabit/doğrulanmış tablolara
-    geçildi.** Açık nokta #51'in Tier 2 mimarisinde (ay/hafta günü
-    kısaltmaları için) `Intl` kullanma kararı verilmişti ("uydurma riski
-    yok" gerekçesiyle) — bu YANLIŞ çıktı. **Kanıt:** İzin Yönetimi
-    sekmesi Chrome'da doğrulanırken AZ'de "Aylıq İcazə Trendi" grafiğinin
-    ay eksen etiketleri "M03/M04/.../M08" (jenerik ICU fallback) olarak
-    göründü, "Nəfər başına orta" değerleri "2.1" (nokta, virgül DEĞİL)
-    çıktı. `javascript_tool` ile tarayıcı konsolunda doğrudan test
-    edildi: `Intl.DateTimeFormat('az-AZ',{month:'short'}).format(...)`
-    hem KISA hem UZUN ay formatında "M01".."M12" veriyor (locale doğru
-    çözülüyor — `resolvedOptions().locale === 'az-AZ'` — ama stil verisi
-    ICU'da YOK), `Intl.NumberFormat('az-AZ',...)` ondalık ayracı "."
-    veriyor (virgül değil). tr/en/nl/it AYNI tarayıcıda sorunsuzdu — bu
-    yalnızca `az`'a özgü bir ICU/CLDR kapsam boşluğu. **İlginç ikinci
-    katman:** `dist/client/az/...` (build/Node ICU) çıktısı DOĞRUYDU
-    (`grep`'te "M03" hiç bulunamadı) — yalnızca tarayıcıda hydration
-    SONRASI (client-side JS, widget `client:visible`) bozuluyordu, yani
-    SSR HTML ile hydrate edilmiş DOM arasında bir tutarsızlık da vardı.
-    **Düzeltme:** `productPreviewWidgetData.ts`'teki `MONTH_ABBREV`/
-    `WEEKDAY_ABBREV`/`formatDecimal()` artık HİÇBİR runtime `Intl`
-    çağrısı yapmıyor — Node'un tam ICU'suyla üretilip doğrulanmış gerçek
-    değerler (uydurma DEĞİL, gerçek CLDR takvim/sayı verisi, `node -e`
-    ile ayrıca doğrulandı) sabit tablo olarak koda gömüldü; az hafta
-    kısaltmaları gerçek Azerbaycan takvim formatını (B.e/Ç.a/Ç/C.a/C/
-    Ş/B) kullanıyor. **Doğrulama:** düzeltme sonrası tüm 5 locale
-    yeniden build edilip Chrome'da (özellikle AZ, hydration sonrası
-    sekme tıklamasıyla) tekrar test edildi — "mar apr may iyn iyl avq"
-    + "2,1 gün" doğru çıktı; tr/en/nl/it etkilenmedi (aynı doğrulanmış
-    değerler, yalnızca kaynak `Intl`'den sabit tabloya taşındı).
-    **⚠️ İleriye dönük not:** `dates.ts`'in `formatLocalizedDate()`'i
-    (SİTE GENELİNDE blog tarihleri/"Son Güncelleme" için kullanılıyor)
-    HÂLÂ `Intl.DateTimeFormat(...,{month:'long'})`'a dayanıyor — tarayıcı
-    konsolunda `az-AZ` UZUN ay formatının da AYNI şekilde bozuk olduğu
-    (`"M01".."M12"`) doğrulandı. Bu, bu turun kapsamı DIŞINDA (widget'a
-    özel değil, site geneli) ama gerçek bir risk — az sayfalarındaki
-    tarihler tarayıcıda yanlış görünüyor olabilir. Ayrı bir turda
-    incelenmeli/aynı "sabit tabloya geç" ilkesiyle düzeltilmeli.
-55. **TAMAMLANDI (2026-08-31, 4. tur) — "İzin Yönetimi" sekmesi 4 dilde
-    (EN/NL/IT/AZ) çevrildi (kullanıcı onaylı sıra: Zaman → İzin → İK →
-    Performans → Veri Analizi).** `productPreviewWidgetData.ts`'e
-    `getLeaveManagementLabels(locale)` eklendi (Zaman Yönetimi'yle AYNI
-    mimari desen). Şube isimleri (`Merkez/Teknopark/Anadolu/Avrupa Şube`)
-    Zaman Yönetimi'nin `getTimeManagementLabels(locale).branches`'İNDEN
-    PAYLAŞILDI — ikinci bir isim seti İCAT EDİLMEDİ. "Kişi başı ortalama"
-    değerleri (`2,1 gün` vb.) sayıya çevrilip `formatDecimal()` + `dayUnit`
-    ile birleştiriliyor. Çevrilen: sekme başlığı, 6 kart başlık/alt
-    başlık, 4 KPI etiketi, 2 izin türü, 3 onay durumu, "gün" birimi,
-    boş-durum metni ("İzin çakışması verisi yok"), dekoratif "Şube"
-    rozeti. **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
-    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
-    sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İzin Yönetimi sekmesi
-    (tüm 6 kart + şube paylaşımı + ondalık format) görsel doğrulandı —
-    bu doğrulama sırasında #54'teki kritik `Intl`/az bulgusu ortaya
-    çıktı ve AYNI turda düzeltildi.
-56. **TAMAMLANDI (2026-08-31, 5. tur) — "İnsan Kaynakları" sekmesi 4
-    dilde (EN/NL/IT/AZ) çevrildi.** `getHumanResourcesLabels(locale)`
-    eklendi (Zaman/İzin Yönetimi'yle AYNI mimari). `HEADCOUNT_MONTHS`/
-    `TURNOVER_MONTHS` ay-adı dizilerinden `monthIndex` dizilerine
-    çevrildi (`MONTH_ABBREV[locale][mi]` — #54'ün SABİT tablosunu
-    kullanıyor). `CALENDAR_WEEKDAYS` sabiti tamamen KALDIRILDI —
-    `WEEKDAY_ABBREV[locale].toUpperCase()` ile TÜRETİLİYOR (hiçbir
-    dilin kısaltmasında küçük "i" harfi olmadığı doğrulandığı için
-    Türkçe büyütme bug'ı riski YOK). `PROBATION_TRACKING`/
-    `CONTRACT_TRACKING` sayı+birim olarak ayrıştırıldı (`primaryValue`/
-    `primaryUnit`/`secondaryDays`), `monthUnit`/`yearUnit`/`dayUnit`
-    ile render'da birleştiriliyor. `HR_EVENTS`'in kişi adları
-    ÇEVRİLMEDİ (özel isim), yalnızca `description` ("Doğum Günü —
-    Bugün!" vb.). **Gramer düzeltmesi (Chrome doğrulamasında
-    yakalandı):** İlk yazımda `monthUnit` EN "Month"/NL "Maand"/IT
-    "Mese" TEKİL'di — ama `PROBATION_TRACKING`'te bu birim yalnızca
-    2/6 (>1) değerleriyle kullanılıyor, "2 Month" gibi dilbilgisel
-    olarak yanlış bir çıktı verdi. TR/AZ'da (Türkçe/Azerice sayı+isim
-    yapısında çoğul eki gerekmez) sorun YOKTU. EN "Months"/NL
-    "Maanden"/IT "Mesi" (çoğul) olarak düzeltildi — `yearUnit`
-    değişmedi (yalnızca 1 değeriyle kullanılıyor, zaten tekil doğru).
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8
-    regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
-    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA İnsan Kaynakları
-    sekmesi (7 kart: Headcount/Doğum Günü/Çalışan Devir/Onay Bekleyen/
-    Takvim/Deneme Süresi/Sözleşme) görsel doğrulandı — IT/AZ için
-    widget'ın kendi `AUTO_TAB_INTERVAL_MS` (6sn) otomatik sekme
-    döngüsü ekran görüntüsü almayı zorlaştırdığından, doğrulama
-    `javascript_tool` ile doğrudan DOM metni okunarak (`innerText`)
-    yapıldı — aynı derecede güvenilir, ekran görüntüsüne muhtaç değil.
-    **Kalan sekmeler:** Performans Yönetimi → Veri Analizi + paylaşılan
-    panel metinleri (sıradaki turlar).
-57. **TAMAMLANDI (2026-09-01, 6. tur) — "Performans Yönetimi" sekmesi 4
-    dilde (EN/NL/IT/AZ) çevrildi.** `getPerformanceManagementLabels(locale)`
-    eklendi (önceki sekmelerle AYNI mimari — yapısal veri `PERFORMANCE_KPI_STATS`/
-    `PERFORMANCE_GOALS_STRUCTURE`/`GOAL_KEY_RESULTS_STRUCTURE`'da kaldı,
-    render'da İNDEKS SIRASIYLA `t.kpiStats`/`t.goals`/`t.keyResults`'la
-    birleştiriliyor). Yeni genel yardımcı `formatPercent(value, locale)`
-    eklendi (`productPreviewWidgetData.ts`) — tr/az "%29", en/nl/it "29%"
-    (2026-08-31'in `kpiSubtext` emsalinin genellenmiş hali). Çevrilen:
-    4 KPI kartı, 4 hedef (OKR) satırı (ad/kapsam/kategori/durum — "Sales"/
-    "Marketing" kategorileri TR kaynakta da İngilizce olduğu için ÇEVRİLMEDİ,
-    bilinçli), "anahtar sonuç" birimi, 2 Anahtar Sonuç satırı (ad/son
-    check-in/durum/güncel-başlangıç-hedef değerleri — para birimi ₺ TÜM
-    locale'lerde AYNI kaldı, kurgusal şirket Türkiye merkezli), "Son
-    check-in:"/"Güncel:"/"Takvime göre beklenen"/"planın önünde"/"planın
-    gerisinde" önekleri. **Yan bulgu, AYNI turda düzeltildi:**
-    `GoalProgressRing`'in halka içi yüzde metni (`%{percent}`) hardcoded
-    TR biçimindeydi, locale'den bağımsızdı — `formatPercent()`'e
-    çevrildi (artık EN/NL/IT'de "31%", TR/AZ'da "%31" gösteriyor).
-    **Kapsam dışı bırakılan, AYRI bir bulgu olarak kaydedildi:** İnsan
-    Kaynakları sekmesindeki `TURNOVER_STATS`'ın "%18.4" değeri (madde 56)
-    AYNI hardcoded-TR-biçim sorununu taşıyor ama bu turun kapsamı
-    DIŞINDA (önceden tamamlanmış/onaylanmış bir sekme) — düzeltilmedi,
-    istenirse ayrı bir mikro-tur olarak ele alınabilir.
-    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
-    8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır
-    yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Performans Yönetimi
-    sekmesi (4 KPI kartı + 4 hedef satırı + 2 Anahtar Sonuç satırı)
-    görsel doğrulandı. **Teknik not (yeni bilgi, ileriki turlar için
-    yararlı):** widget'ın sekme butonlarına JS'ten `.click()`/
-    `dispatchEvent(...)` ile PROGRAMATIK tıklama bu ortamda ÇALIŞMIYOR
-    (React'in tıklamayı işlememesi — hem TR hem EN'de doğrulandı, sekmeye
-    özgü değil, genel bir kısıt). Gerçek/güvenilir yöntem: `computer`
-    aracıyla GERÇEK fare tıklaması (OS-seviyesi sentetik olay) + tıklama
-    SONRASI screenshot'ı MÜMKÜN OLDUĞUNCA hızlı almak (widget'ın kendi
-    `AUTO_TAB_INTERVAL_MS`=6sn otomatik döngüsü, ardışık tool-call
-    round-trip'leri arasında geçen süre 6sn'yi aşarsa sekmeyi tekrar
-    ileri kaydırabilir).
-    **Kalan sekmeler:** Veri Analizi + paylaşılan panel metinleri
-    (sıradaki turlar).
-58. **TAMAMLANDI (2026-09-01, 7. tur) — "Veri Analizi" sekmesi 4 dilde
-    (EN/NL/IT/AZ) çevrildi — widget'ın 5 FONKSİYONEL sekmesinin TAMAMI
-    artık 5 dilde.** `getDataAnalysisLabels(locale)` eklendi (önceki
-    sekmelerle AYNI mimari — yapısal veri `DEPARTMENT_ABSENTEEISM_STRUCTURE`/
-    `DAILY_MOVEMENTS_STRUCTURE`/`ACTIVE_EMPLOYEE_TREND_WEEKS_STRUCTURE`'da
-    kaldı, render'da İNDEKS SIRASIYLA `t.departments`/`t.dailyMovements`
-    ile birleştiriliyor). Ay/gün etiketleri (Temmuz-Ağustos haftaları,
-    Ocak-Haziran trend ayları, 12-18 Ağustos günleri) ARTIK sabit dizi
-    DEĞİL — `{day, monthIndex}` yapısal çiftinden `MONTH_ABBREV[locale]`
-    ile TÜRETİLİYOR (Zaman/İzin/İK sekmelerinin AYNI ilkesi, #54'ün
-    sabit-tablo kuralına uyuyor — runtime `Intl` YOK). Çevrilen: "Tarih
-    Aralığı"/"Verileri Hesapla" (2 kullanım yeri), 6 departman adı (İK/
-    Satış/Operasyon/Finans/Üretim/Destek), "Departman Bazlı Devamsızlık
-    Oranı"/"Aylık Devamsızlık Trendi"/"Aktif Çalışan Sayısı Trendi"
-    (+"Haftalık"/"Aylık" rozetleri), 4 mini-hareket etiketi (Gelenler/
-    Geç Gelenler/Erken Çıkanlar/Devamsızlık — Zaman Yönetimi'nin
-    `miniStats`inden BİLİNÇLİ olarak FARKLI kelimeler, TR kaynağın kendi
-    ayrımı korundu), "Çalışan Gelenler/Geç Gelenler Sayısı" + "12–18
-    Ağustos 2026" tarih aralığı metni (tek literal string, tam ay adı
-    gerektirdiği için `MONTH_ABBREV`'den türetilmedi). Tarih SAYILARI
-    (`01.01.2026` gibi) ve para birimi/departman ROZET renkleri TÜM
-    locale'lerde AYNI kaldı (mockup verisi, önceki sekmelerin ilkesiyle
-    tutarlı). **Doğrulama:** `astro check` 0 hata, `astro build` 3097
-    sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban çizgisi
-    hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın TAMAMINDA Veri
-    Analizi sekmesinin HEM üst (Tarih Aralığı/Departman/Trend) HEM alt
-    (mini-hareketler/Gelenler/Geç Gelenler tam grafikleri) bölümleri
-    görsel doğrulandı. **Kalan iş:** yalnızca paylaşılan panel metinleri
-    (header'daki Kısayollar/Bildirimler/HRTECHTOOLS gibi Tier 2 dışı
-    kalan parçalar, bkz. Açık nokta #51'in orijinal kapsam notu) — widget
-    çevirisinin son adımı.
-59. **TAMAMLANDI (2026-09-01, 8. tur) — Paylaşılan üst header panelleri
-    4 dilde (EN/NL/IT/AZ) çevrildi — `ProductPreviewWidget.tsx`'in TÜM
-    çeviri işi bitti.** Panel BAŞLIKLARI (`labels.shortcuts.title` vb.)
-    zaten Tier 1'de çevrilmişti — bu turda yalnızca panel İÇERİĞİ
-    çevrildi: `getSharedPanelLabels(locale)` eklendi
-    (`productPreviewWidgetData.ts`). Çevrilen: "Kısayollar" panelinin 6
-    kısayolu (Çalışan Oluştur/İzin Oluştur/Rapor Oluştur/Mesaj Gönder/
-    Günlük Puantaj/Vardiya Takvimi), "Görevler" (2. zil) panelinin 3
-    bekleyen görev metni, "Bugünün Özeti" (Analiz ikonu) panelinin 3
-    satır etiketi + "Ortalama Çalışma Süresi" değerinin saat/dakika
-    biçimi (tr "7s 42dk" / en "7h 42m" / nl "7u 42m" / it "7h 42min" /
-    az "7 saat 42 dəq" — sabit sayı "7"/"42", yalnızca birim gösterimi
-    dile göre değişiyor), "Dil Seçin" panelinin 11 dil adı (dekoratif
-    dil listesi — Türkçe/İngilizce/Almanca/... her locale'de kendi
-    dilinde: `Turkish/English/German/...`, `Turks/Engels/Duits/...`,
-    `Turco/Inglese/Tedesco/...`, `Türk/İngilis/Alman/...`).
-    **HRTECHTOOLS paneli + dil seçicideki dil isimlerinin KENDİLERİ
-    (bayrak/kod listesi) bilinçli olarak ÇEVRİLMEDİ** — marka adları
-    (HiringOz/DataAssist/Anzera/vb.) gerçek üçüncü taraf ürün adları,
-    "Sales"/"Marketing" kategorileri gibi (madde 57) İngilizce kalması
-    doğal. **Yan bulgu, AYNI turda düzeltildi:** Dil Seçin panelindeki
-    "aktif" onay işareti önceden `lang.code === 'TR'` diye SABİTTİ —
-    widget'ın geri kalanı artık gerçek `locale` prop'una duyarlı
-    olduğundan, bu sabitlik (EN sayfasında "Türkçe ✓" görünmesi gibi)
-    tutarsız hale gelmişti. `LOCALE_TO_LANGUAGE_LIST_CODE` haritasıyla
-    artık gerçek widget locale'ine göre doğru dil işaretleniyor (EN
-    sayfasında "English ✓", vb.) — gerçek `LanguageSwitcher.tsx`'in
-    davranışıyla tutarlı. **Doğrulama:** `astro check` 0 hata, `astro
-    build` 3097 sayfa temiz, 8 regresyon script'i (bilinen 5 H1→H3 taban
-    çizgisi hariç) sıfır yeni sorun, Chrome'da TR/EN/NL/IT/AZ'ın
-    TAMAMINDA Kısayollar/Görevler/Bugünün Özeti/Dil Seçin panelleri
-    (aktif dil işareti dahil) tek tek açılıp görsel doğrulandı.
-    **Sonuç: widget'ın TÜM içeriği (5 fonksiyonel sekme + paylaşılan
-    header panelleri) artık 5 dilde** — bkz. `widget-i18n-progress.md`
-    memory'sinin kapanış notu.
-60. **KAPANDI (2026-09-01) — Duyuru barı (marquee) artık idenfit.com'daki
-    GİBİ yalnızca sayfanın EN ÜSTÜNDEYKEN görünüyor.** Kullanıcı bulgusu:
-    önceki davranış scroll YÖNÜNE göreydi (aşağı kaydırınca gizlenip
-    yukarı kaydırınca — sayfanın ortasında bile olsa — geri geliyordu),
-    canlı sitede ise bar yalnızca `scrollY === 0` iken görünüyor, en ufak
-    bir aşağı kaydırmada kayboluyor ve YUKARI kaydırmakla GERİ GELMİYOR
-    (yalnızca sayfanın gerçek en üstüne dönünce). `src/scripts/marquee-scroll.js`
-    sadeleştirildi: `lastY`/`THRESHOLD`/yön karşılaştırması tamamen
-    kaldırıldı, tek kural `setHidden(window.scrollY > 0)`. Mevcut
-    debounce/dedupe altyapısı (`isHidden` state kontrolü,
-    `MIN_TOGGLE_INTERVAL_MS`=250ms, `grid-template-rows` geçiş tekniği)
-    AYNEN korundu — 2026-07-31'de bulunup düzeltilen asıl jank kaynağı
-    (`<header>`'ın `backdrop-blur`'ü) zaten kalıcı olarak kaldırılmıştı,
-    bu turda yalnızca GÖSTERME KURALI değişti. `astro build` temiz, 7
-    regresyon script'i (JSON-LD hariç, ilgisiz — saf JS davranış
-    değişikliği, HTML/içerik dokunulmadı) sıfır yeni sorun, Chrome'da
-    doğrulandı: sayfanın en üstünde görünür → 1 tık aşağı kaydırınca
-    kayboluyor → yukarı kaydırılıp sayfanın ortasında durulsa bile
-    GİZLİ kalıyor → yalnızca gerçek en üste dönülünce geri geliyor.
-61. **KAPANDI (2026-09-01) — İki İK hub sayfasının (İnsan Kaynakları
-    Modülleri + İşgücü Yönetimi) hero görseli eksikti, kullanıcı
-    WhatsApp'tan paylaştığı ekran görüntüsüyle fark etti.** Kök neden:
-    `hero.image` alanı ham `hubs.json`'da HER ZAMAN vardı ama
-    `hubContent.ts`'in `getHubContent()`'i hiçbir zaman aktarmıyordu —
-    `HubBlock` tipinde `image` alanı hiç YOKTU — `HubPage.astro`'nun hero
-    grid'i de (`lg:grid-cols-2`) buna rağmen ikinci sütunu hiç
-    doldurmuyordu (`ProductPage.astro`'nun aynı grid'inin YANINDA,
-    resim bloğu unutulmuş bir kopyası). **Uygulama:** `HubBlock`'a
-    `image: {url,alt,width,height}|null` eklendi; yeni `getHeroImage(trSlug)`
-    yardımcı fonksiyonu HER ZAMAN TR taban girdisinden okuyor (görsel
-    dile göre değişmiyor, ham veride tr/en/it üçü de AYNI URL'i
-    kullanıyor — doğrulandı) — bu yüzden `HUB_OVERRIDES`/`HUB_OVERRIDES_AZ`'ın
-    metin-odaklı hero bloklarına EKLENMEDİ, tipleri `Omit<HubBlock,'image'>`
-    oldu. `HubPage.astro`'ya `ProductPage.astro` ile BİREBİR aynı hero
-    görsel bloğu (`loading="eager"`, `rounded-2xl object-cover`) + `image`
-    prop'u `BaseLayout`'a (OG) eklendi. **Görsel bağımlılık kuralı**
-    (2026-08-30) gereği idenfit.com'a hotlink YAPILMADI — 2 görsel
-    (`workforce-banner-en@2x.png` 1453×795, `hr-banner-en@2x.webp`
-    1122×905) indirilip magic-byte doğrulamasıyla `public/wp-content/uploads/`
-    altına yerleştirildi, `hubContent.ts`'te göreliye çevrildi.
-    **Doğrulama:** `astro check` 0 hata, `astro build` 3097 sayfa temiz,
-    7 regresyon script'i (bilinen 5 H1→H3 taban çizgisi hariç) sıfır yeni
-    sorun, `audit-remote-hotlinks.mjs`'de bu 2 dosya ARTIK listede yok
-    (yerelleştirme doğrulandı), Chrome'da TR/EN/AZ'ın ÜÇÜNDE de HEM
-    İşgücü Yönetimi HEM İnsan Kaynakları Modülleri hub'ında görsel doğru
-    render edildi doğrulandı (tek component değişikliği iki hub'ı da
-    kapsadı). **Kapsam dışı bırakılan (kasıtlı, ayrı bir bulgu — Açık
-    nokta #45'in parçası):** her iki hub'ın tile kartlarındaki görseller
-    hâlâ hotlink (7+16 referans, `audit-remote-hotlinks.mjs` çıktısında
-    görünüyor) — bu turun kapsamı yalnızca HERO görseliydi, tile
-    görselleri #45'in bekleyen genel temizliğinde ele alınacak.
-    **Aynı gün, ek tur — kullanıcı `alt` metninin gerçek/anlamlı olup
-    olmadığını sordu, DOĞRULANDI + DÜZELTİLDİ.** Ham veride her iki
-    görselin `alt`'ı dosya adından türetilmiş, anlamsızdı ("workforce
-    banner en@2x" / "hr banner en@2x") — sitenin GERİ KALANINDAKİ tüm
-    hero görselleri de aynı ham-geçiş kuralını izliyor (`hero.image.alt`
-    hiçbir yerde işlenmiyor), AMA `productTranslationOverrides.ts`'teki
-    ELLE-YAZILMIŞ override görselleri ("sistemi a tornello"/"leave
-    management" gibi) zaten gerçek/açıklayıcı, dile göre yazılmış alt
-    taşıyor — bu turda AYNI ilke uygulandı: her iki görsel TEKRAR
-    izlenip (workforce: laptop paneli + GPS/beacon/wifi/NFC/QR doğrulamalı
-    mobil PDKS uygulaması; HR: performans/mesajlaşma/masraf takibi mobil
-    ekranları) UYDURMA içerik EKLENMEDEN gerçek açıklama yazıldı, 4 dilde
-    (tr/en/it/az — NL hub sayfaları hiç render edilmiyor, EN'e
-    yönleniyor). Yeni `getHeroImage(trSlug, locale)` artık `locale`
-    parametresi alıyor, `HERO_IMAGE_ALT` haritasından okuyor. `astro
-    check` 0 hata, `astro build` temiz, 7 regresyon script'i sıfır yeni
-    sorun, `dist/client/**/index.html`'de 4 dilin hepsinde yeni `alt`
-    metni `grep` ile doğrulandı.
-62. **KAPANDI (2026-09-02) — Dil değiştiricide az/it için sistemik bir
-    404 bug'ı vardı, kullanıcı `/az/richiesta-supporto/`'nun 404
-    verdiğini bulunca ortaya çıktı, TÜM benzer sayfalar için düzeltildi.**
-    Kök neden: `Header.astro`'nun dil değiştiricisi, bir sayfanın
-    `localeUrls` prop'unda BİR locale hiç YOKSA (`Object.entries` o
-    anahtarı hiç üretmediği için, `undefined` bile değil, tamamen YOK),
-    `computeGenericLocaleUrls()`'in (`src/i18n/localeUrls.ts`) "aktif
-    path'in bare slug'ını yeni locale önekiyle birleştir" varsayımına
-    sessizce düşüyordu — bu, slug'ın locale'ler arasında GERÇEKTEN aynı
-    olmadığı sayfalarda (IT'nin "richiesta-supporto"su TR'nin
-    "destek-talebi"sinden FARKLI) anlamsız bir URL (`/az/richiesta-supporto/`)
-    üretip Astro'nun `az:'tr'` fallback'i üzerinden GERÇEK 404'e
-    düşüyordu. **Bu AYNI bug sınıfı, 2026-07-22'de NL için bulunup
-    yalnızca NL'de düzeltilmişti (bkz. `miscPagesContent.ts`'teki
-    `localeUrlsFor()` yorumu) — az eklendiğinde (2026-08-21) bu düzeltme
-    az'e GENİŞLETİLMEMİŞTİ.** Etkilenen TÜM fonksiyonlar taranıp (aynı
-    "az kapsam dışı" — Açık nokta #37 — sayfa ailesi) tek seferde
-    düzeltildi:
-    - `miscPagesContent.ts`'in paylaşılan `localeUrlsFor()`'u (KVKK/KVK
-      Protokol/Tüketici Hakları/Mesafeli Satış/Gizlilik ve Güvenlik
-      Politikası/Güvenlik'in TAMAMI bunu kullanıyor — tek düzeltme 6+
-      sayfayı kapsadı).
-    - `supportRequestContent.ts` → `getSupportRequestLocaleUrls()`
-      (Destek Talebi — kullanıcının bulduğu ORİJİNAL örnek).
-    - `thankYouContent.ts` → `getThankYouLocaleUrls()` (Online Sunum
-      Talebi'nin Teşekkürler sayfası).
-    - `faqContent.ts` → `getFaqLocaleUrls()` (SSS).
-    - `supportThankYouContent.ts` → `getSupportThankYouLocaleUrls()` —
-      buradaki eski yorum ("bare slug TR ile aynı olduğu için elle bir
-      şey gerekmez") YANLIŞTI: yalnızca TR sayfasından geçiliyorsa
-      doğruydu, EN sayfasından (`thank-you`) geçilirse aynı sınıf 404
-      geçerliydi — **az YANINDA IT için de** aynı düzeltme eklendi (bu
-      sayfanın `SLUGS` haritasında `it` hiç yoktu, aynı risk).
-    Düzeltme deseni HER YERDE aynı: `if (!result.az) result.az =
-    result.tr;` (döngüde zaten hesaplanmış bare TR URL'i doğrudan
-    kullanılıyor — `/az/<slug>/` üzerinden gereksiz bir redirect adımına
-    gerek yok, NL'nin `result.en`'e eşitlenmesiyle AYNI ilke).
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8 regresyon
-    script'i sıfır yeni sorun, `dist/client/it/**/index.html`'de
-    `LanguageSwitcher` props'unun `az` alanı `grep` ile tek tek
-    doğrulandı (`/guvenlik/`, `/sss/`, `/destek-talebi/` — hepsi bare TR),
-    Chrome'da GERÇEK tıklama testi yapıldı: IT Destek Talebi sayfasında
-    dil değiştiriciden "Azərbaycan"a tıklanınca artık `/destek-talebi/`'ne
-    (200, gerçek içerik) gidiyor — düzeltmeden ÖNCE bu aynı tıklama
-    `/az/richiesta-supporto/`'ya (404) giderdi. **Not:** kullanıcı aynı
-    mesajda "Hollanda dili de İngilizce veriliyor" da dedi — bu AYRI ve
-    KASITLI bir davranış (KARAR 2, `astro.config.mjs`'in `fallback:{nl:'en'}`'i
-    — kaynak WordPress sitesinde NL içeriği birçok sayfada hiç yok,
-    sessiz/bildirimsiz EN'e düşme bilinçli bir UX kararı) — bug OLARAK
-    ele alınmadı, kullanıcıya AÇIKLANDI.
-63. **KAPANDI (2026-09-02) — İşe Alım Modülü sayfası canlı siteyle
-    UYUMSUZDU, kök neden: canlı TR/EN/IT tamamen Hiringoz'a yeniden
-    markalanmış, IT/EN'in gerçek çevirisi ilk kez eklenmiş, ama bizim
-    override'ımız hâlâ ESKİ/genel "ATS" içeriğini taşıyordu (NL de
-    kaynakta hiç yoktu).** Kullanıcı canlı (`idenfit.com/ise-alim-modulu/`)
-    ile local'i (`localhost:4321/ise-alim-modulu/`) yan yana verip
-    "uyumlu değil" dedi. Canlı siteyi ziyaret edince tüm sayfanın
-    (hero+5 bölüm+6 SSS) baştan yazıldığı görüldü — artık idenfit'in
-    "Hiringoz" adlı bir kardeş ürününe (AI destekli işe alım/ATS asistanı)
-    atıfta bulunuyor; bu ürünün gerçekliği zaten `ProductPreviewWidget.tsx`'in
-    `HRTECHTOOLS` panelindeki `HIRINGOZ` girdisinden BİLİNİYORDU (Açık
-    nokta #59'un dokunmadığı kısım). **Uygulama:** `productTranslationOverrides.ts`'teki
-    `ise-alim-modulu` bloğu sıfırdan yazıldı — artık `tr`/`en`/`it`/`nl`
-    DÖRDÜ de var (öncekinde yalnızca en/it/nl vardı, TR ham JSON'u da
-    eskiydi). TR/EN/IT metni canlı sitenin `curl`+DOM taramasıyla (SSS
-    accordion'u UICore Elementor widget'ı olduğu için `.ui-e-accordion-item`
-    seçicileriyle) birebir/verbatim toplandı — HİÇBİR içerik UYDURULMADI
-    (KARAR 1). NL'nin gerçek bir canlı karşılığı YOK (kaynakta hiç
-    yayınlanmamış) — TR'den profesyonel çeviriyle YENİDEN üretildi
-    (`productTranslationOverridesAz.ts`'teki AZ de aynı şekilde). **8 yeni
-    görsel** (`ise-alim-{2,3,4,5}.png` TR/AZ için, `hiring-{2,3,4,5}.png`
-    EN/IT/NL için — EN/IT byte-birebir aynı dosyalar, `diff` ile
-    doğrulandı) idenfit.com'dan indirilip magic-byte doğrulamasıyla
-    `public/wp-content/uploads/2025/11/`'e yerleştirildi (Görsel bağımlılık
-    kuralı — hotlink YOK). Canlı sitenin "Şimdi Başlayın" bölümündeki
-    `hiringoz-logo-1.svg` kendisi de 404 veriyor (curl ile doğrulandı) —
-    bu kırık görsel BİLEREK migrate edilmedi, bölüm yalnızca metin+buton
-    olarak kaldı. Hero artık uzun bir pazarlama cümlesi olduğu için
-    (`en/hardware.astro`'nun AYNI deseni) 5 sayfaya (`ise-alim-modulu.astro`,
-    `en/hiring-module.astro`, `it/modulo-reclutamento.astro`,
-    `az/ise-alim-modulu.astro`, `nl/wervingsmodule.astro`) `title`/
-    `ctaKeyword` override prop'u eklendi — `<title>`/CTA kısa gerçek isim
-    kullanıyor, H1/breadcrumb uzun cümleyi aynen gösteriyor. **Doğrulama:**
-    `astro check` 0 hata, `astro build` 3097 sayfa temiz, 8 regresyon
-    script'i çalıştırıldı — ilk turda `nl/wervingsmodule/index.html`
-    `<title>` 119 karakterle YAKALANDI (`title`/`ctaKeyword` override'ı
-    eksikti, `find src/pages -iname "*wervingsmodule*"` ile bulunup
-    eklendi), ikinci tur tamamen temiz. `audit-remote-hotlinks.mjs`'de
-    yeni görseller hotlink olarak GÖRÜNMÜYOR (yerelleştirme doğrulandı).
-    Chrome'da TR/EN/IT/NL/AZ'ın TAMAMINDA hero (görsel+istatistikler:
-    "Total Applicants 16"/"Qualified Applicants 4"/"453 AI Calls"/
-    "Assessment Rate %87,6"/"Qualification Rate %33,2") + TR'de ayrıca
-    5 bölüm+FAQ accordion+"Son güncelleme" şeridi görsel doğrulandı.
-64. **KAPANDI (2026-09-02, madde 63'ün DEVAMI) — kullanıcı "hâlâ en üstte
-    olan hiringoz.com'a yönlendirmesi olan kısım eksik" + "aşağıdaki
-    görsellerde de eksik ve yerlerinden kayma var" dedi; madde 63'teki
-    hero ve bölüm-görsel eşleşmesi CANLI SİTENİN GÜNCEL/YENİDEN
-    TASARLANMIŞ halini yansıtmıyormuş — kullanıcının paylaştığı ekran
-    görüntüsü + kullanıcının kaydettiği TAM sayfa HTML'i (`İşe Alım
-    Modülü - idenfit.html` + `..._files/`) kullanılarak yeniden
-    incelendi.** Kök neden: madde 63'teki DOM taraması hero'nun ASIL
-    görsel elemanlarını kaçırmıştı — (1) hero'nun "chairs" illüstrasyonu
-    bir `<img>` DEĞİL, `.elementor-motion-effects-layer`'ın CSS
-    `background-image`'ı (`ise-alim-hero-2.png`) — normal `<img>`
-    taramasında hiç görünmüyordu; (2) hero'daki "hiringoz →" marka
-    logosu (`hiringoz-logo-en.svg`, bir LİNK değil, dekoratif rozet)
-    ekran görüntüsünün alt kısmında kalmıştı, taramaya hiç dahil
-    edilmemişti; (3) bölüm görselleri madde 63'te BİR KAYDIRMA hatasıyla
-    yanlış bölüme atanmıştı — kaynağın kaydedilmiş HTML'i satır satır
-    incelenince gerçek eşleşme çıktı: hero=`ise-alim-hero-2.png`
-    (dekoratif), section0("İşe Alımda Hız...")=`ise-alim-2.png`
-    (önceden YANLIŞLIKLA hero'daydı), section1("Daha Akıllı...")=
-    `ise-alim-3.png`, section2("Doğru Aday...")=`ise-alim-4.png`,
-    section3("Güvenilir Yetenek Doğrulaması")=`ise-alim-5.png` (önceden
-    `image:null` idi — MADDE 63'ÜN "eksik görsel" BULGUSU BUYDU),
-    section4("Şimdi Başlayın")=görselsiz (kaynakta da yalnızca metin+buton,
-    yanındaki `hiringoz-logo-1.svg` HÂLÂ 404 — `curl` ile yeniden
-    doğrulandı, BİLEREK migrate edilmedi). Ayrıca canlı sitede sütun
-    sırası ALTERNE ediyor ama `ProductPage.astro`'nun varsayılan
-    `i % 2 === 1` formülünün TAM TERSİ fazda başlıyor (section0/2:
-    metin-sol/görsel-sağ, section1/3: görsel-sol/metin-sağ). **Mimari
-    eklemeler (opt-in, diğer 22 ürün sayfası grubunu ETKİLEMİYOR):**
-    (a) `ProductBlock`'a `reverse?: boolean` eklendi,
-    `ProductPage.astro`'nun bölüm döngüsü `effectiveSection.reverse ??
-    i % 2 === 1` kullanıyor — verilmezse eski davranış AYNEN kalıyor;
-    (b) `ProductBlock`'a `backgroundImage?: string` eklendi (kapanış
-    bölümünün `#EDEDED` zemin + `ise-alim-footer.png` dekoratif
-    deseni için, canlı sitede AYNI teknik); (c) `ProductPage.astro`'ya
-    `heroLayout?: 'side'|'stacked'` + `heroPartnerLogo?: {...}` prop'ları
-    eklendi — `'stacked'` (yalnızca bu sayfa kullanıyor) ortalanmış
-    H1/paragraf + ALTINDA görsel + ALTINDA marka logosu/CTA satırı
-    render ediyor, verilmezse (`'side'`, varsayılan, diğer TÜM sayfalar)
-    davranış DEĞİŞMİYOR. **Yakalanıp düzeltilen GERÇEK bir bug (bu turun
-    kendi içinde):** `productContent.ts`'in `getProductContent()`'indeki
-    `resolveBlock()` yardımcı fonksiyonu her `ProductBlock`'u yalnızca
-    `title/text/ctaText/ctaUrl/image` alanlarıyla YENİDEN inşa ediyordu
-    — yeni eklenen `reverse`/`backgroundImage` (ve zaten var olan ama
-    aynı şekilde sessizce düşen `id`/`images`) alanları override
-    verisinde YAZILI olsa bile render'a hiç ULAŞMIYORDU. İlk build+Chrome
-    doğrulamasında (`reverse` etkisiz, kapanış bölümünün zemin deseni
-    hiç görünmüyor) yakalanıp `resolveBlock()`'un hem `az` hem
-    `tr/en/it/nl` dalına `id`/`images`/`reverse`/`backgroundImage` passthrough'u
-    eklenerek düzeltildi — İKİNCİ build+Chrome turunda hepsi doğru
-    çalıştı. **Görseller:** `ise-alim-hero-2.png` (2093×1416),
-    `ise-alim-footer.png` (1662×732), `hiringoz-logo-en.svg` — üçü de
-    idenfit.com'dan indirilip magic-byte doğrulamasıyla
-    `public/wp-content/uploads/2025/11/`'e eklendi. **`curl` ile
-    doğrulanan önemli bulgu:** bu 3 dosyanın hepsi TR/EN/IT'nin ÜÇÜNDE
-    de AYNI (locale'e özel kopya YOK, `hiringoz-logo-en.svg` adı "en"
-    içerse de TR sayfasında da kullanılıyor) — NL/AZ için de aynı
-    paylaşılan dosyalar kullanıldı. **Doğrulama:** `astro check` 0 hata,
-    `astro build` 3097 sayfa temiz (2 turda — `resolveBlock` düzeltmesi
-    sonrası yeniden), 8 regresyon script'i sıfır yeni sorun (bilinen 5
-    H1→H3 taban çizgisi hariç), `audit-remote-hotlinks.mjs`'de 3 yeni
-    dosya hotlink olarak GÖRÜNMÜYOR. Chrome'da TR (tam sayfa, hero'dan
-    footer'a) + EN (hero) görsel doğrulandı — hero'nun sandalye
-    illüstrasyonu + "hiringoz →" rozeti + CTA satırı, section0-3'ün
-    doğru görsel/sütun sırası, section3'ün artık dolu görseli, kapanış
-    bölümünün gri zemin deseni hepsi canlı siteyle eşleşiyor.
-65. **KAPANDI (2026-09-02, aynı gece — tek turda birçok küçük/orta bulgu)
-    — oturum özeti, sabah devam edilecek.** Kullanıcı ardışık olarak
-    şunları bildirdi/istedi, hepsi ayrı commit'lerle kapatıldı (hepsi
-    push edildi, `df087ff`'e kadar):
-    - **Homepage font büyütme:** `FeatureGrid`/`EfficiencySection`/
-      `SupremaSection`/`CertificationBadges`'in H2 altındaki intro
-      paragrafları 16px→18px (`984c6e9`).
-    - **Destek Talebi (`/destek-talebi/`) görsel tutarlılığı:** hero
-      zemini düz kırmızıdan (`bg-brand`) Online Sunum Talebi'yle AYNI
-      radyal pembe→beyaz gradyana çevrildi + `heroBackground` eklendi
-      (`21754ee`), 4 dekoratif `IdenfitStar` eklendi (`fc27b6e`), "Sıkça
-      Sorulan Sorular" link'i 14px→16px büyütüldü (`81516fb`).
-    - **Teşekkürler (`/tesekkurler/`) sayfası 3 bulgu:** `toYoutubeEmbedUrl()`
-      `?autoplay=1`'i HER ZAMAN ekliyordu (tek çağrı yeri bu sayfaydı) —
-      artık opt-in, varsayılan otomatik oynatma YOK; kullanıcının
-      istemediği koyu "idenfit" marka şeridi kaldırıldı; birkaç metin
-      büyütüldü (`702df5e`). **Ayrıca kullanıcı "az'a geçmiyor" dedi** —
-      kök neden: az için gerçek içerik hiç YOKTU, dil değiştirici sessizce
-      bare TR URL'ine düşüyordu (görünürde hiçbir şey değişmiyordu) — TR'den
-      gerçek/profesyonel AZ çevirisi eklenip `/az/tesekkurler/` sayfası
-      oluşturuldu (`34dd691`, yan etki: `ContactPage.astro`'nun az için
-      kırık `/az/thanks/` linkini de düzeltti).
-    - **YENİ — Anasayfaya "Partnerlerimiz" bölümü eklendi**
-      (`SupremaSection`'ın/donanım entegrasyonu vurgusunun HEMEN ALTINA,
-      AYNI minimal `HARDWARE_BRAND_LOGOS` deseniyle) — kullanıcının
-      verdiği liste: Turnike (Tansa/Özak), Bordro (SAP/Oracle/Mikro/
-      Logo/Datassist), LMS (Anzera/Enocta), Görev Yönetimi (Jira), SSO
-      (Google/Microsoft/Amazon). 13 logo hepsinin KENDİ resmi sitesinden
-      indirildi (magic-byte doğrulamalı, hotlink YOK), 5 dilde başlık/alt
-      metin/kategori etiketi çevrildi (`0903f6b`). **Takip turu:**
-      kullanıcı "CAME diye bir firma yok, kaldır" dedi — Özak'ın güncel
-      logosu satın alma sonrası "CAME ÖZAK" ortak markalı çıktı, `sharp`
-      ile sağdaki saf "ÖZAK" wordmark'ı kırpılıp CAME kısmı çıkarıldı;
-      ayrıca TÜM logolar `h-10 w-24` sabit kutuya (`object-contain`)
-      alınıp "benzer boyuta" getirildi (`1acfc88`). Sonra AYRICA
-      "Bulut Teknolojisi & Kalite Standartları" (`CertificationBadges`)
-      paragrafı `max-w-2xl`→`max-w-4xl` genişletildi, 18px büyütmeden
-      sonra çok dar/üst üste stack olmuştu (`7108999`).
-    - **Mobil menü:** kullanıcı ekran görüntüsüyle "dili değiştiremiyorum,
-      giriş yap/online sunum talebi/dil butonunu yukarı al, giriş yap'ı
-      butonla sarmala" dedi — dil değiştirici/Giriş Yap/Online Sunum
-      Talebi bloğu panelin EN ALTINDAN başlığın HEMEN ALTINA taşındı
-      (önceki konumda ekran altına çok yakındı), "Giriş Yap" artık düz
-      metin değil `.btn-cta` (beyaz+kırmızı çerçeve) gerçek bir buton
-      (`ca05733`). Chrome'da mobil viewport'ta GERÇEK doğrulama yapıldı
-      (dropdown artık tam açılıyor, dil değişimi çalışıyor — test
-      sırasında ilk denemede YANLIŞLIKLA `ProductPreviewWidget`'ın kendi
-      dekoratif "Dil Seçin" panelindeki AYNI metinli "TR" butonu
-      hedeflenmişti, o bir kod hatası DEĞİLDİ, salt test-script hatasıydı).
-    - **Online Sunum Talebi'nde (`/en/online-sunum-talep-et/` dahil 4 dil)
-      "panelden sonraki yerler çeviri olmuyor" bulgusu:** kök neden,
-      2026-08-29'da eklenen `PresentationTimeline.astro`
-      ("3 Adımda idenfit") ve `PresentationFeatureGrid.astro`
-      ("Öne Çıkan Özellikler") hiç i18n ALTYAPISI OLMADAN tamamen
-      hardcoded Türkçe yazılmıştı (`/demo`'dan içerik taşınırken
-      atlanmış). `t.hero.presentationTimeline`/`presentationFeatures`
-      eklenip 5 dilde gerçek çeviri yazıldı (KARAR 1), iki component
-      `getTranslations()`'a bağlandı — ikonlar/`wide` bayrağı sabit
-      kalıp INDEX'e göre eşleşiyor (`df087ff`). Chrome'da EN sayfasında
-      doğrulandı.
-    **Her turda:** `astro check` 0 hata, `astro build` temiz, ilgili
-    regresyon script'leri (`check-heading-hierarchy`/`check-image-alt-text`/
-    `check-json-ld`/`check-link-accessibility`/`check-meta-description-length`/
-    `check-title-length`/`check-html-lang-attribute`, çoğu turda tam 8'i)
-    bilinen taban çizgisiyle (5 H1→H3 hariç) birebir aynı — sıfır yeni
-    regresyon. **Sabah devam için özel bir yarım iş YOK** — bu gece
-    bildirilen HER madde kapatıldı ve push edildi; bir sonraki oturum
-    kullanıcının yeni bir bulgu/isteğiyle başlayabilir.
-66. **KAPANDI (2026-09-02) — Son blog senkronizasyonu, cutover öncesi.**
-    Canlı `post-sitemap.xml` (629 URL) yerel 622 `.md` yazıyla karşılaştırıldı
-    — **7 yeni yazı** bulundu (2026-07-31→2026-09-01 arası yayınlanmış,
-    hepsi "Güncel Bilgiler" kategorisinde), 0 kaldırılmış/slug değiştirmiş
-    yazı. Standart zincirle işlendi: ham WP REST verisi (7 yazı + 7 öne
-    çıkan görsel medya kaydı) `reference/wordpress-export/posts.json`/
-    `media.json`'a eklendi → `extract-blog-posts.mjs` → `migrate-blog-to-
-    markdown.mjs` → `download-blog-images.mjs`/`relativize-blog-image-
-    urls.mjs` (7 görsel, hepsi yalnızca öne çıkan görsel — gövdede hiç
-    ek görsel yok). **Sonuç: 622→629 yazı, `check-json-ld.mjs`
-    `BlogPosting: 629` doğruladı.**
-    **Süreçte 2 gerçek bug bulunup düzeltildi:**
-    1. **`dateModified < datePublished` (6/7 yazıda, `check-json-ld.mjs`
-       6 geçersiz blok raporladı).** Kök neden: WP'nin ZAMANLANMIŞ
-       (scheduled) yayın akışında `modified` taslağın son kaydedildiği
-       anı (ör. sabah), `date` ise ileri ayarlanmış yayın anını (ör. aynı
-       günün öğleden sonrası) taşıyor — `modified` `date`'ten önce
-       kalabiliyor, önceki 622 yazıda hiç rastlanmamış bir desen.
-       `src/pages/blog/[slug].astro`'ya `effectiveModifiedDate` (yalnızca
-       `modifiedDate > date` iken kullanılır, aksi halde `date`'e düşülür)
-       eklenip JSON-LD `dateModified`, OG `article:modified_time` VE
-       görünür "Güncellendi" banner'ının HEPSİ bu tek kaynağa bağlandı —
-       6 yazıda artık banner hiç görünmüyor (46/618 yazıda `modifiedDate`
-       `date`'le aynıyken zaten uygulanan AYNI ilkeye genişletildi).
-    2. **7 yazının `<title>`'ı 50-60 karakter aralığını aştı (`check-
-       title-length.mjs`, 61-105 karakter)** — başlıklar orijinal
-       WP başlığı kadar uzun/betimleyici. Açık Nokta #28'in metodolojisiyle
-       (kısa/gerçek başlıktan türetme, uydurma yok) 7 `metaTitle` eklendi.
-    **Yan not (tek seferlik yardımcı script, commit EDİLMEDİ):** ham WP
-    verisini çekmek için kullanılan script `reference/wordpress-export/
-    posts.json`'ı yanlışlıkla pretty-print'e çevirmişti (1 satır → ~198k
-    satır, devasa/gürültülü diff) — commit'ten ÖNCE fark edilip dosya
-    orijinal tek-satır/compact formatına geri döndürüldü (`JSON.stringify`
-    indentsiz), gerçek diff 1 satır değişikliğe indi.
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9 regresyon
-    script'inin 8'i (yeni `check-prerender.mjs` dahil) sıfır sorun, yalnızca
-    `check-heading-hierarchy` bilinen 5 sayfalık taban çizgisinde (ilgisiz).
-    `curl` ile yeni bir yazının 200 döndüğü, `<title>`'ının `metaTitle`
-    kullandığı, öne çıkan görselin `idenfit.com`'a hiç hotlink YAPMADIĞI
-    (yerelden 200) doğrulandı.
-    **KARAR (kullanıcı, 2026-09-02): bu, projenin SON otomatik toplu blog
-    senkronizasyonuydu.** Bundan sonra yeni yazılar Keystatic panelinden
-    ekleniyor, otomatik senkronizasyon (`post-sitemap.xml` karşılaştırma +
-    `extract-blog-posts.mjs`/`migrate-blog-to-markdown.mjs` zinciri) artık
-    KULLANILMIYOR — bkz. Açık nokta #16'nın kapanışı.
-67. **TAMAMLANDI (2026-09-02) — Canlı dashboard widget'ı (`ProductPreviewWidget.tsx`)
-    mobilde artık bir bütün olarak ölçeklenip küçültülüyor.** Kullanıcı
-    bulgusu: "mobil görünümde tüm olarak bütün durmalı, ekrana sığacak
-    boyutta küçültülmeli, kullanıcı webdeki halinin küçültülmüş versiyonunu
-    görmeli." İki uygulama seçeneği sunuldu, kullanıcı düşük riskli olanı
-    onayladı:
-    - **(A) Seçilen/uygulanan — mevcut mobil-optimize düzeni ölçekle.**
-      `lg` altında (mevcut mobil kırılım noktasıyla AYNI) widget SABİT bir
-      "doğal" genişlikte (`NATURAL_MOBILE_WIDTH=480px`) render edilir —
-      bu, halihazırda ayarlanmış mobil düzenin (sidebar→yatay sekme
-      çubuğu, kartlar alt alta, Açık nokta #24/#31'in mobil optimizasyonu)
-      DEĞİŞMEDEN çizilmesini sağlar (`lg:` medya sorgusu viewport'a bakar,
-      bu sabit genişlik onu etkilemez) — sonra TÜMÜ `transform: scale()`
-      ile mevcut konteynerin genişliğine küçültülür (`[0.5,1]` aralığında
-      sınırlı, asla büyütülmez). `ResizeObserver` dış konteyner + iç
-      içerik (sekmeler arası otomatik geçişte yükseklik değişir) için
-      dinliyor, dış sarmalayıcının yüksekliği ölçeklenmiş değere eşitlenip
-      fazladan boşluk bırakılmıyor. Yeni `useMobileScale()` hook'u,
-      widget'ın ~2750 satırlık iç koduna (her sekmenin kendi `lg:`
-      kurallarına) HİÇ dokunmadan eklendi.
-    - **(B) İstendi ama ERTELENDİ — gerçek masaüstü düzenini mobilde
-      küçültme.** Kullanıcının orijinal ifadesi ("web'deki hali") aslında
-      buna daha yakın — mobilde de masaüstündeki BİREBİR aynı görünüm
-      (sol sidebar + kartlar yan yana grid) render edilip küçültülür.
-      Bunun için widget'ın `lg:` kurallarının CSS container query'lere
-      (Tailwind v4'ün yerleşik `@container` özelliği) çevrilmesi gerekir
-      — büyük, riskli bir değişiklik (aylarca özenle ayarlanmış widget'ı
-      bozma ihtimali). **Kullanıcı kararı: canlıya çıkış zaman baskısı
-      nedeniyle ERTELENDİ** — canlıya çıkış sonrası, bol zamanla, dikkatli
-      test edilerek ele alınabilir.
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 8/9 regresyon
-    script'i sıfır sorun (yalnızca bilinen 5 sayfalık heading-hierarchy
-    taban çizgisi). **Canlı mobil viewport'ta uçtan uca GÖRSEL doğrulama
-    YAPILAMADI** — bu oturumdaki tarayıcı otomasyon aracı gerçek bir dar
-    viewport'a küçülemiyor (pencere hep masaüstü genişliğinde kaldı,
-    bilinen bir araç kısıtı) ve `matchMedia` override'ı enjekte etmek için
-    de çok geç kalıyor (widget `client:visible` ile sayfa yüklenir
-    yüklenmez hydrate oluyor, override script'i her zaman ondan SONRA
-    çalışıyor). Bunun yerine: (1) ölçekleme MATEMATİĞİ gerçek DOM'da
-    doğrudan hesaplanıp doğrulandı (360px konteyner + 480px doğal genişlik
-    → 0.75 ölçek, 808px doğal yükseklik → 606px ölçeklenmiş yükseklik,
-    doğru), (2) masaüstü davranışının DEĞİŞMEDİĞİ doğrulandı (gerçek
-    masaüstü viewport'ta hiçbir satır-içi stil uygulanmıyor, `isMobile`
-    doğru şekilde false kalıyor). Kod derleniyor, mantık doğru — canlıya
-    çıkış sonrası gerçek bir telefonda/DevTools'un cihaz modunda son bir
-    görsel kontrol önerilir.
-    **Takip turu (aynı gün) — kullanıcı gerçek cihazda 2 geri bildirim
-    daha verdi:**
-    1. "Çok ince uzun olmuş, biraz daha kısa ve geniş olsun" — kök neden:
-       `sm:`/`lg:` Tailwind sınıfları VIEWPORT'a bakıyor, ölçekleme
-       kutusunun kendi genişliğine değil — telefonlar her zaman `sm:`
-       (640px) eşiğinin altında olduğu için küçük KPI/mini-istatistik
-       kartları (`TrendKpiCard`/`StatCard`/`MiniTrendStatCard`) tek
-       sütuna düşüp dikey olarak uzuyordu, `transform:scale()` bu oranı
-       KORUYARAK küçültüyordu. 5 kompakt kart grid'i (Zaman/İzin/
-       Performans/Veri Analizi sekmelerinde) `sm:` beklemeden mobilde de
-       2 sütuna zorlandı (`lg:` üstü davranış AYNEN korundu) — grafik
-       içeren zengin kart çiftlerine (Devam Takibi vb.) bilinçli olarak
-       dokunulmadı, dar telefonda sıkışabilirdi.
-    2. "Ekrana sığmıyor, ekrana baktığımda hepsini görebilmeliyim" — kök
-       neden: `useMobileScale()`'in İLK sürümü yalnızca KONTEYNER
-       GENİŞLİĞİNE göre ölçekliyordu, `window.innerHeight`'ı hiç hesaba
-       katmıyordu — widget'ın alt kısmı ekranın dışında kalabiliyordu.
-       Ölçek artık İKİ adaydan (genişliğe sığdıran VE `window.innerHeight
-       × 0.85` hedef yüksekliğe sığdıran) KÜÇÜK olanı seçiyor — widget
-       artık HER ZAMAN hem yatayda hem dikeyde tek ekrana sığıyor.
-       `%85` payı (kullanıcının widget'a kaydırdığında başka içerik de
-       kısmen görünsün diye) ilk tahmin — kullanıcı hâlâ sığmadığını
-       söylerse bu oran düşürülebilir.
-    **Aynı doğrulama sınırı geçerli** — bu turlarda da canlı mobil
-    viewport'ta görsel doğrulama YAPILAMADI (AYNI araç kısıtı), yalnızca
-    `astro check`/8-9 regresyon script'i/masaüstü-değişmedi kontrolleri
-    tekrarlandı.
-    **Son tur (aynı gün) — Seçenek B araştırıldı, test edildi, REDDEDİLDİ;
-    Seçenek A'da gerçek bir kırpma hatası bulunup düzeltildi; bu kez
-    GERÇEK mobil viewport'ta görsel doğrulama da yapıldı:**
-    - **Seçenek B (masaüstü düzenini birebir mobilde küçültme) test edilip
-      REDDEDİLDİ — kod sorunu değil, tasarım/okunabilirlik kısıtı.**
-      Kullanıcı riski bilerek istedi; önce ucuz bir ön-test yapıldı:
-      widget'ın gerçek masaüstü DOM'u (1296×762px doğal boyut) tarayıcıda
-      canlı olarak 375px genişliğe `transform:scale()` ile küçültülüp
-      ekran görüntüsü alındı (kod değişikliği yok, yalnızca geçici DOM
-      manipülasyonu, sayfa sonra yeniden yüklenerek temizlendi). Sonuç:
-      büyük KPI sayıları okunabilir, ama ikincil metinler/trend
-      rozetleri/tarih-yüzde etiketleri/liste metadata'sı gerçekten
-      okunaksız (bulanık piksel yığını). **Bu, container query ile de
-      çözülemez** — sorun "CSS nasıl yazıldığı" değil, masaüstü bilgi
-      yoğunluğunun fiziksel olarak ~375-480px'e sığmaması. 24 dosya/satır
-      risklik dönüşüm bu nedenle yapılmadı.
-    - **Seçenek A'da bulunan gerçek kırpma hatası düzeltildi.** Aynı
-      ön-test sırasında, dış sarmalayıcının (`outerRef`, `flex
-      justify-center overflow-hidden`) `align-items` için Flexbox
-      varsayılanı (`stretch`) kullandığı fark edildi — bu, `scaledHeight`
-      ile sınırlanan dış kutunun yüksekliğini, `transform:scale()` ile
-      ölçeklenen `inner`'ın GERÇEK layout yüksekliğine (görsel değil,
-      DOM ölçüsü) dayatıp içeriği kırpıyordu (`inner.offsetHeight` dış
-      kutunun yüksekliğine sıkışıyor, `scrollHeight` çok daha büyük
-      kalıyordu). **Düzeltme:** `outerRef` div'inin className'ine
-      `items-start` eklendi (`ProductPreviewWidget.tsx`, ~satır 2963).
-    - **Bu kez gerçek mobil viewport'ta uçtan uca GÖRSEL doğrulama
-      YAPILDI** (önceki turlardaki araç kısıtı bu seferki denemede
-      aşıldı — yeni bir sekme açılıp `resize_window` ÖNCE, `navigate`
-      SONRA çağrıldığında pencere gerçekten 558px genişliğe küçüldü;
-      önceki turlarda mevcut bir sekmeyi sonradan yeniden boyutlandırma
-      işe yaramamıştı). 558px < 1024px mobil eşiği olduğu için widget
-      gerçekten hydrate olup `isMobile=true` durumuna geçti (doğrulandı:
-      `inner` üzerinde gerçek satır-içi `width:480px; transform:
-      scale(0.721)` stili göründü). Ölçüm: `inner.offsetHeight` (870px)
-      artık `inner.scrollHeight`'a (869px) eşit — kırpma YOK. Ekran
-      görüntüsü + yakın çekim: sekme çubuğu, KPI kartları, grafik başlığı
-      ve eksen etiketleri net okunabilir, içerik tam ve bütün görünüyor.
-    - ~~Kalıcı karar: Seçenek A benimsendi, Seçenek B bir daha gündeme
-      alınmayacak~~ — **BU KARAR AYNI GÜN GERİ ALINDI, bkz. aşağıdaki
-      BEŞİNCİ tur.** Kullanıcı okunabilirlik riskini bilerek yine de
-      Seçenek B'yi istedi.
-    **Doğrulama (bu tur):** `astro build` temiz, 8/9 regresyon script'i
-    sıfır sorun (aynı bilinen 5 sayfalık heading-hierarchy taban çizgisi,
-    bu değişiklikten bağımsız — yalnızca `ProductPreviewWidget.tsx` ve bu
-    dosya değişti).
-    **BEŞİNCİ tur (aynı gün) — Seçenek B UYGULANDI, kullanıcı riski
-    bilerek ısrar etti: "Kullanıcı, okunabilirlik riskini bilerek Seçenek B
-    (masaüstü düzeninin birebir mobilde küçültülmüş hali) ile devam etmek
-    istiyor kararlı."**
-    - **Güvenlik ağı:** Seçenek A'nın son çalışan hali (yukarıdaki dördüncü
-      tur — `items-start` kırpma düzeltmesi + genişlik-öncelikli ölçekleme +
-      StickyDemoBar kompaktlaştırma dahil, commit `314f04f`) `master`'da
-      commit edildi VE `mobil-widget-secenek-a-yedek` dalına (her iki
-      remote'a da push edildi) işaretlendi — geri dönüş gerekirse bu dal
-      kullanılabilir. `master` bu commit'in ÜZERİNE Seçenek B'yi inşa etti
-      (checkout edip geri dönmek yerine — StickyDemoBar düzeltmesi gibi
-      widget-mekanizmasından BAĞIMSIZ iyileştirmeler kaybolmasın diye).
-    - **Teknik uygulama:** `ProductPreviewWidget.tsx`'teki TÜM `lg:`/`sm:`
-      (viewport medya sorgusu) sınıfları `@min-[1024px]:`/`@min-[640px]:`
-      (Tailwind v4 container query, arbitrary-value söz dizimi — v4'ün
-      `@lg`/`@sm` varsayılan container eşikleri viewport eşiklerinden farklı
-      olduğu için bilinçli tercih) ile değiştirildi (~30 site). Widget artık
-      ÜÇ katmanlı: `outerRef` (gerçek viewport genişliğini ölçer) →
-      `containerRef` (`@container` + SABİT `DESKTOP_NATURAL_WIDTH=1280px` +
-      `transform:scale()` + `flexShrink:0`) → `innerRef` (asıl `flex-col
-      @min-[1024px]:flex-row` düzeni + tüm alt bileşenlerin container query
-      kuralları). CSS containment kısıtı (bir eleman kendi container
-      query'sinin hedefi olamaz) üç-katman yapısını ZORUNLU kıldı. `isMobile`/
-      `matchMedia` durumu TAMAMEN kaldırıldı — ölçek artık yalnızca genişlik
-      oranına bağlı, HER ZAMAN hesaplanıyor (masaüstünde doğal olarak ~1).
-    - **`align-items:stretch` kırpma hatası** (Seçenek A'dan miras, `outerRef`
-      className'inde `items-start` zaten vardı) — AYNEN korundu, hâlâ gerekli.
-    - **Bu turda YENİ bulunan bir ölçek-tabanı hatası düzeltildi:** Seçenek
-      A'nın `[0.5,1]` ölçek aralığı `NATURAL_MOBILE_WIDTH=480` içindi (0.5
-      tabanı → min 240px render, telefona sığar). `DESKTOP_NATURAL_WIDTH=1280`
-      ile AYNI 0.5 tabanı min 640px render demek — HİÇBİR telefonda
-      `outerRef`'e sığmaz, `overflow-hidden` tarafından KIRPILIR. Gerçek DOM
-      testinde doğrulandı (278px konteynerde 0.5 taban ile widget 640px
-      render edip taştı) — alt sınır TAMAMEN kaldırıldı, ölçek yalnızca üstten
-      (`Math.min(1, widthScale)`) sınırlı, her zaman tam genişliğe sığıyor.
-    - **Doğrulama:** `astro build` temiz, derlenen CSS'te `container-type:
-      inline-size` + `@container (width>=1024px)` kuralları doğrulandı
-      (gerçek container query üretildi). 8/9 regresyon script'i sıfır sorun
-      (aynı bilinen, ilgisiz heading-hierarchy taban çizgisi). **Gerçek
-      ürünüm koduyla (mock/DOM taklidi DEĞİL) canlı doğrulama yapıldı:**
-      widget'ın gerçek ata konteyneri (`HeroSection.astro`'nun `max-w-[88rem]`
-      sarmalayıcısı) geçici olarak 390px'e daraltıldı (tarayıcı
-      `resize_window` aracı bu oturumda güvenilmez çıktı, gerçek viewport
-      genişliği değişmedi — bu yüzden ata elemanın kendi genişliği
-      daraltılıp gerçek `ResizeObserver`'ın tepki vermesi izlendi), sonuç:
-      `outerRef` 278px'e küçüldü, `containerRef` `scale(0.217)` ile TAM
-      278px'e ölçeklendi (taşma/kırpma YOK), ekran görüntüsünde masaüstü
-      sidebar+2×2 grid düzeni (mobil-reflow DEĞİL, GERÇEK masaüstü hali)
-      bozulmadan, kesilmeden, üst üste binmeden göründü — yalnızca küçük
-      (kabul edilen okunabilirlik ödünü). Masaüstü viewport'ta (gerçek
-      geniş pencere) `scale(1)` doğrulandı, hiç değişmedi.
-68. **KAPANDI (2026-09-06) — self-hosted `fields.image()` uygulandı, 629
-    yazının 628'i kayıpsız göç etti, panelde canlı doğrulandı.**
-    Kullanıcı kararı: `fields.cloudImage()` Pro plan gerektirdiği için
-    self-hosted yol seçildi. `keystatic.config.ts`'in `featuredImage.url`
-    (`fields.url()`) alanı `featuredImage.image` (`fields.image()`,
-    gerçek sürükle-bırak/dosya-seç yükleme) oldu; `content` (markdoc
-    gövdesi) için de `options.image` açıldı (önceden VARSAYILAN olarak
-    kapalıydı, gövde-içi görsel yükleme desteği HİÇ yoktu).
-    **Kritik teknik bulgu (node_modules kaynağı okunarak + canlı panelde
-    doğrulanarak):** Keystatic'in asset alanları (`fields.image()`)
-    HER ZAMAN `directory`/`publicPath`'i entry'nin kendi `slug`'ıyla
-    (VE re-save'de ayrıca alan-yolu — `featuredImage/image` — ile)
-    otomatik ad alanına ayırıyor (`getSrcPrefix()`) — panelde
-    görüntülenebilmesi/yeniden kaydedilebilmesi için görsel dosyanın
-    fiilen bu yolda bulunması ŞART, aksi halde alan sessizce boş
-    yükleniyor ve SAVE'de görsel referansı SİLİNEBİLİYOR. Bu yüzden
-    mevcut 628 yazının (629'un 1'i `featuredImage: null`) görseli yeni
-    `scripts/migrate-featured-image-to-keystatic-field.mjs` ile
-    `public/img/blog-featured/<slug>/featured.<uzantı>` yapısına
-    KOPYALANDI (eski `public/wp-content/uploads/...` dosyaları
-    SİLİNMEDİ) ve frontmatter'daki `url:` `image:`'e çevrildi — dosya
-    başına TEK satır değişti (`git diff --stat` ile doğrulandı, tam
-    628 dosyada "2 +-"). **Yan bulgu — Windows MAX_PATH (260 karakter)
-    sınırı canlı olarak yakalandı:** bazı slug'lar 89 karaktere kadar
-    çıkıyor, orijinal WP dosya adlarıyla (bazıları 90+ karakter)
-    birleşince `git add`'i "Filename too long" ile çökertiyordu —
-    düzeltme: migrasyonda dosya adı orijinal WP adı yerine sabit/kısa
-    `featured.<uzantı>`'ya normalize edildi, `directory` de kısaltıldı
-    (`public/img/blog-featured`), en uzun yol 187 karaktere indi.
-    **Canlı panelde İKİ ayrı uçtan uca test yapıldı** (Keystatic Cloud'un
-    içeriği yerel diskten DEĞİL, `idenfit/idenfit.com` GitHub reposundan
-    okuduğu bu turda keşfedildi — şema değişikliği önce PUSH edilmeden
-    panel eski `url:` formatını arayıp hata veriyordu):
-    1. **Eski yazı (`2021-ik-trendleri`) açılıp görsel önizlemesi doğru
-       göründüğü doğrulandı**, trivial bir düzenlemeyle (Save'in
-       "sıfır net değişiklikte" sessiz no-op olduğu bu turda keşfedildi,
-       gerçek bir değişiklik gerekti) gerçek bir commit (`8dea072`)
-       tetiklendi — görsel BOZULMADI (yeniden adlandırıldı:
-       `featured.jpg`→`featuredImage/image.jpg`, ama byte-birebir aynı,
-       blob boyutu doğrulandı), `git revert` ile (panelden TEKRAR
-       düzenleme DEĞİL, aynı yeniden-biçimlendirmeyi tekrar tetiklerdi)
-       byte-birebir orijinale döndürülüp `idenfit` remote'una push edildi.
-       **Aynı turda datetime-saniye doğrulama bug'ı (2026-08-28'den
-       bilinen, bkz. "KALICI GOTCHA") tekrar karşılaşıldı** — saat
-       alanına dokunup (Up/Down) aşıldı.
-    2. **Yeni bir taslak yazı oluşturulup gerçek bir dosya "Choose file"
-       kontrolüyle yüklendi** (native OS dosya seçici otomasyonda
-       kontrol edilemediği için `HTMLInputElement.prototype.click`
-       `DataTransfer` tabanlı bir yama ile geçici olarak override edildi,
-       gerçek bir dosyanın seçilmesini simüle etti) → gerçek commit
-       (`445afc0`), yüklenen dosya repoda doğru nested yolda
-       (`public/img/blog-featured/<slug>/featuredImage/image.jpg`)
-       fiilen mevcut, `astro build` ile render doğrulandı. Test yazısı
-       ardından silinip commit edildi (`e8cd767`).
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 9
-    regresyon script'i (bilinen 5 H1→H3 hariç) sıfır yeni sorun.
-    **Repo durumu:** `idenfit` remote'unda tam commit zinciri
-    (`2428862`→`8dea072`→`c6a3f53`→`445afc0`→`e8cd767`, test
-    commit'leri dahil — Keystatic Cloud bota doğrudan bu repoya push
-    ediyor), `origin`'de yalnızca gerçek migrasyon commit'i `2428862`
-    (içerik ağacı ikisinde de birebir aynı, yalnızca commit-gürültüsü
-    farklı — Açık nokta #41'in AYNI bilinen sınıfı). Detaylı teknik
-    döküm: `memory/keystatic-image-field-self-hosted.md`.
-    **Kapsam dışı bırakılan (kullanıcı önceliklendirmedi):** markdoc
-    gövde-içindeki ESKİ `![alt](/wp-content/uploads/...)` referansları
-    bu turda migrate EDİLMEDİ (yalnızca YENİ yükleme desteği eklendi).
-
-**Eski analiz (2026-09-04, artık yukarıdaki kapanışla GÜNCEL DEĞİL,
-yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alanı şu an
-    `fields.url()` (elle URL yapıştırma), gerçek bir dosya yükleme
-    (upload) alanı DEĞİL.** Panelde "dosya seç/sürükle-bırak" yok —
-    hem kod incelemesiyle (`keystatic.config.ts`) hem canlı panelde
-    doğrulandı. Pazarlama ekibi için ideal değil (yeni bir yazı için
-    görseli önce kendi başına bir yere yükleyip URL'sini elle
-    yapıştırması gerekiyor) ama İŞLEVSEL — canlıya çıkışı
-    engellemiyor. **Araştırılan iki gerçek çözüm:**
-    - `fields.image()` — self-hosted (repoya commit edilir,
-      `public/`'e benzer), ücretsiz, ama daha karmaşık bir şema/render
-      değişikliği gerektiriyor (bare dosya adı + `directory`/`publicPath`
-      ile URL yeniden inşası, mevcut `{url,alt,width,height}` şeklinden
-      farklı).
-    - `fields.cloudImage()` — mevcut şekle çok yakın (`{src,alt,width,height}`,
-      yalnızca `url`→`src` adı farklı) ama **"Cloud Images" özelliği
-      Keystatic'in Pro planına özel** (resmi dokümantasyon: `keystatic.com/docs/cloud`,
-      doğrudan alıntı: "Multi-player editing" ve "Cloud Images" "subscribed
-      to Pro" sonrası kullanılabilir — ücretsiz katman 3 kullanıcıyla
-      sınırlı, Pro ayda $10'dan başlıyor + 3 kullanıcı üstü kişi başı
-      $5/ay). **Kullanıcının hesabında GERÇEKTEN erişilebilir olup
-      olmadığı CANLI test EDİLMEDİ** (izole bir scratch-test koleksiyonu
-      hazırlanmıştı ama kullanıcı bu turu durdurup canlıya çıkışı
-      önceliklendirdi — scratch-test config'ten tamamen geri alındı,
-      kod tabanında iz YOK).
-    - `fields.markdoc()`'un gövde-içi "görsel ekle" ikonu da AYRI bir
-      mekanizma (`options.image`, yalnızca `fields.image()`'ın
-      self-hosted yöntemini destekliyor — `cloudImage`'ı DEĞİL).
-    **Kod değişikliği YAPILMADI** (kullanıcı kararı, 2026-09-04) —
-    canlıya çıkış sonrası, ekip gerçekten içerik yazmaya başlamadan
-    önce ayrı bir turda: (1) `fields.cloudImage()`'ın gerçekten
-    kullanılabilir olup olmadığı (Pro plana geçiş gerekip gerekmediği)
-    netleştirilecek, (2) hangi yaklaşımın (self-hosted vs Cloud Images)
-    seçileceğine karar verilecek, (3) seçilirse `fields.cloudImage()`
-    yolu **629 mevcut yazının `featuredImage.url`→`src` anahtar
-    göçünü** (Keystatic'in SAVE'de dokunulmayan alanları bile yeniden
-    yazma davranışı yüzünden — bkz. "KALICI GOTCHA" — göçsüz bırakmak
-    eski yazıların görselini SESSİZCE SİLME riski taşır) + 4 kod
-    dosyasındaki (`content.config.ts`, `BlogListPage.astro`,
-    `BlogSidebar.astro`, `blog/[slug].astro`) ~13 okuma noktasını
-    gerektirecek.
-
+54. **AÇIK RİSK (2026-08-31'de bulundu, hâlâ geçerli) — `dates.ts` SİTE
+    GENELİNDE runtime `Intl`'e dayanıyor ve `az-AZ` tarayıcıda BOZUK.**
+    `formatLocalizedDate()` (`src/data/dates.ts:17`) hâlâ
+    `Intl.DateTimeFormat(BCP47_LOCALE[locale], {month:'long'})` çağırıyor;
+    tarayıcı konsolunda `az-AZ`'ın hem KISA hem UZUN ay formatının jenerik
+    ICU fallback'ine (`"M01".."M12"`) düştüğü, `Intl.NumberFormat('az-AZ')`'ın
+    ondalık ayracı olarak virgül değil NOKTA verdiği ölçülerek doğrulandı
+    (tr/en/nl/it AYNI tarayıcıda sorunsuz — bu yalnızca `az`'a özgü bir
+    CLDR kapsam boşluğu). **İki katmanlı:** build/Node ICU çıktısı DOĞRU,
+    bozulma yalnızca hydration SONRASI tarayıcıda oluyor — yani SSR HTML'i
+    ile hydrate edilmiş DOM arasında tutarsızlık da var. Etki: `az`
+    sayfalarındaki blog tarihleri + "Son Güncelleme" şeritleri tarayıcıda
+    yanlış görünüyor olabilir. **Kanıtlanmış çözüm deseni ZATEN elimizde:**
+    `productPreviewWidgetData.ts`'teki `MONTH_ABBREV`/`WEEKDAY_ABBREV`/
+    `formatDecimal()` tam bu sorun yüzünden runtime `Intl`'den Node'un tam
+    ICU'suyla üretilip doğrulanmış SABİT TABLOLARA çevrildi (uydurma değil,
+    gerçek CLDR verisi) — `dates.ts` için de aynı yol izlenmeli. Widget
+    tarafı KAPANDI (bkz. arşiv), açık olan yalnızca site-geneli `dates.ts`.
+    **Kalıcı kural:** yeni bir tarih/sayı biçimlendirmesi eklenirken runtime
+    `Intl`'e GÜVENİLMEMELİ — `az` için önce ölçülmeli, gerekiyorsa sabit
+    tablo yazılmalı.
 69. **KAPANDI (2026-09-16) — yetkili pentest turunun 4 KOD bulgusu; kalan 3
     madde YALNIZCA panelden yapılabiliyor, adımları `docs/guvenlik-duzeltmeleri-2026-09.md`'de.**
     - **K3 — JSON-LD script kaçışı.** 8 `<script type="application/ld+json">`
@@ -3662,38 +1498,6 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     çalışması lead'in kaybolmamasının ŞARTI olmuyor. Eski kurulumun zaafı
     tam da buydu.
 
-74. **KAPANDI (2026-09-22) — Fiyatlar sayfasında KOBİ paketi artık sabit
-    fiyat göstermiyor, Pro gibi "Teklif Al" + "Başvur" formuna
-    yönlendiriyor.** Kullanıcı talimatı ("kobi seçeneğindeki 7999 tl
-    yerine **pro seçeneği gibi** teklif al yazacak ve forma
-    yönlendirecek, butonda da satın al yerine başvur yazacak") — "Pro gibi"
-    ifadesi gereği Pro'nun 2026-08-19'daki AYNI muamelesi uygulandı, yani
-    **5 locale'in HEPSİ** (yalnızca TR değil; aksi halde EN/NL/IT'de
-    "149 € + Satın Al" kalıp site kendi içinde tutarsız olurdu).
-    **Uygulama:** `PRO_QUOTE_TEXT` → `QUOTE_TEXT` olarak yeniden
-    adlandırılıp iki paket TEK kaynaktan besleniyor; `SME_PRICE_OVERRIDE`
-    kaldırılıp yerine `SME_CTA_OVERRIDE` geldi. CTA metni/hedefi
-    UYDURULMADI (KARAR 1) — her locale'in KENDİ Pro planının ham
-    `pricing.json`'daki gerçek `ctaText`/`ctaUrl` değerleri birebir
-    kullanıldı (tr "Başvur", en "Apply Now", nl "Aanvragen", it "Richiedi
-    Ora", az "Müraciət Et"). Override `resolvePlan()`'den ÖNCE
-    uygulanıyor ki URL `resolveCtaUrl()`'ün per-locale slug çözümlemesinden
-    geçsin. `PRICING_AZ_OVERRIDE.sme` literali de (override zaten kazanıyor
-    ama iki kaynak sapmasın diye) senkronlandı.
-    **Kayıt — en son yayınlanmış fiyatlar:** TR 7.999 ₺/aylık, EN/NL/IT/AZ
-    149 €. Geri alınmak istenirse `SME_PRICE_OVERRIDE` geri getirilir.
-    **Doğrulama:** `astro check` 0 hata, `astro build` temiz, 5 locale'in
-    derlenmiş HTML'inde fiyat metni + CTA metni + `href` tek tek
-    doğrulandı (`/online-sunum-talep-et/` ve locale önekli karşılıkları);
-    5 dilin HİÇBİRİNDE "Satın Al"/"Buy Now"/"Koop Nu"/"Acquista Ora"
-    KALMADI. 11 regresyon script'i çalıştırıldı — `check-title-length`
-    taban çizgisi 1'den 3'e çıktı ama **üçü de blog yazısı ve bu turla
-    İLGİSİZ**: 2'si aynı gün master'dan merge edilen Keystatic yazıları
-    (`surekli-performans-yonetimi-nedir` 49 karakter,
-    `sessiz-tukenmislik-vardiya-puantaj-verileri` 66 karakter), 3'ü
-    zaten bilinen `vardiya-degisikligi-riskleri`. Açık nokta #70'in
-    yapısal noktasını (panelden yayınlanan yazılar SEO uzunluk kurallarını
-    atlıyor, PR gate yok) bir kez daha doğruluyor.
 75. **ARALIKLI / YENİDEN ÜRETİLEMİYOR (2026-10-01'de açıldı, 2026-10-02'de
     ölçülerek yeniden yazıldı) — `astro check` bir kez heap OOM ile çöktü;
     deploy'u tehdit eden bir sorun DEĞİL, ama marj dar (%35).**
@@ -3955,12 +1759,49 @@ yalnızca karar geçmişi için tutuluyor):** Keystatic'in `featuredImage` alan�
     Windows'ta gate'i KIRAR — Açık nokta #50'deki `check-heading-hierarchy`
     istisnasıyla AYNI sınıf.
 
-**Kapanmış maddeler (3,4,5,7,11,17,18,23,26) arşivde** — özet: promo
-görsel bulundu, blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik
-ve Güvenlik Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online
-Sunum Talebi onaylandı, navbar BLOG linki kaldırıldı, Demirbaş/Seyahat
-mega-menüye bilinçli eklenmedi, erişilebilir adı olmayan `<a>` linkleri
-düzeltildi.
+### Kapanmış maddeler — tek satır özet (tam anlatım arşivde)
+
+Numaralar KORUNDU çünkü yukarıdaki açık maddeler bunlara atıfta bulunuyor.
+Tam anlatım: `docs/claude-md-archive-2026-10-03.md` (ve daha eski maddeler
+için önceki tarihli arşivler).
+
+**3,4,5,7,11,17,18,23,26** (daha eski arşivlerde): promo görsel bulundu,
+blog 622/622 tamamlandı, Podcastler kaldırıldı, Gizlilik ve Güvenlik
+Politikası migrate edildi, HR Olgunluk Testi kuruldu, Online Sunum Talebi
+onaylandı, navbar BLOG linki kaldırıldı, Demirbaş/Seyahat mega-menüye
+bilinçli eklenmedi, erişilebilir adı olmayan `<a>` linkleri düzeltildi.
+
+| # | Kapanış | Özet |
+|---|---|---|
+| 12 | 2026-10-03 | HR Maturity Test PDF gönderimi — BAYAT kayıt; `src/pages/api/maturity-pdf.ts` + SendGrid akışı çalışıyor (bkz. §İK Dijital Olgunluk Testi). |
+| 14 | 2026-08-30 | 622 blog yazısının 976 görseli indirilip yerelleştirildi + 1039 URL göreliye çevrildi; blog artık `idenfit.com` domainine SIFIR bağımlı. Script'ler: `download-blog-images.mjs`, `relativize-blog-image-urls.mjs`, `download-report-assets.mjs`. |
+| 16 | 2026-09-02 | Blog "yeni yazı senkronizasyonu" artık otomatik DEĞİL — yeni yazılar Keystatic panelinden ekleniyor, `post-sitemap.xml` karşılaştırma zinciri kullanılmıyor (bkz. #66). |
+| 19 | 2026-10-03 | "Faz 2 CMS: Decap" — BAYAT karar; Keystatic canlı ve panelden yazı yayınlanıyor (bkz. §KEYSTATIC GEÇİŞİ, #68). |
+| 24 | 2026-08-17 | DOM boyutu: `MobileMenu` masaüstünde+mobilde lazy-mount (`hasOpened`), 1587→1327 element (−%16,4). MegaMenu bilinçli ertelendi → #25. |
+| 28 | 2026-08-25 | Blog `<title>` uzunluğu: 409 → 1 sorunlu sayfa (yalnızca kasıtlı kapsam dışı `admin/index.html`). 404 yazıya `metaTitle`, 25'lik pilot onaylı + script destekli üretim, benzerlik taramasıyla 2 gerçek hata yakalandı. **Panelden yayınlanan yeni yazılar bu taban çizgisini yeniden kirletiyor → #70.** |
+| 31 | 2026-10-03 | Canonical URL — BAYAT kayıt; `astro.config.mjs:167` `site: 'https://idenfit.com'` dolu, canonical+hreflang aktif (248 sayfa, #53'te ölçüldü). |
+| 32 | 2026-08-19 | 3 küçük "No H2 subheadings" bulgusu (hukuki sözleşme, SSS, `nl/wereldwijd-merk`) kapandı. |
+| 33 | — | Başlık SEVİYE ATLAMASI (44 sayfa): 38 blog (`normalizeHeadingLevels()`, cb35dac) + 2 hub + 1 hukuki sayfa. **Ana sayfanın 5 dildeki H1→H3'ü AYRI ve hâlâ açık → #36.** |
+| 34 | 2026-08-14 | "No H3 subheadings": ~%49'u bizde hiç olmayan WP arşiv URL'leri. Gerçek düzeltmeler `ProductPage` SSS accordion (`<span>`→`<h3>`, ~96 sayfa), `BlogListPage`/`BlogSidebar`, `ContactPage`. `AboutPage`/`SecurityPage`'e bilinçli EKLENMEDİ. |
+| 35 | 2026-08-20 | TR ana sayfasındaki çift `ProductPreviewWidget` — alttaki "Panelinizde Sizi Neler Bekliyor?" bölümü kaldırıldı (bfa6c15), hero'daki kaldı. |
+| 45 | 2026-09-02 | Blog+navigation DIŞINDAKİ 293 benzersiz hotlink (307 sayfa) temizlendi → **0/0**. Yol (A) 19 sabit-kodlu dosya (`localize-remaining-hotlinks.mjs`), yol (B) paylaşılan `src/data/relativizeWpUrls.ts`'in `deepRelativizeWpUrls()`'ü ham JSON ağacını import anında göreliye çeviriyor. Unicode NFD/NFC tuzağı: uzak istek `encodeURI(path.normalize('NFC'))`, YEREL ad normalize EDİLMEZ. **Denetim script'i bugün 64 URL raporluyor ama regresyon DEĞİL — hepsi JSON-LD `logo`/OG `image`, mutlak URL zorunlu; bkz. #77'nin kapanış notu.** |
+| 47 | 2026-09-02 | 5 form dosyasının `console.log`'u kaldırılıp gerçek `/api/lead`'e bağlandı. |
+| 50 | 2026-08-31 | "pipefail eksikliği": projede pipe kullanan script YOK, düzeltilecek hedef yoktu. **Kalıcı disiplin §Proje kuralları'na taşındı** (build çıktısı `tail`/`grep`'e yönlendirilecekse `set -o pipefail` şart; 8 `check-*.mjs`'in exit kodu konusu → #36/#78). |
+| 51 | 2026-08-31 | Widget i18n Tier 1 (yapısal arayüz metni) 5 dilde: `productPreviewWidgetLabels.ts`, `LabelsContext`/`useLabels()`, `buildTabs(labels)`. `Partial<Record<Locale,X>>` kullanıldı (KARAR 1 — uydurma çeviri yok). Tier 2 → #55–#59. |
+| 52 | 2026-08-31 | `check-html-lang-attribute.mjs`'in 196 "sorunlu sayfa"sı GERÇEK regresyon değil, script bug'ıydı: `output:'server'` geçişinde çıktı `dist/client/` altına sarıldı, `parts[0]` her zaman `"client"` olup beklenen locale `tr`'ye düşüyordu. `DIST_DIR` varsayılanı `dist/client` yapıldı. |
+| 53 | 2026-10-03 | `check-hreflang.mjs`'in "dormant" bug'ı — tetikleyici koşul (`site` dolu) gerçekleşti, **build+script ile doğrulandı: 248 hreflang sayfası, 0 sorun, exit 0.** Script'te `DIST_DIR ?? 'dist/client'` zaten uygulanmış. |
+| 54 | kısmen | Widget tarafı kapandı (sabit `MONTH_ABBREV`/`WEEKDAY_ABBREV`/`formatDecimal()` tablolarına geçildi). **Site-geneli `dates.ts` riski HÂLÂ AÇIK — yukarıdaki #54'e bkz.** |
+| 55–59 | 2026-08-31/09-01 | Widget i18n Tier 2, sekme sekme 5 dilde: İzin Yönetimi (#55), İnsan Kaynakları (#56), Performans Yönetimi (#57), Veri Analizi (#58), paylaşılan header panelleri (#59). Desen: yapısal veri sabitlerde kalır, çeviri İNDEKS SIRASIYLA render'da birleşir (`getXLabels(locale)`, `LocaleContext`). |
+| 60 | 2026-09-01 | Duyuru barı artık yalnızca `scrollY === 0` iken görünüyor (kaynağın davranışı), scroll YÖNÜ mantığı kaldırıldı. |
+| 61 | 2026-09-01 | 2 İK hub'ının hero görseli eksikti — `HubBlock`'a `image` alanı + `getHeroImage(trSlug, locale)` + `HERO_IMAGE_ALT` (4 dil, gerçek açıklayıcı alt metin). Görseller yerelleştirildi. |
+| 62 | 2026-09-02 | Dil değiştiricide az/it için sistemik 404: `localeUrls`'te locale hiç yoksa `computeGenericLocaleUrls()` anlamsız URL üretiyordu. 5 dosyada `if (!result.az) result.az = result.tr;` deseni (NL'nin 2026-07-22'deki düzeltmesinin az/it'e genişletilmiş hali). |
+| 63 | 2026-09-02 | İşe Alım Modülü canlı siteyle uyumsuzdu — sayfa Hiringoz'a yeniden markalanmış; TR/EN/IT verbatim toplandı, NL/AZ profesyonel çeviriyle üretildi, 8 görsel yerelleştirildi. |
+| 64 | 2026-09-02 | #63'ün devamı: hero `background-image` + "hiringoz" rozeti kaçırılmıştı, bölüm görselleri bir kaydırma hatasıyla yanlış atanmıştı. `ProductBlock`'a `reverse`/`backgroundImage`, `ProductPage`'e `heroLayout`/`heroPartnerLogo` (opt-in). **Yakalanan gerçek bug:** `resolveBlock()` yeni alanları passthrough etmiyordu. |
+| 65 | 2026-09-02 | Tek gecede birçok küçük/orta bulgu: homepage font büyütme, Destek Talebi hero gradyanı+yıldızlar, Teşekkürler sayfası (autoplay opt-in, AZ sayfası eklendi), **yeni "Partnerlerimiz" bölümü** (13 logo, kendi resmi sitelerinden), mobil menüde dil değiştiricinin yukarı taşınması, Online Sunum Talebi'nin 2 hardcoded-Türkçe component'inin i18n'e bağlanması. |
+| 66 | 2026-09-02 | Son blog senkronizasyonu: 622→629 yazı. **2 gerçek bug:** (a) WP'nin ZAMANLANMIŞ yayın akışında `modified < date` kalabiliyor → `effectiveModifiedDate` (JSON-LD/OG/görünür banner tek kaynaktan); (b) 7 yazının `<title>`'ı aşıyordu → `metaTitle`. |
+| 67 | 2026-09-02 | Mobil widget: Seçenek A (mobil düzeni ölçekle) önce uygulandı, sonra kullanıcı ısrarıyla **Seçenek B** (masaüstü düzenini küçült) benimsendi. Güvenlik ağı: `mobil-widget-secenek-a-yedek` dalı. **Mimari §Mimari'ye taşındı** (container-query, 3 katman, alt sınır yok). |
+| 68 | 2026-09-06 | Keystatic self-hosted `fields.image()`: 628 yazının görseli `public/img/blog-featured/<slug>/`'a taşındı, frontmatter `url:`→`image:` (dosya başına 1 satır). **Windows MAX_PATH sınırı canlı yakalandı** → sabit `featured.<uzantı>` adı. Keystatic asset alanları yolu entry slug'ıyla ad alanına ayırıyor (`getSrcPrefix()`). Panelde 2 uçtan uca test. *Kapsam dışı: gövde içindeki eski `![](...)` referansları migrate edilmedi — göreli yollar çalışıyor, yalnızca panel image alanıyla yönetilmiyorlar.* |
+| 74 | 2026-09-22 | Fiyatlar: KOBİ paketi sabit fiyat yerine Pro gibi "Teklif Al" + "Başvur" formuna yönlendiriyor, **5 locale'in hepsinde**. `PRO_QUOTE_TEXT`→`QUOTE_TEXT`, `SME_PRICE_OVERRIDE`→`SME_CTA_OVERRIDE`. Son yayınlanmış fiyatlar kayıt için: TR 7.999 ₺/ay, EN/NL/IT/AZ 149 €. |
 
 ---
 
@@ -3970,9 +1811,58 @@ Tam süreç/kök-neden/ölçüm anlatıları için tarihli arşiv dosyalarına
 bakılabilir (nadiren gerekir): `docs/claude-md-archive-2026-08-18.md`
 (2026-08-13→08-19 tam günlük), `docs/claude-md-archive-2026-08-13.md`
 (2026-08-06→08-13), `docs/claude-md-archive-2026-08-06.md`
-(2026-07-21→08-06), `-07-31.md`, `-07-28.md`, `-07-23.md`. İlgili
-turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli).
+(2026-07-21→08-06), `-07-31.md`, `-07-28.md`, `-07-23.md` — ve
+**`docs/claude-md-archive-2026-10-03.md` (2026-08-19→2026-10-02 tam
+günlük + kapanmış 32 açık noktanın TAM anlatımı).**
 
+- **2026-09-02:** Lead kalıcılığı Cloudflare D1'e bağlandı (#73); Fiyatlar
+  KOBİ paketi "Teklif Al"a çevrildi (#74); son blog senkronizasyonu,
+  622→629 yazı (#66); mobil widget container-query mimarisine geçti (#67);
+  dil değiştiricinin az/it 404 bug'ı düzeltildi (#62); İşe Alım Modülü
+  Hiringoz içeriğiyle yeniden yazıldı (#63/#64); tek gecede ~10 küçük/orta
+  UI bulgusu (#65); 6 formun tamamı gerçek `/api/lead` backend'ine
+  bağlandı (#47) — SendGrid anahtarı hâlâ bekleniyor.
+- **2026-09-01:** Widget i18n Tier 2 tamamlandı (Performans Yönetimi,
+  Veri Analizi, paylaşılan header panelleri — #57/#58/#59); duyuru barı
+  kaynağın `scrollY === 0` davranışına çevrildi (#60); 2 İK hub'ının
+  eksik hero görseli eklendi (#61).
+- **2026-08-31:** Widget i18n Tier 1 + Tier 2'nin ilk 3 sekmesi 5 dile
+  genişletildi (#51/#55/#56); `check-html-lang-attribute.mjs`'in 196
+  sahte bulgusu script bug'ı olarak çözüldü (#52); runtime `Intl`'in
+  `az-AZ`'da bozuk olduğu ölçülüp sabit tablolara geçildi (#54);
+  `pipefail` denetimi (#50); MegaMenu DOM boyutu 3 alternatifle yeniden
+  araştırılıp aynı sonuca varıldı (#25).
+- **2026-08-30:** Blog + mega-menü görselleri TAMAMEN yerelleştirildi,
+  976 görsel + 1039 URL (#14); sitenin geri kalanındaki 293 hotlink'in
+  kapsamı netleştirildi (#45, 2026-09-02'de kapandı).
+- **2026-08-29/30:** Online Sunum Talebi sayfası 6 geri bildirim turunda
+  baştan tasarlandı (2 adımlı form, timeline + özellik grid'i, logo
+  şeridi). Bu turdan çıkan site-geneli `heroBackground` prop'u → §Mimari.
+- **2026-08-29:** Blog göçü tamamlandı — 622/622 yazı `.md`'ye taşındı,
+  `posts.json` boşaldı; migrasyon script'inde 3 sessiz veri kaybı
+  (cite/sup unwrap, eksik `metaTitle`/`modifiedDate`/`authorName`,
+  düşen `aria-label`) pilot turda yakalanıp düzeltildi.
+- **2026-08-24:** BreadcrumbList altyapısı kuruldu (19 şablon, görünür
+  `<nav>` + JSON-LD tek kaynaktan → §Mimari); "İdenfit ile Fark
+  Yaratanlar" carousel'i çok turlu revizyondan geçti (video kartları
+  arka planda sessiz döngü, 9 kart); GEO bulgu ailesi (author
+  attribution `Person`/`Organization`, 4 H2 soru formatına, 35 dış
+  kaynak `<cite>` ile işaretlendi); ürün sayfalarının bölüm CTA'ları
+  gerçek butona çevrildi; hero'ya Personio referanslı kırmızı alt-ton.
+- **2026-08-23:** Blog yazılarına `SpeakableSpecification` eklendi (622
+  yazı, `#post-title` + `.post-content` hook'ları); Fiyatlar ve Online
+  Sunum Talebi sayfalarının mobil görünümü düzeltildi (akordeon deseni,
+  sıra/kontrast bug'ları); "viewport meta" ve "og:description" SEO
+  bulguları incelenip ZATEN KAPALI bulundu (kod değişikliği yok).
+- **2026-08-22:** `Organization` JSON-LD sıfırdan kuruldu, `sameAs` 7
+  gerçek sosyal profili `FOOTER_SOCIAL`'dan TEK kaynaktan alıyor
+  (LinkedIn'in kanonik `/company/idenfithr/` adresi de bu turda
+  düzeltildi); blog "zamirle başlayan bağımlı ilk paragraf" denetimi
+  14/14 madde kapandı.
+- **2026-08-21:** Azerbaycan dili (az) 5. locale olarak eklendi ve aynı
+  oturumda tüm site kapsamına genişletildi (#37) — 44 yeni sayfa, yeni
+  `sectorTranslationOverrides.ts`/`productTranslationOverridesAz.ts`/
+  `hubTranslationOverridesAz.ts`; widget'a otomatik sekme gezinmesi.
 - **2026-08-20:** Ürün Önizleme widget'ının dış boyutu Personio
   referansına göre kısaltıldı (paylaşımlı `min-h`→sabit `max-h`+iç
   scroll) + TR ana sayfasındaki tekrarlı ikinci widget kaldırıldı, Açık
@@ -4000,16 +1890,14 @@ turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli
   regresyonu bulunup düzeltildi (`sm:flex-row` kaldırıldı, konteyner
   genişliği viewport breakpoint'inden dar kalıyordu).
 - **2026-08-17:** hreflang + canonical altyapısı sıfırdan kuruldu
-  (`Astro.site` tanımlanana kadar uykuda, Açık nokta #31) — bkz.
-  `hreflang-canonical-audit.md` memory. "Large DOM size" bulgusu KAPANDI
-  (MobileMenu mobilde de lazy-mount, Açık nokta #24) — bkz.
-  `dom-size-mobile-menu-fix.md` memory. "Multiple H1 tags" incelendi,
+  (`Astro.site` 2026-09-02'de dolduruldu, artık aktif — eski Açık nokta
+  #31/#53). "Large DOM size" bulgusu KAPANDI (MobileMenu mobilde de
+  lazy-mount, eski Açık nokta #24). "Multiple H1 tags" incelendi,
   sorun yok. "No visible content dates" GEO bulgusu kapandı
   (`LastUpdated` component, 91+ ürün/48 sektör/14 hukuki/Donanım/
-  Fiyatlar/Destek Talebi/Teşekkürler sayfası, sayfa ALTINA yerleştirildi)
-  — bkz. `geo-content-dates-audit.md` memory. "Few H2 subheadings"
-  kapandı (SSS kategori panelleri, 12 sektör "Bu Sektöre Özel Modüller"
-  başlığı, Hesaplama Araçları).
+  Fiyatlar/Destek Talebi/Teşekkürler sayfası, sayfa ALTINA yerleştirildi).
+  "Few H2 subheadings" kapandı (SSS kategori panelleri, 12 sektör "Bu
+  Sektöre Özel Modüller" başlığı, Hesaplama Araçları).
 - **2026-08-14:** Header'ın kalan 6 ikon paneli (Analiz/Göz/Dil seçici/
   2. zil/HRTECHTOOLS/Avatar) `IconDropdown` deseniyle tamamlandı (9/9).
   HRTECHTOOLS gerçek app.idenfit.com ekran görüntüsüyle pixel-compare
@@ -4035,28 +1923,21 @@ turların çoğu için ayrıca `memory/` dosyaları da var (aşağıda işaretli
   (~150 sayfa, `GENERIC_CTA_TEXTS`/`buildCtaAnchorText()`). Ana sayfaya
   SSS bölümü + `FAQPage` JSON-LD. Site geneli hero görseli
   `loading="lazy"` LCP bug'ı düzeltildi (143 sayfa). Blog gövdesinde
-  stray `<h1>` için 2 katmanlı render-time güvenlik ağı kuruldu — bkz.
-  `blog-h1-heading-audit.md` memory.
+  stray `<h1>` için 2 katmanlı render-time güvenlik ağı kuruldu.
 - **2026-08-11:** İletişim sayfası 6 eksik bölümle tamamlanıp 5 takip
-  turunda pixel-doğrulamalı düzeltildi — bkz. `contact-page-gap-audit.md`
-  memory. Özel 404 sayfası (4 dil) — bkz. `404-page-astro-i18n-gotcha.md`
-  memory. KVKK/hukuki sayfa ailesi (14 sayfa) canlı siteyle eşleştirildi
-  — bkz. `legal-page-font-design-audit.md` memory. Header/marquee
-  container bug'ı + boyut/renk/sonsuz-döngü düzeltmesi — bkz.
-  `header-marquee-audit.md` memory. Site geneli `alt` metni denetimi
-  tamamlandı — bkz. `image-alt-text-audit.md` memory.
-- **2026-08-10:** JSON-LD sıfırdan kuruldu (yalnızca blog, 622 yazı) —
-  bkz. `json-ld-audit.md` memory. `<title>` uzunluk denetimi (194
-  blog-dışı sayfa) — bkz. `title-length-audit.md` memory. Meta
-  description uzunluk denetimi (43 sayfa) — bkz. `meta-description-audit.md`
-  memory. Erişilebilir-ad-yok `<a>` link denetimi (19 ihlal, blog
-  içeriği) — bkz. `link-accessibility-audit.md` memory. Site geneli DOM
-  boyutu taraması + `MobileMenu` masaüstü düzeltmesi — bkz.
-  `dom-size-investigation.md` memory. Landing Page (`/demo`) geliştirme
-  turu — bkz. `landing-page-status.md` memory.
+  turunda pixel-doğrulamalı düzeltildi. Özel 404 sayfası (4 dil).
+  KVKK/hukuki sayfa ailesi (14 sayfa) canlı siteyle eşleştirildi.
+  Header/marquee container bug'ı + boyut/renk/sonsuz-döngü düzeltmesi.
+  Site geneli `alt` metni denetimi tamamlandı.
+- **2026-08-10:** JSON-LD sıfırdan kuruldu (yalnızca blog, 622 yazı).
+  `<title>` uzunluk denetimi (194 blog-dışı sayfa). Meta description
+  uzunluk denetimi (43 sayfa). Erişilebilir-ad-yok `<a>` link denetimi
+  (19 ihlal, blog içeriği). Site geneli DOM boyutu taraması +
+  `MobileMenu` masaüstü düzeltmesi. Landing Page (`/demo`) geliştirme
+  turu.
 - **2026-08-06/07:** Landing Page (`/demo`) pilot iskeleti kurulup gerçek
-  ürün içeriğiyle zenginleştirildi, sonra görsel olarak yükseltildi —
-  bkz. `landing-page-status.md` memory (f21f863 ile 08-11'de tamamlandı).
+  ürün içeriğiyle zenginleştirildi, sonra görsel olarak yükseltildi
+  (f21f863 ile 08-11'de tamamlandı).
 - **2026-07-31:** Marquee scroll-hide titremesi kalıcı çözüldü (kök
   neden: `backdrop-filter`+`position:sticky`). Online Sunum Talebi
   baştan kuruldu. Navbar "BLOG" linki kaldırıldı.
@@ -4197,6 +2078,55 @@ sabit-varsaymayan bir yaklaşımla otomatik tespit edip normalize ediyor.
   Partial<Record<Locale,string>>` prop'u): per-locale slug'lar
   GERÇEKTEN farklıysa ilgili `get*LocaleUrls()` fonksiyonuyla override
   edilir. Opt-in.
+- **`BaseLayout`'un 2 opsiyonel prop'u — ikisi de OPT-IN, verilmezse
+  diğer TÜM sayfalarda davranış DEĞİŞMEZ:**
+  - **`breadcrumb?: BreadcrumbItem[]`** (`BaseLayout.astro:102`) —
+    çağıran yalnızca "Ana Sayfa" SONRASI izi geçirir; `t.common.home` +
+    `getRelativeLocaleUrl()` BaseLayout içinde OTOMATİK eklenir (tek
+    kaynaktan besleme). Görünür `<nav aria-label="Breadcrumb">` H1'in
+    üstünde, `BreadcrumbList` JSON-LD AYNI `breadcrumbTrail`'den üretilir
+    — ikinci bir veri kaynağı YOK. 19 şablon kullanıyor. **Hiyerarşi 2
+    seviyeli** (Ana Sayfa > [Sayfa]); **blog istisna** (Ana Sayfa > Blog >
+    [Yazı]) çünkü yalnızca `/blog/` gerçek/tıklanabilir bir sayfa.
+    "Ürünler"/"Sektörler" gibi gerçek landing sayfası OLMAYAN ara
+    segmentler EKLENMEZ (kırık/işlevsiz link üretmemek için — kaynaktaki
+    aynı gerekçe). `NotFoundPage`/`LandingPage` (`noindex`) bilinçli
+    olarak breadcrumb'sız. Leaf etiketi YENİ metin İCAT EDİLMEDEN
+    sayfanın zaten sahip olduğu gerçek başlıktan türetilir.
+  - **`heroBackground?: string`** (`BaseLayout.astro:117`) — breadcrumb'ı
+    saran kutuya DÜZ renk uygular. Breadcrumb her sayfada beyaz zeminde
+    render edildiği için, altında renkli/gradyanlı bir hero varsa
+    aralarında görünür bir "dikiş" kalıyordu. Hero gradyanının TAMAMI
+    değil yalnızca **0% rengi** verilir — iki ayrı kutuda aynı gradyanı
+    hizalamaya çalışmak kırılgandır. Kullananlar:
+    `PresentationRequestPage`/`SupportRequestPage` (`#FFDCDC`).
+- **`.reveal` scroll-fade script'i OTOMATİK YÜKLENMEZ.** `BaseLayout`
+  `src/scripts/scroll-reveal.js`'i HİÇ eklemiyor (içinde yalnızca
+  JS-kapalı durumu için bir `noscript` notu var) — onu kullanan her sayfa
+  `<script src="../scripts/scroll-reveal.js">` satırını ELLE ekler (5
+  ana sayfa, blog, Landing, Müşteriler, Online Sunum Talebi, Blog
+  listesi…). **`.reveal` kullanan yeni bir bölüm eklenip bu script
+  eklenmezse bölüm KALICI GÖRÜNMEZ kalır** — sessiz hata, `astro build`
+  ve regresyon script'leri YAKALAMAZ.
+
+### Mobil ölçekleme — `ProductPreviewWidget` container-query mimarisi (kalıcı)
+Widget mobilde yeniden AKMIYOR (reflow); masaüstü düzeninin KÜÇÜLTÜLMÜŞ
+hali gösteriliyor (kullanıcı kararı, okunabilirlik ödünü bilerek kabul
+edildi). Bu yüzden widget'ın iç kurallarının HİÇBİRİ viewport medya
+sorgusu (`lg:`/`sm:`) DEĞİL, **Tailwind v4 container query'si**
+(`@min-[1024px]:`/`@min-[640px]:` — arbitrary-value söz dizimi, çünkü
+v4'ün varsayılan `@lg`/`@sm` container eşikleri viewport eşiklerinden
+FARKLI). ÜÇ katman zorunlu (CSS containment: bir eleman kendi container
+query'sinin hedefi OLAMAZ): `outerRef` (gerçek viewport'a bağlı konteyner
+genişliğini ölçer; `items-start` şart — Flexbox'ın `align-items:stretch`
+varsayılanı içeriği kırpıyordu) → `containerRef` (`@container` + sabit
+`DESKTOP_NATURAL_WIDTH=1280` + `transform:scale()` + `flexShrink:0`) →
+`innerRef` (asıl düzen; container query'leri burada). Ölçek yalnızca
+ÜSTTEN sınırlı (`Math.min(1, widthScale)`) — **alt sınır YOK**, 1280px
+tabanda bir alt sınır hiçbir telefona sığmaz ve `overflow-hidden`
+tarafından kırpılır. **Yeni bir sekme/kart eklenirken `lg:`/`sm:`
+KULLANILMAMALI** — mobilde sessizce yanlış düzen üretir. Tam gerekçe
+`ProductPreviewWidget.tsx`'in ~2843. satırındaki yorum bloğunda.
 
 ### `position:fixed` dialog/modal/overlay kuralı (kalıcı)
 `<header>` `backdrop-blur` kullanıyor — CSS spesifikasyonu gereği bu,
@@ -4475,6 +2405,30 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
 - **Test yaklaşımı:** Yeni bir dil değiştirici/CTA/link değişikliğinden
   sonra ilgili `test-*.mjs` script'i (dev server ayakta olmalı) +
   regresyon için mevcut diğer `test-*.mjs`'ler çalıştırılır.
+- **Exit code / `pipefail` disiplini (kalıcı, 2026-08-31'de ölçülerek
+  öğrenildi — eski Açık nokta #50):** build/test çıktısı `tail`/`grep`
+  gibi bir komuta YÖNLENDİRİLECEKSE önce `set -o pipefail` verilmeli.
+  Canlı kanıtlandı: kasıtlı bozuk bir sayfayla `astro build 2>&1 | tail -5`
+  build GERÇEKTEN çökerken `$?` **0** (başarılı!) döndü; `pipefail` açıkken
+  AYNI komut doğru şekilde başarısız döndü. Alternatif: exit code'u pipe'tan
+  ÖNCE `; echo $?` ile okumak. **Yalnızca son komutun durumuna
+  GÜVENİLMEMELİ.** Aynı tuzağın somut bedeli: bu alışkanlık yüzünden
+  `check-html-lang-attribute.mjs`'in 196 sahte bulgusu günlerce "sıfır
+  regresyon" diye raporlandı (eski #52).
+  **İlgili:** 8 kalıcı `check-*.mjs` script'i sıfır sorunda `exit 0`,
+  HERHANGİ bir sorunda (bilinen/kabul edilmiş bir açık nokta olsa BİLE)
+  `exit 1` veriyor. Bir CI/PR gate'i kurulacaksa bugün gate'i KIRACAK
+  3 bilinen taban çizgisi var: `check-heading-hierarchy` (#36),
+  `check-title-length`/`check-meta-description-length` (#70),
+  `check-csp-sync` (Windows CRLF, #78) — ya bunlar kapatılmalı ya gate
+  mantığı istisnaları hesaba katmalı.
+- **Satır sonu kuralı (`public/_headers` ve CLAUDE.md gibi üretilen/
+  karşılaştırılan dosyalar):** repo `core.autocrlf=true` ile checkout
+  ediliyor; bir dosyayı script'le yeniden yazarken satır sonlarını
+  KARIŞTIRMAMAK gerekiyor (karışık CRLF/LF, `check-csp-sync.mjs` gibi ham
+  string karşılaştıran araçlarda sahte "sapma" üretir — bkz. #78).
+  Doğrulama: `node -e "const s=require('fs').readFileSync(F,'utf8');
+  console.log((s.match(/(?<!\r)\n/g)||[]).length)"` → 0 olmalı.
 - **Erişilebilirlik — ikon-only link kuralı:** Yeni eklenen her ikon-only
   link/buton (görünür metni olmayan, yalnızca bir SVG/ikon barındıran
   `<a>`) **mutlaka `aria-label` içermeli.** Elle
