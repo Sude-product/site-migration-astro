@@ -7,6 +7,7 @@ import CalculatorAccordion from './CalculatorAccordion.tsx';
 import { CALCULATOR_DEFINITIONS } from '../data/calculatorDefinitions';
 import calculatorsExport from '../../reference/wordpress-export/calculators.json';
 import { buildIdenfitTitle } from '../data/pageTitle';
+import { organizationId, safeJsonLd } from '../data/jsonLd';
 
 const hero = calculatorsExport.hero;
 // TR-only (KARAR 2) — `buildIdenfitTitle()` bkz. `src/data/pageTitle.ts`.
@@ -26,6 +27,53 @@ const title = buildIdenfitTitle(hero.title, 'tr');
 // (kaynaktaki `background-position: right` düzeni, dar ekranda metinle
 // çakışacağından).
 const HERO_ILLUSTRATION_URL = '/wp-content/uploads/2025/12/header-bg-2x.png';
+
+// WebApplication JSON-LD (2026-10-03, şema turu PR 7) — bu sayfa ÖNCEDEN
+// hiç JSON-LD taşımıyordu (yalnızca `BaseLayout`'un site geneli
+// `Organization`/`WebPage`/`BreadcrumbList` blokları). 8 hesap makinesi
+// tarayıcıda çalışan GERÇEK bir araç seti; `WebApplication` bunların
+// tam karşılığı olan tipi.
+//
+// Alanların hepsi sayfanın KENDİ içeriğinden (KARAR 1 — yeni metin YOK):
+// `name`/`description` hero'nun kendi başlığı/metni (`description` meta
+// description ile AYNI tek kaynak), `featureList` 8 aracın GERÇEK adları
+// (`CALCULATOR_DEFINITIONS`, sayfada da bu adlarla render ediliyor),
+// `publisher` PR 3'te kurulan paylaşılan `organizationId()` referansı.
+//
+// ⚠️ `offers`/`isAccessibleForFree` BURADA VAR, ürün/modül sayfalarında
+// (PR 5) YOK — çelişki değil, ölçülmüş bir FARK: oradaki modüller
+// Fiyatlar sayfasının paketlerine ait ve KOBİ/Pro "Teklif Al" olduğu için
+// herkese açık fiyatı yoktu; buradaki 8 araç ise GERÇEKTEN bedelsiz ve
+// kayıt istemiyor (doğrulandı: `CalculatorAccordion` saf istemci tarafı
+// React island'ı, `fetch`/`api/`/giriş yolu YOK). Yani "ücretsiz" iddiası
+// burada olgusal olarak DOĞRU. Kullanıcı kararı, 2026-10-03.
+//
+// ⚠️ `softwareVersion` yine YOK (kalıcı karar) ve `aggregateRating`/
+// `review` de yok — gerçek derecelendirme verimiz hiç yok.
+//
+// `applicationCategory: 'FinanceApplication'` (kullanıcı kararı) —
+// 8 aracın tamamı vergi/maaş/tazminat hesabı, bu kategori
+// `BusinessApplication`'dan daha özgül. (Ürün/modül sayfaları
+// `BusinessApplication` kullanmaya devam ediyor; ikisi de geçerli
+// schema.org enumerasyon değeri.)
+const IDENFIT_ORG_ID = organizationId(Astro.site);
+const calculatorsPageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+const webAppJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: hero.title,
+  ...(hero.text ? { description: hero.text } : {}),
+  url: calculatorsPageUrl,
+  inLanguage: 'tr',
+  applicationCategory: 'FinanceApplication',
+  // Tarayıcıda çalışıyor, kurulum gerektirmiyor — `WebApplication` için
+  // Google'ın beklediği alan.
+  browserRequirements: 'JavaScript gerekir',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'TRY' },
+  featureList: CALCULATOR_DEFINITIONS.map((def) => def.title),
+  ...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
+};
 ---
 
 <BaseLayout
@@ -34,6 +82,8 @@ const HERO_ILLUSTRATION_URL = '/wp-content/uploads/2025/12/header-bg-2x.png';
   hreflangLocales={['tr']}
   breadcrumb={[{ label: hero.title }]}
 >
+  <script type="application/ld+json" set:html={safeJsonLd(webAppJsonLd)} is:inline />
+
   <!-- Hesaplama Araçları hero arka planı — detaylı teknik notlar CLAUDE.md'de -->
   <div class="bg-[rgba(226,151,51,0.2)]">
     <section class="relative mx-auto max-w-5xl overflow-hidden px-4 py-16 text-center sm:px-6 lg:py-28 lg:pr-[420px] lg:text-left">
