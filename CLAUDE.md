@@ -23,13 +23,14 @@ göçü (Decap→Keystatic) tamamlandı — 629 yazı Markdown'da, Keystatic Clo
 paneli CANLI ve pazarlama ekibi oradan yazı yayınlıyor (`keystatic-cloud[bot]`
 doğrudan `master`'a commit atıyor, Workers Builds otomatik deploy ediyor).
 **Site CANLIDA** (`site: 'https://idenfit.com'` dolu, canonical + hreflang
-aktif). **Şu anki odak (2026-10-02/04): JSON-LD şema turu** — 8 PR sırayla
-canlıya alındı (ürün/modül sayfalarının `SoftwareApplication`'ı dahil, Açık
-nokta #29'un asıl boşluğu kapandı; blog yazılarının `articleSection`'ı da
-canlıda), 9.'su (blog liste sayfaları `CollectionPage`) PR olarak bekliyor.
-Sıradaki açık uçlar: **Fiyatlar sayfası** (orada hâlâ HİÇ JSON-LD yok ve
-`offers` kararı oraya ait) ve **`check-json-ld.mjs`'in `WebPage` kuralları**
-(255 blok hiç doğrulanmıyor — bkz. §Güncel durum PR 9 ve §Açık noktalar #29).
+aktif). **Şu anki odak (2026-10-02/04): JSON-LD şema turu — 9 PR canlıda,
+10.'su PR olarak bekliyor.** Canlıdakiler ürün/modül sayfalarının
+`SoftwareApplication`'ı, blog yazılarının `articleSection`'ı ve blog liste
+sayfalarının `CollectionPage`'ini kapsıyor. 10. PR (Fiyatlar sayfasına
+`SoftwareApplication` + `offers`) ile **Açık nokta #29 TAMAMEN kapandı** —
+şema turunun planlanan kapsamı bitti. **Kalan tek açık uç:
+`check-json-ld.mjs`'in `WebPage` kuralları** (255 blok hiç doğrulanmıyor,
+PR 9'da bulundu — bkz. §Güncel durum PR 9/PR 10 ve §Açık noktalar #29).
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 **`docs/claude-md-archive-2026-10-03.md` (2026-08-19→2026-10-02 tam
@@ -357,7 +358,7 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-04)
 
-### ✅ JSON-LD şema turu — 9 PR (2026-10-02/04)
+### ✅ JSON-LD şema turu — 10 PR (2026-10-02/04)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -372,7 +373,8 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 6 | #24 | `feat/jsonld-featurelist-temizligi` | `903d2c0` | `6dcb013` | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
 | 7 | #25 | `feat/jsonld-webapplication` | `3e99a1d` | `99e283f` | Hesaplama Araçları'na `WebApplication` + `offers` 0 TRY (1 sayfa) |
 | 8 | #27 | `feat/jsonld-articlesection` | `ddd76f9` | `9dd7ede` | Blog yazılarına `articleSection` — 640 sayfa |
-| 9 | — | `feat/jsonld-collectionpage` | `3391a35` | — | Blog liste sayfaları `WebPage`→`CollectionPage` + `mainEntity: ItemList` — 54 sayfa (bu tur) |
+| 9 | #28 | `feat/jsonld-collectionpage` | `3391a35` | `902f2fb` | Blog liste sayfaları `WebPage`→`CollectionPage` + `mainEntity: ItemList` — 54 sayfa |
+| 10 | — | `feat/jsonld-pricing-softwareapplication` | `bfd24d9` | — | Fiyatlar sayfasına `SoftwareApplication` + `offers` (Mikro 0 TRY) — 5 sayfa (bu tur) |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -406,6 +408,126 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-04 — JSON-LD şema turu PR 10: Fiyatlar sayfasına `SoftwareApplication` + `offers` (5 sayfa) — Açık nokta #29 TAMAMEN kapandı.**
+Fiyatlar sayfası (`/fiyatlar/` + 4 locale karşılığı) ÖNCEDEN hiç tip-özel
+şema taşımıyordu (yalnızca site geneli `Organization`/`WebPage`/
+`BreadcrumbList`) — idenfit'in kendisi ve fiyatlandırması şema seviyesinde
+hiç söylenmiyordu.
+**TİP SEÇİMİ — araştırıldı, 3 alternatif reddedildi (kullanıcı onaylı):**
+- **`SoftwareApplication` (seçilen).** idenfit bir SaaS; bu daha özel ve
+  doğru tip. Açık nokta #29 bu yolu ZATEN kaydetmişti: *"Fiyat/teklif
+  bilgisi gerekirse `Offer`, `SoftwareApplication`'a da eklenebilir — tip
+  değiştirmek gerekmez."* 111 modül sayfası + Hesaplama Araçları ile AYNI
+  tip ailesi, yani üçüncü bir tip çelişkisi yaratmıyor.
+- **`Product` reddedildi** — e-ticaret odaklı (Google'ın Product rich
+  result'ı availability/condition/shipping bekler), idenfit mal değil; #29
+  bu tipi zaten bilinçli reddetmiş.
+- **`Service` reddedildi** — Google karşılığı yok ve 111 modül sayfasıyla
+  tip ayrışması yaratırdı.
+- **`OfferCatalog` reddedildi** — sayfayı EN hassas tarif eden tip ama 3
+  planın 2'si fiyatsız; fiyatsız `Offer` hiçbir şey iletmez, "3'lü katalog"
+  ilan edip 2'sini boş bırakmak 1 gerçek teklif ilan etmekten DAHA ZAYIF.
+**⚠️ Bu blok `WebPage` ile ÇAKIŞMIYOR ve bu, PR 9'dan AYRILAN noktadır:**
+ürün/modül sayfalarında olduğu gibi ikisi FARKLI varlık — `WebPage` SAYFAYI,
+bu blok sayfada ANLATILAN ÜRÜNÜ tarif ediyor. PR 9'daki `CollectionPage`
+durumu BAŞKAYDI: orada ikisi de AYNI varlığı (sayfayı) tarif ettiği için
+tip DEĞİŞTİRİLMİŞTİ. **Bu ayrım turun ölçütünü belirledi: bu tur blok
+EKLİYOR → DÖRTLÜ ölçüt (PR 5/PR 7 ile aynı şekil).**
+**`offers` — YALNIZCA Mikro.** Kullanıcı kararı, ve olgusal olarak
+ÖLÇÜLDÜ: Mikro 5 locale'in TAMAMINDA bedelsiz (ÜCRETSİZ / FREE / GRATIS /
+Gratis / PULSUZ, build çıktısından okundu). KOBİ ve Pro 2026-09-22'den beri
+İKİSİ DE "Teklif Al" — herkese açık fiyatı YOK, bu yüzden onlara `Offer`
+YAZILMADI (fiyatsız bir `Offer` hiçbir şey iletmez, uydurma fiyat ise
+Google'ın yapılandırılmış veri politikalarını ihlal ederdi).
+`priceCurrency` 5 locale'de de `TRY` (kullanıcı kararı) — 0 için para birimi
+semantik olarak önemsiz, tek `offers` locale'den bağımsız yazılabiliyor.
+`Offer.url` Mikro kartının KENDİ CTA'sı (kayıt sayfası, sayfadan türetildi).
+**⚠️ `isAccessibleForFree` ÇIKARILDI — kullanıcı düzeltmesi, KALICI DERS.**
+İlk planda PR 7'nin desenine bakıp eklemeyi önermiştim; kullanıcı doğru
+şekilde reddetti: **alan ÜRÜN düğümünde durur ve "bu YAZILIM ücretsiz
+erişilebilir" anlamına gelir — oysa idenfit bütün olarak ücretsiz değil,
+yalnızca Mikro paketi.** Yanlış KAPSAMDA bir iddia olurdu. PR 7'de
+Hesaplama Araçları'na eklenmesi DOĞRUYDU çünkü orada varlık araçların
+KENDİSİ ve tamamı bedelsiz. **Genel kural: bir alanı eklemeden önce hangi
+DÜĞÜMDE durduğu ve o düğümün neyi temsil ettiği kontrol edilmeli** —
+"benzer sayfada vardı" yeterli gerekçe değil. Fiyat bilgisi `offers` içinde
+Mikro'ya bağlı olarak zaten doğru kapsamda duruyor.
+`softwareVersion` YOK (kalıcı karar), `aggregateRating`/`review` YOK.
+**`featureList` = 14 girdi** — sayfanın KENDİ karşılaştırma tablosunun 8
+satır adı + 6 eklenti adı. Eklentiler AYRI fiyatlanıyor ama idenfit'in
+GERÇEK yetenekleri; `featureList` yazılımın yeteneklerini tarif eder, bir
+pakete DAHİL olanı değil (schema.org'da "dahil/opsiyonel" ayrımı için alan
+yok). İstenirse tek satırla 8'e indirilebilir.
+**🟢 GOOGLE RICH RESULT — PR 5'in alamadığı kazanç burada alınıyor.**
+"Software App" rich result'ı `name` YANINDA `offers` VEYA `aggregateRating`/
+`review` ZORUNLU kılıyor; PR 5'te üçü de kasıtlı olarak yoktu (modül bir
+satın alma birimi değil) ve blok rich result ÜRETEMİYORDU. Burada
+`name` + `offers` şartı KARŞILANIYOR (PR 7'deki aynı durum). Üretilip
+üretilmeyeceği Google'ın kararı, bizim tarafta şart tamam.
+**`check-json-ld.mjs`'e `Offer` İÇ YAPISI derin kontrolü** (FAQPage/ItemList
+AYNI desen): `@type` Offer mi, `price` var ve SALT SAYI mı, `priceCurrency`
+var ve 3 harfli ISO 4217 mi. `SoftwareApplication`'ın ÖNERİLEN listesine
+`offers` EKLENMEDİ — PR 5/PR 7'de kurulan asimetri bilinçli (modül
+sayfalarında fiyat yok, önermek 111 sayfalık uyarı gürültüsü olurdu).
+**⚠️ `price` kontrolü truthy DEĞİL ve bu zorunlu:** `"0"` DİZESİ truthy ama
+SAYI `0` falsy — truthy kontrolü ücretsiz paketi "price eksik" diye
+reddederdi. Negatif testle kanıtlandı (sayı-0 senaryosu TEMİZ geçiyor).
+8 senaryolu negatif test: **6 geçersiz** (tip yanlış / price yok / price
+simgeli "7.999 ₺" / currency yok / currency "TL" / dizinin 2. öğesi bozuk →
+`offers[1]` etiketiyle) + sağlam kopya ve sayı-0 temiz.
+**Doğrulama — DÖRTLÜ ölçüt, indeks bazlı hash KULLANILMADI (PR 4'ün dersi).**
+Blok dağılımı: `SoftwareApplication` 111→**116**, toplam blok 3065→**3070**.
+(1) tam dosya sha256 → **5** dosya değişti, tam olarak 5 Fiyatlar sayfası;
+(2) değişen küme **==** blok KAZANAN küme (birebir); (3) her dosya TAM **+1**
+blok ve tipi `SoftwareApplication`; (4) boyut muhasebesi **5/5 dosyada TAM
+SIFIR fark** (843 / 858 / 864 / 877 / 885 bayt). Diğer TÜM blok tiplerinin
+ham metni korundu (`Organization` 949, `WebPage` 255, `BreadcrumbList` 939,
+`BlogPosting` 640, `CollectionPage` 54, `FAQPage` 116, `WebApplication` 1 +
+önceki 111 `SoftwareApplication` — hiçbirinin ham metni kaybolmadı).
+(5) **KESİN KANIT — 3176/3176** HTML'de eklenen blok çıkarılıp kalanlar
+baseline metnine döndüğünde sha256 baseline'a EŞİT: JSON-LD DIŞINDA sitede
+**0 bayt** değişti.
+**İÇERİK doğrulaması, 5/5 locale:** `name`=idenfit, `inLanguage` locale ile
+eşleşiyor, `applicationCategory`=BusinessApplication, `description` meta
+description ile AYNI tek kaynak, `publisher` `@id`, `featureList` 14 girdi
+(boş girdi 0), `offers` TEK `Offer` ve `name`'i GÖRÜNÜR Mikro plan adıyla
+eşleşiyor, `price`="0"/`TRY`, blokta `Offer` sayısı **1** (KOBİ/Pro'ya
+yazılmadığı doğrulandı), `isAccessibleForFree`/`softwareVersion`/
+`aggregateRating`/`review` 5/5'te YOK.
+`astro check` 431 dosya 0 hata/0 uyarı/27 hint, `astro build` temiz (3176
+HTML). 11 regresyon script'inden **10'u baseline ile BİREBİR aynı**; farklı
+olan tek script `check-json-ld` ve farkı TAM OLARAK beklenen iki satır
+(toplam 3065→3070, `SoftwareApplication` 111→116) — **0 geçersiz, 0 uyarı**.
+`safeJsonLd()`: 5 yeni blokta çıplak `<`/`>`/`&` YOK, hepsi geçerli JSON.
+`public/_headers` değişmedi.
+**Baseline tasarrufu (yöntem, PR 7'nin aynısı):** baseline yeniden build
+EDİLMEDİ. Geçerliliği VARSAYILMADI, ölçüldü: `git diff --stat
+feat/jsonld-collectionpage master` **boş** → master'ın ağacı PR 9 dalının
+tepesiyle aynı, yani diskteki `dist/` zaten master'ın build'i; ayrıca
+yeniden çıkarılan ölçüm PR 9 turunun `after.json`'ıyla **byte-birebir**
+çıktı (diske de kaymamış). ~5 dakika tasarruf; numara yalnızca bu koşul
+ÖLÇÜLÜNCE güvenli.
+**⚠️ ÖLÇÜLEN ANOMALİ — PR 2'nin "şablon yorumları çıktıya basılır" kuralı
+BURADA GEÇERLİ OLMADI, mekanizma İZOLE EDİLEMEDİ.** Şablona eklenen tek
+satırlık `<!-- SoftwareApplication + offers … -->` yorumu çıktıda **HİÇ
+YOK** (ASCII alt dizeyle arandı: 0 eşleşme) ve boyut muhasebesi bunu
+bağımsız olarak doğruluyor (5/5 dosyada fark TAM 0). Ama AYNI dosyadaki
+**5 önceden var olan slot yorumu çıktıya BASILIYOR** (tek tek doğrulandı) —
+yani kural genel olarak geçerli. Tek fark: benimki slot içeriğinin İLK
+düğümü, diğerleri `<section>`/`<div>` içinde daha derinde. **Bu farka bir
+kural İNŞA EDİLMEDİ** (mekanizma kanıtlanmadı); pratik sonuç yalnızca şu:
+bu turda yorumun bayt maliyeti ölçülerek 0 bulundu. Yeni bir şablon yorumu
+eklenirken hâlâ PR 2'nin kuralı varsayılmalı (tek satır + detay CLAUDE.md'de).
+**⚠️ ARAÇ DERSİ — PR 6'nın çift yönlü "i" tuzağı DOĞRULAMA SCRIPT'İNDE
+tekrar yaşandı.** İçerik kontrolünde "Mikro fiyatı bedelsiz mi" testi
+`/ücretsiz/i` kullanıyordu ve TR'nin **"ÜCRETSİZ"**ini KAÇIRDI (Türkçe
+noktalı **İ** U+0130, `/i` bayrağıyla `i`ye eşleşmiyor) → sahte pozitif.
+PR 6'nın çözümü uygulanıp doğrulandı: karşılaştırmadan önce HER İKİ Türkçe
+i varyantını (U+0130 ve U+0131 + birleşen nokta U+0307) düz ASCII'ye katla,
+sonra locale'den bağımsız `toLowerCase()`. **Katlama sonrası 5/5 locale
+bedelsiz çıktı, gerçek sorun 0.** Bu tuzak yalnızca ürün kodunda değil
+DOĞRULAMA araçlarında da sahte sonuç üretiyor.
 
 **🟢 2026-10-04 — JSON-LD şema turu PR 9: blog liste sayfaları `WebPage`→`CollectionPage` + `mainEntity: ItemList` (54 sayfa).**
 Blog listesinin 54 sayfası (`/blog/` + `/blog/page/2..54/`) şema seviyesinde
@@ -1209,21 +1331,23 @@ hâlâ geçerli.)*
     (özellik olmayan girdiler + uzun `name`'ler) PR 6'da kapandı. Daha eski
     kısmi kapanış (2026-08-19, `BaseLayout`'un sade `WebPage` şeması,
     ~161 sayfa) yerinde duruyor.
-    **KALAN 2 AÇIK UÇ:**
-    - **Fiyatlar sayfasında HİÇ JSON-LD yok** ve kullanıcının plan
-      seviyesi kararı oraya ait — modül sayfalarına fiyat basılmadı çünkü
-      modül bir satın alma birimi değil. **Ayrı bir tur.**
-      **Karar NET (kullanıcı, 2026-10-03): Mikro `offers:
-      {price:"0", priceCurrency:"TRY"}`, KOBİ ve Pro offers ALMAYACAK.**
-      Para birimi sorusu YOK: **Mikro TÜM dillerde ücretsiz**, EN/NL/IT'de
-      görünen € fiyatlar KOBİ ve Pro'ya ait — o ikisi de "Teklif Al"
-      olduğu için zaten offers almıyor. Yani tek `offers` locale'den
-      bağımsız yazılabilir. (Önceki turda bunu "netleşmedi" diye
-      kaydetmiştim — yanlıştı, kullanıcı düzeltti.)
-    - `Product`/`Service` tipleri BİLİNÇLİ olarak seçilmedi:
-      idenfit bir SaaS, `SoftwareApplication` doğru/daha özel tip.
-      Fiyat/teklif bilgisi gerekirse `Offer`, `SoftwareApplication`'a
-      da eklenebilir (tip değiştirmek gerekmez).
+    **✅ KALAN AÇIK UÇLARIN İKİSİ DE KAPANDI (2026-10-04, PR 10).**
+    - ~~**Fiyatlar sayfasında HİÇ JSON-LD yok**~~ — **KAPANDI.** Sayfa
+      (5 locale) artık `SoftwareApplication` + `offers` taşıyor; Mikro
+      `price:"0"`/`priceCurrency:"TRY"`, KOBİ ve Pro offers ALMADI (ikisi
+      de "Teklif Al", herkese açık fiyatı yok). Mikro'nun 5 locale'in
+      TAMAMINDA bedelsiz olduğu build çıktısından ölçüldü. Tam anlatım,
+      tip karşılaştırması ve dörtlü ölçüm: §Güncel durum, "PR 10".
+    - ~~`Product`/`Service` tipleri BİLİNÇLİ olarak seçilmedi~~ —
+      **KARAR UYGULANDI.** Bu maddenin öngördüğü yol birebir izlendi:
+      `Offer`, tip DEĞİŞTİRİLMEDEN `SoftwareApplication`'a eklendi.
+      `OfferCatalog` da değerlendirilip reddedildi (3 planın 2'si
+      fiyatsız olduğu için boş `Offer`'lar üretirdi).
+    **Bu turda BULUNAN yeni açık uç (ayrı bir tur):**
+    `check-json-ld.mjs`'in **`WebPage` kuralı HİÇ YOK** — 255 blok
+    `required=[]`/`recommended=[]` ile hiç doğrulanmıyor (PR 5'in
+    `SoftwareApplication` için tespit ettiği "boş güvence"nin aynısı,
+    PR 9'da bulundu). Bkz. §Güncel durum, PR 9 kaydı.
 30. **TODO — `public/_redirects`'in (404 sayfası) gerçek Cloudflare
     Pages davranışı henüz DOĞRULANMADI.** Faz 1 deploy'unda ilk kontrol
     edilmesi gerekenlerden biri.

@@ -41,6 +41,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import LastUpdated from './LastUpdated.astro';
 import { getPricingMetaDescription, type PricingContent, type PricingPlan } from '../data/pricingContent';
 import { buildIdenfitTitle } from '../data/pageTitle';
+import { organizationId, safeJsonLd } from '../data/jsonLd';
 import { getTranslations } from '../i18n';
 import type { Locale } from '../data/nav';
 
@@ -76,6 +77,86 @@ const ADDON_KEYS = ['dijitalImza', 'okrPerformans', 'aiIseAlim', 'bordro', 'lms'
 // scoped <style>'da yönetiliyor, burada yalnızca boyut/şekil.
 const PLAN_BTN_CLASS =
   'pricing-btn mt-3 flex h-[54px] w-full items-center justify-center rounded-[10px] px-4 text-center text-base font-semibold transition-colors';
+
+// `SoftwareApplication` + `offers` (2026-10-04, JSON-LD şema turu PR 10) —
+// bu sayfa ÖNCEDEN hiç tip-özel şema taşımıyordu (yalnızca site geneli
+// `Organization`/`WebPage`/`BreadcrumbList`), yani idenfit'in kendisi ve
+// fiyatlandırması şema seviyesinde hiç söylenmiyordu.
+//
+// **Tip seçimi — `Product`/`Service`/`OfferCatalog` DEĞİL.** idenfit bir
+// SaaS; `SoftwareApplication` daha özel ve doğru tip (CLAUDE.md Açık nokta
+// #29 bu kararı zaten kaydetmiş: *"Fiyat/teklif bilgisi gerekirse `Offer`,
+// `SoftwareApplication`'a da eklenebilir — tip değiştirmek gerekmez"*).
+// Ürün/modül sayfaları (111) ve Hesaplama Araçları ile AYNI tip ailesi;
+// `Product` e-ticaret odaklı, `OfferCatalog` ise 3 planın 2'si fiyatsız
+// olduğu için boş `Offer`'lar üretirdi (aşağıya bkz.).
+//
+// ⚠️ Bu blok `WebPage` ile ÇAKIŞMIYOR: ürün/modül sayfalarında olduğu gibi
+// ikisi FARKLI varlık — `WebPage` sayfayı, bu blok sayfada ANLATILAN ÜRÜNÜ
+// tarif ediyor. (PR 9'daki `CollectionPage` durumu BAŞKAYDI: orada ikisi de
+// AYNI varlığı — sayfayı — tarif ettiği için tip DEĞİŞTİRİLMİŞTİ.)
+const IDENFIT_ORG_ID = organizationId(Astro.site);
+// `BaseLayout.astro`/`ProductPage.astro`'daki AYNI ifade.
+const pricingPageUrl = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : Astro.url.pathname;
+// `featureList` — sayfanın KENDİ karşılaştırma tablosunun satır adları
+// (8 özellik) + eklenti adları (6). Eklentiler AYRI fiyatlanıyor ama idenfit'in
+// GERÇEK yetenekleri ve sayfa onları bu adlarla render ediyor; `featureList`
+// yazılımın yeteneklerini tarif eder, bir pakete DAHİL olanı değil (schema.org'da
+// "dahil/opsiyonel" ayrımı için alan yok). Yeni metin yazılmadı (KARAR 1).
+// Temizleme `ProductPage.astro`'nun AYNI deseni (etiket/`&nbsp;`/boşluk).
+const featureList = [...content.featureNames, ...content.addonNames]
+  .map((name) =>
+    name
+      .replace(/<[^>]+>/g, ' ')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim(),
+  )
+  .filter((name) => name.length > 0);
+// `offers` — YALNIZCA Mikro. Kullanıcı kararı (2026-10-04) ve olgusal olarak
+// doğrulandı: Mikro 5 locale'in TAMAMINDA bedelsiz (ÜCRETSİZ/FREE/GRATIS/
+// Gratis/PULSUZ, build çıktısından ölçüldü). KOBİ ve Pro 2026-09-22'den beri
+// İKİSİ DE "Teklif Al" — herkese açık fiyatı YOK, bu yüzden onlara `Offer`
+// YAZILMIYOR: fiyatsız bir `Offer` hiçbir şey iletmez, uydurma bir fiyat ise
+// Google'ın yapılandırılmış veri politikalarını ihlal ederdi.
+// `priceCurrency` 5 locale'de de `TRY` (kullanıcı kararı) — 0 için para
+// birimi semantik olarak önemsiz, tek `offers` locale'den bağımsız yazılabiliyor.
+// `url` Mikro kartının KENDİ CTA'sı (kayıt sayfası) — teklifin gerçekten
+// kabul edildiği adres, sayfadan türetildi.
+//
+// ⚠️ `isAccessibleForFree` BİLİNÇLİ OLARAK YOK (kullanıcı kararı, 2026-10-04).
+// Bu alan ÜRÜN düğümünde durur ve "bu yazılım ücretsiz erişilebilir" anlamına
+// gelir — oysa idenfit BÜTÜN OLARAK ücretsiz değil, yalnızca Mikro paketi.
+// Yanlış kapsamda bir iddia olurdu. (PR 7'de Hesaplama Araçları'na eklenmesi
+// DOĞRUYDU: orada varlık araçların kendisi ve TAMAMI bedelsiz.) Fiyat bilgisi
+// `offers` içinde Mikro'ya bağlı olarak zaten doğru kapsamda duruyor.
+//
+// `softwareVersion` YOK (kalıcı karar — SaaS sürekli dağıtılıyor),
+// `aggregateRating`/`review` YOK (gerçek derecelendirme verimiz hiç yok).
+const microOffer = {
+  '@type': 'Offer',
+  name: content.micro.planTitle,
+  price: '0',
+  priceCurrency: 'TRY',
+  ...(content.micro.ctaUrl ? { url: content.micro.ctaUrl } : {}),
+};
+const pricingJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  // Ürünün adı — `title`/`pageTitle` DEĞİL (ikisi de sayfa başlığı, ürün adı
+  // değil). `BaseLayout`'un `Organization` bloğunun kullandığı AYNI dize.
+  name: 'idenfit',
+  description,
+  url: pricingPageUrl,
+  inLanguage: locale,
+  // schema.org enumerasyonu — `ProductPage.astro` ile AYNI değer (kurumsal
+  // İK uygulaması). Hesaplama Araçları'nın `FinanceApplication`'ı oradaki 8
+  // aracın vergi/maaş hesabı olmasından geliyordu, burada geçerli değil.
+  applicationCategory: 'BusinessApplication',
+  ...(featureList.length > 0 ? { featureList } : {}),
+  ...(IDENFIT_ORG_ID ? { publisher: { '@id': IDENFIT_ORG_ID } } : {}),
+  offers: microOffer,
+};
 ---
 
 <BaseLayout
@@ -85,6 +166,8 @@ const PLAN_BTN_CLASS =
   dateModified={modified?.toISOString()}
   breadcrumb={[{ label: t.footer.links.general.pricing }]}
 >
+  <!-- SoftwareApplication + offers — gerekçeler frontmatter'da -->
+  <script type="application/ld+json" set:html={safeJsonLd(pricingJsonLd)} is:inline />
   <section class="bg-[#f8f8f8] pb-12 pt-6 lg:pb-16 lg:pt-8">
     <div class="mx-auto max-w-[1440px] px-4 sm:px-6 lg:px-[100px]">
       {/* DÜZELTME (2026-08-27, kullanıcı isteği: "yazıyı biraz yukarı al") —
