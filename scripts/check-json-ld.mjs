@@ -253,6 +253,36 @@ function validateBlock(block) {
     }
   }
 
+  // `offers` → `Offer` İÇ YAPISI (2026-10-04, Fiyatlar sayfası — şema turu
+  // PR 10). `SoftwareApplication`/`WebApplication`'ın `offers`'ı ÖNERİLEN
+  // listede DEĞİL (ürün/modül sayfalarında bilinçli olarak yok — yukarıdaki
+  // asimetri notu), ama VARSA yapısı doğru olmalı: fiyatsız veya para
+  // birimsiz bir `Offer` hiçbir şey iletmez ve Google tarafından yok sayılır.
+  // Flat alan listesi iç yapıyı ifade edemiyor (FAQPage/ItemList AYNI desen).
+  if (block.offers) {
+    const offers = Array.isArray(block.offers) ? block.offers : [block.offers];
+    offers.forEach((offer, i) => {
+      const at = offers.length > 1 ? `offers[${i}]` : '`offers`';
+      if (offer['@type'] !== 'Offer') {
+        errors.push(`${at}: \`@type\` "Offer" değil`);
+        return;
+      }
+      // `price` 0 OLABİLİR (ücretsiz paket) — bu yüzden truthy kontrolü
+      // KULLANILAMAZ: "0" dizesi truthy ama 0 sayısı falsy olurdu.
+      if (offer.price === undefined || offer.price === null || String(offer.price).trim() === '') {
+        errors.push(`${at}: \`price\` eksik/boş`);
+      } else if (!/^\d+(\.\d+)?$/.test(String(offer.price))) {
+        // Google para birimi simgesi/ayırıcı İSTEMİYOR, salt sayı bekliyor.
+        errors.push(`${at}: \`price\` salt sayı değil: "${offer.price}"`);
+      }
+      if (!offer.priceCurrency) {
+        errors.push(`${at}: \`priceCurrency\` eksik`);
+      } else if (!/^[A-Z]{3}$/.test(String(offer.priceCurrency))) {
+        errors.push(`${at}: \`priceCurrency\` 3 harfli ISO 4217 kodu değil: "${offer.priceCurrency}"`);
+      }
+    });
+  }
+
   return { errors, warnings };
 }
 
