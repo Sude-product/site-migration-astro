@@ -121,6 +121,31 @@ const toAbsoluteUrl = (path: string) => (Astro.site ? new URL(path, Astro.site).
 const orgId = organizationId(Astro.site);
 const ORG_REF = orgId ? { '@id': orgId } : undefined;
 
+// `articleSection` (2026-10-04, JSON-LD şema turu). Yazının hangi bölüme/
+// rubriğe ait olduğunu makine-okunur yapıyor. Kaynak YENİ bir alan DEĞİL:
+// sayfada H1'in üstünde GÖRÜNEN kategori şeridinin (`categoryLabel`, yukarıda)
+// beslendiği AYNI `categories` dizisi — ikinci bir "bölüm" kavramı
+// uydurulmadı, yeni metin yazılmadı (KARAR 1). Görünen ad `CATEGORY_LABELS`
+// (`content.config.ts`) üzerinden geliyor, ham slug DEĞİL.
+//
+// **DEDUPE neden var, bugün hiçbir şeyi değiştirmediği ölçülmüş olsa bile:**
+// `guncel-bilgiler` ve `guncel-bilgiler-tr` AYNI görünen adı ("Güncel
+// Bilgiler") taşıyan 2 farklı WP kategori ID'si (kaynağın kendi hatası, bkz.
+// yukarıdaki `categoryLabel` yorumu). 640 yazının TAMAMI tarandı: hiçbir
+// yazı aynı görünen adı iki kez taşımıyor (0 yazı) ve panelin
+// `CATEGORY_OPTIONS`'ında (`keystatic.config.ts`) `guncel-bilgiler-tr`
+// ZATEN yok — yani bugün dedupe bir NO-OP. Yine de duruyor çünkü kalan tek
+// yol (bir `.md` dosyasının elle düzenlenmesi) `articleSection`'a aynı dizeyi
+// iki kez yazardı, bu da semantik olarak yanlış olurdu.
+//
+// **Alan BOŞ kategoride hiç BASILMIYOR (düz `[]` değil, spread ile yokluk).**
+// Bu bilinçli: `check-json-ld.mjs`'in önerilen-alan kontrolü `!block[field]`
+// ile çalışıyor ve JavaScript'te boş dizi TRUTHY — `[]` basılsa kontrol
+// sessizce geçer, alanın yokluğu ise gerçekten uyarı üretir. Bugün 640/640
+// yazının kategorisi dolu, yani bu dal pratikte yalnızca veri bozulmasında
+// devreye girer.
+const articleSections = [...new Set(categories.map((c) => c.name))];
+
 const jsonLd = {
   '@context': 'https://schema.org',
   '@type': 'BlogPosting',
@@ -136,6 +161,8 @@ const jsonLd = {
   // olurdu — yani dinamik değer YANLIŞ bir dil sinyali üretirdi. `inLanguage`
   // içeriğin dilini bildirir, route'un dilini değil.
   inLanguage: 'tr',
+  // Gerekçe/dedupe/boş-kategori davranışı: yukarıdaki `articleSections` yorumu.
+  ...(articleSections.length > 0 ? { articleSection: articleSections } : {}),
   image: toAbsoluteUrl(featuredImage?.image ?? IDENFIT_LOGO_URL),
   datePublished: date.toISOString(),
   dateModified: (effectiveModifiedDate ?? date).toISOString(),

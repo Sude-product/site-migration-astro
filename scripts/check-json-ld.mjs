@@ -64,9 +64,22 @@ const REQUIRED_BY_TYPE = {
   // yanlış bir iddiaya teşvik olurdu.
   WebApplication: ['name'],
 };
+// ⚠️ `articleSection` (2026-10-04) burada DİĞERLERİNDEN FARKLI bir gerekçeyle
+// duruyor: `dateModified`/`author`/`publisher` Google'ın Article rich result
+// ÖNERİLERİ, `articleSection` DEĞİL — Google onu hiç kullanmıyor. Buraya bir
+// PROJE DEĞİŞMEZİ olarak yazıldı: `categories` 640/640 yazıda dolu (ölçüldü)
+// ve `[slug].astro` alanı DOĞRUDAN ondan türetiyor, yani alanın yokluğu
+// yalnızca kategorisiz bir yazı anlamına gelir — bu bir veri kusuru ve
+// uyarılmaya değer (panelden yayınlanan yazılar kuralları atlıyor, bkz.
+// CLAUDE.md Açık nokta #70).
+//
+// ⚠️ Bu kontrolün ÇALIŞMASI `[slug].astro`'nun alanı boş kategoride HİÇ
+// basmamasına BAĞLI: aşağıdaki döngü `!block[field]` kullanıyor ve
+// JavaScript'te boş dizi TRUTHY — düz `[]` basılsa kontrol sessizce geçerdi.
+// İki taraf birlikte anlamlı; biri değişirse diğeri boşa düşer.
 const RECOMMENDED_BY_TYPE = {
-  BlogPosting: ['dateModified', 'author', 'publisher'],
-  Article: ['dateModified', 'author', 'publisher'],
+  BlogPosting: ['dateModified', 'author', 'publisher', 'articleSection'],
+  Article: ['dateModified', 'author', 'publisher', 'articleSection'],
   SoftwareApplication: ['applicationCategory', 'description', 'url'],
   WebApplication: ['applicationCategory', 'description', 'url', 'offers'],
 };
