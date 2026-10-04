@@ -23,9 +23,11 @@ göçü (Decap→Keystatic) tamamlandı — 629 yazı Markdown'da, Keystatic Clo
 paneli CANLI ve pazarlama ekibi oradan yazı yayınlıyor (`keystatic-cloud[bot]`
 doğrudan `master`'a commit atıyor, Workers Builds otomatik deploy ediyor).
 **Site CANLIDA** (`site: 'https://idenfit.com'` dolu, canonical + hreflang
-aktif). **Şu anki odak (2026-10-02/03): JSON-LD şema turu** — 4 PR sırayla
-canlıya alındı, sıradaki adım ürün sayfaları için `Product`/`Service` gibi
-zengin/tip-özel şema (bkz. §Güncel durum ve §Açık noktalar #29).
+aktif). **Şu anki odak (2026-10-02/04): JSON-LD şema turu** — 7 PR sırayla
+canlıya alındı (ürün/modül sayfalarının `SoftwareApplication`'ı dahil, Açık
+nokta #29'un asıl boşluğu kapandı), 8.'si (blog `articleSection`) PR olarak
+bekliyor. Sıradaki açık uç **Fiyatlar sayfası** — orada hâlâ HİÇ JSON-LD yok
+ve `offers` kararı oraya ait (bkz. §Güncel durum ve §Açık noktalar #29).
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 **`docs/claude-md-archive-2026-10-03.md` (2026-08-19→2026-10-02 tam
@@ -351,9 +353,9 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-10-02)
+## Güncel durum (son güncelleme: 2026-10-04)
 
-### ✅ JSON-LD şema turu — 7 PR (2026-10-02/03)
+### ✅ JSON-LD şema turu — 8 PR (2026-10-02/04)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -366,7 +368,8 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 4 | — | `feat/jsonld-inlanguage` | — | — | `WebPage` + `BlogPosting`'e `inLanguage` |
 | 5 | #22 | `feat/jsonld-softwareapplication` | `f448164` | `8e4d096` | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
 | 6 | #24 | `feat/jsonld-featurelist-temizligi` | `903d2c0` | `6dcb013` | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
-| 7 | — | `feat/jsonld-webapplication` | (bu tur) | — | Hesaplama Araçları'na `WebApplication` + `offers` 0 TRY (1 sayfa) |
+| 7 | #25 | `feat/jsonld-webapplication` | `3e99a1d` | `99e283f` | Hesaplama Araçları'na `WebApplication` + `offers` 0 TRY (1 sayfa) |
+| 8 | — | `feat/jsonld-articlesection` | `ddd76f9` | — | Blog yazılarına `articleSection` — 640 sayfa (bu tur) |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -400,6 +403,80 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-04 — JSON-LD şema turu PR 8: blog yazılarına `articleSection` eklendi (640 sayfa).**
+`BlogPosting` bloğu bir yazının hangi bölüme/rubriğe ait olduğunu şema
+seviyesinde HİÇ söylemiyordu. Alan, sayfada H1'in üstünde **GÖRÜNEN** kategori
+şeridinin (`categoryLabel`) beslendiği AYNI `categories` dizisinden
+türetiliyor — görünen ad `CATEGORY_LABELS` (`content.config.ts`) üzerinden,
+ham slug DEĞİL. Yeni metin yazılmadı, ikinci bir "bölüm" kavramı uydurulmadı
+(KARAR 1). Bu PR, bir önceki maddedeki "Uncategorized" temizliğinin ÜZERİNE
+kuruldu (o temizlik olmadan 8 yazının şemasına `"Uncategorized"` basılacaktı).
+**Veri ölçümü (640 `.md`, kaynaktan):** kategorisiz 0, 10 benzersiz slug →
+9 görünen ad; dağılım bir önceki maddenin taksonomi ölçümüyle BİREBİR aynı.
+`articleSection` girdi sayısı: 576 yazı 1, 57 yazı 2, 7 yazı 3 bölüm.
+**İKİ bilinçli tasarım kararı:**
+- **DEDUPE var ama bugün NO-OP — ve bu ölçüldü, varsayılmadı.**
+  `guncel-bilgiler` + `guncel-bilgiler-tr` AYNI görünen adı taşıyan 2 WP
+  kategori ID'si. 640 yazının tamamı tarandı: **hiçbir yazı aynı görünen adı
+  iki kez taşımıyor (0 yazı)**, ve panelin `CATEGORY_OPTIONS`'ında
+  (`keystatic.config.ts`) `guncel-bilgiler-tr` ZATEN yok (9 seçenek, 9 ayrı
+  etiket) — yani panelden tekrar üretmek de mümkün değil. Dedupe yalnızca
+  kalan tek yol (bir `.md`'nin elle düzenlenmesi) için duruyor.
+  **Görünür `categoryLabel` BİLİNÇLİ olarak dedupe EDİLMEDİ** — bu PR'ın
+  diff'i yalnızca JSON-LD; istenirse tek satırla paylaşılan tek kaynağa
+  indirilebilir (bugün çıktı birebir aynı olurdu, 0 yazı etkilendiği için).
+- **⚠️ Alan BOŞ kategoride HİÇ BASILMIYOR (düz `[]` DEĞİL, spread ile
+  yokluk) — ve bu bir zorunluluk, üslup tercihi değil.**
+  `check-json-ld.mjs`'in önerilen-alan kontrolü `!block[field]` kullanıyor ve
+  **JavaScript'te boş dizi TRUTHY**: `[]` basılsa kontrol sessizce geçerdi.
+  Ampirik olarak kanıtlandı (aşağıdaki negatif test, senaryo c).
+  İki taraf birlikte anlamlı — biri değişirse diğeri boşa düşer.
+**`check-json-ld.mjs`'e kalıcı kontrol eklendi** (`articleSection`,
+BlogPosting/Article'ın ÖNERİLEN listesine). **Yorumda açıkça yazılı ki
+ileride yanlış okunmasın: bu bir Google önerisi DEĞİL** — Google'ın Article
+dokümantasyonunda `articleSection` hiç yok; buraya bir PROJE DEĞİŞMEZİ olarak
+yazıldı (kategorisiz yazı = veri kusuru, Açık nokta #70'in sınıfı).
+Kuralın çalıştığı ÜÇ senaryolu negatif testle kanıtlandı: alan yok → **1
+uyarı**, alan var → 0, `[]` → **0** (gate kırılmıyor, uyarı hata değil).
+**⚠️ DÜRÜST BEKLENTİ:** `articleSection` arama sonucunda bir rich result
+ÜRETMEYECEK — Google bu alanı kullanmıyor. Kazanç daha dar ama gerçek:
+yazının bölümü makine-okunur ve LLM tabanlı araçlar için okunabilir.
+(PR 5'teki `SoftwareApplication` ve `FAQPage` notlarıyla AYNI dürüstlük
+deseni.)
+**Doğrulama — bu tur blok EKLEMİYOR, mevcut bloğa ALAN ekliyor**, bu yüzden
+PR 5/PR 7'nin "blok kazandı + boyut muhasebesi" dörtlüsü değil PR 6 tipi
+ölçüt uygulandı; indeks bazlı hash KULLANILMADI (PR 4'ün dersi). Baseline
+proje ağacının DIŞINDA, kod değişikliğinden ÖNCE temiz `master`'dan
+(`0209e5e`) alındı. (1) 640 dosyanın tam dosya sha256'sı değişti; (2) blok
+sayısı **0** dosyada değişti; (3) değişen küme **==** `BlogPosting` taşıyan
+küme (birebir); (4) `BlogPosting` DIŞINDAKİ blokların ham metni **0** değişti
+(`Organization` 949, `BreadcrumbList` 939, `WebPage` 309,
+`SoftwareApplication` 111, `FAQPage` 116, `WebApplication` 1); (5) **KESİN
+KANIT — 3176/3176** HTML'de bloklar baseline metnine geri konunca dosyanın
+sha256'sı baseline'a EŞİT, yani JSON-LD DIŞINDA sitede **0 bayt** değişti
+(görünür kategori şeridi dahil; şablona HTML yorumu da sızmadı — PR 2'nin
+dersi); (6) alan-alan: 640/640 dosyada TAM 1 eklenen anahtar
+(`articleSection`), 0 silinen, 0 değişen, 0 tekrarlı değer, boyut muhasebesi
+640/640 tam tutuyor. **Ölçüm aracı notu:** ölçütün (5). maddesi ilk turda
+boyut tabanlıydı (kabuk baytı) — aynı-uzunlukta ikameyi kaçırabileceği için
+blok-geri-koyma + sha256 eşitliğine yükseltildi; PR 2'nin yöntemi budur ve
+blok DEĞİŞTİREN turlarda doğru ölçüt de bu.
+`astro check` 431 dosya 0 hata/0 uyarı/27 hint, `astro build` temiz (3176
+HTML, baseline ile aynı sayı), **11 regresyon script'i baseline ile BİREBİR
+aynı** (bilinen 4 taban çizgisi değişmedi: `check-csp-sync` CRLF/#78,
+`check-heading-hierarchy` 5/#36, `check-title-length` 5 +
+`check-meta-description-length` 1/#70), `check-json-ld` **0 geçersiz ve 0
+uyarı**. `safeJsonLd()` kaçışı doğrulandı: 640 blokta çıplak `<`/`>`/`&`
+YOK ve hepsi geçerli JSON. `public/_headers` değişmedi.
+**Yan teyit:** `pdks-nedir`'in değeri `["İK Akademi","İK Trendleri"]` —
+bir önceki maddedeki "Uncategorized" temizliğinin şemaya da doğru aktığını
+gösteriyor.
+**⚠️ Araç notu (tekrar düşülmemesi için):** negatif testin ilk kurulumu
+yanlıştı — `ld+json` regex'i `g` bayrağı olmadan dosyanın İLK bloğunu
+yakalıyor ve blog sayfalarında ilk blok `Organization`, `BlogPosting` DEĞİL.
+Sonuç "0 uyarı" çıktı ve kural çalışmıyor sanılabilirdi; `@type`'a bakarak
+bloğu açıkça seçmek gerekiyor.
 
 **🟢 2026-10-04 — "Uncategorized" kategorisi 8 blog yazısından KAYNAĞINDA silindi (şema turu öncesi veri temizliği).**
 Blog şema turu (`articleSection`) için yapılan taksonomi ölçümünde çıktı;
