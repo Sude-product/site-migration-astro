@@ -115,6 +115,36 @@ interface Props {
    * DÜZ renk. Verilmezse (varsayılan, mevcut TÜM sayfaların davranışı)
    * breadcrumb şeffaf/beyaz kalır — DEĞİŞİKLİK YOK. */
   heroBackground?: string;
+  /** Sayfa bir KOLEKSİYON (listeleme) sayfasıysa verilir (2026-10-04,
+   * JSON-LD şema turu). Verildiğinde aşağıdaki sayfa-seviyesi blok
+   * `WebPage` yerine `CollectionPage` tipiyle basılır ve `mainEntity`
+   * olarak listelenen öğelerin `ItemList`'i eklenir.
+   *
+   * **Neden AYRI bir blok DEĞİL:** `CollectionPage`, `WebPage`'in schema.org
+   * ALT TİPİ. İkisini aynı sayfaya birlikte basmak aynı URL için İKİ
+   * sayfa-seviyesi düğüm üretirdi (`name`/`description`/`url` birebir aynı)
+   * — bu projenin zaten uyguladığı kuralın tersi: blok `ogType !== 'article'`
+   * koşuluyla basılıyor ki blog yazıları `WebPage` + `BlogPosting` ikilisini
+   * ALMASIN (bkz. PR 4). Tip DEĞİŞİMİ hiçbir alanı kaybettirmez
+   * (`CollectionPage` bir `WebPage`'dir) ve tek tutarlı düğüm bırakır.
+   *
+   * **Tek prop, çünkü iki ayrı prop (tip + öğeler) bir gün sessizce
+   * ayrışırdı:** biri verilip diğeri unutulduğunda ya tipsiz bir liste ya
+   * öğesiz bir koleksiyon oluşurdu, ikisi de hata vermez. Bu projenin tekrar
+   * tekrar ısırıldığı sınıf (bkz. PR 6'nın iki dönüş noktası, Açık nokta
+   * #64'ün passthrough'u) — tek anahtar bunu yapısal olarak imkânsız kılıyor.
+   *
+   * `items` BOŞ bir dizi olabilir (liste sayfasının "henüz yazı yok"
+   * durumu): o hâlde tip yine `CollectionPage` olur ama `mainEntity` HİÇ
+   * basılmaz — boş bir `ItemList` iddia etmek yanlış olurdu.
+   *
+   * Verilmezse (varsayılan, mevcut TÜM sayfaların davranışı) blok aynen
+   * `WebPage` kalır — DEĞİŞİKLİK YOK. */
+  collection?: {
+    /** Bu sayfada GERÇEKTEN listelenen öğeler, sayfadaki render SIRASIYLA.
+     * `url` göreli verilir, blok basılırken mutlaklaştırılır. */
+    items: Array<{ url: string; name: string }>;
+  };
 }
 
 const {
@@ -130,6 +160,7 @@ const {
   dateModified,
   breadcrumb,
   heroBackground,
+  collection,
 } = Astro.props;
 
 // Dil, Astro i18n routing'inden dinamik gelir (varsayılan: tr).
@@ -311,7 +342,12 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 				type="application/ld+json"
 				set:html={safeJsonLd({
 					'@context': 'https://schema.org',
-					'@type': 'WebPage',
+					// `CollectionPage` (2026-10-04) — YALNIZCA `collection` prop'u
+					// verildiğinde; bkz. o prop'un kendi yorumu (neden ayrı bir blok
+					// DEĞİL, neden tek prop). `CollectionPage` schema.org'da
+					// `WebPage`'in ALT TİPİ olduğu için tip değişimi hiçbir alanı
+					// kaybettirmiyor: aşağıdaki TÜM alanlar ikisinde de geçerli.
+					'@type': collection ? 'CollectionPage' : 'WebPage',
 					name: title,
 					description,
 					url: pageUrl,
@@ -334,6 +370,31 @@ const xDefaultHref = hreflangAlternates.find((a) => a.locale === 'tr')?.href;
 					// `publisher` ile AYNI nedenle spread: `JSON.stringify` anahtar
 					// sırasını ekleme sırasına göre koruyor.
 					...(dateModified ? { dateModified } : {}),
+					// `mainEntity` — koleksiyon sayfasının ASIL içeriği: bu sayfada
+					// GERÇEKTEN listelenen öğeler, sayfadaki render SIRASIYLA.
+					// Veri çağıranın zaten render ettiği diziden geliyor, ikinci bir
+					// kaynak kurulmadı (KARAR 1 — yeni metin yazılmadı).
+					// `numberOfItems` TÜM koleksiyonun değil BU SAYFANIN öğe sayısı:
+					// `ItemList` burada tam olarak bu sayfanın listesini tarif ediyor,
+					// toplamı yazmak her sayfada aynı yanlış sayıyı iddia etmek olurdu.
+					// Öğe URL'leri MUTLAK (`toAbsoluteUrl`) — `mainEntityOfPage.@id` ve
+					// `image` ile AYNI gerekçe: göreli URL'ler yok sayılıyor.
+					// Boş listede alan HİÇ basılmıyor — boş bir `ItemList` iddia etmek
+					// yanlış olurdu (liste sayfasının "henüz yazı yok" durumu).
+					...(collection && collection.items.length > 0
+						? {
+								mainEntity: {
+									'@type': 'ItemList',
+									numberOfItems: collection.items.length,
+									itemListElement: collection.items.map((item, i) => ({
+										'@type': 'ListItem',
+										position: i + 1,
+										url: toAbsoluteUrl(item.url),
+										name: item.name,
+									})),
+								},
+							}
+						: {}),
 				})}
 				is:inline
 			/>

@@ -23,11 +23,13 @@ göçü (Decap→Keystatic) tamamlandı — 629 yazı Markdown'da, Keystatic Clo
 paneli CANLI ve pazarlama ekibi oradan yazı yayınlıyor (`keystatic-cloud[bot]`
 doğrudan `master`'a commit atıyor, Workers Builds otomatik deploy ediyor).
 **Site CANLIDA** (`site: 'https://idenfit.com'` dolu, canonical + hreflang
-aktif). **Şu anki odak (2026-10-02/04): JSON-LD şema turu** — 7 PR sırayla
+aktif). **Şu anki odak (2026-10-02/04): JSON-LD şema turu** — 8 PR sırayla
 canlıya alındı (ürün/modül sayfalarının `SoftwareApplication`'ı dahil, Açık
-nokta #29'un asıl boşluğu kapandı), 8.'si (blog `articleSection`) PR olarak
-bekliyor. Sıradaki açık uç **Fiyatlar sayfası** — orada hâlâ HİÇ JSON-LD yok
-ve `offers` kararı oraya ait (bkz. §Güncel durum ve §Açık noktalar #29).
+nokta #29'un asıl boşluğu kapandı; blog yazılarının `articleSection`'ı da
+canlıda), 9.'su (blog liste sayfaları `CollectionPage`) PR olarak bekliyor.
+Sıradaki açık uçlar: **Fiyatlar sayfası** (orada hâlâ HİÇ JSON-LD yok ve
+`offers` kararı oraya ait) ve **`check-json-ld.mjs`'in `WebPage` kuralları**
+(255 blok hiç doğrulanmıyor — bkz. §Güncel durum PR 9 ve §Açık noktalar #29).
 
 **Geçmiş günlük detayları (tarih damgalı arşivler, nadiren gerekir):**
 **`docs/claude-md-archive-2026-10-03.md` (2026-08-19→2026-10-02 tam
@@ -355,7 +357,7 @@ geçmiş var.
 
 ## Güncel durum (son güncelleme: 2026-10-04)
 
-### ✅ JSON-LD şema turu — 8 PR (2026-10-02/04)
+### ✅ JSON-LD şema turu — 9 PR (2026-10-02/04)
 
 Her PR tek tek push edilip merge edildi ve **merge'den sonra canlıda
 doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
@@ -369,7 +371,8 @@ doğrulandı**, ancak ondan sonra sıradakine geçildi (kullanıcı kararı).
 | 5 | #22 | `feat/jsonld-softwareapplication` | `f448164` | `8e4d096` | Ürün/modül sayfalarına `SoftwareApplication` — 111 sayfa (Açık nokta #29) |
 | 6 | #24 | `feat/jsonld-featurelist-temizligi` | `903d2c0` | `6dcb013` | `featureList` temizliği (10 girdi) + 5 uzun `name` kısaltıldı — PR 5 ÜZERİNE kuruldu |
 | 7 | #25 | `feat/jsonld-webapplication` | `3e99a1d` | `99e283f` | Hesaplama Araçları'na `WebApplication` + `offers` 0 TRY (1 sayfa) |
-| 8 | — | `feat/jsonld-articlesection` | `ddd76f9` | — | Blog yazılarına `articleSection` — 640 sayfa (bu tur) |
+| 8 | #27 | `feat/jsonld-articlesection` | `ddd76f9` | `9dd7ede` | Blog yazılarına `articleSection` — 640 sayfa |
+| 9 | — | `feat/jsonld-collectionpage` | `3391a35` | — | Blog liste sayfaları `WebPage`→`CollectionPage` + `mainEntity: ItemList` — 54 sayfa (bu tur) |
 
 Üçü GitHub'da **merge commit**'le alındı (squash DEĞİL), bu yüzden her
 PR'ın diff'i yalnızca kendi commit'ini gösterdi.
@@ -403,6 +406,102 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-04 — JSON-LD şema turu PR 9: blog liste sayfaları `WebPage`→`CollectionPage` + `mainEntity: ItemList` (54 sayfa).**
+Blog listesinin 54 sayfası (`/blog/` + `/blog/page/2..54/`) şema seviyesinde
+jenerik `WebPage` tipindeydi: bir LİSTELEME sayfası oldukları ve hangi
+yazıları listeledikleri hiç söylenmiyordu.
+**⚠️ AYRI BİR BLOK EKLENMEDİ — mevcut bloğun TİPİ değişti. Bu, turun şeklini
+ve dolayısıyla ÖLÇÜTÜNÜ değiştiren bir karar (kullanıcı onaylı, 2026-10-04):**
+`CollectionPage` schema.org'da `WebPage`'in **ALT TİPİ**. İkisini aynı sayfaya
+birlikte basmak aynı URL için İKİ sayfa-seviyesi düğüm üretirdi
+(`name`/`description`/`url` birebir aynı) — ve bu, projenin ZATEN uyguladığı
+kuralın tersi olurdu: blok `ogType !== 'article'` koşuluyla basılıyor ki blog
+YAZILARI `WebPage` + `BlogPosting` ikilisini ALMASIN (PR 4'ün kaydı). Aynı
+ilke PR 3'ün "aynı varlığı yeniden tanımlamayı bırak, referans ver"
+kararının da temeli. Tip DEĞİŞİMİ hiçbir alanı kaybettirmiyor (bir
+`CollectionPage` bir `WebPage`'dir) ve tek tutarlı düğüm bırakıyor.
+**Sonuç: blok SAYISI değişmedi (3065), bu yüzden PR 5/PR 7'nin dörtlü
+ölçütü UYGULANAMADI — PR 6 tipi ölçüt kullanıldı.**
+**`BaseLayout`'a yeni opt-in `collection` prop'u — ve BİLİNÇLİ olarak TEK
+prop.** İki ayrı prop (tip + öğeler) bir gün sessizce ayrışırdı: biri
+verilip diğeri unutulduğunda ya tipsiz bir liste ya öğesiz bir koleksiyon
+oluşur, **ikisi de hata vermez**. Bu projenin tekrar tekrar ısırıldığı sınıf
+(PR 6'nın iki dönüş noktası, Açık nokta #64'ün passthrough'u) — tek anahtar
+bunu yapısal olarak imkânsız kılıyor. Prop verilmeyen TÜM sayfalarda
+davranış DEĞİŞMEZ (255 `WebPage` bloğu birebir korundu, ölçüldü).
+**`mainEntity: ItemList`** — sayfanın GERÇEKTEN listelediği öğeler, render
+SIRASIYLA. Kaynak, görünür kart döngüsünün (`items.map`) kullandığı AYNI
+dizi; ikinci bir liste kurulmadı ve `url` kartın `href`'iyle aynı ifadeden
+üretiliyor. Üç tasarım kararı: (a) öğe URL'leri **MUTLAK**
+(`toAbsoluteUrl`) — göreli olanları Google yok sayıyor, `image`/
+`mainEntityOfPage` ile aynı kural; (b) `numberOfItems` TÜM koleksiyonun
+değil **BU SAYFANIN** öğe sayısı — `ItemList` tam olarak bu sayfanın
+listesini tarif ediyor, 640 yazmak her sayfada aynı yanlış sayıyı iddia
+etmek olurdu; (c) boş listede alan **HİÇ basılmıyor** (liste sayfasının
+"henüz yazı yok" durumu) — boş bir `ItemList` iddia etmek yanlış olurdu.
+**`check-json-ld.mjs`'e İKİ şey eklendi:** `CollectionPage` flat kuralları
+(`name`/`url` ZORUNLU; `description`/`inLanguage`/`mainEntity` ÖNERİLEN) ve
+**`ItemList` İÇ YAPISI için derin kontrol** (FAQPage'in AYNI deseni — flat
+alan listesi iç yapıyı ifade edemiyor): `mainEntity.@type` ItemList mi,
+`numberOfItems` gerçek uzunlukla uyuşuyor mu, `position` 1'den artan mı,
+`name` dolu mu, `url` MUTLAK mı. **Yakaladığı sınıf gerçek:** dizi
+`position: i + 1` ile ÜRETİLİYOR ve öğeler sayfanın render sırasından
+geliyor — sıralama/dilimleme mantığı değişirse position'lar kayar,
+`numberOfItems` ayrışır veya URL'ler göreli kalır; **üçü de JSON-LD'de
+HATA VERMEZ, sessizce yanlış olur.** 8 senaryolu negatif testle kanıtlandı:
+6 geçersiz (`name` yok / sayı yanlış / position kaymış / göreli url /
+yanlış tip / boş liste) + 1 uyarı (`mainEntity` yok), sağlam kopya temiz.
+**Doğrulama — PR 6 tipi ölçüt, indeks bazlı hash KULLANILMADI.** Blok
+dağılımı: `WebPage` 309→**255**, `CollectionPage` 0→**54**, toplam blok
+3065 DEĞİŞMEDİ. (1) 54 dosyanın tam dosya sha256'sı değişti; (2) blok
+sayısı **0** dosyada değişti; (3) değişen küme **==** blog liste sayfası
+kümesi (birebir); (4) blok tipi bazında yalnızca 54 `WebPage` bloğu
+değişti ve 54'ünün de TİPİ değişti, diğer TÜM tipler **0** değişti
+(`Organization` 949, `BreadcrumbList` 939, `BlogPosting` 640,
+`SoftwareApplication` 111, `FAQPage` 116, `WebApplication` 1); (5)
+alan-alan 54/54: `@type` DIŞINDA değişen alan **0**, silinen **0**,
+eklenen TAM **1** (`mainEntity`); (6) liste DIŞI kalan **255/255**
+`WebPage` bloğunun ham metni birebir aynı; (7) **KESİN KANIT —
+3176/3176** HTML'de bloklar baseline metnine geri konunca sha256
+baseline'a eşit, yani JSON-LD DIŞINDA sitede **0 bayt** değişti.
+**İÇERİK doğrulaması (bu PR'ın ASIL kontrolü — şema sayfanın görünenini
+doğru tarif ediyor mu):** 54/54 sayfada ItemList'in URL'i **+ SIRASI**
+görünür kartlarla BİREBİR, 54/54'te `name` görünür kart başlığıyla
+BİREBİR, 54/54'te `position` 1..N; tüm ItemList'lerde **640 BENZERSİZ**
+yazı URL'i — her yazı TAM 1 kez (53×12 + 1×4), ne tekrar ne boşluk.
+`astro check` 431 dosya 0 hata/0 uyarı/27 hint, `astro build` temiz
+(3176 HTML). 11 regresyon script'inden **10'u baseline ile BİREBİR
+aynı**; farklı olan TEK script `check-json-ld` ve farkı TAM OLARAK
+beklenen iki satır (`WebPage: 309`→`255`, `CollectionPage: 54`) —
+**0 geçersiz, 0 uyarı**. `safeJsonLd()`: 54 blokta çıplak `<`/`>`/`&`
+YOK, hepsi geçerli JSON, göreli kalmış öğe URL'i **0**.
+`public/_headers` değişmedi.
+**Boyut maliyeti ÖLÇÜLDÜ (bu turun gerçek ödünü):** 54 sayfada toplam
+**+98,2 KB** (sayfa başına min 618 / ortalama 1862 / max 2573 bayt).
+Site genelinde başka hiçbir sayfa büyümedi. Kabul edildi çünkü
+`ItemList` bu PR'ın asıl değeri.
+**⚠️ BU TURDA BULUNAN, BİLİNÇLİ OLARAK KAPSAM DIŞI BIRAKILAN BOŞLUK —
+`check-json-ld.mjs`'in `WebPage` kuralı HİÇ YOK.** `REQUIRED_BY_TYPE`/
+`RECOMMENDED_BY_TYPE`'da `WebPage` girdisi olmadığı için **255 `WebPage`
+bloğu `required=[]`/`recommended=[]` ile hiç doğrulanmıyor** — PR 5'in
+`SoftwareApplication` için tespit ettiği "boş güvence" sorununun
+birebir aynısı. Bu tur kapatılmadı (kapsam `CollectionPage`'di ve
+`WebPage` kuralı eklemek 255 bloğu ilk kez doğrulamaya sokacağı için
+ayrı bir ölçüm turu gerektirir); not script'in kendi yorumuna da
+yazıldı. **Ayrı bir tur.**
+**⚠️ ARAÇ DERSİ (bu turda yaşandı, tekrar düşülmemesi için) — baseline
+build'i KOŞARKEN kaynak dosya düzenlendi.** Baseline arka planda
+build edilirken `BaseLayout.astro`'ya ilk (tip-seviyesi) düzenleme
+yapıldı; PR 4'ün dersi tam bu sınıf (kirli baseline yanıltıcı "0 fark"
+üretir). Baseline ATILMADI ama GEÇERLİLİĞİ VARSAYILMADI, **kanıtlandı:**
+(a) baseline'da `CollectionPage` bloğu **0** — değişikliğin TEK runtime
+etkisi bu, olsaydı görünürdü; (b) 54 liste sayfası beklenen
+`Organization + WebPage + BreadcrumbList` imzasında; (c)
+`/blog/page/7/`'nin `WebPage` bloğu, düzenleme ÖNCESİ ayrı bir dist'ten
+ölçülen hâliyle **byte-birebir** aynı. **Kural: arka plan build'i
+koşarken kaynak dosyaya DOKUNULMAZ** — kanıtlamak mümkün oldu ama
+şansa bağlıydı (düzenleme tip-seviyesiydi, runtime çıktısı yoktu).
 
 **🟢 2026-10-04 — JSON-LD şema turu PR 8: blog yazılarına `articleSection` eklendi (640 sayfa).**
 `BlogPosting` bloğu bir yazının hangi bölüme/rubriğe ait olduğunu şema
