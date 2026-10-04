@@ -63,6 +63,19 @@ const REQUIRED_BY_TYPE = {
   // açık fiyat YOK (KOBİ/Pro "Teklif Al") — orada `offers`'ı önermek
   // yanlış bir iddiaya teşvik olurdu.
   WebApplication: ['name'],
+  // `CollectionPage` (2026-10-04, blog liste sayfaları — şema turu PR 9).
+  // `WebPage`'in ALT TİPİ; blog listesinde `WebPage` yerine BU tip basılıyor
+  // (ayrı bir blok DEĞİL — gerekçe `BaseLayout.astro`'nun `collection` prop
+  // yorumunda). `mainEntity`'nin KENDİSİ burada zorunlu DEĞİL (boş listede
+  // bilinçli olarak hiç basılmıyor), İÇ yapısının kontrolü aşağıda
+  // `validateBlock()`'ta AYRI bir bloğa yazıldı — FAQPage'le AYNI desen,
+  // flat alan listesi iç yapıyı ifade edemiyor.
+  //
+  // ⚠️ `WebPage` bu listede HÂLÂ YOK — yani 255 `WebPage` bloğu hiç
+  // doğrulanmıyor (`required=[]`/`recommended=[]` → boş güvence, PR 5'in
+  // `SoftwareApplication` için tespit ettiği AYNI boşluk). Bu turda
+  // BİLİNÇLİ olarak kapsam dışı bırakıldı (bkz. CLAUDE.md, PR 9 kaydı).
+  CollectionPage: ['name', 'url'],
 };
 // ⚠️ `articleSection` (2026-10-04) burada DİĞERLERİNDEN FARKLI bir gerekçeyle
 // duruyor: `dateModified`/`author`/`publisher` Google'ın Article rich result
@@ -82,6 +95,12 @@ const RECOMMENDED_BY_TYPE = {
   Article: ['dateModified', 'author', 'publisher', 'articleSection'],
   SoftwareApplication: ['applicationCategory', 'description', 'url'],
   WebApplication: ['applicationCategory', 'description', 'url', 'offers'],
+  // `mainEntity` ÖNERİLEN (zorunlu değil): bir koleksiyon sayfası teknik
+  // olarak boş olabilir (liste sayfasının "henüz yazı yok" durumu) ve o
+  // hâlde alan bilinçli olarak hiç basılmıyor — boş bir `ItemList` iddia
+  // etmek yanlış olurdu. Ama 54/54 liste sayfasının dolu olduğu ölçüldü,
+  // yani alanın yokluğu pratikte bir veri kusurudur ve uyarılmaya değer.
+  CollectionPage: ['description', 'inLanguage', 'mainEntity'],
 };
 
 function validateBlock(block) {
@@ -193,6 +212,45 @@ function validateBlock(block) {
         if (!answer.text || !String(answer.text).trim()) errors.push(`mainEntity[${i}].acceptedAnswer: \`text\` eksik/boş`);
       }
     });
+  }
+
+  // `CollectionPage.mainEntity` → `ItemList` İÇ YAPISI (2026-10-04).
+  // Flat alan listesi bunu ifade edemiyor (FAQPage'le AYNI gerekçe). Burada
+  // yakalanan sınıf gerçek: `BaseLayout` bu diziyi `position: i + 1` ile
+  // ÜRETİYOR ve öğeler sayfanın render sırasından geliyor — bir gün sıralama/
+  // dilimleme mantığı değişirse `position`'lar kayar, `numberOfItems`
+  // gerçek uzunlukla ayrışır veya URL'ler göreli kalır. Üçü de JSON-LD'de
+  // HATA VERMEZ, sessizce yanlış olur.
+  if (type === 'CollectionPage' && block.mainEntity) {
+    const list = block.mainEntity;
+    if (list['@type'] !== 'ItemList') {
+      errors.push('`mainEntity`: `@type` "ItemList" değil');
+    } else if (!Array.isArray(list.itemListElement)) {
+      errors.push('`mainEntity.itemListElement` bir dizi değil');
+    } else {
+      if (list.itemListElement.length === 0) {
+        errors.push('`mainEntity.itemListElement` boş — boş liste yerine alan HİÇ basılmamalı');
+      }
+      if (list.numberOfItems !== list.itemListElement.length) {
+        errors.push(
+          `\`mainEntity.numberOfItems\` (${list.numberOfItems}) gerçek öğe sayısıyla (${list.itemListElement.length}) uyuşmuyor`,
+        );
+      }
+      list.itemListElement.forEach((it, i) => {
+        if (it['@type'] !== 'ListItem') errors.push(`mainEntity.itemListElement[${i}]: \`@type\` "ListItem" değil`);
+        if (it.position !== i + 1) {
+          errors.push(`mainEntity.itemListElement[${i}]: \`position\` ${it.position}, beklenen ${i + 1} (1'den artan olmalı)`);
+        }
+        if (!it.name || !String(it.name).trim()) errors.push(`mainEntity.itemListElement[${i}]: \`name\` eksik/boş`);
+        if (!it.url || !String(it.url).trim()) {
+          errors.push(`mainEntity.itemListElement[${i}]: \`url\` eksik/boş`);
+        } else if (!/^https?:\/\//.test(String(it.url))) {
+          // Google göreli URL'leri yok sayıyor (bkz. `image`/`mainEntityOfPage`
+          // için AYNI kural, `blog/[slug].astro`'nun `toAbsoluteUrl` yorumu).
+          errors.push(`mainEntity.itemListElement[${i}]: \`url\` MUTLAK değil: "${it.url}"`);
+        }
+      });
+    }
   }
 
   return { errors, warnings };

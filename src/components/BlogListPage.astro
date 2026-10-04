@@ -64,6 +64,21 @@ const pageDescription =
     : `idenfit blogunun ${currentPage}. sayfası — insan kaynakları yönetimi, dijitalleşme ve çalışan deneyimi üzerine güncel yazılar.`;
 const pageHref = (page: number) => (page <= 1 ? '/blog/' : `/blog/page/${page}/`);
 const pageItems = getPaginationItems(currentPage, totalPages);
+// `CollectionPage` + `mainEntity: ItemList` (2026-10-04, JSON-LD şema turu) —
+// `BaseLayout`'un sayfa-seviyesi bloğu bu sayfalarda jenerik `WebPage`
+// tipindeydi, yani şema seviyesinde bir LİSTELEME sayfası oldukları ve
+// hangi yazıları listeledikleri hiç söylenmiyordu. `collection` prop'u
+// verildiğinde BaseLayout tipi `CollectionPage`'e çevirip öğeleri
+// `ItemList` olarak basıyor (gerekçeler o prop'un yorumunda).
+//
+// **Kaynak, sayfanın KENDİ render ettiği `items` dizisinin AYNISI** —
+// aşağıdaki kart döngüsü (`items.map`) ile BİREBİR aynı veri, aynı sıra.
+// Ayrı bir liste kurulmadı ki ikisi bir gün sessizce ayrışmasın; `url` de
+// kartın `href`'iyle aynı ifadeden (`/blog/<slug>/`) üretiliyor.
+// `name` yazının görünen başlığı — yeni metin yazılmadı (KARAR 1).
+const collection = {
+  items: items.map((post) => ({ url: `/blog/${post.data.slug}/`, name: post.data.title })),
+};
 ---
 
 <!-- Blog TR-only — bkz. `blog/[slug].astro`'daki AYNI yorum. -->
@@ -73,6 +88,7 @@ const pageItems = getPaginationItems(currentPage, totalPages);
   hreflangLocales={['tr']}
   localeUrls={trOnlyLocaleUrls(pageHref(currentPage))}
   breadcrumb={[{ label: 'Blog' }]}
+  collection={collection}
 >
   <section class="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
     <h1 class="text-3xl font-bold tracking-tight text-heading sm:text-4xl">Blog</h1>
