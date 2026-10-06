@@ -356,7 +356,7 @@ geçmiş var.
 
 ---
 
-## Güncel durum (son güncelleme: 2026-10-04)
+## Güncel durum (son güncelleme: 2026-10-06)
 
 ### ✅ JSON-LD şema turu — 10 PR (2026-10-02/04)
 
@@ -408,6 +408,114 @@ regresyon üretir, hiçbiri hata vermez):
    doğar.
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
+
+**🟢 2026-10-06 — PDKS ve Performans sayfalarının SSS'leri AYRIŞTIRILDI (10 sayfa, 5 locale) — WordPress göçünden kalma bir içerik hatası kapandı.**
+`/pdks-modulu/` ailesinin SSS'inde **20 sorunun 20'si de performans
+değerlendirme** hakkındaydı — PDKS ile hiçbir ilgisi yoktu, 5 dilde aynı.
+Performans sayfasında ise yalnızca **8** soru vardı; iki sayfa aynı aramalarda
+birbirinin sıralamasını yiyordu. **Ölçülen çakışma POZİSYONEL ve tamdı:
+`perf[0..7]` ≡ `pdks[0..7]`** (5 dilde doğrulandı; TR/AZ'de soru metni birebir,
+EN/NL'de aynı soru farklı ifadeyle çevrilmiş — bu yüzden METİN eşleştirmesi
+yanıltıcı, İNDEKS eşleştirmesi şart). **Ama cevaplar FARKLIYDI: performans
+sayfasının 8 cevabı DAHA ZENGİN, PDKS'teki 8 kısaltılmış kopyaydı.** Dolayısıyla
+gerçek taşıma miktarı 20 değil **12** (`pdks[8..19]`); 8 + 12 = 20.
+**Uygulanan (kullanıcı kararı, 2026-10-06):** PDKS'e kendi 10 sorusu yazıldı,
+12 performans sorusu performans sayfasının SONUNA eklendi, mevcut 8 **zengin
+cevaplarıyla ilk 8'de KALDI**. Gerekçe: o 8 cevap o sayfa için yazılmış; PDKS'in
+kısaltılmış sürümleriyle değiştirmek içerik KAYBI olurdu.
+**Mekanizma — yeni altyapı KURULMADI.** `ProductOverride.faq` alanı ZATEN vardı
+(emsali: Puantaj'ın IT SSS'i de EN kopyasıydı ve aynı alanla düzeltilmişti).
+`PRODUCT_OVERRIDES`'a iki slug için `tr`/`en`/`nl` anahtarları eklendi
+(**yalnızca `faq`** taşıyorlar) + mevcut `it` anahtarlarına `faq` eklendi;
+`PRODUCT_OVERRIDES_AZ`'nin iki `faq`'ı değiştirildi. **Yalnızca `faq` taşıyan
+override güvenli:** `hero`/`sections` `??` zinciriyle ham veriden gelmeye devam
+ediyor (`productContent.ts:359-363`). **Ham `products.json` DEĞİŞMEDİ** (proje
+ilkesi: ham export kaynak veri, düzeltme kodda), `ProductPage.astro` DEĞİŞMEDİ.
+**Şema↔görünür eşleşmesi YAPISAL, elle korunacak bir şey yok** — görünür
+akordeon (`ProductPage.astro:368`) ve `FAQPage` JSON-LD'si (`buildFaqJsonLd()`,
+satır 154) AYNI tek `content.faq` dizisinden besleniyor. Yine de 10 sayfada tek
+tek ölçüldü (aşağıda).
+**⚠️ BU TURDA ORTAYA ÇIKAN ÜÇ EK BULGU:**
+1. **IT performans sayfasının 8 SSS'i tamamen İNGİLİZCEYDİ** — EN perf FAQ ile
+   **byte-birebir aynı** (ölçüldü). Bu turdan ÖNCE de canlıda duran bir KARAR 1
+   ihlali. Kullanıcı kararıyla **(c) seçeneği** uygulandı: zengin cevaplar TR'den
+   GERÇEK İtalyancaya çevrildi (IT PDKS'in kısa İtalyanca sürümleri
+   KULLANILMADI) — böylece IT, diğer 4 dille içerik paritesini koruyor.
+   Terminoloji sayfanın KENDİ IT override'ından alındı (`rilevazione presenze`,
+   `tornello`, `lettori di card`, `straordinari`, `permessi`, `turni`).
+2. **`getProductContent()` SORU metnini `cleanRichText()`'ten GEÇİRMİYOR**
+   (`productContent.ts:369` yalnızca cevabı geçiriyor) — ham veride 20 TR
+   sorusunun 11'i `"…?\r\n"` ile bitiyordu. Görünür etkisi YOK (HTML boşluk
+   daraltıyor), şemaya da sızmıyor (`toPlainText` trim ediyor). Override'a elle
+   yazılan metinlerde bu kalıntı yok; byte diff'te değişen 10 sayfada bu da
+   görünüyor, BEKLENEN.
+3. **Taşınan 12 sorunun 5 dilde gerçek çevirisi ZATEN VARDI** — yani çeviri
+   emeği yalnızca PDKS'in 10 yeni sorusu + IT perf'in 8 cevabı için gerekti.
+**Biçim kararı:** cevaplar **düz metin** (Hiringoz/İşe Alım override'ının ve
+AZ'nin kurduğu konvansiyon), ham verinin `<p><span style="font-weight: 400;">`
+sarmalı YOK. Ölçüldü: 40 ham cevabın HİÇBİRİ çok paragraflı değil, tek paragraf
+olduğu için `[&_p]:mb-2 [&_p:last-child]:mb-0` altında görsel sonuç BİREBİR aynı.
+EN/NL/IT'deki `&#8217;` entity'leri AYNEN korundu (taşımanın kayıpsızlığı
+kanıtlanabilsin).
+**⚠️ TAŞINAN İÇERİK ELLE KOPYALANMADI — ham kaynaktan ÜRETİLDİ.** 12 madde × 5
+dil = 60 soru-cevabı elle yazmak sessiz transkripsiyon hatası sınıfı üretirdi;
+bunun yerine bir üretici script ham `products.json`/AZ override'ından okuyup TS
+literal'larına kaçışladı. Elle yazılan TEK şey gerçekten yeni olan metinler.
+**Doğrulama — PR 6/PR 9 tipi ölçüt.** Bu tur blok EKLEMİYOR, mevcut `FAQPage`
+bloğunun İÇERİĞİNİ + görünür akordeonu değiştiriyor; yani "yalnızca JSON-LD" bir
+tur DEĞİL, PR 5/PR 7/PR 10'un dörtlü boyut-muhasebesi ölçütü UYGULANAMAZ.
+Baseline `idenfit/master`'dan (`c87c9ab`) proje ağacının DIŞINA alındı; iki
+bağımsız tarama byte-birebir aynı sonucu verdi (3180 HTML / 3073 blok).
+(1) HTML sayısı **3180 → 3180**, toplam blok **3073 → 3073**, tür dağılımı
+BİREBİR aynı (`Organization` 950, `WebPage` 255, `BreadcrumbList` 940,
+`SoftwareApplication` 116, `FAQPage` 116, `BlogPosting` 641, `CollectionPage` 54,
+`WebApplication` 1); (2) tam dosya sha256 → **TAM 10 dosya** değişti, beklenen
+küme ile BİREBİR (beklenmeyen 0, değişmesi gerekip değişmeyen 0); (3) blok SAYISI
+**0** dosyada değişti; (4) `FAQPage` DIŞINDAKİ **2957** bloğun ham metni
+değişmedi; (5) görünür `<details>`: PDKS 5/5'te **20 → 10**, performans 5/5'te
+**8 → 20**; (6) şema `mainEntity` ↔ görünür `<h3>` 10/10 sayfada metin VE SIRA
+olarak birebir, ayrıca şema cevapları ↔ görünür cevap blokları birebir; (7) 10
+sayfanın TAMAMINDA SSS metni BEKLENEN metinle birebir (uyuşmayan soru 0, cevap 0)
+— yani taşınan 12 madde ham kaynağa karşı KAYIPSIZ; (8) 10 sayfa DIŞINDAKİ
+**106** `FAQPage` bloğunun ham metni değişmedi; (9) `safeJsonLd()`: 10 blokta
+çıplak `<`/`>` YOK, hepsi geçerli JSON; (10) PDKS'in 10 sorusunda "performans/
+prestazione/prestatie" geçen soru **0**.
+`astro check` 431 dosya 0 hata/0 uyarı/27 hint (taban çizgisiyle birebir),
+`astro build` temiz, `check-json-ld` **0 geçersiz ve 0 uyarı**. **11 regresyon
+script'inin 11'i de baseline ile BYTE-BİREBİR aynı çıktı verdi** — baseline için
+2 dosya geçici olarak `git stash`'lenip master halinden AYRI bir build alındı,
+yani bu bir çıkarım değil ÖLÇÜM (bilinen 4 taban çizgisi değişmedi:
+`check-csp-sync` CRLF/#78, `check-heading-hierarchy` /#36, `check-title-length` +
+`check-meta-description-length` /#70). Ayrıca **10 değişen sayfanın HİÇBİRİ 11
+script'in HİÇBİR bulgu listesinde geçmiyor**. `public/_headers` değişmedi.
+**⚠️ YAPILAMAYAN KONTROL — mobil 390px GÖRSEL doğrulama.** Chrome eklentisi bu
+oturumda bağlı değildi. Yerine YAPISAL kanıt sunuldu: `ProductPage.astro` diff'te
+YOK (akordeon işaretlemesi değişmedi, `<details>/<summary>` sınıfları çıktıda
+bileşendekiyle birebir), cevaplar düz metin (blok elementi YOK), ve **metin
+zarfı site-geneli DEĞİŞMEDİ** — bu 10 sayfadaki en uzun tek kelime baseline'da da
+after'da da **29 karakter**. Performans sayfalarının zarfı büyüdü ama aldıkları
+her metin ZATEN PDKS sayfasında AYNI bileşende canlıydı, yani yeni taşma riski
+girmedi. **Bu bir çıkarım, ölçüm değil** — görsel teyit eklenti bağlanınca
+yapılmalı.
+**ÜRÜN EKİBİNE SORULACAK 2 MADDE** (metinler sayfanın kendi içeriğinden
+türetildi, nicel sınır iddia ETMİYORLAR — ama sınırlar belirsiz):
+(a) **API entegrasyon kapsamı** — sayfa "API desteği ile birçok programa kolay
+entegrasyon" diyor, somut sınırlar belirsiz; (b) **geriye dönük sorgulama
+sınırı** — ne kadar geriye gidilebiliyor, bir sınır var mı?
+**⚠️ ARAÇ DERSİ (doğrulama script'inde yaşandı) — Astro `class` özniteliğindeki
+`&`'i `&amp;`'ye kaçışlıyor.** Görünür cevap bloklarını ham Tailwind sınıf adıyla
+(`[&_p]:mb-2`) arayan regex **0 eşleşme** buldu ve "şema ≠ görünür" diye SAHTE
+bir hata raporladı (şema zaten beklenen metinle birebirdi, çelişki buradan
+anlaşıldı). Çıktıda sınıf `[&amp;_p]:mb-2` olarak duruyor. Tailwind v4'ün
+arbitrary-variant sınıfları `&` içerdiği için bu sınıflara dayanan HER çıktı
+taraması bu kaçışı hesaba katmalı.
+**Yan teyit (bağımsız):** AZ dosyasının diff'i `+22/−20` çıktı — performansın
+mevcut 8 maddesinde **0 satır silinmedi** (yalnızca 12 eklendi), yani "ilk 8
+zengin cevabıyla kalsın" kararı byte seviyesinde kendiliğinden doğrulandı.
+`productTranslationOverrides.ts` diff'i `+148/−0`, yani SAF EKLEME — mevcut IT
+`hero`/`sections` içeriğine hiç dokunulmadı.
+**Yan bulgu, KAPSAM DIŞI:** site geneli SSS sayfasının kaynağı (`faq.json`, 90
+kayıt) bu 20 sorudan HİÇBİRİNİ taşımıyor (ölçüldü) — üçüncü bir çakışma yok.
 
 **🟢 2026-10-04 — JSON-LD şema turu PR 10: Fiyatlar sayfasına `SoftwareApplication` + `offers` (5 sayfa) — Açık nokta #29 TAMAMEN kapandı.**
 Fiyatlar sayfası (`/fiyatlar/` + 4 locale karşılığı) ÖNCEDEN hiç tip-özel
