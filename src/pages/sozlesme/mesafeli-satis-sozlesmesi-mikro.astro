@@ -1,0 +1,31 @@
+---
+export const prerender = true;
+// Mesafeli Satış Sözleşmesi — Mikro paket (TR). Eski WP id 20193, canlıda
+// `/mesafeli-satis-sozlesmesi-kobi/` kardeşiyle birlikte 404 veriyordu
+// (Açık nokta #6). Genel sözleşmenin YANINA, aynı `/sozlesme/` klasörüne
+// kuruldu — kök neden/dönüşüm dökümü `distanceSalesPackagesContent.ts`'in
+// dosya başı yorumunda. Eski adresten 301 yönlendirme BU TURDA YAPILMADI
+// (site geneli yönlendirme dosyasına dokunmak gerekiyor, ayrı bir iş).
+import LegalPage from '../../components/LegalPage.astro';
+import {
+  getDistanceSalesPackageContent,
+  getDistanceSalesPackageLocaleUrls,
+  getDistanceSalesPackageModifiedDate,
+  getDistanceSalesPackageMetaDescription,
+  DISTANCE_SALES_MICRO_TR_SLUG,
+  DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES,
+} from '../../data/distanceSalesPackagesContent';
+
+const content = getDistanceSalesPackageContent(DISTANCE_SALES_MICRO_TR_SLUG, 'tr')!;
+const localeUrls = getDistanceSalesPackageLocaleUrls(DISTANCE_SALES_MICRO_TR_SLUG);
+const modified = getDistanceSalesPackageModifiedDate(DISTANCE_SALES_MICRO_TR_SLUG, 'tr');
+const description = getDistanceSalesPackageMetaDescription(DISTANCE_SALES_MICRO_TR_SLUG, 'tr');
+---
+
+<LegalPage
+  content={content}
+  localeUrls={localeUrls}
+  description={description}
+  hreflangLocales={DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES}
+  modified={modified}
+/>

@@ -1,0 +1,28 @@
+---
+export const prerender = true;
+// Distance sales agreement — SME package (EN). Eski WP id 20223. TR
+// karşılığı `/sozlesme/mesafeli-satis-sozlesmesi-kobi/` ("Kobi" = SME);
+// 11 maddelik, ödeme koşulları içeren varyant.
+import LegalPage from '../../../components/LegalPage.astro';
+import {
+  getDistanceSalesPackageContent,
+  getDistanceSalesPackageLocaleUrls,
+  getDistanceSalesPackageModifiedDate,
+  getDistanceSalesPackageMetaDescription,
+  DISTANCE_SALES_SME_TR_SLUG,
+  DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES,
+} from '../../../data/distanceSalesPackagesContent';
+
+const content = getDistanceSalesPackageContent(DISTANCE_SALES_SME_TR_SLUG, 'en')!;
+const localeUrls = getDistanceSalesPackageLocaleUrls(DISTANCE_SALES_SME_TR_SLUG);
+const modified = getDistanceSalesPackageModifiedDate(DISTANCE_SALES_SME_TR_SLUG, 'en');
+const description = getDistanceSalesPackageMetaDescription(DISTANCE_SALES_SME_TR_SLUG, 'en');
+---
+
+<LegalPage
+  content={content}
+  localeUrls={localeUrls}
+  description={description}
+  hreflangLocales={DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES}
+  modified={modified}
+/>
