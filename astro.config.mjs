@@ -462,5 +462,31 @@ export default defineConfig({
     // yönlendiriliyor.
     '/ik-dijital-test': '/ik-dijital-olgunluk-testi/',
     '/ik-dijital-olgunluk-testi-sonucu': '/ik-dijital-olgunluk-testi/',
+    // 2026-10-07: Mesafeli Satış Sözleşmesi'nin PAKET varyantları (Mikro/KOBİ,
+    // TR+EN) bu turda ilk kez yayına alındı — kök olay ve içerik dökümü
+    // `src/data/distanceSalesPackagesContent.ts`'in dosya başı yorumunda.
+    // Eski WP adresleri Search Console'un "Bulunamadı" listesinde duruyor;
+    // yeni adresler `/sozlesme/` ve `/en/contract/` klasörleri altında olduğu
+    // için eski düz adresler 404 dönüyordu. Genel sözleşmeye DEĞİL, kendi
+    // paket sayfalarına yönlendiriliyorlar (içerikleri gerçekten farklı:
+    // Mikro 10 madde, KOBİ 11 — birbirinin yerine geçemezler).
+    //
+    // ⚠️ Anahtarlar BİLİNÇLİ olarak eğik çizgisiz: Cloudflare adapter'ı her
+    // girdiyi `_redirects`'e HEM çizgili HEM çizgisiz iki 301 satırı olarak
+    // yazıyor (ölçüldü: `/suprema` → `/suprema/` + `/suprema`), yani Search
+    // Console'daki iki varyant da tek girdiyle kapanıyor — elle ikinci bir
+    // kural EKLENMEMELİ, aksi halde çift satır üretilir.
+    // Hedeflerin dördü de GERÇEK sayfa, yani yönlendirme zinciri yok (A→C).
+    '/mesafeli-satis-sozlesmesi-mikro': '/sozlesme/mesafeli-satis-sozlesmesi-mikro/',
+    '/mesafeli-satis-sozlesmesi-kobi': '/sozlesme/mesafeli-satis-sozlesmesi-kobi/',
+    // `/tr/` öneki: TR defaultLocale ve `prefixDefaultLocale:false` olduğu için
+    // `/tr/...` bizim tarafta HİÇ route'lanmıyor — kaynak sitede Polylang'den
+    // kalma bir adres, Search Console listesinde yalnızca KOBİ'si var.
+    '/tr/mesafeli-satis-sozlesmesi-kobi': '/sozlesme/mesafeli-satis-sozlesmesi-kobi/',
+    // EN: hem `/en/` önekli hem öneksiz taranmış hâlleri (Search Console).
+    '/customer-sales-agreement-micro': '/en/contract/customer-sales-agreement-micro/',
+    '/customer-sales-agreement-sme': '/en/contract/customer-sales-agreement-sme/',
+    '/en/customer-sales-agreement-micro': '/en/contract/customer-sales-agreement-micro/',
+    '/en/customer-sales-agreement-sme': '/en/contract/customer-sales-agreement-sme/',
   },
 });
