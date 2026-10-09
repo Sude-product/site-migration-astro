@@ -232,6 +232,11 @@ export const nl: Translations = {
       mealAllowance: 'Maaltijdvergoeding Berekenen',
       noticePeriod: 'Opzegtermijn en Vergoeding Berekenen',
       reportsTitle: 'Rapporten',
+      hrBudget2027: {
+        category: 'Budgetplanning',
+        title: 'Gids voor het HR-budget 2027',
+        imageAlt: 'Omslag van de Gids voor het HR-budget 2027',
+      },
       leaveAndReturn2026: {
         category: 'HR-trends',
         title: 'Verlof en Terugkeer naar Werk 2026',

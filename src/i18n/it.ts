@@ -238,6 +238,11 @@ export const it: Translations = {
       mealAllowance: 'Calcolo Buoni Pasto',
       noticePeriod: 'Calcolo Periodo di Preavviso e Indennità',
       reportsTitle: 'Report',
+      hrBudget2027: {
+        category: 'Pianificazione del Budget',
+        title: 'Guida al Budget HR 2027',
+        imageAlt: 'Copertina della Guida al Budget HR 2027',
+      },
       leaveAndReturn2026: {
         category: 'Trend HR',
         title: 'Ferie e Rientro al Lavoro 2026',

@@ -561,6 +561,14 @@ export function buildMegaMenus(mega: Translations['mega'], locale: Locale): Reco
           prevAriaLabel: mega.ui.prevReports,
           cards: [
             {
+              category: mega.kesfet.hrBudget2027.category,
+              title: mega.kesfet.hrBudget2027.title,
+              image: '/wp-content/uploads/2026/10/2027-IK-Butce-Rehberi-kapak.png',
+              imageAlt: mega.kesfet.hrBudget2027.imageAlt,
+              href: '/wp-content/uploads/2026/10/2027-IK-Butce-Rehberi.pdf',
+              external: true,
+            },
+            {
               category: mega.kesfet.leaveAndReturn2026.category,
               title: mega.kesfet.leaveAndReturn2026.title,
               image: '/wp-content/uploads/2026/09/Izin-ve-Ise-Donus-2026-kapak.png',

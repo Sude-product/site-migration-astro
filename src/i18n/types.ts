@@ -343,6 +343,7 @@ export interface MegaKesfetLabels {
   mealAllowance: string;
   noticePeriod: string;
   reportsTitle: string;
+  hrBudget2027: MegaKesfetReportItem;
   leaveAndReturn2026: MegaKesfetReportItem;
   generationsWorkforce: MegaKesfetReportItem;
   dataDrivenRecruitment: MegaKesfetReportItem;
