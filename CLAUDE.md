@@ -409,6 +409,13 @@ regresyon üretir, hiçbiri hata vermez):
 3. `inLanguage` `url`'den hemen sonra (anahtar sırası schema.org açısından
    anlamsız, yalnızca okunurluk).
 
+**🟢 2026-10-10 — KEŞFET → Raporlar'a "2027 İK Bütçe Rehberi" eklendi (5 locale, listenin başına).**
+Kapak ayrıca sağlanmadığı için PDF'in 1. slaytı render edilip emsalle aynı
+156×196'ya dikey kırpıldı; PDF `uploads/2026/10/`'a göreli URL ile kopyalandı.
+Doğrulama: HTML 3180→3180, 950 HTML'de fark **salt ekleme** (silinen bayt 0),
+9 regresyon script'i baseline ile byte-birebir, 1024/1280px yatay taşma
+master'la **aynı** (yeni kart 0px).
+
 **🟢 2026-10-06 — PDKS ve Performans sayfalarının SSS'leri AYRIŞTIRILDI (10 sayfa, 5 locale) — WordPress göçünden kalma bir içerik hatası kapandı.**
 `/pdks-modulu/` ailesinin SSS'inde **20 sorunun 20'si de performans
 değerlendirme** hakkındaydı — PDKS ile hiçbir ilgisi yoktu, 5 dilde aynı.
@@ -3181,6 +3188,11 @@ idenfit.com'un canlı header'ından çıkarılan veri. Kaynak dürüstlüğü:
   `check-title-length`/`check-meta-description-length` (#70),
   `check-csp-sync` (Windows CRLF, #78) — ya bunlar kapatılmalı ya gate
   mantığı istisnaları hesaba katmalı.
+- **Ölçüm tuzağı (2026-10-10) — `<astro-island uid>` props'tan türetiliyor:**
+  bir island'ın prop'u değişince `uid`'i de değişir ve ham sha256 diff'i bunu
+  "içerik değişti" sanır (o turda 950 sayfa × 2 island = 1900 uid, island
+  *sayısı* değişmeden); build karşılaştırmalarında `uid="..."` normalize
+  edilmeli.
 - **Satır sonu kuralı (`public/_headers` ve CLAUDE.md gibi üretilen/
   karşılaştırılan dosyalar):** repo `core.autocrlf=true` ile checkout
   ediliyor; bir dosyayı script'le yeniden yazarken satır sonlarını
