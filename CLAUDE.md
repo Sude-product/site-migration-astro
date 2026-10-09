@@ -416,6 +416,113 @@ Doğrulama: HTML 3180→3180, 950 HTML'de fark **salt ekleme** (silinen bayt 0),
 9 regresyon script'i baseline ile byte-birebir, 1024/1280px yatay taşma
 master'la **aynı** (yeni kart 0px).
 
+**🟢 2026-10-07 — Mesafeli Satış Sözleşmesi'nin PAKET varyantları (Mikro + KOBİ, TR+EN) YAYINA ALINDI + 7 eski adrese 301 yönlendirme — Açık nokta #6 kapandı.**
+Bu 4 sayfa eski WP'de (id 20193/20206/20212/20223) gerçekten yayındaydı ama
+migrasyona hiç girmemişti; canlıda **404** veriyorlardı ve müşteriler satın
+aldıkları paketin sözleşmesine erişemiyordu. **Avukat onayı BEKLENMEDİ
+(kullanıcı kararı, 2026-10-07):** metinler eski sitede bir yıl boyunca aynı
+haliyle yayındaydı, "eski metinle yayında olmak hiç olmamaktan iyi". Avukat
+değişiklik isterse ayrı bir PR'la güncellenecek.
+**Dal haftalardır dokunulmamıştı, önce rebase edildi.** `41b8a0e` → `0ed1beb`,
+master `c5edffe` üzerine. **Rebase seçildi, merge DEĞİL** — gerekçe ölçüldü:
+dal tek commit ve SAF EKLEME (6 dosya, +341/−0), master bu 6 yola merge-base'den
+beri HİÇ dokunmadı, dosyaların hiçbiri master'da yok → çakışma matematiksel
+olarak imkânsızdı. **Çakışma 0; içerik kaybı olmadığının kanıtı: rebase
+öncesi/sonrası 6 blob hash'inin 6'sı da birebir aynı.**
+**İçerik mekanizması — mevcut hiçbir veri kaynağına dokunulmadı.** 4 sayfa
+`distanceSalesPackages.json` + `distanceSalesPackagesContent.ts` üzerinden
+`LegalPage.astro`'ya besleniyor; ham `misc-pages.json` DEĞİŞMEDİ (o export
+yalnızca `page` post type'ını çekmiş, bu 4 kayıt orada hiç yok). Hukuki metne
+DOKUNULMADI — yazım hataları bile korundu. Madde sayıları iki bağımsız yerde
+ölçüldü (kaynak JSON + build çıktısı): **Mikro 10/10, KOBİ 11/11 (TR/EN)**,
+numaralar 1..N ardışık; KOBİ'nin fazlası "Madde 5 — Lisans ve Hizmet Bedelleri
+ve Ödeme Koşulları". **Render edilen düz metin ham kaynakla karakter karakter
+birebir** (12579 / 12644 / 17411 / 17587 kr, 4 sayfada 0 sapma).
+**301 YÖNLENDİRMELER — 7 girdi, 14 kural.** `astro.config.mjs`'in `redirects`
+bloğuna eklendi (29 → 36 girdi). **⚠️ ÖLÇÜLEN DAVRANIŞ, varsayım değil:
+Cloudflare adapter'ı her config girdisini `_redirects`'e HEM eğik çizgili HEM
+çizgisiz iki 301 satırı olarak yazıyor** (`/suprema` → `/suprema/` + `/suprema`),
+yani Search Console'daki iki varyant TEK girdiyle kapanıyor — **elle ikinci bir
+kural EKLENMEMELİ**, çift satır üretir. `_redirects` 65 → 79 kural (+14).
+Doğrulandı: 14 varyantın 14'ü de doğru hedefe **301**, **mevcut 65 kuralın
+hiçbiri değişmedi/silinmedi** (satır satır küme eşitliği), **zincir 0** (hiçbir
+hedef başka bir kuralın kaynağı değil, A→C), 4 hedefin 4'ü de build çıktısında
+mevcut. `/tr/` önekli girdi bilinçli: TR defaultLocale + `prefixDefaultLocale:false`
+olduğu için `/tr/...` bizde hiç route'lanmıyor, kaynaktaki Polylang kalıntısı.
+**⚠️ BU TURDA ÖLÇÜLEREK BULUNAN GERÇEK BİR BULGU — 48 karakterlik görünür URL
+mobilde yatay taşma üretiyordu, tek sınıfla düzeltildi.** Bu 4 sayfa, görünür
+metni URL'in KENDİSİ olan linkler getirdi (en uzunu
+`https://idenfit.com/kisisel-verilerin-korunmasi/` = 48 kr; EN'de 39 kr) —
+migrasyon düzeltmesinin bir parçası (href VE görünür metin gerçek adrese
+çevrilmişti, 2026-09-28 onaylı), hukuki metnin kendisi değil. Sitede
+`overflow-wrap` **hiçbir yerde tanımlı değildi** ve `prose-legal`ın kendi CSS'i
+yok; 390px'de kullanılabilir genişlik ~358px olduğu için bu token sarmayıp
+SAYFA SEVİYESİNDE yatay taşma üretiyordu. **Bunun YENİ bir sınıf olduğu
+ölçüldü:** mevcut 14 hukuki sayfanın en uzun bölünemez token'ı **29 kr**,
+≥40 karakterli olan **0** — yani eşik bugüne kadar hiç zorlanmamış.
+Düzeltme: `LegalPage.astro`'nun `prose-legal` div'ine **`[&_a]:break-words`**
+(emsal: `ContactPage.astro` uzun telefon/e-posta linklerinde AYNI sınıfı
+kullanıyor). Hukuki metne dokunmuyor. **Mevcut 14 sayfanın GÖRÜNEN çıktısını
+değiştirmediği kanıtlandı** (aşağıdaki muhasebe).
+**Tablolar güvenli — ölçüldü:** sayfa başına 1 tablo, **2 kolon**, `width=""` 0,
+`style=""` 0, `nowrap` yok, `<colgroup>` yok, tablo içi en uzun bölünemez token
+**15 kr** (`www.idenfit.com`). Emsal de var: mevcut hukuki sayfalardan biri
+zaten 3 tablo taşıyor ve canlıda.
+**⚠️ YAPILAMAYAN KONTROL — mobil 390px GÖRSEL doğrulama.** Chrome eklentisi bu
+oturumda bağlı değildi (PDKS turuyla aynı durum). Yukarıdaki yapısal ölçümler
+ve CSS kuralının varlığı kanıt; **görsel teyit eklenti bağlanınca yapılmalı.**
+"390px'de ~26px taşıyordu" tahmini bir hesap (48 kr × ~8px), ÖLÇÜM DEĞİL.
+**Doğrulama — baseline master `c5edffe`'den, proje ağacının DIŞINA.**
+`astro check` 436 dosya **0 hata / 0 uyarı / 27 hint** (taban çizgisi 431 + 5
+yeni kaynak dosya), `astro build` temiz, HTML **3180 → 3192**.
+(1) **Eklenen 12 HTML:** 4 gerçek sayfa + 8 i18n fallback stub'ı (TR×2 →
+en/it/az; EN×2 → nl). **Silinen 0.**
+(2) **954 değişen dosyanın TAMAMI açıklandı, açıklanmayan 0** — ve bu turun en
+önemli ölçümü, çünkü `break-words` sınıfı beklediğimden ÇOK geniş bir yüzeye
+dokundu: paylaşılan CSS paketinin içerik-hash'i yenilendi
+(`homeContent.B9kwH0Jd.css` → `homeContent.CC7C0iU6.css`) ve o paketi
+referanslayan her sayfanın `<link href>` dizesi değişti. Muhasebe: **937 dosyada
+YALNIZCA CSS adı**, **14 dosyada CSS adı + eklenen sınıf** (tam olarak mevcut 14
+hukuki sayfa — yani **hukuki METİNLERİ byte-birebir korundu**), **0 dosyada
+yalnızca sınıf**, kalan **3** kasıtlı: `_redirects` (+14 kural),
+`sitemap-0.xml` (tam 4 yeni URL, 0 silinen), `rss.xml` (tek fark
+`<lastBuildDate>` build damgası).
+(3) **CSS farkı TAM 50 bayt ve saf ekleme**, tek kural:
+`.\[\&_a\]\:break-words a{overflow-wrap:break-word}`. Mevcut `.break-words`
+kuralına dokunulmadı, CSS'te başka hiçbir şey değişmedi.
+(4) **`_headers` BİREBİR AYNI** — CSP politikası etkilenmedi.
+(5) 4 sayfa: `<title>` 52-55 kr (50-60 ✓), description 150-156 kr (70-160 ✓),
+tam 1 H1, `noindex` **YOK**, canonical doğru, hreflang yalnızca GERÇEK diller
+`[tr, en, x-default]` (IT/NL/AZ'de bu paket sözleşmeleri kaynakta hiç
+yayınlanmamış), JSON-LD 3 blok (`Organization`/`WebPage`/`BreadcrumbList`) ve
+`safeJsonLd()` sayesinde çıplak `<>` taşıyan blok 0. 4 sayfa **sitemap'te**,
+8 stub doğru şekilde değil.
+(6) **11 regresyon script'i:** exit kodları baseline ile birebir aynı, çıktı
+farkı YALNIZCA sayı farkı ve 4 yeni sayfayla tam açıklanıyor (+4 taranan sayfa,
++8 stub, +12 JSON-LD bloğu = 4 × 3, hreflang 248 → 252 ve iki tarafta da 0
+sorun). **4 yeni sayfa 11 script'in HİÇBİR bulgu listesinde geçmiyor (0
+eşleşme).** Bilinen 4 taban çizgisi değişmedi: `check-csp-sync` (Windows CRLF,
+#78), `check-heading-hierarchy` 5 (#36), `check-title-length` 6 +
+`check-meta-description-length` 1 (#70 — title-length taban çizgisi master'da
+5'ten 6'ya çıkmış, sebebi bu tur DEĞİL, baseline'da da 6).
+**⚠️ ARAÇ DERSİ (bu turda yaşandı, tekrar düşülmemesi için) — heredoc ile
+yazılan doğrulama script'lerinde `\\s`/`\\d` ters bölü çiftleri TEK bölüye
+iniyor.** Madde sayısı ölçen ilk script `new RegExp('^' + kw + '\\s*\\d+')`
+kullanıyordu; dosyaya `\s`/`\d` olarak düştüğü için JS dizesinde `s`/`d`e
+dönüştü ve regex `^Maddes*d+` oldu → **4 sayfada da "0 madde" diye SAHTE bir
+hata raporladı** (H2 sayıları doğru olduğu için çelişki fark edildi). Aynı
+mekanizma template literal'da `[\s\S]`'i `[sS]`'e çevirip "0 başlık" verdi.
+**Kural: regex içeren doğrulama script'leri heredoc ile DEĞİL, Write aracıyla
+yazılmalı ve regex'ler LİTERAL olmalı** (dinamik `new RegExp` string kaçışları
+sessizce bozuluyor). Bu, PR 6'nın "i" tuzağı ve PDKS turunun `&amp;` tuzağıyla
+AYNI sınıf: ölçüm aracı sessizce yanlış sonuç veriyor.
+**Bu turda KAPSAM DIŞI bırakılan, ayrı bir tur (kullanıcı notu):** Search
+Console'un 404 listesinde başka İngilizce hukuki sayfalar da var —
+`/contract/consumer-rights/`, `/contract/distance-sales-contract/`,
+`/data-use-policy/` — `/en/` öneki OLMADAN taranıyorlar. Aynı sınıf bir sorun
+(öneksiz eski adres → önekli yeni adres) ve çözümü de aynı tek satırlık config
+girdisi, ama bu turda kapsama ALINMADI.
+
 **🟢 2026-10-06 — PDKS ve Performans sayfalarının SSS'leri AYRIŞTIRILDI (10 sayfa, 5 locale) — WordPress göçünden kalma bir içerik hatası kapandı.**
 `/pdks-modulu/` ailesinin SSS'inde **20 sorunun 20'si de performans
 değerlendirme** hakkındaydı — PDKS ile hiçbir ilgisi yoktu, 5 dilde aynı.
@@ -1298,7 +1405,13 @@ hâlâ geçerli.)*
    yalnızca güncellendi — anahtar gelene kadar hukuki risk notu hâlâ
    TEKNİK olarak geçerli, formlar hâlâ hiçbir yere gerçek e-posta
    göndermiyor, yalnızca artık DOĞRU bir hata mesajı gösteriyorlar).
-6. Mesafeli Satış Sözleşmesi'nin kobi/mikro TR varyantları kurulmadı.
+6. **KAPANDI (2026-10-07) — Mesafeli Satış Sözleşmesi'nin Mikro/KOBİ
+   varyantları 4 sayfa olarak (TR+EN) YAYINA ALINDI, eski 7 adres 301 ile
+   yeni adreslerine yönlendirildi.** Tam anlatım, rebase gerekçesi, adapter'ın
+   "çizgili+çizgisiz iki kural" davranışı ve 954 değişen dosyanın muhasebesi:
+   §Güncel durum, 2026-10-07 kaydı. Avukat onayı beklenmedi (kullanıcı kararı);
+   avukat değişiklik isterse ayrı bir PR'la güncellenecek.
+   **Eski kayıt:** kobi/mikro TR varyantları kurulmadı.
    **GÜNCELLEME (2026-09-04):** cutover-öncesi sitemap denetiminde EN
    karşılıkları da (`/en/customer-sales-agreement-micro/`,
    `/en/customer-sales-agreement-sme/`) canlıda bulundu — kapsam yalnızca

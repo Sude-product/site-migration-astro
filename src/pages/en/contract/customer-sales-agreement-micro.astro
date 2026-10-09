@@ -1,0 +1,30 @@
+---
+export const prerender = true;
+// Distance sales agreement — Micro package (EN). Eski WP id 20206, canlıda
+// `/en/customer-sales-agreement-micro/` olarak 404 veriyordu (Açık nokta #6).
+// EN tarafı bare slug DEĞİL `/en/contract/` klasörünü kullanıyor (genel
+// sözleşme `contract/distance-sales-contract`, Tüketici Hakları
+// `contract/consumer-rights`) — keşifte doğrulanıp o yapıya uyuldu.
+import LegalPage from '../../../components/LegalPage.astro';
+import {
+  getDistanceSalesPackageContent,
+  getDistanceSalesPackageLocaleUrls,
+  getDistanceSalesPackageModifiedDate,
+  getDistanceSalesPackageMetaDescription,
+  DISTANCE_SALES_MICRO_TR_SLUG,
+  DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES,
+} from '../../../data/distanceSalesPackagesContent';
+
+const content = getDistanceSalesPackageContent(DISTANCE_SALES_MICRO_TR_SLUG, 'en')!;
+const localeUrls = getDistanceSalesPackageLocaleUrls(DISTANCE_SALES_MICRO_TR_SLUG);
+const modified = getDistanceSalesPackageModifiedDate(DISTANCE_SALES_MICRO_TR_SLUG, 'en');
+const description = getDistanceSalesPackageMetaDescription(DISTANCE_SALES_MICRO_TR_SLUG, 'en');
+---
+
+<LegalPage
+  content={content}
+  localeUrls={localeUrls}
+  description={description}
+  hreflangLocales={DISTANCE_SALES_PACKAGE_HREFLANG_LOCALES}
+  modified={modified}
+/>
