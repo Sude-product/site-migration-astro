@@ -27,7 +27,8 @@
     "LEAD_EMAIL_LANDING": "sales@idenfit.com,marketing@idenfit.com",
     "LEAD_EMAIL_SUPPORT": "cx@idenfit.com",
     "LEAD_EMAIL_PRESENTATION": "sales@idenfit.com,marketing@idenfit.com",
-    "LEAD_EMAIL_HR_MATURITY": "sales@idenfit.com,marketing@idenfit.com"
+    "LEAD_EMAIL_HR_MATURITY": "sales@idenfit.com,marketing@idenfit.com",
+    "IDENFIT_CRM_API_URL": "https://api.idenfit.com"
   },
   "observability": {
     "enabled": true,

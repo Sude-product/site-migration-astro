@@ -10,6 +10,7 @@
 //   node scripts/export-leads.mjs --form-type hrMaturityReport
 //   node scripts/export-leads.mjs --since 2026-09-01 --out /tmp/eylul.csv
 //   node scripts/export-leads.mjs --failed        # yalnızca e-postası gitmeyenler
+//   node scripts/export-leads.mjs --crm-failed    # Satış CRM'e aktarılamayanlar (failed/skipped)
 //   node scripts/export-leads.mjs --local         # canlı yerine YEREL D1 (test)
 //
 // GEREKSİNİM: `wrangler`'ın Cloudflare kimliği (CLOUDFLARE_API_TOKEN +
@@ -30,6 +31,16 @@ const COLUMNS = [
   ['employee_count', 'Çalışan Sayısı'],
   ['sector', 'Sektör'],
   ['locale', 'Dil'],
+  // İlk-giriş kaynağı (2026-10-09, migrations/0002) — 'bizi nereden buldu?'
+  ['channel', 'Kanal'],
+  ['utm_source', 'utm_source'],
+  ['utm_medium', 'utm_medium'],
+  ['utm_campaign', 'utm_campaign'],
+  ['utm_term', 'utm_term'],
+  ['utm_content', 'utm_content'],
+  ['gclid', 'gclid'],
+  ['referrer_host', 'Geldiği Site'],
+  ['landing_path', 'İlk Girdiği Sayfa'],
   ['message', 'Mesaj'],
   ['maturity_total_score', 'Olgunluk Skoru'],
   ['maturity_level_title', 'Olgunluk Seviyesi'],
@@ -38,11 +49,14 @@ const COLUMNS = [
   ['maturity_answers', 'Cevaplar (JSON)'],
   ['email_status', 'E-posta Durumu'],
   ['email_error', 'E-posta Hatası'],
+  ['crm_status', 'CRM Aktarımı'],
+  ['crm_lead_id', 'CRM Lead ID'],
+  ['crm_error', 'CRM Hatası'],
   ['page_url', 'Sayfa'],
 ];
 
 function parseArgs(argv) {
-  const out = { formType: null, since: null, failed: false, outPath: null, limit: 5000, local: false };
+  const out = { formType: null, since: null, failed: false, crmFailed: false, outPath: null, limit: 5000, local: false };
   for (let i = 0; i < argv.length; i += 1) {
     const a = argv[i];
     if (a === '--form-type') out.formType = argv[++i];
@@ -50,6 +64,7 @@ function parseArgs(argv) {
     else if (a === '--out') out.outPath = argv[++i];
     else if (a === '--limit') out.limit = Number(argv[++i]);
     else if (a === '--failed') out.failed = true;
+    else if (a === '--crm-failed') out.crmFailed = true;
     // Yalnızca geliştirme/test için: `wrangler dev`'in yerel D1 kopyası.
     else if (a === '--local') out.local = true;
     else throw new Error(`Bilinmeyen argüman: ${a}`);
@@ -65,11 +80,12 @@ function sqlLiteral(value) {
   return `'${String(value).replace(/'/g, "''")}'`;
 }
 
-function buildQuery({ formType, since, failed, limit }) {
+function buildQuery({ formType, since, failed, crmFailed, limit }) {
   const where = [];
   if (formType) where.push(`form_type = ${sqlLiteral(formType)}`);
   if (since) where.push(`created_at >= ${sqlLiteral(since)}`);
   if (failed) where.push(`email_status = 'failed'`);
+  if (crmFailed) where.push(`crm_status IN ('failed', 'skipped')`);
   const cols = COLUMNS.map(([c]) => c).join(', ');
   const clause = where.length ? ` WHERE ${where.join(' AND ')}` : '';
   const n = Number.isFinite(limit) && limit > 0 ? Math.floor(limit) : 5000;

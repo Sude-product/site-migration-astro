@@ -3,6 +3,7 @@
 // Kod tekrarı olmasın diye her form component'i kendi `fetch()`'ini
 // YAZMIYOR, bu fonksiyonu çağırıyor.
 import { getRecaptchaToken } from './recaptcha';
+import { readStoredAttribution } from './leadAttribution';
 
 export type LeadFormType = 'hero' | 'contact' | 'landing' | 'support' | 'presentation' | 'hrMaturityReport';
 
@@ -55,6 +56,10 @@ export async function submitLead(data: LeadSubmission): Promise<LeadSubmitResult
       body: JSON.stringify({
         ...data,
         pageUrl: window.location.href,
+        // Ziyaretçinin siteye bu sekmede ilk nereden geldiği (utm/gclid/geldiği
+        // site/ilk sayfa) — `pageUrl` yalnız formun bulunduğu sayfayı söylüyor.
+        // Sunucu bunu temizler ve kanalı kendisi hesaplar, bkz. leadAttribution.ts.
+        attribution: readStoredAttribution(),
         recaptchaToken,
       }),
     });

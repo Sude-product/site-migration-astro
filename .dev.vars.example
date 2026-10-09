@@ -36,3 +36,15 @@ RECAPTCHA_SECRET_KEY=
 # yapmak isterseniz güçlü/rastgele bir değer üretip buraya yazın, aynı
 # değeri isteğin `X-Pilot-Secret` header'ında gönderin.
 MATURITY_PDF_PILOT_SECRET=
+
+# Satış CRM aktarımı (2026-10-09, src/data/crmLeadSync.ts). idenfit-api'deki
+# OAuth2 client_credentials istemcisi: kapsam crm.leads.write, globme
+# organizasyonuna bağlı. Canlıda SECRET olarak girilir:
+#   npx wrangler secret put IDENFIT_CRM_CLIENT_ID
+#   npx wrangler secret put IDENFIT_CRM_CLIENT_SECRET
+# Boşken aktarım hiç denenmez, form akışı etkilenmez. Yerelde test için
+# IDENFIT_CRM_API_URL'i dev API'ye (https://dev-api.testing.idenfit.com)
+# çevirmeyi unutmayın — wrangler.json'daki varsayılan CANLI API.
+IDENFIT_CRM_API_URL=
+IDENFIT_CRM_CLIENT_ID=
+IDENFIT_CRM_CLIENT_SECRET=

@@ -2672,6 +2672,34 @@ hâlâ geçerli.)*
     dosyaya haftada ~7.400 istek geliyor ama >%90'ı tek bir üçüncü taraf
     tarayıcı (`tphotobot`, estidraft.com); kendi sitemiz bu dosyalara
     referans vermiyor.
+82. **YENİ (2026-10-09) — Web formu lead'leri ilk-giriş kaynağıyla birlikte
+    Satış CRM'e akıyor; kod 3 depoda hazır, canlıya alma adımları bekliyor.**
+    Kullanıcı sorusu: "ChatGPT'den gelip form dolduran Ahmet'i görmek
+    istiyoruz." Ölçüm: D1'deki 64 lead'in yalnız 1'inde kaynak izi vardı —
+    form yalnız formun bulunduğu sayfayı (`pageUrl`) kaydediyordu, utm'ler
+    blog → form geçişinde kayboluyordu. Kullanıcı kararları: lead modülü
+    kalıcı; sales@'e giden 5 form CRM'e (destek talebi HARİÇ); satışçılar
+    arasında **rastgele** atama; ürün DB'si AWS İrlanda.
+    **Yapılan:** (site) `leadAttribution.ts` + `scripts/lead-attribution.js`
+    (sessionStorage, çerez/IP yok), `migrations/0002`, sales@ e-postasına
+    "Kaynak" satırı, `crmLeadSync.ts` (OAuth2 client_credentials, `waitUntil`,
+    D1 `crm_status`, fırsatçı yeniden deneme); (idenfit-api) dar yetkili
+    `POST /api/v1/integrations/website/leads` (kapsam `crm.leads.write`,
+    globme'ye bağlı client, istek sınırı, idempotent benzersiz indeks,
+    gerçek HTTP kodları) + Web Lead Havuzu ayarı; (idenfit-ui) 15 "Web - …"
+    kaynak seçeneği, lead detayında "Web sitesi kaynağı", havuz ekranı (12
+    locale). **Kanal listesi üç depoda BİREBİR aynı tutulmalı** (API
+    `WebsiteLeadChannel` / site `LEAD_CHANNEL_LABELS` / UI `SOURCE_OPTIONS`).
+    Mimari, güvenlik kontrolleri ve canlıya alma sırası:
+    **`docs/crm-lead-entegrasyonu.md`**.
+    **Bekleyen (kullanıcı/ekip):** API PR'ları (env/dev→env/prod→env/preprod),
+    UI PR'ları (API'den sonra), canlı API'de OAuth2 client oluşturma,
+    `wrangler d1 migrations apply --remote`, iki Cloudflare secret'ı, havuza
+    satışçı ekleme, aydınlatma metni (hukuk).
+    **Kalıcı ders (doğrulamada yaşandı):** `pkill -f <desen>` / `pgrep -f`
+    ile süreç öldürürken desen, komutu çalıştıran kabuğun KENDİ komut
+    satırında da geçiyorsa kabuk kendini öldürür (exit 144) — PID'i
+    başlatırken kaydedip onu kullanın.
 
 ### Kapanmış maddeler — tek satır özet (tam anlatım arşivde)
 

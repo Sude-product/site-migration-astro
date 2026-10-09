@@ -55,7 +55,12 @@ import {
 // KALICI KAYIT (2026-09-22) — lead artık e-postadan ÖNCE D1'e yazılıyor.
 // E-posta bir kayıt defteri değil: gönderim başarısız olursa lead
 // kaybolmasın diye. Bu modül ASLA throw etmez, bkz. dosya başı yorumu.
-import { insertLead, markLeadEmailStatus } from '../../data/leadStore';
+import { insertLead, markLeadEmailStatus, recordLeadAttribution } from '../../data/leadStore';
+// İlk-giriş kaynağı + Satış CRM aktarımı (2026-10-09). Kaynak istemciden
+// gelir ama TEMİZLENİR, kanal sunucuda hesaplanır; CRM aktarımı arka planda
+// koşar ve form yanıtını hiç etkilemez. Bkz. iki dosyanın baş yorumları.
+import { deriveLeadChannel, describeLeadSource, sanitizeAttribution } from '../../data/leadAttribution';
+import { syncLeadToCrm } from '../../data/crmLeadSync';
 
 // Tek kaynak `leadEmailTemplate.ts` — ikinci bir birlik (union) tanımı
 // tutulmuyor, biri değişirse diğeri sessizce eskimesin diye.
@@ -88,6 +93,12 @@ interface LeadPayload {
   email?: string;
   message?: string;
   maturityResult?: MaturityResultPayload;
+  /** İstemcinin sessionStorage'dan okuduğu ilk-giriş kaynağı — GÜVENİLMEZ,
+   * `sanitizeAttribution()`'dan geçmeden hiçbir yere yazılmaz. */
+  attribution?: unknown;
+  /** E-postadaki "Kaynak" satırı. SUNUCUDA hesaplanır; istemci aynı adla bir
+   * alan gönderse bile POST handler'da her zaman EZİLİR. */
+  leadSource?: { summary: string; referrerHost?: string; landingPath?: string };
   /** reCAPTCHA v3 istemci token'ı — skeleton aşamasında widget hiç
    * render edilmediği için her zaman `null`/`undefined` gelir, bkz.
    * `verifyRecaptcha()` yorumu. */
@@ -470,6 +481,21 @@ async function processMaturityReportAsync(payload: LeadPayload, leadId: number |
   }
 }
 
+/**
+ * İşi yanıt döndükten SONRA da sürdürür (`waitUntil`). `locals.cfContext` bu
+ * adapter sürümünün gerçek `ExecutionContext`'i (bkz. `maturity-pdf.ts` dosya
+ * başı yorumu); yerel `astro dev`'de yoksa iş yine başlatılır, yalnız erken
+ * kapanma riski taşır.
+ */
+function runInBackground(locals: unknown, work: Promise<unknown>): void {
+  const cfContext = (locals as { cfContext?: { waitUntil: (promise: Promise<unknown>) => void } }).cfContext;
+  if (cfContext?.waitUntil) {
+    cfContext.waitUntil(work);
+  } else {
+    void work;
+  }
+}
+
 export const POST: APIRoute = async ({ request, locals }) => {
   const clientIp = request.headers.get('cf-connecting-ip') ?? 'unknown';
   if (isRateLimited(clientIp)) {
@@ -493,11 +519,29 @@ export const POST: APIRoute = async ({ request, locals }) => {
     return jsonResponse({ ok: false, error: 'recaptcha_failed' }, 400);
   }
 
+  // İlk-giriş kaynağı: istemcinin gönderdiği değer temizlenir (bozuksa lead
+  // REDDEDİLMEZ, kaynak boş kalır), kanal burada hesaplanır. `leadSource`
+  // her zaman EZİLİR: istemci aynı adla bir alan gönderip e-postaya kendi
+  // "Kaynak" metnini yazdıramasın.
+  const attribution = sanitizeAttribution(payload.attribution);
+  const channel = deriveLeadChannel(attribution);
+  payload.leadSource = {
+    summary: describeLeadSource(attribution, channel),
+    referrerHost: attribution?.referrerHost,
+    landingPath: attribution?.landingPath,
+  };
+
   // KALICI KAYIT (2026-09-22) — SendGrid yapılandırma kontrolünden ÖNCE.
   // Sıra KASITLI: e-posta gönderilemese bile (anahtar eksik, SendGrid
   // arızalı) lead'in KENDİSİ kaybolmamalı. `insertLead()` throw etmez;
   // başarısız olursa `null` döner ve akış aynen devam eder.
   const leadId = await insertLead(payload);
+  await recordLeadAttribution(leadId, attribution, channel);
+
+  // Satış CRM aktarımı — e-posta adımlarından ÖNCE ve onlardan BAĞIMSIZ:
+  // SendGrid arızalı olsa da lead CRM'e düşsün. Arka planda koşar (yanıt
+  // beklemez); destek talebi ve yapılandırılmamış ortamda hiçbir şey yapmaz.
+  runInBackground(locals, syncLeadToCrm(leadId, payload.formType));
 
   // Alıcı, forma özel değişkenden ya da genel `LEAD_NOTIFICATION_EMAIL`'den
   // çözülür (bkz. `resolveRecipients()`); ikisi de yoksa bu form için
@@ -523,13 +567,7 @@ export const POST: APIRoute = async ({ request, locals }) => {
   // `astro dev`'de bu alan yoksa iş yine de (await edilmeden) başlatılır —
   // yalnızca yerel ortamda erken kapanma riski taşır, üretimde sorun yok.
   if (payload.formType === 'hrMaturityReport') {
-    const cfContext = (locals as { cfContext?: { waitUntil: (promise: Promise<unknown>) => void } }).cfContext;
-    const work = processMaturityReportAsync(payload, leadId);
-    if (cfContext?.waitUntil) {
-      cfContext.waitUntil(work);
-    } else {
-      void work;
-    }
+    runInBackground(locals, processMaturityReportAsync(payload, leadId));
     return jsonResponse({ ok: true }, 202);
   }
 
