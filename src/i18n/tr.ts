@@ -236,6 +236,11 @@ export const tr: Translations = {
       mealAllowance: 'Yemek Ücreti Hesaplama',
       noticePeriod: 'İhbar Süresi ve Tazminatı Hesaplama',
       reportsTitle: 'Raporlar',
+      hrBudget2027: {
+        category: 'Bütçe Planlama',
+        title: '2027 İK Bütçe Rehberi',
+        imageAlt: '2027 İK Bütçe Rehberi kapağı',
+      },
       leaveAndReturn2026: {
         category: 'İK Trendleri',
         title: 'İzin ve İşe Dönüş 2026',
