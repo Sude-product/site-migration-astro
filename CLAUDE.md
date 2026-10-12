@@ -2692,10 +2692,27 @@ hâlâ geçerli.)*
     `WebsiteLeadChannel` / site `LEAD_CHANNEL_LABELS` / UI `SOURCE_OPTIONS`).
     Mimari, güvenlik kontrolleri ve canlıya alma sırası:
     **`docs/crm-lead-entegrasyonu.md`**.
-    **Bekleyen (kullanıcı/ekip):** API PR'ları (env/dev→env/prod→env/preprod),
-    UI PR'ları (API'den sonra), canlı API'de OAuth2 client oluşturma,
-    `wrangler d1 migrations apply --remote`, iki Cloudflare secret'ı, havuza
-    satışçı ekleme, aydınlatma metni (hukuk).
+    **PR'lar (2026-10-12):** API idenfit/idenfit-api#6329 (env/dev) · #6407
+    (env/prod) · #6408 (env/preprod); UI idenfit/idenfit-ui#1234 (dev) · #1236
+    (master) · #1235 (preprod); site #32. **Sıra:** her ortamda önce API;
+    preprod API canlı DB'yi paylaştığı için #6408 ancak #6407 deploy edilip
+    Liquibase migration'ı uygulandıktan sonra. env/preprod'da Liquibase YOK
+    (changelog dosyası bile yok), env/prod'da var (`liquibase-aws.yml`).
+    **Bağımsız inceleme (2026-10-12), kritik bulgu yok, düzeltilenler:**
+    HTTPS zorlaması fiilen uygulanmıyordu (`OAuth2HttpsEnforcementFilter`
+    yalnız kendi önek listesini filtreliyor, `OAuth2SecurityConfig`'teki URL
+    kaydı tek başına no-op — `/api/v1/partner/datasist/*` için de aynı, ona
+    dokunulmadı); zorunlu LEAD özel alanı tüm web lead'lerini düşürürdü
+    (`Mode.WITHOUT_REQUIRED`); kontrol karakteri içeren meşru lead sessizce
+    `skipped` olurdu (artık temizleniyor); CRM aktarımı artık
+    `RECAPTCHA_SECRET_KEY` olmadan çalışmıyor (kimliksiz `/api/lead` → CRM
+    spam zinciri); "200 + hata zarfı" `sent` sayılmıyor; `waitUntil` 25 sn
+    bütçe + deneme sayacı 'pending'de artıyor; pasif çalışan havuzdan
+    atlanıyor.
+    **Bekleyen (kullanıcı/ekip):** PR'ların incelenip sırayla merge'i, canlı
+    API'de OAuth2 client oluşturma, `wrangler d1 migrations apply --remote`,
+    iki Cloudflare secret'ı (+ `RECAPTCHA_SECRET_KEY`'in canlıda tanımlı
+    olduğunun teyidi), havuza satışçı ekleme, aydınlatma metni (hukuk).
     **Kalıcı ders (doğrulamada yaşandı):** `pkill -f <desen>` / `pgrep -f`
     ile süreç öldürürken desen, komutu çalıştıran kabuğun KENDİ komut
     satırında da geçiyorsa kabuk kendini öldürür (exit 144) — PID'i
