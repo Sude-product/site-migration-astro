@@ -32,10 +32,33 @@ const SCOPE = 'crm.leads.write';
 const MAX_ATTEMPTS = 5;
 const RETRY_MIN_AGE_MINUTES = 10;
 const RETRY_BATCH = 3;
-const REQUEST_TIMEOUT_MS = 10_000;
+const REQUEST_TIMEOUT_MS = 8_000;
+// `waitUntil` yanıttan sonra en fazla ~30 sn sürer; isolate o sınırda kesilir. Bütçe bunun
+// altında tutulur. Kesilen deneme 'pending'de kalır ve deneme sayacına zaten yazılmıştır
+// (markLeadCrmStatus), yani sonsuz döngüye girmez; sonraki yeni lead'de yeniden denenir.
+const SYNC_BUDGET_MS = 25_000;
+// Yeni lead aktarıldıktan sonra eski bir kaydı denemeye başlamak için gereken en az süre
+// (token + POST, ikisi de REQUEST_TIMEOUT_MS ile sınırlı).
+const RETRY_START_MIN_REMAINING_MS = 2 * REQUEST_TIMEOUT_MS;
 
+/**
+ * CRM aktarımı yalnız reCAPTCHA doğrulaması da AÇIKKEN çalışır. `/api/lead` kimliksiz bir uç;
+ * reCAPTCHA olmadan tek koruma IP başına hız sınırı kalır ve her kabul edilen gönderim CRM'de
+ * bir lead, bir iş akışı tetiklemesi ve bir satışçı ataması demek — botlar satış ekibini
+ * çöp lead'e boğabilirdi. reCAPTCHA secret'ı eksikse lead D1'e ve e-postaya yine düşer,
+ * yalnız CRM'e gitmez (ve log uyarır).
+ */
 export function isCrmSyncConfigured(): boolean {
-  return Boolean(env.IDENFIT_CRM_API_URL && env.IDENFIT_CRM_CLIENT_ID && env.IDENFIT_CRM_CLIENT_SECRET);
+  const credentials = Boolean(env.IDENFIT_CRM_API_URL && env.IDENFIT_CRM_CLIENT_ID && env.IDENFIT_CRM_CLIENT_SECRET);
+  if (credentials && !env.RECAPTCHA_SECRET_KEY) {
+    console.warn('[crmLeadSync] RECAPTCHA_SECRET_KEY tanımlı değil; lead\'ler CRM\'e aktarılmıyor.');
+    return false;
+  }
+  return credentials;
+}
+
+function requestTimeout(deadline: number): AbortSignal {
+  return AbortSignal.timeout(Math.max(1_000, Math.min(REQUEST_TIMEOUT_MS, deadline - Date.now())));
 }
 
 function apiBase(): string {
@@ -55,7 +78,7 @@ class CrmSyncError extends Error {
   }
 }
 
-async function accessToken(): Promise<string> {
+async function accessToken(deadline: number): Promise<string> {
   if (cachedToken && cachedToken.expiresAt > Date.now() + 60_000) return cachedToken.value;
   const res = await fetch(`${apiBase()}/api/v1/oauth2/token`, {
     method: 'POST',
@@ -66,7 +89,7 @@ async function accessToken(): Promise<string> {
       client_secret: String(env.IDENFIT_CRM_CLIENT_SECRET),
       scope: SCOPE,
     }),
-    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+    signal: requestTimeout(deadline),
   });
   if (!res.ok) {
     // Yanıt gövdesi loglanmaz/saklanmaz: hata açıklaması client bilgisini yansıtabilir
@@ -111,25 +134,32 @@ function toRequestBody(row: StoredLeadForCrm): Record<string, unknown> {
   };
 }
 
-async function pushOne(row: StoredLeadForCrm): Promise<void> {
+async function pushOne(row: StoredLeadForCrm, deadline: number): Promise<void> {
   await markLeadCrmStatus(row.id, 'pending');
   try {
     const send = async () =>
       fetch(`${apiBase()}/api/v1/integrations/website/leads`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${await accessToken()}` },
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${await accessToken(deadline)}` },
         body: JSON.stringify(toRequestBody(row)),
-        signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
+        signal: requestTimeout(deadline),
       });
     let res = await send();
-    if (res.status === 401) {
+    if (res.status === 401 && deadline - Date.now() > RETRY_START_MIN_REMAINING_MS) {
       // Önbellekteki token iptal edilmiş/süresi dolmuş olabilir: bir kez taze token ile dene
       cachedToken = null;
       res = await send();
     }
     const body = (await res.json().catch(() => null)) as { leadId?: unknown; error?: unknown; error_description?: unknown } | null;
+    // Başarı = 200/201 VE gövdede lead numarası. idenfit-api'nin bazı hata yolları HTTP 200 +
+    // hata zarfı döndürüyor; yalnız durum koduna bakılsaydı CRM'e hiç girmeyen lead 'sent' olurdu.
+    if ((res.status === 200 || res.status === 201) && typeof body?.leadId === 'string') {
+      await markLeadCrmStatus(row.id, 'sent', { crmLeadId: body.leadId });
+      return;
+    }
     if (res.status === 200 || res.status === 201) {
-      await markLeadCrmStatus(row.id, 'sent', { crmLeadId: typeof body?.leadId === 'string' ? body.leadId : null });
+      await markLeadCrmStatus(row.id, 'failed', { error: `HTTP ${res.status}: yanıtta leadId yok` });
+      console.warn('[crmLeadSync] Lead CRM\'e aktarılamadı:', { leadId: row.id, status: res.status, permanent: false });
       return;
     }
     const reason = `HTTP ${res.status}${typeof body?.error === 'string' ? ` ${body.error}` : ''}${
@@ -154,12 +184,14 @@ async function pushOne(row: StoredLeadForCrm): Promise<void> {
  */
 export async function syncLeadToCrm(leadId: number | null, formType: string): Promise<void> {
   if (leadId === null || !CRM_FORM_TYPES.has(formType) || !isCrmSyncConfigured()) return;
+  const deadline = Date.now() + SYNC_BUDGET_MS;
   try {
     const row = await getLeadForCrm(leadId);
-    if (row) await pushOne(row);
+    if (row) await pushOne(row, deadline);
     const stale = await findLeadsForCrmRetry(MAX_ATTEMPTS, RETRY_MIN_AGE_MINUTES, RETRY_BATCH);
     for (const candidate of stale) {
-      if (candidate.id !== leadId && CRM_FORM_TYPES.has(candidate.form_type)) await pushOne(candidate);
+      if (deadline - Date.now() < RETRY_START_MIN_REMAINING_MS) break;
+      if (candidate.id !== leadId && CRM_FORM_TYPES.has(candidate.form_type)) await pushOne(candidate, deadline);
     }
   } catch (err) {
     console.error('[crmLeadSync] Beklenmeyen hata:', { leadId }, err);

@@ -249,8 +249,9 @@ export async function findLeadsForCrmRetry(
 
 export type LeadCrmStatus = 'pending' | 'sent' | 'failed' | 'skipped';
 
-/** Bir aktarım denemesinin sonucunu yazar; her çağrı deneme sayacını artırır
- * ('pending' hariç — o, denemenin BAŞLADIĞINI işaretler). */
+/** Bir aktarım denemesinin durumunu yazar. Deneme sayacı YALNIZ 'pending'de (deneme
+ * başlarken) artar: isolate yanıt beklenirken kesilirse satır 'pending'de kalır ama
+ * deneme yine sayılmıştır, böylece yeniden deneme tavanı (MAX_ATTEMPTS) her durumda dolar. */
 export async function markLeadCrmStatus(
   leadId: number,
   status: LeadCrmStatus,
@@ -268,7 +269,7 @@ export async function markLeadCrmStatus(
         status,
         details.crmLeadId ?? null,
         details.error ? details.error.slice(0, 500) : null,
-        status === 'pending' ? 0 : 1,
+        status === 'pending' ? 1 : 0,
         new Date().toISOString(),
         leadId,
       )

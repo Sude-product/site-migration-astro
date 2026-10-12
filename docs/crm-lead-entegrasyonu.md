@@ -57,16 +57,33 @@ form gönderimi ────────────▶ doğrula → D1'e yaz �
   istekte reddedilir (`OAuth2ResourceFilter` her istekte client'a bakar).
 - **Uç yalnız lead OLUŞTURUR** — okuma, güncelleme, silme yok.
 - **İstek sınırı:** client başına dakikada 60 (Redis).
-- **API tarafında doğrulama:** alan uzunlukları, kontrol karakteri yasağı
-  (CR/LF başlık enjeksiyonu dahil), e-posta biçimi, form türü beyaz listesi
-  (destek talebi reddedilir), kanal kodu sabit listeden, kaynak anahtarları
-  sabit listeden. Site tarafı da aynı değerleri ayrıca temizliyor.
+- **CRM aktarımı reCAPTCHA'ya bağlı:** `/api/lead` kimliksiz bir uç; her
+  kabul edilen gönderim CRM'de lead + iş akışı + satışçı ataması demek.
+  `RECAPTCHA_SECRET_KEY` tanımlı değilse lead D1'e ve e-postaya yine düşer
+  ama CRM'e **gitmez** (`isCrmSyncConfigured()`, log uyarır).
+- **HTTPS zorunlu:** `OAuth2HttpsEnforcementFilter` bu uca da uygulanıyor
+  (düz HTTP isteği 403).
+- **API tarafında doğrulama:** alan uzunlukları, e-posta biçimi, form türü
+  beyaz listesi (destek talebi reddedilir), kanal kodu sabit listeden, kaynak
+  anahtarları sabit listeden. Serbest metindeki kontrol karakterleri
+  (sekme, satır sonu) **reddedilmez, temizlenir** — Excel'den kopyalanan bir
+  sekme yüzünden lead düşmesin; temizlenen değer kontrol karakteri taşımadığı
+  için başlık/log enjeksiyonu yine kapalı. Site tarafı kaynak bilgisini
+  ayrıca temizliyor.
+- **Zorunlu özel alan web lead'ini düşürmez:** CRM'de LEAD için zorunlu bir
+  özel alan tanımlanırsa web lead'i yine açılır (varsayılan değerler
+  uygulanır), alan lead ekrandan kaydedilirken istenir
+  (`CrmCustomFieldValidator.Mode.WITHOUT_REQUIRED`).
+- **Havuz pasif çalışanı atlar:** işten ayrılmış (pasif) çalışan CRM erişimi
+  kaldırılmamış olsa da lead almaz ve havuza eklenemez.
 - **Tekrar güvenli (idempotent):** `crm_lead (organization_id,
   external_source, external_id)` benzersiz indeksi — aynı D1 kaydı ikinci
   lead açmaz; CRM'de silinmiş bir lead otomasyonla geri gelmez (409).
 - **IP kısıtı yok, bilinçli:** Cloudflare Worker'ların çıkış IP'si sabit değil.
 - **Gerçek HTTP durum kodları** (idenfit'in "200 + error" zarfı değil): site
-  başarısızlığı durum koduyla anlar.
+  başarısızlığı durum koduyla anlar. Site ayrıca 200/201'de gövdede `leadId`
+  arar; yoksa (ör. API'nin uç dışında "200 + error" dönen bir hata yolu)
+  kayıt `sent` değil `failed` olur.
 - **Loglarda kişisel veri yok** (iki tarafta da yalnız kayıt numarası + durum).
 - Kaynak alanları CRM'de **salt okunur**: ekrandan kaydetme bunları
   değiştiremez (`CrmLeadMapper` gövdeden okumaz).
@@ -105,6 +122,8 @@ form gönderimi ────────────▶ doğrula → D1'e yaz �
    `npx wrangler secret put IDENFIT_CRM_CLIENT_ID` ve
    `npx wrangler secret put IDENFIT_CRM_CLIENT_SECRET`.
    `IDENFIT_CRM_API_URL` zaten `wrangler.json`'da (`https://api.idenfit.com`).
+   `RECAPTCHA_SECRET_KEY`'in de canlıda tanımlı olduğunu doğrulayın — yoksa
+   aktarım çalışmaz (bkz. Güvenlik kontrolleri).
 6. **Site PR'ı** merge → Workers Builds deploy eder.
 7. **Satış CRM → Ayarlar → Web Lead Havuzu**'ndan satışçıları seçin.
 8. **Deneme:** `https://idenfit.com/?utm_source=chatgpt&utm_medium=test`
@@ -118,7 +137,9 @@ form gönderimi ────────────▶ doğrula → D1'e yaz �
   (`crm_error` nedenini yazar), elle bakılmalı.
 - **Yeniden deneme:** ayrı bir zamanlanmış iş yok. Her yeni lead geldiğinde,
   en az 10 dakikadır bekleyen en fazla 3 başarısız kayıt da yeniden denenir
-  (kayıt başına en fazla 5 deneme).
+  (kayıt başına en fazla 5 deneme). Hepsi `waitUntil`'in ~30 sn sınırı içinde
+  25 sn'lik bir bütçeyle koşar; deneme sayacı deneme BAŞLARKEN artar, yani
+  isolate kesildiği için `pending`'de kalan kayıt da tavana takılır.
 - **Secret yenileme:** API'de client secret'ı değiştirin → aynı değeri
   `wrangler secret put IDENFIT_CRM_CLIENT_SECRET` ile girin.
 - **Kapatma:** API'de client'ı pasifleştirin (anında etkili) ya da
@@ -130,7 +151,13 @@ form gönderimi ────────────▶ doğrula → D1'e yaz �
   D1'den tek seferlik bir aktarım yazılabilir (kaynak bilgisi onlarda zaten yok).
 - **Kaynak sekme bazlı:** bugün ChatGPT'den gelip sekmeyi kapatan, üç gün
   sonra Google'dan dönen kişi "Google" görünür. Günler arası takip çerez
-  gerektirir (çerez onayı + hukuk kararı).
+  gerektirir (çerez onayı + hukuk kararı). Aynı sekmede başka bir dış siteye
+  çıkıp oradan (ya da yeni bir kampanya linkiyle) geri dönen kişide kaynak
+  **son dış geliş** olur; site içi gezinme ve doğrudan girişler kaydı değiştirmez.
+- **Kaynak alanı serbest metin:** CRM kullanıcısı ekrandan da "Web - ChatGPT"
+  seçebilir. Bir lead'in gerçekten web formundan geldiğinin kanıtı
+  `externalSource = website` (ve "Web sitesi kaynağı" bölümü); raporlar
+  etikete değil buna dayanmalı.
 - **Ad/soyad bölme** son kelimeyi soyad sayar; tam ad D1'de ve e-postada.
 - **Mesaj** CRM açıklamasına (512 karakter) kırpılarak girer; tamamı D1'de ve
   e-postada.
