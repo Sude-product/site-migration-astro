@@ -95,32 +95,61 @@ form gönderimi ────────────▶ doğrula → D1'e yaz �
    satırı `crm.leads.write` (Liquibase kapalıysa `devops/migrations/pg/`
    altındaki `2026-10-09_*` ikizleri elle).
 2. **idenfit-ui** PR'ları (API'den SONRA): `dev` → `master` → `preprod`.
-3. **Canlı API'de OAuth2 istemcisi** — globme yöneticisi
-   `POST https://api.idenfit.com/api/v1/oauth2/clients`:
+3. **Canlı API'de OAuth2 istemcisi** — `env/prod` PR'ı deploy edildikten
+   SONRA (kapsam satırı ondan önce yok, istek
+   `Unknown or inactive scope(s): [crm.leads.write]` ile reddedilir).
+   Çağrı **globme organizasyonunda "Admin"/"Yönetici" rolündeki** bir
+   kullanıcının app.idenfit.com oturum token'ıyla yapılır
+   (`@RequireGlobmeAdmin`); token tarayıcının DevTools → Network sekmesinde
+   `api.idenfit.com`'a giden herhangi bir isteğin `Authorization: Bearer …`
+   başlığından alınır.
 
-   ```json
+   ```bash
+   # Secret'ı yerelde üret; hiçbir yere yapıştırma, 5. adımda Cloudflare'e girilecek
+   CLIENT_SECRET=$(openssl rand -base64 48 | tr -d '/+=\n' | cut -c1-48)
+   read -rs ADMIN_TOKEN   # app.idenfit.com oturum token'ı ("Bearer " olmadan)
+
+   curl -sS -X POST https://api.idenfit.com/api/v1/oauth2/clients \
+     -H "Authorization: Bearer $ADMIN_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d @- <<EOF
    {
      "clientId": "idenfit-website",
      "clientName": "idenfit.com web formları",
      "description": "Web formu lead'lerini Satış CRM'e yazar",
-     "clientSecret": "<güçlü rastgele değer — en az 32 karakter>",
+     "clientSecret": "$CLIENT_SECRET",
      "redirectUri": "https://idenfit.com/",
+     "scopes": ["openid", "crm.leads.write"],
      "grantTypes": ["client_credentials"],
-     "scopes": ["crm.leads.write"],
      "organizationId": "07ab0e73-f8ea-429e-9a35-76b3e25fa2ac",
      "globalAccess": false
    }
+   EOF
    ```
 
-   `redirectUri` bu akışta kullanılmaz ama alan zorunlu. Secret API'de
-   BCrypt ile saklanır, bir daha okunamaz — yalnız bir sonraki adımda
-   Cloudflare'e girilir, başka hiçbir yere yazılmaz.
+   - **`openid` zorunlu:** API her istemcide ister (`CreateClientRequest`
+     doğrulaması); yalnız `crm.leads.write` gönderilirse 400 döner. Token
+     isteğinde ise site yalnız `scope=crm.leads.write` ister.
+   - **Yanıtta `organizationId` = `07ab0e73-…` olduğunu kontrol edin.** API
+     kuruluşu bulamazsa alanı sessizce boş bırakıyor; o durumda istemci
+     hiçbir kuruluşa bağlı olmaz ve lead ucu her isteğe 403 döner.
+   - `redirectUri` bu akışta kullanılmaz ama alan zorunlu. Secret API'de
+     BCrypt ile saklanır, bir daha okunamaz — yalnız 5. adımda Cloudflare'e
+     girilir, başka hiçbir yere yazılmaz.
+   - İsteğe bağlı token denemesi (lead açmaz):
+     `curl -sS -X POST https://api.idenfit.com/api/v1/oauth2/token -d grant_type=client_credentials -d client_id=idenfit-website --data-urlencode "client_secret=$CLIENT_SECRET" -d scope=crm.leads.write`
+     → yanıtta `access_token` olmalı.
 4. **D1 migration** (site deploy'undan önce):
    `npx wrangler d1 migrations apply idenfit-leads --remote`
    (Unutulursa lead kaydı yine çalışır, yalnız kaynak/CRM kolonları yazılmaz.)
-5. **Cloudflare secret'ları:**
-   `npx wrangler secret put IDENFIT_CRM_CLIENT_ID` ve
-   `npx wrangler secret put IDENFIT_CRM_CLIENT_SECRET`.
+5. **Cloudflare secret'ları:** Workers & Pages → `idenfit-com` → Settings →
+   Variables and Secrets → **Add** → tür **Secret** (Variable DEĞİL) →
+   `IDENFIT_CRM_CLIENT_ID` = `idenfit-website` ve
+   `IDENFIT_CRM_CLIENT_SECRET` = 3. adımdaki değer. (Komut satırından:
+   `npx wrangler secret put IDENFIT_CRM_CLIENT_ID` /
+   `… IDENFIT_CRM_CLIENT_SECRET`.) Secret, her deploy'da korunur; panelden
+   eklenen düz "Variable" ise `wrangler.json`'da yoksa sonraki deploy'da
+   silinebilir.
    `IDENFIT_CRM_API_URL` zaten `wrangler.json`'da (`https://api.idenfit.com`).
    `RECAPTCHA_SECRET_KEY`'in de canlıda tanımlı olduğunu doğrulayın — yoksa
    aktarım çalışmaz (bkz. Güvenlik kontrolleri).
