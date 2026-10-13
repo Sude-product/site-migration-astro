@@ -2079,7 +2079,8 @@ hâlâ geçerli.)*
 
 71. **YENİ (2026-09-16) — K1 (origin fallthrough) CANLI Cloudflare API'siyle
     araştırıldı; ilk tarif YANLIŞTI, gerçek sorun DAHA CİDDİ ve HÂLÂ AÇIK.
-    Y1 (hız sınırı) API'den UYGULANDI.** Kullanıcı "bunları neden sen
+    Y1 (hız sınırı) API'den UYGULANDI.** **→ K1 ve `test.`/`ftp.` yan
+    bulgusu 2026-10-07'de KAPANDI, bkz. #81.** Kullanıcı "bunları neden sen
     yapamıyorsun" diye sorunca env'deki `CLOUDFLARE_API_TOKEN` denendi.
     **DÜZELTME (Fable doğrulama turu, aynı gün) — ilk teşhisim YANLIŞTI.**
     "Değişkende boşluk/newline var, trim edilince çalıştı" demiştim; ölçüldü:
@@ -2637,6 +2638,92 @@ hâlâ geçerli.)*
     `public/_headers` sorununu da aynı mekanizmayla çözer. Kapsam
     geniş olduğu için (465+ dosya tek seferde yeniden checkout edilir)
     bilinçli olarak ayrı bir tura bırakıldı.
+81. **YENİ (2026-10-07) — Natro hosting kapatma hazırlığı: Cloudflare
+    tarafı TAMAMLANDI, kullanıcı tarafında 2 adım kaldı.** Kullanıcı
+    sorusu: "Natro'yu kapatırsak sitede bozulacak bir şey var mı?" Canlıda
+    ölçüldü: **yeni site Natro'ya bağlı değil.** Tüm trafik `idenfit.com/*`
+    ve `www.idenfit.com/*` Worker route'larından servis ediliyor
+    (`/wp-content/uploads/` altındaki olmayan bir dosya bile Worker'ın
+    404'ünü döndürüyor); e-posta Google Workspace'te (MX `aspmx.l.google.com`),
+    GSC doğrulaması DNS TXT'de; kodda Natro yollarına referans yok.
+    **Kullanıcı talimatıyla API'den uygulanan** (tam liste, geri alma
+    değerleri ve doğrulama: `docs/guvenlik-duzeltmeleri-2026-09.md`
+    "Natro kapatma hazırlığı" bölümü):
+    - **5 null Worker route silindi** (K1, #71): `/wp-admin`,
+      `/wp-login.php`, `/wp-json/`, `/wp-includes/`,
+      `/wp-content/plugins/` artık Worker 404'ü dönüyor, PHP yok. Silmeden
+      önceki 7 günde bu yollara ~7.700 istek gelmişti, hepsi tarama/saldırı
+      deseni.
+    - **6 DNS kaydı silindi:** `test` (A → `92.204.25.71`), `ftp` (CNAME →
+      apex, origin IP'sini sızdırıyordu), `autoconfig`/`autodiscover`
+      (CNAME → natrohost.com), `_autodiscover._tcp` SRV,
+      `natro-domain-verification` TXT. `test`/`ftp` IP Natro'da başka
+      müşteriye verilirse alt alan adı ele geçirme riskiydi.
+    - **`idenfit.com` ve `www`: `A 92.204.25.71` → `AAAA 100::` (proxy).**
+      Önce AAAA oluşturuldu, sonra A silindi. Hem IPv4 hem IPv6 Cloudflare
+      adreslerine çözüldüğü (1.1.1.1 dahil) ve sayfaların/dosyaların/
+      yönlendirmelerin/`POST /api/lead`'in çalıştığı doğrulandı. Zone'da
+      `92.204.25.71`'e işaret eden kayıt kalmadı; e-posta kayıtlarına
+      dokunulmadı (5 MX, SPF, DMARC, 18 DKIM).
+    **Kalan (yalnızca kullanıcı yapabilir, Natro kapatılmadan ÖNCE):**
+    (1) **Alan adı kaydı Natro hesabında mı?** Cloudflare zone kaydı kayıt
+    firmasını GoDaddy gösteriyor (zone eklendiği andaki bilgi, güncel
+    WHOIS/RDAP bu ortamdan sorgulanamadı). Natro'daysa önce transfer —
+    aksi halde süresi dolunca e-posta ve tüm ürün alt alan adları durur.
+    (2) **Natro panelinden tam yedek** (`wp-content/uploads` + veritabanı;
+    Redirection listesi ve muhtemelen eski form gönderimleri DB'de, KVKK
+    açısından bilinçli arşiv/silme kararı). Route'lar silindiği için eski
+    WP paneline artık `idenfit.com` üzerinden girilemiyor — yedek Natro'nun
+    kendi panelinden alınmalı.
+    **Yan bulgu, aksiyon gerektirmiyor:** yeni sitede olmayan 40 eski
+    dosyaya haftada ~7.400 istek geliyor ama >%90'ı tek bir üçüncü taraf
+    tarayıcı (`tphotobot`, estidraft.com); kendi sitemiz bu dosyalara
+    referans vermiyor.
+82. **YENİ (2026-10-09) — Web formu lead'leri ilk-giriş kaynağıyla birlikte
+    Satış CRM'e akıyor; kod 3 depoda hazır, canlıya alma adımları bekliyor.**
+    Kullanıcı sorusu: "ChatGPT'den gelip form dolduran Ahmet'i görmek
+    istiyoruz." Ölçüm: D1'deki 64 lead'in yalnız 1'inde kaynak izi vardı —
+    form yalnız formun bulunduğu sayfayı (`pageUrl`) kaydediyordu, utm'ler
+    blog → form geçişinde kayboluyordu. Kullanıcı kararları: lead modülü
+    kalıcı; sales@'e giden 5 form CRM'e (destek talebi HARİÇ); satışçılar
+    arasında **rastgele** atama; ürün DB'si AWS İrlanda.
+    **Yapılan:** (site) `leadAttribution.ts` + `scripts/lead-attribution.js`
+    (sessionStorage, çerez/IP yok), `migrations/0002`, sales@ e-postasına
+    "Kaynak" satırı, `crmLeadSync.ts` (OAuth2 client_credentials, `waitUntil`,
+    D1 `crm_status`, fırsatçı yeniden deneme); (idenfit-api) dar yetkili
+    `POST /api/v1/integrations/website/leads` (kapsam `crm.leads.write`,
+    globme'ye bağlı client, istek sınırı, idempotent benzersiz indeks,
+    gerçek HTTP kodları) + Web Lead Havuzu ayarı; (idenfit-ui) 15 "Web - …"
+    kaynak seçeneği, lead detayında "Web sitesi kaynağı", havuz ekranı (12
+    locale). **Kanal listesi üç depoda BİREBİR aynı tutulmalı** (API
+    `WebsiteLeadChannel` / site `LEAD_CHANNEL_LABELS` / UI `SOURCE_OPTIONS`).
+    Mimari, güvenlik kontrolleri ve canlıya alma sırası:
+    **`docs/crm-lead-entegrasyonu.md`**.
+    **PR'lar (2026-10-12):** API idenfit/idenfit-api#6329 (env/dev) · #6407
+    (env/prod) · #6408 (env/preprod); UI idenfit/idenfit-ui#1234 (dev) · #1236
+    (master) · #1235 (preprod); site #32. **Sıra:** her ortamda önce API;
+    preprod API canlı DB'yi paylaştığı için #6408 ancak #6407 deploy edilip
+    Liquibase migration'ı uygulandıktan sonra. env/preprod'da Liquibase YOK
+    (changelog dosyası bile yok), env/prod'da var (`liquibase-aws.yml`).
+    **Bağımsız inceleme (2026-10-12), kritik bulgu yok, düzeltilenler:**
+    HTTPS zorlaması fiilen uygulanmıyordu (`OAuth2HttpsEnforcementFilter`
+    yalnız kendi önek listesini filtreliyor, `OAuth2SecurityConfig`'teki URL
+    kaydı tek başına no-op — `/api/v1/partner/datasist/*` için de aynı, ona
+    dokunulmadı); zorunlu LEAD özel alanı tüm web lead'lerini düşürürdü
+    (`Mode.WITHOUT_REQUIRED`); kontrol karakteri içeren meşru lead sessizce
+    `skipped` olurdu (artık temizleniyor); CRM aktarımı artık
+    `RECAPTCHA_SECRET_KEY` olmadan çalışmıyor (kimliksiz `/api/lead` → CRM
+    spam zinciri); "200 + hata zarfı" `sent` sayılmıyor; `waitUntil` 25 sn
+    bütçe + deneme sayacı 'pending'de artıyor; pasif çalışan havuzdan
+    atlanıyor.
+    **Bekleyen (kullanıcı/ekip):** PR'ların incelenip sırayla merge'i, canlı
+    API'de OAuth2 client oluşturma, `wrangler d1 migrations apply --remote`,
+    iki Cloudflare secret'ı (+ `RECAPTCHA_SECRET_KEY`'in canlıda tanımlı
+    olduğunun teyidi), havuza satışçı ekleme, aydınlatma metni (hukuk).
+    **Kalıcı ders (doğrulamada yaşandı):** `pkill -f <desen>` / `pgrep -f`
+    ile süreç öldürürken desen, komutu çalıştıran kabuğun KENDİ komut
+    satırında da geçiyorsa kabuk kendini öldürür (exit 144) — PID'i
+    başlatırken kaydedip onu kullanın.
 
 ### Kapanmış maddeler — tek satır özet (tam anlatım arşivde)
 

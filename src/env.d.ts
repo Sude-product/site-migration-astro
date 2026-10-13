@@ -67,15 +67,28 @@ declare module 'cloudflare:workers' {
      *
      * Tip `@cloudflare/workers-types`'tan GELMİYOR — bu dosyanın stated
      * ilkesi gereği (tek bir binding için yeni bağımlılık kurulmuyor)
-     * yalnızca gerçekten kullanılan `prepare().bind().run()` zinciri
-     * bildiriliyor. Opsiyonel: binding yoksa `leadStore` sessizce
+     * yalnızca gerçekten kullanılan `prepare().bind().run()/first()/all()`
+     * zinciri bildiriliyor. Opsiyonel: binding yoksa `leadStore` sessizce
      * devre dışı kalır, form akışı BOZULMAZ. */
     LEADS_DB?: {
       prepare(query: string): {
         bind(...values: (string | number | null)[]): {
-          run(): Promise<{ meta?: { last_row_id?: number } }>;
+          run(): Promise<{ meta?: { last_row_id?: number; changes?: number } }>;
+          first<T = Record<string, unknown>>(): Promise<T | null>;
+          all<T = Record<string, unknown>>(): Promise<{ results?: T[] }>;
         };
       };
     };
+    /** Satış CRM aktarımı (2026-10-09, `src/data/crmLeadSync.ts`) —
+     * idenfit-api'nin kök adresi (`https://api.idenfit.com`). Gizli değil,
+     * `wrangler.json` `vars`'ta. Aşağıdaki iki secret'la BİRLİKTE tanımlı
+     * değilse aktarım hiç denenmez, form akışı etkilenmez. */
+    IDENFIT_CRM_API_URL?: string;
+    /** idenfit-api'deki OAuth2 client_credentials istemcisi (kapsam
+     * `crm.leads.write`, globme organizasyonuna bağlı). İkisi de SECRET:
+     * `npx wrangler secret put IDENFIT_CRM_CLIENT_ID` / `..._SECRET` — asla
+     * `wrangler.json` `vars`'a ya da tarayıcıya giden koda yazılmaz. */
+    IDENFIT_CRM_CLIENT_ID?: string;
+    IDENFIT_CRM_CLIENT_SECRET?: string;
   };
 }

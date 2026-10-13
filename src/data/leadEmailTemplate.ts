@@ -51,6 +51,10 @@ export interface LeadEmailPayload {
   email?: string;
   message?: string;
   maturityResult?: LeadEmailMaturityResult;
+  /** Ziyaretçinin siteye ilk nereden geldiği (2026-10-09). SUNUCUDA hesaplanır
+   * (`lead.ts` istemcinin gönderdiği değeri her zaman ezer), bkz.
+   * `leadAttribution.ts`. */
+  leadSource?: { summary: string; referrerHost?: string; landingPath?: string };
 }
 
 export const FORM_TYPE_TITLES: Record<LeadFormType, string> = {
@@ -302,7 +306,13 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
   // ---- düz metin ----
   const lines: string[] = [title, '='.repeat(title.length), '', `Site dili: ${localeLabel}`];
   if (pageUrl) lines.push(`Sayfa: ${pageUrl.toString()}`);
-  lines.push(`Tarih: ${formatIstanbul(new Date())} (TSİ)`, '');
+  lines.push(`Tarih: ${formatIstanbul(new Date())} (TSİ)`);
+  if (payload.leadSource) {
+    lines.push(`Kaynak: ${payload.leadSource.summary}`);
+    if (payload.leadSource.referrerHost) lines.push(`Geldiği site: ${payload.leadSource.referrerHost}`);
+    if (payload.leadSource.landingPath) lines.push(`İlk girdiği sayfa: ${payload.leadSource.landingPath}`);
+  }
+  lines.push('');
 
   if (payload.formType === 'hrMaturityReport' && payload.maturityResult) {
     const result = payload.maturityResult;
@@ -390,6 +400,14 @@ export function renderLeadNotificationEmail(payload: LeadEmailPayload): { subjec
     </tr>
     <tr><td style="height:10px;font-size:0;line-height:0;">&nbsp;</td></tr>`;
     }
+  }
+
+  // Kaynak — "bu kişi bizi nereden buldu?" (ChatGPT, Google Ads, organik ...).
+  // Her iki dalda da en sonda: kişi bilgisinden sonra okunan ikincil bilgi.
+  if (payload.leadSource) {
+    fields += fieldBlock('Kaynak', payload.leadSource.summary);
+    if (payload.leadSource.referrerHost) fields += fieldBlock('Geldiği site', payload.leadSource.referrerHost);
+    if (payload.leadSource.landingPath) fields += fieldBlock('İlk girdiği sayfa', payload.leadSource.landingPath);
   }
 
   const buttons = [

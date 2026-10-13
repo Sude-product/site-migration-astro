@@ -6,7 +6,7 @@ kullanıcı tarafından tek tek onaylandı.
 
 | Bulgu | Seçilen çözüm | Nerede yapılır | Durum |
 |---|---|---|---|
-| **K1** — Worker route kapsamı | (b) Origin fallthrough kapatılsın | Cloudflare paneli | ⬜ ELLE — *tarif DÜZELTİLDİ, aşağı bkz.* |
+| **K1** — Worker route kapsamı | (b) Origin fallthrough kapatılsın | Cloudflare API | ✅ UYGULANDI (2026-10-07) |
 | **K2** — `/api/lead` payload güveni | (a) Seviye metni sunucuda hesaplansın + e-posta/uzunluk doğrulaması | Kod | ✅ |
 | **K3** — JSON-LD script kaçışı | (a) Paylaşılan `safeJsonLd()` | Kod | ✅ |
 | **K4** — Blog gövdesinde ham HTML | (a) `rehype-raw` + `rehype-sanitize` allowlist | Kod | ✅ |
@@ -19,7 +19,19 @@ Kod tarafındaki 4 madde bu depoda; kalan 3'ü YALNIZCA panelden yapılabiliyor
 
 ---
 
-## K1-b — Origin fallthrough'u kapat  ⬜ HÂLÂ AÇIK
+## K1-b — Origin fallthrough'u kapat  ✅ UYGULANDI (2026-10-07)
+
+> **Uygulandı (2026-10-07, Natro kapatma hazırlığının parçası):** aşağıdaki 5
+> route kullanıcı talimatıyla API'den silindi. Doğrulama: `/wp-admin/`,
+> `/wp-login.php`, `/wp-json/`, `/wp-json/wp/v2/users`,
+> `/wp-includes/js/jquery/jquery.min.js`, `/wp-content/plugins/...` artık
+> **Worker'ın 404 sayfasını** döndürüyor, `X-Powered-By: PHP` yok; daha önce
+> origin'den önbelleğe alınmış yanıt da kalmadı (`jquery.min.js` dahil 404).
+> Silmeden önceki son 7 günde bu yollara ~7.700 istek gelmişti ve hepsi
+> tarama/saldırı desenindeydi (2.113 `wp-admin`, 1.752 `wp-login.php`,
+> eklenti açığı probları), iş amaçlı kullanım görülmedi.
+> **Geri alma ve Natro kapatma hazırlığının tamamı:** aşağıdaki
+> "Natro kapatma hazırlığı" bölümü.
 
 > **⚠️ İLK TARİF YANLIŞTI.** "Route'u `idenfit.com/*` yap" demiştim — o route
 > **ZATEN VAR** (`782f68fb...` → `idenfit-com`). Canlı Cloudflare API'si
@@ -210,6 +222,80 @@ sunucu ayakta. **Öneri (ayrı bir karar):** eski WP tamamen kapatılana kadar
 origin sunucusu yalnızca Cloudflare IP aralıklarından gelen isteği kabul
 edecek şekilde kısıtlanmalı. Aynı origin'e işaret eden başka kayıt olup
 olmadığı da taranmalı.
+
+> **KAPANDI (2026-10-07):** `test.idenfit.com` ve `ftp.idenfit.com` silindi;
+> `idenfit.com` ve `www` artık origin IP'sini değil `AAAA 100::` gösteriyor.
+> Zone'da `92.204.25.71`'e işaret eden kayıt kalmadı. Ayrıntı ve geri alma:
+> aşağıdaki bölüm.
+
+---
+
+## Natro kapatma hazırlığı (2026-10-07) — yapılanlar ve geri alma
+
+Eski WordPress sitesi Natro hosting'deydi (`92.204.25.71`). Kullanıcının
+"Natro'yu kapatırsak bir şey bozulur mu" sorusu üzerine canlıda ölçüldü:
+**yeni sitenin hiçbir sayfası/dosyası Natro'ya bağlı değil** (tüm trafik
+`idenfit.com/*` ve `www.idenfit.com/*` Worker route'larından servis ediliyor,
+`/wp-content/uploads/` altındaki olmayan bir dosya bile Worker'ın 404'ünü
+döndürüyor; e-posta Google Workspace'te, GSC doğrulaması DNS TXT'de).
+Kalan bağlar kullanıcı talimatıyla API'den kaldırıldı:
+
+**1. Silinen 5 Worker route** (hepsi `script: null` idi, yani Worker yerine
+origin'e gidiyordu): `idenfit.com/wp-includes/*`, `idenfit.com/wp-login.php*`,
+`idenfit.com/wp-admin*`, `idenfit.com/wp-json/*`,
+`idenfit.com/wp-content/plugins/*`.
+
+**2. Silinen 6 DNS kaydı:**
+
+| Tür | Ad | İçerik | Proxy |
+|---|---|---|---|
+| A | `test.idenfit.com` | `92.204.25.71` | hayır |
+| CNAME | `ftp.idenfit.com` | `idenfit.com` | hayır |
+| CNAME | `autoconfig.idenfit.com` | `autoconfig01.natrohost.com` | hayır |
+| CNAME | `autodiscover.idenfit.com` | `autodiscover01.natrohost.com` | hayır |
+| SRV | `_autodiscover._tcp.idenfit.com` | `10 10 443 autodiscover01.natrohost.com` | — |
+| TXT | `idenfit.com` | `natro-domain-verification=8137cdbcea5c534b3ef90f95bb9c9278` | — |
+
+`test`/`ftp` Natro IP'sine proxy'siz gidiyordu; Natro bu IP'yi başka bir
+müşteriye verirse alt alan adımızda başkasının sitesi görünebilirdi.
+`autoconfig`/`autodiscover`/SRV Natro e-postasının kalıntısıydı (MX Google'da).
+
+**3. Değiştirilen 2 kayıt:** `idenfit.com` ve `www.idenfit.com` için
+`A 92.204.25.71 (proxy)` → `AAAA 100:: (proxy)`. `100::` Cloudflare'in
+yalnızca Worker çalışan (origin'siz) alan adları için kullandığı yer tutucu;
+kayıt proxy'li olmak zorunda ki Worker route'ları trafik alsın. Sıra:
+önce AAAA'lar oluşturuldu, sonra A'lar silindi (alan adı hiç kayıtsız
+kalmadı).
+
+**Doğrulama (2026-10-07):** `idenfit.com` ve `www` hem IPv4 (104.26.x,
+172.67.x) hem IPv6 Cloudflare adreslerine çözülüyor (sistem çözücüsü + doğrudan
+1.1.1.1). Sayfalar (TR/EN, ürün, blog listesi, blog yazısı) 200, dosya 200,
+`sitemap-index.xml`/`robots.txt` 200, `/keystatic` 200, `www`→apex 301,
+`http`→`https` 301, `/suprema`→`/donanim/` 301, `POST /api/lead` (geçersiz
+gövde) 400. E-posta kayıtları dokunulmadı: 5 MX, SPF, DMARC, 18 DKIM, 2
+`google-site-verification`.
+
+**Geri alma** (gerekirse, Cloudflare paneli → DNS / Workers Routes):
+yukarıdaki tablodaki kayıtları aynı değerlerle yeniden ekleyin; route'ları
+aynı pattern'le "Worker: none" seçerek ekleyin; apex/www için `A 92.204.25.71`
+(proxy) ekleyip `AAAA 100::`'ı silin. Natro kapandıktan sonra bunların
+hiçbirinin bir anlamı kalmaz.
+
+**Natro'yu kapatmadan ÖNCE kullanıcının yapması gerekenler (API ile
+yapılamaz):**
+- Alan adı kaydının Natro hesabında olup olmadığı kontrol edilmeli.
+  Cloudflare zone kaydı kayıt firmasını GoDaddy gösteriyor (zone eklendiği
+  andaki bilgi); güncel durum bu ortamdan sorgulanamadı. Alan adı Natro'daysa
+  hesap kapatılmadan önce transfer edilmeli, yoksa süresi dolunca e-posta ve
+  tüm `app`/`api`/`my` alt alan adları dahil her şey durur.
+- Natro panelinden tam yedek: `wp-content/uploads` (repoda yalnızca yeni
+  sitenin kullandığı ~2.000 dosya var) + veritabanı dökümü (yazı geçmişi,
+  kullanıcılar, Redirection eklentisinin yönlendirme listesi, muhtemelen eski
+  form gönderimleri — KVKK açısından bilinçli arşiv ya da silme kararı).
+  **Not:** route'lar silindiği için eski WP paneline artık `idenfit.com`
+  üzerinden girilemiyor; yedek Natro'nun kendi panelinden (dosya yöneticisi,
+  phpMyAdmin) alınmalı. `ftp.idenfit.com` de silindi; FTP gerekirse Natro'nun
+  verdiği sunucu adresi kullanılmalı.
 
 ---
 

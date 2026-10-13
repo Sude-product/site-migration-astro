@@ -21,18 +21,24 @@ SendGrid'e e-posta atıyordu. E-posta bir kayıt defteri değil:
 |---|---|
 | Veritabanı | Cloudflare D1, `idenfit-leads` (`86e77b2d-0d00-47e6-be44-5663da85c3ea`, WEUR) |
 | Binding | `wrangler.json` → `d1_databases[].binding = "LEADS_DB"` |
-| Şema | `migrations/0001_create_leads.sql` |
+| Şema | `migrations/0001_create_leads.sql`, `migrations/0002_lead_attribution_crm.sql` (kaynak + CRM aktarımı) |
 | Yazma katmanı | `src/data/leadStore.ts` |
 | Çağrıldığı yer | `src/pages/api/lead.ts` (POST handler) |
 | CSV dışa aktarım | `scripts/export-leads.mjs` |
+| İlk-giriş kaynağı | `src/data/leadAttribution.ts`, `src/scripts/lead-attribution.js` |
+| Satış CRM aktarımı | `src/data/crmLeadSync.ts` — ayrıntı `docs/crm-lead-entegrasyonu.md` |
 
 ## Akış
 
 1. İstek doğrulanır (hız sınırı → JSON → payload → reCAPTCHA).
-2. **Lead D1'e yazılır** (`email_status = 'pending'`).
-3. SendGrid yapılandırması kontrol edilir. Eksikse satır `'failed'`
+2. **Lead D1'e yazılır** (`email_status = 'pending'`), ardından ilk-giriş
+   kaynağı (`utm_*`, `gclid`, `referrer_host`, `landing_path`, `channel`)
+   ayrı bir UPDATE ile işlenir.
+3. sales@'e giden formlarda lead **arka planda Satış CRM'e** iletilir
+   (`crm_status`) — e-posta adımlarından bağımsız.
+4. SendGrid yapılandırması kontrol edilir. Eksikse satır `'failed'`
    işaretlenir ve kullanıcıya **dürüst** bir 503 döner — veri yine de durur.
-4. E-posta gönderilir; sonuç `email_status`'a işlenir (`sent` / `failed`).
+5. E-posta gönderilir; sonuç `email_status`'a işlenir (`sent` / `failed`).
    İK Olgunluk Testi'nde bu adım `waitUntil` içinde, PDF üretimiyle birlikte.
 
 **Sıra kasıtlı:** kayıt e-postadan ÖNCE. `leadStore` hiçbir zaman throw
@@ -60,6 +66,16 @@ dolu; `maturity_answers` 20 sorunun tek tek cevabı (JSON).
 - **`failed` — lead geldi ama ekibe/kullanıcıya ULAŞMADI.** Elle takip
   edilmesi gereken tek sınıf bu; `email_error` nedenini taşır.
 
+İlk-giriş kaynağı (2026-10-09, `0002`): `utm_source`/`utm_medium`/`utm_campaign`/
+`utm_term`/`utm_content`, `gclid`, `referrer_host` (yalnız alan adı),
+`landing_path` (yalnız yol, sorgu dizesi atılır) ve sunucuda hesaplanan
+`channel` kodu (`chatgpt`, `google_ads`, `organic_search`, `direct` …).
+Önceki satırlarda boştur — kaynak geriye dönük doldurulamaz.
+
+`crm_status`: `NULL` (denenmedi: destek talebi ya da entegrasyon kapalı),
+`pending`, `sent`, `failed` (yeniden denenir), `skipped` (CRM kalıcı reddetti,
+elle bakılmalı). `crm_lead_id` CRM'deki lead'in UUID'si.
+
 ## Kullanım
 
 ```bash
@@ -74,6 +90,9 @@ node scripts/export-leads.mjs --since 2026-09-01 --out eylul-leadler.csv
 
 # E-postası gitmeyenler (takip listesi)
 node scripts/export-leads.mjs --failed
+
+# Satış CRM'e aktarılamayanlar
+node scripts/export-leads.mjs --crm-failed
 ```
 
 CSV UTF-8 BOM'lu — Excel Türkçe karakterleri doğrudan doğru açar.

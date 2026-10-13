@@ -17,6 +17,7 @@
 // Bu, `api/csp-report.ts`'in query string'i loglamama kararıyla aynı ilke.
 
 import { env } from 'cloudflare:workers';
+import type { LeadAttribution, LeadChannel } from './leadAttribution';
 
 export type LeadEmailStatus = 'pending' | 'sent' | 'failed';
 
@@ -130,5 +131,150 @@ export async function markLeadEmailStatus(
       .run();
   } catch (err) {
     console.error('[leadStore] E-posta durumu güncellenemedi:', { leadId, status }, err);
+  }
+}
+
+// ---------------------------------------------------------------------------
+// İlk-giriş kaynağı + Satış CRM aktarım durumu (2026-10-09, şema
+// `migrations/0002_lead_attribution_crm.sql`).
+//
+// INSERT'e EKLENMEDİ, ayrı UPDATE'lerle yazılıyor — bilinçli: 0002 migration'ı
+// uygulanmadan kod canlıya çıkarsa yalnız bu UPDATE'ler düşer, lead kaydının
+// kendisi (yukarıdaki INSERT) etkilenmez. Aynı "asla throw etme" ilkesi.
+
+/** Kaynak bilgisini lead satırına yazar. `leadId` null ise hiçbir şey yapmaz. */
+export async function recordLeadAttribution(
+  leadId: number | null,
+  attribution: LeadAttribution | null,
+  channel: LeadChannel,
+): Promise<void> {
+  if (leadId === null) return;
+  const db = env.LEADS_DB;
+  if (!db) return;
+  const a = attribution ?? {};
+  try {
+    await db
+      .prepare(
+        `UPDATE leads SET utm_source = ?, utm_medium = ?, utm_campaign = ?, utm_term = ?, utm_content = ?,
+           gclid = ?, referrer_host = ?, landing_path = ?, channel = ? WHERE id = ?`,
+      )
+      .bind(
+        nullable(a.utmSource),
+        nullable(a.utmMedium),
+        nullable(a.utmCampaign),
+        nullable(a.utmTerm),
+        nullable(a.utmContent),
+        nullable(a.gclid),
+        nullable(a.referrerHost),
+        nullable(a.landingPath),
+        channel,
+        leadId,
+      )
+      .run();
+  } catch (err) {
+    console.error('[leadStore] Kaynak bilgisi yazılamadı:', { leadId }, err);
+  }
+}
+
+/** CRM aktarımı için okunan satır. Aktarım gövdesi hep bu satırdan kurulur —
+ * ilk gönderim de yeniden deneme de AYNI veriyi gönderir. */
+export interface StoredLeadForCrm {
+  id: number;
+  form_type: string;
+  locale: string | null;
+  full_name: string | null;
+  email: string;
+  phone: string | null;
+  company: string | null;
+  employee_count: string | null;
+  sector: string | null;
+  message: string | null;
+  utm_source: string | null;
+  utm_medium: string | null;
+  utm_campaign: string | null;
+  utm_term: string | null;
+  utm_content: string | null;
+  gclid: string | null;
+  referrer_host: string | null;
+  landing_path: string | null;
+  channel: string | null;
+  crm_status: string | null;
+  crm_attempts: number | null;
+}
+
+const CRM_ROW_COLUMNS = `id, form_type, locale, full_name, email, phone, company, employee_count, sector, message,
+  utm_source, utm_medium, utm_campaign, utm_term, utm_content, gclid, referrer_host, landing_path, channel,
+  crm_status, crm_attempts`;
+
+export async function getLeadForCrm(leadId: number): Promise<StoredLeadForCrm | null> {
+  const db = env.LEADS_DB;
+  if (!db) return null;
+  try {
+    return await db.prepare(`SELECT ${CRM_ROW_COLUMNS} FROM leads WHERE id = ?`).bind(leadId).first<StoredLeadForCrm>();
+  } catch (err) {
+    console.error('[leadStore] Lead CRM için okunamadı:', { leadId }, err);
+    return null;
+  }
+}
+
+/**
+ * Yeniden denenecek CRM aktarımları: 'failed' (ya da yarıda kalmış 'pending')
+ * satırlar, deneme tavanının altında ve son denemeden en az `minAgeMinutes`
+ * geçmiş olanlar. En eskiden yeniye, en fazla `limit` adet.
+ */
+export async function findLeadsForCrmRetry(
+  maxAttempts: number,
+  minAgeMinutes: number,
+  limit: number,
+): Promise<StoredLeadForCrm[]> {
+  const db = env.LEADS_DB;
+  if (!db) return [];
+  const cutoff = new Date(Date.now() - minAgeMinutes * 60_000).toISOString();
+  try {
+    const result = await db
+      .prepare(
+        `SELECT ${CRM_ROW_COLUMNS} FROM leads
+          WHERE crm_status IN ('failed', 'pending') AND crm_attempts < ?
+            AND (crm_last_attempt_at IS NULL OR crm_last_attempt_at < ?)
+          ORDER BY id ASC LIMIT ?`,
+      )
+      .bind(maxAttempts, cutoff, limit)
+      .all<StoredLeadForCrm>();
+    return result.results ?? [];
+  } catch (err) {
+    console.error('[leadStore] CRM yeniden deneme listesi okunamadı:', err);
+    return [];
+  }
+}
+
+export type LeadCrmStatus = 'pending' | 'sent' | 'failed' | 'skipped';
+
+/** Bir aktarım denemesinin durumunu yazar. Deneme sayacı YALNIZ 'pending'de (deneme
+ * başlarken) artar: isolate yanıt beklenirken kesilirse satır 'pending'de kalır ama
+ * deneme yine sayılmıştır, böylece yeniden deneme tavanı (MAX_ATTEMPTS) her durumda dolar. */
+export async function markLeadCrmStatus(
+  leadId: number,
+  status: LeadCrmStatus,
+  details: { crmLeadId?: string | null; error?: string | null } = {},
+): Promise<void> {
+  const db = env.LEADS_DB;
+  if (!db) return;
+  try {
+    await db
+      .prepare(
+        `UPDATE leads SET crm_status = ?, crm_lead_id = COALESCE(?, crm_lead_id), crm_error = ?,
+           crm_attempts = crm_attempts + ?, crm_last_attempt_at = ? WHERE id = ?`,
+      )
+      .bind(
+        status,
+        details.crmLeadId ?? null,
+        details.error ? details.error.slice(0, 500) : null,
+        status === 'pending' ? 1 : 0,
+        new Date().toISOString(),
+        leadId,
+      )
+      .run();
+  } catch (err) {
+    console.error('[leadStore] CRM durumu güncellenemedi:', { leadId, status }, err);
   }
 }
