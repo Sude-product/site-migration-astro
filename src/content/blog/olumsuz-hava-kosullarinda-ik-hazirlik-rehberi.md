@@ -19,7 +19,7 @@ categories:
 tags: []
 authorName: Sude Özdemir
 ---
-# el Gibi Olağanüstü Günlerde İK Ne Yapmalı?
+# Sel Gibi Olağanüstü Günlerde İK Ne Yapmalı?
 
 Sabah yedide İK ekibinin telefonuna mesajlar düşmeye başlıyor. Biri yolların kapandığını yazıyor, biri toplu taşımanın aksadığını, bir diğeri evden çıkıp çıkmaması gerektiğini soruyor. Aynı anda bir mağaza müdürü, ekibin yarısına ulaşamadığını bildiriyor. Kimin işe gelebildiği, kimin gelemediği, kimin nerede olduğu belli değil. Kararı kim verecek de belli değil.
 
