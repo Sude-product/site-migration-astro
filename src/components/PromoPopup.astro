@@ -1,0 +1,17 @@
+---
+// Ana sayfa "2027 performans" promosyon pop-up'ı — mount noktası.
+//
+// Bu bileşen BİLEREK hiç DOM üretmiyor: yalnızca harici script'i sayfaya
+// ekliyor. Kart tamamen `src/scripts/promo-popup.js` tarafından, gösterim
+// anında oluşturuluyor — böylece sunucu HTML'i büyümüyor ve CLS'e hiçbir
+// katkı olmuyor (gerekçenin tamamı o dosyanın başındaki yorumda).
+//
+// Yapılandırma (metin/URL/zamanlama/`enabled`) `src/data/promoPopup.ts`'te;
+// `enabled: false` iken `index.astro` bu bileşeni HİÇ render etmiyor.
+//
+// React island DEĞİL (kullanıcı kararı) — kartın tek etkileşimi kapat/tıkla,
+// bunun için React yüklemek projenin "gereksiz JS gönderme" ilkesine aykırı
+// olurdu (bkz. CLAUDE.md §Mimari).
+---
+
+<script src="../scripts/promo-popup.js"></script>

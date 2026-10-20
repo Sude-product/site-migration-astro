@@ -13,8 +13,10 @@ import PartnersSection from '../components/PartnersSection.astro';
 import CertificationBadges from '../components/CertificationBadges.astro';
 import HomeFaqSection from '../components/HomeFaqSection.astro';
 import StickyDemoBar from '../components/StickyDemoBar.astro';
+import PromoPopup from '../components/PromoPopup.astro';
 import { getTranslations } from '../i18n';
 import { truncateAtWord } from '../data/metaDescription';
+import { PROMO_POPUP } from '../data/promoPopup';
 
 const t = getTranslations(Astro.currentLocale ?? 'tr');
 // `t.hero.title` görünür hero başlığıyla PAYLAŞILAN, canlı siteyle
@@ -38,5 +40,8 @@ const title = `idenfit — ${truncateAtWord(t.hero.title.replace('\n', ' '), 50)
 	<CertificationBadges />
 	<HomeFaqSection />
 	<StickyDemoBar />
+	{/* 2027 performans pop-up'ı — yalnızca TR ana sayfa, `enabled` bayrağı
+	    `src/data/promoPopup.ts`'te; false iken script sayfaya HİÇ eklenmez. */}
+	{PROMO_POPUP.enabled && <PromoPopup />}
 	<script src="../scripts/scroll-reveal.js"></script>
 </BaseLayout>
