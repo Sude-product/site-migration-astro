@@ -135,10 +135,15 @@ function markup() {
   var map =
     '<div class="ipp-map">' +
     '<svg width="366" height="214" viewBox="0 0 366 214" fill="none" aria-hidden="true">' +
-    '<path d="M150 60 C150 70 170 67 170 77" stroke="#D60000" stroke-width="2.2" stroke-linecap="round"/>' +
-    '<path d="M220 137 C220 147 130 144 130 154" stroke="#D60000" stroke-width="2.2" stroke-linecap="round"/>' +
-    '<circle cx="160" cy="68.5" r="7" fill="#D60000" opacity=".3"/><circle cx="160" cy="68.5" r="3.5" fill="#fff"/>' +
-    '<circle cx="175" cy="145.5" r="7" fill="#D60000" opacity=".3"/><circle cx="175" cy="145.5" r="3.5" fill="#fff"/>' +
+    // İki bağlayıcı AYRI `<g>` içinde: kısa ekran kuralında kutular kısalınca
+    // her biri FARKLI bir miktar yukarı kayıyor (−20 / −40). Kutu aralığı
+    // (17px) iki düzende de AYNI tutulduğu için eğrilerin kendisi hiç
+    // deforme olmuyor — saf öteleme, ölçekleme DEĞİL (ölçekleme uçlardaki
+    // daireleri elips yapardı).
+    '<g class="ipp-c1"><path d="M150 60 C150 70 170 67 170 77" stroke="#D60000" stroke-width="2.2" stroke-linecap="round"/>' +
+    '<circle cx="160" cy="68.5" r="7" fill="#D60000" opacity=".3"/><circle cx="160" cy="68.5" r="3.5" fill="#fff"/></g>' +
+    '<g class="ipp-c2"><path d="M220 137 C220 147 130 144 130 154" stroke="#D60000" stroke-width="2.2" stroke-linecap="round"/>' +
+    '<circle cx="175" cy="145.5" r="7" fill="#D60000" opacity=".3"/><circle cx="175" cy="145.5" r="3.5" fill="#fff"/></g>' +
     '</svg>';
   for (var i = 0; i < 3; i++) {
     map +=
@@ -264,6 +269,31 @@ var CSS =
   '.ipp-cta{gap:14px;margin-top:10px}' +
   '.ipp-a1{font-size:13px;padding:9px 14px}' +
   '.ipp-a2{font-size:13px}' +
+  '}' +
+  // KISA MASAÜSTÜ EKRAN (1366×768 ve benzeri). Yükseklik 820px'in altına
+  // düşünce tam kart ekranın ~%80'ini kaplıyordu. Burada uzun açıklama
+  // paragrafı ve düğümlerin alt satırları gizleniyor, şema kompaktlaşıyor;
+  // hedef kart yüksekliği ≤420px. Kutu YÜKSEKLİĞİ 60→40, ama kutular ARASI
+  // boşluk 17px olarak KORUNUYOR — bağlayıcı eğriler bu yüzden yalnızca
+  // ötelenerek doğru yere oturuyor (bkz. `.ipp-c1`/`.ipp-c2` notu).
+  // `min-width:481px` şart: ≤480px zaten kendi kompakt düzenini kullanıyor.
+  '@media(min-width:481px) and (max-height:820px){' +
+  '.ipp-text{display:none}' +
+  '.ipp-ns{display:none}' +
+  '.ipp-head{padding:14px 22px}' +
+  '.ipp-map{height:154px;margin-top:10px}' +
+  '.ipp-node{height:40px;padding:6px 10px}' +
+  '.ipp-ic{flex:0 0 28px;height:28px;border-radius:8px}' +
+  '.ipp-n2{top:57px}' +
+  '.ipp-n3{top:114px}' +
+  '.ipp-c1{transform:translateY(-20px)}' +
+  '.ipp-c2{transform:translateY(-40px)}' +
+  '.ipp-body{padding:14px 22px 16px}' +
+  '.ipp-title{font-size:19px}' +
+  '.ipp-sub{margin-top:10px;font-size:15px}' +
+  '.ipp-cta{margin-top:12px}' +
+  '.ipp-a1{padding:10px 18px;font-size:14px}' +
+  '.ipp-a2{font-size:14px}' +
   '}' +
   // Ana sayfanın mevcut `#sticky-demo-bar`'ı mobilde ~112px yükseklikte —
   // görünürken kart onun üstüne çıkıyor (bkz. dosya başı notu).
