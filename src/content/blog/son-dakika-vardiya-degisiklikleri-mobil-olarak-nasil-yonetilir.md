@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Vardiya Değişiklikleri Mobil Nasıl Yönetilir?
 modifiedDate: '2026-08-14T08:54:04'
-authorName: Neslihan Gültekin
 ---
 
 Perakende, restoran, çağrı merkezi ve saha hizmetlerinde vardiya planı günler öncesinden hazırlanmış olsa bile operasyon her zaman plana uymaz. Hastalık, beklenmeyen yoğunluk, ulaşım sorunu veya ani izin talebi birkaç dakika içinde personel açığı oluşturabilir. Son dakika vardiya değişikliği yönetimi bu nedenle yalnızca planlama değil, hızlı iletişim ve kayıt disiplini gerektirir.

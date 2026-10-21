@@ -12,7 +12,6 @@ categories:
   - guncel-bilgiler-tr
 tags: []
 modifiedDate: '2026-06-29T10:10:05'
-authorName: Neslihan Gültekin
 ---
 
 2026 vergi affı konusu, özellikle ödeme yükü artan işletmeler ve yapılandırma beklentisi taşıyan mükellefler tarafından yakından izleniyor. Ancak bu başlıkta en sık yapılan hata, beklenti ile kesinleşmiş düzenlemeyi birbirine karıştırmak oluyor. Vergi affı beklentisi kamuoyunda güçlü olabilir; fakat hukuki sonuç doğurması için bir düzenlemenin yasalaşması ve yürürlüğe girmesi gerekir.

@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: İlk Aday Deneyiminiz Bağlılığınızı Nasıl
 modifiedDate: '2025-08-23T13:42:20'
-authorName: Ayşegül Topçu
 ---
 
 İş hayatınıza başlarken yaşadığığınız deneyimleri bir düşünün.\

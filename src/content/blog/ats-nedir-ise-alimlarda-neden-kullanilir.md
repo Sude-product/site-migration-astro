@@ -12,7 +12,6 @@ categories:
   - guncel-bilgiler-tr
 tags: []
 modifiedDate: '2026-07-03T15:14:07'
-authorName: Neslihan Gültekin
 ---
 
 İşe alım artık yalnızca ilan açıp özgeçmiş toplama süreci olarak görülmüyor. Başvuru hacmi arttıkça, aday iletişimi hızlandıkça ve ekipler daha ölçülebilir sonuçlar bekledikçe süreç yönetimi başlı başına stratejik bir konu haline geliyor. Tam da bu noktada ATS, yani aday takip sistemi, işe alımın dağınık ilerlemesini önleyen temel araçlardan biri olarak öne çıkıyor.

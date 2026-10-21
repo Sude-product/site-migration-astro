@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: '2026 Bordro Parametreleri: Güncel Rehber'
 modifiedDate: '2026-06-12T15:43:04'
-authorName: Neslihan Gültekin
 ---
 
 2026 bordro parametreleri, bordro hesaplamasını etkileyen hemen her temel kalemin yeniden gözden geçirilmesini gerektiriyor. SGK matrahı, gelir vergisi tarifesi, damga vergisi uygulaması ve prim oranları birlikte düşünüldüğünde, yıl başı güncellemeleri yalnızca teknik bir detay olmaktan çıkıyor. Çünkü bu değişiklikler hem çalışanın net maaşını hem de işverenin toplam maliyetini doğrudan etkiliyor.

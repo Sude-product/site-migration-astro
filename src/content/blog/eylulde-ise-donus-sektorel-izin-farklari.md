@@ -17,7 +17,7 @@ featuredImage:
 categories:
   - ik-trendleri
 tags: []
-authorName: sude özdemir
+authorName: Sude Özdemir
 ---
 # Eylülde İşe Dönüş Neden Herkes İçin Aynı Değil?
 

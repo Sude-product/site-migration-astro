@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Stajyer Maaşları Ne Kadar? Stajyer Maaşı
 modifiedDate: '2026-06-12T15:46:07'
-authorName: Neslihan Gültekin
 ---
 
 2026 stajyer maaşı, hem öğrenciler hem de stajyer çalıştıran işletmeler için en çok merak edilen konular arasında yer alıyor. Çünkü stajyer ücretleri yalnızca ödeme tutarını değil, SGK bildiriminden bordro düzenine kadar uzanan daha geniş bir operasyonu etkiliyor. Uygulamada en çok karışan nokta ise stajyer maaşının sabit bir rakam mı yoksa asgari ücrete bağlı değişen bir hesap mı olduğu sorusu oluyor.

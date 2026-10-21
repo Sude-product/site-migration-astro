@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Günlük Yemek ve Yol Ücreti İstisnaları
 modifiedDate: '2026-04-17T07:54:28'
-authorName: Neslihan Gültekin
 ---
 
 2026’da yemek ve yol yardımlarına ilişkin istisna tutarları, bordro süreçlerinde en çok takip edilen başlıklardan biri haline geldi. Çünkü bu rakamlar sadece yan hak bütçesini değil, aynı zamanda çalışanın eline geçen toplam değeri, işverenin vergi avantajını ve bordroda kullanılacak parametreleri doğrudan etkiliyor.

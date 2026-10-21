@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Çok Dilli İş Gücünde İK Süreçleri Yönetimi
 modifiedDate: '2026-08-25T10:23:50'
-authorName: Neslihan Gültekin
 ---
 
 Birden fazla şubede, şehirde ya da ülkede çalışan ekipleri yönetmek yalnızca bordro veya izin takibi meselesi değildir. Dil farklılıkları, yerel uygulamalar, farklı doküman alışkanlıkları ve yöneticiler arasındaki iletişim biçimi aynı İK sürecinin farklı şekillerde yürütülmesine neden olabilir. Bu nedenle çok lokasyonlu personel yönetimi, özellikle perakende ve turizm gibi dağınık operasyonlarda standart süreç tasarımıyla birlikte ele alınmalıdır.

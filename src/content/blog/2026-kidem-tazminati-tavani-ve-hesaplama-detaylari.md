@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Kıdem Tazminatı Tavanı ve Hesaplaması
 modifiedDate: '2026-04-22T09:03:37'
-authorName: Neslihan Gültekin
 ---
 
 2026 kıdem tazminatı tavanı, yılın başında en çok takip edilen bordro parametrelerinden biri oldu. Çünkü kıdem tazminatı hesaplama sürecinde yalnızca çalışma süresi değil, çalışanın son brüt ücreti ve yasal tavan sınırı da belirleyici oluyor. Özellikle ücret seviyesi yükseldikçe, çalışan beklentisi ile yasal hesap arasındaki fark daha görünür hale geliyor.

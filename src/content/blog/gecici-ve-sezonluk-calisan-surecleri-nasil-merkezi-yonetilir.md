@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Geçici ve Sezonluk Çalışanlar Nasıl Yönetilir
 modifiedDate: '2026-08-14T08:55:50'
-authorName: Neslihan Gültekin
 ---
 
 Otel, restoran, perakende ve etkinlik operasyonlarında çalışan ihtiyacı her zaman kalıcı kadroyla karşılanmaz. Yoğun dönemlerde geçici çalışanlar, dönemsel ekipler veya dış kaynak kanalları devreye girebilir. Buradaki temel zorluk kişiyi bulmaktan çok, işe girişten vardiya ve devam takibine kadar aynı operasyon standardını kısa sürede kurabilmektir.

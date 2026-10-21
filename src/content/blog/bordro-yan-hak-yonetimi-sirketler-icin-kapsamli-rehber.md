@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 'Bordro ve Yan Hak Yönetimi: Güncel Rehber'
 modifiedDate: '2026-05-14T09:43:46'
-authorName: Neslihan Gültekin
 ---
 
 Bordro ve yan hak yönetimi, şirketlerin yalnızca maaş ödeme süreçlerini düzenlediği operasyonel bir alan değildir. Doğru kurgulandığında çalışan deneyimini güçlendiren, yasal uyumu destekleyen ve işveren maliyetlerini daha görünür hale getiren kritik bir yönetim alanına dönüşür. Özellikle büyüyen yapılarda bordro ile yan hakların birbirinden kopuk ilerlemesi, hem veri tutarsızlığına hem de çalışan tarafında güven kaybına yol açabilir.

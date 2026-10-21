@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Yılında SGK İdari Para Cezaları Neye
 modifiedDate: '2026-05-18T13:52:50'
-authorName: Neslihan Gültekin
 ---
 
 2026 yılında SGK idari para cezaları, işverenler açısından yalnızca mevzuat başlığı değil; aynı zamanda bordro doğruluğu, bildirim disiplini ve İK süreçlerinin güvenilirliğiyle doğrudan bağlantılı bir konu haline geliyor. Çünkü SGK’ya yapılan her işe giriş bildirimi, prim bildirimi, eksik gün açıklaması ve kayıt düzeni; sadece operasyonel bir işlem değil, aynı zamanda yaptırıma açık bir yükümlülük alanı oluşturuyor.

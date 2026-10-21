@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Excel ile Personel Takibinde Gizli Maliyetler
 modifiedDate: '2026-07-31T11:06:01'
-authorName: Neslihan Gültekin
 ---
 
 Excel ile personel takibi, birçok işletmede yıllardır “şimdilik iş görüyor” mantığıyla sürdürülen bir alışkanlık. İlk bakışta ucuz, esnek ve herkesin bildiği bir yöntem gibi görünür. Ancak çalışan sayısı arttıkça, süreçler çeşitlendikçe ve veri akışı hızlandıkça, bu basit görünen yöntem işletmeye görünmeyen maliyetler üretmeye başlar.

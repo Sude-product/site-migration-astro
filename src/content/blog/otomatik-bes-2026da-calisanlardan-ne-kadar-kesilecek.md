@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Otomatik BES 2026’da Çalışanlardan Ne Kadar
 modifiedDate: '2026-04-17T07:13:05'
-authorName: Neslihan Gültekin
 ---
 
 2026’da ücret artışları, bordro kalemlerinin daha görünür hale gelmesi ve çalışanların maaş detaylarına daha fazla dikkat etmesiyle birlikte otomatik BES yeniden en çok konuşulan konular arasında yer alıyor. Özellikle bordrosunda yeni bir kesinti gören ya da önceki aya göre daha yüksek bir tutarla karşılaşan çalışanlar için ilk soru genelde aynı oluyor: Maaşımdan neden bu kesinti yapılıyor?

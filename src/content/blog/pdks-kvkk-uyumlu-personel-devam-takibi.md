@@ -12,7 +12,6 @@ categories:
   - guncel-bilgiler-tr
 tags: []
 modifiedDate: '2026-07-27T12:31:02'
-authorName: Neslihan Gültekin
 ---
 
 Personel devam takibinde uzun yıllar boyunca kart okutma, imza çizelgesi, parmak izi ve yüz tanıma gibi farklı yöntemler birlikte kullanıldı. Ancak bugün mesele yalnızca kimin hangi saatte geldiğini görmek değil; bunu hukuka uygun, güvenli ve operasyonel olarak sürdürülebilir biçimde yapabilmek. Özellikle 2026 itibarıyla biyometrik veri işlenmesine ilişkin hassasiyet arttığı için PDKS tasarımında kullanılan yöntemler daha dikkatle değerlendiriliyor.

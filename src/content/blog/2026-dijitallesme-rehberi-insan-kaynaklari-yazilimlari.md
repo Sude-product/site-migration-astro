@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 İnsan Kaynakları Dijitalleşme Rehberi
 modifiedDate: '2026-04-27T15:34:28'
-authorName: Neslihan Gültekin
 ---
 
 İnsan kaynaklarında dijitalleşme, artık yalnızca teknolojik bir yatırım başlığı değil; iş yapış biçimini yeniden tanımlayan operasyonel bir gereklilik haline geldi. Özellikle büyüyen şirketlerde izin, bordro, özlük, puantaj ve performans gibi süreçler farklı dosyalarda ve farklı ekiplerin takibinde kaldığında hem hız kaybı hem de veri tutarsızlığı ortaya çıkıyor.

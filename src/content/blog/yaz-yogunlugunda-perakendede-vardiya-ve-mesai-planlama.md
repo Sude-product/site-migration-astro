@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Yaz Yoğunluğunda Perakendede Vardiya ve Mesai
 modifiedDate: '2026-07-20T10:19:19'
-authorName: Neslihan Gültekin
 ---
 
 Perakendede yaz yoğunluğu çoğu zaman satış rakamlarıyla konuşulur; ancak bu rakamların sürdürülebilir hale gelmesi doğrudan vardiya planının kalitesine bağlıdır. Mağazada doğru saatte yeterli çalışan yoksa müşteri akışı aksar, kasa kuyrukları uzar ve satış fırsatı kaybı yaşanır. Buna karşılık gereğinden fazla kişi planlanırsa bu kez verimsiz mesai ve maliyet baskısı ortaya çıkar.

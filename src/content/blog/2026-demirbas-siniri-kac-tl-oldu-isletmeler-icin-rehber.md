@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Demirbaş Sınırı Kaç TL Oldu? Rehber
 modifiedDate: '2026-06-17T12:21:19'
-authorName: Neslihan Gültekin
 ---
 
 2026 demirbaş sınırı, işletmelerin satın alma kararlarından muhasebe kayıtlarına kadar birçok başlığı doğrudan etkiliyor. Çünkü bir harcamanın doğrudan gider mi yazılacağı yoksa aktifleştirilip amortismana mı tabi tutulacağı çoğu zaman bu sınır üzerinden belirleniyor. Bu nedenle 2026 demirbaş sınırı kaç TL oldu sorusu yalnızca muhasebe ekibinin değil, satın alma ve finans ekiplerinin de yakından takip ettiği bir konu haline geliyor.

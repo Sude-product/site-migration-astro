@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Turizm ve Restoranlarda Sezonluk Personel
 modifiedDate: '2026-07-22T10:20:19'
-authorName: Neslihan Gültekin
 ---
 
 Turizm ve restoranlarda sezonluk personel yönetimi, yalnızca yoğun dönemde daha fazla çalışan bulmak anlamına gelmez. Asıl zorluk, kısa sürede işe alım yaparken hizmet kalitesini, devam disiplinini ve operasyonel sürekliliği aynı anda koruyabilmektir. Oteller, kafeler ve restoranlar için sezon başı çoğu zaman hızın öne çıktığı dönemdir; ancak yalnızca hızlı davranmak, iyi yönetim anlamına gelmez.

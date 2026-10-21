@@ -17,7 +17,6 @@ tags:
   - sgk-primi-hesaplama
   - sgk-primleri
 modifiedDate: '2026-04-17T07:50:21'
-authorName: Neslihan Gültekin
 ---
 
 2026 SGK primleri, sadece bordro uzmanlarını değil; İK, finans ve şirket yönetimini de doğrudan ilgilendiriyor. Çünkü SGK primi hesaplama süreci, çalışanın net maaşını, işverenin toplam maliyetini ve yasal uyumluluğu aynı anda etkiliyor.

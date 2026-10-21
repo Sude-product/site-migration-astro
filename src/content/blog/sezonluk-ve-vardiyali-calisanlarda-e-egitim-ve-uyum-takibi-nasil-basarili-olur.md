@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Sezonluk Çalışanlarda E-Eğitim Nasıl Olur?
 modifiedDate: '2026-08-14T08:54:59'
-authorName: Neslihan Gültekin
 ---
 
 Turizm, restoran ve perakende gibi sezonluk istihdamın yüksek olduğu sektörlerde eğitim için ayrılan süre sınırlıdır. Yeni çalışanların kısa sürede ürün bilgisini, hizmet standardını, güvenlik kurallarını ve operasyon adımlarını öğrenmesi gerekir. Bu nedenle sezonluk çalışan eğitimi, uzun sınıf programlarından çok hızlı erişilebilen, ölçülebilir ve görevle doğrudan bağlantılı içeriklere ihtiyaç duyar.

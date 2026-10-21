@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Amortisman Oranları ve Sınırı Nedir?
 modifiedDate: '2026-07-01T16:56:56'
-authorName: Neslihan Gültekin
 ---
 
 Amortisman, çoğu zaman yalnızca muhasebe ekiplerinin gündeminde olan teknik bir konu gibi görülür. Oysa 2026’da yatırım maliyetlerinin yükselmesi, küçük ve orta ölçekli işletmelerde satın alma kararlarının daha dikkatli verilmesini gerektiriyor. Bu yüzden amortisman oranları ve amortisman sınırı, yalnızca kayıt düzenini değil; vergi planlamasını, nakit akışını ve bütçe bakışını da etkiliyor.
