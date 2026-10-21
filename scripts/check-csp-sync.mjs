@@ -26,6 +26,21 @@ const SHARED_HEADERS = [
   'Strict-Transport-Security: max-age=31536000; includeSubDomains',
 ];
 
+// `_headers` dosyasının TAMAMI bu script tarafından üretiliyor, bu yüzden
+// CSP ile ilgisi OLMAYAN yol-özel kurallar da burada tanımlanmak ZORUNDA —
+// `public/_headers`'a elle eklenen bir satır ilk `--fix`'te sessizce silinir.
+//
+// /llms.txt — Cloudflare varlık katmanı `.txt` için `Content-Type: text/plain`
+// üretiyor, charset BELİRTMEDEN (canlıda ölçüldü, 2026-10-21). Dosya geçerli
+// UTF-8 ama `X-Content-Type-Options: nosniff` yüzünden tarayıcı kodlamayı
+// tahmin EDEMİYOR ve eski varsayılana (windows-1252) düşüyor — Türkçe
+// karakterler bozuk görünüyor (ş → ÅŸ). Açık charset bunu kapatıyor.
+// Birden fazla kural eşleşirse Cloudflare başlıkları BİRLEŞTİRİYOR, yani
+// /* bloğunun güvenlik başlıkları bu dosyada da aynen geçerli kalıyor.
+const PATH_HEADERS = [
+  { path: '/llms.txt', headers: ['Content-Type: text/plain; charset=utf-8'] },
+];
+
 function render(csp) {
   const name = csp.cspHeaderName();
   const block = (extra) =>
@@ -56,7 +71,7 @@ ${block(`${name}: ${csp.PUBLIC_CSP}`)}
 
 /keystatic/*
 ${block(`${name}: ${csp.KEYSTATIC_CSP}`)}
-`;
+${PATH_HEADERS.map(({ path, headers }) => `\n${path}\n${headers.map((h) => `  ${h}`).join('\n')}\n`).join('')}`;
 }
 
 const csp = await loadCspModule();
