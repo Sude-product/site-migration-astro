@@ -19,7 +19,6 @@ featuredImage:
 categories:
   - guncel-bilgiler
 tags: []
-authorName: Neslihan Gültekin
 ---
 Otel, restoran, mağaza ve saha hizmetlerinde saatlik çalışanların işe başlaması çoğu zaman hızlı gerçekleşir. Bir çalışanın işe kabulü ile ilk vardiyası arasında birkaç gün, bazen yalnızca birkaç saat olabilir. Bu nedenle çalışan onboarding süreci masa başı roller için tasarlanan uzun programlardan farklı kurgulanmalıdır.
 

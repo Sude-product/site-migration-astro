@@ -59,6 +59,19 @@ const categoryLabel = categories.map((c) => c.name).join(', ');
 const effectiveModifiedDate = modifiedDate && modifiedDate > date ? modifiedDate : undefined;
 const showModifiedDate = effectiveModifiedDate && Math.abs(effectiveModifiedDate.getTime() - date.getTime()) >= DAY_MS;
 
+// Yazar — GÖRÜNÜR byline ile JSON-LD `author` TEK karar noktasından besleniyor
+// (kullanıcı kararı, 2026-10-21). İki ayrı koşul yazılsa biri gün gelip
+// değiştiğinde sayfada görünen ad ile şemadaki varlık sessizce ayrışırdı ve
+// bu HATA VERMEZ — tam olarak projenin tekrar tekrar ısırıldığı sınıf.
+// `personAuthorName` dolu → sayfada o ad + şemada `Person`;
+// boş → sayfada `idenfit` + şemada `Organization`'ın `@id` referansı.
+// `.trim() || undefined`: panelden boş kaydedilmiş bir alan (`''`) ya da
+// yalnızca boşluk içeren bir değer "yazar yok" demektir, "adı boşluk olan
+// bir kişi" değil.
+const IDENFIT_AUTHOR_NAME = 'idenfit';
+const personAuthorName = authorName?.trim() || undefined;
+const authorDisplayName = personAuthorName ?? IDENFIT_AUTHOR_NAME;
+
 // JSON-LD (BlogPosting, schema.org) — 2026-08-10, structured data turu.
 // Site genelinde İLK JSON-LD uygulaması (daha önce hiç yoktu — bkz. CLAUDE.md
 // "JSON-LD/dateModified" notu). `dateModified`: legacy yazılarda (posts.json)
@@ -78,11 +91,16 @@ const IDENFIT_LOGO_URL = '/wp-content/uploads/2025/07/idenfit-logo.svg';
 // kullanılan AYNI gerçek, barındırılan dosya.
 //
 // `author` (2026-08-24, "No author attribution" GEO bulgusu) — sabit
-// `Organization` yerine, kaynakta GERÇEK bir ad-soyad varsa (`authorName`,
-// bkz. `content.config.ts`) `Person` kullanılıyor; yoksa (yazının ~96%'ı —
-// jenerik "idenfit editör" veya WP kullanıcı adı formatındaki bylines,
-// kullanıcı kararıyla isim GÖSTERİLMİYOR) mevcut `Organization` fallback'i
-// aynen korunuyor.
+// `Organization` yerine, yazıda GERÇEK bir ad-soyad varsa (`authorName`,
+// bkz. `content.config.ts`) `Person` kullanılıyor; yoksa `Organization`
+// fallback'i (`@id` referansı) korunuyor.
+// **2026-10-21:** aynı karar artık SAYFADA DA GÖRÜNÜYOR — byline ile bu alan
+// ortak `personAuthorName` üzerinden besleniyor (bkz. yukarıdaki yorum), yani
+// ekranda yazan ad ile şemadaki varlık yapısal olarak ayrışamıyor. WP'den
+// göçen eski ad-soyadları (Neslihan Gültekin, Ayşegül Topçu) kullanıcı
+// kararıyla kaldırıldı: o yazılar hem sayfada hem şemada kurum adına
+// (`idenfit`) atfediliyor. İzinli ad listesi
+// `scripts/check-blog-author-name.mjs`'te TEK yerde tutuluyor.
 //
 // `speakable` (2026-08-23, "No Speakable markup" GEO bulgusu) — Google'ın
 // Speakable desteği pratikte esas olarak ABD'deki onaylı haber
@@ -171,9 +189,9 @@ const jsonLd = {
   // çizgi YOK) yazıyordu, Organization bloğunun kendi `url`'i ise
   // `Astro.site.href` (`https://idenfit.com/`) — aynı varlık için iki
   // farklı URL biçimi. Referansa geçmek bu tutarsızlığı da kaldırıyor.
-  author: authorName
-    ? { '@type': 'Person', name: authorName }
-    : (ORG_REF ?? { '@type': 'Organization', name: 'idenfit', url: 'https://idenfit.com' }),
+  author: personAuthorName
+    ? { '@type': 'Person', name: personAuthorName }
+    : (ORG_REF ?? { '@type': 'Organization', name: IDENFIT_AUTHOR_NAME, url: 'https://idenfit.com' }),
   publisher: ORG_REF ?? {
     '@type': 'Organization',
     name: 'idenfit',
@@ -208,7 +226,9 @@ const jsonLd = {
         <header class="mt-6">
           {categoryLabel && <span class="text-xs font-bold uppercase tracking-wide text-brand">{categoryLabel}</span>}
           <h1 id="post-title" class="mt-2 text-3xl font-bold leading-tight tracking-tight text-heading sm:text-4xl">{title}</h1>
-          <div class="mt-3 flex items-center gap-2 text-sm text-muted">
+          <div class="mt-3 flex flex-wrap items-center gap-2 text-sm text-muted">
+            <span>{authorDisplayName}</span>
+            <span aria-hidden="true">·</span>
             <time datetime={date.toISOString()}>{formatBlogDate(date)}</time>
             <span aria-hidden="true">·</span>
             <span>{estimateReadingMinutes(post.body ?? '')} dakikalık okuma</span>

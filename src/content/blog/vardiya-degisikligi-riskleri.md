@@ -21,7 +21,7 @@ featuredImage:
 categories:
   - ik-trendleri
 tags: []
-authorName: sude özdemir
+authorName: Sude Özdemir
 ---
 # WhatsApp'tan "Tamam Abi" Diyerek Vardiya Değiştirmek: Ay Sonunda Patlayan Bomba
 

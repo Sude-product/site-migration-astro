@@ -152,10 +152,17 @@ export default config({
             itemLabel: (props) => props.value || 'Etiket',
           }
         ),
-        // Opsiyonel, görünmez JSON-LD alanı — bkz. src/content.config.ts
-        // authorName yorumu (sayfada görünür bir "Yazar: X" satırı YOK,
-        // kullanıcı kararı).
-        authorName: fields.text({ label: 'Yazar (opsiyonel, yalnızca JSON-LD için — sayfada görünmez)' }),
+        // Opsiyonel. **2026-10-21'den beri bu değer SAYFADA DA GÖRÜNÜYOR**
+        // (yazı başlığının altındaki tarih satırında) ve aynı değer JSON-LD
+        // `author`ına `Person` olarak basılıyor — ikisi `[slug].astro`'da tek
+        // bir karar noktasından besleniyor. Boş bırakılırsa hem sayfada hem
+        // şemada kurum adı (`idenfit`) kullanılıyor; yani "yazarı belirtmek
+        // istemiyorum" demenin yolu alanı boş bırakmak.
+        // ⚠️ Yazım varyantı serbest DEĞİL: `scripts/check-blog-author-name.mjs`
+        // izinli ad listesini tutuyor ve listede olmayan bir değer BUILD'İ
+        // DURDURUYOR (panelde uyarı çıkmaz, hata deploy sırasında görünür).
+        // Yeni bir yazar eklenecekse önce o listeye eklenmeli.
+        authorName: fields.text({ label: 'Yazar (opsiyonel — sayfada görünür; boşsa "idenfit" yazar)' }),
         // `options.image` (2026-09-06) — varsayılan olarak KAPALI olan
         // markdoc gövde-içi görsel yükleme desteği açıldı (editördeki
         // "görsel ekle" ikonu artık gerçek sürükle-bırak/dosya-seç

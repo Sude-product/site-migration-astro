@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Çalışan Yıllık İzin Hakkı Nasıl Hesaplanır?
 modifiedDate: '2026-07-24T09:22:28'
-authorName: Neslihan Gültekin
 ---
 
 Yıllık izin hakkı, çalışanlar açısından en çok sorulan ama uygulamada en çok karışan konulardan biridir. Bunun temel nedeni, birçok kişinin izin süresini yalnızca takvim yılıyla ilişkilendirmesi ve hak ediş mantığını yeterince net bilmemesidir. Oysa yıllık izin hesaplama, doğrudan hizmet süresi, hak kazanma tarihi ve kullanılan izin kayıtları üzerinden yürür.

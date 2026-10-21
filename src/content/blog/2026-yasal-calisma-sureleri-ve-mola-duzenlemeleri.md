@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Yasal Çalışma Süreleri ve Mola
 modifiedDate: '2026-04-24T14:05:44'
-authorName: Neslihan Gültekin
 ---
 
 Çalışma süreleri ve mola düzeni, birçok şirkette yalnızca operasyonel bir planlama konusu gibi ele alınıyor. Oysa konu bundan çok daha büyük. Yasal çalışma saatleri, aylık puantajı, fazla mesai hesabını, bordro doğruluğunu ve işverenin mevzuata uyum riskini aynı anda etkiliyor.

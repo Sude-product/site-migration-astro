@@ -12,7 +12,6 @@ categories:
   - guncel-bilgiler-tr
 tags: []
 modifiedDate: '2026-06-29T10:11:34'
-authorName: Neslihan Gültekin
 ---
 
 İş sözleşmesinin sona ermesi çoğu şirkette yalnızca çıkış tarihi ve teslim süreçleri üzerinden ele alınıyor. Oysa ihbar süresi, hem çalışan hem işveren açısından hukuki ve operasyonel sonuçlar doğuran önemli bir başlıktır. Yanlış yönetildiğinde yalnızca tazminat riski yaratmaz; ekip planlamasını, bordro hesaplarını ve işten çıkış sürecinin genel düzenini de etkiler.

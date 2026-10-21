@@ -20,7 +20,7 @@ featuredImage:
 categories:
   - dijital-ik
 tags: []
-authorName: sude özdemir
+authorName: Sude Özdemir
 ---
 # İK'da Yapay Zekâ Etiği: İşe Alım Algoritmalarında Önyargıları Nasıl Önleriz?
 

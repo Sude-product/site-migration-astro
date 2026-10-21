@@ -166,15 +166,23 @@ const blogSchema = z.object({
   // DEĞİŞMEDEN çalışmaya devam ediyor.
   categories: z.array(z.string()).transform((slugs) => slugs.map((slug) => ({ slug, name: CATEGORY_LABELS[slug] ?? slug }))),
   tags: z.array(z.string()).default([]),
-  // JSON-LD `BlogPosting.author` için (2026-08-24, "No author attribution"
-  // GEO bulgusu). Yalnızca kaynağın (WP `yoast_head_json.author`) GERÇEK bir
-  // ad-soyad taşıdığı yazılarda dolu (bkz. `extract-blog-posts.mjs`
-  // `AUTHOR_DISPLAY_NAMES`) — kullanıcı kararıyla WP kullanıcı adı formatındaki
-  // (`gozen.yesil` gibi) ve jenerik "idenfit editör" yazılarda BOŞ bırakılıyor,
-  // bunlar `[slug].astro`'da mevcut `Organization` fallback'ine düşüyor.
-  // KASITLI OLARAK sayfada görünür bir "Yazar: X" satırı YOK — yalnızca
-  // görünmez JSON-LD alanı (kullanıcı kararı, yazar ismi ekranda hiç
-  // görünmesin).
+  // Yazar adı. İlk olarak 2026-08-24'te ("No author attribution" GEO bulgusu)
+  // YALNIZCA JSON-LD için eklenmişti; **2026-10-21'de kullanıcı kararıyla
+  // SAYFADA DA GÖRÜNÜR hale geldi** — `[slug].astro` başlık satırında byline
+  // olarak basılıyor ve AYNI değer JSON-LD `author`ına `Person` olarak gidiyor
+  // (tek karar noktası: `personAuthorName`). Alan boşsa/yoksa hem sayfada hem
+  // şemada kurum adı kullanılıyor (`idenfit` + `Organization`'ın `@id`'si).
+  //
+  // Doluluk durumu: yalnızca Keystatic panelinden yazılan yeni yazılarda dolu.
+  // WP göçünden gelen ad-soyadları (`extract-blog-posts.mjs`'in
+  // `AUTHOR_DISPLAY_NAMES` haritası) 2026-10-21'de KALDIRILDI — o yazılar
+  // kurum adına atfediliyor. **`extract-blog-posts.mjs` bilinçli olarak
+  // GÜNCELLENMEDİ:** script yeniden koşturulursa o adlar geri gelir
+  // (bkz. CLAUDE.md).
+  //
+  // ⚠️ İzinli ad listesi `scripts/check-blog-author-name.mjs`'te TEK yerde;
+  // listede olmayan bir değer build'i durduruyor (yazım varyantı — "sude
+  // özdemir" vs "Sude Özdemir" — şemada iki ayrı kişi üretiyordu).
   authorName: z.string().optional(),
 });
 

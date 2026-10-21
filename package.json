@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "predev": "node scripts/dev-clean-restart.mjs --cache-only",
-    "build": "astro build && node scripts/generate-csp-headers.mjs",
+    "build": "node scripts/check-blog-author-name.mjs && astro build && node scripts/generate-csp-headers.mjs",
     "build:ci": "astro check && npm run build",
     "preview": "astro preview",
     "astro": "astro",

@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Mağaza Personel İhtiyacı Nasıl Tahmin Edilir?
 modifiedDate: '2026-08-25T10:25:08'
-authorName: Neslihan Gültekin
 ---
 
 Mağazada doğru personel sayısını belirlemek çoğu zaman geçmiş deneyime veya yöneticinin sezgisine bırakılır. Ancak müşteri trafiği gün, saat, kampanya, hava koşulu ve lokasyona göre değişirken sabit kadro yaklaşımı yetersiz kalabilir. Personel ihtiyacı hesaplama süreci satış ve ziyaretçi verisiyle desteklendiğinde vardiya planı talebe daha yakın kurulabilir.

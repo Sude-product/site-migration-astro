@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: 2026 Gelir Vergisine Dair Sık Sorulan Sorular
 modifiedDate: '2026-05-21T06:32:55'
-authorName: Neslihan Gültekin
 ---
 
 2026 gelir vergisi dilimleri, bordro süreçlerini en doğrudan etkileyen başlıklardan biri olmaya devam ediyor. Çünkü gelir vergisi yalnızca yasal bir kesinti kalemi değil; aynı zamanda çalışanın yıl içinde eline geçen net ücreti, işverenin bordro iletişimini ve İK ekiplerinin planlama biçimini doğrudan şekillendiren bir unsur.

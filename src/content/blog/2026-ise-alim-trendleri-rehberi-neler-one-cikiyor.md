@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: '2026 İşe Alım Trendleri: Neler Öne Çıkıyor?'
 modifiedDate: '2026-04-21T09:33:14'
-authorName: Neslihan Gültekin
 ---
 
 İşe alım artık yalnızca açık pozisyonları kapatma işi değil. 2026’ya girerken şirketler, doğru adayı daha hızlı bulmanın ötesinde; aday deneyimini güçlendiren, veriye dayanan ve değişen iş gücü beklentilerine uyum sağlayan süreçler kurmaya odaklanıyor.

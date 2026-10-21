@@ -13,7 +13,6 @@ categories:
 tags: []
 metaTitle: Perakendede Vardiya ve İş Gücü KPI’ları
 modifiedDate: '2026-08-31T08:14:35'
-authorName: Neslihan Gültekin
 ---
 
 Perakendede mağaza performansı yalnızca ciroyla ölçüldüğünde iş gücünün satış üzerindeki gerçek etkisi görünmez. Aynı satış rakamına ulaşan iki mağazadan biri bunu daha düşük personel saatiyle, diğeri yoğun fazla mesaiyle elde etmiş olabilir. Bu nedenle perakende KPI setine vardiya ve PDKS verisini dahil etmek, satışın arkasındaki iş gücü verimliliğini daha doğru okumayı sağlar.
