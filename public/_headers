@@ -31,3 +31,6 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   Reporting-Endpoints: csp-endpoint="/api/csp-report"
   Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://keystatic.cloud https://api.keystatic.cloud; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://keystatic.cloud https://api.keystatic.cloud wss://live.keystatic.cloud https://api.github.com https://github.com https://raw.githubusercontent.com; frame-src https://github.com https://keystatic.cloud; frame-ancestors 'self'; object-src 'none'; base-uri 'self'; form-action 'self' https://github.com; report-to csp-endpoint; report-uri /api/csp-report
+
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
