@@ -158,9 +158,11 @@ export default config({
         // bir karar noktasından besleniyor. Boş bırakılırsa hem sayfada hem
         // şemada kurum adı (`idenfit`) kullanılıyor; yani "yazarı belirtmek
         // istemiyorum" demenin yolu alanı boş bırakmak.
-        // ⚠️ Yazım varyantı serbest DEĞİL: `scripts/check-blog-author-name.mjs`
-        // izinli ad listesini tutuyor ve listede olmayan bir değer BUILD'İ
-        // DURDURUYOR (panelde uyarı çıkmaz, hata deploy sırasında görünür).
+        // ⚠️ Yazım varyantına dikkat: `scripts/check-blog-author-name.mjs`
+        // izinli ad listesini tutuyor ve listede olmayan bir değer için
+        // UYARI veriyor — build'i DURDURMUYOR (kullanıcı kararı, 2026-10-21),
+        // yani yanlış yazılmış bir ad sessizce yayına çıkabilir: uyarı
+        // yalnızca build log'unda görünür, panelde hiç görünmez.
         // Yeni bir yazar eklenecekse önce o listeye eklenmeli.
         authorName: fields.text({ label: 'Yazar (opsiyonel — sayfada görünür; boşsa "idenfit" yazar)' }),
         // `options.image` (2026-09-06) — varsayılan olarak KAPALI olan

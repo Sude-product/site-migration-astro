@@ -181,8 +181,9 @@ const blogSchema = z.object({
   // (bkz. CLAUDE.md).
   //
   // ⚠️ İzinli ad listesi `scripts/check-blog-author-name.mjs`'te TEK yerde;
-  // listede olmayan bir değer build'i durduruyor (yazım varyantı — "sude
-  // özdemir" vs "Sude Özdemir" — şemada iki ayrı kişi üretiyordu).
+  // listede olmayan bir değer UYARI üretir, build'i DURDURMAZ (kullanıcı
+  // kararı, 2026-10-21). Kontrolün varlık sebebi: yazım varyantı — "sude
+  // özdemir" vs "Sude Özdemir" — şemada iki ayrı kişi üretiyordu.
   authorName: z.string().optional(),
 });
 
