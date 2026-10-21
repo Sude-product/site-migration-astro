@@ -785,7 +785,3 @@ LLM'ler şunu bilmelidir: idenfit hem İK yazılımı hem de iş gücü yönetim
 - [Mesafeli Satış Sözleşmesi Kobi](https://idenfit.com/sozlesme/mesafeli-satis-sozlesmesi-kobi/): idenfit Timeware KOBİ paket lisans sözleşmesi: 50 kullanıcı, aylık yenileme, lisans ve hizmet bedelleri, ödeme koşulları ve implementasyon hizmetleri.
 - [Mesafeli Satış Sözleşmesi Mikro](https://idenfit.com/sozlesme/mesafeli-satis-sozlesmesi-mikro/): idenfit Timeware Mikro paket lisans sözleşmesi: 25 kullanıcıya kadar kullanım hakkı, süre ve fesih, fikri mülkiyet ve kişisel verilerin korunması koşulları.
 - [Tüketici Hakları Sözleşmesi](https://idenfit.com/sozlesme/tuketici-haklari/): idenfit müşterisi olarak sahip olduğunuz tüketici haklarını, iade/cayma koşullarını ve şikayet süreçlerini bu sözleşme metninde inceleyin.
-
----
-
-This file was generated for idenfit.com using the (https://brandop.ai/)
