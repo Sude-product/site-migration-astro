@@ -19,15 +19,17 @@
  * `src/content.config.ts` buraya ATIFTA bulunur, listeyi KOPYALAMAZ — iki
  * kopya bir gün sessizce ayrışırdı.
  *
- * ⚠️ BU SCRIPT BUILD'İ DURDURUR: `package.json`'daki `build` zincirinin İLK
- * adımı (kullanıcı kararı, 2026-10-21). Yani panelden listede olmayan bir
- * adla yazı yayınlanırsa Cloudflare build'i başarısız olur ve o deploy
- * (sitenin tamamı) canlıya çıkmaz. Kasıtlı bir ödün: yanlış atıf yapılmış
- * bir yazının yayınlanmasındansa deploy'un durması tercih edildi. Çözüm her
- * zaman tek satır — adı listeye eklemek.
+ * ⚠️ BU SCRIPT BUILD'İ DURDURMAZ — HER ZAMAN 0 İLE ÇIKAR (kullanıcı kararı,
+ * 2026-10-21). `package.json`'daki `build` zincirinin ilk adımı olarak
+ * çalışır ama yalnızca UYARI yazdırır: panelden listede olmayan bir adla
+ * yazı yayınlanırsa deploy devam eder, uyarı build log'unda görünür.
+ * Gerekçe: yanlış yazılmış tek bir yazar adı yüzünden sitenin TAMAMININ
+ * deploy'unu durdurmak orantısız bir ödün. Bunun bilinçli bedeli, uyarının
+ * kimse build log'una bakmazsa GÖRÜLMEMESİ. Sertleştirmek istenirse tek
+ * satır: aşağıdaki `process.exit(0)` → `process.exit(problems === 0 ? 0 : 1)`.
  *
  * Çalıştırma: `node scripts/check-blog-author-name.mjs`
- * Çıkış kodu: sorun yoksa 0, en az bir sorun varsa 1.
+ * Çıkış kodu: HER ZAMAN 0 (sorunlar çıktıda "UYARI" olarak listelenir).
  */
 import { readdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -86,22 +88,24 @@ for (const [name, count] of sorted) {
 }
 if (sorted.length === 0) console.log('  (hiçbir yazıda yazar adı yok)');
 
-console.log(`\n--- İZİNLİ LİSTEDE OLMAYAN (${violations.length}) ---`);
-for (const v of violations) console.log(`  ${v.file}  ->  "${v.value}"`);
+console.log(`\n--- ⚠️ UYARI: İZİNLİ LİSTEDE OLMAYAN (${violations.length}) ---`);
+for (const v of violations) console.log(`  ⚠️  ${v.file}  ->  "${v.value}"`);
 if (violations.length === 0) console.log('  (yok)');
 
 if (unparsable.length > 0) {
-  console.log(`\n--- FRONTMATTER OKUNAMADI (${unparsable.length}) ---`);
-  for (const entry of unparsable) console.log(`  ${entry}`);
+  console.log(`\n--- ⚠️ UYARI: FRONTMATTER OKUNAMADI (${unparsable.length}) ---`);
+  for (const entry of unparsable) console.log(`  ⚠️  ${entry}`);
 }
 
 const problems = violations.length + unparsable.length;
-console.log(`\n=== ÖZET: ${problems} sorun (${violations.length} izinsiz ad, ${unparsable.length} okunamadı) ===`);
+console.log(`\n=== ÖZET: ${problems} uyarı (${violations.length} izinsiz ad, ${unparsable.length} okunamadı) ===`);
 if (problems > 0) {
   console.log('Düzeltme: adı doğru yazıma çevirin ya da gerçekten yeni bir yazarsa');
-  console.log('bu dosyadaki ALLOWED_AUTHOR_NAMES dizisine ekleyin.\n');
+  console.log('bu dosyadaki ALLOWED_AUTHOR_NAMES dizisine ekleyin.');
+  console.log('NOT: bu bir uyarı — build DURMUYOR, değer olduğu gibi yayınlanır.\n');
 } else {
   console.log('');
 }
 
-process.exit(problems === 0 ? 0 : 1);
+// Bilinçli olarak HER ZAMAN 0 — gerekçe dosya başındaki yorumda.
+process.exit(0);
