@@ -81,12 +81,18 @@ export function getFaqSlug(locale: Locale): string | undefined {
   return isFaqLocale(locale) ? DATA.localeSlugs[locale] : undefined;
 }
 
-// "PDF İNDİR" butonu — canlı sitede TR kendi PDF'i (`sss-1.pdf`), EN/IT
-// AYNI PDF'i (`faq.pdf`) paylaşıyor (IT kendi PDF'i yok, gerçek kaynak
-// hatası değil — muhtemelen bilinçli, tek İngilizce PDF ile idare
-// ediliyor). Her ikisi de curl ile 200 doğrulandı.
-const FAQ_PDF_URLS: Record<FaqLocale, string> = {
-  tr: '/wp-content/uploads/2025/08/sss-1.pdf',
+// "PDF İNDİR" butonu — EN/IT AYNI PDF'i (`faq.pdf`) paylaşıyor (IT kendi
+// PDF'i yok, gerçek kaynak hatası değil — muhtemelen bilinçli, tek
+// İngilizce PDF ile idare ediliyor). curl ile 200 doğrulandı.
+//
+// ⚠️ TR girdisi KALDIRILDI (2026-10-22, Brandop raporu). Eski `sss-1.pdf`
+// içeriği 2025'te dondu ve ChatGPT onu güncel kaynak olarak gösteriyordu;
+// dosya `public/`'ten silinip `/sss/`'e 301 ile yönlendirildi
+// (`public/_redirects`). Buton bırakılsaydı kullanıcıyı zaten bulunduğu
+// sayfaya geri atardı. `Partial<...>` ŞART: `getFaqPdfUrl` artık TR'de
+// `undefined` dönüyor ve `FaqPage.astro`'nun `pdfUrl &&` koşulu butonu hiç
+// render etmiyor.
+const FAQ_PDF_URLS: Partial<Record<FaqLocale, string>> = {
   en: '/wp-content/uploads/2025/08/faq.pdf',
   it: '/wp-content/uploads/2025/08/faq.pdf',
 };

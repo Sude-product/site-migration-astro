@@ -56,3 +56,24 @@
 /author/*                 /blog/      301
 /en/category/*            /blog/      301
 /en/tag/*                 /blog/      301
+
+# ---------------------------------------------------------------------------
+# Eski 2025 SSS PDF'i (2026-10-22, Brandop raporu).
+#
+# ChatGPT bu PDF'i güncel bilgi kaynağı olarak gösteriyordu; içeriği 2025'te
+# dondu ve güncel SSS artık /sss/ sayfasında yaşıyor (29 soru). PDF'in
+# kendisi 6 sayfalık bir Google Docs çıktısıydı (Info/Title:
+# "sss (güncellenmiş).docx").
+#
+# `public/`'teki dosya bu turda SİLİNDİ — statik varlık dururken
+# yönlendirmenin çalışacağı VARSAYILMADI, dosya kaldırılıp kural
+# `wrangler dev` ile ölçüldü.
+#
+# /sss/ sayfasının kendi "PDF İNDİR" butonu bu dosyayı gösteriyordu; buton
+# aynı turda kaldırıldı (faqContent.ts `FAQ_PDF_URLS`'ten `tr` girdisi) —
+# aksi halde kullanıcıyı bulunduğu sayfaya geri atardı.
+#
+# ⚠️ EN/IT'nin `faq.pdf`'ine DOKUNULMADI (ayrı dosya, /en/faq/ ve /it/faq/
+# butonları hâlâ ona bağlı) — yönlendirme hedefi locale'e duyarlı olmadığı
+# için onları TÜRKÇE /sss/'e düşürmek regresyon olurdu.
+/wp-content/uploads/2025/08/sss-1.pdf    /sss/    301
